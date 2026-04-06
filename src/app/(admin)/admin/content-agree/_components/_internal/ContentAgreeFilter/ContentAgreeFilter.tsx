@@ -98,6 +98,11 @@ const ContentAgreeFilter = () => {
   };
 
   const handleCategoryChange = (newCategory: string | undefined) => {
+    if (category === newCategory) {
+      setIsCategoryOpen(false);
+      return;
+    }
+
     const params = new URLSearchParams(searchParams.toString());
 
     if (!newCategory) {
@@ -112,6 +117,11 @@ const ContentAgreeFilter = () => {
   };
 
   const handleFindStatusChange = (newFindStatus: string | undefined) => {
+    if (findStatus === newFindStatus) {
+      setIsFindStatusOpen(false);
+      return;
+    }
+
     const params = new URLSearchParams(searchParams.toString());
 
     if (!newFindStatus) {
