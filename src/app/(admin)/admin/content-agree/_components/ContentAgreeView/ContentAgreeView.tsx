@@ -11,13 +11,15 @@ import { ContentAgreeFilter } from "../_internal";
 
 const ContentAgreeView = () => {
   const { addToast } = useToast();
-  const { sort, category, findStatus } = useFilterParams();
+  const { sort, category, findStatus, startDate, endDate } = useFilterParams();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
     useGetMarketingPosts({
       sort: sort || "LATEST",
       category,
       postStatus: findStatus,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
     });
 
   useEffect(() => {
