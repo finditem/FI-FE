@@ -10,7 +10,6 @@ export const ACTIVITY_STYLE_CONFIG = {
     iconName: "EmptyStar",
     logTitle: "게시글을 즐겨찾기했어요.",
   },
-  // TODO(수현): 디자인, 백엔드 api 업데이트 확인 필요함
   INQUIRY: {
     bgColor: "bg-notificationGrey",
     iconName: "Inquiry",
