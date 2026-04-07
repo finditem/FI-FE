@@ -4,7 +4,6 @@ import React, { Fragment } from "react";
 import { Icon } from "@/components/common";
 import Link from "next/link";
 import { MYPAGE_MENU_LIST } from "../../_constants/MYPAGE_ROUTE_CONFIG";
-import useLogout from "@/hooks/useLogout/useLogout";
 import { cn } from "@/utils";
 
 const MyPageMenuSection = ({
@@ -14,8 +13,6 @@ const MyPageMenuSection = ({
   isUserLogin: boolean;
   disabled?: boolean;
 }) => {
-  const { handleLogout, isPending } = useLogout();
-
   const visibleMenuList = MYPAGE_MENU_LIST.filter((menu) => {
     if (!isUserLogin && menu.title === "서비스 정책") {
       return false;
