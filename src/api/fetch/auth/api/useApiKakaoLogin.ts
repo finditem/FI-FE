@@ -4,13 +4,22 @@ import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 
+interface kakaoRequestType {
+  code: string;
+  environment: string;
+  // privacyPolicyAgreed: boolean;
+  // termsOfServiceAgreed: boolean;
+  // contentPolicyAgreed: boolean;
+  // marketingConsent: boolean;
+}
+
 const useApiKakaoLogin = () => {
   const router = useRouter();
 
   const { addToast } = useToast();
 
   return useAppMutation<
-    { code: string; environment: string },
+    kakaoRequestType,
     ApiBaseResponseType<{ userId: number; isTemporaryPassword: boolean }>,
     ApiBaseResponseType<null>
   >("auth", "/auth/kakao", "post", {

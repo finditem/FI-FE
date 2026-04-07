@@ -40,16 +40,6 @@ const MyPageMenuSection = ({
               {item.pageName}
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </Link>
-
-            {isUserLogin && menu.title === "계정 설정" && item.pageName === "회원 탈퇴" && (
-              <button
-                className="mt-[6px] flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
-                onClick={handleLogout}
-                disabled={disabled || isPending}
-              >
-                로그아웃
-              </button>
-            )}
           </Fragment>
         ))}
       </div>
