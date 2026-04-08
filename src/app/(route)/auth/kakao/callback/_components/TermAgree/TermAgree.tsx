@@ -7,18 +7,13 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect } from "react";
 import { FooterButton } from "@/components/domain";
 import { TERMS_CONFIG } from "@/app/(route)/sign-up/_constants/TERMS_CONFIG";
-import { useApiKakaoLogin } from "@/api/fetch/auth";
-
-const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
-const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+import { usePatchKakaoTerms } from "@/api/fetch/user";
 
 interface TermAgreeProps {
   onOpenDetail: (termKey: string) => void;
-  isPending?: boolean;
 }
 
-const TermAgree = ({ onOpenDetail, isPending }: TermAgreeProps) => {
+const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
   const {
     register,
     setValue,
@@ -42,6 +37,8 @@ const TermAgree = ({ onOpenDetail, isPending }: TermAgreeProps) => {
     }
   }, [selectAll, allChecked, setValue]);
 
+  const { mutate: KakaoPatchMutate, isPending } = usePatchKakaoTerms();
+
   // 전체약관동의 체크 박스 토글 함수
   const handleToggleAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checked = e.currentTarget.checked; // 현재 체크 상태
@@ -53,6 +50,7 @@ const TermAgree = ({ onOpenDetail, isPending }: TermAgreeProps) => {
     setValue("selectAll", checked, { shouldValidate: false, shouldDirty: false }); // 전체 항목 체크
   };
 
+  // 제출
   const onComplete = () => {
     const values = getValues();
 
@@ -62,7 +60,8 @@ const TermAgree = ({ onOpenDetail, isPending }: TermAgreeProps) => {
       contentPolicyAgreed: values.contentPolicyAgreed,
       marketingConsent: values.marketingConsent,
     };
-    console.log("terms>>>.       ", termsToSave);
+
+    KakaoPatchMutate(termsToSave);
   };
 
   return (
