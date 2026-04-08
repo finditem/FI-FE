@@ -3,7 +3,7 @@
 import { useApiKakaoLogin } from "@/api/fetch/auth";
 import { Icon } from "@/components/common";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const KakaoContainer = () => {
