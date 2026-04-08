@@ -30,7 +30,7 @@
 | 분류               | 설명                                                         |
 | :----------------- | :----------------------------------------------------------- |
 | **지도 기반 확인** | 지도를 통해 내 주변의 분실/습득물을 직관적으로 확인          |
-| **실시간 채팅**    | STOMP를 활용해 사용자 간 실시간 대화 지원                    |
+| **실시간 채팅**    | STOMP를 활ㄴ용해 사용자 간 실시간 대화 지원                  |
 | **실시간 알림**    | SSE를 활용한 실시간 알림 (채팅, 댓글, 관심 카테고리 알림 등) |
 | **상세 검색**      | 카테고리, 날짜, 장소 등 다양한 필터 조건으로 상세 검색       |
 | **공공 데이터**    | 경찰청 Lost112 데이터를 연동해 폭넓은 분실물 정보 제공       |
@@ -64,6 +64,13 @@
 - **Analytics:** `Vercel Analytics`, `Speed Insights`, `Microsoft Clarity`
 - **Security:** `Snyk`
 - **CI/CD:** `GitHub Actions`, `Vercel`
+
+## 개발 컨벤션
+
+- **Code Style:** `Prettier`
+- **Git Hooks:** `Husky` + `Lint-staged`
+- **Commits:** `Conventional Commits`
+- **Branching:** `Git-flow` (main → develop → feature/\*)
 
 ## 프로젝트 구조
 
@@ -113,10 +120,3 @@ cp .env.example .env.local # 환경 변수 파일 생성 및 수정
 # 개발 서버 실행
 npm run dev
 ```
-
-## 개발 컨벤션
-
-- **Code Style:** `Prettier`
-- **Git Hooks:** `Husky` + `Lint-staged`
-- **Commits:** `Conventional Commits`
-- **Branhing:** `Git-flow` (main → develop → feature/\*)
