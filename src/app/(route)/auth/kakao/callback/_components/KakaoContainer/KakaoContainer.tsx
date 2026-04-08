@@ -1,15 +1,20 @@
 "use client";
+"use no memo";
 
 import { useApiKakaoLogin } from "@/api/fetch/auth";
-import { Icon } from "@/components/common";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
+import TermAgree from "../TermAgree/TermAgree";
+import { Terms } from "@/components/domain";
+import { FormProvider, useForm } from "react-hook-form";
+import KakaoLoading from "../KakaoLoading/KakaoLoading";
 
 const KakaoContainer = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const term = searchParams.has("term");
+  const termName = searchParams.get("termName") ?? "";
 
   const isRequesting = useRef(false);
 
@@ -18,38 +23,57 @@ const KakaoContainer = () => {
   const appEnv = process.env.NODE_ENV === "production" ? "prod" : "dev";
 
   useEffect(() => {
-    if (!code) return;
+    if (!code || term) return;
     if (isRequesting.current) return;
 
     isRequesting.current = true;
-
-    KakaoLoginMutate(
-      {
-        code: code,
-        environment: appEnv,
-      },
-      {
-        onSuccess: (res) => {
-          const { isNewUser } = res.result;
-
-          if (isNewUser) {
-            window.sessionStorage.setItem("signup-max-step", "2");
-            window.sessionStorage.setItem("auth-type", "KAKAO");
-
-            router.replace("/sign-up?step=2");
-          }
+    if (code) {
+      KakaoLoginMutate(
+        {
+          code: code,
+          environment: appEnv,
         },
-      }
-    );
+        {
+          onSuccess: (res) => {
+            const { isNewUser } = res.result;
+            if (isNewUser) {
+              window.sessionStorage.setItem("auth-type", "KAKAO");
+              router.replace("/auth/kakao/callback?term");
+            }
+          },
+        }
+      );
+    }
   }, [code, KakaoLoginMutate, router]);
 
+  const methods = useForm();
+  const { setValue } = methods;
+
   return (
-    <div className="flex min-h-screen w-full flex-col-center">
-      <div className="flex flex-col items-center gap-4">
-        <Icon name="Loading" className="animate-spin" size={40} />
-        <p className="text-body1-regular text-gray-700">로그인 요청 중...</p>
-      </div>
-    </div>
+    <FormProvider {...methods}>
+      <form>
+        {term && !termName && (
+          <TermAgree
+            onOpenDetail={(termName) =>
+              router.push(`/auth/kakao/callback?term&termName=${termName}`)
+            }
+          />
+        )}
+        {termName && (
+          <Terms
+            termName={termName}
+            onAgree={() => {
+              setValue(termName, true, { shouldDirty: true, shouldValidate: true });
+              router.push(`/auth/kakao/callback?term`);
+            }}
+            showButton={true}
+            pageType="SIGN_UP"
+          />
+        )}
+      </form>
+
+      {!term && !termName && <KakaoLoading />}
+    </FormProvider>
   );
 };
 

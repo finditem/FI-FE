@@ -1,3 +1,5 @@
+"use client";
+
 import { KakaoContainer } from "./_components";
 
 const KakaoCallbackPage = () => {
