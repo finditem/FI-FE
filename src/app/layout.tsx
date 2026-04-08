@@ -13,7 +13,6 @@ import AuthBootstrap from "./authBootStrap";
 import { NotificationSSEProvider } from "@/providers/NotificationSSEProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { PWAProvider } from "@/providers/PWAProvider";
-import BetaTestModalGlobal from "@/components/domain/BetaTest/BetaTestModalGlobal/BetaTestModalGlobal";
 
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
@@ -94,7 +93,6 @@ export default function RootLayout({
                   <main className="w-full flex-1">{children}</main>
                   <Footer />
                 </NotificationSSEProvider>
-                <BetaTestModalGlobal />
               </ToastProvider>
             </SnackBarProvider>
           </PWAProvider>

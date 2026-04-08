@@ -25,8 +25,3 @@ export { default as ProfileEditSection } from "./ProfileForm/ProfileEditSection"
 export { default as BlockUserModal } from "./PostReportBlockActions/UserBlockModal/UserBlockModal";
 export { default as AddToHomeScreenPWA } from "./AddToHomeScreenPWA/AddToHomeScreenPWA";
 export { default as ContentShareModal } from "./ContentShareModal/ContentShareModal";
-
-// TODO: 베타 테스트 종료 후 제거
-export { default as BetaTestMypageBanner } from "./BetaTest/BetaTestMypageBanner/BetaTestMypageBanner";
-export { default as BetaTestModal } from "./BetaTest/BetaTestModal/BetaTestModal";
-export { default as BetaTestMainBanner } from "./BetaTest/BetaTestMainBanner/BetaTestMainBanner";

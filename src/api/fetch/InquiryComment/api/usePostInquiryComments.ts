@@ -2,7 +2,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
 import { PostInquiryCommentsResponse } from "../types/PostInquiryCommentsType";
-import { useBetaTestFeedbackStore } from "@/store";
 
 export const usePostInquiryComments = (inquiryId: number) => {
   const { addToast } = useToast();
@@ -18,7 +17,6 @@ export const usePostInquiryComments = (inquiryId: number) => {
         queryClient.invalidateQueries({
           queryKey: ["detail-inquiry", inquiryId],
         });
-        useBetaTestFeedbackStore.getState().openBetaTestModal();
       },
     }
   );
