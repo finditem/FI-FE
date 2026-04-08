@@ -22,10 +22,24 @@ const KakaoCallbackPage = () => {
 
     isRequesting.current = true;
 
-    KakaoLoginMutate({
-      code: code,
-      environment: appEnv,
-    });
+    KakaoLoginMutate(
+      {
+        code: code,
+        environment: appEnv,
+      },
+      {
+        onSuccess: (res) => {
+          const { isNewUser } = res.result;
+
+          if (isNewUser) {
+            window.sessionStorage.setItem("signup-max-step", "2");
+            window.sessionStorage.setItem("auth-type", "KAKAO");
+
+            router.replace("/sign-up?step=2");
+          }
+        },
+      }
+    );
   }, [code, KakaoLoginMutate, router]);
 
   return (
