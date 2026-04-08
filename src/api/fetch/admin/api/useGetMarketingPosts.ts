@@ -7,6 +7,8 @@ interface UseGetMarketingPostsParams {
   sort?: string;
   category?: CategoryType;
   postStatus?: ItemStatus;
+  startDate?: string;
+  endDate?: string;
   size?: number;
   keyword?: string;
 }
@@ -16,7 +18,15 @@ interface UseGetMarketingPostsOptions {
 }
 
 export const useGetMarketingPosts = (
-  { sort = "LATEST", category, postStatus, size = 10, keyword }: UseGetMarketingPostsParams,
+  {
+    sort = "LATEST",
+    category,
+    postStatus,
+    startDate,
+    endDate,
+    size = 10,
+    keyword,
+  }: UseGetMarketingPostsParams,
   { enabled = true }: UseGetMarketingPostsOptions = {}
 ) => {
   const params = new URLSearchParams();
@@ -25,11 +35,13 @@ export const useGetMarketingPosts = (
 
   if (category) params.set("category", category);
   if (postStatus) params.set("postStatus", postStatus);
+  if (startDate) params.set("startDate", startDate);
+  if (endDate) params.set("endDate", endDate);
   if (keyword) params.set("keyword", keyword);
 
   return useAppInfiniteQuery<GetMarketingPostsResponse, unknown, AdminMarketingPostItem[]>(
     "auth",
-    ["marketing-posts", sort, category, postStatus, size, keyword],
+    ["marketing-posts", sort, category, postStatus, startDate, endDate, size, keyword],
     `/admin/marketing-consent/posts?${params.toString()}`,
     {
       enabled,
