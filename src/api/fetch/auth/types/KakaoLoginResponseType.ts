@@ -5,5 +5,5 @@ export interface KakaoLoginResponseType extends ApiBaseResponseType<KakaoLoginTy
 export interface KakaoLoginType {
   userId: number;
   isTemporaryPassword: boolean;
-  isNewUser: boolean;
+  termsAgreed: boolean;
 }

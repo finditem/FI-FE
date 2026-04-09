@@ -3,17 +3,18 @@
 
 import { useApiKakaoLogin } from "@/api/fetch/auth";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import TermAgree from "../TermAgree/TermAgree";
 import { Terms } from "@/components/domain";
 import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
 
 const KakaoContainer = () => {
+  const [step, setStep] = useState<"Term" | "Loading">("Loading");
+
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
-  const term = searchParams.has("term");
   const termName = searchParams.get("termName") ?? "";
 
   const isRequesting = useRef(false);
@@ -23,7 +24,7 @@ const KakaoContainer = () => {
   const appEnv = process.env.NODE_ENV === "production" ? "prod" : "dev";
 
   useEffect(() => {
-    if (!code || term) return;
+    if (!code || step === "Term") return;
     if (isRequesting.current) return;
 
     isRequesting.current = true;
@@ -35,8 +36,8 @@ const KakaoContainer = () => {
         },
         {
           onSuccess: (res) => {
-            const { isNewUser } = res.result;
-            if (isNewUser) {
+            const { termsAgreed } = res.result;
+            if (!termsAgreed) {
               window.sessionStorage.setItem("auth-type", "KAKAO");
               router.replace("/auth/kakao/callback?term");
             }
@@ -52,11 +53,9 @@ const KakaoContainer = () => {
   return (
     <FormProvider {...methods}>
       <form>
-        {term && !termName && (
+        {step === "Term" && !termName && (
           <TermAgree
-            onOpenDetail={(termName) =>
-              router.push(`/auth/kakao/callback?term&termName=${termName}`)
-            }
+            onOpenDetail={(termName) => router.push(`/auth/kakao/callback?termName=${termName}`)}
           />
         )}
         {termName && (
@@ -64,7 +63,7 @@ const KakaoContainer = () => {
             termName={termName}
             onAgree={() => {
               setValue(termName, true, { shouldDirty: true, shouldValidate: true });
-              router.push(`/auth/kakao/callback?term`);
+              router.push(`/auth/kakao/callback`);
             }}
             showButton={true}
             pageType="SIGN_UP"
@@ -72,7 +71,7 @@ const KakaoContainer = () => {
         )}
       </form>
 
-      {!term && !termName && <KakaoLoading />}
+      {step === "Loading" && <KakaoLoading />}
     </FormProvider>
   );
 };

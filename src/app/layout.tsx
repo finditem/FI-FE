@@ -87,6 +87,7 @@ export default function RootLayout({
         <Providers>
           <PWAProvider>
             <SnackBarProvider>
+              {/* <TermsProvider> */}
               <ToastProvider>
                 <MSWProvider />
                 <AuthBootstrap />
@@ -97,6 +98,7 @@ export default function RootLayout({
                 <BetaTestModalGlobal />
               </ToastProvider>
             </SnackBarProvider>
+            {/* </TermsProvider> */}
           </PWAProvider>
           <Script
             src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js"
