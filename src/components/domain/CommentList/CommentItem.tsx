@@ -28,7 +28,7 @@ interface CommentCardProps {
   /** 게시글 ID */
   postId: number;
   /** 답글 작성 함수 */
-  onSubmit?: (content: string, image: File | null, parentId: number) => void;
+  onSubmit?: (content: string, image: File | null, parentId: number) => void | Promise<unknown>;
   /** 답글 작성 중 로딩 상태 */
   isPending?: boolean;
   /** 답글 목록 조회 함수 */
@@ -76,10 +76,16 @@ const CommentItem = ({
     enabled: !isGuest && shouldFetchReplies,
   });
 
-  const handleReplySubmit = (content: string, image: File | null) => {
-    onSubmit?.(content, image, data.id);
-    setViewReply(true);
-    setIsReplyFormOpen(false);
+  const handleReplySubmit = async (content: string, image: File | null) => {
+    if (!onSubmit) return;
+
+    try {
+      await onSubmit(content, image, data.id);
+      setViewReply(true);
+      setIsReplyFormOpen(false);
+    } catch (e) {
+      // no-op
+    }
   };
 
   const authorId = data.authorResponse ? String(data.authorResponse.userId) : "";
