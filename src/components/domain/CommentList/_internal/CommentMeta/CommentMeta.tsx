@@ -111,7 +111,7 @@ const CommentMetaHeader = ({
               {canDelete ? (
                 <button
                   className={cn(
-                    "glass-card min-h-[57px] min-w-[182px] gap-2 text-nowrap rounded-[20px] border px-7 py-4 flex-center",
+                    "glass-card min-h-[57px] min-w-[182px] gap-2 text-nowrap rounded-[20px] border px-7 py-4 text-system-warning flex-center",
                     "border-white bg-fill-neutral-subtle-default",
                     deleted && "cursor-not-allowed"
                   )}
@@ -119,7 +119,7 @@ const CommentMetaHeader = ({
                   disabled={deleted}
                 >
                   <Icon name="Trash" size={20} />
-                  <span className="text-h3-medium text-system-warning">댓글 삭제하기</span>
+                  <span className="text-h3-medium">댓글 삭제하기</span>
                 </button>
               ) : (
                 <div className="glass-card rounded-[20px] border border-white bg-fill-neutral-subtle-default">
