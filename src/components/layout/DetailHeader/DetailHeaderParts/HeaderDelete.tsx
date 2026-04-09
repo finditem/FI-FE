@@ -18,7 +18,7 @@ const HeaderDelete = ({ isDeleteMode, setIsDeleteMode, disabled = false }: Heade
       className="disabled:cursor-not-allowed disabled:opacity-40"
     >
       {!isDeleteMode ? (
-        <Icon name="Trash" size={24} />
+        <Icon name="Trash" size={24} className="text-neutral-normal-default" />
       ) : (
         <span className="text-h3-medium text-layout-header-default">취소</span>
       )}
