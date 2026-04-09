@@ -1,0 +1,38 @@
+name-template: "v$RESOLVED_VERSION"
+tag-template: "v$RESOLVED_VERSION"
+commitish: main
+
+categories:
+  - title: "## 추가된 기능"
+    labels:
+      - "feature"
+      - "UI/UX"
+      - "design"
+  - title: "## 수정된 사항"
+    labels:
+      - "bug"
+      - "hotfix"
+  - title: "## 기타 개선 사항"
+    labels:
+      - "performance"
+      - "refactor"
+      - "a11y"
+      - "chore"
+
+version-resolver:
+  major:
+    labels: ["major"]
+  minor:
+    labels: ["feature", "UI/UX", "design"]
+  patch:
+    labels: ["bug", "hotfix", "performance", "refactor", "a11y", "chore"]
+  default: patch
+
+template: |
+  ## 개요
+  - 이번 배포는 운영 환경에 반영되는 공식 릴리즈입니다.
+
+  $CHANGES
+
+  ## 참고 사항
+  - 특이사항이나 추가 주의사항이 있다면 여기에 작성해주세요.
