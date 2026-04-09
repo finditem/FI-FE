@@ -18,7 +18,7 @@ interface CommentListProps {
   /** 댓글 목록 데이터 */
   comments?: GetPostsCommentsData;
   /** 답글 작성 함수 */
-  onSubmit: (content: string, image: File | null, parentId: number) => void;
+  onSubmit: (content: string, image: File | null, parentId: number) => void | Promise<unknown>;
   /** 답글 작성 중 로딩 상태 */
   isPending: boolean;
   /** 로그인 여부 */
