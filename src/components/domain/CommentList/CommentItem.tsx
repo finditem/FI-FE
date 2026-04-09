@@ -77,12 +77,14 @@ const CommentItem = ({
   });
 
   const handleReplySubmit = async (content: string, image: File | null) => {
+    if (!onSubmit) return;
+
     try {
-      await onSubmit?.(content, image, data.id);
+      await onSubmit(content, image, data.id);
       setViewReply(true);
       setIsReplyFormOpen(false);
     } catch (e) {
-      // error handled by mutation
+      // no-op
     }
   };
 
