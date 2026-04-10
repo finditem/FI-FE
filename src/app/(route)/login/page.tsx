@@ -43,7 +43,8 @@ const page = () => {
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label="로그인 버튼"
         >
-          <Icon name="Mail" size={20} className="text-white" /> 이메일로 로그인
+          <Icon name="Mail" size={20} className="text-white" />
+          이메일로 로그인
         </Button>
       </div>
 
