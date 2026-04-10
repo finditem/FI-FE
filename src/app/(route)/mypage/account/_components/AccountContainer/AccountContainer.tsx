@@ -37,6 +37,8 @@ const AccountContainer = () => {
         </div>
       </div>
 
+      <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-divider-default_3" />
+
       <div className="flex w-full flex-col gap-3 px-5 py-6">
         {ACCOUNT_ROUTE.map((item) => (
           <Link
