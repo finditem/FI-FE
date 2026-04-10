@@ -1,5 +1,6 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import { useAgreeStore } from "@/store";
 import { useRouter } from "next/navigation";
 
 export interface kakaoTermType {
@@ -11,6 +12,7 @@ export interface kakaoTermType {
 
 export const usePatchKakaoTerms = () => {
   const router = useRouter();
+  const { setAgreed } = useAgreeStore();
 
   return useAppMutation<kakaoTermType, ApiBaseResponseType<undefined>, undefined>(
     "auth",
@@ -18,6 +20,7 @@ export const usePatchKakaoTerms = () => {
     "patch",
     {
       onSuccess: () => {
+        setAgreed();
         router.replace("/");
       },
     }

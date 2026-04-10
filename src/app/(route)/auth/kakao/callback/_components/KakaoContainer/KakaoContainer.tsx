@@ -8,14 +8,22 @@ import TermAgree from "../TermAgree/TermAgree";
 import { Terms } from "@/components/domain";
 import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
+import { useAgreeStore } from "@/store";
+import { ErrorView } from "@/components/state";
 
 const KakaoContainer = () => {
-  const [step, setStep] = useState<"Term" | "Loading">("Loading");
+  const { termsAgreed, isLoggedIn, login } = useAgreeStore();
 
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const termName = searchParams.get("termName") ?? "";
+
+  const [step, setStep] = useState<"Term" | "Loading" | "NoAction">(() => {
+    if (isLoggedIn && !termsAgreed) return "Term";
+    if (code) return "Loading";
+    return "NoAction";
+  });
 
   const isRequesting = useRef(false);
 
@@ -27,6 +35,10 @@ const KakaoContainer = () => {
     if (!code || step === "Term") return;
     if (isRequesting.current) return;
 
+    if (termsAgreed) {
+      setStep("Term");
+    }
+
     isRequesting.current = true;
     if (code) {
       KakaoLoginMutate(
@@ -37,9 +49,13 @@ const KakaoContainer = () => {
         {
           onSuccess: (res) => {
             const { termsAgreed } = res.result;
+            login(termsAgreed);
+
             if (!termsAgreed) {
               window.sessionStorage.setItem("auth-type", "KAKAO");
-              router.replace("/auth/kakao/callback?term");
+              setStep("Term");
+            } else {
+              router.replace("/");
             }
           },
         }
@@ -72,6 +88,19 @@ const KakaoContainer = () => {
       </form>
 
       {step === "Loading" && <KakaoLoading />}
+      {step === "NoAction" && (
+        <ErrorView
+          iconName="NotFound"
+          code="404"
+          title="페이지를 찾을 수 없습니다."
+          description={
+            <>
+              존재하지 않는 주소를 입력했거나 <br />
+              요청하신 페이지를 사용할 수 없습니다.
+            </>
+          }
+        />
+      )}
     </FormProvider>
   );
 };
