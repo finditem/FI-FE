@@ -1,20 +1,32 @@
 "use client";
 
-import { PostListItem } from "@/components/domain";
+import { useEffect } from "react";
 import { useGetMarketingPosts } from "@/api/fetch/admin";
+import { PostListItem } from "@/components/domain";
+import { EmptyState, LoadingState } from "@/components/state";
 import { useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks/domain";
+import { useToast } from "@/context/ToastContext";
 import { ContentAgreeFilter } from "../_internal";
-import { EmptyState, LoadingState } from "@/components/state";
 
 const ContentAgreeView = () => {
-  const { sort, category, findStatus } = useFilterParams();
+  const { addToast } = useToast();
+  const { sort, category, findStatus, startDate, endDate } = useFilterParams();
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useGetMarketingPosts({
-    sort: sort || "LATEST",
-    category,
-    postStatus: findStatus,
-  });
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, isError } =
+    useGetMarketingPosts({
+      sort: sort || "LATEST",
+      category,
+      postStatus: findStatus,
+      startDate: startDate || undefined,
+      endDate: endDate || undefined,
+    });
+
+  useEffect(() => {
+    if (isError) {
+      addToast("게시글을 불러오지 못했어요", "error");
+    }
+  }, [isError]);
 
   const { ref } = useInfiniteScroll({
     fetchNextPage,
@@ -39,9 +51,12 @@ const ContentAgreeView = () => {
         )}
         {!isLoading && (!data || data.length === 0) && (
           <EmptyState
-            icon={{ iconName: "NoPublicDataSearch", iconSize: 70 }}
-            title="게시글이 없어요"
-            description="아직 콘텐츠 활용 동의한 게시글이 없습니다."
+            icon={{
+              iconName: "LogoCharacterOutlined",
+              iconSize: 130,
+              iconColor: "text-labelsVibrant-secondary",
+            }}
+            description="아직 게시글이 없어요."
           />
         )}
       </section>

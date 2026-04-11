@@ -5,7 +5,7 @@ import { Icon, ProfileAvatar } from "@/components/common";
 import { useToast } from "@/context/ToastContext";
 import { useLogout } from "@/hooks";
 import Link from "next/link";
-import { ACCOUNT_ROUTE } from "../../_constant/ACCOUNT_ROUTE";
+import { ACCOUNT_ROUTE } from "../../_constants/ACCOUNT_ROUTE";
 
 const AccountContainer = () => {
   const { data: profileData, isError } = useGetUsersMe();

@@ -3,9 +3,9 @@ import { usePostPostsComments } from "@/api/fetch/comment";
 
 export const useHandleReplySubmit = (id: number) => {
   const queryClient = useQueryClient();
-  const { mutate, isPending } = usePostPostsComments(id);
+  const { mutateAsync, isPending } = usePostPostsComments(id);
 
-  const handleReplySubmit = (content: string, image: File | null, parentId: number) => {
+  const handleReplySubmit = async (content: string, image: File | null, parentId: number) => {
     if (!content.trim() || isPending) return;
 
     const formData = new FormData();
@@ -17,7 +17,7 @@ export const useHandleReplySubmit = (id: number) => {
     formData.append("request", new Blob([JSON.stringify(request)], { type: "application/json" }));
     if (image) formData.append("image", image);
 
-    mutate(formData, {
+    return mutateAsync(formData, {
       onSuccess: () => {
         if (parentId) {
           queryClient.invalidateQueries({ queryKey: ["replies-post-comments", parentId] });
