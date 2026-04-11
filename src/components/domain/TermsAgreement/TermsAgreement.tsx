@@ -1,31 +1,37 @@
 "use no memo";
 "use client";
 
-import { Icon, CheckBox } from "@/components/common";
-import { DetailHeader } from "@/components/layout";
-import { useFormContext, useWatch } from "react-hook-form";
 import { useEffect } from "react";
-import { FooterButton } from "@/components/domain";
-import { TERMS_CONFIG } from "@/app/(route)/sign-up/_constants/TERMS_CONFIG";
-import { usePatchKakaoTerms } from "@/api/fetch/user";
+import { useFormContext, useWatch } from "react-hook-form";
+import { TERMS_CONFIG } from "./_constants/TERMS_CONFIG";
+import { DetailHeader } from "@/components/layout";
+import { CheckBox, Icon } from "@/components/common";
+import FooterButton from "../FooterButton/FooterButton";
 
-interface TermAgreeProps {
+interface TermsAgreementProps {
+  title?: string;
   onOpenDetail: (termKey: string) => void;
+  onComplete: () => void;
+  isPending?: boolean;
 }
 
-const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
+const TermsAgreement = ({
+  title = "회원가입",
+  onOpenDetail,
+  onComplete,
+  isPending,
+}: TermsAgreementProps) => {
   const {
     register,
     setValue,
     control,
     formState: { isValid },
-    getValues,
   } = useFormContext();
 
   const selectAll = useWatch({ control, name: "selectAll" });
   const termsValue = useWatch({ control, name: TERMS_CONFIG.map((item) => item.name) });
 
-  // 개별 체크박스와 전체 체크박스 동기화
+  // 전체 체크박스 상태 동기화 로직
   const allChecked =
     Array.isArray(termsValue) && termsValue.length === TERMS_CONFIG.length
       ? termsValue.every(Boolean)
@@ -37,36 +43,18 @@ const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
     }
   }, [selectAll, allChecked, setValue]);
 
-  const { mutate: KakaoPatchMutate, isPending } = usePatchKakaoTerms();
-
-  // 전체약관동의 체크 박스 토글 함수
+  // 전체 선택/해제 핸들러
   const handleToggleAll = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = e.currentTarget.checked; // 현재 체크 상태
-
-    // 개별 항목 모두 체크
+    const checked = e.currentTarget.checked;
     TERMS_CONFIG.forEach((item) => {
       setValue(item.name, checked, { shouldValidate: true, shouldDirty: true });
     });
-    setValue("selectAll", checked, { shouldValidate: false, shouldDirty: false }); // 전체 항목 체크
-  };
-
-  // 제출
-  const onComplete = () => {
-    const values = getValues();
-
-    const termsToSave = {
-      privacyPolicyAgreed: values.privacyPolicyAgreed,
-      termsOfServiceAgreed: values.termsOfServiceAgreed,
-      contentPolicyAgreed: values.contentPolicyAgreed,
-      marketingConsent: values.marketingConsent,
-    };
-
-    KakaoPatchMutate(termsToSave);
+    setValue("selectAll", checked, { shouldValidate: false, shouldDirty: false });
   };
 
   return (
     <>
-      <DetailHeader title="회원가입" />
+      <DetailHeader title={title} />
       <div className="flex w-full flex-col gap-7 p-4 h-hf-base">
         <p className="text-h3-semibold text-black">
           서비스 이용을 위해 <br />
@@ -84,7 +72,6 @@ const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
             />
           </div>
 
-          {/* 각 약관 동의 */}
           <div className="flex min-h-[172px] w-full flex-col gap-5">
             {TERMS_CONFIG.map((item, index) => (
               <div
@@ -101,7 +88,6 @@ const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
                   <button
                     className="bg-white"
                     type="button"
-                    aria-label="상세 약관 열기"
                     onClick={() => onOpenDetail(item.name)}
                   >
                     <Icon
@@ -124,4 +110,4 @@ const TermAgree = ({ onOpenDetail }: TermAgreeProps) => {
   );
 };
 
-export default TermAgree;
+export default TermsAgreement;

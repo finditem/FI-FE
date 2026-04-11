@@ -4,12 +4,12 @@
 import { useApiKakaoLogin } from "@/api/fetch/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import TermAgree from "../TermAgree/TermAgree";
-import { Terms } from "@/components/domain";
+import { Terms, TermsAgreement } from "@/components/domain";
 import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
 import { useAgreeStore } from "@/store";
 import { ErrorView } from "@/components/state";
+import { usePatchKakaoTerms } from "@/api/fetch/user";
 
 const KakaoContainer = () => {
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
@@ -28,6 +28,7 @@ const KakaoContainer = () => {
   const isRequesting = useRef(false);
 
   const { mutate: KakaoLoginMutate } = useApiKakaoLogin();
+  const { mutate: KakaoPatchMutate, isPending } = usePatchKakaoTerms();
 
   const appEnv = process.env.NODE_ENV === "production" ? "prod" : "dev";
 
@@ -66,12 +67,25 @@ const KakaoContainer = () => {
   const methods = useForm();
   const { setValue } = methods;
 
+  const handleSubmit = () => {
+    const values = methods.getValues();
+    const payload = {
+      privacyPolicyAgreed: values.privacyPolicyAgreed,
+      termsOfServiceAgreed: values.termsOfServiceAgreed,
+      contentPolicyAgreed: values.contentPolicyAgreed,
+      marketingConsent: values.marketingConsent,
+    };
+    KakaoPatchMutate(payload);
+  };
+
   return (
     <FormProvider {...methods}>
       <form>
         {step === "Term" && !termName && (
-          <TermAgree
+          <TermsAgreement
+            onComplete={handleSubmit}
             onOpenDetail={(termName) => router.push(`/auth/kakao/callback?termName=${termName}`)}
+            isPending={isPending}
           />
         )}
         {termName && (
