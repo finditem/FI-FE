@@ -24,27 +24,30 @@ const reconnectRetryController = retryBackoffController({
 
 let tokenRefreshHandler: (() => void) | null = null;
 
-const getChatSocketBrokerURL = (): string => {
-  if (
-    process.env.NODE_ENV === "production" &&
-    typeof window !== "undefined" &&
-    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") &&
-    window.location.port === "3000"
-  ) {
-    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    return `${wsProtocol}//${window.location.host}/api/ws`;
-  }
+const REMOTE_CHAT_BROKER_URL = `${process.env.NEXT_PUBLIC_API_URL}/ws`;
 
+const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
+  const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
+  return `${wsProtocol}//${loc.host}/api/ws`;
+};
+
+const getChatSocketBrokerURL = (): string => {
   if (process.env.NODE_ENV === "production") {
-    return `${process.env.NEXT_PUBLIC_API_URL}/ws`;
+    if (
+      typeof window !== "undefined" &&
+      (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") &&
+      window.location.port === "3000"
+    ) {
+      return toSameOriginWsBrokerUrl(window.location);
+    }
+    return REMOTE_CHAT_BROKER_URL;
   }
 
   if (typeof window === "undefined") {
-    return `${process.env.NEXT_PUBLIC_API_URL}/ws`;
+    return REMOTE_CHAT_BROKER_URL;
   }
 
-  const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-  return `${wsProtocol}//${window.location.host}/api/ws`;
+  return toSameOriginWsBrokerUrl(window.location);
 };
 
 const MAX_AUTH_REFRESH_FAILURES = 1;
