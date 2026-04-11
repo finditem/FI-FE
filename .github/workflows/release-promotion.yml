@@ -1,0 +1,25 @@
+name: Auto Release PR
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  create-or-update-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create or Update Pull Request
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "develop"
+          destination_branch: "release"
+          pr_title: "[배포 대기] release 최신화"
+          pr_body: |
+            ## 작업 요약
+            Develop 브랜치의 최신 변경 사항을 Release 브랜치로 반영합니다.
+          pr_label: "🌱 release"
+          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
