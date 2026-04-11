@@ -24,6 +24,29 @@ const reconnectRetryController = retryBackoffController({
 
 let tokenRefreshHandler: (() => void) | null = null;
 
+const getChatSocketBrokerURL = (): string => {
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window !== "undefined" &&
+    (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") &&
+    window.location.port === "3000"
+  ) {
+    const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    return `${wsProtocol}//${window.location.host}/api/ws`;
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    return `${process.env.NEXT_PUBLIC_API_URL}/ws`;
+  }
+
+  if (typeof window === "undefined") {
+    return `${process.env.NEXT_PUBLIC_API_URL}/ws`;
+  }
+
+  const wsProtocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+  return `${wsProtocol}//${window.location.host}/api/ws`;
+};
+
 const MAX_AUTH_REFRESH_FAILURES = 1;
 let consecutiveAuthRefreshFailures = 0;
 let isAuthInvalid = false;
@@ -99,7 +122,7 @@ export const connectChatSocket = () => {
   reconnectRetryController.reset();
 
   client = new Client({
-    brokerURL: `${process.env.NEXT_PUBLIC_API_URL}/ws`,
+    brokerURL: getChatSocketBrokerURL(),
     reconnectDelay: 0,
 
     debug: (msg) => {
