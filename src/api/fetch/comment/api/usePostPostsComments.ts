@@ -4,7 +4,6 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/context/ToastContext";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { PostPostsCommentResponse } from "../types/PostPostsComment";
-import { useBetaTestFeedbackStore } from "@/store";
 
 export const usePostPostsComments = (postId: number, parentId?: number) => {
   const { addToast } = useToast();
@@ -23,7 +22,6 @@ export const usePostPostsComments = (postId: number, parentId?: number) => {
         });
         queryClient.invalidateQueries({ queryKey: ["/users/me/comments"] });
         addToast("댓글이 등록되었어요", "success");
-        useBetaTestFeedbackStore.getState().openBetaTestModal();
       },
       onError: () => {
         addToast("댓글 등록에 실패했어요", "error");
