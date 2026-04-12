@@ -1,0 +1,35 @@
+name: Hotfix Sync to Develop & Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  sync-hotfix:
+    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'hotfix/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create Sync PR to Develop
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "main"
+          destination_branch: "develop"
+          pr_title: "[Hotfix] develop 최신화"
+          pr_body: "운영 환경(main)의 긴급 수정 사항을 develop 브랜치에 반영합니다."
+          pr_label: "hotfix-sync"
+          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
+
+      - name: Create Sync PR to Release
+        uses: repo-sync/pull-request@v2
+        with:
+          source_branch: "main"
+          destination_branch: "release"
+          pr_title: "[Hotfix] release 최신화"
+          pr_body: "운영 환경(main)의 긴급 수정 사항을 release 브랜치에 반영합니다."
+          pr_label: "hotfix-sync"
+          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
