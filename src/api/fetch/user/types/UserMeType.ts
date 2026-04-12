@@ -9,4 +9,5 @@ export interface UsersMeType {
   email: string;
   profileImg: string;
   role: UserType;
+  socialUser: boolean;
 }
