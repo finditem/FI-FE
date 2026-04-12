@@ -20,8 +20,8 @@ const KakaoContainer = () => {
   const termName = searchParams.get("termName") ?? "";
 
   const [step, setStep] = useState<"Term" | "Loading" | "NoAction">(() => {
-    if (isLoggedIn && !termsAgreed) return "Term";
     if (code) return "Loading";
+    if (isLoggedIn && !termsAgreed) return "Term";
     return "NoAction";
   });
 
@@ -36,10 +36,6 @@ const KakaoContainer = () => {
     if (!code || step === "Term") return;
     if (isRequesting.current) return;
 
-    if (!termsAgreed) {
-      setStep("Term");
-    }
-
     isRequesting.current = true;
     if (code) {
       KakaoLoginMutate(
@@ -52,17 +48,18 @@ const KakaoContainer = () => {
             const { termsAgreed } = res.result;
             login(termsAgreed);
 
-            if (!termsAgreed) {
-              window.sessionStorage.setItem("auth-type", "KAKAO");
-              setStep("Term");
-            } else {
+            if (termsAgreed) {
               router.replace("/");
             }
           },
         }
       );
     }
-  }, [code, KakaoLoginMutate, router, appEnv, login, step, termsAgreed]);
+
+    if (isLoggedIn && !termsAgreed) {
+      setStep("Term");
+    }
+  }, [code, KakaoLoginMutate, router, appEnv, login, step]);
 
   const methods = useForm();
   const { setValue } = methods;
