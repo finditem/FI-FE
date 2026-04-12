@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useApiRefreshToken } from "@/api/fetch/auth";
-import { useAuthStore } from "@/store";
+import { useAgreeStore, useAuthStore } from "@/store";
 
 export default function AuthBootstrap() {
   const router = useRouter();
   const pathname = usePathname();
+  const { logout } = useAgreeStore();
 
   const { mutate: refreshTokenMutate } = useApiRefreshToken();
   const ranRef = useRef(false);
@@ -43,6 +44,7 @@ export default function AuthBootstrap() {
         }
       },
       onError: (error) => {
+        logout();
         if (error.code === "AUTH401-INVALID_REFRESH" && isProtectPath) {
           router.replace("/login?reason=session-expired");
         }

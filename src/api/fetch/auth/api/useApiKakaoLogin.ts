@@ -3,9 +3,9 @@ import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
-import { kakaoLoginResponseType } from "../types/KakaoLoginResponseType";
+import { KakaoLoginResponseType } from "../types/KakaoLoginResponseType";
 
-interface kakaoRequestType {
+interface KakaoRequestType {
   code: string;
   environment: string;
   privacyPolicyAgreed?: boolean;
@@ -19,7 +19,7 @@ const useApiKakaoLogin = () => {
 
   const { addToast } = useToast();
 
-  return useAppMutation<kakaoRequestType, kakaoLoginResponseType, ApiBaseResponseType<null>>(
+  return useAppMutation<KakaoRequestType, KakaoLoginResponseType, ApiBaseResponseType<null>>(
     "auth",
     "/auth/kakao",
     "post",
@@ -28,7 +28,6 @@ const useApiKakaoLogin = () => {
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
         }
-        router.replace("/");
       },
       onError: (error) => {
         if (error.code === "AUTH400-KAKAO_CODE_INVALID")
