@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { useEffect, useState, useMemo } from "react";
+import { UseFormReturn, useWatch } from "react-hook-form";
 import { useWriteStore } from "@/store";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
@@ -13,21 +13,45 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
   useEffect(() => {
     methods.setValue("postType", postType ?? "", { shouldValidate: true });
-    methods.setValue("address", fullAddress ?? "", { shouldValidate: true });
+    methods.setValue("address", fullAddress || "", { shouldValidate: true });
     methods.setValue("latitude", lat ?? null, { shouldValidate: true });
     methods.setValue("longitude", lng ?? null, { shouldValidate: true });
     methods.setValue("radius", radius ?? null, { shouldValidate: true });
   }, [postType, fullAddress, lat, lng, radius, methods]);
 
-  const canSubmit = (values: PostWriteFormValues) => {
-    if (!postType) return false;
-    if (!fullAddress) return false;
-    if (lat == null || lng == null || radius == null) return false;
-    if (!values.category) return false;
-    if (!values.title || !values.content) return false;
+  const watchedValues = useWatch({
+    control: methods.control,
+  });
 
-    return true;
-  };
+  const canSubmit = useMemo(() => {
+    const currentPostType = watchedValues.postType || postType;
+    const currentAddress = watchedValues.address || fullAddress;
+    const currentLat = watchedValues.latitude ?? lat;
+    const currentLng = watchedValues.longitude ?? lng;
+    const currentRadius = watchedValues.radius ?? radius;
+
+    const hasLocation =
+      !!currentAddress && currentLat != null && currentLng != null && currentRadius != null;
+    const hasCategory = !!watchedValues.category;
+    const hasTitle = !!watchedValues.title && watchedValues.title.trim() !== "";
+    const hasContent = !!watchedValues.content && watchedValues.content.trim() !== "";
+
+    return !!currentPostType && hasLocation && hasCategory && hasTitle && hasContent;
+  }, [
+    watchedValues.postType,
+    watchedValues.address,
+    watchedValues.latitude,
+    watchedValues.longitude,
+    watchedValues.radius,
+    watchedValues.category,
+    watchedValues.title,
+    watchedValues.content,
+    postType,
+    fullAddress,
+    lat,
+    lng,
+    radius,
+  ]);
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [pendingValues, setPendingValues] = useState<PostWriteFormValues | null>(null);

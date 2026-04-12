@@ -2,12 +2,10 @@ import useAppQuery from "@/api/_base/query/useAppQuery";
 import { GetMarkerResponse } from "../types/GetMarkerType";
 import { useMainKakaoMapStore } from "@/store";
 import { keepPreviousData } from "@tanstack/react-query";
-
-const MARKER_FETCH_DISABLED_LEVEL_MIN = 9;
-const MARKER_FETCH_DISABLED_LEVEL_MAX = 13;
+import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";
 
 export const isMarkerFetchDisabledByZoom = (mapLevel: number): boolean => {
-  return mapLevel >= MARKER_FETCH_DISABLED_LEVEL_MIN && mapLevel <= MARKER_FETCH_DISABLED_LEVEL_MAX;
+  return isMapZoomFetchDisabled(mapLevel);
 };
 
 const useGetMarker = () => {

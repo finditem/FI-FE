@@ -16,6 +16,8 @@ export interface NotificationSetting {
   enabledCategories: CategoryType[];
   browserNotificationEnabled: boolean;
   marketingConsent: boolean;
+  contentPolicyAgreed: boolean;
+  termsOfServiceAgreed: boolean;
 }
 
 export interface notificationSettingRequest {
@@ -29,4 +31,6 @@ export interface notificationSettingRequest {
   enabledCategories?: CategoryType[];
   browserNotificationEnabled?: boolean;
   marketingConsent?: boolean;
+  contentPolicyAgreed?: boolean;
+  termsOfServiceAgreed?: boolean;
 }

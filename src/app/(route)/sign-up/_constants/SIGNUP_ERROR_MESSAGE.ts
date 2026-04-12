@@ -1,5 +1,8 @@
 export const SIGNUP_ERROR_MESSAGE = {
-  "AUTH409-EMAIL_DUPLICATED": { message: "이미 가입된 이메일이에요", status: "warning" },
+  "AUTH409-EMAIL_DUPLICATED": {
+    message: "이미 가입된 이메일이에요",
+    status: "warning",
+  },
   "AUTH400-EMAIL_INVALID": { message: "올바른 이메일 형식이 아니에요", status: "warning" },
   "AUTH400-WEAK_PASSWORD": { message: "비밀번호 규칙을 만족하지 않아요", status: "warning" },
   "AUTH409-EMAIL_RECENTLY_DELETED": {

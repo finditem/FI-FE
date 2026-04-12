@@ -8,10 +8,13 @@ import {
 } from "./_internal";
 import useSectionHeights from "../../_hooks/useSectionHeights";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
+import { cn } from "@/utils";
 
 interface DefaultSheetContentProps {
   onSectionHeights?: (heights: DefaultSheetContentHeights) => void;
 }
+
+const DIVIDER_STYLE = "w-full border-0 border-solid border-t-[0.7px] border-divider-default";
 
 const DefaultSheetContent = ({ onSectionHeights }: DefaultSheetContentProps) => {
   const refs = useSectionHeights(onSectionHeights);
@@ -24,14 +27,14 @@ const DefaultSheetContent = ({ onSectionHeights }: DefaultSheetContentProps) => 
 
       <div ref={refs.recentRef}>
         <RecentFoundItemSection />
-        <hr className="my-5 w-full border-[0.7px] border-divider-default" />
+        <hr className={cn("my-5", DIVIDER_STYLE)} />
       </div>
 
       <div ref={refs.policeRef}>
         <PoliceSection />
       </div>
 
-      <hr className="w-full border-collapse border-[0.7px] border-divider-default" />
+      <hr className={DIVIDER_STYLE} />
       <SupportLinkSection />
     </div>
   );

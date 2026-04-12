@@ -21,7 +21,6 @@ interface FocusedProps {
 }
 
 const LOCATION_PLACEHOLDER_DEFAULT = "현재 위치 (위치 정보 허용 시)";
-
 const HeaderSearchForm = ({
   searchValue,
   setFocused,
@@ -78,6 +77,10 @@ const HeaderSearchForm = ({
     if (focused) {
       inputRef.current?.blur();
       setFocused(false);
+      if (!searchValue?.trim()) {
+        setValue("search", "");
+        setSearchKeyword("");
+      }
       return;
     }
     router.back();
@@ -102,7 +105,13 @@ const HeaderSearchForm = ({
           setSearchKeyword(e.target.value);
         }}
         type="text"
-        onFocus={() => setFocused(true)}
+        onFocus={() => {
+          setFocused(true);
+          if (!searchValue?.trim() && geoGranted && isResolvedGpsAddress) {
+            setValue("search", userGpsAddress);
+            setSearchKeyword(userGpsAddress);
+          }
+        }}
         className={cn(
           "w-full pl-8 text-h3-semibold text-flatGray-700 placeholder:text-flatGray-700"
         )}
@@ -115,7 +124,11 @@ const HeaderSearchForm = ({
         aria-label={isDropdownOpen ? "뒤로가기" : "위치 검색"}
         className="absolute left-5 top-1/2 -translate-y-1/2"
       >
-        <Icon name={isDropdownOpen ? "ArrowLeftSmall" : "Search"} size={20} />
+        <Icon
+          name={isDropdownOpen ? "ArrowLeftSmall" : "Search"}
+          size={20}
+          className={!isDropdownOpen ? "text-brand-strong-default" : ""}
+        />
       </button>
     </form>
   );

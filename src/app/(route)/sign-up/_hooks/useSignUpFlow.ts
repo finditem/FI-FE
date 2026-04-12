@@ -53,6 +53,8 @@ export const useSignUpFlow = ({ onSubmit }: useSignUpFlowProps) => {
         password: data.password,
         nickname: data.nickname,
         privacyPolicyAgreed: data.privacyPolicyAgreed,
+        termsOfServiceAgreed: data.termsOfServiceAgreed,
+        contentPolicyAgreed: data.contentPolicyAgreed,
         marketingConsent: data.marketingConsent,
       };
       onSubmit(selectedData);

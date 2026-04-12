@@ -2,6 +2,7 @@
 
 import { cn } from "@/utils";
 import { useModalBackdrop, useModalLockAndEsc } from "@/hooks";
+import { createPortal } from "react-dom";
 
 /**
  * @author jikwon
@@ -32,8 +33,9 @@ const PopupLayout = ({ isOpen, onClose, children, className }: PopupLayoutProps)
   const onBackdropMouseDown = useModalBackdrop({ onClose });
 
   if (!isOpen) return null;
+  if (typeof document === "undefined") return null;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[9999] flex items-end justify-center bg-black/30"
       onMouseDown={onBackdropMouseDown}
@@ -48,7 +50,8 @@ const PopupLayout = ({ isOpen, onClose, children, className }: PopupLayoutProps)
       >
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

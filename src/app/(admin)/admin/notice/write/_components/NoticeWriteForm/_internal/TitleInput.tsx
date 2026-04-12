@@ -12,7 +12,7 @@ const TitleInput = () => {
         type="text"
         autoFocus
         placeholder="제목을 입력해 주세요."
-        className="w-full pr-10 text-body1-medium placeholder:text-neutral-normal-placeholder"
+        className="w-full pr-10 text-body1-medium text-neutral-normal-default placeholder:text-neutral-normal-placeholder"
         maxLength={50}
         {...register("title", {
           required: "제목을 입력해 주세요.",

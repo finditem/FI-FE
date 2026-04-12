@@ -27,6 +27,8 @@ export type ActivityDetailType =
   | "COMMENT"
   | "FAVORITE"
   | "INQUIRY"
+  | "INQUIRY_RECEIVED"
+  | "INQUIRY_ANSWERED"
   | "REPORT"
-  | "INQUIRY_REPLY"
-  | "REPORT_RESULT";
+  | "REPORT_RECEIVED"
+  | "REPORT_ANSWERED";

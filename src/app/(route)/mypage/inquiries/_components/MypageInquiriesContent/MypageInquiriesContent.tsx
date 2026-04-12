@@ -7,7 +7,7 @@ import { LoadingState } from "@/components/state";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks/domain";
-import { formatDate } from "@/utils";
+import { formatDate, highlightText } from "@/utils";
 import Link from "next/link";
 import { useEffect } from "react";
 import { INQUIRY_STATUS_CHIP } from "../../_constants/INQUIRY_STATUS_CHIP";
@@ -15,9 +15,10 @@ import { useSearchParams } from "next/navigation";
 
 interface MypageInquiryItemProps {
   inquiries: InquiryItemType;
+  keyword?: string;
 }
 
-const MypageInquiryItem = ({ inquiries }: MypageInquiryItemProps) => {
+const MypageInquiryItem = ({ inquiries, keyword }: MypageInquiryItemProps) => {
   const { inquiryId, title, content, status, createdAt } = inquiries;
 
   return (
@@ -28,7 +29,9 @@ const MypageInquiryItem = ({ inquiries }: MypageInquiryItemProps) => {
           type={INQUIRY_STATUS_CHIP[status].chipType}
         />
 
-        <h3 className="mt-2 text-h3-semibold text-layout-header-default">{title}</h3>
+        <h3 className="mt-2 text-h3-semibold text-layout-header-default">
+          {keyword ? highlightText(title, keyword) : title}
+        </h3>
 
         <time
           dateTime={createdAt}
@@ -88,7 +91,7 @@ const MypageInquiriesContent = () => {
           <ul>
             {inquiriesData &&
               inquiriesData.map((item) => (
-                <MypageInquiryItem key={item.inquiryId} inquiries={item} />
+                <MypageInquiryItem key={item.inquiryId} inquiries={item} keyword={keyword} />
               ))}
           </ul>
 

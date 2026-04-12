@@ -6,11 +6,13 @@ import { useMainKakaoMapStore } from "@/store";
 import { debounce } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
+import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";
 
 const useRecentFound = () => {
   const { latLng, mapLevel } = useMainKakaoMapStore();
   const level = Math.min(mapLevel, 11);
   const { lat, lng } = latLng;
+  const isRecentFoundFetchDisabled = isMapZoomFetchDisabled(mapLevel);
 
   const [debouncedLatLng, setDebouncedLatLng] = useState(latLng);
 
@@ -35,7 +37,10 @@ const useRecentFound = () => {
     "public",
     ["recent-found", level, debouncedLatitude, debouncedLongitude],
     `/main/posts/recent-found?latitude=${debouncedLatitude}&longitude=${debouncedLongitude}&level=${level}`,
-    { placeholderData: keepPreviousData }
+    {
+      placeholderData: keepPreviousData,
+      enabled: !isRecentFoundFetchDisabled,
+    }
   );
 };
 

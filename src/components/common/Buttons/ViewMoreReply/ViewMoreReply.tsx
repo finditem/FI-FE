@@ -40,7 +40,6 @@ interface ViewMoreReplyProps {
   replyComponent?: ReactNode;
 }
 
-// TODO(형준): svgr 수정 시, 아이콘 색 수정
 const ViewMoreReply = ({
   text,
   onWriteReply,

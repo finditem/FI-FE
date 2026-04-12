@@ -13,12 +13,13 @@ import { EmptyState } from "@/components/state";
 import { useInfiniteScroll } from "@/hooks";
 import { cn, formatDate } from "@/utils";
 import { useRouter } from "next/navigation";
+import type { Dispatch, SetStateAction } from "react";
 
 interface AlertItemProps {
   item: NotificationListItem;
   isDeleteMode: boolean;
   selectedNotifications: number[];
-  setSelectedNotifications: (selectedNotifications: number[]) => void;
+  setSelectedNotifications: Dispatch<SetStateAction<number[]>>;
 }
 
 const AlertItem = ({
@@ -28,53 +29,73 @@ const AlertItem = ({
   setSelectedNotifications,
 }: AlertItemProps) => {
   const router = useRouter();
-  const { notificationId, type, title, message, referenceType, referenceId, isRead, createdAt } =
-    item;
+  const {
+    notificationId,
+    type,
+    title,
+    message,
+    referenceType,
+    referenceId,
+    isRead,
+    createdAt,
+    roomId,
+  } = item;
   const { mutate: readNotification } = useNotificationRead();
   const { icon, bg } = getAlertIconBackgroundColor(type, referenceType);
   const titleSegments = getAlertTitleSegments(type, title);
-  const IconSize = referenceType === "NOTICE" ? 20 : 15;
+  const IconSize = referenceType === "NOTICE" && type !== "COMMENT" ? 20 : 15;
   const isSelected = selectedNotifications.includes(notificationId);
 
-  const handleAlertRoute = () => {
-    if (isDeleteMode) return;
-
-    readNotification({ ids: [notificationId] });
-    router.push(alertRouteUrl(referenceType, referenceId));
+  const handleSelectNotification = (id: number) => {
+    setSelectedNotifications((prev) =>
+      prev.includes(id) ? prev.filter((n) => n !== id) : [...prev, id]
+    );
   };
 
-  const handleSelectNotification = (notificationId: number) => {
-    if (selectedNotifications.includes(notificationId)) {
-      setSelectedNotifications(selectedNotifications.filter((id) => id !== notificationId));
-    } else {
-      setSelectedNotifications([...selectedNotifications, notificationId]);
+  const handleRowClick = () => {
+    if (isDeleteMode) {
+      handleSelectNotification(notificationId);
+      return;
     }
+    readNotification({ ids: [notificationId] });
+    router.push(alertRouteUrl(referenceType, referenceId, roomId));
   };
 
   return (
     <button
-      onClick={handleAlertRoute}
-      aria-label="알림 확인, 외부 페이지 이동"
-      key={notificationId}
+      type="button"
+      onClick={handleRowClick}
+      aria-label={
+        isDeleteMode
+          ? isSelected
+            ? "선택된 알림, 탭하면 선택 해제"
+            : "알림 선택"
+          : "알림 확인, 외부 페이지 이동"
+      }
       className={cn(
         "flex min-h-[86px] w-full items-start gap-3 border-b border-divider-default p-5 text-left transition-colors",
-        isDeleteMode ? "cursor-default" : "cursor-pointer",
+        "cursor-pointer",
         isRead
           ? ALERT_ROW_BG.read[isDeleteMode ? "delete" : "default"]
           : ALERT_ROW_BG.unread[isDeleteMode ? "delete" : "default"]
       )}
     >
       {isDeleteMode && (
-        <CheckBox
-          id={String(notificationId)}
-          checked={isSelected}
-          label=""
-          boxSize="size-6"
-          onChange={() => handleSelectNotification(notificationId)}
+        <span
+          className="flex shrink-0"
           onClick={(e) => e.stopPropagation()}
-        />
+          onKeyDown={(e) => e.stopPropagation()}
+        >
+          <CheckBox
+            id={String(notificationId)}
+            checked={isSelected}
+            label=""
+            boxSize="size-6"
+            onChange={() => handleSelectNotification(notificationId)}
+          />
+        </span>
       )}
-      <div className={cn("h-[30px] w-[30px] flex-shrink-0 rounded-full flex-center", bg)}>
+      <div className={cn("size-[30px] flex-shrink-0 rounded-full flex-center", bg)}>
         <Icon name={icon as IconName} size={IconSize} />
       </div>
       <div className="flex min-w-0 flex-1 flex-col gap-1">
@@ -101,7 +122,7 @@ const AlertItem = ({
 interface AlertListProps {
   isDeleteMode: boolean;
   selectedNotifications: number[];
-  setSelectedNotifications: (selectedNotifications: number[]) => void;
+  setSelectedNotifications: Dispatch<SetStateAction<number[]>>;
 }
 
 const AlertList = ({

@@ -15,13 +15,16 @@ export const useProfileFormSubmit = ({
   isNicknameVerified,
 }: useProfileFormSubmitProps) => {
   const router = useRouter();
-  const { getValues } = useFormContext();
-  const { mutate: PatchUserMeMutate } = usePatchProfile();
+  const { getValues, reset } = useFormContext();
+  const { mutate: PatchUserMeMutate, isPending } = usePatchProfile();
 
   // 실제 API 호출을 수행하는 로직
   const executeMutation = (formData: FormData) => {
     PatchUserMeMutate(formData, {
-      onSuccess: () => router.push("/mypage"),
+      onSuccess: () => {
+        reset(getValues());
+        router.push("/mypage");
+      },
     });
   };
 
@@ -59,5 +62,6 @@ export const useProfileFormSubmit = ({
 
   return {
     handleSubmitMypageProfile,
+    isPending,
   };
 };

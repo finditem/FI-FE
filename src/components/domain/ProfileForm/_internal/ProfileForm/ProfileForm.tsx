@@ -25,6 +25,8 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
   const [openKebabMenu, setOpenKebabMenu] = useState(false);
   const { setValue, watch } = useFormContext();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const ref = useClickOutside(() => setOpenKebabMenu(false));
 
   // 닉네임 처리
@@ -39,9 +41,16 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
     });
 
   // 최종 버튼 제출
-  const { handleSubmitMypageProfile } = useProfileFormSubmit({
+  const { handleSubmitMypageProfile, isPending } = useProfileFormSubmit({
     preProfileImg: profileImg,
-    onConfirmRequest,
+    onConfirmRequest: (submitFn) => {
+      setIsSubmitting(true);
+      if (onConfirmRequest) {
+        onConfirmRequest(submitFn);
+      } else {
+        submitFn();
+      }
+    },
     isNicknameVerified,
   });
 
@@ -50,7 +59,7 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
 
   const canSubmit = isImageChanged || isNicknameVerified;
 
-  const hasChanges = isImageChanged || nicknameValue;
+  const hasChanges = (isImageChanged || nicknameValue) && !isSubmitting;
   usePreventLeave(hasChanges, () => setOpenModal(true));
 
   return (
@@ -132,7 +141,11 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
         <MypageProfileModal isOpen={openModal} onClose={() => setOpenModal(false)} />
       </div>
 
-      <FooterButton type="button" disabled={!canSubmit} onClick={handleSubmitMypageProfile}>
+      <FooterButton
+        type="button"
+        disabled={!canSubmit || isPending}
+        onClick={handleSubmitMypageProfile}
+      >
         설정 완료
       </FooterButton>
     </form>

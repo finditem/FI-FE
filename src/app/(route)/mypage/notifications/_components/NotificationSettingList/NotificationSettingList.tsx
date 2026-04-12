@@ -10,7 +10,7 @@ import { DEFAULT_NOTIFICATION_SETTING } from "../../_constants/DEFAULT_NOTIFICAT
 import { useEffect } from "react";
 
 const NotificationSettingList = () => {
-  const { data: notificationData, isLoading } = useGetNotificationSetting();
+  const { data: notificationData, isLoading } = useGetNotificationSetting({ enabled: true });
 
   const { handleToggle } = useToggleClick(notificationData?.result);
 

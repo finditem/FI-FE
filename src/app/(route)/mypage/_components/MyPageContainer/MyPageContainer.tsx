@@ -6,15 +6,24 @@ import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
 import { useGetUsersMe } from "@/api/fetch/user";
-import { BetaTestMypageBanner } from "@/components/domain";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const { data, isFetching, error } = useGetUsersMe(hasToken);
+
   const { addToast } = useToast();
 
   useEffect(() => {
-    if (error) {
-      addToast("프로필 정보를 불러오는데 실패했어요.", "warning");
+    if (!error) return;
+
+    const errorCode = error?.response?.data.code;
+    if (
+      errorCode === "USER404-NOT_FOUND" ||
+      errorCode === "COMMON401" ||
+      errorCode === "AUTH401-INVALID_REFRESH"
+    ) {
+      // noop
+    } else {
+      addToast("예상치 못한 에러가 발생했어요", "error");
     }
   }, [error, addToast]);
 
@@ -31,8 +40,6 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
       <MyPageProfile userData={userData} loading={isFetching} />
 
       <MyPageIconNav disabled={isFetching} />
-
-      <BetaTestMypageBanner />
 
       <MyPageMenuSection isUserLogin={!!userData} disabled={isFetching} />
     </div>

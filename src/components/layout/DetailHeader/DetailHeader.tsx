@@ -3,6 +3,7 @@
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Icon } from "@/components/common";
+import { cn } from "@/utils";
 
 interface DetailHeaderProps {
   title?: ReactNode;
@@ -43,6 +44,8 @@ interface DetailHeaderProps {
  * ```
  */
 
+const HEADER_HEIGHT = "h-14";
+
 const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
   const router = useRouter();
 
@@ -65,24 +68,32 @@ const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 w-full items-center justify-between bg-white px-5">
-      <div className="flex items-center gap-2">
-        <button
-          className="h-[30px] w-[30px]"
-          type="button"
-          onClick={handleBack}
-          aria-label="뒤로가기"
-        >
-          <Icon name="ArrowLeftSmall" size={30} className="text-neutral-strong-default" />
-        </button>
-        {title && <h2 className="text-xl font-semibold text-layout-header-default">{title}</h2>}
-      </div>
-      {children && (
-        <div className="flex gap-[23.5px]" aria-label="헤더 액션">
-          {children}
+    <>
+      <header
+        className={cn(
+          "fixed top-0 z-30 mx-auto flex h-14 w-full max-w-[764px] items-center justify-between bg-white px-5",
+          HEADER_HEIGHT
+        )}
+      >
+        <div className="flex items-center gap-2">
+          <button
+            className="h-[30px] w-[30px]"
+            type="button"
+            onClick={handleBack}
+            aria-label="뒤로가기"
+          >
+            <Icon name="ArrowLeftSmall" size={30} className="text-neutral-strong-default" />
+          </button>
+          {title && <h2 className="text-xl font-semibold text-layout-header-default">{title}</h2>}
         </div>
-      )}
-    </header>
+        {children && (
+          <div className="flex gap-[23.5px]" aria-label="헤더 액션">
+            {children}
+          </div>
+        )}
+      </header>
+      <div className={HEADER_HEIGHT} aria-hidden />
+    </>
   );
 };
 

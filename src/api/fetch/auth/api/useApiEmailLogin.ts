@@ -1,5 +1,6 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import { AxiosError } from "axios";
 
 interface ApiEmailLoginType {
   email: string;
@@ -15,7 +16,7 @@ const useApiEmailLogin = () => {
   return useAppMutation<
     ApiEmailLoginType,
     EmailLoginResponseType,
-    { response: { data: { isSuccess: boolean; code: string; message: string } } }
+    AxiosError<ApiBaseResponseType<null>>
   >("auth", "auth/login", "post");
 };
 

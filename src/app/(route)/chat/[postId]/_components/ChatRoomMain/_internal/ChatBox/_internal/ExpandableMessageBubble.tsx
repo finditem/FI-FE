@@ -49,14 +49,14 @@ const ExpandableMessageBubble = ({
         {content}
       </p>
 
-      {isOverflowing && !isExpanded ? (
+      {isOverflowing ? (
         <button
           type="button"
           aria-expanded={isExpanded}
           className="text-caption1-medium text-layout-body-default underline"
-          onClick={() => setIsExpanded(true)}
+          onClick={() => setIsExpanded((prev) => !prev)}
         >
-          더보기
+          {isExpanded ? "숨기기" : "더보기"}
         </button>
       ) : null}
     </div>

@@ -8,6 +8,7 @@ import { formatDate } from "@/utils";
 import { useEffect } from "react";
 import { REPORT_STATUS_CHIP } from "../../../_constants/REPORT_STATUS_CHIP";
 import ReportCommentItem from "../ReportCommentItem/ReportCommentItem";
+import { REPORT_TYPE_TITLE } from "@/app/(admin)/admin/_constants/REPORT_TYPE_TITLE";
 
 const MypageReportsIdContainer = ({ id }: { id: number }) => {
   const { data: reportIdData, isError, isLoading } = useGetReportById({ reportId: id });
@@ -25,6 +26,7 @@ const MypageReportsIdContainer = ({ id }: { id: number }) => {
   const {
     nickname,
     reportId,
+    reportType,
     targetId,
     targetType,
     targetTitle,
@@ -38,7 +40,7 @@ const MypageReportsIdContainer = ({ id }: { id: number }) => {
     <div className="w-full h-base">
       <div className="border-b-flat-gray-50 w-full border-b px-5 py-[30px]">
         <Chip label={REPORT_STATUS_CHIP[status].label} type={REPORT_STATUS_CHIP[status].chipType} />
-        <h2 className="mt-[14px] text-h2-medium">{targetTitle}</h2>
+        <h2 className="mt-[14px] text-h2-medium">{REPORT_TYPE_TITLE[reportType]}</h2>
         <time dateTime={createdAt} className="mt-1 text-body2-regular text-layout-body-default">
           {formatDate(createdAt)}
         </time>

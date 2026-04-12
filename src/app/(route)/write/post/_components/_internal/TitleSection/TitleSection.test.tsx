@@ -1,50 +1,58 @@
 import { render, screen } from "@testing-library/react";
 import TitleSection from "./TitleSection";
-import { useWatch } from "react-hook-form";
-
-const registerMock = jest.fn(() => ({ name: "title" }));
 
 jest.mock("@/components/common", () => ({
   RequiredText: () => <span data-testid="required-text">*</span>,
 }));
 
+const mockOnChange = jest.fn();
+let mockFieldValue = "";
+
 jest.mock("react-hook-form", () => ({
   useFormContext: () => ({
-    register: registerMock,
     control: {},
   }),
-  useWatch: jest.fn(),
+  Controller: ({
+    render: renderProp,
+    rules,
+  }: {
+    render: Function;
+    rules?: object;
+    name: string;
+    control: object;
+  }) => {
+    return renderProp({
+      field: {
+        name: "title",
+        value: mockFieldValue,
+        onChange: mockOnChange,
+        onBlur: jest.fn(),
+        ref: jest.fn(),
+      },
+      fieldState: {},
+      formState: {},
+    });
+  },
 }));
 
 describe("TitleSection", () => {
+  beforeEach(() => {
+    mockFieldValue = "";
+    mockOnChange.mockClear();
+  });
+
   it("제목 입력 섹션이 렌더링되어야 한다", () => {
-    (useWatch as jest.Mock).mockReturnValue("");
     render(<TitleSection />);
     expect(screen.getByText("제목을 입력해 주세요.")).toBeInTheDocument();
   });
 
-  it("제목 입력 input이 존재하고 placeholder가 설정되어 있어야 한다", () => {
-    (useWatch as jest.Mock).mockReturnValue("");
+  it("제목 입력 input이 존재해야 한다", () => {
     render(<TitleSection />);
-
-    const input = screen.getByPlaceholderText("제목을 입력해 주세요.");
+    const input = screen.getByRole("textbox");
     expect(input).toBeInTheDocument();
   });
 
-  it("register가 올바른 유효성 검사 옵션과 함께 호출되어야 한다", () => {
-    (useWatch as jest.Mock).mockReturnValue("");
-    render(<TitleSection />);
-    expect(registerMock).toHaveBeenCalledWith(
-      "title",
-      expect.objectContaining({
-        required: "제목을 입력해 주세요.",
-        maxLength: { value: 50, message: "제목은 50자 이내로 입력해 주세요." },
-      })
-    );
-  });
-
   it("라벨 텍스트와 RequiredText가 함께 표시되어야 한다", () => {
-    (useWatch as jest.Mock).mockReturnValue("");
     render(<TitleSection />);
 
     const labelText = screen.getByText("제목을 입력해 주세요.");
@@ -55,7 +63,7 @@ describe("TitleSection", () => {
   });
 
   it("사용자가 입력을 시작하여 값이 생기면 라벨이 사라져야 한다", async () => {
-    (useWatch as jest.Mock).mockReturnValue("테스트 제목");
+    mockFieldValue = "테스트 제목";
     render(<TitleSection />);
 
     const labelText = screen.queryByText("제목을 입력해 주세요.");

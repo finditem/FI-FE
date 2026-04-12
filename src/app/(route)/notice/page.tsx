@@ -11,7 +11,7 @@ import { ErrorState } from "@/components/state";
 import { useGetUsersMe } from "@/api/fetch/user";
 
 const NoticePageContent = () => {
-  const { searchUpdateQuery } = useSearchUpdateQueryString();
+  const { searchUpdateQuery } = useSearchUpdateQueryString("replace");
 
   return (
     <>

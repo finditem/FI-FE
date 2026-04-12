@@ -12,7 +12,7 @@ const ProfileEditLeaveConfirmModal = ({ isOpen, onClose }: ProfileEditLeaveConfi
     <ModalLayout
       isOpen={isOpen}
       onClose={onClose}
-      className="min-w-[300px] gap-6 rounded-[8px] p-6 flex-col-center"
+      className="min-w-[300px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-1 flex-col-center">
         <h3 className="text-h3-semibold text-layout-header-default">

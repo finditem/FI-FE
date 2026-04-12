@@ -18,6 +18,11 @@ export const ADMIN_NAV_SECTIONS = [
     items: [{ href: "/admin/withdrawal-reasons", title: "유저 탈퇴 사유" }],
   },
   {
+    id: "content",
+    label: "게시글 관리",
+    items: [{ href: "/admin/content-agree", title: "콘텐츠 활용 동의 게시글" }],
+  },
+  {
     id: "account",
     label: "계정 설정",
     items: [{ href: "/change-password", title: "비밀번호 변경" }],

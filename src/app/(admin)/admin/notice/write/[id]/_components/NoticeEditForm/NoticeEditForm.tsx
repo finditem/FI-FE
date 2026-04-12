@@ -31,7 +31,6 @@ const NoticeEditForm = ({ noticeId }: NoticeEditFormProps) => {
   const onSubmit = (data: NoticeEditFormValues) => submitNoticeEdit(data);
 
   return (
-    // TODO(형준): 내부 input 컴포넌트 value 있을 때 스타일 구현 필요
     <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col h-base">
       <TitleInput />
       <CategoryInput />

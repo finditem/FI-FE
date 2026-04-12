@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from "react";
 import { SIZES } from "./constantKebabMenuButton";
 import Icon from "../../Icon/Icon";
+import { cn } from "@/utils";
 
 /**
  * @author hyungjun
@@ -28,11 +29,17 @@ interface KebabMenuButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "large" | "small";
 }
 
-// TODO(형준): svgr 수정 시 hover, active, disabled 스타일 추가
 const KebabMenuButton = ({ ariaLabel, size = "large", ...props }: KebabMenuButtonProps) => {
   return (
     <button {...props} aria-label={ariaLabel}>
-      <Icon name="DetailMenu" size={SIZES[size]} />
+      <Icon
+        name="DetailMenu"
+        size={SIZES[size]}
+        className={cn(
+          "text-neutral-normal-default hover:text-neutral-normal-hover active:text-neutral-normal-preesed disabled:text-neutral-normal-disabled",
+          props.className
+        )}
+      />
     </button>
   );
 };

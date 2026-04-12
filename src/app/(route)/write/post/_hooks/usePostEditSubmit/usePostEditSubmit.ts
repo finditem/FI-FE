@@ -11,19 +11,19 @@ interface UsePostEditSubmitProps {
 }
 
 const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
-  const { lat, lng, address, radius, postType, clearLocation } = useWriteStore();
+  const { lat, lng, fullAddress, radius, postType, clearLocation } = useWriteStore();
 
   useEffect(() => {
     methods.setValue("postType", postType ?? "", { shouldValidate: true });
-    methods.setValue("address", address ?? "", { shouldValidate: true });
+    methods.setValue("address", fullAddress ?? "", { shouldValidate: true });
     methods.setValue("latitude", lat ?? null, { shouldValidate: true });
     methods.setValue("longitude", lng ?? null, { shouldValidate: true });
     methods.setValue("radius", radius ?? null, { shouldValidate: true });
-  }, [postType, address, lat, lng, radius, methods]);
+  }, [postType, fullAddress, lat, lng, radius, methods]);
 
   const canSubmit = (values: PostWriteFormValues) => {
     if (!postType) return false;
-    if (!address) return false;
+    if (!fullAddress) return false;
     if (lat == null || lng == null || radius == null) return false;
     if (!values.category) return false;
     if (!values.title || !values.content) return false;
@@ -35,7 +35,7 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
 
   const toFormData = (values: PostWriteFormValues): FormData | null => {
     if (!postType || !values.category) return null;
-    if (!address || lat == null || lng == null || radius == null) return null;
+    if (!fullAddress || lat == null || lng == null || radius == null) return null;
 
     const firstImage = values.images[0];
     const thumbnailImageId = firstImage?.id ?? null;
@@ -45,7 +45,7 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
       title: values.title,
       category: values.category,
       content: values.content,
-      address: address,
+      address: fullAddress,
       latitude: lat,
       longitude: lng,
       radius: radius,

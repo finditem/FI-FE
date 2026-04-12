@@ -2,11 +2,11 @@
 
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Icon } from "@/components/common";
-import { CATEGORY_OPTIONS } from "@/constants";
+import { Filter } from "@/components/common";
+import { MAP_CATEGORY_FILTER_OPTIONS } from "@/constants";
+import { CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX } from "../../../../_constants/FILTER";
 import { cn } from "@/utils";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
-import HomeFilter from "../HomeFilter/HomeFilter";
 
 interface CategoryFilterProps {
   ariaLabel: string;
@@ -28,36 +28,46 @@ const CategoryFilter = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   usePopoverOutsideClose(isOpen, triggerRef, dropdownRef, () => setIsOpen(false));
-  usePopoverPosition(isOpen, triggerRef, dropdownRef);
+  usePopoverPosition(
+    isOpen,
+    triggerRef,
+    dropdownRef,
+    undefined,
+    CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX
+  );
 
   const handleOptionClick = (value: string) => {
-    const nextValue = selectedValue === value ? undefined : value;
-    onSelect(nextValue);
+    onSelect(value === "" ? undefined : value);
     setIsOpen(false);
   };
 
   return (
     <>
       <div ref={triggerRef}>
-        <HomeFilter
+        <Filter
           ariaLabel={ariaLabel}
           onSelected={isSelected}
+          icon={{ name: "ArrowDown", size: 12 }}
+          iconPosition="trailing"
           onClick={() => setIsOpen((prev) => !prev)}
         >
           {label}
-          <Icon name="ArrowDown" size={12} />
-        </HomeFilter>
+        </Filter>
       </div>
 
       {isOpen &&
         createPortal(
-          <div ref={dropdownRef} className="fixed z-50 flex flex-col">
-            {CATEGORY_OPTIONS.map((option) => (
+          <div
+            ref={dropdownRef}
+            className="fixed z-50 flex max-h-[200px] min-h-0 flex-col overflow-y-auto overscroll-y-contain rounded-[20px] no-scrollbar"
+          >
+            {MAP_CATEGORY_FILTER_OPTIONS.map((option) => (
               <button
-                key={option.value}
+                key={option.value === "" ? "all" : option.value}
+                type="button"
                 onClick={() => handleOptionClick(option.value)}
                 className={cn(
-                  "glass-card w-full text-nowrap border border-white bg-flatGray-25/70 px-7 py-4 text-h3-medium text-neutral-normal-default transition-colors flex-center",
+                  "glass-card h-[58px] w-full shrink-0 text-nowrap border border-white bg-flatGray-25/70 px-7 text-h3-medium text-neutral-normal-default transition-colors flex-center",
                   "first:rounded-t-[20px] last:rounded-b-[20px]"
                 )}
               >

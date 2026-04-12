@@ -5,7 +5,7 @@ export const MYPAGE_MENU_LIST = [
       { pageName: "내가 쓴 게시글", pageLink: "/mypage/posts" },
       { pageName: "내가 쓴 댓글", pageLink: "/mypage/comments" },
       { pageName: "즐겨찾기 목록", pageLink: "/mypage/favorites" },
-      { pageName: "내 활동 내역", pageLink: "/mypage/activity" },
+      { pageName: "내 활동 내역", pageLink: "/mypage/activities" },
       { pageName: "내가 차단한 계정", pageLink: "/mypage/blocked-users" },
     ],
   },
@@ -22,18 +22,17 @@ export const MYPAGE_MENU_LIST = [
     ],
   },
   {
-    title: "계정 설정",
-    pages: [
-      { pageName: "비밀번호 변경", pageLink: "/change-password" },
-      { pageName: "회원 탈퇴", pageLink: "/mypage/delete-account" },
-    ],
+    title: "계정 관리",
+    pages: [{ pageName: "계정 설정", pageLink: "/mypage/account" }],
   },
   {
     title: "서비스 정책",
     pages: [
       { pageName: "서비스 소개", pageLink: "/hello" },
-      { pageName: "개인정보 수집 및 이용 약관", pageLink: "/terms/privacy" },
-      { pageName: "마케팅 수신 동의", pageLink: "/terms/marketing" },
+      { pageName: "개인정보처리방침", pageLink: "/terms/privacy" },
+      { pageName: "서비스 이용 약관", pageLink: "/terms/service" },
+      { pageName: "마케팅 수신 약관", pageLink: "/terms/marketing" },
+      { pageName: "콘텐츠 활용 동의서", pageLink: "/terms/contentPolicy" },
     ],
   },
 ] as const;

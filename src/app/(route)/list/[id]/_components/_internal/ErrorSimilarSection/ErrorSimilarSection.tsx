@@ -1,7 +1,13 @@
 import { Button, Icon } from "@/components/common";
 import { useQueryClient } from "@tanstack/react-query";
 
-const ErrorSimilarSection = ({ postId }: { postId: number }) => {
+const ErrorSimilarSection = ({
+  postId,
+  title = "비슷한 분실물",
+}: {
+  postId: number;
+  title?: string;
+}) => {
   const queryClient = useQueryClient();
 
   const handleRefresh = () => {
@@ -12,7 +18,7 @@ const ErrorSimilarSection = ({ postId }: { postId: number }) => {
     <>
       <hr className="w-full border-neutral-normal-default" />
       <div className="flex flex-col gap-3 py-[18px]">
-        <h2 className="pl-5 text-h2-medium text-flatGray-900">비슷한 분실물</h2>
+        <h2 className="pl-5 text-h2-medium text-flatGray-900">{title}</h2>
 
         <div className="space-y-[18px] py-[10px] flex-col-center">
           <Icon name="ErrorSimilarSection" size={38} />

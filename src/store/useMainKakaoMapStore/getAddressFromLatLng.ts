@@ -7,8 +7,9 @@ import { extractDongAddress } from "@/utils";
  * @author hyungjun
  * @description
  * - 좌표(lat, lng)를 카카오 API로 변환한 뒤,
- * - `address_name`에서 화면에 표시하기 적합하도록 `00동` 단위 문자열을 우선 추출하고,
- * - 실패 시 `road_address`/`address` 원문을 fallback으로 사용합니다.
+ * - 기본(`variant: "short"`)은 `address_name`에서 `00동` 단위 문자열을 우선 추출하고,
+ *   실패 시 `road_address`/`address` 원문을 fallback으로 사용합니다.
+ * - `variant: "full"`이면 도로명·지번 주소 원문을 그대로 반환합니다(플레이스홀더 등).
  *
  * @param lat 위도(y)
  * @param lng 경도(x)
@@ -22,16 +23,26 @@ import { extractDongAddress } from "@/utils";
  * ```
  */
 
+export type GetAddressFromLatLngOptions = {
+  /** `"short"`(기본): 동 단위 우선. `"full"`: API `road_address`/`address` 전체 문자열 */
+  variant?: "short" | "full";
+};
+
 export const getAddressFromLatLng = async (
   lat: number,
   lng: number,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  options?: GetAddressFromLatLngOptions
 ): Promise<string> => {
   const data = await getKakaoLocalCoord2Address(lat, lng, signal);
   const firstDocument = data.documents?.[0];
   const roadAddress = firstDocument?.road_address?.address_name ?? "";
   const jibunAddress = firstDocument?.address?.address_name ?? "";
-  const dongAddress = extractDongAddress(jibunAddress) || extractDongAddress(roadAddress);
 
+  if (options?.variant === "full") {
+    return roadAddress || jibunAddress || "";
+  }
+
+  const dongAddress = extractDongAddress(jibunAddress) || extractDongAddress(roadAddress);
   return dongAddress || roadAddress || jibunAddress || "";
 };

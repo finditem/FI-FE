@@ -10,7 +10,7 @@ const AlertCategory = () => {
   const searchParams = useSearchParams();
   const selectedCategory = (searchParams.get("category") as AlertCategoryKey) || "all";
 
-  const handleCategoryClick = (key: AlertCategoryKey) => router.push(`/alert?category=${key}`);
+  const handleCategoryClick = (key: AlertCategoryKey) => router.replace(`/alert?category=${key}`);
 
   return (
     <div className="flex gap-2 px-5 py-[14px] no-scrollbar">

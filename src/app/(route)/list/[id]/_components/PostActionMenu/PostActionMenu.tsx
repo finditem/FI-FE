@@ -70,9 +70,12 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
                 <span>게시글 수정하기</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
-              <button className={ACTION_MENU.buttonStyle} onClick={() => setDeleteModalOpen(true)}>
+              <button
+                className={cn(ACTION_MENU.buttonStyle, "text-system-warning")}
+                onClick={() => setDeleteModalOpen(true)}
+              >
                 <Icon name="Trash" size={20} />
-                <span className="text-system-warning">게시글 삭제하기</span>
+                <span>게시글 삭제하기</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
               <button className={ACTION_MENU.buttonStyle} onClick={handleStatusChange}>

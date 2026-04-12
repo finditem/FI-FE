@@ -1,7 +1,6 @@
 "use no memo";
 
 import { SIGNUP_INPUT_CONFIG } from "../../_constants/SIGNUP_INPUT_CONFIG";
-import { Button } from "@/components/common";
 import { DetailHeader } from "@/components/layout";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useSignUpBtnClick } from "../../_hooks/useSignUpBtnClick";
@@ -13,8 +12,35 @@ const SignUpField = ({ onNext }: { onNext: () => void }) => {
   const {
     control,
     trigger,
+    setFocus,
     formState: { isValid },
   } = useFormContext();
+
+  const isEmailAuthVerifiedForm = useWatch({ control, name: "isEmailAuthVerified" });
+  const isNicknameVerifiedForm = useWatch({ control, name: "isNicknameVerified" });
+
+  const {
+    isEmailDisabled,
+    isEmailAuthDisabled,
+    isEmailAuthVerified: isEmailAuthVerifiedLocal,
+    handlerToClick,
+    isNicknameVerified: isNicknameVerifiedLocal,
+    isNicknameDisabled,
+    EmailPending,
+    EmailCodePending,
+    timer,
+  } = useSignUpBtnClick();
+
+  const finalEmailVerified = isEmailAuthVerifiedForm || isEmailAuthVerifiedLocal;
+  const finalNicknameVerified = isNicknameVerifiedForm || isNicknameVerifiedLocal;
+
+  const handleVerified = (name: string) => {
+    if (name === "emailAuth") return finalEmailVerified;
+    if (name === "nickname") return finalNicknameVerified;
+    return false;
+  };
+
+  const isNextEnabled = isValid && finalEmailVerified && finalNicknameVerified;
 
   const password = useWatch({ control, name: "password" });
 
@@ -22,33 +48,25 @@ const SignUpField = ({ onNext }: { onNext: () => void }) => {
     void trigger("passwordConfirm");
   }, [password, trigger]);
 
-  const {
-    isEmailDisabled,
-    isEmailAuthDisabled,
-    isEmailAuthVerified,
-    handlerToClick,
-    isNicknameVerified,
-    isNicknameDisabled,
-  } = useSignUpBtnClick();
-
   const handleDisabled = (name: string) => {
     if (name === "emailAuth") return isEmailAuthDisabled;
     else if (name === "email") return isEmailDisabled;
     else if (name === "nickname") return isNicknameDisabled;
   };
 
-  const handleVerified = (name: string) => {
-    if (name === "emailAuth") return isEmailAuthVerified;
-    else if (name === "nickname") return isNicknameVerified;
-    else return false;
+  const handleBtnDisabled = (name: string) => {
+    if (name === "emailAuth") return EmailCodePending;
+    else if (name === "email") return EmailPending || timer > 0;
   };
 
-  const isNextEnabled = isValid && isEmailAuthVerified && isNicknameVerified;
+  const handleTimer = (name: string) => {
+    if (name === "emailAuth" && timer > 0) return timer;
+  };
 
   return (
     <>
       <DetailHeader title="회원가입" />
-      <div className="flex w-full flex-1 flex-col gap-5 px-4 py-5 h-hf-base tablet:px-[80px]">
+      <div className="flex w-full flex-1 flex-col gap-5 px-4 py-5 h-hfb-base tablet:px-[80px]">
         {SIGNUP_INPUT_CONFIG.map((item) => (
           <SignUpItem
             key={item.inputOption.name}
@@ -56,11 +74,17 @@ const SignUpField = ({ onNext }: { onNext: () => void }) => {
             isVerified={handleVerified(item.inputOption.name)}
             inputOption={{
               disabled: handleDisabled(item.inputOption.name),
+              autoFocus: item.inputOption.name === "email",
               ...item.inputOption,
             }}
             btnOption={{
               ...item.btnOption,
-              btnOnClick: () => handlerToClick(item.inputOption.name),
+              btnOnClick: () => handlerToClick(item.inputOption.name, setFocus),
+              disabled: handleBtnDisabled(item.inputOption.name),
+            }}
+            caption={{
+              ...item.caption,
+              timer: handleTimer(item.inputOption.name),
             }}
           />
         ))}

@@ -3,19 +3,20 @@ export const SIGNUP_INPUT_CONFIG = [
     inputOption: {
       name: "email",
       type: "text",
-      placeholder: "로그인에 사용할 이메일을 입력해주세요.",
+      placeholder: "이메일을 입력해 주세요.",
       maxLength: 256,
     },
     label: "아이디(이메일)",
     btnOption: {
       btnLabel: "인증번호 발송",
     },
+    caption: {},
   },
   {
     inputOption: {
       name: "emailAuth",
       type: "text",
-      placeholder: "인증번호를 입력해주세요.",
+      placeholder: "인증번호를 입력해 주세요.",
       maxLength: 6,
     },
     btnOption: {
@@ -35,7 +36,6 @@ export const SIGNUP_INPUT_CONFIG = [
     },
     btnOption: {},
     caption: {
-      // TODO(수현): 문구 변경 예정
       rule: "8~16자리, 대문자/소문자/숫자/특수 문자 포함",
       successMessage: "대문자/소문자/숫자/특수 문자 포함 8~16자리 사이",
     },
@@ -45,7 +45,7 @@ export const SIGNUP_INPUT_CONFIG = [
     inputOption: {
       name: "passwordConfirm",
       type: "password",
-      placeholder: "비밀번호 입력해 주세요.",
+      placeholder: "비밀번호 한번 더 입력해 주세요.",
       maxLength: 16,
     },
     btnOption: {},

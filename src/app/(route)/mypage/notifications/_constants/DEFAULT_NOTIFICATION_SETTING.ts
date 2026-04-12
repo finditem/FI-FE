@@ -11,4 +11,6 @@ export const DEFAULT_NOTIFICATION_SETTING: NotificationSetting = {
   enabledCategories: [],
   browserNotificationEnabled: false,
   marketingConsent: false,
+  contentPolicyAgreed: false,
+  termsOfServiceAgreed: false,
 };

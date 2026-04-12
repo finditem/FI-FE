@@ -8,9 +8,20 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const { termName } = await params;
 
-  if (termName === "privacy") {
-    return <Terms termName="privacyPolicyAgreed" />;
-  } else if (termName === "marketing") {
-    return <Terms termName="marketingConsent" />;
-  } else notFound();
+  switch (termName) {
+    case "privacy":
+      return <Terms termName="privacyPolicyAgreed" />;
+
+    case "service":
+      return <Terms termName="termsOfServiceAgreed" />;
+
+    case "marketing":
+      return <Terms termName="marketingConsent" />;
+
+    case "contentPolicy":
+      return <Terms termName="contentPolicyAgreed" />;
+
+    default:
+      return notFound();
+  }
 }

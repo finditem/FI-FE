@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, TextareaHTMLAttributes, useRef, useState } from "react";
+import { ChangeEvent, TextareaHTMLAttributes, useEffect, useRef, useState } from "react";
 import { cn, textareaAutoResize, fileInputHandler, textareaSubmitKeyHandler } from "@/utils";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import { Icon } from "@/components/common";
@@ -25,10 +25,19 @@ const InputChat = ({
   onImageSendSuccess,
   ...props
 }: InputChatProps) => {
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [images, setImages] = useState<File[]>([]);
   const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
+  const contentValue = watch(name);
+
+  useEffect(() => {
+    if (!textareaRef.current) return;
+
+    if (contentValue === "") {
+      textareaRef.current.style.height = "auto";
+    }
+  }, [contentValue]);
 
   return (
     <>
@@ -93,6 +102,7 @@ const InputChat = ({
                 )}
                 placeholder="메시지 보내기"
                 disabled={disabled}
+                maxLength={255}
               />
 
               {/* 전송 버튼 */}

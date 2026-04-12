@@ -7,7 +7,7 @@ import { LoadingState } from "@/components/state";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks/domain";
-import { formatDate } from "@/utils";
+import { formatDate, highlightText } from "@/utils";
 import Link from "next/link";
 import { useEffect } from "react";
 import { REPORT_STATUS_CHIP } from "../../_constants/REPORT_STATUS_CHIP";
@@ -16,9 +16,10 @@ import { REPORT_TYPE_TITLE } from "@/app/(admin)/admin/_constants/REPORT_TYPE_TI
 
 interface MypageReportsItemProps {
   reports: ReportItemType;
+  keyword?: string;
 }
 
-const MypageReportsItem = ({ reports }: MypageReportsItemProps) => {
+const MypageReportsItem = ({ reports, keyword }: MypageReportsItemProps) => {
   const {
     reportId,
     reportType,
@@ -37,7 +38,9 @@ const MypageReportsItem = ({ reports }: MypageReportsItemProps) => {
         <Chip label={REPORT_STATUS_CHIP[status].label} type={REPORT_STATUS_CHIP[status].chipType} />
 
         <h3 className="mt-2 text-h3-semibold text-layout-header-default">
-          {REPORT_TYPE_TITLE[reportType]}
+          {keyword
+            ? highlightText(REPORT_TYPE_TITLE[reportType], keyword)
+            : REPORT_TYPE_TITLE[reportType]}
         </h3>
 
         <time
@@ -97,7 +100,9 @@ const MypageReportsContent = () => {
         <>
           <ul>
             {reportsData &&
-              reportsData.map((item) => <MypageReportsItem key={item.reportId} reports={item} />)}
+              reportsData.map((item) => (
+                <MypageReportsItem key={item.reportId} reports={item} keyword={keyword} />
+              ))}
           </ul>
 
           {hasNextPage && <div ref={ref} className="h-10" />}

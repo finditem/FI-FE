@@ -1,12 +1,16 @@
 import { ReferenceType } from "@/api/fetch/notification";
 
-export const alertRouteUrl = (referenceType: ReferenceType, referenceId: number): string => {
+export const alertRouteUrl = (
+  referenceType: ReferenceType,
+  referenceId: number,
+  roomId?: number
+): string => {
   switch (referenceType) {
     case "POST":
     case "COMMENT":
       return `/list/${referenceId}`;
     case "CHAT":
-      return `/chat/${referenceId}`;
+      return `/chat/${referenceId}?roomId=${roomId}`;
     case "INQUIRY":
       return `/mypage/inquiries/${referenceId}`;
     case "NOTICE":

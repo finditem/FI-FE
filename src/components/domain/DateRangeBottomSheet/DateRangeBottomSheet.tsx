@@ -153,11 +153,19 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
 
   const [activeTab, setActiveTab] = useState<"startDate" | "endDate">("startDate");
 
-  const handleResetToToday = () => {
-    handleStartResetDate();
-    handleEndResetDate();
+  const handleResetDateFilters = () => {
+    const nextFilters = { ...filters, startDate: undefined, endDate: undefined };
 
-    setActiveTab("startDate");
+    const qs = applyFiltersToUrl({
+      filters: nextFilters,
+      searchParams: new URLSearchParams(searchParams.toString()),
+    });
+
+    router.replace(qs ? `${pathname}?${qs}` : pathname);
+
+    setFilters(nextFilters);
+
+    onClose();
   };
 
   return (
@@ -186,16 +194,6 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
             onClick={() => setActiveTab("endDate")}
           >
             종료일
-          </Filter>
-
-          {/* TODO(수현): 임시 초기화 버튼  */}
-          <Filter
-            ariaLabel="날짜 초기화 버튼"
-            onSelected={false}
-            className="!px-10 !py-2"
-            onClick={handleResetToToday}
-          >
-            초기화
           </Filter>
         </div>
 
@@ -234,9 +232,19 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
         </div>
       </div>
 
-      <Button onClick={handleApply} size="big" className="h-11 w-full">
-        적용하기
-      </Button>
+      <div className="flex w-full gap-2">
+        <Button
+          ariaLabel="날짜 초기화 버튼"
+          variant="outlined"
+          className="h-11 w-1/3"
+          onClick={handleResetDateFilters}
+        >
+          초기화
+        </Button>
+        <Button onClick={handleApply} size="big" className="h-11 w-2/3">
+          적용하기
+        </Button>
+      </div>
     </PopupLayout>
   );
 };

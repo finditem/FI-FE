@@ -1,7 +1,6 @@
 import { Client, IMessage, StompSubscription } from "@stomp/stompjs";
 import authApi from "@/api/_base/axios/authApi";
 import { retryBackoffController } from "@/utils";
-import { useBetaTestFeedbackStore } from "@/store";
 
 export type MessageHandler<T = any> = (message: T) => void;
 
@@ -23,6 +22,28 @@ const reconnectRetryController = retryBackoffController({
 });
 
 let tokenRefreshHandler: (() => void) | null = null;
+
+const REMOTE_CHAT_BROKER_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")}/ws`
+  : "";
+
+const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
+  const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
+  return `${wsProtocol}//${loc.host}/api/ws`;
+};
+
+const getChatSocketBrokerURL = (): string => {
+  if (typeof window === "undefined") return REMOTE_CHAT_BROKER_URL;
+
+  const { hostname } = window.location;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+
+  if (process.env.NODE_ENV !== "production" || isLocal) {
+    return toSameOriginWsBrokerUrl(window.location);
+  }
+
+  return REMOTE_CHAT_BROKER_URL;
+};
 
 const MAX_AUTH_REFRESH_FAILURES = 1;
 let consecutiveAuthRefreshFailures = 0;
@@ -99,7 +120,7 @@ export const connectChatSocket = () => {
   reconnectRetryController.reset();
 
   client = new Client({
-    brokerURL: `${process.env.NEXT_PUBLIC_API_URL}/ws`,
+    brokerURL: getChatSocketBrokerURL(),
     reconnectDelay: 0,
 
     debug: (msg) => {
@@ -252,7 +273,6 @@ export const sendChatSocketMessage = (destination: string, body: unknown): boole
       destination,
       body: JSON.stringify(body),
     });
-    useBetaTestFeedbackStore.getState().openBetaTestModal();
     return true;
   } catch {
     return false;

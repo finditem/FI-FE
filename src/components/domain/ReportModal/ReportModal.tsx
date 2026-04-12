@@ -18,7 +18,7 @@ interface ReportModalProps {
   onClose: () => void;
   targetType: ReportTargetType;
   targetId: number;
-  invalidateKey?: QueryKey;
+  invalidateKeys?: QueryKey[];
 }
 
 /**
@@ -33,7 +33,7 @@ interface ReportModalProps {
  * @param onClose - 모달을 닫을 때 호출되는 콜백 함수
  * @param targetType - 신고 대상의 타입 ("CHAT" | "POST" | "COMMENT" | "USER")
  * @param targetId - 신고 대상의 ID
- * @param invalidateKey - 신고 성공 후 무효화할 Tanstack Query 쿼리 키 (선택)
+ * @param invalidateKeys - 신고 성공 후 무효화할 Tanstack Query 키 목록 (선택)
  *
  * @example
  * ```tsx
@@ -44,7 +44,7 @@ interface ReportModalProps {
  *   onClose={() => setReportOpen(false)}
  *   targetType="CHAT"
  *   targetId={roomId}
- *   invalidateKey={["chatRoom", roomId]}
+ *   invalidateKeys={[ ["chatRoom", roomId], ["posts"], ["user-block-list"] ]}
  * />
  * ```
  */
@@ -54,7 +54,7 @@ const ReportModal = ({
   onClose,
   targetType,
   targetId,
-  invalidateKey,
+  invalidateKeys,
 }: ReportModalProps) => {
   const [openReportReasonModal, setOpenReportReasonModal] = useState(false);
   const [reportType, setReportType] = useState<ReportReason | null>(null);
@@ -65,7 +65,7 @@ const ReportModal = ({
   const { mutate: report, isPending } = useReport({
     reset: () => methods.reset(),
     setReportType: (reportType: ReportReason | null) => setReportType(reportType),
-    invalidateKey: invalidateKey,
+    invalidateKeys,
     onClose: onClose,
   });
 

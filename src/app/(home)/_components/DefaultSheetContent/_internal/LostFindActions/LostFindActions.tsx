@@ -15,7 +15,10 @@ const LostFindActions = () => {
               href={`/list?type=${type}`}
               key={type}
               aria-label={`${title} 목록 페이지로 이동`}
-              className={cn("relative h-[106px] w-full min-w-0 flex-1 rounded-2xl", bgColor)}
+              className={cn(
+                "relative h-[106px] w-full min-w-0 flex-1 overflow-hidden rounded-2xl",
+                bgColor
+              )}
               onDragStart={(e) => e.preventDefault()}
             >
               <Image draggable={false} src={positionImage} alt="" width={50} height={70} priority />

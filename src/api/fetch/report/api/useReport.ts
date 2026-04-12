@@ -8,11 +8,11 @@ import { AxiosError } from "axios";
 interface UseReportParams {
   reset: () => void;
   setReportType: (reportType: ReportReason | null) => void;
-  invalidateKey?: QueryKey;
+  invalidateKeys?: QueryKey[];
   onClose: () => void;
 }
 
-const useReport = ({ reset, setReportType, invalidateKey, onClose }: UseReportParams) => {
+const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportParams) => {
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -22,7 +22,9 @@ const useReport = ({ reset, setReportType, invalidateKey, onClose }: UseReportPa
       setReportType(null);
       toast.addToast("신고가 접수되었어요", "success");
       queryClient.invalidateQueries({ queryKey: ["reports/me"] });
-      invalidateKey && queryClient.invalidateQueries({ queryKey: invalidateKey });
+      invalidateKeys?.forEach((key) => {
+        queryClient.invalidateQueries({ queryKey: key });
+      });
       onClose();
     },
     onError: (error) => {

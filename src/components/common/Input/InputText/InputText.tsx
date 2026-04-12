@@ -71,6 +71,7 @@ interface InputButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
   btnLabel?: string;
   btnOnClick?: (value: string) => void;
   btnType?: "button" | "submit" | "reset";
+  loading?: boolean;
 }
 
 export interface InputTextProps {
@@ -81,11 +82,12 @@ export interface InputTextProps {
     isSuccess?: boolean;
     successMessage?: string;
     rule?: string;
+    timer?: number;
   };
 }
 
 const BASE_INPUT_STYLE = cn(
-  "flex flex-1 items-center relative h-10 py-3 px-2 bg-fill-neutral-strong-default rounded-[10px] text-body1-regular text-neutral-strong-entered",
+  "flex flex-1 w-full min-w-0 items-center relative h-11 py-3 px-2 bg-fill-neutral-strong-default rounded-[10px] text-body1-regular text-neutral-strong-entered",
   "placeholder:text-neutral-strong-placeholder hover:text-neutral-strong-hover border focus:outline-none focus:text-neutral-strong-focused",
   "disabled:text-neutral-strong-disabled disabled:bg-fill-neutral-strong-disabled autofill:text-neutral-strong-default",
   "autofill:shadow-[inset_0_0_0px_1000px_#f5f5f5] autofill:disabled:shadow-[inset_0_0_0px_1000px_#f5f5f5]"
@@ -99,7 +101,7 @@ const InputText = ({
 }: InputTextProps) => {
   const { name, type = "text", validation, disabled } = inputOption;
   const { btnType = "button", btnOnClick, btnLabel, ...restBtnOption } = btnOption;
-  const { isSuccess, successMessage, rule } = caption;
+  const { isSuccess, successMessage, rule, timer } = caption;
 
   const {
     register,
@@ -159,6 +161,7 @@ const InputText = ({
                 onDelete={() => onDelete(name)}
               />
             ))}
+
           {/* 비밀번호 눈 모양 버튼 */}
           {togglePassword && (
             <button
@@ -183,9 +186,9 @@ const InputText = ({
             variant="outlined"
             type={btnType}
             onClick={() => btnOnClick?.(isValue)}
-            ignoreBase
             disabled={disabled}
-            className="text-neutral-normal-default, h-11 w-auto whitespace-nowrap rounded-[10px] border border-neutral-normal-default px-[14px] py-[10px] text-body2-semibold disabled:text-neutral-normal-disabled disabled:bg-fill-neutral-strong-default"
+            size="big"
+            className="flex h-11 w-fit flex-shrink-0 whitespace-nowrap px-5 py-[10px]"
             {...restBtnOption}
           >
             {btnLabel}
@@ -205,6 +208,13 @@ const InputText = ({
 
         {/* 글자 수 확인 */}
         <Counter isLength={isValueStr.length} maxLength={maxLength} />
+
+        {/* 타이머 */}
+        {timer && timer > 0 && (
+          <time className="text-caption1-regular text-brand-normal-default">
+            {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, "0")}
+          </time>
+        )}
       </div>
     </div>
   );

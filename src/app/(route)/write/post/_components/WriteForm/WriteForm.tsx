@@ -18,7 +18,8 @@ const WriteForm = ({ title }: { title: string }) => {
     onConfirmNoImageSubmit,
     onCancelSubmit,
   } = usePostWriteSubmit({ methods });
-  const isSubmitDisabled = !canSubmit(values) || isPosting;
+
+  const isSubmitDisabled = !canSubmit || isPosting;
 
   return (
     <>

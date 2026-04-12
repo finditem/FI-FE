@@ -38,7 +38,9 @@ const useSendImage = (roomId: number, userId: number, options?: UseSendImageOpti
       },
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["chatMessages", roomId] });
-        options?.onSuccess?.();
+        requestAnimationFrame(() => {
+          options?.onSuccess?.();
+        });
       },
       onError: (error, variables, context) => {
         if (context?.optimisticId) {

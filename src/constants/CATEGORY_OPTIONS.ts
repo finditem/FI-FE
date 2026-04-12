@@ -8,6 +8,12 @@ export const CATEGORY_OPTIONS = [
   { value: "ETC", label: "기타" },
 ] as const;
 
+/** 메인 지도 카테고리 필터 드롭다운(맨 위 `전체` = 쿼리 없음) */
+export const MAP_CATEGORY_FILTER_OPTIONS: readonly { value: string; label: string }[] = [
+  { value: "", label: "전체" },
+  ...CATEGORY_OPTIONS,
+];
+
 export const NOTICE_WRITE_CATEGORY_OPTIONS = [
   { value: "IMPORTANT", label: "중요" },
   { value: "UPDATE", label: "업데이트" },

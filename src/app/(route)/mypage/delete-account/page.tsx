@@ -6,6 +6,7 @@ import { Suspense, useState } from "react";
 import { DeleteAccountType, useDeleteAccount } from "@/api/fetch/user";
 import { FormProvider, useForm } from "react-hook-form";
 import { useToast } from "@/context/ToastContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 const page = () => {
   const methods = useForm<DeleteAccountType>({ mode: "onChange", reValidateMode: "onChange" });
@@ -13,6 +14,7 @@ const page = () => {
 
   const [isDeleted, setIsDeleted] = useState(false);
   const { mutate: DeleteAccountMutate, isPending } = useDeleteAccount();
+  const queryClient = useQueryClient();
 
   const onSubmit = (data: DeleteAccountType) => {
     if (isPending) return;
@@ -28,6 +30,7 @@ const page = () => {
     DeleteAccountMutate(payload, {
       onSuccess: () => {
         setIsDeleted(true);
+        queryClient.clear();
       },
       onError: (error) => {
         if (error.code === "USER404-NOT_FOUND") addToast("존재하지 않는 회원이에요", "warning");

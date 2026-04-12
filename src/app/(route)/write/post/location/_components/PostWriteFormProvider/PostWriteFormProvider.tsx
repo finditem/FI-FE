@@ -1,9 +1,10 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { ReactNode, useEffect, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
-import { useWriteFlowStore } from "@/store";
+import { useWriteFlowStore, useWriteStore } from "@/store";
 
 const defaultValues: PostWriteFormValues = {
   postType: "",
@@ -22,20 +23,42 @@ const defaultValues: PostWriteFormValues = {
 };
 
 const PostWriteFormProvider = ({ children }: { children: ReactNode }) => {
+  const { fullAddress, lat: latitude, lng: longitude, radius } = useWriteStore();
+
   const methods = useForm<PostWriteFormValues>({
-    defaultValues,
+    defaultValues: {
+      ...defaultValues,
+      address: fullAddress || "",
+      latitude,
+      longitude,
+      radius,
+    },
     mode: "onChange",
     reValidateMode: "onChange",
     shouldUnregister: false,
   });
 
   const resetWriteFlow = useWriteFlowStore((s) => s.resetWriteFlow);
+  const clearLocation = useWriteStore((s) => s.clearLocation);
+  const pathname = usePathname();
+  const prevPathRef = useRef<string | null>(null);
 
   useEffect(() => {
+    const isNewWritePage = pathname === "/write/post";
+    const isBackFromLocation = prevPathRef.current?.includes("/location");
+
+    if (isNewWritePage && !isBackFromLocation) {
+      clearLocation();
+    }
+
+    prevPathRef.current = pathname;
+
     return () => {
-      resetWriteFlow();
+      if (typeof window !== "undefined" && !window.location.pathname.startsWith("/write/post")) {
+        resetWriteFlow();
+      }
     };
-  }, [resetWriteFlow]);
+  }, [clearLocation, pathname, resetWriteFlow]);
 
   return <FormProvider {...methods}>{children}</FormProvider>;
 };

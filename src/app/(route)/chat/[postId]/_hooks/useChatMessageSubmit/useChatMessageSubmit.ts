@@ -40,7 +40,9 @@ const useChatMessageSubmit = ({
     if (!sendSucceeded) {
       removeMessageFromCache(queryClient, roomId, optimisticId);
     } else {
-      onSendSuccess?.();
+      requestAnimationFrame(() => {
+        onSendSuccess?.();
+      });
     }
 
     reset();

@@ -52,7 +52,7 @@ import {
   SortFilterValue,
   StatusFilterValue,
 } from "../../../components/domain/FilterSectionBottomSheet/_types/types";
-import { ActivityFilterValue } from "@/app/(route)/mypage/activity/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
 import { SimpleSortType } from "@/types";
 import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
 import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";

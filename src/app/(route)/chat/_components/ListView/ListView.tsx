@@ -9,7 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 
 const ListViewContent = () => {
-  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString();
+  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("replace");
   const queryClient = useQueryClient();
 
   useChatSocket({

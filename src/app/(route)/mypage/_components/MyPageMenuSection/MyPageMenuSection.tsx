@@ -4,7 +4,6 @@ import React, { Fragment } from "react";
 import { Icon } from "@/components/common";
 import Link from "next/link";
 import { MYPAGE_MENU_LIST } from "../../_constants/MYPAGE_ROUTE_CONFIG";
-import useLogout from "@/hooks/useLogout/useLogout";
 import { cn } from "@/utils";
 
 const MyPageMenuSection = ({
@@ -14,9 +13,14 @@ const MyPageMenuSection = ({
   isUserLogin: boolean;
   disabled?: boolean;
 }) => {
-  const { handleLogout, isPending } = useLogout();
+  const visibleMenuList = MYPAGE_MENU_LIST.filter((menu) => {
+    if (!isUserLogin && menu.title === "서비스 정책") {
+      return false;
+    }
+    return true;
+  });
 
-  return MYPAGE_MENU_LIST.map((menu) => (
+  return visibleMenuList.map((menu, index) => (
     <Fragment key={menu.title}>
       <div className="flex w-full flex-col gap-3 px-5 py-6">
         <div className="flex text-body2-regular text-layout-body-default">{menu.title}</div>
@@ -36,18 +40,9 @@ const MyPageMenuSection = ({
           </Fragment>
         ))}
       </div>
-      {isUserLogin && <hr className="mx-5 max-w-full border border-divider-default_3" />}
 
-      {isUserLogin && menu.title === "서비스 정책" && (
-        <div className="w-full px-5 py-6">
-          <button
-            className="mt-[6px] flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
-            onClick={handleLogout}
-            disabled={disabled || isPending}
-          >
-            로그아웃
-          </button>
-        </div>
+      {index !== visibleMenuList.length - 1 && (
+        <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-divider-default_3" />
       )}
     </Fragment>
   ));

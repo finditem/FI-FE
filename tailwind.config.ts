@@ -94,6 +94,7 @@ const config: Config = {
     "h-base",
     "h-hf-base",
     "h-f-base",
+    "h-hfb-base",
     "fixed-button-position",
     "fixedButtonPositionBottom",
     "footer-alert-dot",

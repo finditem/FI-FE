@@ -5,7 +5,7 @@
  * 내부에 정의된 각 MAP 객체는 클라이언트의 상태 값(Enum/Type)을 URL에 적합한 문자열로 매핑합니다.
  */
 
-import { ActivityFilterValue } from "@/app/(route)/mypage/activity/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
 import {
   CategoryFilterValue,
   FindStatusFilterValue,

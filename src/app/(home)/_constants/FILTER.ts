@@ -28,3 +28,5 @@ export const POST_FILTER_ITEMS = FILTER_ITEMS.filter(
 export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
   (item): item is { label: string; value: "category" } => item.value === "category"
 ) ?? { label: "카테고리", value: "category" as FilterItemValue };
+
+export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;

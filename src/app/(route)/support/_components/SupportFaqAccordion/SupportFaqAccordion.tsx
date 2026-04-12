@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Chip, Icon } from "@/components/common";
+import { Button, Chip, Icon } from "@/components/common";
 import { cn } from "@/utils";
 import {
   FAQ_ITEMS,
@@ -21,7 +21,6 @@ interface SupportFaqAccordionItemProps {
 }
 
 const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccordionItemProps) => {
-  const iconColor = isExpanded ? "text-layout-header-default" : "text-labelsVibrant-tertiary";
   const id = getFaqAnchorId(item.id);
 
   const onAnchorClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -34,29 +33,30 @@ const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccor
   };
 
   return (
-    <li id={id} className="flex scroll-mt-14 flex-col">
-      <a
-        href={`#${id}`}
-        aria-label="FAQ 질문 접기/펼치기"
-        aria-expanded={isExpanded}
-        onClick={onAnchorClick}
-        className="flex items-center gap-1 py-2"
-      >
-        <div className="flex items-center gap-[5px] px-2">
-          <div className={cn("transition-all", isExpanded && "rotate-90")}>
-            <Icon name="AccordionToggle" size={12} className={iconColor} />
-          </div>
-          <Icon name="AccordionQMark" size={12} className={iconColor} />
-        </div>
-        <p
-          className={cn(
-            "flex-1 text-h3-medium text-layout-body-default",
-            isExpanded && "text-layout-header-default"
-          )}
+    <li id={id}>
+      <div className="flex scroll-mt-14 flex-col border-b border-neutral-normal-default">
+        <a
+          href={`#${id}`}
+          aria-label="FAQ 질문 접기/펼치기"
+          aria-expanded={isExpanded}
+          onClick={onAnchorClick}
+          className="flex items-center justify-between px-5 py-[26px]"
         >
-          {item.question}
-        </p>
-      </a>
+          <p
+            className={cn(
+              "flex-1 text-body1-semibold text-neutral-normal-default",
+              isExpanded && "text-neutral-normal-enteredSelected"
+            )}
+          >
+            {item.question}
+          </p>
+          <Icon
+            name="ArrowDownSmall"
+            size={24}
+            className={cn("transition-all", isExpanded && "rotate-180")}
+          />
+        </a>
+      </div>
 
       <AnimatePresence>
         {isExpanded && (
@@ -65,33 +65,26 @@ const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccor
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.2 }}
             className="w-full overflow-hidden"
           >
-            <div className="flex flex-col gap-3 rounded-2xl p-4 bg-fill-neutral-subtle-default">
+            <div className="flex flex-col gap-4 border-b border-neutral-normal-default px-5 py-6 bg-fill-neutral-subtle-default">
               <div className="inline-block">
-                <Chip label={item.category} type="brandSubtleHover" />
+                <Chip label={item.category} type="brandSubtleDefault" />
               </div>
-              <div className="flex flex-col gap-3 whitespace-pre-line text-body1-medium text-layout-header-default">
-                {item.answer.map((segment, index) =>
-                  segment.type === "text" ? (
-                    <span key={index} className="block">
-                      {segment.content}
-                    </span>
-                  ) : (
-                    <Link
-                      key={index}
-                      href={segment.href}
-                      className="flex items-center gap-1 text-brand-strongUseThis-default"
-                    >
-                      {segment.text}
-                      <Icon
-                        name="AccordionArrowRight"
-                        size={12}
-                        className="text-brand-strongUseThis-default"
-                      />
-                    </Link>
-                  )
+
+              <div className="flex flex-col gap-[26px] text-body2-regular text-layout-body-default">
+                <span className="block whitespace-pre-line">{item.answer}</span>
+                {item.link && (
+                  <Button
+                    as={Link}
+                    href={item.link.href}
+                    variant="outlined"
+                    className="!gap-[6px] bg-fill-neutral-normal-default"
+                  >
+                    {item.link.text}
+                    <Icon name="ArrowRightSmall" size={18} />
+                  </Button>
                 )}
               </div>
             </div>
@@ -108,7 +101,7 @@ const SupportFaqAccordion = () => {
   const filteredItems = filterFaqItemsByTab(FAQ_ITEMS, tab);
 
   return (
-    <ul className="flex flex-col gap-4 px-[20.5px]">
+    <ul>
       {filteredItems.map((item) => (
         <SupportFaqAccordionItem
           key={item.id}

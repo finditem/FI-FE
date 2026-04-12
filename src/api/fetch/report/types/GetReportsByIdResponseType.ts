@@ -1,5 +1,5 @@
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
-import { ReportStatus, ReportTargetType } from "@/types";
+import { ReportStatus, ReportTargetType, ReportType } from "@/types";
 
 export interface GetReportsByIdResponseType extends ApiBaseResponseType<ReportByIdType> {}
 
@@ -7,6 +7,7 @@ export interface ReportByIdType {
   nickname: string;
   reportId: number;
   targetId: number;
+  reportType: ReportType;
   targetType: ReportTargetType;
   targetTitle: string;
   reason: string;

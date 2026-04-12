@@ -5,6 +5,7 @@ export * from "./types/DetailReportType";
 export * from "./types/ReportType";
 export * from "./types/InquiriesType";
 export * from "./types/DetailInquiryType";
+export * from "./types/MarketingPostsType";
 
 export { useGetDeletedUsers } from "./api/useGetDeletedUsers";
 export { useGetGuestInquiries } from "./api/useGetGuestInquiries";
@@ -19,3 +20,4 @@ export { usePutInquiryStatus } from "./api/usePutInquiryStatus";
 export { usePostReportComments } from "./api/usePostReportComments";
 export { useDeleteNotice } from "./api/useDeleteNotice";
 export { usePutNoticeDetail } from "./api/usePutNoticeDetail";
+export { useGetMarketingPosts } from "./api/useGetMarketingPosts";

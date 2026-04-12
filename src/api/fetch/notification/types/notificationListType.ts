@@ -10,6 +10,7 @@ export interface NotificationListItem {
   referenceId: number;
   isRead: boolean;
   createdAt: string;
+  roomId: number;
 }
 
 export interface NotificationListCursorPageResponse {

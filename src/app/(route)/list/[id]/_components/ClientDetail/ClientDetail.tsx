@@ -72,6 +72,7 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }
 
   const { isMine, postUserInformation } = data.result;
+  const similarTitle = data.result.postType === "LOST" ? "비슷한 제보글" : "비슷한 분실물";
 
   return (
     <>
@@ -103,8 +104,8 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
           onCommentLoadMore={() => fetchNextPage()}
         />
 
-        <ErrorBoundary fallback={<ErrorSimilarSection postId={id} />}>
-          <SimilarItemsSection postId={id} />
+        <ErrorBoundary fallback={<ErrorSimilarSection postId={id} title={similarTitle} />}>
+          <SimilarItemsSection postId={id} title={similarTitle} />
         </ErrorBoundary>
 
         <PostInputComment postId={id} isLoggedIn={isLoggedIn} />

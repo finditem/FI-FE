@@ -1,8 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SimilarDataItem } from "@/api/fetch/post";
-import { Icon, ListItemImage } from "@/components/common";
-import { IconName } from "@/components/common/Icon/Icon";
-import { formatCappedNumber, formatDate } from "@/utils";
+import { formatDate } from "@/utils";
+import { Icon } from "@/components/common";
 
 const SimilarItemsList = ({ data }: { data: SimilarDataItem[] }) => {
   return (
@@ -10,8 +10,8 @@ const SimilarItemsList = ({ data }: { data: SimilarDataItem[] }) => {
       tabIndex={0}
       className="hide-scrollbar flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth"
     >
-      {data.map((post) => (
-        <SimilarItem key={post.postId} data={post} />
+      {data.map((item) => (
+        <SimilarItem key={item.postId} data={item} />
       ))}
     </ul>
   );
@@ -24,45 +24,35 @@ interface SimilarItemProps {
 }
 
 const SimilarItem = ({ data }: SimilarItemProps) => {
-  const { title, thumbnailImageUrl, address, favoriteStatus, createdAt, postId } = data;
-
-  const IconList: { name: IconName; value: number; ariaLabel: string }[] = [
-    {
-      name: "Eye",
-      value: data.viewCount,
-      ariaLabel: "조회수",
-    },
-    {
-      name: favoriteStatus ? "StarFilled" : "Star",
-      value: data.favoriteCount,
-      ariaLabel: "즐겨찾기",
-    },
-  ];
+  const { title, thumbnailImageUrl, createdAt, postId } = data;
 
   return (
     <li className="snap-start">
-      <Link href={`/list/${postId}`} className="flex flex-col items-start justify-center gap-3">
-        <ListItemImage src={thumbnailImageUrl} alt="" category={data.category} size={126} />
-
-        <div className="flex flex-col gap-[3px]">
-          <p className="text-body1-semibold text-layout-header-default">{title}</p>
-          <p className="block text-body2-regular text-layout-body-default">
-            <span className="after:mx-1 after:content-['·']">{address}</span>
-            <time dateTime={createdAt}>{formatDate(createdAt)}</time>
-          </p>
+      <Link
+        href={`/list/${postId}`}
+        className="flex h-[120px] w-[124px] flex-col overflow-hidden rounded-[16px] border border-divider-default bg-white"
+      >
+        <div className="flex h-[76px] w-[124px] items-center justify-center bg-fill-neutralInversed-normal-preesed">
+          {thumbnailImageUrl ? (
+            <Image
+              src={thumbnailImageUrl}
+              alt={title}
+              width={124}
+              height={76}
+              className="h-[76px] w-[124px] object-cover"
+            />
+          ) : (
+            <Icon name="LogoCharacter" size={65} data-testid="icon-LogoCharacter" />
+          )}
         </div>
 
-        <ul className="flex items-center gap-2">
-          {IconList.map((icon, index) => (
-            <li key={index} className="flex items-center gap-1">
-              <Icon name={icon.name} size={18} className="text-flatGray-100" />
-              <span className="sr-only">{icon.ariaLabel}</span>
-              <span className="text-caption1-regular text-neutral-normal-placeholder">
-                {formatCappedNumber(icon.value)}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="flex flex-col gap-1 px-3 pb-2 pt-[6px]">
+          <p className="text-caption1-semibold text-layout-header-default u-ellipsis">{title}</p>
+
+          <time dateTime={createdAt} className="text-caption2-regular text-layout-body-default">
+            {formatDate(createdAt)}
+          </time>
+        </div>
       </Link>
     </li>
   );

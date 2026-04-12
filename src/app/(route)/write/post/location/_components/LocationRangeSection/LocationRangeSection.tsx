@@ -37,11 +37,9 @@ const LocationRangeSection = ({
     try {
       const data = await getKakaoLocalCoord2Address(center.lat, center.lng);
       if (data.documents && data.documents.length > 0) {
-        const { address: addressDoc } = data.documents[0];
+        const addressDoc = data.documents[0].road_address || data.documents[0].address;
 
-        const newFullAddress =
-          `${addressDoc.region_1depth_name} ${addressDoc.region_2depth_name} ${addressDoc.region_3depth_name}`.trim();
-
+        const newFullAddress = addressDoc.address_name;
         const newAddress = addressDoc.region_3depth_name || addressDoc.region_2depth_name;
 
         setCurrentFullAddress(newFullAddress);

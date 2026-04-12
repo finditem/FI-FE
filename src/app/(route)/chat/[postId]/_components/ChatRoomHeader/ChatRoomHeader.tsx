@@ -90,7 +90,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId }: ChatRoomHeaderProps
               {deleted ? `삭제됨 ${title}` : title}
             </h2>
           </div>
-          <p className="h-4 text-caption1-medium text-layout-body-default">{address}</p>
+          <p className="min-h-4 text-caption1-medium text-layout-body-default">{address}</p>
         </div>
       </LinkWrapper>
     </header>

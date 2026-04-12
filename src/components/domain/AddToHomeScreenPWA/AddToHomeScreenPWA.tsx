@@ -25,7 +25,7 @@ const AddToHomeScreenPWA = ({ isOpen, onClose }: AddToHomeScreenPWAProps) => {
         <Icon name="Logo" size={60} />
 
         <div className="gap-3 text-center flex-col-center">
-          <h2 className="whitespace-pre-line text-h2-bold text-layout-header-default">
+          <h2 className="text-h3-bold whitespace-pre-line text-layout-header-default">
             홈 화면에 찾아줘를 추가하고{"\n"}더 편리하게 사용하세요
           </h2>
           <p className="whitespace-pre-line text-body2-medium text-layout-body-default">

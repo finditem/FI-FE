@@ -9,7 +9,7 @@ const useNicknameCheck = () => {
   const [isNicknameDisabled, setIsNicknameDisabled] = useState(false);
 
   const { addToast } = useToast();
-  const { getValues, control, setError } = useFormContext();
+  const { getValues, control, setError, setValue } = useFormContext();
 
   const currentNickname = useWatch({
     control,
@@ -43,6 +43,7 @@ const useNicknameCheck = () => {
     if (isSuccess) {
       setIsNicknameVerified(true);
       setIsNicknameDisabled(true);
+      setValue("isNicknameVerified", true, { shouldValidate: true });
 
       addToast("사용할 수 있는 닉네임이에요.", "success");
     } else if (isError) {

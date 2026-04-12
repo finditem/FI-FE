@@ -5,7 +5,7 @@ export type ChipType =
   | "admin"
   | "toast"
   | "neutralDisabled"
-  | "brandSubtleHover";
+  | "brandSubtleDefault";
 
 export interface ChipProps {
   label: string;

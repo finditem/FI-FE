@@ -1,9 +1,10 @@
 import { useMainKakaoMapStore } from "@/store";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const useMyLocationButton = () => {
   const { setLatLng, setUserGpsFromDevice, clearLatLng, triggerLevelReset } =
     useMainKakaoMapStore();
+  const [isLocationPermissionSheetOpen, setIsLocationPermissionSheetOpen] = useState(false);
 
   useEffect(() => {
     const checkGeolocationPermission = async () => {
@@ -26,7 +27,7 @@ const useMyLocationButton = () => {
     void checkGeolocationPermission();
   }, [clearLatLng]);
 
-  const handleMyLocationClick = () => {
+  const requestDeviceLocation = useCallback(() => {
     if (!navigator.geolocation) {
       clearLatLng();
       return;
@@ -44,10 +45,40 @@ const useMyLocationButton = () => {
         clearLatLng();
       }
     );
+  }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerLevelReset]);
+
+  const handleMyLocationClick = async () => {
+    if (typeof navigator === "undefined" || !navigator.geolocation) {
+      clearLatLng();
+      return;
+    }
+
+    if (navigator.permissions) {
+      try {
+        const result = await navigator.permissions.query({ name: "geolocation" });
+        if (result.state === "granted") {
+          requestDeviceLocation();
+          return;
+        }
+        setIsLocationPermissionSheetOpen(true);
+        return;
+      } catch {
+        requestDeviceLocation();
+        return;
+      }
+    }
+
+    requestDeviceLocation();
   };
+
+  const closeLocationPermissionSheet = useCallback(() => {
+    setIsLocationPermissionSheetOpen(false);
+  }, []);
 
   return {
     handleMyLocationClick,
+    isLocationPermissionSheetOpen,
+    closeLocationPermissionSheet,
   };
 };
 

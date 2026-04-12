@@ -1,11 +1,13 @@
 import { Badge, Icon, ListItemImage } from "@/components/common";
 import Link from "next/link";
 import { NoticeItem } from "@/api/fetch/notice";
-import { formatDate } from "@/utils";
+import { formatDate, highlightText } from "@/utils";
 import { EmptyState } from "@/components/state";
+import { useSearchParams } from "next/navigation";
 
 const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {
   const { noticeId, title, createdAt, likeCount, viewCount, thumbnailUrl, isNew, isHot } = notice;
+  const keyword = useSearchParams()?.get("keyword") || "";
 
   return (
     <li>
@@ -20,7 +22,9 @@ const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {
                 {isNew && <Badge variant="new" />}
                 {isHot && <Badge variant="hot" />}
               </div>
-              <p className="truncate text-body1-semibold text-layout-header-default">{title}</p>
+              <p className="truncate text-body1-semibold text-layout-header-default">
+                {highlightText(title, keyword)}
+              </p>
             </div>
             <time className="text-body2-regular text-layout-body-default">
               {formatDate(createdAt)}

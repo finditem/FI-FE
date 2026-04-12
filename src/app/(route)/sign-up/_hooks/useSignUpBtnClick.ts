@@ -1,13 +1,17 @@
-import { useFormContext, useWatch } from "react-hook-form";
+import { useFormContext, UseFormSetFocus, useWatch } from "react-hook-form";
 import { useToast } from "@/context/ToastContext";
 import { useEffect, useMemo, useState } from "react";
 import { EMAIL_ERROR_MESSAGE, EMAIL_CHECK_CODE_MESSAGE } from "../_constants/SIGNUP_ERROR_MESSAGE";
 import { throttle } from "lodash";
 import { useApiCheckCode, useApiSendEmail } from "@/api/fetch/auth";
 import { useErrorToast, useNicknameCheck } from "@/hooks/domain";
+import { FormType } from "../types/FormType";
+
+type SignUpFieldType = Omit<FormType, "privacyPolicyAgreed" | "marketingConsent">;
+type SignUpSetFocus = UseFormSetFocus<SignUpFieldType>;
 
 export const useSignUpBtnClick = () => {
-  const { getValues, trigger, control } = useFormContext();
+  const { getValues, trigger, control, setValue } = useFormContext();
 
   const [emailValue, setEmailValue] = useState("");
 
@@ -19,14 +23,25 @@ export const useSignUpBtnClick = () => {
   const { addToast } = useToast();
   const { handlerApiError } = useErrorToast();
 
-  const { mutate: EmailMutate } = useApiSendEmail();
-  const { mutate: CodeMutate } = useApiCheckCode();
+  const { mutate: EmailMutate, isPending: EmailPending } = useApiSendEmail();
+  const { mutate: CodeMutate, isPending: EmailCodePending } = useApiCheckCode();
   const { handleClickNickname, isNicknameVerified, isNicknameDisabled } = useNicknameCheck();
 
   const currentEmailAuth = useWatch({
     control,
     name: "emailAuth",
   });
+
+  const [timer, setTimer] = useState(0);
+
+  // 타이머
+  useEffect(() => {
+    if (timer <= 0) return;
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timer]);
 
   useEffect(() => {
     if (isEmailAuthDisabled) return;
@@ -36,7 +51,7 @@ export const useSignUpBtnClick = () => {
   const handlerToClick = useMemo(
     () =>
       throttle(
-        async (name: string) => {
+        async (name: string, setFocus: SignUpSetFocus) => {
           const isValid = await trigger(name);
           if (!isValid) return;
 
@@ -50,11 +65,16 @@ export const useSignUpBtnClick = () => {
                 {
                   onSuccess: () => {
                     addToast("인증번호가 발송되었어요", "success");
+                    setTimer(300);
                     setIsEmailAuthDisabled(false);
                     setEmailValue(inputValue);
+                    setFocus("emailAuth");
                   },
                   onError: (error) => {
-                    handlerApiError(EMAIL_ERROR_MESSAGE, error.code);
+                    const errorCode = error.response?.data.code;
+                    if (errorCode) {
+                      handlerApiError(EMAIL_ERROR_MESSAGE, errorCode || "", "email");
+                    }
                   },
                 }
               );
@@ -64,12 +84,18 @@ export const useSignUpBtnClick = () => {
                 {
                   onSuccess: () => {
                     addToast("인증되었습니다.", "success");
+                    setTimer(0);
                     setIsEmailAuthDisabled(true);
                     setIsEmailDisabled(true);
                     setIsEmailAuthVerified(true);
+
+                    setValue("isEmailAuthVerified", true, { shouldValidate: true });
+                    setFocus("password");
                   },
                   onError: (error) => {
-                    handlerApiError(EMAIL_CHECK_CODE_MESSAGE, error.code);
+                    const errorCode = error.response?.data.code;
+                    if (errorCode)
+                      handlerApiError(EMAIL_CHECK_CODE_MESSAGE, errorCode || "", "emailAuth");
                   },
                 }
               );
@@ -100,5 +126,8 @@ export const useSignUpBtnClick = () => {
     isEmailAuthVerified,
     isNicknameVerified,
     isNicknameDisabled,
+    EmailPending,
+    EmailCodePending,
+    timer,
   };
 };

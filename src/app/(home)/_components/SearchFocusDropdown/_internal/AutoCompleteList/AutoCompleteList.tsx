@@ -60,7 +60,6 @@ const AutoCompleteList = ({ searchKeyword, setFocused }: AutoCompleteListProps) 
             >
               <div className="flex items-center gap-3">
                 <div className="h-[32px] w-[32px] flex-shrink-0 rounded-full bg-fill-brand-subtle-default_2 flex-center">
-                  {/* TODO(형준): svg 색상 변경 필요 */}
                   <Icon name="Search" size={20} className="text-system-success" />
                 </div>
                 <p className="truncate text-body1-regular text-labelsVibrant-primary">

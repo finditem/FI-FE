@@ -78,7 +78,9 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         const controller = userGpsAbortController;
 
         try {
-          const userGpsAddress = await getAddressFromLatLng(lat, lng, controller.signal);
+          const userGpsAddress = await getAddressFromLatLng(lat, lng, controller.signal, {
+            variant: "full",
+          });
           if (controller.signal.aborted) return;
           set({ userGpsAddress });
         } catch {

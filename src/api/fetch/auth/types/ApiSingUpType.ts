@@ -3,5 +3,7 @@ export interface ApiSignUpType {
   password: string;
   nickname: string;
   privacyPolicyAgreed: boolean;
+  termsOfServiceAgreed: boolean;
+  contentPolicyAgreed: boolean;
   marketingConsent: boolean;
 }

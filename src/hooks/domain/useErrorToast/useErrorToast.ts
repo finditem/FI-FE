@@ -1,18 +1,22 @@
 import { useToast } from "@/context/ToastContext";
 import { ToastType } from "@/types";
+import { useFormContext } from "react-hook-form";
 
 const useErrorToast = () => {
   const { addToast } = useToast();
+  const { setError } = useFormContext();
 
   const handlerApiError = (
     errorConstant: Record<string, { message: string; status: ToastType }>,
-    errorCode: string
+    errorCode: string,
+    name?: string
   ) => {
     const target = errorConstant[errorCode as keyof typeof errorConstant];
     if (target) {
+      if (name) setError(name, { message: target.message });
       addToast(target.message, target.status);
     } else {
-      addToast("잠시 후 다시 시도해 주세요.", "error");
+      addToast("예상치 못한 에러가 발생했어요", "error");
     }
   };
 

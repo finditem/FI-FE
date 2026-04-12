@@ -53,7 +53,7 @@ const ModalLayout = ({ isOpen, onClose, children, className, dialogTestId }: Mod
         data-testid={dialogTestId}
         onClick={(e) => e.stopPropagation()}
         className={cn(
-          "rounded-[20px] border border-gray-200 bg-white",
+          "rounded-[8px] border border-gray-200 bg-white",
           "flex flex-col overflow-hidden",
           className
         )}

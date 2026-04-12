@@ -6,7 +6,7 @@ import { BaseButtonProps } from "./BaseButtonPropsType";
 const Search = ({ ariaLabel = "검색", ...props }: BaseButtonProps) => {
   return (
     <button {...props} aria-label={ariaLabel}>
-      <Icon name="Search" />
+      <Icon name="Search" className="text-flatGray-900" />
     </button>
   );
 };

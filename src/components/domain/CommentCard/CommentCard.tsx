@@ -1,6 +1,6 @@
 import { CommentItem } from "@/api/fetch/user";
 import { Icon, ListItemImage } from "@/components/common";
-import { cn, formatDate } from "@/utils";
+import { cn, formatDate, highlightText } from "@/utils";
 import Link from "next/link";
 
 /**
@@ -9,6 +9,7 @@ import Link from "next/link";
  * 댓글 카드 컴포넌트입니다.
  *
  * @param data - 댓글 카드 컴포넌트 데이터
+ * @param keyword - 검색어
  *
  * @example
  * ```tsx
@@ -20,9 +21,10 @@ import Link from "next/link";
 
 interface CommentCardProps {
   data: CommentItem;
+  keyword?: string;
 }
 
-const CommentCard = ({ data }: CommentCardProps) => {
+const CommentCard = ({ data, keyword }: CommentCardProps) => {
   const {
     commentId,
     postId,
@@ -44,7 +46,7 @@ const CommentCard = ({ data }: CommentCardProps) => {
         className="flex w-full justify-between border-b border-divider-default px-5 py-[30px]"
       >
         <div className="flex min-w-0 flex-1 flex-col">
-          <p className="w-full truncate">{content}</p>
+          <p className="w-full truncate">{keyword ? highlightText(content, keyword) : content}</p>
 
           <time dateTime={createdAt} className="mt-1 text-body2-regular text-layout-body-default">
             {formatDate(createdAt)}

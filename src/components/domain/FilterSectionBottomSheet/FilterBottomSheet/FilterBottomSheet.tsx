@@ -96,7 +96,11 @@ const FilterBottomSheet = ({
     !isLoading && filters.region.trim().length >= 2 && results.length === 0;
 
   return (
-    <PopupLayout isOpen={isOpen} onClose={() => setIsOpen(false)} className="min-h-[530px] py-10">
+    <PopupLayout
+      isOpen={isOpen}
+      onClose={() => setIsOpen(false)}
+      className="flex h-[574px] flex-col py-10"
+    >
       <div className="w-full gap-6 flex-col-center">
         <h2 className="text-h2-medium text-layout-header-default">필터</h2>
 
@@ -259,9 +263,7 @@ const FilterBottomSheet = ({
         )}
       </div>
 
-      {selectedTab !== "region" && <div className="h-[230px] w-full" />}
-
-      <Button role="button" ariaLabel="필터 적용" className="w-full" onClick={handleApply}>
+      <Button role="button" ariaLabel="필터 적용" className="mt-auto w-full" onClick={handleApply}>
         적용하기
       </Button>
     </PopupLayout>

@@ -1,5 +1,5 @@
 import useAppInfiniteQuery from "@/api/_base/query/useAppInfiniteQuery";
-import { ActivityFilterValue } from "@/app/(route)/mypage/activity/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
 import { useAuthStore } from "@/store";
 import { ActivityGroupItemType, MypageActivityResponse } from "../types/MypageActivityResponse";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";

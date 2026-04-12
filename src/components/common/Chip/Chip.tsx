@@ -23,7 +23,6 @@ import { ChipProps, ChipType } from "./ChipTypes";
  * <Chip label="관리자" type="admin" />
  * ```
  */
-
 const TypeMap: Record<ChipType, string> = {
   brandSubtle: "bg-fill-brand-subtle-default text-brand-normal-default",
   neutralStrong: "bg-fill-neutral-strong-default text-neutral-strong-default",
@@ -32,7 +31,7 @@ const TypeMap: Record<ChipType, string> = {
     "bg-fill-brand-subtle-default text-brand-normal-default text-caption2-semibold !py-1 !px-2",
   toast: "bg-toast text-white",
   neutralDisabled: "bg-fill-neutral-strong-disabled text-neutral-strong-default",
-  brandSubtleHover: "bg-fill-brand-subtle-hover text-layout-header-default",
+  brandSubtleDefault: "bg-fill-brand-subtle-default text-brand-strongUseThis-default",
 };
 
 const Chip = ({ label, type = "brandSubtle", className }: ChipProps) => {

@@ -46,7 +46,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
         href={userData ? "/mypage/profile" : "/login"}
         variant="outlined"
         size="small"
-        className="!min-w-0"
+        className="!min-w-[56px]"
         loading={loading}
       >
         {userData ? "프로필 수정" : "로그인"}

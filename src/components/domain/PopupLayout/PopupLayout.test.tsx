@@ -42,13 +42,14 @@ describe("<PopupLayout />", () => {
 
   it("백드롭에서 mousedown 시 onClose가 호출됩니다.", () => {
     const onClose = jest.fn();
-    const { container } = render(
+    render(
       <PopupLayout isOpen onClose={onClose}>
         <p>팝업 내용</p>
       </PopupLayout>
     );
 
-    const backdrop = container.firstChild as HTMLElement;
+    const content = screen.getByText("팝업 내용").parentElement as HTMLElement;
+    const backdrop = content.parentElement as HTMLElement;
     expect(backdrop).toBeInTheDocument();
 
     fireEvent.mouseDown(backdrop);
@@ -57,30 +58,29 @@ describe("<PopupLayout />", () => {
 
   it("컨텐츠 내부 클릭은 이벤트 전파를 막아 onClose가 호출되지 않습니다.", () => {
     const onClose = jest.fn();
-    const { container } = render(
+    render(
       <PopupLayout isOpen onClose={onClose}>
         <button>내부 버튼</button>
       </PopupLayout>
     );
 
-    const backdrop = container.firstChild as HTMLElement;
-    const content = backdrop.firstChild as HTMLElement;
+    const content = screen.getByText("내부 버튼").parentElement as HTMLElement;
 
-    fireEvent.click(content);
+    fireEvent.mouseDown(content);
     expect(onClose).not.toHaveBeenCalled();
 
-    fireEvent.click(screen.getByText("내부 버튼"));
+    fireEvent.mouseDown(screen.getByText("내부 버튼"));
     expect(onClose).not.toHaveBeenCalled();
   });
 
   it("추가 className이 병합되어 적용됩니다.", () => {
-    const { container } = render(
+    render(
       <PopupLayout isOpen className="custom-class">
         <p>내용</p>
       </PopupLayout>
     );
-    const backdrop = container.firstChild as HTMLElement;
-    const content = backdrop.firstChild as HTMLElement;
+
+    const content = screen.getByText("내용").parentElement as HTMLElement;
     expect(content).toHaveClass("custom-class");
   });
 

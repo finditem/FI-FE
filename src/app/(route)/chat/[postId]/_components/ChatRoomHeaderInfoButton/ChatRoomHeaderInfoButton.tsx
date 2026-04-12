@@ -77,6 +77,7 @@ const ChatRoomHeaderInfoButton = ({ roomId }: { roomId: number }) => {
         onClose={() => setReportOpen(false)}
         targetId={roomId}
         targetType="CHAT"
+        invalidateKeys={[["chatRoom", roomId], ["posts"], ["user-block-list"]]}
       />
 
       <ChatLeaveModal

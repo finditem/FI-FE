@@ -3,7 +3,7 @@ import { SupportFaqAccordion, SupportTab } from "./_components";
 
 const page = () => {
   return (
-    <div className="space-y-[10px] h-base">
+    <div className="h-base">
       <Suspense fallback="">
         <SupportTab />
         <SupportFaqAccordion />

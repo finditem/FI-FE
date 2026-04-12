@@ -3,8 +3,8 @@
 
 import { ApiFindPwType } from "@/api/fetch/auth";
 import { DetailHeader } from "@/components/layout";
-import { FindPwForm } from "@/components/domain";
 import { FormProvider, useForm } from "react-hook-form";
+import { FindPwForm } from "./_components";
 
 const Page = () => {
   const methods = useForm<ApiFindPwType>({
@@ -15,8 +15,8 @@ const Page = () => {
 
   return (
     <FormProvider {...methods}>
-      <DetailHeader title="비밀번호 찾기" />
-      <FindPwForm text="로그인" redirectLink="/login" />
+      <DetailHeader title="비밀번호 찾기 페이지" />
+      <FindPwForm />
     </FormProvider>
   );
 };

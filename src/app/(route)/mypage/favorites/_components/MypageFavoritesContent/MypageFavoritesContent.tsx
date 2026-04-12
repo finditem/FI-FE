@@ -47,7 +47,9 @@ const MypageFavoritesContent = () => {
         <>
           <ul>
             {favoritesData &&
-              favoritesData.map((item, index) => <PostListItem key={index} post={item} />)}
+              favoritesData.map((item, index) => (
+                <PostListItem key={index} post={item} keyword={keyword} />
+              ))}
           </ul>
 
           <div ref={ref} className="h-10" />

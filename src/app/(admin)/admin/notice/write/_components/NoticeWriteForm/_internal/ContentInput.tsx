@@ -14,7 +14,7 @@ const ContentInput = () => {
         rows={5}
         placeholder="내용을 입력해 주세요."
         className={cn(
-          "h-[208px] w-full resize-none py-1 text-body1-medium text-neutral-strong-default",
+          "h-[208px] w-full resize-none py-1 text-body1-medium text-neutral-normal-default",
           "peer placeholder:text-neutral-normal-placeholder focus:outline-none"
         )}
         {...register("content", { required: true })}

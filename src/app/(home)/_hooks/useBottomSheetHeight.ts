@@ -30,6 +30,7 @@ const getTargetHeight = ({
   const points = getSnapHeights(max, { searchValue, contentHeights, markerId });
 
   if (searchValue) return max;
+  if (contentHeights && !markerId) return points[1];
   return points[2];
 };
 
