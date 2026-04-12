@@ -36,7 +36,7 @@ const KakaoContainer = () => {
     if (!code || step === "Term") return;
     if (isRequesting.current) return;
 
-    if (termsAgreed) {
+    if (!termsAgreed) {
       setStep("Term");
     }
 
@@ -62,7 +62,7 @@ const KakaoContainer = () => {
         }
       );
     }
-  }, [code, KakaoLoginMutate, router]);
+  }, [code, KakaoLoginMutate, router, appEnv, login, step, termsAgreed]);
 
   const methods = useForm();
   const { setValue } = methods;

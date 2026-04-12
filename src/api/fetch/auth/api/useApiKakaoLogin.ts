@@ -28,7 +28,6 @@ const useApiKakaoLogin = () => {
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
         }
-        // router.replace("/");
       },
       onError: (error) => {
         if (error.code === "AUTH400-KAKAO_CODE_INVALID")
