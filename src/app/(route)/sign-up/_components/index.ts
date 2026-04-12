@@ -1,3 +1,2 @@
-export { default as AllAgree } from "./AllAgree/AllAgree";
 export { default as SignUpField } from "./SignUpField/SignUpField";
 export { default as SignUpContainer } from "./SignUpContainer/SignUpContainer";

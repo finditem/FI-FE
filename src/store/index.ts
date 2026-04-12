@@ -6,3 +6,4 @@ export { useMainRecentSearch } from "./useMainRecentSearch/useMainRecentSearch";
 export { useNotificationStore } from "./useNotificationStore/useNotificationStore";
 export { useBetaTestFeedbackStore } from "./useBetaTestFeedbackStore/useBetaTestFeedbackStore";
 export { usePermissionStore } from "./usePermissionStore/usePermissionStore";
+export { useAgreeStore } from "./useAgreeStore/useAgreeStore";

@@ -1,19 +1,28 @@
 "use client";
 "use no memo";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { FooterButton } from "@/components/domain";
 import { CheckBoxConfig } from "../../_constants/CheckBoxConfig";
 import { CheckBox, InputField } from "@/components/common";
 import { useFormContext } from "react-hook-form";
+import DeleteAccountModal from "../DeleteAccountModal/DeleteAccountModal";
 
-const DeleteAccountReason = ({ onNext }: { onNext: () => void }) => {
+interface DeleteAccountReasonProps {
+  onNext: () => void;
+  socialUser?: boolean;
+}
+
+const DeleteAccountReason = ({ onNext, socialUser = false }: DeleteAccountReasonProps) => {
   const {
     setValue,
     watch,
     register,
     formState: { isValid },
   } = useFormContext();
+
+  const [modalOpen, setModalOpen] = useState(false);
+
   const selectedValues: string[] = watch("reasons") || [];
 
   const handleCheckboxChange = (value: string) => {
@@ -29,6 +38,11 @@ const DeleteAccountReason = ({ onNext }: { onNext: () => void }) => {
     }
 
     setValue("reasons", nextValues, { shouldValidate: true, shouldDirty: true });
+  };
+
+  const handleSubmitStep = () => {
+    if (socialUser) setModalOpen(true);
+    else onNext();
   };
 
   return (
@@ -69,9 +83,17 @@ const DeleteAccountReason = ({ onNext }: { onNext: () => void }) => {
         </div>
       </div>
 
-      <FooterButton onClick={() => onNext()} disabled={selectedValues.length === 0 || !isValid}>
-        다음
+      <FooterButton onClick={handleSubmitStep} disabled={selectedValues.length === 0 || !isValid}>
+        {socialUser ? "탈퇴하기" : "다음"}
       </FooterButton>
+
+      {modalOpen && (
+        <DeleteAccountModal
+          modalOpen={modalOpen}
+          setModalOpen={setModalOpen}
+          onBack={() => setModalOpen(false)}
+        />
+      )}
     </>
   );
 };
