@@ -15,3 +15,4 @@ export { usePostChangePassword } from "./api/usePostChangePassword";
 export { useGetUserActivity } from "./api/useGetUserActivity";
 export { useGetUserComments } from "./api/useGetUserComments";
 export { useDeleteAccount } from "./api/useDeleteAccount";
+export { usePatchKakaoTerms } from "./api/usePatchKakaoTerms";

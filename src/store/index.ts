@@ -5,3 +5,4 @@ export { useMainKakaoMapStore } from "./useMainKakaoMapStore/useMainKakaoMapStor
 export { useMainRecentSearch } from "./useMainRecentSearch/useMainRecentSearch";
 export { useNotificationStore } from "./useNotificationStore/useNotificationStore";
 export { usePermissionStore } from "./usePermissionStore/usePermissionStore";
+export { useAgreeStore } from "./useAgreeStore/useAgreeStore";

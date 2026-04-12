@@ -27,6 +27,7 @@ Gemini Code Assist should use this guide when reviewing code, summarizing pull r
 
 ## General Review Rules
 
+- **Do not leave code review comments on pull requests targeting `main` or `release` branches.**
 - Provide all review comments in **Korean**.
 - Be concrete and actionable.
 - Point out incorrect assumptions, weak logic, and risky implementation details clearly.

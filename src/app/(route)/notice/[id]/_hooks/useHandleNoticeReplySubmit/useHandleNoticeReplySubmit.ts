@@ -5,9 +5,9 @@ import { usePostNoticeComment } from "@/api/fetch/noticeComment";
 
 export const useHandleNoticeReplySubmit = (noticeId: number) => {
   const queryClient = useQueryClient();
-  const { mutate, isPending } = usePostNoticeComment(noticeId);
+  const { mutateAsync, isPending } = usePostNoticeComment(noticeId);
 
-  const handleReplySubmit = (content: string, image: File | null, parentId: number) => {
+  const handleReplySubmit = async (content: string, image: File | null, parentId: number) => {
     if (!content.trim() || isPending) return;
 
     const formData = new FormData();
@@ -20,7 +20,7 @@ export const useHandleNoticeReplySubmit = (noticeId: number) => {
     formData.append("request", new Blob([JSON.stringify(request)], { type: "application/json" }));
     if (image) formData.append("images", image);
 
-    mutate(formData, {
+    return mutateAsync(formData, {
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["replies-notice-comments", parentId] });
       },
