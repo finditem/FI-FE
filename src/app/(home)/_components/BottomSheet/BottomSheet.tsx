@@ -11,7 +11,6 @@ import PostSheetContent from "../PostSheetContent/PostSheetContent";
 import MapPostSummarySheetContent from "../MapPostSummarySheetContent/MapPostSummarySheetContent";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
 import { MARKER_ID } from "../../_constants/QUERY_PARAMS";
-import { BetaTestMainBanner } from "@/components/domain";
 import PermissionSheet from "../PermissionBottomSheet/PermissionBottomSheet";
 import { usePermissionStore } from "@/store";
 import { cn } from "@/utils";
@@ -41,7 +40,6 @@ const BottomSheetContent = () => {
     >
       {!isFullyExpanded && (
         <div className="relative">
-          <BetaTestMainBanner />
           <MyLocationButton />
         </div>
       )}
