@@ -2,7 +2,7 @@
 
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { PostPostsWriteResponse } from "../types/PostWriteType";
-import { useWriteFlowStore, useBetaTestFeedbackStore } from "@/store";
+import { useWriteFlowStore } from "@/store";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
@@ -30,7 +30,6 @@ export const usePostPosts = () => {
         sessionStorage.setItem("showManualPopup", "true");
       }
       setShowManualPopup(true);
-      useBetaTestFeedbackStore.getState().openBetaTestModal();
       router.replace(`/list/${data.result.id}`);
     },
     onError: () => {
