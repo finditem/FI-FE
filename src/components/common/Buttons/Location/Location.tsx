@@ -29,7 +29,7 @@ const Location = ({ children, ariaLabel = "상세 위치 보기", ...props }: Lo
   return (
     <button
       {...props}
-      className="flex items-center gap-[5px] text-sm text-neutral-normal-default transition-colors duration-150 hover:text-black active:text-neutral-normal-preesed disabled:text-neutral-normal-disabled"
+      className="active:text-neutral-normal-pressed flex items-center gap-[5px] text-sm text-neutral-normal-default transition-colors duration-150 hover:text-black disabled:text-neutral-normal-disabled"
       aria-label={ariaLabel}
     >
       <Icon name="Location" size={16} />
