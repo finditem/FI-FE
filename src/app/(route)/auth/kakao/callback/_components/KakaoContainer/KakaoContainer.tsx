@@ -50,6 +50,8 @@ const KakaoContainer = () => {
 
             if (termsAgreed) {
               router.replace("/");
+            } else if (!termsAgreed) {
+              setStep("Term");
             }
           },
         }
