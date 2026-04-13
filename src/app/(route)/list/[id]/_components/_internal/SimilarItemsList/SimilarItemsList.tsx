@@ -32,7 +32,7 @@ const SimilarItem = ({ data }: SimilarItemProps) => {
         href={`/list/${postId}`}
         className="flex h-[120px] w-[124px] flex-col overflow-hidden rounded-[16px] border border-divider-default bg-white"
       >
-        <div className="flex h-[76px] w-[124px] items-center justify-center bg-fill-neutralInversed-normal-preesed">
+        <div className="bg-fill-neutralInversed-normal-pressed flex h-[76px] w-[124px] items-center justify-center">
           {thumbnailImageUrl ? (
             <Image
               src={thumbnailImageUrl}
