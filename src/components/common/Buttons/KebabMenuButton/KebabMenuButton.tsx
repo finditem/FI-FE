@@ -36,7 +36,7 @@ const KebabMenuButton = ({ ariaLabel, size = "large", ...props }: KebabMenuButto
         name="DetailMenu"
         size={SIZES[size]}
         className={cn(
-          "text-neutral-normal-default hover:text-neutral-normal-hover active:text-neutral-normal-preesed disabled:text-neutral-normal-disabled",
+          "active:text-neutral-normal-pressed text-neutral-normal-default hover:text-neutral-normal-hover disabled:text-neutral-normal-disabled",
           props.className
         )}
       />
