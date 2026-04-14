@@ -28,7 +28,7 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
 
   return (
     <Link href={href} className="relative rounded-2xl border-[0.7px] border-divider-default">
-      <div className="h-[120px] w-[123px] rounded-2xl bg-fill-neutralInversed-normal-preesed">
+      <div className="bg-fill-neutralInversed-normal-pressed h-[120px] w-[123px] rounded-2xl">
         <div className="relative flex h-full w-full justify-center">
           {thumbnailImageUrl ? (
             <Image
