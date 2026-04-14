@@ -48,7 +48,12 @@ const NotificationSettingItem = ({
               onClick={() => setIsBottomSheetOpen(true)}
               className="flex w-full items-center justify-between"
             >
-              <span className="my-[10px] ml-[10px] text-body1-medium text-neutral-normal-placeholder">
+              <span
+                className={cn(
+                  "my-[10px] ml-[10px] text-body1-medium text-neutral-normal-placeholder",
+                  notificationStatus.enabledCategories && "text-neutral-normal-default"
+                )}
+              >
                 {notificationStatus.enabledCategories
                   .map((item) => getLabelByValue(item))
                   .join(", ") || "카테고리 키워드 선택"}
