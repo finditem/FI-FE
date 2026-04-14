@@ -7,6 +7,8 @@ import { Icon, ToggleButton } from "@/components/common";
 import NotificationCategory from "../NotificationCategory/NotificationCategory";
 import { NotificationSetting } from "@/api/fetch/notification";
 import { useToggleClick } from "../../_hooks/useToggleClick";
+import { CATEGORY_OPTIONS } from "@/constants";
+import { CategoryType } from "@/types";
 
 interface NotificationSettingItem {
   item: { label: NotificationLabelType; value: NotificationSettingType };
@@ -27,6 +29,11 @@ const NotificationSettingItem = ({
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const { handleToggle } = useToggleClick(notificationStatus);
+
+  const getLabelByValue = (value: CategoryType) => {
+    return CATEGORY_OPTIONS.find((option) => option.value === value)?.label;
+  };
+
   return (
     <>
       <li className="w-full px-5 py-2">
@@ -42,7 +49,9 @@ const NotificationSettingItem = ({
               className="flex w-full items-center justify-between"
             >
               <span className="my-[10px] ml-[10px] text-body1-medium text-neutral-normal-placeholder">
-                카테고리 키워드 선택
+                {notificationStatus.enabledCategories
+                  .map((item) => getLabelByValue(item))
+                  .join(", ") || "카테고리 키워드 선택"}
               </span>
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </button>
