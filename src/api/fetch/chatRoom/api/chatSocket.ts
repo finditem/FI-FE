@@ -26,6 +26,7 @@ let tokenRefreshHandler: (() => void) | null = null;
 const REMOTE_CHAT_BROKER_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")}/ws`
   : "";
+const RELEASE_PROXY_HOSTNAME = "finditem-release.vercel.app";
 
 const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
   const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
@@ -37,8 +38,9 @@ const getChatSocketBrokerURL = (): string => {
 
   const { hostname } = window.location;
   const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+  const shouldUseSameOriginProxy = isLocal || hostname === RELEASE_PROXY_HOSTNAME;
 
-  if (process.env.NODE_ENV !== "production" || isLocal) {
+  if (process.env.NODE_ENV !== "production" || shouldUseSameOriginProxy) {
     return toSameOriginWsBrokerUrl(window.location);
   }
 
