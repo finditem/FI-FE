@@ -2,10 +2,10 @@
 
 import { retryBackoffController } from "@/utils/retryBackoffController/retryBackoffController";
 import type { NotificationEventData } from "../types/notificationSSETypes";
+import { RELEASE_HOSTNAME } from "@/constants/RELEASE_HOSTNAME";
 
 const ACCESS_TOKEN_API_PATH = "/api/auth/access-token";
 const DEV_SSE_ACCESS_TOKEN_QUERY_KEY = "token";
-const RELEASE_SSE_QUERY_TOKEN_HOSTNAME = "finditem-release.vercel.app";
 
 const RUNTIME_KEY = "__fmi_notification_sse_runtime__";
 
@@ -86,8 +86,7 @@ async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string }
     const q = new URLSearchParams();
     q.set(DEV_SSE_ACCESS_TOKEN_QUERY_KEY, token);
     const isReleaseHostname =
-      typeof window !== "undefined" &&
-      window.location.hostname === RELEASE_SSE_QUERY_TOKEN_HOSTNAME;
+      typeof window !== "undefined" && window.location.hostname === RELEASE_HOSTNAME;
     const shouldSendTokenByQuery = process.env.NODE_ENV === "development" || isReleaseHostname;
 
     if (shouldSendTokenByQuery) {
