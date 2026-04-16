@@ -30,7 +30,8 @@ const KakaoContainer = () => {
   const { mutate: KakaoLoginMutate } = useApiKakaoLogin();
   const { mutate: KakaoPatchMutate, isPending } = usePatchKakaoTerms();
 
-  const appEnv = process.env.NODE_ENV === "production" ? "prod" : "dev";
+  const appEnv =
+    process.env.NEXT_PUBLIC_APP_ENV || process.env.NODE_ENV === "production" ? "prod" : "dev";
 
   useEffect(() => {
     if (!code || step === "Term") return;
