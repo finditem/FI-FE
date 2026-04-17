@@ -185,10 +185,8 @@ test.describe("게시글 수정 페이지", () => {
 
     await expect(page.locator("#title")).toHaveValue("원본 분실물 제목");
 
-    await page.locator("#title").clear();
     await page.locator("#title").fill("수정된 분실물 제목");
 
-    await page.locator("#content").clear();
     await page.locator("#content").fill("수정된 내용입니다.");
 
     const submitButton = page.getByRole("button", { name: "작성 완료" });
@@ -271,13 +269,18 @@ test.describe("게시글 수정 페이지", () => {
     await page.goto(`/write/post/${POST_ID}`);
     await expect(page.locator("#title")).toHaveValue("원본 분실물 제목");
 
-    await page.locator("#title").clear();
     await page.locator("#title").fill("PUT 요청 검증 제목");
 
     await page.getByRole("button", { name: "작성 완료" }).click();
     await page.waitForURL(`**/list/${POST_ID}`);
 
     expect(capturedBody).not.toBeNull();
+
+    const jsonStringMatch = capturedBody!.match(/\{[\s\S]*"title"[\s\S]*\}/);
+    expect(jsonStringMatch).not.toBeNull();
+
+    const requestData = JSON.parse(jsonStringMatch![0]);
+    expect(requestData.title).toBe("PUT 요청 검증 제목");
   });
 
   test("발견 게시글 수정 페이지는 올바른 타이틀을 표시한다", async ({ page }) => {

@@ -182,7 +182,7 @@ test.describe("게시글 상세 페이지", () => {
 
     await expect(page.getByText("테스트유저")).toBeVisible();
 
-    await expect(page.getByRole("link", { name: "채팅하러 가기" })).toBeVisible();
+    await expect(page.getByTestId("post-chat-button")).toBeVisible();
   });
 
   test("비로그인 상태에서 댓글 입력 시 게스트 로그인 모달이 뜬다", async ({ page }) => {
@@ -190,7 +190,7 @@ test.describe("게시글 상세 페이지", () => {
 
     await page.goto(`/list/${POST_ID}`);
 
-    await page.getByRole("textbox").last().click();
+    await page.getByPlaceholder("메시지 보내기").click();
 
     await expect(page.getByRole("heading", { name: "로그인하고 댓글을 확인하세요" })).toBeVisible({
       timeout: 3000,
@@ -280,10 +280,10 @@ test.describe("게시글 상세 페이지", () => {
 
     await page.goto(`/list/${POST_ID}`);
 
-    await page.getByRole("button", { name: "게시글 메뉴" }).click();
+    await page.getByTestId("post-detail-menu-button").click();
 
-    await expect(page.getByText("게시글 신고하기")).toBeVisible();
-    await expect(page.getByText("작성자 차단하기")).toBeVisible();
+    await expect(page.getByTestId("post-report-button")).toBeVisible();
+    await expect(page.getByTestId("post-block-button")).toBeVisible();
   });
 
   test("본인 게시글 삭제 플로우가 정상 동작한다", async ({ context, page }) => {
