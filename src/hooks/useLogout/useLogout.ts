@@ -19,12 +19,12 @@ const useLogout = () => {
 
     logoutMutate(undefined, {
       onSuccess: () => {
-        window.location.href = "/";
         disconnectNotificationSSE();
         resetUnreadNotificationState();
         queryClient.clear();
         logout();
         addToast("로그아웃 되었어요.", "success");
+        window.location.href = "/";
       },
       onError: () => {
         addToast("로그아웃에 실패했어요. 다시 시도해주세요.", "error");

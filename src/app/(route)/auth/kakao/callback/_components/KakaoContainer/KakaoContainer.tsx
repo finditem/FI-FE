@@ -31,7 +31,7 @@ const KakaoContainer = () => {
   const { mutate: KakaoPatchMutate, isPending } = usePatchKakaoTerms();
 
   const appEnv =
-    process.env.NEXT_PUBLIC_APP_ENV || process.env.NODE_ENV === "production" ? "prod" : "dev";
+    process.env.NEXT_PUBLIC_APP_ENV || (process.env.NODE_ENV === "production" ? "prod" : "dev");
 
   useEffect(() => {
     if (!code || step === "Term") return;
