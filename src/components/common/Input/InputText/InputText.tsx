@@ -89,32 +89,32 @@ export interface InputTextProps {
  * />
  *
  * // 3. validation을 통한 입력 제한 및 우측 하단 최대 텍스트 안내
- *   * <InputText
+ * <InputText
  *   inputOption={{
- *   name: "nickname",
- *   maxLength: 10,  // 최대 텍스트 입력 안내 (실시간 텍스트 수 체크)
- *    validation:  {
- *      required: "닉네임을 입력해 주세요.",
- *      pattern: {
- *        value: /^[a-zA-Z0-9가-힣]+$/,
- *        message: "자음·모음 및 특수문자는 입력할 수 없습니다.",
- *      },
- *      minLength: {
- *        value: 2,
- *        message: "2~10자 사이의 닉네임을 입력해 주세요.",
- *      },
- *      maxLength: {
- *        value: 10,
- *        message: "2~10자 사이의 닉네임을 입력해 주세요.",
- *      },
- *    }
+ *     name: "nickname",
+ *     maxLength: 10, // 최대 텍스트 입력 안내 (실시간 텍스트 수 체크)
+ *     validation: {
+ *       required: "닉네임을 입력해 주세요.",
+ *       pattern: {
+ *         value: /^[a-zA-Z0-9가-힣]+$/,
+ *         message: "자음·모음 및 특수문자는 입력할 수 없습니다.",
+ *       },
+ *       minLength: {
+ *         value: 2,
+ *         message: "2~10자 사이의 닉네임을 입력해 주세요.",
+ *       },
+ *       maxLength: {
+ *         value: 10,
+ *         message: "2~10자 사이의 닉네임을 입력해 주세요.",
+ *       },
+ *     },
+ *   }}
  *   label="닉네임"
  *   btnOption={{
  *     btnLabel: "중복 확인",
- *     btnOnClick: (value) => handleCheckNickname(value)
+ *     btnOnClick: (value) => handleCheckNickname(value),
  *   }}
  * />
- *
  * ```
  */
 
