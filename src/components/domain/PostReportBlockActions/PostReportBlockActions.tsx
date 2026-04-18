@@ -25,6 +25,7 @@ const PostReportBlockActions = ({ onOpenReport, onOpenBlock }: PostReportBlockAc
         icon={<Icon name="UserReport" size={18} />}
         label="게시글 신고하기"
         onClick={onOpenReport}
+        testId="post-report-button"
       />
 
       <hr className="w-full border border-white" />
@@ -33,6 +34,7 @@ const PostReportBlockActions = ({ onOpenReport, onOpenBlock }: PostReportBlockAc
         icon={<Icon name="UserBlock" size={20} />}
         label="작성자 차단하기"
         onClick={onOpenBlock}
+        testId="post-block-button"
       />
     </>
   );
@@ -44,11 +46,17 @@ interface ActionButtonProps {
   icon: ReactNode;
   label: string;
   onClick: () => void;
+  testId?: string;
 }
 
-const ActionButton = ({ icon, label, onClick }: ActionButtonProps) => {
+const ActionButton = ({ icon, label, onClick, testId }: ActionButtonProps) => {
   return (
-    <button type="button" className="gap-2 px-7 py-4 flex-center" onClick={onClick}>
+    <button
+      type="button"
+      className="gap-2 px-7 py-4 flex-center"
+      onClick={onClick}
+      data-testid={testId}
+    >
       {icon}
       <span className="text-system-warning">{label}</span>
     </button>

@@ -3,12 +3,10 @@ import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notifica
 import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 const useLogout = () => {
   const { mutate: logoutMutate, isPending } = useApiLogout();
   const { addToast } = useToast();
-  const router = useRouter();
   const resetUnreadNotificationState = useNotificationStore(
     (state) => state.resetUnreadNotificationState
   );
@@ -25,8 +23,8 @@ const useLogout = () => {
         resetUnreadNotificationState();
         queryClient.clear();
         logout();
-        router.replace("/");
         addToast("로그아웃 되었어요.", "success");
+        window.location.href = "/";
       },
       onError: () => {
         addToast("로그아웃에 실패했어요. 다시 시도해주세요.", "error");

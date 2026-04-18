@@ -56,6 +56,7 @@ const PostDetailHeader = ({ headerData }: PostDetailHeaderType) => {
           as={Link}
           href={isMine ? "/chat" : `/chat/${id}`}
           className={cn("min-h-11 w-full py-[10px]", "tablet:flex-1")}
+          data-testid="post-chat-button"
         >
           {isMine ? "채팅 목록으로 이동하기" : "채팅하러 가기"}
         </Button>
