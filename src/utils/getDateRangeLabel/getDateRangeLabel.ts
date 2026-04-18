@@ -23,8 +23,6 @@
  * getDateRangeLabel(null, null);
  * // 결과: "기간"
  * ```
- *
- * @author suhyeon
  */
 
 import { formatYmdLabel } from "../formatYmdLabel/formatYmdLabel";
