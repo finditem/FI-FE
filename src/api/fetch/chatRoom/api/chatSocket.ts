@@ -1,6 +1,7 @@
 import { Client, IMessage, StompSubscription } from "@stomp/stompjs";
 import authApi from "@/api/_base/axios/authApi";
 import { retryBackoffController } from "@/utils";
+import { RELEASE_HOSTNAME } from "@/constants/RELEASE_HOSTNAME";
 
 export type MessageHandler<T = any> = (message: T) => void;
 
@@ -26,7 +27,6 @@ let tokenRefreshHandler: (() => void) | null = null;
 const REMOTE_CHAT_BROKER_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")}/ws`
   : "";
-const RELEASE_PROXY_HOSTNAME = "finditem-release.vercel.app";
 
 const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
   const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
@@ -38,7 +38,7 @@ const getChatSocketBrokerURL = (): string => {
 
   const { hostname } = window.location;
   const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
-  const shouldUseSameOriginProxy = isLocal || hostname === RELEASE_PROXY_HOSTNAME;
+  const shouldUseSameOriginProxy = isLocal || hostname === RELEASE_HOSTNAME;
 
   if (process.env.NODE_ENV !== "production" || shouldUseSameOriginProxy) {
     return toSameOriginWsBrokerUrl(window.location);
