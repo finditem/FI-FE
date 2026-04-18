@@ -13,6 +13,20 @@
  * @author suhyeon
  */
 
+/**
+ *  * @example
+ * // 1. 정상적으로 시작일과 종료일이 있는 경우
+ * getDateRangeLabel("2025-01-01", "2025-01-31");
+ * // 결과: "2025.01.01 ~ 2025.01.31"
+ *
+ * // 2. 날짜 데이터가 없는 경우
+ * getDateRangeLabel(null, null);
+ * // 결과: "기간"
+ * ```
+ *
+ * @author suhyeon
+ */
+
 import { formatYmdLabel } from "../formatYmdLabel/formatYmdLabel";
 import { parseYmd } from "../parseYmd/parseYmd";
 
