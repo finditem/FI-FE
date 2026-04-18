@@ -13,78 +13,110 @@ import Button from "../../Buttons/Button/Button";
 import Icon from "../../Icon/Icon";
 
 /**
- * @author suhyeon
- *
  * 일반 텍스트, 비밀번호 입력 및 버튼 결합이 가능한 공통 Input 컴포넌트입니다.
- * `react-hook-form`의 `FormProvider` 하위에서 사용해야 하며, 실시간 검증을 위해 `mode: "onChange"` 설정을 권장합니다.
  *
- * @param props - InputText 컴포넌트 속성
- * @param props.inputOption - HTML Input 기본 속성 및 react-hook-form 설정 객체
- * - `name`: (필수) 폼 상태 관리를 위한 고유 식별자
- * - `type`: 입력 타입 (default: 'text')
- * - `validation`: `RegisterOptions` 형태의 유효성 검사 규칙
- * - `disabled`: 입력 필드 비활성화 여부
- * @param props.label - 필드 상단에 표시될 라벨 텍스트
- * @param props.btnOption - 우측 결합 버튼 설정 객체 (전달 시 버튼 렌더링)
- * - `btnLabel`: 버튼에 표시될 텍스트
- * - `btnOnClick`: 버튼 클릭 시 호출될 핸들러 (현재 입력값을 인자로 전달)
- * - `btnType`: 버튼의 HTML 타입 ('button', 'submit', 'reset')
- * @param props.caption - 하단 안내 문구 및 에러 메시지 설정 객체
- * - `isSuccess`: 성공 상태 표시 여부 (true 시 successMessage 노출)
- * - `successMessage`: 검증 성공 시 표시할 문구
- * - `rule`: 평상시 또는 검증 전 노출할 입력 규칙 문구
+ * @remarks
+ * - `react-hook-form`의 `FormProvider` 하위에서 사용해야 합니다.
+ * - 실시간 검증을 위해 `mode: "onChange"` 설정 및 "use no memo"가 필요할 수 있습니다.
  *
- * @example
- * ```tsx
- * // 1. 기본 입력 필드 사용
- * <InputText
- * inputOption={{
- * name: "password",
- * type: "password",
- * validation: { required: "비밀번호는 필수입니다." }
- * }}
- * label="비밀번호"
- * caption={{ rule: "8~16자 영문, 숫자 조합" }}
- * />
- *
- * // 2. 버튼 결합형 사용
- * <InputText
- * inputOption={{ name: "email" }}
- * label="이메일"
- * btnOption={{
- * btnLabel: "중복확인",
- * btnOnClick: (value) => handleCheckEmail(value)
- * }}
- * />
- * ```
- *
+ * @author suhyeon
  */
 
 interface InputType extends InputHTMLAttributes<HTMLInputElement> {
+  /** 폼 상태 관리를 위한 고유 식별자 (필수) */
   name: string;
+  /** 입력 필드의 타입 (default: 'text') */
   type?: string;
+  /** `react-hook-form`의 유효성 검사 규칙 객체 */
   validation?: RegisterOptions;
+  /** 입력 필드 비활성화 여부 */
   disabled?: boolean;
 }
 
 interface InputButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 버튼 텍스트 */
   btnLabel?: string;
+  /** 버튼 클릭 핸들러 (현재 input의 value를 인자로 전달받음) */
   btnOnClick?: (value: string) => void;
+  /** 버튼의 HTML 타입 */
   btnType?: "button" | "submit" | "reset";
+  /** 버튼의 로딩 상태 표시 여부 */
   loading?: boolean;
 }
 
 export interface InputTextProps {
+  /** 입력 필드 설정 객체 */
   inputOption: InputType;
+  /** 필드 상단에 표시될 라벨 */
   label?: string;
+  /** 우측 결합 버튼 설정 객체 */
   btnOption?: InputButtonType;
+  /** 하단 안내 문구 설정 객체 */
   caption?: {
+    /** 성공(초록색) 상태 표시 여부 */
     isSuccess?: boolean;
+    /** 성공 상태일 때 노출될 메시지 */
     successMessage?: string;
+    /** 기본 가이드라인 또는 입력 규칙 메시지 */
     rule?: string;
+    /** 우측 하단에 표시될 제한 시간(초) */
     timer?: number;
   };
 }
+
+/**
+ * @example
+ * ```tsx
+ * // 1. 비밀번호 입력 (검증 규칙 포함)
+ * <InputText
+ *   inputOption={{
+ *     name: "password",
+ *     type: "password",
+ *     validation: { required: "비밀번호는 필수입니다." }
+ *   }}
+ *   label="비밀번호"
+ *   caption={{ rule: "8~16자 영문, 숫자 조합" }}
+ * />
+ *
+ * // 2. 버튼 결합형 (이메일 중복 확인 등)
+ * <InputText
+ *   inputOption={{ name: "email" }}
+ *   label="이메일"
+ *   btnOption={{
+ *     btnLabel: "중복확인",
+ *     btnOnClick: (value) => handleCheckEmail(value)
+ *   }}
+ * />
+ *
+ * // 3. validation을 통한 입력 제한 및 우측 하단 최대 텍스트 안내
+ * <InputText
+ *   inputOption={{
+ *     name: "nickname",
+ *     maxLength: 10, // 최대 텍스트 입력 안내 (실시간 텍스트 수 체크)
+ *     validation: {
+ *       required: "닉네임을 입력해 주세요.",
+ *       pattern: {
+ *         value: /^[a-zA-Z0-9가-힣]+$/,
+ *         message: "자음·모음 및 특수문자는 입력할 수 없습니다.",
+ *       },
+ *       minLength: {
+ *         value: 2,
+ *         message: "2~10자 사이의 닉네임을 입력해 주세요.",
+ *       },
+ *       maxLength: {
+ *         value: 10,
+ *         message: "2~10자 사이의 닉네임을 입력해 주세요.",
+ *       },
+ *     },
+ *   }}
+ *   label="닉네임"
+ *   btnOption={{
+ *     btnLabel: "중복 확인",
+ *     btnOnClick: (value) => handleCheckNickname(value),
+ *   }}
+ * />
+ * ```
+ */
 
 const BASE_INPUT_STYLE = cn(
   "flex flex-1 w-full min-w-0 items-center relative h-11 py-3 px-2 bg-fill-neutral-strong-default rounded-[10px] text-body1-regular text-neutral-strong-entered",
@@ -151,7 +183,7 @@ const InputText = ({
             type={actualType}
           />
 
-          {/* 삭제 버튼 */}
+          {/* delete button */}
           {disabled ||
             (!!isValue && (
               <DeleteButton
@@ -196,7 +228,7 @@ const InputText = ({
         )}
       </div>
 
-      {/* 안내 문구 */}
+      {/* caption */}
       <div className="flex w-full justify-between text-caption1-regular text-layout-body-default">
         <Caption
           isSuccess={isSuccess}
@@ -206,10 +238,10 @@ const InputText = ({
           rule={rule}
         />
 
-        {/* 글자 수 확인 */}
+        {/* text counter */}
         <Counter isLength={isValueStr.length} maxLength={maxLength} />
 
-        {/* 타이머 */}
+        {/* timer */}
         {timer && timer > 0 && (
           <time className="text-caption1-regular text-brand-normal-default">
             {Math.floor(timer / 60)}:{String(timer % 60).padStart(2, "0")}
