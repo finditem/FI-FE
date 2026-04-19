@@ -11,20 +11,27 @@ import Counter from "../_internal/Counter/Counter";
 import { useFormInput } from "../_internal/_hooks/useFormInput";
 
 /**
- * @author suhyeon
- *
  * 서술형 텍스트를 작성할 수 있는 input 공통 컴포넌트 입니다.
- * react-hook-form를 필수로 사용한다는 전제하에 개발하였습니다.
- * react-hook-form으로 사용하실 곳은 상위 요소로 FormProvider를 사용해주시고 method는 onChange 모드로 설정하시면 됩니다.
  *
+ * @remarks
+ * - `react-hook-form`의 `FormProvider` 하위에서 사용해야 합니다.
+ * - 실시간 검증을 위해 `mode: "onChange"` 설정 및 "use no memo"가 필요할 수 있습니다.
  *
- * @param items -  서술형 텍스트를 작성할 수 있는 input 공통 컴포넌트 props입니다.
- *  - 'name': 입력 필드의 id 및 register함수 사용을 위한 name
- *  - 'label': 라벨의 텍스트
- *  - 'rule': caption에 나타날 입력 필드의 규칙
- *  - `validation`: 입력 필드의 유효성 검사를 위한 RegisterOption
- *
- *
+ * @author suhyeon
+ */
+
+interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** 폼 상태 관리를 위한 고유 식별자 (필수) */
+  name: string;
+  /** 필드 상단에 표시될 라벨 */
+  label?: string;
+  /** 기본 가이드라인 또는 입력 규칙 메시지 */
+  rule?: string;
+  /** `react-hook-form`의 유효성 검사 규칙 객체 */
+  validation?: RegisterOptions;
+}
+
+/**
  * @example
  * ```tsx
  * <FormProvider {...methods}>
@@ -38,16 +45,7 @@ import { useFormInput } from "../_internal/_hooks/useFormInput";
  *   </form>
  * </FormProvider>
  * ```
- *
- *
  */
-
-interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  name: string;
-  label?: string;
-  rule?: string;
-  validation?: RegisterOptions;
-}
 
 const InputField = ({
   name,
