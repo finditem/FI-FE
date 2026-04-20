@@ -20,7 +20,7 @@
  * formatViewCount(999);    // "999회"
  * formatViewCount(1234);   // "1.2천회"
  * formatViewCount(12345);  // "1.2만회"
- * formatViewCount(123456); // "12만회"
+ * formatViewCount(123456); // "12.3만회"
  * ```
  */
 

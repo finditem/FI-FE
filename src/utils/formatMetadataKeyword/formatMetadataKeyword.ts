@@ -16,7 +16,7 @@
 /**
  * @example
  * ```ts
- * formatMetadataKeyword("<script>alert(1)</script>") // "scriptalert(1)/script"
+ * formatMetadataKeyword("<script>alert(1)</script>") // "scriptalert(1)/scrip"
  * formatMetadataKeyword("지갑")                       // "지갑"
  * formatMetadataKeyword()                            // "물건"
  * ```
