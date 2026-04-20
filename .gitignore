@@ -53,5 +53,9 @@ node_modules/
 
 # Jest test reports
 reports/*
+
+# Playwright test reports
+test-results/*
+
 # Sentry Config File
 .env.sentry-build-plugin
