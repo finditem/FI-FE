@@ -59,13 +59,18 @@ describe("<ReplyForm />", () => {
   });
 
   it("Enter 키 입력 시 폼이 제출됩니다.", async () => {
+    HTMLFormElement.prototype.requestSubmit = function () {
+      fireEvent.submit(this);
+    };
+
     render(<ReplyForm {...defaultProps} />);
     const textarea = screen.getByPlaceholderText("답글 작성란");
 
-    fireEvent.change(textarea, { target: { value: "엔터테스트" } });
+    await userEvent.type(textarea, "엔터테스트{enter}");
 
     await waitFor(() => {
-      expect(textarea).toHaveValue("엔터테스트");
+      expect(defaultProps.onSubmit).toHaveBeenCalledWith("엔터테스트", null);
+      expect(textarea).toHaveValue("");
     });
   });
 });
