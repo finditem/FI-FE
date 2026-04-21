@@ -2,21 +2,24 @@ import { Icon } from "@/components/common";
 import BaseStateLayout from "../BaseStateLayout/BaseStateLayout";
 
 /**
+ * 로딩 중일 때 표시하는 state 컴포넌트입니다.
+ *
+ * @remarks
+ * - `BaseStateLayout`을 사용하여 공통 레이아웃을 적용합니다.
+ *
  * @author jikwon
- *
- * @description
- * - 로딩 중일 때 표시하는 state 컴포넌트입니다.
- * - BaseStateLayout을 사용하여 공통 레이아웃을 적용합니다.
- *
- * @param title - 제목
- *
- * @example
- * <LoadingState title="로딩 중..." />
  */
-
 interface LoadingStateProps {
+  /** 로딩 안내 문구 (default: '페이지 로딩 중...') */
   title?: string;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <LoadingState title="로딩 중..." />
+ * ```
+ */
 
 const LoadingState = ({ title = "페이지 로딩 중..." }: LoadingStateProps) => {
   return (
