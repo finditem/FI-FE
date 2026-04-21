@@ -1,11 +1,28 @@
 /**
+ * 시작일과 종료일을 받아 포맷팅된 기간 레이블을 반환하는 유틸 함수입니다.
+ *
+ * @remarks
+ * - 날짜 형식이 유효하지 않거나 데이터가 없으면 "기간"을 반환합니다.
+ * - 내부적으로 `parseYmd`와 `formatYmdLabel`을 사용하여 처리합니다.
+ *
+ * @param startDate - '2025-01-01' 형식의 시작일 (선택 사항)
+ * @param endDate - '2025-01-31' 형식의 종료일 (선택 사항)
+ *
+ * @returns 포맷팅된 기간 (예: "2025.01.01 ~ 2026.01.01") 또는 "기간"
+ *
  * @author suhyeon
- * 시작일과 종료일을 받아 포맷팅된 기간 레이블을 반환합니다.
+ */
+
+/**
+ *  * @example
+ * // 1. 정상적으로 시작일과 종료일이 있는 경우
+ * getDateRangeLabel("2025-01-01", "2025-01-31");
+ * // 결과: "2025.01.01 ~ 2025.01.31"
  *
- * @param startDate - '2025-01-01' 형식 시작일
- * @param endDate - '2025-01-31' 형식 종료일
- *
- * @return 2025.01.01 ~ 2026.01.01 | "기간"
+ * // 2. 날짜 데이터가 없는 경우
+ * getDateRangeLabel(null, null);
+ * // 결과: "기간"
+ * ```
  */
 
 import { formatYmdLabel } from "../formatYmdLabel/formatYmdLabel";

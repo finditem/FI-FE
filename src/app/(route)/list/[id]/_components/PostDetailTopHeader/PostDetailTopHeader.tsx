@@ -50,10 +50,19 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
             isActive={postData.favoriteStatus}
             onClick={() => handleToggleFavorite(postData.favoriteStatus)}
             ariaLabel="게시글 즐겨찾기"
+            data-testid="post-detail-favorite-button"
           />
-          <HeaderShare onClick={() => setOpenShareModal(true)} ariaLabel="게시글 공유" />
+          <HeaderShare
+            onClick={() => setOpenShareModal(true)}
+            ariaLabel="게시글 공유"
+            data-testid="post-detail-share-button"
+          />
           <div ref={ref} className="relative flex items-center">
-            <HeaderMenu onClick={() => setOpenOptionModal((v) => !v)} ariaLabel="게시글 메뉴" />
+            <HeaderMenu
+              onClick={() => setOpenOptionModal((v) => !v)}
+              ariaLabel="게시글 메뉴"
+              data-testid="post-detail-menu-button"
+            />
             <PostActionMenu
               open={openOptionModal}
               onClose={() => setOpenOptionModal(false)}

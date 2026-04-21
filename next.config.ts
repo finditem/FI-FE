@@ -29,15 +29,21 @@ const securityHeaders = [
   },
 ];
 
+const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
+
 const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
   },
   async rewrites() {
+    if (!apiBaseUrl) {
+      return [];
+    }
+
     return [
       {
         source: "/api/:path*",
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+        destination: `${apiBaseUrl}/:path*`,
       },
     ];
   },
