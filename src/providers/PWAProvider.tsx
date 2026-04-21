@@ -159,6 +159,7 @@ export const PWAProvider = ({ children }: { children: ReactNode }) => {
  * - `incrementViewCount`: 상세 페이지 조회 횟수 증가 함수
  * - `closePrompt`: 팝업 닫기 및 재표시 방지 함수
  */
+
 /**
  * @example
  * ```tsx
@@ -169,6 +170,7 @@ export const PWAProvider = ({ children }: { children: ReactNode }) => {
  * }
  * ```
  */
+
 export const usePWA = () => {
   const context = useContext(PWAContext);
   if (context === undefined) {
