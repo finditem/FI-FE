@@ -3,11 +3,32 @@ import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, getItemCategoryLabel, getItemStatusLabel, highlightText } from "@/utils";
 
+/**
+ * 게시글 목록의 개별 아이템 컴포넌트입니다.
+ *
+ * @remarks
+ * - `linkState`에 따라 분실/발견 목록(`/list/:id`) 또는 공지사항(`/notice/:id`)으로 링크됩니다.
+ * - `keyword`가 있으면 제목과 요약 내 일치 텍스트를 하이라이트합니다.
+ *
+ * @author jikwon
+ */
+
 interface PostListItemProps {
-  post: PostItem | any; // 각 페이지에 맞는 타입 추가해주세요
+  /** 게시글 데이터. 각 페이지에 맞는 타입으로 확장해주세요. */
+  post: PostItem | any;
+  /** 링크 이동 방식 (default: 'list') */
   linkState?: "notice" | "list";
+  /** 검색 키워드. 제목 및 요약에 하이라이트 처리됩니다. */
   keyword?: string;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <PostListItem post={post} />
+ * <PostListItem post={post} linkState="notice" keyword="지갑" />
+ * ```
+ */
 
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
   const { id, postStatus, category, createdAt, isNew, isHot, imageCount } = post;
