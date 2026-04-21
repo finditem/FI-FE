@@ -1,46 +1,35 @@
 "use client";
 
 /**
- * 
- * @author jikwon (Original)
- * @author suhyeon (Refactored)
- * 
- * URL의 query parameter를 읽어 필터 상태 객체로 변환하는 훅입니다.
+ * URL 쿼리 파라미터를 읽어 필터 상태 객체로 변환하는 커스텀 훅입니다.
  *
- * Next.js App Router의 `useSearchParams`를 이용하여 현재 URL의
- * 검색 파라미터를 가져온 뒤, 문자열 값을 애플리케이션에서 사용하는
- * Enum 타입으로 정규화하여 반환한다.
+ * @remarks
+ * - `useSearchParams`로 URL 쿼리를 읽고 `normalizeEnumValue`로 Enum 타입으로 정규화합니다.
+ * - 잘못된 쿼리 값은 undefined로 반환됩니다.
+ * - 필터 UI 초기값 설정 및 API 요청 파라미터 생성에 사용됩니다.
  *
- * 주요 목적
- * - URL 기반 필터 상태 관리
- * - 필터 UI 초기값 제공
- * - API 요청 파라미터 생성
- * - 잘못된 query 값을 enum 기준으로 검증
+ * @returns URL 쿼리 기반 필터 상태 객체
+ * - `type`: 게시글 타입
+ * - `status`: 게시글 상태 필터
+ * - `category`: 카테고리 필터
+ * - `sort`: 정렬 필터
+ * - `region`: 지역 필터
+ * - `findStatus`: 아이템 찾음 상태 필터
+ * - `startDate`: 시작일 필터
+ * - `endDate`: 종료일 필터
+ * - `activity`: 활동 내역 타입 필터
+ * - `simpleSort`: 최근, 오래된 순 필터
+ * - `reportStatus`: 신고 상태 필터
+ * - `inquiryStatus`: 문의 상태 필터
  *
- * 동작 방식
- * 1. `useSearchParams()`로 URL query 읽기
- * 2. `searchParams.get()`으로 문자열 값 추출
- * 3. `normalizeEnumValue`로 Enum 타입 검증 및 변환
- * 4. 필터 객체 형태로 반환
- *
- * 반환 값
- * @returns {{
- *  type: string | undefined
- *  status: StatusFilterValue | undefined
- *  category: CategoryFilterValue | undefined
- *  sort: SortFilterValue | undefined
- *  region: string | null
- *  findStatus: FindStatusFilterValue | undefined
- *  date: string | null
- *  activity: ActivityFilterValue | null
- *  simpleSort : SimpleSortFilterValue | undefined
- * requestStatus: RequestStatusFilterValue | undefined
- * }}
- *
+ * @author jikwon
+ * @author suhyeon
+ */
+
+/**
  * @example
- * 
  * ```ts
-  const { region, category, sort, status, findStatus, date, activity } = useFilterParams();
+ * const { region, category, sort, status, findStatus } = useFilterParams();
  * ```
  */
 
