@@ -1,39 +1,35 @@
 /**
- * @author suhyeon
- *
  * 날짜 선택 UI에서 사용할 연/월/일 상태와 선택 핸들러를 생성하는 커스텀 훅입니다.
  *
- * @param queryDate - URL query 등에서 전달되는 초기 날짜 값
- * @param queryDate.year - 연도
- * @param queryDate.month - 월 (1 ~ 12)
- * @param queryDate.day - 일 (1 ~ 31)
+ * @remarks
+ * - 선택 가능한 연도는 2025년부터 현재 연도까지 제공됩니다.
+ * - 현재 날짜 이후의 미래 날짜는 선택할 수 없도록 연/월/일 목록이 동적으로 필터링됩니다.
+ * - 월(Month)이나 연(Year)이 변경될 때, 해당 월의 최대 일수를 계산하여 일(Day) 상태를 자동으로 보정합니다.
  *
- * @returns {{
- *  years: number[]
- *  months: number[]
- *  days: number[]
- *  selectDate: { year: number; month: number; day: number }
- *  handleDateChange: (type: "year" | "month" | "day", value: number) => void
- * }}
+ * @param queryDate - 초기값으로 설정할 날짜 객체
  *
- * 반환 값 설명
+ * @returns 날짜 선택에 필요한 상태와 핸들러 객체
+ * - `years`: 선택 가능한 연도 배열 (2025 ~ 현재)
+ * - `months`: 선택 가능한 월 배열 (현재 연도인 경우 현재 월까지만 표시)
+ * - `days`: 선택 가능한 일 배열 (현재 월인 경우 현재 일까지만 표시)
+ * - `selectDate`: 현재 선택된 { year, month, day } 상태
+ * - `handleDateChange`: 특정 항목(year, month, day)을 변경하는 핸들러
+ * - `handleResetDate`: 날짜를 현재 시점(오늘)으로 초기화하는 핸들러
  *
- * - years
- *   선택 가능한 연도 목록 (startYear ~ 현재 연도)
- *
- * - months
- *   선택 가능한 월 목록 (1 ~ 12)
- *
- * - days
- *   선택된 year/month 기준 해당 월의 일 목록
- *
- * - selectDate
- *   현재 선택된 날짜 상태
- *
- * - handleDateChange
- *   연/월/일 변경 핸들러
- *   - year/month 변경 시 해당 월의 최대 일수를 계산하여 day 자동 보정
- *
+ * @author suhyeon
+ */
+
+/**
+ * @example
+ * ```tsx
+ * const {
+ * years,
+ * months,
+ * days,
+ * selectDate,
+ * handleDateChange
+ * } = useMakeDate({ year: 2025, month: 5, day: 10 });
+ * ```
  */
 
 import { getDaysInMonth } from "date-fns";
