@@ -1,9 +1,5 @@
 /**
- * @author jikwon
- *
  * 유저 탈퇴 사유 타입
- *
- * @description
  * - NOT_USING: 사용하지 않음
  * - LOW_TRUST: 신뢰도가 낮음
  * - DIFFICULT_TO_USE: 사용하기 어려움
@@ -11,6 +7,8 @@
  * - UNPLEASANT_USER: 불쾌한 사용자
  * - UNFAIR_RESTRICTION: 부당한 제한
  * - OTHER: 기타
+ *
+ * @author jikwon
  */
 
 export type WithdrawalReason =

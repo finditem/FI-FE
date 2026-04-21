@@ -1,12 +1,23 @@
 "use client";
 
+import { useState, useCallback, useEffect, useRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { useState, useCallback, useEffect, useRef } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { SnackBarContext } from "@/context/SnackBarContext";
 import SnackBar from "@/components/common/SnackBar/SnackBar";
-import { AnimatePresence, motion } from "framer-motion";
 
-export const SnackBarProvider = ({ children }: { children: React.ReactNode }) => {
+/**
+ * 스낵바 메시지를 전역에서 표시하기 위한 Context Provider 컴포넌트입니다.
+ *
+ * @remarks
+ * - `SnackBarContext`를 통해 `showSnackBar` 함수를 하위 컴포넌트에 제공합니다.
+ * - 스낵바는 3초 후 자동으로 사라지며, 새 메시지가 오면 타이머가 초기화됩니다.
+ * - `document.body`에 portal로 렌더링됩니다.
+ *
+ * @author jikwon
+ */
+
+export const SnackBarProvider = ({ children }: { children: ReactNode }) => {
   const [snackBar, setSnackBar] = useState<{
     id: number;
     message: string;
