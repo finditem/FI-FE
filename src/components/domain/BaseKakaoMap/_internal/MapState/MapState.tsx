@@ -2,10 +2,20 @@ import { ReactNode } from "react";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 
+/**
+ * 지도 상태(로딩/에러) 화면의 공통 레이아웃 컴포넌트입니다.
+ *
+ * @author jikwon
+ */
+
 type StateLayoutProps = {
+  /** 상태를 나타내는 아이콘 요소 */
   icon: ReactNode;
+  /** 상태 제목 */
   title: ReactNode;
+  /** 부가 설명 콘텐츠 */
   children?: ReactNode;
+  /** 콘텐츠 영역에 적용할 추가 클래스 */
   contentClassName: string;
 };
 
@@ -24,6 +34,19 @@ const StateLayout = ({ icon, title, children, contentClassName }: StateLayoutPro
   );
 };
 
+/**
+ * 카카오 지도 SDK 로딩 중 표시되는 상태 컴포넌트입니다.
+ *
+ * @author jikwon
+ */
+
+/**
+ * @example
+ * ```tsx
+ * <MapLoadingState />
+ * ```
+ */
+
 const MapLoadingState = () => {
   return (
     <StateLayout
@@ -37,6 +60,19 @@ const MapLoadingState = () => {
     </StateLayout>
   );
 };
+
+/**
+ * 카카오 지도 로드 실패 시 표시되는 에러 상태 컴포넌트입니다.
+ *
+ * @author jikwon
+ */
+
+/**
+ * @example
+ * ```tsx
+ * <MapErrorState />
+ * ```
+ */
 
 const MapErrorState = () => {
   return (

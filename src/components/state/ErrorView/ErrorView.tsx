@@ -2,17 +2,24 @@ import Link from "next/link";
 import { Button, Icon } from "@/components/common";
 
 /**
+ * not-found, global-error에서 공통으로 사용하는 페이지 컴포넌트입니다.
+ *
  * @author jikwon
- *
- * @description
- * - not-found, global-error에서 공통으로 사용하는 페이지 컴포넌트입니다.
- *
- * @param iconName - 아이콘 이름
- * @param code - 에러 코드
- * @param title - 에러 제목
- * @param description - 에러 설명
- *
+ */
+interface ErrorViewProps {
+  /** HTTP 에러 코드 (예: '404', '500') */
+  code: string;
+  /** 에러 제목 */
+  title: string;
+  /** 에러 설명 */
+  description: React.ReactNode;
+  /** 에러 종류에 따른 아이콘 */
+  iconName: "NotFound" | "ServerError";
+}
+
+/**
  * @example
+ * ```tsx
  * <ErrorView
  *   iconName="NotFound"
  *   code="404"
@@ -24,14 +31,8 @@ import { Button, Icon } from "@/components/common";
  *     </>
  *   }
  * />
+ * ```
  */
-
-interface ErrorViewProps {
-  code: string;
-  title: string;
-  description: React.ReactNode;
-  iconName: "NotFound" | "ServerError";
-}
 
 const ErrorView = ({ code, title, description, iconName }: ErrorViewProps) => {
   return (

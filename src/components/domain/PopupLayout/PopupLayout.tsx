@@ -5,15 +5,28 @@ import { useModalBackdrop, useModalLockAndEsc } from "@/hooks";
 import { createPortal } from "react-dom";
 
 /**
+ * 화면 하단에서 위로 올라오는 팝업 레이아웃 컴포넌트입니다.
+ *
+ * @remarks
+ * - `isOpen`이 false이면 렌더링하지 않습니다.
+ * - ESC 키 및 백드롭 클릭으로 닫힙니다.
+ * - `document.body`에 포털로 렌더링됩니다.
+ *
  * @author jikwon
- *
- * 팝업 레이아웃 컴포넌트입니다.
- *
- * @param isOpen - 모달 열림 여부
- * @param onClose - 닫기 핸들러(ESC/백드롭 포함)
- * @param children - 모달 내용
- * @param className - 추가 CSS 클래스
- *
+ */
+
+interface PopupLayoutProps {
+  /** 팝업 열림 여부 */
+  isOpen: boolean;
+  /** 닫기 핸들러. ESC 키 및 백드롭 클릭 시에도 호출됩니다. */
+  onClose?: () => void;
+  /** 팝업 내부에 렌더링할 콘텐츠 */
+  children: React.ReactNode;
+  /** 추가 클래스 */
+  className?: string;
+}
+
+/**
  * @example
  * ```tsx
  * <PopupLayout isOpen={isOpen} onClose={onClose}>
@@ -21,12 +34,6 @@ import { createPortal } from "react-dom";
  * </PopupLayout>
  * ```
  */
-interface PopupLayoutProps {
-  isOpen: boolean;
-  onClose?: () => void;
-  children: React.ReactNode;
-  className?: string;
-}
 
 const PopupLayout = ({ isOpen, onClose, children, className }: PopupLayoutProps) => {
   useModalLockAndEsc({ isOpen, onClose });
