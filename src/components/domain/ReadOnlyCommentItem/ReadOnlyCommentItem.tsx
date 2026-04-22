@@ -4,18 +4,24 @@ import { ProfileAvatar, Chip } from "@/components/common";
 import { ReadOnlyCommentItemProps } from "@/types";
 
 /**
+ * 읽기 전용 댓글 아이템 컴포넌트입니다.
+ *
+ * @remarks
+ * - 좋아요, 신고, 삭제 등 액션 버튼이 없습니다.
+ * - 관리자 페이지, 마이페이지 등 뷰 전용 댓글 목록에서 사용됩니다.
+ *
+ * @param data - 댓글 데이터
+ * @param images - 댓글에 첨부된 이미지 URL 목록
+ *
  * @author jikwon
- *
- * @description
- * 읽기 전용 댓글 아이템입니다.
- * 좋아요, 신고, 삭제 등 액션 버튼이 없습니다.
- * 관리자, 마이페이지 등 댓글 목록에서 사용됩니다.
- *
+ */
+
+/**
  * @example
  * ```tsx
  * <ReadOnlyCommentItem data={data} />
+ * <ReadOnlyCommentItem data={data} images={["https://..."]} />
  * ```
- *
  */
 
 const ReadOnlyCommentItem = ({
