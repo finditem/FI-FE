@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import AddToHomeScreenPWA from "./AddToHomeScreenPWA";
+import { PWAProvider } from "@/providers/PWAProvider";
 
 const meta: Meta<typeof AddToHomeScreenPWA> = {
   title: "공통 컴포넌트/AddToHomeScreenPWA",
@@ -9,9 +10,11 @@ const meta: Meta<typeof AddToHomeScreenPWA> = {
   },
   decorators: [
     (Story) => (
-      <ul className="w-[400px]">
-        <Story />
-      </ul>
+      <PWAProvider>
+        <div className="w-[400px]">
+          <Story />
+        </div>
+      </PWAProvider>
     ),
   ],
 };
