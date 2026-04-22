@@ -3,6 +3,7 @@ import { Button, Icon } from "@/components/common";
 import { PopupLayout } from "@/components/domain";
 import { useToast } from "@/context/ToastContext";
 import { useMainKakaoMapStore } from "@/store";
+import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import { useState } from "react";
 import { PERMISSION_CONFIG, PERMISSION_ITEM } from "../../_constants/PERMISSION_CONFIG";
 
@@ -31,12 +32,14 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           useMainKakaoMapStore.getState().triggerLevelReset();
           useMainKakaoMapStore.getState().setUserGpsFromDevice(next);
           useMainKakaoMapStore.getState().setLatLng(next);
+          markMainGeoSessionConfirmed();
           onClose();
         },
         (error) => {
           useMainKakaoMapStore.getState().triggerLevelReset();
           useMainKakaoMapStore.getState().clearLatLng();
           if (error.code === error.PERMISSION_DENIED) {
+            clearMainGeoSessionConfirmed();
             addToast("위치 권한이 거부되었습니다. 설정에서 허용해주세요.", "warning");
           }
           onClose();
