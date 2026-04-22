@@ -1,4 +1,9 @@
 import { useMainKakaoMapStore } from "@/store";
+import {
+  clearMainGeoSessionConfirmed,
+  hasMainGeoSessionConfirmed,
+  markMainGeoSessionConfirmed,
+} from "@/utils/mainGeoSession";
 import { useCallback, useEffect, useState } from "react";
 
 const useMyLocationButton = () => {
@@ -21,6 +26,7 @@ const useMyLocationButton = () => {
 
       if (permission.state === "denied") {
         clearLatLng();
+        clearMainGeoSessionConfirmed();
       }
     };
 
@@ -39,10 +45,14 @@ const useMyLocationButton = () => {
         const next = { lat: coords.latitude, lng: coords.longitude };
         setUserGpsFromDevice(next);
         setLatLng(next);
+        markMainGeoSessionConfirmed();
       },
-      () => {
+      (error) => {
         triggerLevelReset();
         clearLatLng();
+        if (error.code === error.PERMISSION_DENIED) {
+          clearMainGeoSessionConfirmed();
+        }
       }
     );
   }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerLevelReset]);
@@ -60,15 +70,32 @@ const useMyLocationButton = () => {
           requestDeviceLocation();
           return;
         }
+        if (result.state === "denied") {
+          setIsLocationPermissionSheetOpen(true);
+          return;
+        }
+        if (hasMainGeoSessionConfirmed()) {
+          requestDeviceLocation();
+          return;
+        }
         setIsLocationPermissionSheetOpen(true);
         return;
       } catch {
-        requestDeviceLocation();
+        if (hasMainGeoSessionConfirmed()) {
+          requestDeviceLocation();
+          return;
+        }
+        setIsLocationPermissionSheetOpen(true);
         return;
       }
     }
 
-    requestDeviceLocation();
+    if (hasMainGeoSessionConfirmed()) {
+      requestDeviceLocation();
+      return;
+    }
+
+    setIsLocationPermissionSheetOpen(true);
   };
 
   const closeLocationPermissionSheet = useCallback(() => {
