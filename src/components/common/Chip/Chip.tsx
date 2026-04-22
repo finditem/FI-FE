@@ -2,27 +2,20 @@ import { cn } from "@/utils";
 import { ChipProps, ChipType } from "./ChipTypes";
 
 /**
- * @author jikwon
- *
  * 상세페이지 카테고리를 나타내는 작은 원형 칩 컴포넌트입니다.
- * `type`에 따라 배경색과 라벨이 달라집니다.
  *
- * @param type - 칩의 종류를 지정합니다.
- * - `"brandSubtle"`: bg-fill-brand-subtle-default text-brand-normal-default을 나타냅니다.
- * - `"neutralStrong"`: bg-fill-neutral-strong-default text-neutral-strong-default을 나타냅니다.
- * - `"brandNormal"`: bg-fill-brand-normal-default text-white을 나타냅니다.
- * - `"admin"`: bg-fill-brand-subtle-default text-brand-normal-default text-caption2-semibold !py-1 !px-2을 나타냅니다.
- * - `"toast"`: bg-toast text-white을 나타냅니다.
- * - `"neutralDisabled"`: bg-fill-neutral-strong-disabled text-neutral-strong-default을 나타냅니다.
+ * @remarks
+ * - `type`에 따라 배경색과 텍스트 색상이 달라집니다.
+ * - `"brandSubtle"`: 브랜드 서브 배경 / 브랜드 텍스트
+ * - `"neutralStrong"`: 중립 강조 배경 / 중립 텍스트
+ * - `"brandNormal"`: 브랜드 배경 / 흰색 텍스트
+ * - `"admin"`: 관리자용, 작은 패딩 적용
+ * - `"toast"`: 토스트 배경 / 흰색 텍스트
+ * - `"neutralDisabled"`: 비활성 배경 / 중립 텍스트
  *
- * @example
- * ```tsx
- * <Chip label="찾는중" type="brandSubtle" />
- * <Chip label="카테고리" type="neutralStrong" />
- * <Chip label="완료" type="brandNormal" />
- * <Chip label="관리자" type="admin" />
- * ```
+ * @author jikwon
  */
+
 const TypeMap: Record<ChipType, string> = {
   brandSubtle: "bg-fill-brand-subtle-default text-brand-normal-default",
   neutralStrong: "bg-fill-neutral-strong-default text-neutral-strong-default",
@@ -33,6 +26,15 @@ const TypeMap: Record<ChipType, string> = {
   neutralDisabled: "bg-fill-neutral-strong-disabled text-neutral-strong-default",
   brandSubtleDefault: "bg-fill-brand-subtle-default text-brand-strongUseThis-default",
 };
+
+/**
+ * @example
+ * ```tsx
+ * <Chip label="찾는중" type="brandSubtle" />
+ * <Chip label="완료" type="brandNormal" />
+ * <Chip label="관리자" type="admin" />
+ * ```
+ */
 
 const Chip = ({ label, type = "brandSubtle", className }: ChipProps) => {
   return (

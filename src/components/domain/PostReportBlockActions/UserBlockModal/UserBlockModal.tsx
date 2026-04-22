@@ -2,11 +2,27 @@ import { useBlock } from "@/api/fetch/report";
 import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
 
+/**
+ * 유저 차단 확인 모달 컴포넌트입니다.
+ *
+ * @author jikwon
+ */
+
 interface UserBlockModalProps {
+  /** 모달 열림 여부 */
   isOpen: boolean;
+  /** 모달 닫기 핸들러 */
   onClose: () => void;
+  /** 차단할 작성자 ID */
   writerId: number;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <UserBlockModal isOpen={isOpen} onClose={() => setIsOpen(false)} writerId={123} />
+ * ```
+ */
 
 const UserBlockModal = ({ isOpen, onClose, writerId }: UserBlockModalProps) => {
   const { mutate: blockUser } = useBlock({

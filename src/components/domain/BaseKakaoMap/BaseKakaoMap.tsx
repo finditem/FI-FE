@@ -7,60 +7,56 @@ import { GetMarkerData } from "@/api/fetch/mapController";
 import { MAP_MARKER_ICON } from "./MAP_MARKER_ICON";
 
 /**
- * @author jikwon
- *
- * @description
  * 카카오 지도를 사용하는 모든 화면의 기반이 되는 Base 컴포넌트입니다.
  *
+ * @remarks
  * - 카카오 지도 SDK 로딩을 내부에서 처리합니다.
  * - Marker, Circle(반경), 드래그 여부 등 공통 기능을 옵션(props)으로 제어합니다.
- * - 지도 위에 표시되는 UI(주소 오버레이 등)는 children으로 전달받아 렌더링합니다.
+ * - 지도 위에 표시되는 UI는 children으로 전달받아 렌더링합니다.
+ * - 직접 사용하기보다는 `PostDetailKakaoMap`, `PostWriteKakaoMap` 같은 프리셋 래퍼 컴포넌트에서 사용하는 것을 권장합니다.
+ * - 부모 요소는 반드시 `height`가 명시되어 있어야 합니다. (`min-height`만 있는 경우 지도가 렌더링되지 않습니다.)
  *
- * 이 컴포넌트는 직접 사용하기보다는,
- * `PostDetailKakaoMap`, `PostWriteKakaoMap`과 같은
- * **프리셋 래퍼 컴포넌트**에서 사용하는 것을 권장합니다.
- *
- * @remarks
- * - 부모 요소는 반드시 `height`가 명시되어 있어야 합니다.
- *   (`min-height`만 있는 경우 지도는 렌더링되지 않습니다.)
- * - 지도, 마커, 원(Circle)과 관련된 구현 로직은 이 컴포넌트에서만 관리합니다.
- *
- * @param props.center
- * 지도의 중심 좌표입니다.
- *
- * @param props.level
- * 지도 확대 레벨입니다. 기본값은 6입니다.
- *
- * @param props.draggable
- * 지도의 드래그 가능 여부입니다. 기본값은 false입니다.
- *
- * @param props.style
- * 지도(Map) 컴포넌트에 전달되는 스타일 객체입니다.
- * 기본값은 `{ width: "100%", height: "100%" }` 입니다.
- *
- * @param props.showCenterMarker
- * 중심 좌표에 마커를 표시할지 여부입니다. 기본값은 true입니다.
- *
- * @param props.markerSize
- * 마커 이미지의 크기입니다.
- *
- * @param props.markerOffset
- * 마커 이미지의 offset 값입니다.
- *
- * @param props.radius
- * 원(Circle)의 반경 값입니다. `showCircle`이 true일 때만 사용됩니다.
- *
- * @param props.showCircle
- * 중심 좌표 기준으로 반경 원(Circle)을 표시할지 여부입니다.
- *
- * @param props.onDragEnd
- * 지도 드래그가 끝났을 때 호출되는 콜백입니다.
- * 변경된 중심 좌표를 인자로 전달합니다.
- *
- * @param props.children
- * 지도 위에 오버레이로 표시할 UI 요소입니다.
- * (주소 표시 카드, 버튼 등)
- *
+ * @author jikwon
+ */
+
+type LatLng = { lat: number; lng: number };
+
+interface BaseKakaoMapProps {
+  /** 지도의 중심 좌표 */
+  center: LatLng;
+  /** 지도 확대 레벨 (default: 6) */
+  level?: number;
+  /** 지도 드래그 가능 여부 (default: false) */
+  draggable?: boolean;
+  /** 지도(Map) 컴포넌트에 전달되는 스타일 객체 (default: `{ width: "100%", height: "100%" }`) */
+  style?: CSSProperties;
+  /** 중심 좌표에 마커를 표시할지 여부 (default: false) */
+  showCenterMarker?: boolean;
+  /** 마커 이미지 크기 */
+  markerSize?: { width: number; height: number };
+  /** 마커 이미지 offset 값 */
+  markerOffset?: { x: number; y: number };
+  /** 지도에 표시할 마커 데이터 목록 */
+  markerData?: GetMarkerData[];
+  /** 원(Circle)의 반경 값. `showCircle`이 true일 때만 사용됩니다. */
+  radius?: number;
+  /** 중심 좌표 기준으로 반경 원(Circle)을 표시할지 여부 */
+  showCircle?: boolean;
+  /** 지도 드래그 종료 시 호출되는 콜백. 변경된 중심 좌표를 전달합니다. */
+  onDragEnd?: (center: LatLng) => void;
+  /** 지도 줌 레벨 변경 시 호출되는 콜백 */
+  onLevelChange?: (level: number) => void;
+  /** 마커 클릭 시 호출되는 콜백 */
+  onMarkerClick?: (postId: number, position: LatLng) => void;
+  /** 지도 위에 오버레이로 표시할 UI 요소 */
+  children?: ReactNode;
+  /** 지도 최대 확대 레벨 제한 (default: 13) */
+  minLevel?: number;
+  /** 지도 최대 축소 레벨 제한 */
+  maxLevel?: number;
+}
+
+/**
  * @example
  * ```tsx
  * <BaseKakaoMap
@@ -73,39 +69,6 @@ import { MAP_MARKER_ICON } from "./MAP_MARKER_ICON";
  * </BaseKakaoMap>
  * ```
  */
-type LatLng = { lat: number; lng: number };
-
-interface BaseKakaoMapProps {
-  center: LatLng;
-
-  /** map */
-  level?: number;
-  draggable?: boolean;
-  style?: CSSProperties;
-
-  /** marker */
-  showCenterMarker?: boolean;
-  markerSize?: { width: number; height: number };
-  markerOffset?: { x: number; y: number };
-  markerData?: GetMarkerData[];
-
-  /** radius */
-  radius?: number;
-  showCircle?: boolean;
-
-  /** events */
-  onDragEnd?: (center: LatLng) => void;
-  onLevelChange?: (level: number) => void;
-  onMarkerClick?: (postId: number, position: LatLng) => void;
-
-  /** overlay ui */
-  children?: ReactNode;
-
-  /** 지도 최대 확대 제한 */
-  minLevel?: number;
-  /** 지도 최대 축소 제한 */
-  maxLevel?: number;
-}
 
 const BaseKakaoMap = ({
   center,

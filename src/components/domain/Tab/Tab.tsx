@@ -1,21 +1,23 @@
 import { cn } from "@/utils";
 
 /**
- * @author jikwon
- *
  * 탭 컴포넌트입니다.
- * `tabs`에 따라 탭이 생성됩니다.
  *
- * @param tabs - 탭의 종류를 지정합니다.
- * - `key`: 탭의 고유한 식별자입니다.
- * - `label`: 탭의 레이블입니다.
- *
- * @param selected - 선택된 탭의 식별자입니다.
- *
- * @param onValueChange - 탭이 변경될 때 호출됩니다.
- *
- * @param className - 탭의 추가 클래스입니다. (기본값: "")
- *
+ * @author jikwon
+ */
+
+interface TabProps<T extends string> {
+  /** 탭 목록. `key`는 탭 식별자, `label`은 표시 텍스트입니다. */
+  tabs: ReadonlyArray<{ key: T; label: string }>;
+  /** 현재 선택된 탭의 key */
+  selected: T;
+  /** 탭 선택 시 호출되는 콜백 */
+  onValueChange: (key: T) => void;
+  /** 추가 클래스 (default: '') */
+  className?: string;
+}
+
+/**
  * @example
  * ```tsx
  * <Tab
@@ -25,12 +27,6 @@ import { cn } from "@/utils";
  * />
  * ```
  */
-interface TabProps<T extends string> {
-  tabs: ReadonlyArray<{ key: T; label: string }>;
-  selected: T;
-  onValueChange: (key: T) => void;
-  className?: string;
-}
 
 const Tab = <T extends string>({
   tabs,
