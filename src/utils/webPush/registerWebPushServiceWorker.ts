@@ -2,7 +2,7 @@ import { shouldRegisterWebPushServiceWorker } from "./shouldRegisterWebPushServi
 
 const WEB_PUSH_SERVICE_WORKER_URL = "/sw.js";
 
-export async function registerWebPushServiceWorker(): Promise<ServiceWorkerRegistration | null> {
+export const registerWebPushServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {
   if (!("serviceWorker" in navigator)) return null;
   if (!shouldRegisterWebPushServiceWorker()) return null;
 
@@ -11,4 +11,4 @@ export async function registerWebPushServiceWorker(): Promise<ServiceWorkerRegis
   } catch {
     return null;
   }
-}
+};

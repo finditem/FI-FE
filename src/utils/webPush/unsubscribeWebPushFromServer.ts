@@ -1,7 +1,7 @@
 import authApi from "@/api/_base/axios/authApi";
 import { isWebPushSupported } from "./isWebPushSupported";
 
-export async function unsubscribeWebPushFromServer(): Promise<void> {
+export const unsubscribeWebPushFromServer = async (): Promise<void> => {
   if (!isWebPushSupported()) return;
   if (!("serviceWorker" in navigator)) return;
 
@@ -22,4 +22,4 @@ export async function unsubscribeWebPushFromServer(): Promise<void> {
       // ignore
     }
   }
-}
+};

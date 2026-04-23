@@ -5,7 +5,7 @@ const VAPID_PUBLIC_KEY_FIELD_CANDIDATES = [
   "applicationServerKey",
 ] as const;
 
-export function pickVapidPublicKey(result: Record<string, string>): string {
+export const pickVapidPublicKey = (result: Record<string, string>): string => {
   for (const key of VAPID_PUBLIC_KEY_FIELD_CANDIDATES) {
     const value = result[key];
     if (value && value.length > 0) return value;
@@ -15,4 +15,4 @@ export function pickVapidPublicKey(result: Record<string, string>): string {
   if (values.length > 0) return values[0];
 
   throw new Error("VAPID public key not found in response");
-}
+};

@@ -9,7 +9,7 @@ import { registerWebPushServiceWorker } from "./registerWebPushServiceWorker";
 import { isWebPushSupported } from "./isWebPushSupported";
 import { urlBase64ToUint8Array } from "./urlBase64ToUint8Array";
 
-export async function syncWebPushSubscription(): Promise<void> {
+export const syncWebPushSubscription = async (): Promise<void> => {
   if (!isWebPushSupported()) {
     throw new Error("Web Push is not supported in this environment");
   }
@@ -46,4 +46,4 @@ export async function syncWebPushSubscription(): Promise<void> {
   if (!subRes?.isSuccess) {
     throw new Error("Failed to register push subscription on server");
   }
-}
+};
