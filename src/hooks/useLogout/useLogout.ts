@@ -3,6 +3,7 @@ import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notifica
 import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
+import { unsubscribeWebPushFromServer } from "@/utils";
 
 const useLogout = () => {
   const { mutate: logoutMutate, isPending } = useApiLogout();
@@ -17,19 +18,27 @@ const useLogout = () => {
   const handleLogout = () => {
     if (isPending) return;
 
-    logoutMutate(undefined, {
-      onSuccess: () => {
-        disconnectNotificationSSE();
-        resetUnreadNotificationState();
-        queryClient.clear();
-        logout();
-        addToast("로그아웃 되었어요.", "success");
-        window.location.href = "/";
-      },
-      onError: () => {
-        addToast("로그아웃에 실패했어요. 다시 시도해주세요.", "error");
-      },
-    });
+    void (async () => {
+      try {
+        await unsubscribeWebPushFromServer();
+      } catch {
+        // ignore
+      }
+
+      logoutMutate(undefined, {
+        onSuccess: () => {
+          disconnectNotificationSSE();
+          resetUnreadNotificationState();
+          queryClient.clear();
+          logout();
+          addToast("로그아웃 되었어요.", "success");
+          window.location.href = "/";
+        },
+        onError: () => {
+          addToast("로그아웃에 실패했어요. 다시 시도해주세요.", "error");
+        },
+      });
+    })();
   };
 
   return { handleLogout, isPending };
