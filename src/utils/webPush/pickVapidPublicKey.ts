@@ -1,3 +1,5 @@
+import { VAPID_PUBLIC_KEY_STRING_MIN_LENGTH_HEURISTIC } from "./webPushConstants";
+
 const VAPID_PUBLIC_KEY_FIELD_CANDIDATES = [
   "publicKey",
   "public_key",
@@ -11,7 +13,9 @@ export const pickVapidPublicKey = (result: Record<string, string>): string => {
     if (value && value.length > 0) return value;
   }
 
-  const values = Object.values(result).filter((v) => typeof v === "string" && v.length >= 80);
+  const values = Object.values(result).filter(
+    (v) => typeof v === "string" && v.length >= VAPID_PUBLIC_KEY_STRING_MIN_LENGTH_HEURISTIC
+  );
   if (values.length > 0) return values[0];
 
   throw new Error("VAPID public key not found in response");

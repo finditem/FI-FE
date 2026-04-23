@@ -3,6 +3,7 @@ import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notifica
 import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
+import { WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS } from "@/utils/webPush/webPushConstants";
 import { unsubscribeWebPushFromServer } from "@/utils";
 
 const useLogout = () => {
@@ -20,7 +21,15 @@ const useLogout = () => {
 
     void (async () => {
       try {
-        await unsubscribeWebPushFromServer();
+        await Promise.race([
+          unsubscribeWebPushFromServer(),
+          new Promise<void>((_, reject) =>
+            setTimeout(
+              () => reject(new Error("web-push-unsubscribe-timeout")),
+              WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS
+            )
+          ),
+        ]);
       } catch {
         // ignore
       }

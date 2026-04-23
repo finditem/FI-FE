@@ -10,12 +10,10 @@ import { isWebPushSupported } from "./isWebPushSupported";
 import { urlBase64ToUint8Array } from "./urlBase64ToUint8Array";
 
 export const syncWebPushSubscription = async (): Promise<void> => {
-  if (!isWebPushSupported()) {
-    throw new Error("Web Push is not supported in this environment");
-  }
+  if (!isWebPushSupported()) return;
 
-  await registerWebPushServiceWorker();
-  const registration = await navigator.serviceWorker.ready;
+  const registration = await registerWebPushServiceWorker();
+  if (!registration) return;
 
   const { data: vapidRes } = await publicApi.get<GetPushVapidKeyResponse>("/push/vapid-key");
   if (!vapidRes?.isSuccess || !vapidRes.result) {
