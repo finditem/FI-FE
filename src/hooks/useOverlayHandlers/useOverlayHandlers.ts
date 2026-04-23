@@ -3,21 +3,30 @@
 import { useEffect, useCallback } from "react";
 
 /**
+ * 모달이 열렸을 때 스크롤을 잠그고, ESC 키로 닫을 수 있도록 처리하는 커스텀 훅입니다.
+ *
+ * @remarks
+ * - `isOpen`이 false가 되면 스크롤 잠금이 해제됩니다.
+ * - 기존 `overflow` 스타일을 저장했다가 언마운트 시 복원합니다.
+ *
+ * @param isOpen - 모달 열림 여부
+ * @param onClose - ESC 키 입력 시 실행할 닫기 핸들러
  *
  * @author jikwon
- *
- * 모달이 열렸을 때 스크롤을 방지하고, `ESC` 키를 누르면 모달을 닫습니다.
- *
+ */
+
+/**
  * @example
  * ```tsx
- * const { isOpen, setIsOpen } = useState(false);
+ * const [isOpen, setIsOpen] = useState(false);
+ *
  * useModalLockAndEsc({
  *   isOpen,
  *   onClose: () => setIsOpen(false),
  * });
  * ```
- *
  */
+
 export const useModalLockAndEsc = ({
   isOpen,
   onClose,
@@ -44,9 +53,20 @@ export const useModalLockAndEsc = ({
 };
 
 /**
- * 모달 배경(Backdrop)을 클릭했을 때,
- * 배경을 클릭한 경우에만 모달을 닫는 이벤트 핸들러를 반환합니다.
+ * 배경(Backdrop) 클릭 시 모달을 닫는 이벤트 핸들러를 반환하는 커스텀 훅입니다.
  *
+ * @remarks
+ * - 모달 내부 컨텐츠를 클릭한 경우에는 닫히지 않습니다.
+ * - 반환된 핸들러를 배경 요소의 `onMouseDown`에 연결해야 합니다.
+ *
+ * @param onClose - 배경 클릭 시 실행할 닫기 핸들러
+ *
+ * @returns 배경 클릭 이벤트 핸들러 (`onMouseDown`에 사용)
+ *
+ * @author jikwon
+ */
+
+/**
  * @example
  * ```tsx
  * const onBackdropClick = useModalBackdrop({
@@ -59,8 +79,8 @@ export const useModalLockAndEsc = ({
  *   </div>
  * );
  * ```
- *
  */
+
 export const useModalBackdrop = ({ onClose }: { onClose?: () => void }) => {
   const onBackdropMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {

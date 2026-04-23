@@ -15,6 +15,7 @@ export const useRouter = () => ({
 
 export const usePathname = () => "/";
 export const useSearchParams = () => new URLSearchParams();
+export const useParams = () => ({ id: "1" });
 
 export const useRouterBack = () => ({
   back: () => {},

@@ -2,10 +2,25 @@ import Link from "next/link";
 import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
 
+/**
+ * 비회원이 댓글 작성을 시도할 때 표시되는 로그인 유도 모달 컴포넌트입니다.
+ *
+ * @author jikwon
+ */
+
 interface GuestLoginModalProps {
+  /** 모달 열림 여부 */
   isOpen: boolean;
+  /** 모달 닫기 핸들러 */
   onClose: () => void;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <GuestLoginModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+ * ```
+ */
 
 const GuestLoginModal = ({ isOpen, onClose }: GuestLoginModalProps) => {
   return (

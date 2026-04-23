@@ -1,8 +1,9 @@
 /**
- * @author jikwon
+ * 유저 권한 타입
+ * - USER: 일반 사용자
+ * - ADMIN: 관리자
  *
- * @description
- * 유저 타입 정의
+ * @author jikwon
  */
 
 export type UserType = "USER" | "ADMIN";

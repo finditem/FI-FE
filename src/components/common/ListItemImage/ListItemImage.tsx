@@ -4,28 +4,40 @@ import { CategoryType } from "@/types";
 import Icon, { IconName } from "../Icon/Icon";
 
 /**
+ * 리스트 아이템 이미지 컴포넌트입니다.
+ *
+ * @remarks
+ * - `src`와 `category` 모두 없으면 렌더링하지 않습니다.
+ * - `src`가 없으면 `category`에 해당하는 기본 아이콘을 표시합니다.
+ *
  * @author jikwon
- *
- * @description
- * 리스트 아이템 이미지에 사용되는 컴포넌트입니다.
- * 이미지가 없는 경우 렌더링하지 않습니다.
- *
- * @param src - 리스트 아이템 이미지 URL
- * @param alt - 리스트 아이템 이미지 대체 텍스트
- * @param size - 리스트 아이템 이미지 크기(px)
- * @param className - 추가 클래스명 (div 태그에 적용)
- * @param priority - LCP 대상 여부 (헤더 등 주요 위치에서만 사용)
- * @param imageCount - 이미지 개수 (1개 이상일 때만 표시)
  */
+
 interface ListItemImageProps {
+  /** 이미지 URL. `null`이면 카테고리 아이콘으로 대체됩니다. */
   src?: string | null;
+  /** 이미지 대체 텍스트 */
   alt: string;
+  /** 이미지 크기(px) */
   size: number;
+  /** LCP 대상 여부. 헤더 등 주요 위치에서만 `true`로 설정합니다. (default: false) */
   priority?: boolean;
+  /** 추가 클래스 (div 태그에 적용) */
   className?: string;
+  /** 이미지 장 수. 2장 이상일 때만 뱃지로 표시됩니다. */
   imageCount?: number;
+  /** 이미지 없을 때 표시할 카테고리 아이콘 종류 */
   category?: CategoryType;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <ListItemImage src="https://..." alt="게시글 이미지" size={80} />
+ * <ListItemImage src={null} alt="기본 이미지" size={80} category="ELECTRONICS" />
+ * <ListItemImage src="https://..." alt="이미지" size={80} imageCount={3} priority />
+ * ```
+ */
 
 const CATEGORY_ICON_MAP: Record<CategoryType, IconName> = {
   ELECTRONICS: "Electronics",

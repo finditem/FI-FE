@@ -2,29 +2,13 @@ import { InputHTMLAttributes } from "react";
 import { cn } from "@/utils";
 
 /**
- * @author jikwon
+ * 라디오 그룹의 개별 옵션 아이템 컴포넌트입니다.
  *
- * @description
- * 라디오 옵션 아이템 컴포넌트입니다.
- *
- * - option.value 를 기준으로 선택 상태를 판단합니다.
+ * @remarks
+ * - `option.value`와 `selected`를 비교해 선택 상태를 판단합니다.
  * - controlled 방식으로 동작합니다.
  *
- * @param option 라디오 옵션 객체 (value, label)
- * @param selected 현재 선택된 값
- * @param onChange 선택 값 변경 함수
- * @param inputName 라디오 그룹 이름
- * @param labelClassName 최상위 label 요소에 적용할 클래스 이름
- *
- * @example
- * ```tsx
- * <RadioOptionItem
- *   option={{ value: "FOOD", label: "음식" }}
- *   selected={selected}
- *   onChange={setSelected}
- *   inputName="category"
- * />
- * ```
+ * @author jikwon
  */
 
 type RadioOption = {
@@ -36,12 +20,29 @@ interface RadioOptionItemProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type" | "name" | "value" | "checked" | "onChange"
 > {
+  /** 라디오 옵션 객체 (value, label) */
   option: RadioOption;
+  /** 현재 선택된 값 */
   selected: string;
+  /** 선택 값 변경 핸들러 */
   onChange: (value: string) => void;
+  /** 라디오 그룹 이름 (`name` 어트리뷰트에 사용) */
   inputName: string;
+  /** 최상위 `label` 요소에 적용할 클래스 */
   labelClassName?: string;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <RadioOptionItem
+ *   option={{ value: "FOOD", label: "음식" }}
+ *   selected={selected}
+ *   onChange={setSelected}
+ *   inputName="category"
+ * />
+ * ```
+ */
 
 const RadioOptionItem = ({
   option,

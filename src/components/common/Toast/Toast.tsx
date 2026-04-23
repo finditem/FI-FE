@@ -4,28 +4,32 @@ import { TOAST_A11Y_CONFIG, TOAST_CONFIG } from "./ToastTypes";
 import Icon from "../Icon/Icon";
 
 /**
- * @author jikwon
- *
  * 토스트 컴포넌트입니다.
- * `type`에 따라 배경색과 아이콘, 사이즈가 달라집니다.
  *
- * @param type - 토스트의 종류를 지정합니다.
- * - `"success"`: 성공 메시지를 나타냅니다.
- * - `"error"`: 오류 메시지를 나타냅니다.
- * - `"warning"`: 경고 메시지를 나타냅니다.
+ * @remarks
+ * - `type`에 따라 배경색, 아이콘, 크기가 달라집니다.
+ * - `"success"`: 성공 메시지
+ * - `"error"`: 오류 메시지
+ * - `"warning"`: 경고 메시지
  *
- * @example
- * ```tsx
- * <Toast message="Text" type="success" />
- * <Toast message="Text" type="error" />
- * <Toast message="Text" type="warning" />
- * ```
+ * @author jikwon
  */
 
 interface ToastProps {
+  /** 토스트에 표시될 메시지 */
   message: string;
+  /** 토스트 종류 */
   type: ToastType;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <Toast message="저장되었습니다." type="success" />
+ * <Toast message="오류가 발생했습니다." type="error" />
+ * <Toast message="주의가 필요합니다." type="warning" />
+ * ```
+ */
 
 function getToastConfig(type: ToastType) {
   return TOAST_CONFIG[type] ?? TOAST_CONFIG.success;

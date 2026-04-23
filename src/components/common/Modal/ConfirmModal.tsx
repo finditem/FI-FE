@@ -5,41 +5,46 @@ import { sizeMap, style } from "./CONST_MODAL";
 import ModalLayout from "./_internal/ModalLayout";
 
 /**
- * 확인 모달 컴포넌트입니다.
+ * 확인/취소 액션을 제공하는 모달 컴포넌트입니다.
  *
- * @param title - 모달 제목
- * @param content - 모달 내용
- * @param icon - 아이콘(이름/크기/라벨만 사용)
- * @param isOpen - 모달 열림 여부
- * @param onClose - 닫기 핸들러(ESC/백드롭 포함)
- * @param onConfirm - 확인 클릭 핸들러
- * @param onCancel - 취소 클릭 핸들러
- * @param size - 모달 크기. 기본값은 `"medium"`
+ * @remarks
+ * - ESC 키 및 백드롭 클릭 시 `onClose`가 호출됩니다.
  *
+ * @author jikwon
+ */
+
+interface ConfirmModalProps {
+  /** 모달 제목 */
+  title: ReactNode;
+  /** 모달 내용 */
+  content: ReactNode;
+  /** 아이콘 (이름/크기/접근성 라벨만 사용) */
+  icon?: Pick<IconProps, "name" | "size" | "title">;
+  /** 모달 열림 여부 */
+  isOpen: boolean;
+  /** 닫기 핸들러 (ESC/백드롭 포함) */
+  onClose: () => void;
+  /** 확인 버튼 클릭 핸들러 */
+  onConfirm: () => void;
+  /** 취소 버튼 클릭 핸들러 */
+  onCancel: () => void;
+  /** 모달 크기 (default: 'medium') */
+  size?: "small" | "medium";
+}
+
+/**
  * @example
  * ```tsx
  * <ConfirmModal
- *   title="제목"
- *   content="내용"
- *   icon={{ name: "Logo", size: 24, title: "로고" }}
+ *   title="삭제하시겠습니까?"
+ *   content="삭제된 데이터는 복구할 수 없습니다."
  *   isOpen={isOpen}
  *   onClose={onClose}
  *   onConfirm={onConfirm}
  *   onCancel={onCancel}
- *   size="medium"
  * />
  * ```
  */
-interface ConfirmModalProps {
-  title: ReactNode;
-  content: ReactNode;
-  icon?: Pick<IconProps, "name" | "size" | "title">;
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-  onCancel: () => void;
-  size?: "small" | "medium";
-}
 
 const ConfirmModal = ({
   isOpen,

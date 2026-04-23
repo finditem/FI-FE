@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import AdminMenuSection from "./AdminMenuSection";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastProvider } from "@/providers/ToastProviders";
+
+const queryClient = new QueryClient();
 
 const meta: Meta<typeof AdminMenuSection> = {
   title: "관리자 페이지/메인 페이지/AdminMenuSection",
@@ -15,9 +19,13 @@ const meta: Meta<typeof AdminMenuSection> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[390px] border">
-        <Story />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <div className="w-[390px] border">
+            <Story />
+          </div>
+        </ToastProvider>
+      </QueryClientProvider>
     ),
   ],
 };

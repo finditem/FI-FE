@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import DefaultChatList from "./DefaultChatList";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 const queryClient = new QueryClient();
 
@@ -20,9 +21,11 @@ const meta: Meta<typeof DefaultChatList> = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div className="w-[430px] border border-gray-200">
-          <Story />
-        </div>
+        <ToastProvider>
+          <div className="w-[430px] border border-gray-200">
+            <Story />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     ),
   ],
