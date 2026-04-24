@@ -1,40 +1,34 @@
 type RetryFn = () => Promise<void> | void;
 
 /**
- * 재시도 스케줄 옵션입니다.
- *
- * @author hyungjun
- * @description
- * - `immediate`: 지연 없이 즉시 실행할지 결정합니다.
- * - `resetAttempt`: attempt 카운터를 0으로 초기화한 뒤 스케줄합니다.
+ * `schedule` 호출 시 동작을 제어하는 옵션입니다.
  */
-interface RetryScheduleOptions {
+export interface RetryScheduleOptions {
   /**
-   * 즉시 실행 여부.
-   * true면 지연 없이 retryFn을 실행하도록 스케줄합니다.
+   * `true`이면 지연 없이 `retryFn`을 대기시킵니다.(타이머 `0ms`과 동시에 `clearPending` 후 다시 잡힘)
+   * `false`이면(기본) 백오프로 계산한 지연 후 실행합니다.
    */
   immediate?: boolean;
   /**
-   * 시도 횟수를 초기화한 뒤 스케줄합니다.
-   * true면 attempt 카운터를 0으로 되돌립니다.
+   * `true`이면 `attempt`를 0으로 맞춘 뒤, 이번 스케줄의 백오프 `attempt`를 0으로 둡니다(첫 백오프 `baseDelayMs`×2^0).
    */
   resetAttempt?: boolean;
 }
 
 /**
- * Exponential Backoff 계산에 필요한 옵션입니다.
- *
- * @author hyungjun
- * @description
- * - `baseDelayMs`: 최초 지연 시간(ms)입니다.
- * - `maxDelayMs`: 지연 시간 상한(ms)입니다.
- * - `jitterRatio`: 랜덤 지터 비율(예: 0.2 = +-20%)입니다.
+ * `retryBackoffController` 생성 시 백오프(지연) 계산에 쓰는 옵션입니다.
  */
-interface RetryBackoffControllerOptions {
+export interface RetryBackoffControllerOptions {
+  /**
+   * 첫(낮은 `attempt`일수록 작은) 곡선에 쓰는 기준 지연(ms)입니다.
+   */
   baseDelayMs: number;
+  /**
+   * 지연 시간 상한(ms)입니다. `min(baseDelayMs * 2^attempt, maxDelayMs)` 쪽에서 잘라냅니다.
+   */
   maxDelayMs: number;
   /**
-   * 0.2면 +-20% 랜덤 지터를 적용합니다.
+   * 지연이 `capped`일 때, 음/양 `capped * jitterRatio` 범위에 `(Math.random() * 2 - 1)`을 곱한 지터를 더합니다(기본 `0`이면 랜덤 없음).
    */
   jitterRatio?: number;
 }
@@ -58,27 +52,31 @@ const calcDelayMs = ({
 };
 
 /**
- * Exponential Backoff 기반 재시도 스케줄러(WS/SSE 공용)를 생성합니다.
+ * Exponential backoff 기반 단일 재시도 스케줄러를 만듭니다(WS·SSE 등 “연결 복구”에 공통 사용).
+ *
+ * @remarks
+ * - 한 번에 `setTimeout` 하나만 두고, 새 `schedule`이 오면(일반 옵션) 이전 pending을 지웁니다. (폭주 방지)
+ * - pending이 있고 `immediate: false`인데 또 `schedule`이 오면 무시합니다.(곱백·중복 스케줄 억제)
+ * - `immediate: true`이면 pending이 있어도 지우고 즉시(0ms) 다시 잡을 수 있습니다.
+ * - `retryFn` 실행 구간에는 `isExecuting`이 `true`라, 그동안 `schedule`은 무시됩니다.
+ * - `cancel` 후에는 `schedule`이 아무 것도 하지 않습니다(스케줄러 다시 쓰려면 `reset`).
+ * - 첫 `resetAttempt` 없는 `schedule`은 내부 `attempt`를 1로 올린 뒤 `baseDelay * 2^1` 쪽(상한 `max` 적용)으로 잡힙니다.(일반 `schedule` = “다음” 시도 번호·지연) `resetAttempt: true`이면 `attempt` 0으로 이번 지연은 `2^0` 기준.
+ *
+ * @param options - `baseDelayMs` / `maxDelayMs` / (선택) `jitterRatio`
+ *
+ * @returns
+ * - `schedule(retryFn, options?)` — 백오프(또는 `immediate` 시 바로)로 `retryFn` 실행
+ * - `reset()` — pending 취소, `attempt` 0, `cancel` 아님으로 되돌림
+ * - `cancel()` — pending 취소, 이후 `schedule` 무효까지
  *
  * @author hyungjun
- * @description
- * - 동일한 실패 상황에서 재연결/재시도가 폭주하지 않도록 pending 타이머는 1개만 유지합니다.
- * - 실행 중(in-flight)에는 추가 스케줄을 무시합니다.
- * - `immediate` 옵션을 통해 지연 없이 즉시 실행할 수 있습니다.
- * - `resetAttempt`을 통해 attempt 카운터를 초기화할 수 있습니다.
- *
- * @param baseDelayMs 지연 시작 시간(ms)입니다.
- * @param maxDelayMs 지연 상한 시간(ms)입니다.
- * @param jitterRatio (선택) 랜덤 지터 비율(예: 0.2 = +-20%)입니다.
- * @returns `schedule`, `reset`, `cancel` 메서드를 포함한 컨트롤러 객체입니다.
- *
+ */
+/**
  * @example
  * ```ts
- * const controller = retryBackoffController({ baseDelayMs: 1000, maxDelayMs: 30000, jitterRatio: 0.2 });
+ * const c = retryBackoffController({ baseDelayMs: 1_000, maxDelayMs: 30_000, jitterRatio: 0.2 });
  *
- * controller.schedule(async () => {
- *   // 재시도 로직
- * }, { immediate: true, resetAttempt: true });
+ * c.schedule(async () => { void 0; }, { immediate: true, resetAttempt: true });
  * ```
  */
 

@@ -1,21 +1,29 @@
 /**
+ * 이미지 파일을 캔버스에 그린 뒤, 비율을 유지하며 **최대 가로·세로**에 맞게 줄이고 JPEG로 용량까지 맞춥니다.
+ *
+ * @remarks
+ * - 출력은 항상 JPEG (`image/jpeg`). 확장자는 원본 이름에서 `.jpg`로 맞춥니다. (PNG `quality` 제한에 대한 실무적 선택)
+ * - 가로·세로 중 긴 쪽을 기준으로 `maxWidth` / `maxHeight`에 맞춥니다(비율 유지).
+ * - `toBlob`으로 용량을 맞출 때, `maxFileSize`를 넘기면 품질을 0.1씩 낮춥니다. `quality`가 0.1이면서도 크면 가로·세로를 0.8배씩 낮추는 단계로 바꿉니다.
+ * - `FileReader` / `Image` / `getContext` / `toBlob` 실패 시 `reject` 됩니다(각각 `Error` 메시지 문구는 구현을 참고).
+ * - `maxWidth` / `maxHeight` 기본 1280, `maxFileSize` 기본 300 * 1024(바이트), `initialQuality` *기본 0.7 입니다.
+ *
+ * @param file - 원본 이미지 `File`
+ * @param maxWidth - 최대 너비
+ * @param maxHeight - 최대 높이
+ * @param maxFileSize - 이하가 되도록 압축(바이트)
+ * @param initialQuality - JPEG `toBlob` 품질
+ *
+ * @returns 리사이즈·압축된 `File` (JPEG, 이름은 `.jpg`)
+ *
  * @author hyungjun
- *
- * 이미지를 리사이즈하고 압축하는 함수
- * @param file 원본 이미지 파일
- * @param maxWidth 최대 너비 (기본값: 1280)
- * @param maxHeight 최대 높이 (기본값: 1280)
- * @param maxFileSize 최대 파일 크기 (바이트, 기본값: 300KB)
- * @param initialQuality 초기 압축 품질 (0.1 ~ 1.0, 기본값: 0.7)
- * @returns 리사이즈된 이미지 File 객체
- *
+ */
+/**
  * @example
- * // file만 사용 (기본값: 1280x1280, 300KB, 품질 0.7)
- * const resized = await resizeImage(imageFile);
- *
- * @example
- * // 최대 크기·파일 크기·품질 지정
- * const resized = await resizeImage(imageFile, 1920, 1080, 500 * 1024, 0.8);
+ * ```ts
+ * const out = await resizeImage(file);
+ * const custom = await resizeImage(file, 1920, 1080, 500 * 1024, 0.8);
+ * ```
  */
 
 export const resizeImage = (
