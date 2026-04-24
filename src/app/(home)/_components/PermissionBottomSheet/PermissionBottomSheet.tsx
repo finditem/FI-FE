@@ -6,6 +6,7 @@ import { useMainKakaoMapStore } from "@/store";
 import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import { useState } from "react";
 import { PERMISSION_CONFIG, PERMISSION_ITEM } from "../../_constants/PERMISSION_CONFIG";
+import { syncWebPushSubscription } from "@/utils";
 
 interface DetailPermissionSheetProps {
   isOpen: boolean;
@@ -53,7 +54,16 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
       }
 
       if (Notification.permission === "granted") {
-        updateNotification({ browserNotificationEnabled: true });
+        updateNotification(
+          { browserNotificationEnabled: true },
+          {
+            onSuccess: () => {
+              void syncWebPushSubscription().catch(() =>
+                addToast("브라우저 알림 등록에 실패했어요", "warning")
+              );
+            },
+          }
+        );
         onClose();
         return;
       }
@@ -66,7 +76,16 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
 
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
-        updateNotification({ browserNotificationEnabled: true });
+        updateNotification(
+          { browserNotificationEnabled: true },
+          {
+            onSuccess: () => {
+              void syncWebPushSubscription().catch(() =>
+                addToast("브라우저 알림 등록에 실패했어요", "warning")
+              );
+            },
+          }
+        );
       }
       onClose();
     }
