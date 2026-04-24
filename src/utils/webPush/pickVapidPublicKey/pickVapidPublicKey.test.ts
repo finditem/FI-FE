@@ -1,4 +1,4 @@
-import { VAPID_PUBLIC_KEY_STRING_MIN_LENGTH_HEURISTIC } from "../webPushConstants/webPushConstants";
+import { VAPID_PUBLIC_KEY_STRING_MIN_LENGTH_HEURISTIC } from "@/constants";
 import { pickVapidPublicKey } from "./pickVapidPublicKey";
 
 describe("pickVapidPublicKey", () => {
