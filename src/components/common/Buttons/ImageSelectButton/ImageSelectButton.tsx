@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonHTMLAttributes, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { cn, fileInputHandler } from "@/utils";
 import Image from "next/image";
 import { handleClick, getImageButtonState } from "./_utils";
@@ -19,7 +19,7 @@ import { SelectedImage } from "@/types/SelectedImage";
  *
  * @author hyungjun
  */
-interface ToggleImageButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ToggleImageButtonProps {
   /** `role="group"` 컨테이너에 붙는 접근성 라벨 */
   ariaLabel?: string;
   /** 미리보기·선택 대상이 되는 이미지 파일 목록 */

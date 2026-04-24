@@ -42,7 +42,7 @@ interface ScrollToTopButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
  * ```
  */
 
-const ScrollToTopButton = ({ onHide = false, className }: ScrollToTopButtonProps) => {
+const ScrollToTopButton = ({ onHide = false, className, ...props }: ScrollToTopButtonProps) => {
   const [isNearTop, setIsNearTop] = useState(true);
 
   const handleScrollToTop = () => setIsNearTop(window.scrollY < SCROLL_TOP_HIDE_THRESHOLD_PX);
@@ -65,6 +65,7 @@ const ScrollToTopButton = ({ onHide = false, className }: ScrollToTopButtonProps
         className
       )}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      {...props}
     >
       <Icon name="ScrollTopArrow" size={32} />
     </button>
