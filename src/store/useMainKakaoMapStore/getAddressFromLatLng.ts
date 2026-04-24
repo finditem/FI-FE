@@ -2,31 +2,39 @@ import { getKakaoLocalCoord2Address } from "@/api/fetch/kakao";
 import { extractDongAddress } from "@/utils";
 
 /**
- * 카카오 좌표→주소 변환 API를 이용해 지도 표시용 주소를 반환합니다.
+ * `getAddressFromLatLng`에 넘기는 표시 방식 옵션입니다.
  *
- * @author hyungjun
- * @description
- * - 좌표(lat, lng)를 카카오 API로 변환한 뒤,
- * - 기본(`variant: "short"`)은 `address_name`에서 `00동` 단위 문자열을 우선 추출하고,
- *   실패 시 `road_address`/`address` 원문을 fallback으로 사용합니다.
- * - `variant: "full"`이면 도로명·지번 주소 원문을 그대로 반환합니다(플레이스홀더 등).
- *
- * @param lat 위도(y)
- * @param lng 경도(x)
- * @param signal 요청 취소를 위한 AbortSignal(연속 좌표 변경 시 이전 요청을 취소하기 위해 사용)
- * @returns 지도 표시용 주소 문자열
- *
- * @example
- * ```ts
- * const text = await getAddressFromLatLng(37.566370748, 126.977918341);
- * // => "서울특별시 중구" 또는 "00동" 형태
- * ```
+ * @remarks
+ * - 기본(`variant` 생략·`short`)은 `extractDongAddress`로 동 단위를 우선 쓰고, 없으면 도로명·지번 원문을 이어 붙입니다.
+ * - `full`이면 API의 도로명 또는 지번 주소 문자열을 우선 그대로 반환합니다.
  */
-
 export type GetAddressFromLatLngOptions = {
-  /** `"short"`(기본): 동 단위 우선. `"full"`: API `road_address`/`address` 전체 문자열 */
+  /** 동 단위 우선(`short`) vs 원문 위주(`full`) */
   variant?: "short" | "full";
 };
+
+/**
+ * 좌표를 카카오 API로 조회한 뒤 표시용 주소 한 줄을 반환합니다.
+ *
+ * @remarks
+ * - `signal`이 중단되면 상위에서 후속 처리를 생략할 수 있도록 API 호출에 그대로 넘깁니다.
+ *
+ * @param lat - 위도
+ * @param lng - 경도
+ * @param signal - 연속 이동 시 이전 요청 취소용
+ * @param options - `variant`로 짧은 라벨 vs 전체 주소 선택
+ *
+ * @returns 지도·검색창 등에 표시할 주소 문자열
+ *
+ * @author hyungjun
+ */
+/**
+ * @example
+ * ```ts
+ * const shortLabel = await getAddressFromLatLng(37.5665, 126.978, undefined, { variant: "short" });
+ * const fullLine = await getAddressFromLatLng(37.5665, 126.978, undefined, { variant: "full" });
+ * ```
+ */
 
 export const getAddressFromLatLng = async (
   lat: number,
