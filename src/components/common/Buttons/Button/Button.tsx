@@ -2,46 +2,46 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 import { SIZE_STYLES, LOADING_SPINNER_SIZE, VARIANT_STYLES, BASE_STYLES } from "./constantButton";
 import Icon, { Props } from "../../Icon/Icon";
 
+type Size = "big" | "medium" | "small";
+
 /**
+ * 다양한 스타일과 크기를 지원하는 공통 버튼 컴포넌트의 props입니다.
+ *
+ * @remarks
+ * - `variant`, `hierarchy`, `size` 조합으로 시각적 스타일을 맞추고, 아이콘·로딩 스피너를 함께 쓸 수 있습니다.
+ * - `as`로 렌더링 루트를 바꾸면(예: `Link`) 해당 컴포넌트가 받는 props는 나머지 spread로 그대로 전달됩니다.
+ * - 실제 DOM이 `button`일 때만 `type: "button"`과 `disabled` 병합이 적용되며, `loading`이면 눌림을 막습니다.
+ * - `ignoreBase`가 `true`이면 기본·크기·variant 클래스를 붙이지 않고 넘긴 `className`만 사용합니다.
+ *
  * @author hyungjun
- *
- * 다양한 스타일과 크기를 지원하는 버튼 컴포넌트입니다.
- * `variant`, `hierarchy`, `size` 조합으로 시각적 스타일을 제어하며,
- * 아이콘과 로딩 스피너를 함께 사용할 수 있습니다.
- * `as` prop을 통해 button 태그 또는 다른 컴포넌트(예: Link)로 렌더링할 수 있습니다.
- * `as`로 지정한 컴포넌트의 모든 props를 `...props`를 통해 전달할 수 있습니다.
- *
- * @param as - 렌더링할 컴포넌트 타입을 지정합니다.
- * `ElementType` (기본값: `"button"`)
- *
- * @param variant - 버튼의 스타일을 지정합니다.
- * `"solid"` | `"outlined"` | `"inversed"` | `"auth"` (기본값: `"solid"`)
- *
- * @param hierarchy - 버튼의 위계를 설정합니다.
- * `"normal"` | `"subtle"` (기본값: `"normal"`)
- *
- * @param size - 버튼의 크기를 설정합니다.
- * `"big"` | `"medium"` | `"small"` (기본값: `"medium"`)
- *
- * @param iconPosition - 아이콘의 위치를 설정합니다.
- * `"leading"`(왼쪽) | `"trailing"`(오른쪽) (기본값: `"leading"`(왼쪽))
- *
- * @param icon - 버튼에 표시할 아이콘 컴포넌트의 Props입니다.
- * `name`, `size`, `className` 등을 지정할 수 있습니다.
- *
- * @param loading - 로딩 상태를 표시합니다.
- * `true`일 경우, 버튼은 비활성화되고 로딩 스피너가 표시됩니다. - boolean (기본값: `false`)
- *
- * @param ariaLabel - 접근성을 위한 버튼의 aria-label 속성입니다.
- * 제공되지 않으면 `aria-label` 속성은 생략되며, 스크린 리더는 `children`의 텍스트를 읽습니다.
- *
- * @param children - 버튼 내부에 렌더링할 콘텐츠(텍스트 또는 요소)입니다.
- *
- * @param ignoreBase - variant를 제외한 기본 스타일을 제거하는 옵션입니다. - boolean (기본값: `false`)
- *
+ */
+type ButtonProps<E extends ElementType = "button"> = {
+  /** 렌더링에 사용할 루트 컴포넌트 (default: 'button') */
+  as?: E;
+  /** 버튼 스타일 변형 (default: 'solid') */
+  variant?: "solid" | "outlined" | "inversed" | "auth";
+  /** solid 변형의 위계 (default: 'normal') */
+  hierarchy?: "normal" | "subtle";
+  /** 버튼 크기 (default: 'medium') */
+  size?: Size;
+  /** 아이콘을 자식 콘텐츠 기준 앞·뒤 배치 (`icon`이 있을 때만 적용, default: 'leading') */
+  iconPosition?: "leading" | "trailing";
+  /** 버튼에 표시할 아이콘에 넘길 `Icon` 설정 (`name` 등) */
+  icon?: Props;
+  /** 로딩 시 스피너 표시 및 상호작용 차단 (default: false) */
+  loading?: boolean;
+  /** 접근성용 `aria-label`. 없으면 속성을 생략하며 스크린 리더는 `children` 텍스트를 사용합니다. */
+  ariaLabel?: string;
+  /** 버튼 내부 콘텐츠 */
+  children: ReactNode;
+  /** `true`면 기본·크기·variant 유틸 클래스를 적용하지 않음 (default: false) */
+  ignoreBase?: boolean;
+} & ComponentPropsWithoutRef<E>;
+
+/**
  * @example
  * ```tsx
- * // button 태그로 사용
+ * // button으로 사용
  * <Button
  *   variant="solid"
  *   hierarchy="normal"
@@ -53,42 +53,17 @@ import Icon, { Props } from "../../Icon/Icon";
  *   추가하기
  * </Button>
  *
- * // Link 컴포넌트로 사용
- * <Button
- *   as={Link}
- *   href="/about"
- *   variant="outlined"
- *   size="medium"
- * >
+ * // Link 등 다른 컴포넌트로 렌더링
+ * <Button as={Link} href="/about" variant="outlined" size="medium">
+ *   상세보기
+ * </Button>
+ *
+ * // ignoreBase로 기본 스타일 없이 class만 지정
+ * <Button as={Link} href="/about" ignoreBase className="p-4">
  *   상세보기
  * </Button>
  * ```
- *
- * // Link 컴포넌트로 사용 (ignoreBase 옵션 사용하여 스타일 초기화)
- * <Button
- *   as={Link}
- *   href="/about"
- *   ignoreBase
- *   className="p-4"
- * >
- *   상세보기
- * </Button>
  */
-
-type Size = "big" | "medium" | "small";
-
-type ButtonProps<E extends ElementType = "button"> = {
-  as?: E;
-  variant?: "solid" | "outlined" | "inversed" | "auth";
-  hierarchy?: "normal" | "subtle";
-  size?: Size;
-  iconPosition?: "leading" | "trailing";
-  icon?: Props;
-  loading?: boolean;
-  ariaLabel?: string;
-  children: ReactNode;
-  ignoreBase?: boolean;
-} & ComponentPropsWithoutRef<E>;
 
 const Button = <E extends ElementType = "button">({
   as,

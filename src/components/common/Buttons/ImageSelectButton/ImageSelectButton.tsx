@@ -9,35 +9,47 @@ import { Icon } from "@/components/common";
 import { SelectedImage } from "@/types/SelectedImage";
 
 /**
+ * 이미지 파일을 첨부하고, 썸네일마다 다중 선택·순서를 표시하는 컨트롤입니다.
+ *
+ * @remarks
+ * - 첨부된 `File` 목록과 선택 상태(`SelectedImage`)는 부모 state로 관리합니다.
+ * - `images`가 5개 이상이면 파일 입력·첨부 트리거가 비활성화됩니다.
+ * - 썸네일 버튼 클릭 시 해당 인덱스 선택이 토글되고, 선택된 항목에는 순서 뱃지가 보입니다.
+ * - 타입상 `ButtonHTMLAttributes`를 확장하지만, 구현에서는 아래 필드와 `ariaLabel`만 사용합니다.
+ *
  * @author hyungjun
- *
- * 여러 이미지를 선택/비선택할 수 있는 버튼 그룹 컴포넌트입니다.
- * 각 이미지 버튼을 클릭하면 선택 상태가 토글되며,
- * 선택된 버튼에는 이미지 순서 번호가 표시됩니다.
- * 최대 선택 수 제한이나 외부 상태 관리 없이 내부 상태로 처리됩니다.
- *
- * @param images - 표시할 이미지 URL 배열입니다.
- * 각 버튼은 배열 순서대로 렌더링되며, 클릭 시 선택 상태가 토글됩니다.
- *
- * @param ariaLabel - 접근성을 위한 버튼 그룹 라벨 텍스트입니다.
- *
+ */
+interface ToggleImageButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** `role="group"` 컨테이너에 붙는 접근성 라벨 */
+  ariaLabel?: string;
+  /** 미리보기·선택 대상이 되는 이미지 파일 목록 */
+  images: File[];
+  /** 첨부 입력으로 갱신되는 `images` setter */
+  setImages: Dispatch<SetStateAction<File[]>>;
+  /** 선택된 썸네일 인덱스와 사용자에게 보여 줄 순서 */
+  selectedImages: SelectedImage[];
+  /** 썸네일 클릭 시 토글·순서 재계산에 쓰는 setter */
+  setSelectedImages: Dispatch<SetStateAction<SelectedImage[]>>;
+}
+
+/**
  * @example
  * ```tsx
+ * import { useState } from "react";
+ * import type { SelectedImage } from "@/types/SelectedImage";
+ *
+ * const [images, setImages] = useState<File[]>([]);
+ * const [selectedImages, setSelectedImages] = useState<SelectedImage[]>([]);
+ *
  * <ToggleImageButton
- *   images={["/img1.png", "/img2.png", "/img3.png"]} (File타입)
- *   position="horizontal"
  *   ariaLabel="프로필 이미지 선택"
+ *   images={images}
+ *   setImages={setImages}
+ *   selectedImages={selectedImages}
+ *   setSelectedImages={setSelectedImages}
  * />
  * ```
  */
-
-interface ToggleImageButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  ariaLabel?: string;
-  images: File[];
-  setImages: Dispatch<SetStateAction<File[]>>;
-  selectedImages: SelectedImage[];
-  setSelectedImages: Dispatch<SetStateAction<SelectedImage[]>>;
-}
 
 const ToggleImageButton = ({
   ariaLabel,
