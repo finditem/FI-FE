@@ -5,46 +5,46 @@ import { useRouter } from "next/navigation";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 
+/**
+ * 상세·작성 등 화면 상단에 두는 고정 헤더입니다.
+ *
+ * @remarks
+ * - `"use client"`이며 `next/navigation`의 `useRouter`로 뒤로가기 동작을 처리합니다.
+ * - `onBack`이 있으면 뒤로 버튼은 그만 호출하고, 없으면 `sessionStorage`의 `__fmi_history_count`를 보고 `router.back()` 또는 `/`로 이동합니다.
+ * - `fixed` 헤더 아래 콘텐츠가 가리지 않도록 동일 높이의 자리 표시 `div`를 둡니다.
+ * - 오른쪽 액션은 `DetailHeaderParts`(저장, 검색, 즐겨찾기, 메뉴 등)를 `children`으로 넣는 패턴을 씁니다.
+ *
+ * @author hyungjun
+ */
 interface DetailHeaderProps {
+  /** 헤더 중앙 제목(없거나 빈 값이면 제목 영역을 렌더하지 않음) */
   title?: ReactNode;
+  /** 헤더 오른쪽 액션 슬롯 */
   children?: ReactNode;
+  /** 뒤로 버튼 클릭 시 직접 처리할 때 전달(없으면 라우터 기본 뒤로/홈) */
   onBack?: () => void;
 }
 
+const HEADER_HEIGHT = "h-14";
+
 /**
- * @author hyungjun
- *
- * @description
- * 상세 페이지에서 사용하는 헤더 컴포넌트입니다.
- * 뒤로가기 버튼과 제목을 표시하며, 오른쪽에 추가 액션 버튼들을 배치할 수 있습니다.
- * sticky 포지션으로 스크롤 시에도 상단에 고정됩니다.
- *
- * @param title - 헤더에 표시할 제목입니다. (선택)
- * @param children - 헤더 오른쪽에 배치할 액션 버튼들입니다. (선택)
- * `DetailHeaderParts`에서 제공하는 `DetailHeaderSave`, `DetailHeaderSearch`, `DetailHeaderStar`, `DetailHeaderMenu` 등의 컴포넌트를 사용할 수 있습니다.
- *
  * @example
  * ```tsx
  * import { DetailHeader } from "@/components/layout";
  * import { DetailHeaderSave } from "@/components/layout/DetailHeader/DetailHeaderParts";
  *
- * // 제목만 있는 경우
  * <DetailHeader title="자주 묻는 질문" />
  *
- * // 제목과 저장 버튼이 있는 경우
  * <DetailHeader title="글쓰기">
  *   <DetailHeaderSave onClick={handleSave} />
  * </DetailHeader>
  *
- * // 여러 액션 버튼을 함께 사용하는 경우
  * <DetailHeader title="게시글 상세">
  *   <DetailHeaderStar isActive />
  *   <DetailHeaderMenu onClick={handleMenu} />
  * </DetailHeader>
  * ```
  */
-
-const HEADER_HEIGHT = "h-14";
 
 const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
   const router = useRouter();
