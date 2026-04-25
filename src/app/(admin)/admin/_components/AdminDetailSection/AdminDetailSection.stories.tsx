@@ -1,5 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastProvider } from "@/providers/ToastProviders";
 import AdminDetailSection from "./AdminDetailSection";
+
+const queryClient = new QueryClient();
 
 const meta: Meta<typeof AdminDetailSection> = {
   title: "관리자 공통 컴포넌트/AdminDetailSection",
@@ -15,12 +19,17 @@ const meta: Meta<typeof AdminDetailSection> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[390px] border">
-        <Story />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <div className="w-[390px] border">
+            <Story />
+          </div>
+        </ToastProvider>
+      </QueryClientProvider>
     ),
   ],
   args: {
+    type: "inquiry",
     data: {
       inquiryId: 1,
       title: "비회원 문의 제목입니다.",

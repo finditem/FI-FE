@@ -1,11 +1,13 @@
 name: Chromatic Deployment
 
 on:
-  push:
+  pull_request:
     branches: [develop]
+    types: [labeled, opened, synchronize]
 
 jobs:
   chromatic:
+    if: contains(github.event.pull_request.labels.*.name, '🎨 design')
     runs-on: ubuntu-latest
     permissions:
       contents: read

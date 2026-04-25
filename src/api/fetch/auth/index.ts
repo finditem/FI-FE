@@ -1,6 +1,7 @@
 export * from "./types/ApiFindPwType";
 export * from "./types/CheckCodeResponseType";
 export * from "./types/ApiSingUpType";
+export * from "./types/KakaoLoginResponseType";
 
 export { default as useApiCheckCode } from "./api/useApiCheckCode";
 export { default as useApiCheckNickname } from "./api/useApiCheckNickname";

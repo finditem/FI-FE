@@ -53,18 +53,6 @@ const NotificationSettingList = () => {
           );
         })}
       </div>
-
-      <li className="w-full border-t border-border-neutral-normal-default px-5 pb-2 pt-4">
-        <div className="flex h-11 w-full items-center justify-between">
-          <h3 className="text-h3-semibold text-neutral-normal-default">마케팅 수신 동의</h3>
-
-          <ToggleButton
-            ariaLabel="마케팅 수신 동의"
-            toggleState={toggleState?.marketingConsent ?? false}
-            onClick={() => handleToggle("marketingConsent")}
-          />
-        </div>
-      </li>
     </ul>
   );
 };

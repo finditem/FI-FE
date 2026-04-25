@@ -1,7 +1,7 @@
 /**
- * @author jikwon
+ * 공공데이터 포털 습득물 조회 API 관련 타입 정의입니다.
  *
- * @description 공공데이터 포털 습득물 조회 API 관련 타입 정의
+ * @author jikwon
  */
 
 export interface PublicDataItem {
@@ -25,9 +25,13 @@ export interface PublicDataItem {
 
 export interface PublicDataResponse {
   items: {
+    /** 단건이면 객체, 복수이면 배열로 반환됨 */
     item: PublicDataItem | PublicDataItem[];
   };
+  /** 페이지당 결과 수 */
   numOfRows: number;
+  /** 현재 페이지 번호 */
   pageNo: number;
+  /** 전체 결과 수 */
   totalCount: number;
 }

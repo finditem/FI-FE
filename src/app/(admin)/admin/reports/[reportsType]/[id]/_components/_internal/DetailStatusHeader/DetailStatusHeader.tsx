@@ -10,10 +10,10 @@ import {
   ProcessStatusBadgeConfig,
   ReplyStatusBadgeConfig,
 } from "@/app/(admin)/admin/_utils/AdminStatusBadgeConfig/AdminStatusBadgeConfig";
-import { AdminDropdown } from "@/app/(admin)/admin/_components";
 import { DETAIL_STATUS_CONFIG } from "./DETAIL_STATUS_CONFIG";
 import { ReportsType } from "../../../_types/ReportsType";
 import { useReportsDetailStatus } from "../../../_hooks/useReportsDetailStatus";
+import AdminDropdown from "@/app/(admin)/admin/_components/AdminDropdown/AdminDropdown";
 
 interface DetailStatusHeaderProps {
   requestStatus: ReportStatus | InquiryStatus;

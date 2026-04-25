@@ -7,8 +7,7 @@ const HeroSection = () => {
       data-testid="intro-section"
       className="relative min-h-[225px] w-full overflow-hidden flex-center"
     >
-      <div className="animate-fade-in-float absolute right-[calc(50%+100px)]">
-        {/* TODO(지권): 피그마 아이콘 내보내기 이슈, 피그마 업데이트 후 반영 예정 */}
+      <div className="animate-fade-in-float absolute right-[calc(50%+100px)] z-10">
         <HeroSectionImage src="/hello/hero/service-hero-wallet.svg" width={42} height={39} />
       </div>
 

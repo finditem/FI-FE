@@ -62,20 +62,33 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
             "border border-white bg-fill-neutral-subtle-default",
             "text-nowrap text-h3-medium text-neutral-normal-default shadow-sm"
           )}
+          data-testid="post-action-menu-container"
         >
           {isMine ? (
             <>
-              <button className={ACTION_MENU.buttonStyle} onClick={handleEditPost}>
+              <button
+                className={ACTION_MENU.buttonStyle}
+                onClick={handleEditPost}
+                data-testid="post-menu-edit-button"
+              >
                 <Icon name="Edit" size={20} />
                 <span>게시글 수정하기</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
-              <button className={ACTION_MENU.buttonStyle} onClick={() => setDeleteModalOpen(true)}>
+              <button
+                className={cn(ACTION_MENU.buttonStyle, "text-system-warning")}
+                onClick={() => setDeleteModalOpen(true)}
+                data-testid="post-menu-delete-button"
+              >
                 <Icon name="Trash" size={20} />
-                <span className="text-system-warning">게시글 삭제하기</span>
+                <span>게시글 삭제하기</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
-              <button className={ACTION_MENU.buttonStyle} onClick={handleStatusChange}>
+              <button
+                className={ACTION_MENU.buttonStyle}
+                onClick={handleStatusChange}
+                data-testid="post-menu-status-button"
+              >
                 <Icon name="ArrowSwitchHorizontal" size={20} />
                 <span>{isFound ? "찾아요 상태로 변경" : "찾았어요 상태로 변경"}</span>
               </button>
@@ -131,7 +144,12 @@ const PostDeleteModal = ({ isOpen, onClose, postId }: PostDeleteModalProps) => {
       className="min-w-[350px] gap-6 rounded-[8px] p-6 flex-col-center"
     >
       <div className="space-y-1 text-center">
-        <h2 className="text-h3-semibold text-layout-header-default">정말로 삭제하시겠습니까?</h2>
+        <h2
+          className="text-h3-semibold text-layout-header-default"
+          data-testid="post-delete-modal-title"
+        >
+          정말로 삭제하시겠습니까?
+        </h2>
         <p className="text-body5-regular text-layout-body-default">
           게시글 삭제 후에는 취소가 불가능합니다.
         </p>
@@ -140,7 +158,11 @@ const PostDeleteModal = ({ isOpen, onClose, postId }: PostDeleteModalProps) => {
         <Button variant="outlined" onClick={onClose} className={ACTION_MENU.deleteButtonStyle}>
           취소
         </Button>
-        <Button onClick={() => handleDeletePost(postId)} className={ACTION_MENU.deleteButtonStyle}>
+        <Button
+          onClick={() => handleDeletePost(postId)}
+          className={ACTION_MENU.deleteButtonStyle}
+          data-testid="post-delete-confirm-button"
+        >
           삭제하기
         </Button>
       </div>

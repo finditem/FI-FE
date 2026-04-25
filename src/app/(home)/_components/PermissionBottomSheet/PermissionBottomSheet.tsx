@@ -3,8 +3,10 @@ import { Button, Icon } from "@/components/common";
 import { PopupLayout } from "@/components/domain";
 import { useToast } from "@/context/ToastContext";
 import { useMainKakaoMapStore } from "@/store";
+import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import { useState } from "react";
 import { PERMISSION_CONFIG, PERMISSION_ITEM } from "../../_constants/PERMISSION_CONFIG";
+import { syncWebPushSubscription } from "@/utils";
 
 interface DetailPermissionSheetProps {
   isOpen: boolean;
@@ -31,12 +33,14 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           useMainKakaoMapStore.getState().triggerLevelReset();
           useMainKakaoMapStore.getState().setUserGpsFromDevice(next);
           useMainKakaoMapStore.getState().setLatLng(next);
+          markMainGeoSessionConfirmed();
           onClose();
         },
         (error) => {
           useMainKakaoMapStore.getState().triggerLevelReset();
           useMainKakaoMapStore.getState().clearLatLng();
           if (error.code === error.PERMISSION_DENIED) {
+            clearMainGeoSessionConfirmed();
             addToast("위치 권한이 거부되었습니다. 설정에서 허용해주세요.", "warning");
           }
           onClose();
@@ -50,7 +54,16 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
       }
 
       if (Notification.permission === "granted") {
-        updateNotification({ browserNotificationEnabled: true });
+        updateNotification(
+          { browserNotificationEnabled: true },
+          {
+            onSuccess: () => {
+              void syncWebPushSubscription().catch(() =>
+                addToast("브라우저 알림 등록에 실패했어요", "warning")
+              );
+            },
+          }
+        );
         onClose();
         return;
       }
@@ -63,7 +76,16 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
 
       const permission = await Notification.requestPermission();
       if (permission === "granted") {
-        updateNotification({ browserNotificationEnabled: true });
+        updateNotification(
+          { browserNotificationEnabled: true },
+          {
+            onSuccess: () => {
+              void syncWebPushSubscription().catch(() =>
+                addToast("브라우저 알림 등록에 실패했어요", "warning")
+              );
+            },
+          }
+        );
       }
       onClose();
     }
