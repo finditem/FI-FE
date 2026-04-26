@@ -3,7 +3,7 @@ import SignUpItem from "./SignUpItem";
 import { FormProvider, useForm } from "react-hook-form";
 
 const meta: Meta<typeof SignUpItem> = {
-  title: "페이지/회원가입/SignUpItem",
+  title: "페이지/회원가입 페이지/SignUpItem",
   component: SignUpItem,
   tags: ["autodocs"],
   parameters: {

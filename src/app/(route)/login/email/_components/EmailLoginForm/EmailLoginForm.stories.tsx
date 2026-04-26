@@ -13,7 +13,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof EmailLoginForm> = {
-  title: "페이지/로그인/EmailLoginForm",
+  title: "페이지/로그인 페이지/EmailLoginForm",
   component: EmailLoginForm,
   tags: ["autodocs"],
   parameters: {

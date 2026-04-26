@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import SignUpContainer from "./SignUpContainer";
+import ChangePasswordForm from "./ChangePasswordForm";
 import { FormProvider, useForm } from "react-hook-form";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "@/providers/ToastProviders";
@@ -12,9 +12,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof SignUpContainer> = {
-  title: "페이지/회원가입 페이지/SignUpContainer",
-  component: SignUpContainer,
+const meta: Meta<typeof ChangePasswordForm> = {
+  title: "페이지/비밀번호 변경 페이지/ChangePasswordForm",
+  component: ChangePasswordForm,
   tags: ["autodocs"],
   parameters: {
     layout: "centered",
@@ -26,17 +26,9 @@ const meta: Meta<typeof SignUpContainer> = {
     (Story) => {
       const methods = useForm({
         defaultValues: {
-          email: "",
-          emailAuth: "",
-          password: "",
-          passwordConfirm: "",
-          nickname: "",
-          isEmailAuthVerified: false,
-          isNicknameVerified: false,
-          privacyPolicyAgreed: false,
-          marketingConsent: false,
-          termsOfServiceAgreed: false,
-          contentPolicyAgreed: false,
+          currentPassword: "",
+          newPassword: "",
+          newPasswordConfirm: "",
         },
       });
       return (
@@ -55,6 +47,6 @@ const meta: Meta<typeof SignUpContainer> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof SignUpContainer>;
+type Story = StoryObj<typeof ChangePasswordForm>;
 
 export const Default: Story = {};

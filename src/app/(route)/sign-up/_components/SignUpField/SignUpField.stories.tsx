@@ -13,7 +13,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof SignUpField> = {
-  title: "페이지/회원가입/SignUpField",
+  title: "페이지/회원가입 페이지/SignUpField",
   component: SignUpField,
   tags: ["autodocs"],
   parameters: {
