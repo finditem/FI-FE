@@ -12,8 +12,6 @@ import { applyFiltersToUrl } from "@/utils";
  * - `applyFiltersToUrl` 유틸을 사용하여 복잡한 객체 상태를 쿼리스트링으로 변환합니다.
  *
  * @template T - 필터 상태 객체의 타입 (Object)
- * @param defaultFilters - 필터의 초기/기본값 설정 객체
- * @param currentFiltersFromUrl - URL 파라미터에서 추출하여 현재 적용된 필터 값
  *
  * @returns 필터 상태 및 URL 동기화 핸들러 객체
  * - `filters`: 현재 동기화된 필터 상태 객체
@@ -24,9 +22,9 @@ import { applyFiltersToUrl } from "@/utils";
  */
 
 interface UseFilterSyncProps<T extends object> {
-  /** 필터의 초기 기본값 */
+  /** 필터의 초기/기본값 설정 객체 */
   defaultFilters: T;
-  /** 현재 URL에서 파싱되어 넘어온 필터 데이터 */
+  /** URL 파라미터에서 추출하여 현재 적용된 필터 값 */
   currentFiltersFromUrl: Partial<T>;
 }
 
