@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ActivityBottomSheet from "./ActivityBottomSheet";
 import { useState } from "react";
-import { ActivityFilterState } from "../../_types/ActivityFilterType";
 import { useActivityFilter } from "../../_hooks/useActivityFilter";
 import { ACTIVITY_OPTIONS } from "../../_constants/ACTIVITY_OPTIONS";
 
