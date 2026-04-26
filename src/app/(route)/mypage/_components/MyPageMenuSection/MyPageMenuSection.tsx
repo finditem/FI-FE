@@ -44,7 +44,7 @@ const MyPageMenuSection = ({
               <button
                 className="flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
                 onClick={handleLogout}
-                disabled={isPending}
+                disabled={isPending || disabled}
               >
                 로그아웃
               </button>
