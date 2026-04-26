@@ -39,20 +39,3 @@ export const Default: Story = {
     );
   },
 };
-
-export const SelectedValue: Story = {
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(true);
-    const { filters, setFilters, startDate, endDate, activity } = useActivityFilter();
-
-    return (
-      <ActivityBottomSheet
-        {...args}
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        filters={filters}
-        setFilters={setFilters}
-      />
-    );
-  },
-};
