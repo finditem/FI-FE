@@ -36,13 +36,13 @@ interface UseFilterSyncProps<T extends object> {
  *
  * // 2. 필터 동기화 훅 사용
  * const { filters, updateFilters } = useFilterSync({
- * defaultFilters: { startDate: "", endDate: "", sort: "LATEST" },
- * currentFiltersFromUrl: { startDate, endDate, sort },
+ *   defaultFilters: { startDate: "", endDate: "", sort: "LATEST" },
+ *   currentFiltersFromUrl: { startDate, endDate, sort },
  * });
  *
  * // 3. 필터 업데이트 시 (URL이 자동으로 ?sort=OLDEST 등으로 변경됨)
  * const handleSortChange = (newSort: string) => {
- * updateFilters({ sort: newSort });
+ *   updateFilters({ sort: newSort });
  * };
  * ```
  */

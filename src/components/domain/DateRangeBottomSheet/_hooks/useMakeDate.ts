@@ -27,7 +27,8 @@
  * months,
  * days,
  * selectDate,
- * handleDateChange
+ * handleDateChange,
+ * handleResetDate,
  * } = useMakeDate({ year: 2025, month: 5, day: 10 });
  * ```
  */
