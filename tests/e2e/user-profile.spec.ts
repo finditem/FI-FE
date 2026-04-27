@@ -19,7 +19,7 @@ const MOCK_USERS_ME = {
   isSuccess: true,
   code: "200",
   message: "OK",
-  result: { userId: MY_USER_ID, nickName: "나", profileImage: "", email: "test@test.com" },
+  result: { userId: MY_USER_ID, nickname: "나", profileImg: "", email: "test@test.com" },
 };
 
 const makeProfileResponse = (

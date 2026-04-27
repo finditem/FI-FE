@@ -1,15 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import { MOCK_POST_ITEM } from "@/mock/data/posts.data";
-
-const ADMIN_ACCESS_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQURNSU4iLCJ1c2VySWQiOjEsImV4cCI6OTk5OTk5OTk5OX0.fake-signature";
-
-const MOCK_AUTH_REFRESH = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { userId: 1, temporaryPassword: false },
-};
+import { ADMIN_ACCESS_TOKEN, MOCK_AUTH_REFRESH } from "./helpers/admin";
 
 async function setupContentAgreeMocks(page: Page, items?: object[]) {
   await page.route("**/api/auth/refresh", (route) =>
