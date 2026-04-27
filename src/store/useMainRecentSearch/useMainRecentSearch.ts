@@ -5,9 +5,13 @@ const MAX_RECENT_SEARCH_COUNT = 10;
 
 const normalizeKeyword = (keyword: string) => keyword.trim();
 
+/**
+ * 메인 검색에서 최근 항목으로 저장하는 한 줄 레코드입니다.
+ */
 export type MainRecentSearchItem = {
+  /** 트림된 검색어 */
   keyword: string;
-  /** 검색 실행 시각 (ISO 8601, 로컬스토리지에 저장) */
+  /** 검색 실행 시각(ISO 8601, 로컬 스토리지에 저장) */
   searchedAt: string;
 };
 
@@ -17,31 +21,36 @@ type PersistedLegacyV0 = {
 };
 
 /**
- * 메인페이지 검색에서 사용하는 최근 검색어 전역 상태 스토어입니다.
+ * 메인 페이지 검색의 최근 검색어 목록을 전역으로 들고, 새로고침 후에도 유지합니다.
+ *
+ * @remarks
+ * - `persist`의 `recentItems`만 저장하고, `version`·`migrate`로 구버전 `recentKeywords` 배열을 `recentItems`로 승격합니다.
+ * - 같은 키워드를 다시 넣으면 맨 앞으로 옮기고 `searchedAt`만 새로 찍습니다.
+ * - 개수는 파일 상단 상수(최대 개수)를 넘지 않게 자릅니다.
+ * - 빈 문자열·공백만 있는 입력은 무시합니다.
  *
  * @author hyungjun
- * @description
- * - `persist`로 `recentItems`를 로컬 스토리지에 저장합니다.
- * - 각 항목은 `keyword`와 검색 시각 `searchedAt`(ISO 문자열)을 가집니다.
- * - 동일한 검색어를 다시 추가하면 목록 앞으로 옮기며 `searchedAt`을 갱신합니다.
- * - 최대 개수는 `MAX_RECENT_SEARCH_COUNT`를 넘지 않도록 잘라냅니다.
- * - 빈 문자열·공백만 있는 입력은 추가하지 않습니다.
- * - 구버전(`recentKeywords`만 저장) 데이터는 마이그레이션으로 `recentItems`로 변환합니다.
- *
- * @example
- * ```ts
- * const { recentItems, addRecentSearch, removeRecentSearch, clearRecentSearch } =
- *   useMainRecentSearch();
- * addRecentSearch("열쇠");
- * ```
  */
 
 interface MainRecentSearchStore {
+  /** 최신순 최근 검색 목록 */
   recentItems: MainRecentSearchItem[];
+  /** 키워드 추가·중복 시 앞으로 이동·시각 갱신 */
   addRecentSearch: (keyword: string) => void;
+  /** 해당 키워드와 일치하는 항목만 제거 */
   removeRecentSearch: (keyword: string) => void;
+  /** 목록 전체 비우기 */
   clearRecentSearch: () => void;
 }
+
+/**
+ * @example
+ * ```ts
+ * const { recentItems, addRecentSearch, clearRecentSearch } = useMainRecentSearch();
+ * addRecentSearch("열쇠");
+ * clearRecentSearch();
+ * ```
+ */
 
 export const useMainRecentSearch = create<MainRecentSearchStore>()(
   persist(

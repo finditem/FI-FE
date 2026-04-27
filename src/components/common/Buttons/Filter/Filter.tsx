@@ -3,51 +3,45 @@ import { cn } from "@/utils";
 import Icon, { Props } from "../../Icon/Icon";
 
 /**
+ * 리스트·게시판 등에서 조건 필터를 선택할 때 쓰는 공통 버튼 컴포넌트입니다.
+ *
+ * @remarks
+ * - `ButtonHTMLAttributes`를 확장하므로 `onClick`, `disabled` 등 표준 `button` 속성과 함께 사용할 수 있습니다.
+ * - `onSelected`에 따라 선택·비선택 스타일이 달라지고, `loading`이면 스피너가 보이며 버튼이 비활성화됩니다.
+ * - `aria-label`에는 인자로 넘긴 문자열 뒤에 ` 필터` 접미사가 붙습니다.
+ *
  * @author hyungjun
- *
- * 리스트나 게시판 등에서 조건별로 필터링할 때 사용하는 버튼 컴포넌트입니다.
- * `onSelected` 상태에 따라 시각적 스타일이 달라지며,
- * 로딩 중일 경우 스피너 아이콘이 표시됩니다.
- *
- * @param children - 버튼 내부에 표시할 콘텐츠입니다. (텍스트 또는 요소)
- *
- * @param loading - 로딩 상태를 표시합니다.
- * `true`일 경우 버튼은 비활성화되고 로딩 스피너가 표시됩니다. (기본값: `false`)
- *
- * @param icon - 버튼에 표시할 아이콘 컴포넌트의 Props입니다.
- * `name`, `size`, `className` 등을 지정할 수 있습니다.
- *
- * @param iconPosition - 아이콘의 위치를 설정합니다.
- * `"leading"`(왼쪽) | `"trailing"`(오른쪽). (기본값: `"leading"`)
- *
- * @param onSelected - 필터의 선택 상태를 제어합니다.
- * `true`일 경우 활성화 스타일이 적용됩니다.
- *
- * @param ariaLabel - 접근성을 위한 라벨 텍스트입니다.
- * 실제 `aria-label` 속성에는 `"필터"` 접미사가 함께 붙습니다.
- *
+ */
+
+interface FilterProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 버튼에 표시할 콘텐츠 */
+  children: ReactNode;
+  /** 로딩 시 스피너 표시 및 비활성 (default: false) */
+  loading?: boolean;
+  /** 표시할 아이콘에 넘길 `Icon` 설정 (`name` 등). `loading`이면 스피너가 우선합니다. */
+  icon?: Props;
+  /** 아이콘을 자식 콘텐츠 기준 앞·뒤 배치 (`icon`이 있을 때만, default: 'leading') */
+  iconPosition?: "leading" | "trailing";
+  /** 현재 필터가 선택된 상태인지 여부 */
+  onSelected: boolean;
+  /** 접근성용 라벨. 실제 `aria-label`은 `{값} 필터` 형식입니다. */
+  ariaLabel: string;
+}
+
+/**
  * @example
  * ```tsx
  * <Filter
  *   ariaLabel="최신순"
- *   onSelected={selectedFilter === 'recent'}
+ *   onSelected={selectedFilter === "recent"}
  *   icon={{ name: "ChevronDown" }}
  *   iconPosition="trailing"
- *   onClick={() => setSelectedFilter('recent')}
+ *   onClick={() => setSelectedFilter("recent")}
  * >
  *   최신순
  * </Filter>
  * ```
  */
-
-interface FilterProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  loading?: boolean;
-  icon?: Props;
-  iconPosition?: "leading" | "trailing";
-  onSelected: boolean;
-  ariaLabel: string;
-}
 
 const Filter = ({
   children,
@@ -67,7 +61,7 @@ const Filter = ({
       className={cn(
         "gap-[4px] whitespace-nowrap rounded-full px-[18px] py-[8px] text-body1-semibold transition-colors duration-150 flex-center",
         !onSelected &&
-          "active:bg-fill-neutralInversed-normal-pressed text-neutralInversed-normal-default bg-fill-neutralInversed-normal-default hover:text-black hover:bg-fill-neutralInversed-normal-hover active:text-neutralInversed-normal-pressed disabled:text-neutralInversed-normal-disabled disabled:bg-fill-neutralInversed-normal-disabled",
+          "text-neutralInversed-normal-default bg-fill-neutralInversed-normal-default hover:text-black hover:bg-fill-neutralInversed-normal-hover active:text-neutralInversed-normal-pressed active:bg-fill-neutralInversed-normal-pressed disabled:text-neutralInversed-normal-disabled disabled:bg-fill-neutralInversed-normal-disabled",
         onSelected &&
           !loading &&
           "text-white bg-fill-neutralInversed-normal-enteredSelected hover:text-white active:text-white active:bg-fill-neutralInversed-normal-enteredSelected",
