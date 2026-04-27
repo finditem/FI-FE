@@ -6,13 +6,15 @@
  * @remarks
  * - SSR(`typeof window === "undefined"`)에서는 `false`입니다.
  *
+ * @author hyungjun
+ */
+
+/**
  * @example
  * ```ts
  * // registerWebPushServiceWorker 내부: MSW 켜진 로컬에선 등록 생략
  * if (!shouldRegisterWebPushServiceWorker()) return null;
  * ```
- *
- * @author hyungjun
  */
 
 export const shouldRegisterWebPushServiceWorker = (): boolean => {

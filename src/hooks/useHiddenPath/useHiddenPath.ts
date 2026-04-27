@@ -14,7 +14,9 @@ import { usePathname } from "next/navigation";
  *
  * @author jikwon
  * @author hyungjun
- *
+ */
+
+/**
  * @example
  * ```tsx
  * const isHidden = useHiddenPath();

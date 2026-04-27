@@ -20,6 +20,7 @@ const MS_IN_DAY = 24 * MS_IN_HOUR;
  *
  * @author hyungjun
  */
+
 /**
  * @example
  * ```ts

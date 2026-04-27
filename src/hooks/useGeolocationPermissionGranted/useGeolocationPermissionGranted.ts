@@ -16,7 +16,9 @@ import { useEffect, useState } from "react";
  * - 마운트 해제 시 `change` 리스너를 제거합니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const canUseGeolocation = useGeolocationPermissionGranted();

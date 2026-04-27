@@ -17,7 +17,9 @@ import { RefObject, useEffect } from "react";
  * - 의존성 배열에 `anchorRef`·`popoverRef` 객체가 포함되어 있으므로, 보통 `useRef`로 안정적인 ref 객체를 넘깁니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * usePopoverOutsideClose(isOpen, triggerRef, dropdownRef, () => setIsOpen(false));

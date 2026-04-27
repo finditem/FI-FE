@@ -18,14 +18,16 @@ import { urlBase64ToUint8Array } from "../urlBase64ToUint8Array/urlBase64ToUint8
  * - {@link isWebPushSupported}·{@link registerWebPushServiceWorker} 단계에서 막히면 조용히 반환합니다.
  * - `applicationServerKey`는 {@link urlBase64ToUint8Array}·{@link pickVapidPublicKey}로 준비합니다.
  *
+ * @author hyungjun
+ */
+
+/**
  * @example
  * ```ts
  * useEffect(() => {
  *   void syncWebPushSubscription().catch(console.error);
  * }, []);
  * ```
- *
- * @author hyungjun
  */
 
 export const syncWebPushSubscription = async (): Promise<void> => {

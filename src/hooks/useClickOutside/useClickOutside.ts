@@ -18,7 +18,9 @@ import { useEffect, useRef } from "react";
  * - `callback` 참조가 바뀔 때마다 리스너가 제거·재등록됩니다. 불필요한 재구독을 줄이려면 `useCallback` 등으로 참조를 안정화하세요.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const [isOpen, setIsOpen] = useState(false);

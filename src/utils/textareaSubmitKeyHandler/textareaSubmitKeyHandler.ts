@@ -18,6 +18,7 @@ const clearHeight = (textareaRef: HTMLTextAreaElement | null) => {
  *
  * @author hyungjun
  */
+
 /**
  * @example
  * ```tsx

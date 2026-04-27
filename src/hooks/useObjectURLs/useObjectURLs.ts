@@ -15,7 +15,9 @@ import { useEffect, useState } from "react";
  * - 생성된 URL은 `<img src>` 등에 바로 사용할 수 있습니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const [files, setFiles] = useState<File[]>([]);

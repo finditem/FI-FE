@@ -32,7 +32,9 @@ interface UseInfiniteScrollOptions {
  * - `inViewOptions`를 생략하면 `useInView({ threshold: 0 })`과 동일한 기본값을 씁니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(...);

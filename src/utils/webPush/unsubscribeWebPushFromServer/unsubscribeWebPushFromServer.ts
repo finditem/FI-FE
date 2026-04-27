@@ -8,13 +8,15 @@ import { isWebPushSupported } from "../isWebPushSupported/isWebPushSupported";
  * - {@link isWebPushSupported}가 `false`이거나 `serviceWorker`/등록/구독이 없으면 아무 것도 하지 않습니다.
  * - `authApi.delete` 실패 여부와 관계없이 `finally`에서 `subscription.unsubscribe()`를 시도합니다.
  *
+ * @author hyungjun
+ * /
+ 
+/**
  * @example
  * ```ts
  * // 로그아웃 직전 등
  * await unsubscribeWebPushFromServer();
  * ```
- *
- * @author hyungjun
  */
 
 export const unsubscribeWebPushFromServer = async (): Promise<void> => {

@@ -4,11 +4,16 @@
  * `PushManager.subscribe`의 `applicationServerKey`에 넘기기 전 변환에 사용합니다.
  *
  * @param base64String - 패딩 없이 `-`/`_`를 쓰는 형태를 포함한 Base64 문자열
+ * 
  * @returns 디코딩된 바이트 배열
  *
  * @remarks
  * - 표준 Base64로 정규화한 뒤 `atob`로 이진 문자열을 만든 다음 바이트 배열로 복사합니다.
  *
+ * @author hyungjun
+ * /
+ 
+/**
  * @example
  * ```ts
  * const applicationServerKey = urlBase64ToUint8Array(vapidPublicKeyFromApi);
@@ -17,8 +22,6 @@
  *   applicationServerKey,
  * });
  * ```
- *
- * @author hyungjun
  */
 
 export const urlBase64ToUint8Array = (base64String: string): Uint8Array => {

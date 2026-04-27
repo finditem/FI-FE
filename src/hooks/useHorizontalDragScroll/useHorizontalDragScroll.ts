@@ -13,7 +13,9 @@ import { type MouseEvent, useCallback, useRef } from "react";
  * - `mouseup`에서 `document` 리스너를 제거합니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const { ref, onMouseDown } = useHorizontalDragScroll();

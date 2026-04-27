@@ -11,13 +11,19 @@ const VAPID_PUBLIC_KEY_FIELD_CANDIDATES = [
  * VAPID 공개키 API 응답 객체에서 공개키 문자열 하나를 고릅니다.
  *
  * @param result - 키-값이 모두 문자열인 응답 본문
+ * 
  * @returns URL-safe Base64 형태의 공개키 문자열
+ * 
  * @throws 키를 찾지 못하면 `Error`
  *
  * @remarks
  * - 알려진 필드명(`publicKey`, `public_key` 등)을 순서대로 봅니다.
  * - 없으면 값 중 길이가 {@link VAPID_PUBLIC_KEY_STRING_MIN_LENGTH_HEURISTIC} 이상인 첫 문자열을 씁니다.
  *
+ * @author hyungjun
+ * /
+ 
+/**
  * @example
  * ```ts
  * const { data } = await publicApi.get("/push/vapid-key");
@@ -25,8 +31,6 @@ const VAPID_PUBLIC_KEY_FIELD_CANDIDATES = [
  *   const publicKeyB64 = pickVapidPublicKey(data.result);
  * }
  * ```
- *
- * @author hyungjun
  */
 
 export const pickVapidPublicKey = (result: Record<string, string>): string => {

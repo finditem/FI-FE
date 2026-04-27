@@ -81,6 +81,7 @@ const LAYOUT_STRATEGIES: Record<number, LayoutStrategy> = {
  *
  * @author hyungjun
  */
+
 /**
  * @example
  * ```ts
@@ -113,6 +114,7 @@ export const getImageLayout = (images: string[] = []): LayoutConfig => {
  *
  * @author hyungjun
  */
+
 /**
  * @example
  * ```ts

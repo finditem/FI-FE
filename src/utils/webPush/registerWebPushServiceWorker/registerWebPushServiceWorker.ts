@@ -11,14 +11,16 @@ const WEB_PUSH_SERVICE_WORKER_URL = "/sw.js";
  * - `navigator.serviceWorker`가 없거나 {@link shouldRegisterWebPushServiceWorker}가 `false`면 등록하지 않습니다.
  * - 등록 중 예외는 삼키고 `null`을 반환합니다.
  *
+ * @author hyungjun
+ */
+
+/**
  * @example
  * ```ts
  * const registration = await registerWebPushServiceWorker();
  * if (!registration) return;
  * const sub = await registration.pushManager.getSubscription();
  * ```
- *
- * @author hyungjun
  */
 
 export const registerWebPushServiceWorker = async (): Promise<ServiceWorkerRegistration | null> => {

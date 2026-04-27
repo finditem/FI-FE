@@ -6,14 +6,16 @@
  * @remarks
  * - SSR(`typeof window === "undefined"`)에서는 항상 `false`입니다.
  * - `http://localhost`는 보안 컨텍스트로 취급되는 경우가 많습니다.
- *
+ * 
+ * @author hyungjun
+ * /
+
+/**
  * @example
  * ```ts
  * if (!isWebPushSupported()) return;
  * await syncWebPushSubscription();
  * ```
- *
- * @author hyungjun
  */
 
 export const isWebPushSupported = (): boolean => {

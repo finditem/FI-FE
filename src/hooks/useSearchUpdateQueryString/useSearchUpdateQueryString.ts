@@ -18,7 +18,9 @@ type SearchMode = "default" | "region" | "post";
  * - 새 URL은 `` `${pathname}?${params}` `` 형태이며, 쿼리가 비면 `?`만 붙은 문자열이 될 수 있습니다.
  *
  * @author hyungjun
- *
+ * /
+ 
+/**
  * @example
  * ```tsx
  * const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("replace");
