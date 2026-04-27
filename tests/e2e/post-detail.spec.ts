@@ -173,7 +173,9 @@ test.describe("게시글 상세 페이지", () => {
 
     await page.goto(`/list/${POST_ID}`);
 
-    await expect(page.getByRole("heading", { name: "테스트 분실물 제목", level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "테스트 분실물 제목", level: 1, exact: true })
+    ).toBeVisible();
 
     await expect(page.getByText("명동 근처에서 전자기기를 잃어버렸습니다.")).toBeVisible();
 

@@ -83,7 +83,7 @@ const GuestCommentUI = () => {
   return (
     <section className="border-t pt-[18px]">
       <div className="relative">
-        <ul aria-hidden="true" className="pointer-events-none select-none">
+        <ul aria-hidden="true" inert className="pointer-events-none select-none">
           {MOCK_COMMENT_DATA.map((item) => (
             <CommentItem
               data={item}

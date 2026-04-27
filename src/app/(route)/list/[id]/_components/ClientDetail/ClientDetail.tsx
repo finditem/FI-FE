@@ -87,7 +87,9 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
         }}
       />
 
-      <div className="flex flex-col h-base">
+      <h1 className="sr-only">{data?.result?.title || "게시글"} 상세 페이지</h1>
+
+      <article className="flex flex-col h-base">
         <PostDetail data={data.result} />
 
         <CommentList
@@ -109,7 +111,7 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
         </ErrorBoundary>
 
         <PostInputComment postId={id} isLoggedIn={isLoggedIn} />
-      </div>
+      </article>
 
       <AddToHomeScreenPWA isOpen={showPrompt} onClose={closePrompt} />
     </>
