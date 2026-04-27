@@ -22,6 +22,8 @@ const DefaultListView = () => {
         )}
       </DetailHeader>
 
+      <h1 className="sr-only">{SEARCH_HEADER_TITLE[searchMode]}</h1>
+
       {isDefaultMode ? (
         <DefaultListSection searchUpdateQuery={searchUpdateQuery} />
       ) : (
