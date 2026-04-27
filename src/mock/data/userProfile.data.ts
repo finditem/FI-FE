@@ -54,3 +54,30 @@ export const MOCK_USER_PROFILE_DATA_BY_COMMENTS = {
   },
   list: [MOCK_USER_PROFILE_COMMENT_DATA],
 };
+
+// E2E 테스트용 댓글 목업 데이터
+export const MOCK_USER_PROFILE_E2E_COMMENT = {
+  commentId: 2,
+  postId: 1,
+  postTitle: "아이폰 15 분실",
+  content: "혹시 제 물건인가요?",
+  createdAt: "2025-12-26T10:22:58",
+};
+
+// E2E 테스트용 즐겨찾기 목업 데이터
+export const MOCK_USER_PROFILE_FAVORITE_DATA = {
+  postId: 20,
+  title: "갤럭시 폰 습득",
+  summary: "갤럭시 폰을 습득했어요.",
+  thumbnailUrl: "",
+  address: "서울시 강남구",
+  itemStatus: "SEARCHING" as const,
+  postType: "FOUND" as const,
+  category: "ELECTRONICS" as const,
+  favoriteCount: 3,
+  favoriteStatus: true,
+  viewCount: 5,
+  createdAt: "2025-12-26T10:22:58",
+  new: false,
+  hot: false,
+};
