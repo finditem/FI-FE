@@ -23,18 +23,21 @@ const PostSearchEmpty = ({ keyword }: { keyword?: string }) => {
         description={"입력한 내용을 다시 한 번 확인해 주세요."}
       />
 
-      <div className="flex flex-col items-start gap-6">
-        <p className="flex flex-col gap-3 px-5 text-h2-bold text-layout-header-default">
-          <span>
-            방금 검색한 <span className="text-brand-strongUseThis-default">{displayKeyword}</span>을
-          </span>
-          <span>경찰청 분실물 목록에서 다시 찾아볼까요?</span>
-        </p>
+      <div className={keyword ? "visible" : "invisible"}>
+        <div className="flex flex-col items-start gap-6">
+          <p className="flex flex-col gap-3 px-5 text-h2-bold text-layout-header-default">
+            <span>
+              방금 검색한 <span className="text-brand-strongUseThis-default">{displayKeyword}</span>
+              을
+            </span>
+            <span>경찰청 분실물 목록에서 다시 찾아볼까요?</span>
+          </p>
 
-        <div className="w-full border-t border-divider-default px-4 pb-8 pt-3">
-          <Button as={Link} href="/public-data" className="w-full">
-            경찰청 목록에서 찾아보기
-          </Button>
+          <div className="w-full border-t border-divider-default px-4 pb-8 pt-3">
+            <Button as={Link} href="/public-data" className="w-full">
+              경찰청 목록에서 찾아보기
+            </Button>
+          </div>
         </div>
       </div>
     </div>
