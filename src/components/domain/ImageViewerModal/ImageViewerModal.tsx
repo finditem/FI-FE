@@ -26,6 +26,7 @@ import { ImageInfo } from "./_types/ImageInfo";
  *
  * @author hyungjun
  */
+
 interface ImageViewerModalProps {
   /** 표시할 이미지의 `src` URL 목록 */
   images: string[];

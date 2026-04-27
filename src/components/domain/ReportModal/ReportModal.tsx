@@ -24,6 +24,7 @@ type ReportFormValues = {
  *
  * @author hyungjun
  */
+
 interface ReportModalProps {
   /** 모달 표시 여부 */
   isOpen: boolean;

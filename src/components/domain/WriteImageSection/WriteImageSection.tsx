@@ -20,6 +20,7 @@ const DEFAULT_HELP_TEXT = "최대 10MB, 총 5장의 이미지를 첨부할 수 �
  *
  * @author hyungjun
  */
+
 interface WriteImageSectionProps {
   /** 하단 안내 문구 (default: 파일 상단 `DEFAULT_HELP_TEXT`) */
   helpText?: string;

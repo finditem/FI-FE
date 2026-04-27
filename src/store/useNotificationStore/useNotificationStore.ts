@@ -12,6 +12,7 @@ import type { NotificationType } from "@/api/fetch/notification";
  *
  * @author hyungjun
  */
+
 interface NotificationStore {
   /** 미확인 알림 존재 여부 */
   hasUnreadNotification: boolean;

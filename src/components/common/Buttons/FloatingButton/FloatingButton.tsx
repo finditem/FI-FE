@@ -12,6 +12,7 @@ import { cn } from "@/utils";
  *
  * @author hyungjun
  */
+
 interface FloatingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 접근성용 `aria-label` (default: '플로팅 메뉴 버튼') */
   ariaLabel?: string;

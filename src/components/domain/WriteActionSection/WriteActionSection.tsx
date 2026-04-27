@@ -8,6 +8,7 @@ import { Button } from "@/components/common";
  *
  * @author hyungjun
  */
+
 interface ActionSectionProps {
   /** `true`이면 작성 완료 버튼을 누를 수 없습니다 */
   disabled: boolean;

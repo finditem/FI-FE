@@ -13,6 +13,7 @@ import { cn } from "@/utils";
  *
  * @author hyungjun
  */
+
 interface KebabMenuButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 접근성용 `aria-label` */
   ariaLabel?: string;

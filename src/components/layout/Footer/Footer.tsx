@@ -14,7 +14,8 @@ const FOOTER_HEIGHT = "h-[86.67px]";
  * - `fixed` 푸터와 동일 높이의 자리 표시 `div`로 본문과 겹침을 줄입니다.
  *
  * @author hyungjun
- *
+ 
+/**
  * @example
  * ```tsx
  * // 레이아웃 루트 등에서 한 번만 배치

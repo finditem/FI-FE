@@ -13,6 +13,7 @@ import { cn } from "@/utils";
  *
  * @author hyungjun
  */
+
 interface ViewMoreCommentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 더 불러올 수 있는 항목 수(0 이하면 렌더하지 않음) */
   count: number;

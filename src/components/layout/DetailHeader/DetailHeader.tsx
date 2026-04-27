@@ -16,6 +16,7 @@ import { cn } from "@/utils";
  *
  * @author hyungjun
  */
+
 interface DetailHeaderProps {
   /** 헤더 중앙 제목(없거나 빈 값이면 제목 영역을 렌더하지 않음) */
   title?: ReactNode;

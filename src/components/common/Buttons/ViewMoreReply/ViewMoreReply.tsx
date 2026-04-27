@@ -15,6 +15,7 @@ import { ReactNode, useState } from "react";
  *
  * @author hyungjun
  */
+
 interface ViewMoreReplyProps {
   /** 첫 버튼에 보일 문구(예: 남은 답글 수 안내) */
   text: string;

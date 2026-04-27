@@ -8,6 +8,7 @@ import { extractDongAddress } from "@/utils";
  * - 기본(`variant` 생략·`short`)은 `extractDongAddress`로 동 단위를 우선 쓰고, 없으면 도로명·지번 원문을 이어 붙입니다.
  * - `full`이면 API의 도로명 또는 지번 주소 문자열을 우선 그대로 반환합니다.
  */
+
 export type GetAddressFromLatLngOptions = {
   /** 동 단위 우선(`short`) vs 원문 위주(`full`) */
   variant?: "short" | "full";
@@ -28,6 +29,7 @@ export type GetAddressFromLatLngOptions = {
  *
  * @author hyungjun
  */
+
 /**
  * @example
  * ```ts

@@ -19,6 +19,7 @@ const ADDRESS_REVALIDATE_DELAY_MS = 500;
  *
  * @author hyungjun
  */
+
 interface MainKakaoMapStore {
   /** 지도 중심 좌표 */
   latLng: { lat: number; lng: number };

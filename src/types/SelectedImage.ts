@@ -7,6 +7,7 @@
  *
  * @author hyungjun
  */
+
 export interface SelectedImage {
   /** `images` 배열 기준 선택된 썸네일 인덱스 */
   index: number;

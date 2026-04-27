@@ -11,6 +11,7 @@ import Icon from "../../Icon/Icon";
  *
  * @author hyungjun
  */
+
 interface BookmarkProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 접근성용 `aria-label` (default: '즐겨찾기 버튼') */
   ariaLabel?: string;

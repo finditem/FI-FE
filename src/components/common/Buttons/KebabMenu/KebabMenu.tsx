@@ -12,6 +12,7 @@ import { Props } from "@/components/common/Icon/Icon";
  * - `icon`이 있으면 `iconPosition`으로 텍스트 기준 앞·뒤에 둡니다(`icon`이 있을 때만, default: 'leading').
  * - `type`을 생략하면 행 버튼은 `submit`으로 렌더됩니다. 폼 내부에서는 의도치 않은 제출이 없는지 확인하세요.
  */
+
 interface KebabMenuItem {
   /** 행에 표시할 라벨 텍스트 */
   text: string;
@@ -41,6 +42,7 @@ interface KebabMenuItem {
  *
  * @author hyungjun
  */
+
 interface KebabMenuProps {
   /** 위에서 아래 순으로 렌더할 메뉴 행 설정 */
   items: KebabMenuItem[];

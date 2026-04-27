@@ -14,7 +14,8 @@ import { isWebPushSupported, registerWebPushServiceWorker, syncWebPushSubscripti
  * - 개발 환경에서 동기화 실패는 `console.warn`으로만 남깁니다.
  *
  * @author hyungjun
- *
+ 
+/**
  * @example
  * ```tsx
  * <WebPushProvider>{children}</WebPushProvider>

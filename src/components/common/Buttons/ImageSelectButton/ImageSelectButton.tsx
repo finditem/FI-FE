@@ -19,6 +19,7 @@ import { SelectedImage } from "@/types/SelectedImage";
  *
  * @author hyungjun
  */
+
 interface ToggleImageButtonProps {
   /** `role="group"` 컨테이너에 붙는 접근성 라벨 */
   ariaLabel?: string;

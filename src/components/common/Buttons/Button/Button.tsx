@@ -15,6 +15,7 @@ type Size = "big" | "medium" | "small";
  *
  * @author hyungjun
  */
+
 type ButtonProps<E extends ElementType = "button"> = {
   /** 렌더링에 사용할 루트 컴포넌트 (default: 'button') */
   as?: E;

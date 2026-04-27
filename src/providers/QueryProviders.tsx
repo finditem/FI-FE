@@ -36,7 +36,8 @@ const getQueryClient = () => {
  * - `NODE_ENV === "development"`일 때만 `ReactQueryDevtools`를 렌더합니다.
  *
  * @author hyungjun
- *
+ 
+/**
  * @example
  * ```tsx
  * import QueryProviders from "@/providers/QueryProviders";

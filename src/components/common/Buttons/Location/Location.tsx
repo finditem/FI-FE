@@ -11,6 +11,7 @@ import Icon from "../../Icon/Icon";
  *
  * @author hyungjun
  */
+
 interface LocationProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 주소·지역명 등 버튼 가운데에 보일 콘텐츠 */
   children: ReactNode;

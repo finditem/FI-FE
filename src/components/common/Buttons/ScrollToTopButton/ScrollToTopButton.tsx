@@ -21,6 +21,7 @@ const SCROLL_TOP_HIDE_THRESHOLD_PX = 200;
  *
  * @author hyungjun
  */
+
 interface ScrollToTopButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** `true`이면 스크롤과 무관하게 숨김 (default: false) */
   onHide?: boolean;

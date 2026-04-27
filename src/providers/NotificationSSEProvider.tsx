@@ -33,7 +33,8 @@ const NOTIFICATION_BATCH_DEBOUNCE_MS = 500;
  * - 언마운트 시 디바운스 `cancel`로 예약된 플러시를 막습니다.
  *
  * @author hyungjun
- *
+ 
+/**
  * @example
  * ```tsx
  * <NotificationSSEProvider>{children}</NotificationSSEProvider>

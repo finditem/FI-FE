@@ -12,6 +12,7 @@ import { ButtonHTMLAttributes } from "react";
  *
  * @author hyungjun
  */
+
 interface ToggleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 접근성용 `aria-label` (default: '토글 버튼') */
   ariaLabel?: string;

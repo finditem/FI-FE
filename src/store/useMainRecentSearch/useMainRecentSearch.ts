@@ -31,6 +31,7 @@ type PersistedLegacyV0 = {
  *
  * @author hyungjun
  */
+
 interface MainRecentSearchStore {
   /** 최신순 최근 검색 목록 */
   recentItems: MainRecentSearchItem[];
