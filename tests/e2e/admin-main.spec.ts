@@ -89,11 +89,11 @@ test.describe("관리자 메인 페이지 (/admin)", () => {
     await page.waitForURL("**/admin/notice");
   });
 
-  test("토큰 없이 접근 시 홈으로 리다이렉트된다", async ({ context, page }) => {
+  test("토큰 없이 접근 시 로그인 페이지로 리다이렉트된다", async ({ context, page }) => {
     await context.clearCookies();
     await setupAdminMainMocks(page);
 
     await page.goto("/admin");
-    await page.waitForURL("/");
+    await page.waitForURL("**/login**");
   });
 });
