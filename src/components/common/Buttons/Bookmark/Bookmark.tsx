@@ -3,29 +3,30 @@ import { SIZES } from "./constantBookmark";
 import Icon from "../../Icon/Icon";
 
 /**
+ * 즐겨찾기(북마크) 토글에 사용하는 공통 버튼 컴포넌트입니다.
+ *
+ * @remarks
+ * - `ButtonHTMLAttributes`를 확장하므로 `onClick`, `disabled` 등 표준 `button` 속성과 함께 사용할 수 있습니다.
+ * - 활성·비활성에 따라 별 아이콘 색상이 달라지며, `aria-pressed`로 토글 상태를 노출합니다.
+ *
  * @author hyungjun
- *
- * 즐겨찾기(북마크)에 사용하는 버튼입니다.
- * `isActive` 상태에 따라 활성/비활성 아이콘 색상이 달라집니다.
- *
- * @param ariaLabel - 접근성을 위한 버튼의 aria-label 속성입니다.
- * 기본값은 `"즐겨찾기 버튼"`입니다.
- *
- * @param isActive - 활성화 여부를 결정합니다 - `boolean`
- *
- * @param size - 북마크 아이콘의 사이즈를 결정합니다 - `"large" | "medium" | "small"`
- *
- * @example
- * ```tsx
- * <Badge ariaLabel="북마크 버튼" isActive={bookmarkIsActive} size="large"  />
- * ```
  */
 
 interface BookmarkProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 접근성용 `aria-label` (default: '즐겨찾기 버튼') */
   ariaLabel?: string;
+  /** 북마크 활성 여부 */
   isActive: boolean;
+  /** 별 아이콘 크기 (default: 'medium') */
   size?: "large" | "medium" | "small";
 }
+
+/**
+ * @example
+ * ```tsx
+ * <Bookmark ariaLabel="북마크" isActive={bookmarkIsActive} size="large" />
+ * ```
+ */
 
 const Bookmark = ({
   ariaLabel = "즐겨찾기 버튼",
