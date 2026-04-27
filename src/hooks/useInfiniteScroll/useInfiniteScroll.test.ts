@@ -1,26 +1,30 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { useInfiniteScroll } from "./useInfiniteScroll";
+import type { InViewHookResponse } from "react-intersection-observer";
 import { useInView } from "react-intersection-observer";
+
+import { useInfiniteScroll } from "./useInfiniteScroll";
 
 jest.mock("react-intersection-observer", () => ({
   useInView: jest.fn(),
 }));
 
+const mockUseInView = useInView as jest.MockedFunction<typeof useInView>;
+
+const createInViewReturn = (inView: boolean, ref: jest.Mock = jest.fn()): InViewHookResponse => {
+  const entry = undefined;
+  const tuple = [ref, inView, entry] as unknown as InViewHookResponse;
+  return Object.assign(tuple, { ref, inView, entry });
+};
+
 describe("useInfiniteScroll", () => {
   const mockFetchNextPage = jest.fn();
-  const mockUseInView = useInView as jest.MockedFunction<typeof useInView>;
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  it("요소가 뷰포트에 들어오고, 다음 페이지가 있으며, 로딩 중이 아닐 때 fetchNextPage를 호출해야 한다", async () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: true,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("inView이고 다음 페이지가 있으며 로딩 중이 아니면 fetchNextPage를 한 번 호출한다", async () => {
+    mockUseInView.mockReturnValue(createInViewReturn(true));
 
     const { result } = renderHook(() =>
       useInfiniteScroll({
@@ -37,13 +41,8 @@ describe("useInfiniteScroll", () => {
     expect(result.current.ref).toBeDefined();
   });
 
-  it("요소가 뷰포트에 들어오지 않으면 fetchNextPage를 호출하지 않아야 한다", async () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: false,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("inView가 false이면 fetchNextPage를 호출하지 않는다", () => {
+    mockUseInView.mockReturnValue(createInViewReturn(false));
 
     renderHook(() =>
       useInfiniteScroll({
@@ -53,18 +52,11 @@ describe("useInfiniteScroll", () => {
       })
     );
 
-    await waitFor(() => {
-      expect(mockFetchNextPage).not.toHaveBeenCalled();
-    });
+    expect(mockFetchNextPage).not.toHaveBeenCalled();
   });
 
-  it("다음 페이지가 없으면 fetchNextPage를 호출하지 않아야 한다", async () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: true,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("hasNextPage가 false이면 fetchNextPage를 호출하지 않는다", () => {
+    mockUseInView.mockReturnValue(createInViewReturn(true));
 
     renderHook(() =>
       useInfiniteScroll({
@@ -74,18 +66,11 @@ describe("useInfiniteScroll", () => {
       })
     );
 
-    await waitFor(() => {
-      expect(mockFetchNextPage).not.toHaveBeenCalled();
-    });
+    expect(mockFetchNextPage).not.toHaveBeenCalled();
   });
 
-  it("현재 다음 페이지를 가져오는 중이면 fetchNextPage를 호출하지 않아야 한다", async () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: true,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("isFetchingNextPage가 true이면 fetchNextPage를 호출하지 않는다", () => {
+    mockUseInView.mockReturnValue(createInViewReturn(true));
 
     renderHook(() =>
       useInfiniteScroll({
@@ -95,18 +80,11 @@ describe("useInfiniteScroll", () => {
       })
     );
 
-    await waitFor(() => {
-      expect(mockFetchNextPage).not.toHaveBeenCalled();
-    });
+    expect(mockFetchNextPage).not.toHaveBeenCalled();
   });
 
-  it("hasNextPage가 undefined일 때도 fetchNextPage를 호출하지 않아야 한다", async () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: true,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("hasNextPage가 undefined이면 fetchNextPage를 호출하지 않는다", () => {
+    mockUseInView.mockReturnValue(createInViewReturn(true));
 
     renderHook(() =>
       useInfiniteScroll({
@@ -116,19 +94,35 @@ describe("useInfiniteScroll", () => {
       })
     );
 
+    expect(mockFetchNextPage).not.toHaveBeenCalled();
+  });
+
+  it("inView가 false에서 true로 바뀌면 그때 fetchNextPage를 호출한다", async () => {
+    const refFn = jest.fn();
+    mockUseInView
+      .mockReturnValueOnce(createInViewReturn(false, refFn))
+      .mockReturnValue(createInViewReturn(true, refFn));
+
+    const { rerender } = renderHook(() =>
+      useInfiniteScroll({
+        fetchNextPage: mockFetchNextPage,
+        hasNextPage: true,
+        isFetchingNextPage: false,
+      })
+    );
+
+    expect(mockFetchNextPage).not.toHaveBeenCalled();
+
+    rerender();
+
     await waitFor(() => {
-      expect(mockFetchNextPage).not.toHaveBeenCalled();
+      expect(mockFetchNextPage).toHaveBeenCalledTimes(1);
     });
   });
 
-  it("inViewOptions를 전달하면 useInView에 옵션이 전달되어야 한다", () => {
+  it("inViewOptions를 전달하면 useInView에 그대로 전달한다", () => {
     const customOptions = { threshold: 0.5 };
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: false,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+    mockUseInView.mockReturnValue(createInViewReturn(false));
 
     renderHook(() =>
       useInfiniteScroll({
@@ -142,13 +136,8 @@ describe("useInfiniteScroll", () => {
     expect(mockUseInView).toHaveBeenCalledWith(customOptions);
   });
 
-  it("inViewOptions를 전달하지 않으면 기본값(threshold: 0)이 사용되어야 한다", () => {
-    mockUseInView.mockReturnValue({
-      ref: jest.fn(),
-      inView: false,
-      entry: null,
-      refCallback: jest.fn(),
-    });
+  it("inViewOptions를 생략하면 threshold 0 기본값으로 useInView를 호출한다", () => {
+    mockUseInView.mockReturnValue(createInViewReturn(false));
 
     renderHook(() =>
       useInfiniteScroll({

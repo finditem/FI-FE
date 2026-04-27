@@ -26,23 +26,35 @@ const isSameLocalDateTime = (
   parsed.getSeconds() === expected.seconds;
 
 /**
+ * 날짜 문자열을 `Date`로 파싱합니다. 타임존 유무에 따라 해석 기준이 달라집니다.
+ *
+ * @remarks
+ * - 끝이 `Z` 또는 `±HH:MM`이면 `new Date`에 그대로 넘겨(브라우저·런타임) 해당 오프셋/UTC로 해석합니다.
+ * - 타임존 표기가 없는 `YYYY-MM-DD` / `YYYY-MM-DDTHH:mm:ss(.fraction)` 는 로컬 구성요소로 `Date`를 만든 뒤, `isSameLocalDateTime`로 역검증해 달력과 시각이 일치할 때만 반환합니다. (존재하지 않는 날짜·시간은 `null`)
+ * - 위 패턴에 맞지 않으면 `new Date(input)`에 맡깁니다.
+ * - 빈 문자열이면 `null`입니다.
+ *
+ * @param input - ISO 8601에 가까운 형태 또는 `Date` 생성자에 넘길 수 있는 문자열
+ *
+ * @returns 파싱·검증 성공 시 `Date`, 그렇지 않으면 `null`
+ *
  * @author hyungjun
- *
- * @description
- * 날짜 문자열을 안전하게 `Date` 객체로 파싱합니다.
- * 타임존 정보가 포함된 문자열은 해당 타임존 기준으로 해석하고,
- * 타임존 정보가 없는 문자열은 로컬 시간으로 해석합니다.
- * `YYYY-MM-DD` / `YYYY-MM-DDTHH:mm:ss(.fraction)` 형태는 수동 파싱 후
- * 검증(`isSameLocalDateTime`)을 거쳐 유효한 날짜만 반환합니다.
- *
- * @param input - ISO 8601 형식 또는 파싱 가능한 날짜 문자열
- * @returns 파싱 성공 시 `Date`, 실패 시 `null`
- *
- * @example
- * parseDateString("2026-04-02T13:50:05.488423"); // 로컬 시간 기준 Date
- * parseDateString("2026-04-02T13:50:05Z"); // UTC 기준 Date
- * parseDateString("invalid-date"); // null
  */
+
+/**
+ * @example
+ * ```ts
+ * parseDateString("2026-04-02T13:50:05.488423");
+ * // 로컬 2026-04-02 13:50:05.xxx
+ *
+ * parseDateString("2026-04-02T13:50:05Z");
+ * // UTC 기준
+ *
+ * parseDateString("invalid");
+ * // null
+ * ```
+ */
+
 export const parseDateString = (input: string): Date | null => {
   if (!input) return null;
 
