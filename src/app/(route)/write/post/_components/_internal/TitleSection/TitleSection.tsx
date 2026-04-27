@@ -23,9 +23,10 @@ const TitleSection = () => {
             <input
               {...field}
               type="text"
+              aria-label="제목을 입력해 주세요."
               id="title"
               maxLength={50}
-              className="peer w-full bg-transparent text-body1-medium text-neutral-normal-default outline-none"
+              className="bg-transparent peer w-full text-body1-medium text-neutral-normal-default outline-none"
             />
             {!field.value && (
               <span
