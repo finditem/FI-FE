@@ -54,7 +54,7 @@ export const WithSelectedCategories: Story = {
           <NotificationCategory
             isBottomSheetOpen={isOpen}
             setIsBottomSheetOpen={setIsOpen}
-            categoryOn={["RUNNING", "CLIMBING"]}
+            categoryOn={["WALLET", "BAG"]}
           />
         </div>
       </QueryClientProvider>

@@ -6,7 +6,7 @@ const MOCK_REPORT_DATA: ReportByIdType = {
   nickname: "홍길동",
   reportId: 1,
   targetId: 100,
-  reportType: "POST",
+  reportType: "DUPLICATE",
   targetType: "POST",
   targetTitle: "잃어버린 러닝화를 찾습니다",
   reason: "허위 정보가 포함된 게시글입니다.",
