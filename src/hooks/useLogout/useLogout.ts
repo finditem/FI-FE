@@ -4,7 +4,7 @@ import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS } from "@/utils/webPush/webPushConstants";
+import { WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS } from "@/constants";
 import { unsubscribeWebPushFromServer } from "@/utils";
 
 const useLogout = () => {
