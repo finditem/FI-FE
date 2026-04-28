@@ -5,6 +5,7 @@ import { Icon } from "@/components/common";
 import Link from "next/link";
 import { MYPAGE_MENU_LIST } from "../../_constants/MYPAGE_ROUTE_CONFIG";
 import { cn } from "@/utils";
+import { useLogout } from "@/hooks";
 
 const MyPageMenuSection = ({
   isUserLogin,
@@ -19,6 +20,8 @@ const MyPageMenuSection = ({
     }
     return true;
   });
+
+  const { handleLogout, isPending } = useLogout();
 
   return visibleMenuList.map((menu, index) => (
     <Fragment key={menu.title}>
@@ -37,6 +40,15 @@ const MyPageMenuSection = ({
               {item.pageName}
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </Link>
+            {item.pageName === "계정 설정" && (
+              <button
+                className="flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
+                onClick={handleLogout}
+                disabled={isPending || disabled}
+              >
+                로그아웃
+              </button>
+            )}
           </Fragment>
         ))}
       </div>

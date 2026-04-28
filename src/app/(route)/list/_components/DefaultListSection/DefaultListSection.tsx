@@ -46,6 +46,7 @@ const DefaultListSection = ({ searchUpdateQuery }: DefaultListProps) => {
     <section className="h-hf-base">
       <Tab
         tabs={TABS}
+        className="sticky top-[56px] z-10 bg-white"
         selected={selectedType}
         onValueChange={(key) => searchUpdateQuery("type", key)}
       />

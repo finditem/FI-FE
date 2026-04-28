@@ -23,6 +23,7 @@ const ContentSection = () => {
             <textarea
               {...field}
               id="content"
+              aria-label="내용을 입력해 주세요."
               rows={5}
               maxLength={500}
               className={cn(

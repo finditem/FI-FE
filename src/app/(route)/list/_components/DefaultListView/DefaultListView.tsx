@@ -11,9 +11,11 @@ const DefaultListView = () => {
   const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString();
   const isDefaultMode = searchMode === "default";
 
+  const headerTitle = SEARCH_HEADER_TITLE[searchMode];
+
   return (
-    <div className="h-base">
-      <DetailHeader title={SEARCH_HEADER_TITLE[searchMode]}>
+    <div className="h-hf-base">
+      <DetailHeader title={headerTitle}>
         {isDefaultMode && (
           <HeaderSearch
             ariaLabel="게시글 검색"
@@ -21,6 +23,8 @@ const DefaultListView = () => {
           />
         )}
       </DetailHeader>
+
+      <h1 className="sr-only">{headerTitle}</h1>
 
       {isDefaultMode ? (
         <DefaultListSection searchUpdateQuery={searchUpdateQuery} />
