@@ -132,7 +132,6 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
     const end = new Date(formattedEndDate);
 
     if (start > end) {
-      // TODO(수현): 문구 확인 필요
       addToast("종료일은 시작일보다 이전일 수 없어요", "warning");
       return;
     }
