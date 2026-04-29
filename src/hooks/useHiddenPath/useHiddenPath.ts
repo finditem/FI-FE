@@ -1,29 +1,31 @@
 import { usePathname } from "next/navigation";
 
 /**
+ * 현재 URL 경로가 Footer 노출 허용 경로와 정확히 일치하지 않으면 `true`를 반환하는 훅입니다.
+ *
+ * 하위 경로(예: `/list/123`)는 허용 목록에 없으므로 `true`(숨김)입니다.
+ *
+ * @returns 허용 경로면 `false`(Footer 노출), 그 외면 `true`(Footer 숨김)
+ *
+ * @remarks
+ * - 허용 경로(정확 일치): `/`, `/list`, `/chat`, `/alert`, `/mypage`, `/admin`
+ * - `usePathname()`이 `null`/`undefined`이면 `""`로 취급되어 허용 목록에 없다면 `true`입니다.
+ * - Footer 노출 여부 제어에 사용합니다.
  *
  * @author jikwon
- * edited by hyungjun
- *
- * 특정 경로에서만 UI를 노출하거나 숨길 때 사용하는 커스텀 훅입니다.
- *
- * 현재는 아래 페이지에서만 Footer가 노출되도록 제한합니다.
- * - 홈: `/`
- * - 게시글 리스트: `/list`
- * - 채팅 리스트: `/chat`
- * - 알림: `/alert`
- * - 마이페이지 메인: `/mypage`
- *
- * 위 경로에서는 `false`(숨기지 않음)를, 그 외 경로에서는 `true`(숨김)를 반환합니다.
- *
+ * @author hyungjun
+ */
+
+/**
  * @example
  * ```tsx
  * const isHidden = useHiddenPath();
- * if (isHidden) return null; // 숨김 처리
- * return <Header />; // 보이는 컴포넌트
- * ```
  *
+ * if (isHidden) return null;
+ * return <Footer />;
+ * ```
  */
+
 const visibleExactPaths = ["/", "/list", "/chat", "/alert", "/mypage", "/admin"];
 
 export const useHiddenPath = () => {

@@ -8,41 +8,42 @@ import { cn } from "@/utils";
 const SCROLL_TOP_HIDE_THRESHOLD_PX = 200;
 
 /**
+ * 스크롤을 일정 이상 내린 뒤에만 나타나 맨 위로 부드럽게 올려 주는 버튼입니다.
+ *
+ * @remarks
+ * - `"use client"`이며 `window` 스크롤 이벤트를 구독합니다.
+ * - 뷰포트가 파일 상단 `SCROLL_TOP_HIDE_THRESHOLD_PX` 기준 이내면 렌더하지 않습니다.
+ * - `onHide`가 `true`이면 스크롤 위치와 관계없이 숨깁니다.
+ * - 클릭 시 `window.scrollTo`로 상단 이동(`behavior: 'smooth'`)합니다.
+ * - 레이아웃(우측 하단 고정 등)은 부모에서 잡아 주어야 합니다.
+ * - `aria-label`은 구현에서 고정 문자열을 씁니다.
+ * - 타입상 `ButtonHTMLAttributes`를 확장하지만, 구현에서는 `onHide`와 `className`만 씁니다.
+ *
  * @author hyungjun
- *
- * 스크롤 시 화면 우측 하단 등에 노출되는 "맨 위로 이동" 버튼 컴포넌트입니다.
- * 클릭 시 페이지 최상단으로 부드럽게 스크롤하며,
- * 스크롤 위치가 상단에서 200px 이내일 때는 자동으로 숨겨집니다.
- * `onHide`로 부모에서 강제로 숨길 수 있습니다.
- * 컴포넌트의 위치는 부모 컴포넌트에서 정해야 합니다.
- *
- * @param onHide - `true`일 경우 스크롤 위치와 관계없이 버튼을 숨깁니다. (기본값: `false`)
- * @param className - 버튼에 추가할 스타일
- *
- * @example
- * ```tsx
- * <ScrollToTopButton />
- * ```
- *
- * @example
- * ```tsx
- * // 조건부로 숨기기
- * <ScrollToTopButton onHide={isModalOpen} />
- * ```
- *
- * @example
- * ```tsx
- * // 스타일 추가
- * <ScrollToTopButton className="bg-fill-brand-subtle-default" />
- * ```
  */
 
 interface ScrollToTopButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** `true`이면 스크롤과 무관하게 숨김 (default: false) */
   onHide?: boolean;
+  /** 기본 원형 버튼 클래스에 이어 붙일 클래스 */
   className?: string;
 }
 
-const ScrollToTopButton = ({ onHide = false, className }: ScrollToTopButtonProps) => {
+/**
+ * @example
+ * ```tsx
+ * // 기본
+ * <ScrollToTopButton />
+ *
+ * // 모달 등 다른 UI가 열렸을 때 강제로 숨김
+ * <ScrollToTopButton onHide={isModalOpen} />
+ *
+ * // 스타일 덧붙이기
+ * <ScrollToTopButton className="shadow-lg" />
+ * ```
+ */
+
+const ScrollToTopButton = ({ onHide = false, className, ...props }: ScrollToTopButtonProps) => {
   const [isNearTop, setIsNearTop] = useState(true);
 
   const handleScrollToTop = () => setIsNearTop(window.scrollY < SCROLL_TOP_HIDE_THRESHOLD_PX);
@@ -65,6 +66,7 @@ const ScrollToTopButton = ({ onHide = false, className }: ScrollToTopButtonProps
         className
       )}
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      {...props}
     >
       <Icon name="ScrollTopArrow" size={32} />
     </button>

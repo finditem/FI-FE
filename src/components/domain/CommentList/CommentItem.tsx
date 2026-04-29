@@ -9,10 +9,10 @@ import { CommentBody, CommentMeta, CommentActions, CommentFooter, ReplyForm } fr
 
 /**
  * 댓글 및 답글을 렌더링하는 개별 댓글 아이템 컴포넌트입니다.
- * 댓글 트리 구조를 재귀적으로 렌더링합니다.
  *
- * 이 컴포넌트의 props 중 일부(onSubmit, useFetchReplies 등)는
- * 답글 기능을 처리하기 위한 props입니다.
+ * @remarks
+ * - 댓글 트리 구조를 재귀적으로 렌더링합니다.
+ * - `onSubmit`, `useFetchReplies` 등 일부 props는 답글 기능을 처리하기 위한 것입니다.
  *
  * @author jikwon
  */
@@ -46,6 +46,19 @@ interface CommentCardProps {
   /** 비회원 여부, Empty UI 전용 */
   isGuest?: boolean;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <CommentItem
+ *   data={comment}
+ *   postId={1}
+ *   useFetchReplies={useGetRepliesPostsComments}
+ *   onDeleteComment={handleDelete}
+ *   onFavoriteComment={handleFavorite}
+ * />
+ * ```
+ */
 
 const CommentItem = ({
   level = "comment",

@@ -4,10 +4,29 @@ import { Button, Icon } from "@/components/common";
 import { useAddToHomeScreen } from "@/hooks";
 import PopupLayout from "../PopupLayout/PopupLayout";
 
+/**
+ * 홈 화면에 앱을 추가하도록 안내하는 PWA 설치 팝업 컴포넌트입니다.
+ *
+ * @remarks
+ * - `canInstall`이 false이면 렌더링하지 않습니다.
+ * - 설치 완료 후 `onClose`가 자동으로 호출됩니다.
+ *
+ * @author jikwon
+ */
+
 interface AddToHomeScreenPWAProps {
+  /** 팝업 열림 여부 */
   isOpen: boolean;
+  /** 팝업 닫기 핸들러 */
   onClose: () => void;
 }
+
+/**
+ * @example
+ * ```tsx
+ * <AddToHomeScreenPWA isOpen={isOpen} onClose={() => setIsOpen(false)} />
+ * ```
+ */
 
 const AddToHomeScreenPWA = ({ isOpen, onClose }: AddToHomeScreenPWAProps) => {
   const { installApp, canInstall } = useAddToHomeScreen();
@@ -20,7 +39,7 @@ const AddToHomeScreenPWA = ({ isOpen, onClose }: AddToHomeScreenPWAProps) => {
   };
 
   return (
-    <PopupLayout isOpen={isOpen} onClose={onClose} className="mb-10 !bg-transparent px-5">
+    <PopupLayout isOpen={isOpen} onClose={onClose} className="!bg-transparent mb-10 px-5">
       <div className="gap-7 rounded-[24px] bg-white px-5 py-7 flex-col-center">
         <Icon name="Logo" size={60} />
 

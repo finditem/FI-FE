@@ -29,17 +29,22 @@ import DateRangeBottomSheet from "../../DateRangeBottomSheet/DateRangeBottomShee
 import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
 
 /**
- * @author jikwon (Original)
- * @author suhyeon (Refactored)
- *
  * 페이지 타입에 따라 동적인 필터 목록을 렌더링하는 필터 섹션 컴포넌트입니다.
  *
  * `TABS` 상수를 참조하여 `LIST`, `MY_POSTS`, `MY_FAVORITES` 각 모드에 맞는 필터 순서와 종류를 노출합니다.
  * 지역, 카테고리, 정렬, 찾음여부, 분류, 기간 각각의 필터 선택 시 해당 BottomSheet를 호출합니다.
  * 기간 필터(`date`)의 경우 별도의 `DateRangeBottomSheet`를 사용합니다.
  *
- * @param pageType - 페이지의 유형 ('LIST' | 'MY_POSTS' | 'MY_FAVORITES' | 'PUBLIC_DATA'). 기본값은 'LIST'입니다.
- *
+ * @author jikwon (Original)
+ * @author suhyeon (Refactored)
+ */
+
+interface FilterSectionProps {
+  /** 페이지의 유형 ('LIST' | 'MY_POSTS' | 'MY_FAVORITES' | 'PUBLIC_DATA'), (default: "LIST") */
+  pageType?: "LIST" | "MY_POSTS" | "MY_FAVORITES" | "PUBLIC_DATA";
+}
+
+/**
  * @example
  * ```tsx
  * // 일반 리스트 페이지에서 사용할 때
@@ -49,10 +54,6 @@ import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
  * <FilterSection pageType="MY_POSTS" />
  * ```
  */
-
-interface FilterSectionProps {
-  pageType?: "LIST" | "MY_POSTS" | "MY_FAVORITES" | "PUBLIC_DATA";
-}
 
 const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
   const { region, category, sort, status, findStatus, startDate, endDate } = useFilterParams();

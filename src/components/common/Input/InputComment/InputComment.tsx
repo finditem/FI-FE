@@ -75,9 +75,8 @@ const InputCommentField = ({
             <div className="flex w-full flex-row items-end gap-2 overflow-y-visible">
               <label
                 htmlFor="ImageAttach"
-                className="relative h-11 w-11 shrink-0 rounded-full bg-fill-neutral-strong-default"
+                className="relative h-11 w-11 shrink-0 cursor-pointer rounded-full bg-fill-neutral-strong-default"
                 aria-label="이미지 첨부"
-                role="button"
               >
                 <Icon
                   name="Image"
@@ -90,7 +89,7 @@ const InputCommentField = ({
                 type="file"
                 accept="image/*"
                 multiple
-                className="hidden"
+                className="sr-only"
                 disabled={disabled}
                 onChange={(e) => fileInputHandler(e, images, setImages)}
               />

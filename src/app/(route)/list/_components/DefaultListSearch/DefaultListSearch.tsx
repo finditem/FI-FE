@@ -45,7 +45,7 @@ const DefaultListSearch = () => {
   return (
     <div className="flex flex-col h-hf-base">
       <FormProvider {...methods}>
-        <div className="px-5 py-[10px]">
+        <div className="sticky top-[56px] z-10 bg-white px-5 py-[10px]">
           <InputSearch
             mode="RHF"
             name="postSearch"

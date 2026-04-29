@@ -13,6 +13,7 @@ import AuthBootstrap from "./authBootStrap";
 import { NotificationSSEProvider } from "@/providers/NotificationSSEProvider";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { PWAProvider } from "@/providers/PWAProvider";
+import { WebPushProvider } from "@/providers/WebPushProvider";
 import TermsProvider from "@/providers/TermsProvider";
 
 const pretendard = localFont({
@@ -91,10 +92,12 @@ export default function RootLayout({
                 <ToastProvider>
                   <MSWProvider />
                   <AuthBootstrap />
-                  <NotificationSSEProvider>
-                    <main className="w-full flex-1">{children}</main>
-                    <Footer />
-                  </NotificationSSEProvider>
+                  <WebPushProvider>
+                    <NotificationSSEProvider>
+                      <main className="w-full flex-1">{children}</main>
+                      <Footer />
+                    </NotificationSSEProvider>
+                  </WebPushProvider>
                 </ToastProvider>
               </TermsProvider>
             </SnackBarProvider>

@@ -3,15 +3,22 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 
 interface BeforeInstallPromptEvent extends Event {
+  /** 설치 프롬프트 실행 함수 */
   prompt: () => Promise<void>;
+  /** 사용자 선택 결과 (accepted: 설치 수락, dismissed: 거절) */
   userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
 }
 
 interface PWAContextType {
+  /** 설치 프롬프트 사용 가능 여부 */
   canInstall: boolean;
+  /** 설치 유도 팝업 표시 여부 */
   showPrompt: boolean;
+  /** PWA 설치 프롬프트를 실행하고 결과를 스토리지에 기록 */
   installApp: () => Promise<void>;
+  /** 상세 페이지 조회 횟수를 증가시키고, 5회 도달 시 팝업 활성화 */
   incrementViewCount: () => void;
+  /** 팝업을 닫고 다시 보지 않도록 설정 */
   closePrompt: () => void;
 }
 
@@ -21,8 +28,11 @@ const PWA_INFO_KEY = "fi-pwa-info";
 const ONE_MONTH_MS = 30 * 24 * 60 * 60 * 1000;
 
 interface PWAInfo {
+  /** 상세 페이지 조회 횟수 */
   viewCount: number;
+  /** 설치 유도 팝업 표시 여부 */
   hasShown: boolean;
+  /** 저장 시작 시간 (Unix timestamp, 1개월 경과 시 초기화) */
   startDate: number;
 }
 
@@ -39,6 +49,17 @@ const getPWAInfo = (): PWAInfo => {
 const setPWAInfo = (info: PWAInfo) => {
   localStorage.setItem(PWA_INFO_KEY, JSON.stringify(info));
 };
+
+/**
+ * PWA 설치 프롬프트 상태를 관리하는 Context Provider 컴포넌트입니다.
+ *
+ * @remarks
+ * - 상세 페이지를 5회 조회하면 설치 유도 팝업이 활성화됩니다.
+ * - 팝업을 닫거나 설치하면 1개월간 다시 표시되지 않습니다.
+ * - `usePWA` 훅을 통해 하위 컴포넌트에서 PWA 상태에 접근할 수 있습니다.
+ *
+ * @author jikwon
+ */
 
 export const PWAProvider = ({ children }: { children: ReactNode }) => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -125,7 +146,31 @@ export const PWAProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-// PWA 관련 상태 및 함수를 사용하기 위한 커스텀 훅입니다.
+/**
+ * PWA 설치 관련 상태와 핸들러를 제공하는 커스텀 훅입니다.
+ *
+ * @remarks
+ * - `PWAProvider` 하위에서만 사용해야 합니다.
+ *
+ * @returns PWA 관련 상태 및 핸들러 객체
+ * - `canInstall`: 설치 프롬프트 사용 가능 여부
+ * - `showPrompt`: 설치 유도 팝업 표시 여부
+ * - `installApp`: PWA 설치 프롬프트 실행 함수
+ * - `incrementViewCount`: 상세 페이지 조회 횟수 증가 함수
+ * - `closePrompt`: 팝업 닫기 및 재표시 방지 함수
+ */
+
+/**
+ * @example
+ * ```tsx
+ * const { canInstall, showPrompt, installApp } = usePWA();
+ *
+ * if (showPrompt) {
+ *   return <InstallBanner onInstall={installApp} />;
+ * }
+ * ```
+ */
+
 export const usePWA = () => {
   const context = useContext(PWAContext);
   if (context === undefined) {
