@@ -89,8 +89,11 @@ describe("MypageCommentsFilterSection", () => {
 
   it("정렬 필터 클릭 시 케밥 메뉴가 열린다", () => {
     render(<MypageCommentsFilterSection />);
-    expect(screen.queryByText("최신순")).not.toBeInTheDocument();
+
+    expect(screen.queryByRole("button", { name: "오래된순" })).not.toBeInTheDocument();
+
     fireEvent.click(screen.getByRole("button", { name: "정렬 필터" }));
+
     expect(screen.getByRole("button", { name: "최신순" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "오래된순" })).toBeInTheDocument();
   });
