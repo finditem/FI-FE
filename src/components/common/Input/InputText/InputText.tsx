@@ -13,7 +13,7 @@ import Button from "../../Buttons/Button/Button";
 import Icon from "../../Icon/Icon";
 
 /**
- * 일반 텍스트, 비밀번호 입력 및 버튼 결합이 가능한 공통 Input 컴포넌트입니다.
+ * 일반 텍스트, 비밀번호 입력 및 버튼 결합이 가능한 input 공통 컴포넌트입니다.
  *
  * @remarks
  * - `react-hook-form`의 `FormProvider` 하위에서 사용해야 합니다.

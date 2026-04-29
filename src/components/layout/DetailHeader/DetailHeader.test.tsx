@@ -3,34 +3,85 @@ import userEvent from "@testing-library/user-event";
 import DetailHeader from "./DetailHeader";
 import { HeaderSave, HeaderSearch } from "./DetailHeaderParts";
 
+const mockBack = jest.fn();
+const mockPush = jest.fn();
+
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({ back: jest.fn() }),
+  useRouter: () => ({
+    back: mockBack,
+    push: mockPush,
+    replace: jest.fn(),
+    prefetch: jest.fn(),
+  }),
 }));
 
-// 기본 상태 테스트
-test("기본 상태인 title, 뒤로가기 버튼 렌더링 여부 확인", () => {
-  render(<DetailHeader title="테스트 제목" />);
-  expect(screen.getByText("테스트 제목")).toBeInTheDocument();
-  expect(screen.getByRole("button", { name: /뒤로가기/i })).toBeInTheDocument();
-});
+describe("DetailHeader", () => {
+  beforeEach(() => {
+    mockBack.mockClear();
+    mockPush.mockClear();
+    sessionStorage.clear();
+  });
 
-// 컴파운드 버튼 테스트
-test("내부 컴파운드 버튼 렌더링 여부 확인 및 클릭 시 이벤트 호출 확인", async () => {
-  const user = userEvent.setup();
-  const handleSearch = jest.fn();
+  it("title과 뒤로가기 버튼을 렌더합니다", () => {
+    render(<DetailHeader title="테스트 제목" />);
+    expect(screen.getByRole("heading", { name: "테스트 제목" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "뒤로가기" })).toBeInTheDocument();
+  });
 
-  render(
-    <DetailHeader title="테스트">
-      <HeaderSearch onClick={handleSearch} />
-    </DetailHeader>
-  );
+  it("onBack이 있으면 뒤로가기 클릭 시 onBack만 호출하고 router.back은 호출하지 않습니다", async () => {
+    const user = userEvent.setup();
+    const onBack = jest.fn();
+    render(<DetailHeader title="제목" onBack={onBack} />);
+    await user.click(screen.getByRole("button", { name: "뒤로가기" }));
+    expect(onBack).toHaveBeenCalledTimes(1);
+    expect(mockBack).not.toHaveBeenCalled();
+  });
 
-  await user.click(screen.getByRole("button", { name: "검색" }));
-  expect(handleSearch).toHaveBeenCalled();
-});
+  it("onBack이 없고 히스토리 카운트가 1보다 크면 router.back을 호출합니다", async () => {
+    const user = userEvent.setup();
+    sessionStorage.setItem("__fmi_history_count", "2");
+    render(<DetailHeader title="제목" />);
+    await user.click(screen.getByRole("button", { name: "뒤로가기" }));
+    expect(mockBack).toHaveBeenCalledTimes(1);
+    expect(mockPush).not.toHaveBeenCalled();
+  });
 
-// Save 버튼 테스트
-test("Save 버튼 disabled/활성화에 따라 클래스가 바뀌는지 확인", () => {
-  render(<HeaderSave disabled />);
-  expect(screen.getByText("임시 저장")).toHaveClass("text-flatGreen-200");
+  it("onBack이 없고 히스토리 카운트가 1 이하면 홈으로 push합니다", async () => {
+    const user = userEvent.setup();
+    sessionStorage.setItem("__fmi_history_count", "1");
+    render(<DetailHeader title="제목" />);
+    await user.click(screen.getByRole("button", { name: "뒤로가기" }));
+    expect(mockPush).toHaveBeenCalledWith("/");
+    expect(mockBack).not.toHaveBeenCalled();
+  });
+
+  it("children이 있으면 헤더 액션 영역에 렌더합니다", () => {
+    render(
+      <DetailHeader title="테스트">
+        <HeaderSearch onClick={jest.fn()} />
+      </DetailHeader>
+    );
+    expect(screen.getByLabelText("헤더 액션")).toBeInTheDocument();
+  });
+
+  it("HeaderSearch 클릭 시 onClick이 호출됩니다", async () => {
+    const user = userEvent.setup();
+    const handleSearch = jest.fn();
+    render(
+      <DetailHeader title="테스트">
+        <HeaderSearch onClick={handleSearch} />
+      </DetailHeader>
+    );
+    await user.click(screen.getByRole("button", { name: "검색" }));
+    expect(handleSearch).toHaveBeenCalled();
+  });
+
+  it("HeaderSave를 children으로 넣으면 비활성 시 스타일 클래스가 적용됩니다", () => {
+    render(
+      <DetailHeader title="작성">
+        <HeaderSave disabled />
+      </DetailHeader>
+    );
+    expect(screen.getByRole("button", { name: "게시글 저장" })).toHaveClass("text-flatGreen-200");
+  });
 });

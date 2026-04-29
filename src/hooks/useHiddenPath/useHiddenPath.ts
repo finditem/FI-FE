@@ -1,14 +1,16 @@
 import { usePathname } from "next/navigation";
 
 /**
- * 현재 경로가 지정된 노출 경로에 해당하지 않으면 true를 반환하는 커스텀 훅입니다.
+ * 현재 URL 경로가 Footer 노출 허용 경로와 정확히 일치하지 않으면 `true`를 반환하는 훅입니다.
+ *
+ * 하위 경로(예: `/list/123`)는 허용 목록에 없으므로 `true`(숨김)입니다.
+ *
+ * @returns 허용 경로면 `false`(Footer 노출), 그 외면 `true`(Footer 숨김)
  *
  * @remarks
- * - 노출 허용 경로: `/`, `/list`, `/chat`, `/alert`, `/mypage`, `/admin`
- * - 허용 경로에서는 `false`(숨기지 않음), 그 외 경로에서는 `true`(숨김)를 반환합니다.
- * - 현재 Footer 노출 여부를 제어하는 데 사용됩니다.
- *
- * @returns 현재 경로가 허용 경로가 아니면 `true`
+ * - 허용 경로(정확 일치): `/`, `/list`, `/chat`, `/alert`, `/mypage`, `/admin`
+ * - `usePathname()`이 `null`/`undefined`이면 `""`로 취급되어 허용 목록에 없다면 `true`입니다.
+ * - Footer 노출 여부 제어에 사용합니다.
  *
  * @author jikwon
  * @author hyungjun

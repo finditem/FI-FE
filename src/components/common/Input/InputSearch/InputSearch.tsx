@@ -8,51 +8,49 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import DeleteButton from "../_internal/DeleteButton/DeleteButton";
 
 /**
+ * 검색을 위한 공통 입력 컴포넌트입니다.
+ *
+ * @remarks
+ * - **RHF 모드**: `FormProvider` 하위에서 사용하며, `react-hook-form` 상태와 연동됩니다.
+ * - **onChange 모드**: 내부 state로 값을 관리하는 독립형 컴포넌트입니다.
+ * - RHF 모드일땐 `react-hook-form`의 `mode: "onChange"` 설정을 권장합니다.
+ *
  * @author suhyeon
- *
- * 검색을 위한 input 공통 컴포넌트 입니다.
- * react-hook-form와 onChange 두 가지의 방식을 사용하실 수 있도록 유연하게 개발하였습니다.
- * react-hook-form으로 사용하실 곳은 상위 요소로 FormProvider를 사용해주시고 method는 onChange 모드로 설정하시면 됩니다.
- *
- *
- * @param items - 검색 입력창의 props입니다.
- *  - 'name': 입력 필드의 id 및 register함수 사용을 위한 name
- *  - `mode`: react-hook-from모드와 onChange모드 중 하나를 선택한다는 걸 InputSearch에 알려줍니다.
- *  - `validation`: 입력 필드의 유효성 검사를 위한 RegisterOption입니다. (기본적으로는 name만 사용하셔도 무방하지만 혹시모르기에 props로 추가해두었습니다.)
- *  - 'onEnter': 엔터 키 클릭 함수
- *  - 'defaultValue': 입력 필드의 기본값입니다. onChange 모드에서 사용됩니다.
- *
- *
- * @example onChange 모드 사용 (독립형)
- * ```tsx
- *     <InputSearch
- *       name="keyword"
- *       mode="onChange"
- *       placeholder="검색어 입력"
- *       onEnter={(v)=> console.log(v)}
- *     />
- * ```
- *
- * @example react-hook-form모드
- * ```tsx
- * <FormProvider {...methods}>
- *   <form onSubmit={methods.handleSubmit(onSubmit)}>
- *     <InputSearch
- *       name="search"
- *       validation={{required: true}}
- *       onEnter={(v) => console.log("엔터로 검색")}
- *     />
- *   </form>
- * </FormProvider>
- * ```
  */
 
 interface InputSearchProps extends InputHTMLAttributes<HTMLInputElement> {
+  /** 폼 상태 관리 또는 필드 식별을 위한 고유 이름 (필수) */
   name: string;
+  /**
+   * 컴포넌트 작동 모드 선택 (필수)
+   * - `RHF`: react-hook-form 연동 모드
+   * - `onChange`: 내부 state 기반 독립 모드
+   */
   mode: "RHF" | "onChange";
+  /** [RHF 전용] 유효성 검사 규칙 객체 */
   validation?: RegisterOptions;
+  /** 엔터 키를 눌렀을 때 실행될 검색 핸들러 (현재 입력값을 인자로 전달) */
   onEnter?: (value: string) => void;
 }
+
+/**
+ * @example
+ * // 1. onChange 모드 (독립형)
+ * <InputSearch
+ *   name="keyword"
+ *   mode="onChange"
+ *   placeholder="검색어 입력"
+ *   onEnter={(value) => handleSearch(value)}
+ * />
+ *
+ * // 2. RHF 모드 (React Hook Form 연동)
+ * <InputSearch
+ *   name="search"
+ *   mode="RHF"
+ *   validation={{ required: "검색어를 입력해주세요." }}
+ *   onEnter={(value) => console.log("검색어:", value)}
+ * />
+ */
 
 const BASE_STYLE =
   "h-11 min-w-0 flex-1 rounded-[24px] border px-10 text-body1-regular outline-none bg-fill-neutral-subtle-default placeholder:text-neutral-normal-placeholder hover:text-neutral-normal-hover focus:text-neutral-normal-focused";
