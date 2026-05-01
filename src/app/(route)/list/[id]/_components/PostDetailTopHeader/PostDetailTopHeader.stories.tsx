@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "@/providers/ToastProviders";
 import PostDetailTopHeader from "./PostDetailTopHeader";
 import type { PostActionData } from "../../_types/PostActionType";
+import { SnackBarProvider } from "@/providers/SnackBarProviders";
 
 const createMockQueryClient = (postId: number) => {
   const queryClient = new QueryClient({
@@ -32,11 +33,13 @@ const meta: Meta<typeof PostDetailTopHeader> = {
   decorators: [
     (Story, { args }) => (
       <QueryClientProvider client={createMockQueryClient(args.postId)}>
-        <ToastProvider>
-          <div className="w-[390px] border border-gray-200">
-            <Story />
-          </div>
-        </ToastProvider>
+        <SnackBarProvider>
+          <ToastProvider>
+            <div className="w-[390px] border border-gray-200">
+              <Story />
+            </div>
+          </ToastProvider>
+        </SnackBarProvider>
       </QueryClientProvider>
     ),
   ],
