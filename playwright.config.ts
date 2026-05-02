@@ -57,5 +57,8 @@ export default defineConfig({
     command: process.env.CI ? "npm run start" : "npm run dev",
     url: "http://localhost:3000",
     reuseExistingServer: !process.env.CI,
+    env: {
+      NEXT_PUBLIC_IS_E2E: "true",
+    },
   },
 });
