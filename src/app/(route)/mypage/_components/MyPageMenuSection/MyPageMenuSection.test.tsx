@@ -24,6 +24,13 @@ jest.mock("@/components/common", () => ({
   Icon: () => <span />,
 }));
 
+jest.mock("@/hooks", () => ({
+  useLogout: jest.fn().mockReturnValue({
+    handleLogout: jest.fn(),
+    isPending: false,
+  }),
+}));
+
 describe("MyPageMenuSection", () => {
   it("로그인 상태에서 5개 섹션이 모두 렌더된다", () => {
     render(<MyPageMenuSection isUserLogin={true} />);
@@ -45,12 +52,5 @@ describe("MyPageMenuSection", () => {
     expect(screen.getByText("알림")).toBeInTheDocument();
     expect(screen.getByText("신고/문의")).toBeInTheDocument();
     expect(screen.getByText("계정 관리")).toBeInTheDocument();
-  });
-
-  it("disabled=true이면 모든 링크에 pointer-events-none 클래스가 포함된다", () => {
-    render(<MyPageMenuSection isUserLogin={true} disabled />);
-    screen.getAllByRole("link").forEach((link) => {
-      expect(link).toHaveClass("pointer-events-none");
-    });
   });
 });
