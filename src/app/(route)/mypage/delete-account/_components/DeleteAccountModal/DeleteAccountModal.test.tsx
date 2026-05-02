@@ -71,17 +71,17 @@ describe("DeleteAccountModal", () => {
   });
 
   it("탈퇴하기 버튼 클릭 시 DOM에 있는 form의 requestSubmit이 호출된다", () => {
-    const mockRequestSubmit = jest.fn();
+    const mockRequestSubmit = jest
+      .spyOn(HTMLFormElement.prototype, "requestSubmit")
+      .mockImplementation(() => {});
     const form = document.createElement("form");
-    form.requestSubmit = mockRequestSubmit;
     document.body.appendChild(form);
-
     render(
       <DeleteAccountModal modalOpen={true} setModalOpen={mockSetModalOpen} onBack={mockOnBack} />
     );
     fireEvent.click(screen.getByRole("button", { name: "탈퇴하기" }));
     expect(mockRequestSubmit).toHaveBeenCalled();
-
     document.body.removeChild(form);
+    mockRequestSubmit.mockRestore();
   });
 });

@@ -3,7 +3,7 @@
 import { Filter, KebabMenu } from "@/components/common";
 import { useState } from "react";
 import { DateRangeBottomSheet } from "@/components/domain";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams, useFilterSync } from "@/hooks/domain";
 import { getDateRangeLabel, normalizeEnumValue } from "@/utils";
 import {
   filterSelectionState,
@@ -16,7 +16,6 @@ import {
   SORT_KEBAB_ITEM,
 } from "../../_constants/COMMENT_FILTER";
 import { SimpleSortType } from "@/types";
-import { useFilterSync } from "../../../../../../hooks/domain/useFilterSync/useFilterSync";
 
 const MypageCommentsFilterSection = () => {
   const { startDate, endDate, simpleSort } = useFilterParams();

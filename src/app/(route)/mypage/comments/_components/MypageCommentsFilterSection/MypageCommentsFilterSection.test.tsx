@@ -13,14 +13,6 @@ jest.mock("@/hooks/domain", () => ({
   }),
 }));
 
-jest.mock("@/hooks/domain/useFilterSync/useFilterSync", () => ({
-  useFilterSync: () => ({
-    filters: { startDate: "", endDate: "", simpleSort: "LATEST" },
-    setFilters: jest.fn(),
-    updateFilters: mockUpdateFilters,
-  }),
-}));
-
 jest.mock("@/utils", () => ({
   filterSelectionState: () => ({ isDateSelected: false, isSimpleSortSelected: false }),
   normalizedFilterValues: () => ({ normalizedSimpleSort: "LATEST" }),
