@@ -5,6 +5,7 @@ import { useApiCheckNickname } from "@/api/fetch/auth";
 
 /**
  * 닉네임 중복 확인 로직을 관리하며, API 응답에 따른 피드백(토스트, 메시지) 처리를 담당하는 훅입니다.
+ *
  * @remarks
  * - API 호출 후 성공 시 폼 상태(`isNicknameVerified`)를 자동으로 업데이트합니다.
  * - 닉네임이 변경되면 인증 상태(`isNicknameVerified`)가 자동으로 초기화됩니다.

@@ -2,13 +2,19 @@ import Button from "@/components/common/Buttons/Button/Button";
 import { ButtonHTMLAttributes } from "react";
 
 /**
- * @author suhyeon
- *
  * footer에서 사용되는 버튼 컴포넌트입니다.
  *
- * @param children - 버튼 텍스트를 의미합니다.
- * @param 버튼의 모든 옵션들을 사용할 수 있습니다.
- *
+ * @author suhyeon
+ */
+
+interface FooterButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  /** 버튼 텍스트를 의미합니다. */
+  children: string;
+  /** 버튼의 모든 옵션들을 사용할 수 있습니다. */
+  type?: "button" | "submit" | "reset";
+}
+
+/**
  * @example
  * ```tsx
  * <FooterButton>
@@ -16,11 +22,6 @@ import { ButtonHTMLAttributes } from "react";
  * </FooterButton>
  * ```
  */
-
-interface FooterButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string;
-  type?: "button" | "submit" | "reset";
-}
 
 const FooterButton = ({ children, type = "button", ...props }: FooterButtonProps) => {
   return (

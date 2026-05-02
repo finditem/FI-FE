@@ -3,22 +3,29 @@
 import { useEffect, useState } from "react";
 
 /**
- * Geolocation 권한 상태를 구독해 `granted` 여부를 반환합니다.
+ * Geolocation 권한이 `granted`인지 여부를 구독해 반환하는 훅입니다.
+ *
+ * 위치 기반 기능(지도, 주변 검색 등) 진입 전 허용 여부를 UI에 반영할 때 사용합니다.
+ *
+ * @returns 권한이 `granted`이면 `true`, 그 외(`prompt`, `denied`)·미지원·SSR이면 `false`
+ *
+ * @remarks
+ * - `navigator.permissions.query({ name: "geolocation" })`로 초기 상태를 읽고, `change` 이벤트로 이후 변경을 반영합니다.
+ * - `typeof navigator === "undefined"`이면(SSR 등) 이펙트가 조기 종료되며, 초기값 `false`가 유지됩니다.
+ * - `navigator.permissions`가 없으면 `false`로 맞춘 뒤 종료합니다.
+ * - 마운트 해제 시 `change` 리스너를 제거합니다.
  *
  * @author hyungjun
- * @description
- * - 브라우저 `Permissions API`의 `geolocation` 권한을 조회합니다.
- * - 권한 상태 변경 이벤트(`change`)를 구독해 상태를 동기화합니다.
- * - 서버 환경 또는 `Permissions API` 미지원 환경에서는 `false`를 반환합니다.
- *
- * @returns 현재 Geolocation 권한 허용 여부
- *
+ * /
+ 
+/**
  * @example
- * ```ts
- * const isLocationGranted = useGeolocationPermissionGranted();
- * // => true | false
+ * ```tsx
+ * const canUseGeolocation = useGeolocationPermissionGranted();
+ * return canUseGeolocation ? <MapWithUserLocation /> : <LocationPermissionPrompt />;
  * ```
  */
+
 export const useGeolocationPermissionGranted = () => {
   const [granted, setGranted] = useState(false);
 
