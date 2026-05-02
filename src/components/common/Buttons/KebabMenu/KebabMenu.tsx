@@ -5,22 +5,53 @@ import Icon from "../../Icon/Icon";
 import { Props } from "@/components/common/Icon/Icon";
 
 /**
+ * 케밥 메뉴에서 한 행(버튼)에 해당하는 설정입니다.
+ *
+ * @remarks
+ * - `loading`이면 스피너만 보이고 텍스트·아이콘은 렌더하지 않습니다.
+ * - `icon`이 있으면 `iconPosition`으로 텍스트 기준 앞·뒤에 둡니다(`icon`이 있을 때만, default: 'leading').
+ * - `type`을 생략하면 행 버튼은 `submit`으로 렌더됩니다. 폼 내부에서는 의도치 않은 제출이 없는지 확인하세요.
+ */
+
+interface KebabMenuItem {
+  /** 행에 표시할 라벨 텍스트 */
+  text: string;
+  /** 함께 표시할 아이콘에 넘길 `Icon` 설정 */
+  icon?: Props;
+  /** 아이콘을 텍스트 기준 앞·뒤 배치 (`icon`이 있을 때만, default: 'leading') */
+  iconPosition?: "leading" | "trailing";
+  /** 로딩 시 스피너 표시 및 비활성 */
+  loading?: boolean;
+  /** 비활성 여부 */
+  disabled?: boolean;
+  /** 클릭 핸들러 */
+  onClick?: () => void;
+  /** 접근성용 라벨 */
+  ariaLabel?: string;
+  /** 텍스트 색·호버 등 Tailwind 텍스트 유틸 클래스(미지정 시 기본 팔레트) */
+  textColor?: string;
+  /** 행 버튼의 HTML `type` (default: 'submit') */
+  type?: "submit" | "button" | "reset";
+}
+
+/**
+ * 카드형으로 세로 나열한 케밥(⋯) 메뉴입니다.
+ *
+ * @remarks
+ * - 이 파일은 `"use client"`이므로 `onClick` 등 상호작용이 있는 항목은 클라이언트 컴포넌트 트리에서 쓰세요.
+ *
  * @author hyungjun
- *
- * 여러 메뉴 항목을 세로로 나열한 Kebab 스타일 메뉴 컴포넌트입니다.
- * 각 항목은 텍스트와 아이콘을 가질 수 있으며, 로딩 상태와 비활성 상태를 지원합니다.
- * onClick 함수가 포함되어 있을 경우 클라이언트 사이드에서 렌더링되어야 합니다.
- *
- * @param items - 메뉴 항목들의 배열입니다. 각 항목은 `KebabMenuItem` 형태로 구성됩니다.
- *  - `text`: 버튼에 표시할 콘텐츠 (텍스트)
- *  - `icon`: 버튼에 표시할 아이콘 (선택적)
- *  - `iconPosition`: 아이콘 위치, `"leading"`(왼쪽) | `"trailing"`(오른쪽). 기본값 `"leading"`
- *  - `loading`: 로딩 상태 표시. `true`일 경우 버튼 비활성화 및 스피너 표시
- *  - `disabled`: 버튼 비활성화
- *  - `onClick`: 클릭 시 실행할 함수
- *  - `ariaLabel`: 접근성을 위한 버튼 라벨
- *  - `textColor`: 텍스트 색상
- *
+ */
+
+interface KebabMenuProps {
+  /** 위에서 아래 순으로 렌더할 메뉴 행 설정 */
+  items: KebabMenuItem[];
+}
+
+const DEFAULT_TEXT_COLOR =
+  "text-neutral-normal-default hover:text-black active:text-neutral-normal-pressed disabled:text-neutral-normal-disabled";
+
+/**
  * @example
  * ```tsx
  * <KebabMenu
@@ -28,30 +59,11 @@ import { Props } from "@/components/common/Icon/Icon";
  *     { text: "편집", icon: { name: "Edit" }, onClick: handleEdit },
  *     { text: "삭제", icon: { name: "Trash" }, onClick: handleDelete, disabled: true },
  *     { text: "복사", icon: { name: "Copy" }, loading: true },
- *     { text: "텍스트", textColor: "text-yellow-500" },
+ *     { text: "텍스트만", textColor: "text-yellow-500", type: "button" },
  *   ]}
  * />
  * ```
  */
-
-interface KebabMenuItem {
-  text: string;
-  icon?: Props;
-  iconPosition?: "leading" | "trailing";
-  loading?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-  ariaLabel?: string;
-  textColor?: string;
-  type?: "submit" | "button" | "reset";
-}
-
-interface KebabMenuProps {
-  items: KebabMenuItem[];
-}
-
-const DEFAULT_TEXT_COLOR =
-  "text-neutral-normal-default hover:text-black active:text-neutral-normal-pressed disabled:text-neutral-normal-disabled";
 
 const KebabMenu = ({ items }: KebabMenuProps) => {
   const finalIconPosition = (item: KebabMenuItem) => item.icon && (item.iconPosition ?? "leading");

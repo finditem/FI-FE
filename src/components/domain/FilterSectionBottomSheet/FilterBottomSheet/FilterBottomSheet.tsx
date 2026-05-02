@@ -20,23 +20,34 @@ import { TABS } from "../_constants/TABS";
 import PopupLayout from "../../PopupLayout/PopupLayout";
 
 /**
- * @author jikwon (Original)
- * @author suhyeon (Refactored)
- *
  * 필터 옵션을 선택하고 적용하는 바텀시트 컴포넌트입니다.
  *
  * 지역 검색, 카테고리, 정렬, 상태(분류/찾음 여부) 등 다양한 필터링 기능을 탭 인터페이스로 제공합니다.
  * `pageType`에 따라 상단에 노출되는 탭의 종류와 순서가 동적으로 변경됩니다.
  * '적용하기' 버튼 클릭 시 선택된 필터값들을 URL 쿼리 파라미터로 변환하여 페이지를 이동(replace)시킵니다.
  *
- * @param isOpen - 바텀시트의 노출 여부
- * @param setIsOpen - 바텀시트 열림/닫힘 상태를 제어하는 함수
- * @param selectedTab - 현재 활성화된 필터 탭 (region, category, sort 등)
- * @param setSelectedTab - 활성화된 탭을 변경하는 함수
- * @param filters - 현재 선택된 필터 값들의 상태 객체
- * @param setFilters - 필터 상태 객체를 업데이트하는 Dispatch 함수
- * @param pageType - 페이지 유형에 따른 탭 구성을 결정하는 타입 ('LIST' | 'MY_POSTS' | 'MY_FAVORITES' | 'PUBLIC_DATA')
- *
+ * @author jikwon (Original)
+ * @author suhyeon (Refactored)
+ */
+
+interface FilterBottomSheetProps {
+  /**바텀시트의 노출 여부 */
+  isOpen: boolean;
+  /** 바텀시트 열림/닫힘 상태를 제어하는 함수 */
+  setIsOpen: (value: boolean) => void;
+  /** 현재 활성화된 필터 탭 (region, category, sort 등) */
+  selectedTab: FilterTab;
+  /** 활성화된 탭을 변경하는 함수 */
+  setSelectedTab: (tab: FilterTab) => void;
+  /** 현재 선택된 필터 값들의 상태 객체 */
+  filters: FiltersStateType;
+  /** 필터 상태 객체를 업데이트하는 Dispatch 함수 */
+  setFilters: Dispatch<SetStateAction<FiltersStateType>>;
+  /** 페이지 유형에 따른 탭 구성을 결정하는 타입 ('LIST' | 'MY_POSTS' | 'MY_FAVORITES' | 'PUBLIC_DATA') */
+  pageType?: tabsType;
+}
+
+/**
  * @example
  * ```tsx
  * <FilterBottomSheet
@@ -50,16 +61,6 @@ import PopupLayout from "../../PopupLayout/PopupLayout";
  * />
  * ```
  */
-
-interface FilterBottomSheetProps {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-  selectedTab: FilterTab;
-  setSelectedTab: (tab: FilterTab) => void;
-  filters: FiltersStateType;
-  setFilters: Dispatch<SetStateAction<FiltersStateType>>;
-  pageType?: tabsType;
-}
 
 const FilterBottomSheet = ({
   isOpen,

@@ -21,7 +21,6 @@ export interface ActivityEachItemType {
   createdAt: string;
 }
 
-// TODO(수현): 백엔드 수정 후 타입 확인 필요
 export type ActivityDetailType =
   | "POST"
   | "COMMENT"

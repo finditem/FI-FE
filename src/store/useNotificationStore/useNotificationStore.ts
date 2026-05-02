@@ -2,32 +2,40 @@ import { create } from "zustand";
 import type { NotificationType } from "@/api/fetch/notification";
 
 /**
- * 알림 관련 전역 상태(미확인 여부/미확인 알림 타입 집합) 스토어입니다.
+ * 알림 탭·푸터 점 표시 등에 쓰는 미확인 알림 플래그 스토어입니다.
+ *
+ * @remarks
+ * - `hasUnreadNotification`은 “한 건이라도 미읽음” 같은 상위 플래그이고, `unreadNotificationTypes`는 타입별 집합입니다.
+ * - `addUnreadNotificationType`은 이미 있으면 상태를 바꾸지 않습니다.
+ * - SSE 등에서는 `addUnreadNotificationType`, 목록 동기화 후에는 `setUnreadNotificationTypes`·`setHasUnreadNotification`을 함께 맞춥니다.
+ * - 로그아웃 시 `resetUnreadNotificationState`로 둘 다 초기화합니다.
  *
  * @author hyungjun
- * @description
- * - `hasUnreadNotification`은 미확인 알림이 1개라도 있는지 나타냅니다.
- * - `unreadNotificationTypes`는 미확인 알림 타입을 중복 없이 관리합니다.
- * - SSE 이벤트 수신 시 `addUnreadNotificationType`로 즉시 반영합니다.
- * - 알림 목록 조회 결과를 기준으로 `setUnreadNotificationTypes`로 서버 상태와 재동기화합니다.
- * - 로그아웃 시 `resetUnreadNotificationState`로 관련 상태를 모두 초기화합니다.
- *
- * @example
- * ```ts
- * const { hasUnreadNotification, unreadNotificationTypes, addUnreadNotificationType } =
- *   useNotificationStore();
- * addUnreadNotificationType("CHAT");
- * ```
  */
 
 interface NotificationStore {
+  /** 미확인 알림 존재 여부 */
   hasUnreadNotification: boolean;
+  /** 미확인으로 취급 중인 알림 타입 목록(중복 없음) */
   unreadNotificationTypes: NotificationType[];
+  /** 미확인 플래그 직접 설정 */
   setHasUnreadNotification: (hasUnreadNotification: boolean) => void;
+  /** 미확인 타입 하나 추가(이미 있으면 무시) */
   addUnreadNotificationType: (type: NotificationType) => void;
+  /** 서버·목록 기준으로 미확인 타입 집합 통째로 교체 */
   setUnreadNotificationTypes: (types: NotificationType[]) => void;
+  /** 플래그·타입 집합 초기화 */
   resetUnreadNotificationState: () => void;
 }
+
+/**
+ * @example
+ * ```ts
+ * const { addUnreadNotificationType, setUnreadNotificationTypes } = useNotificationStore();
+ * addUnreadNotificationType("CHAT");
+ * setUnreadNotificationTypes(["CHAT", "POST"]);
+ * ```
+ */
 
 export const useNotificationStore = create<NotificationStore>((set) => ({
   hasUnreadNotification: false,
