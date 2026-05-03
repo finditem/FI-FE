@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { InquiryWriteFormValues } from "./_types/InquiryWriteFormValues";
 import { InquiryWriteDetailHeader, InquiryWriteForm } from "./_components";
-import useInquiryWrite from "./_hooks/useInquiryWrite";
+import { useInquiryWrite } from "./_hooks";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
