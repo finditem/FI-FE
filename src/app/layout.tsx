@@ -19,6 +19,8 @@ import TermsProvider from "@/providers/TermsProvider";
 const pretendard = localFont({
   src: "../../public/fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
+  display: "swap",
+  weight: "100 900",
 });
 
 export const metadata: Metadata = {
