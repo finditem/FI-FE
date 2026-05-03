@@ -30,6 +30,9 @@ const stubFormPayload = {
 const createFile = () => new File(["x"], "a.png", { type: "image/png" });
 
 async function readFormDataBlobPartAsUtf8(blobLike: Blob): Promise<string> {
+  if (typeof blobLike.text === "function") {
+    return blobLike.text();
+  }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => resolve(String(reader.result));

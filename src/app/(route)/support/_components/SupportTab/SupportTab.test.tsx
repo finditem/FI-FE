@@ -1,5 +1,6 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import SupportTab from "./SupportTab";
 import type { SupportTabKey } from "./_internal/SUPPORT_TABS";
@@ -57,12 +58,13 @@ describe("SupportTab", () => {
     );
   });
 
-  it("탭 클릭 시 updateTabQuery에 해당 키가 전달된다", () => {
+  it("탭 클릭 시 updateTabQuery에 해당 키가 전달된다", async () => {
+    const user = userEvent.setup();
     render(<SupportTab />);
-    fireEvent.click(screen.getByRole("button", { name: "이용 방법" }));
+    await user.click(screen.getByRole("button", { name: "이용 방법" }));
     expect(mockUpdateTabQuery).toHaveBeenCalledWith("usage");
 
-    fireEvent.click(screen.getByRole("button", { name: "기타" }));
+    await user.click(screen.getByRole("button", { name: "기타" }));
     expect(mockUpdateTabQuery).toHaveBeenCalledWith("etc");
   });
 });

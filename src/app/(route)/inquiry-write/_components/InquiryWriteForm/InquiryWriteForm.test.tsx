@@ -97,7 +97,7 @@ describe("InquiryWriteForm", () => {
     });
 
     await act(async () => {
-      await Promise.resolve(methods.handleSubmit(onSubmit)());
+      await methods.handleSubmit(onSubmit)();
     });
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
