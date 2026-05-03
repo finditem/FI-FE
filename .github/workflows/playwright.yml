@@ -33,6 +33,8 @@ jobs:
 
       - name: Build Next.js app
         run: npm run build
+        env:
+          NEXT_PUBLIC_IS_E2E: "true"
 
       - name: Run Playwright tests
         run: npx playwright test
