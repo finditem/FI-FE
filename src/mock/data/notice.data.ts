@@ -1,3 +1,4 @@
+import type { GetNoticeCommentsResponse } from "@/api/fetch/noticeComment/types/GetNoticeComments";
 import type { NoticeDetail, NoticeDetailResponse } from "@/api/fetch/notice/types/NoticeDetailType";
 import { GetNoticesResponse, NoticeItem } from "@/api/fetch/notice/types/NoticesType";
 import type { GetUsersMeResponse } from "@/api/fetch/user/types/UserMeType";
@@ -173,6 +174,14 @@ export const MOCK_NOTICE_DETAIL_HEADER_TEST_HOOK_RESULT = {
   viewCount: 10,
 };
 
-/** NoticeDetailHeader 테스트에서 `useGetUsersMe` mock용 역할만 구분할 때 */
-export const MOCK_USERS_ME_TEST_ROLE_USER = { role: "USER" as const };
-export const MOCK_USERS_ME_TEST_ROLE_ADMIN = { role: "ADMIN" as const };
+/** 공지 댓글 무한 쿼리 시드용 — 빈 첫 페이지 */
+export const MOCK_NOTICE_COMMENTS_EMPTY_FIRST_PAGE: GetNoticeCommentsResponse = {
+  isSuccess: true,
+  code: "COMMON200",
+  message: "성공입니다.",
+  result: {
+    comments: [],
+    hasNext: false,
+    cursor: 0,
+  },
+};
