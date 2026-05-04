@@ -43,6 +43,8 @@ jest.mock("@/components/domain", () => ({
     isOpen ? <div data-testid="content-share-modal" /> : null,
 }));
 
+const ADMIN_MENU_TRIGGER_LABEL = "공지 관리 메뉴";
+
 describe("NoticeDetailHeader ([id])", () => {
   beforeEach(() => {
     mockPush.mockClear();
@@ -75,7 +77,11 @@ describe("NoticeDetailHeader ([id])", () => {
     setupUser("USER");
     render(<NoticeDetailHeader id={1} />);
 
-    expect(within(screen.getByLabelText("헤더 액션")).getAllByRole("button")).toHaveLength(1);
+    const actions = screen.getByLabelText("헤더 액션");
+    expect(
+      within(actions).queryByRole("button", { name: ADMIN_MENU_TRIGGER_LABEL })
+    ).not.toBeInTheDocument();
+    expect(within(actions).getByRole("button", { name: "공지사항 공유" })).toBeInTheDocument();
   });
 
   it("관리자일 때 메뉴에서 수정 클릭 시 작성 페이지로 이동합니다", async () => {
@@ -84,8 +90,7 @@ describe("NoticeDetailHeader ([id])", () => {
     render(<NoticeDetailHeader id={42} />);
 
     const actions = screen.getByLabelText("헤더 액션");
-    const [, menuTrigger] = within(actions).getAllByRole("button");
-    await user.click(menuTrigger);
+    await user.click(within(actions).getByRole("button", { name: ADMIN_MENU_TRIGGER_LABEL }));
 
     await user.click(screen.getByRole("button", { name: "게시글 수정하기" }));
 
@@ -98,8 +103,7 @@ describe("NoticeDetailHeader ([id])", () => {
     render(<NoticeDetailHeader id={5} />);
 
     const actions = screen.getByLabelText("헤더 액션");
-    const [, menuTrigger] = within(actions).getAllByRole("button");
-    await user.click(menuTrigger);
+    await user.click(within(actions).getByRole("button", { name: ADMIN_MENU_TRIGGER_LABEL }));
 
     await user.click(screen.getByRole("button", { name: "게시글 삭제하기" }));
 
