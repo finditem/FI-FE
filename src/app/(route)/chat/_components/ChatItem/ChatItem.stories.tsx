@@ -3,7 +3,7 @@ import ChatItem from "./ChatItem";
 import { MOCK_CHAT_ITEM } from "@/mock/data";
 
 const meta: Meta<typeof ChatItem> = {
-  title: "페이지/채팅 페이지/ChatItem",
+  title: "페이지/채팅 목록 페이지/ChatItem",
   component: ChatItem,
   tags: ["autodocs"],
   parameters: {
