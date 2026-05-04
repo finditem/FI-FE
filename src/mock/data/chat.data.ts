@@ -1,4 +1,8 @@
-import { ChatRoom, ChatRoomResponse } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
+import {
+  ChatRoom,
+  ChatRoomResponse,
+  WebSocketChatMessage,
+} from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
 
 export const MOCK_CHAT_ITEM = {
@@ -81,5 +85,93 @@ export const MOCK_CHAT_MESSAGES: ChatMessage[] = [
     messageType: "TEXT",
     createdAt: "2026-01-15T14:12:00.000Z",
     imageUrls: [],
+  },
+];
+
+/** useChatSocketMessage 등 소켓 훅 테스트용 기본 웹소켓 페이로드 */
+export const MOCK_WS_CHAT_MESSAGE: WebSocketChatMessage = {
+  messageId: 100,
+  roomId: 5,
+  senderId: 2,
+  content: "안녕",
+  messageType: "TEXT",
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+/** 낙관적 전송 직후 음수 messageId */
+export const MOCK_CHAT_MESSAGE_OPTIMISTIC: ChatMessage = {
+  messageId: -1,
+  messageType: "TEXT",
+  senderId: 2,
+  content: "안녕",
+  imageUrls: [],
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+/** 소켓 새 메시지 도착 전 캐시에만 있는 이전 메시지 한 건 */
+export const MOCK_CHAT_MESSAGE_SOCKET_HISTORY: ChatMessage = {
+  messageId: 1,
+  messageType: "TEXT",
+  senderId: 2,
+  content: "이전",
+  imageUrls: [],
+  createdAt: "2025-12-01T00:00:00.000Z",
+};
+
+/** 캐시에 웹소켋 messageId와 동일한 메시지가 이미 있을 때 */
+export const MOCK_CHAT_MESSAGE_WS_ALREADY_PRESENT: ChatMessage = {
+  messageId: 100,
+  messageType: "TEXT",
+  senderId: 2,
+  content: "안녕",
+  imageUrls: [],
+  createdAt: "2026-01-01T00:00:00.000Z",
+};
+
+/** ChatRoomMain 등 UI 테스트: 단일 텍스트 표시용 */
+export const MOCK_CHAT_MESSAGE_UI_TEXT: ChatMessage = {
+  ...MOCK_CHAT_MESSAGES[0],
+  content: "테스트 메시지",
+};
+
+/** 이미지 두 장 첨부 메시지 */
+export const MOCK_CHAT_MESSAGE_IMAGE_PAIR: ChatMessage = {
+  ...MOCK_CHAT_MESSAGES[0],
+  content: "",
+  messageType: "IMAGE",
+  imageUrls: ["image1.jpg", "image2.jpg"],
+};
+
+/** 여러 ChatBox 렌더링 시나리오 (4건) */
+export const MOCK_CHAT_MESSAGES_FOUR: ChatMessage[] = [
+  ...MOCK_CHAT_MESSAGES,
+  {
+    ...MOCK_CHAT_MESSAGES[0],
+    messageId: 3,
+    content: "메시지 3",
+    createdAt: "2026-01-15T14:02:00.000Z",
+  },
+  {
+    ...MOCK_CHAT_MESSAGES[1],
+    messageId: 4,
+    content: "메시지 4",
+    createdAt: "2026-01-15T14:03:00.000Z",
+  },
+];
+
+/** 연속 동일 발신자 nextSender 검증용 3건 */
+export const MOCK_CHAT_MESSAGES_THREE_NEXT_SENDER_CHAIN: ChatMessage[] = [
+  { ...MOCK_CHAT_MESSAGES[0], content: "첫 번째" },
+  {
+    ...MOCK_CHAT_MESSAGES[0],
+    messageId: 2,
+    content: "두 번째",
+    createdAt: "2026-01-15T14:01:00.000Z",
+  },
+  {
+    ...MOCK_CHAT_MESSAGES[1],
+    messageId: 3,
+    content: "세 번째",
+    createdAt: "2026-01-15T14:02:00.000Z",
   },
 ];
