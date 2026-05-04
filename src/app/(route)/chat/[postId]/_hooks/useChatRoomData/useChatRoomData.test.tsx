@@ -45,9 +45,7 @@ const makeChatRoomResult = (overrides: Partial<ChatRoomResponse> = {}): ChatRoom
 });
 
 describe("useChatRoomData", () => {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { retry: false } },
-  });
+  let queryClient: QueryClient;
 
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
@@ -55,6 +53,9 @@ describe("useChatRoomData", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
     mockUseGetUsersMe.mockReturnValue({ data: userMe } as unknown as ReturnType<
       typeof useGetUsersMe
     >);
