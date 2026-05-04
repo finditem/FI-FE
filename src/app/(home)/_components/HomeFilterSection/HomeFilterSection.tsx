@@ -5,7 +5,7 @@ import { Filter } from "@/components/common";
 import { POST_FILTER_ITEMS, CATEGORY_FILTER_ITEM } from "../../_constants/FILTER";
 import { CATEGORY, POST_TYPE } from "../../_constants/QUERY_PARAMS";
 import CategoryFilter from "./_internal/CategoryFilter/CategoryFilter";
-import useHomeFilterQuery from "../../_hooks/useHomeFilterQuery";
+import { useHomeFilterQuery } from "../../_hooks";
 
 const HomeFilterSection = ({ isHidden = false }: { isHidden?: boolean }) => {
   const { ref, onMouseDown } = useHorizontalDragScroll();

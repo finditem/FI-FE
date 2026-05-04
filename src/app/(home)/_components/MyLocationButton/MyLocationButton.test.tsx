@@ -2,11 +2,10 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import MyLocationButton from "./MyLocationButton";
-import useMyLocationButton from "../../_hooks/useMyLocationButton";
+import { useMyLocationButton } from "../../_hooks";
 
-jest.mock("../../_hooks/useMyLocationButton", () => ({
-  __esModule: true,
-  default: jest.fn(),
+jest.mock("../../_hooks", () => ({
+  useMyLocationButton: jest.fn(),
 }));
 
 jest.mock("../PermissionBottomSheet/PermissionBottomSheet", () => ({
