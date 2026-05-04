@@ -52,7 +52,7 @@ describe("NoticeView", () => {
     render(<NoticeView />);
 
     expect(mockNoticeList).toHaveBeenCalledWith(expect.objectContaining({ notices }));
-    expect(screen.getByTestId("notice-list")).toHaveTextContent("테스트 공지");
+    expect(screen.getByTestId("notice-list")).toHaveTextContent(MOCK_NOTICE_ITEM.title);
   });
 
   it("다음 페이지가 있으면 무한 스크롤 센티널 영역을 렌더합니다", () => {
