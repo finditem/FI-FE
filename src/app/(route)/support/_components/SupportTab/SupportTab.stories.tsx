@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import SupportTab from "./SupportTab";
 
 const meta: Meta<typeof SupportTab> = {
-  title: "페이지/자주 묻는 질문/SupportTab",
+  title: "페이지/자주 묻는 질문 페이지/SupportTab",
   component: SupportTab,
   tags: ["autodocs"],
   parameters: {

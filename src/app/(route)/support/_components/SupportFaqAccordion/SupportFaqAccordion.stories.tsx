@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import SupportFaqAccordion from "./SupportFaqAccordion";
 
 const meta: Meta<typeof SupportFaqAccordion> = {
-  title: "페이지/자주 묻는 질문/SupportFaqAccordion",
+  title: "페이지/자주 묻는 질문 페이지/SupportFaqAccordion",
   component: SupportFaqAccordion,
   tags: ["autodocs"],
   parameters: {

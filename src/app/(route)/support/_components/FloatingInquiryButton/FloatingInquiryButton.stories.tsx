@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import FloatingInquiryButton from "./FloatingInquiryButton";
 
 const meta: Meta<typeof FloatingInquiryButton> = {
-  title: "페이지/자주 묻는 질문/FloatingInquiryButton",
+  title: "페이지/자주 묻는 질문 페이지/FloatingInquiryButton",
   component: FloatingInquiryButton,
   tags: ["autodocs"],
   parameters: {
