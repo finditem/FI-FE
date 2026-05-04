@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof MapPostSummarySheetContent> = {
-  title: "페이지/메인/MapPostSummarySheetContent",
+  title: "페이지/메인 페이지/MapPostSummarySheetContent",
   component: MapPostSummarySheetContent,
   tags: ["autodocs"],
   decorators: [

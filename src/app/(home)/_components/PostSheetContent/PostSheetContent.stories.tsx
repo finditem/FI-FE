@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof PostSheetContent> = {
-  title: "페이지/메인/PostSheetContent",
+  title: "페이지/메인 페이지/PostSheetContent",
   component: PostSheetContent,
   tags: ["autodocs"],
   decorators: [

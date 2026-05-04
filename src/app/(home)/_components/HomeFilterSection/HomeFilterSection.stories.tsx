@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import HomeFilterSection from "./HomeFilterSection";
 
 const meta: Meta<typeof HomeFilterSection> = {
-  title: "페이지/메인/HomeFilterSection",
+  title: "페이지/메인 페이지/HomeFilterSection",
   component: HomeFilterSection,
   tags: ["autodocs"],
   decorators: [

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import SearchLoading from "./SearchLoading";
 
 const meta: Meta<typeof SearchLoading> = {
-  title: "페이지/메인/SearchLoading",
+  title: "페이지/메인 페이지/SearchLoading",
   component: SearchLoading,
   tags: ["autodocs"],
   decorators: [

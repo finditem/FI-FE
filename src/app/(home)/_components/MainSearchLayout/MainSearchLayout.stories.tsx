@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import MainSearchLayout from "./MainSearchLayout";
 
 const meta: Meta<typeof MainSearchLayout> = {
-  title: "페이지/메인/MainSearchLayout",
+  title: "페이지/메인 페이지/MainSearchLayout",
   component: MainSearchLayout,
   tags: ["autodocs"],
   decorators: [

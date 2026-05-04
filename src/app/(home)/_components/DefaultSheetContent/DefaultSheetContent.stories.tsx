@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof DefaultSheetContent> = {
-  title: "페이지/메인/DefaultSheetContent",
+  title: "페이지/메인 페이지/DefaultSheetContent",
   component: DefaultSheetContent,
   tags: ["autodocs"],
   parameters: {

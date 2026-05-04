@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof MyLocationButton> = {
-  title: "페이지/메인/MyLocationButton",
+  title: "페이지/메인 페이지/MyLocationButton",
   component: MyLocationButton,
   tags: ["autodocs"],
   parameters: {

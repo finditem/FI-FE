@@ -32,7 +32,7 @@ const FirstSignUpDecorator = (Story: ComponentType) => {
 };
 
 const meta: Meta<typeof BottomSheet> = {
-  title: "페이지/메인/BottomSheet",
+  title: "페이지/메인 페이지/BottomSheet",
   component: BottomSheet,
   tags: ["autodocs"],
   parameters: {

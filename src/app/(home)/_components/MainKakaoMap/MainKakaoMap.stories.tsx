@@ -10,7 +10,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof MainKakaoMap> = {
-  title: "페이지/메인/MainKakaoMap",
+  title: "페이지/메인 페이지/MainKakaoMap",
   component: MainKakaoMap,
   tags: ["autodocs"],
   parameters: {

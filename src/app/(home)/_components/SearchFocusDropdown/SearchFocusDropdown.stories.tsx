@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof SearchFocusDropdown> = {
-  title: "페이지/메인/SearchFocusDropdown",
+  title: "페이지/메인 페이지/SearchFocusDropdown",
   component: SearchFocusDropdown,
   tags: ["autodocs"],
   parameters: {
