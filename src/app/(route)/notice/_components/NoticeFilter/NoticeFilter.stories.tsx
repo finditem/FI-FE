@@ -7,7 +7,7 @@ const mockSearchUpdateQuery = (key: string, value?: string) => {
 };
 
 const meta: Meta<typeof NoticeFilter> = {
-  title: "페이지/공지사항 목록/NoticeFilter",
+  title: "페이지/공지사항 목록 페이지/NoticeFilter",
   component: NoticeFilter,
   tags: ["autodocs"],
   parameters: {

@@ -44,7 +44,7 @@ function DetailStoryShell({ id }: { id: number }) {
 }
 
 const meta: Meta<typeof NoticeDetailView> = {
-  title: "페이지/공지사항 상세/NoticeDetailView",
+  title: "페이지/공지사항 상세 페이지/NoticeDetailView",
   component: NoticeDetailView,
   tags: ["autodocs"],
   parameters: {

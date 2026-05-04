@@ -9,7 +9,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof NoticeListErrorButtons> = {
-  title: "페이지/공지사항 목록/NoticeListErrorButtons",
+  title: "페이지/공지사항 목록 페이지/NoticeListErrorButtons",
   component: NoticeListErrorButtons,
   tags: ["autodocs"],
   parameters: {

@@ -4,7 +4,7 @@ import NoticeList from "./NoticeList";
 import { MOCK_NOTICE_ITEMS, MOCK_NOTICE_ITEM } from "@/mock/data";
 
 const meta: Meta<typeof NoticeList> = {
-  title: "페이지/공지사항 목록/NoticeList",
+  title: "페이지/공지사항 목록 페이지/NoticeList",
   component: NoticeList,
   tags: ["autodocs"],
   parameters: {

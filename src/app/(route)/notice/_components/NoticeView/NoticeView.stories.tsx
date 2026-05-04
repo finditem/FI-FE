@@ -36,7 +36,7 @@ function StoryShell({ page }: { page: GetNoticesResponse }) {
 }
 
 const meta: Meta<typeof NoticeView> = {
-  title: "페이지/공지사항 목록/NoticeView",
+  title: "페이지/공지사항 목록 페이지/NoticeView",
   component: NoticeView,
   tags: ["autodocs"],
   parameters: {

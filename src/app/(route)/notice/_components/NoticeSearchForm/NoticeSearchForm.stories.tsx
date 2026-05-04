@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import NoticeSearchForm from "./NoticeSearchForm";
 
 const meta: Meta<typeof NoticeSearchForm> = {
-  title: "페이지/공지사항 목록/NoticeSearchForm",
+  title: "페이지/공지사항 목록 페이지/NoticeSearchForm",
   component: NoticeSearchForm,
   tags: ["autodocs"],
   parameters: {

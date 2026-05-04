@@ -4,7 +4,7 @@ import NoticeDetailHeader from "./NoticeDetailHeader";
 const BACK_PATH_OPTIONS = ["/find", "/lost", "/notice?tab=notice", "/notice?tab=customer"] as const;
 
 const meta: Meta<typeof NoticeDetailHeader> = {
-  title: "페이지/공지사항 목록/NoticeDetailHeader",
+  title: "페이지/공지사항 목록 페이지/NoticeDetailHeader",
   component: NoticeDetailHeader,
   tags: ["autodocs"],
   parameters: {

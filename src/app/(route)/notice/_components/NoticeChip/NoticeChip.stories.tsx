@@ -4,7 +4,7 @@ import NoticeChip from "./NoticeChip";
 const LABEL_OPTIONS = ["습득", "분실", "공지사항", "문의내역"] as const;
 
 const meta: Meta<typeof NoticeChip> = {
-  title: "페이지/공지사항 목록/NoticeChip",
+  title: "페이지/공지사항 목록 페이지/NoticeChip",
   component: NoticeChip,
   tags: ["autodocs"],
   parameters: {

@@ -45,7 +45,7 @@ function HeaderStoryShell({ id, role }: { id: number; role: "ADMIN" | "USER" }) 
 }
 
 const meta: Meta<typeof NoticeDetailHeader> = {
-  title: "페이지/공지사항 상세/NoticeDetailHeader",
+  title: "페이지/공지사항 상세 페이지/NoticeDetailHeader",
 
   component: NoticeDetailHeader,
 
