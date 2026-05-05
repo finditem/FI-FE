@@ -39,7 +39,7 @@ const LoginRequiredNotice = () => {
                   로그인 후 이용하실 수 있어요
                 </p>
                 <div
-                  className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-[6px] border-b-transparent border-l-transparent border-r-transparent border-t-flatGreen-25"
+                  className="pointer-events-none absolute left-1/2 top-full z-[1] h-[6px] w-[12px] -translate-x-1/2 -translate-y-px bg-fill-brand-subtle-default_2 [clip-path:polygon(50%_100%,0_0,100%_0)]"
                   aria-hidden
                 />
               </div>
