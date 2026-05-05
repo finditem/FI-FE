@@ -1,3 +1,4 @@
+export * from "./alert.data";
 export * from "./chat.data";
 export * from "./main.data";
 export * from "./mypage.data";
