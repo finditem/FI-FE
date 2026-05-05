@@ -12,6 +12,16 @@
 }
 
 @layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family:
+      var(--font-pretendard),
+      -apple-system,
+      BlinkMacSystemFont,
+      sans-serif;
+  }
+
   input:focus,
   textarea:focus,
   select:focus {

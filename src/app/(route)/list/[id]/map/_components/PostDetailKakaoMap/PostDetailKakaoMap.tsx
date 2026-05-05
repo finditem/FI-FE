@@ -3,9 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { Icon } from "@/components/common";
 import { BaseKakaoMap } from "@/components/domain";
-import { cn, getMapLevelByRadius } from "@/utils";
+import { cn, getMapLevelByRadius, parseNumber } from "@/utils";
 import { Radius } from "@/types";
-import { toNumber } from "../../_utils/toNumber";
 
 const PostDetailKakaoMap = () => {
   const searchParams = useSearchParams();
@@ -14,13 +13,13 @@ const PostDetailKakaoMap = () => {
   try {
     address = decodeURIComponent(address);
   } catch (error) {
-    // noop
+    // no-op
   }
 
   const rawData = {
-    lat: toNumber(searchParams.get("lat"), 37.566370748),
-    lng: toNumber(searchParams.get("lng"), 126.977918341),
-    radius: toNumber(searchParams.get("radius"), 1000) as Radius,
+    lat: parseNumber(searchParams.get("lat"), 37.566370748),
+    lng: parseNumber(searchParams.get("lng"), 126.977918341),
+    radius: parseNumber(searchParams.get("radius"), 1000) as Radius,
     address,
   };
 
