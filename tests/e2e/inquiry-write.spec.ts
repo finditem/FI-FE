@@ -82,6 +82,8 @@ const setupInquiryWriteMocks = async (page: Page) => {
 };
 
 test.describe("1:1 문의 작성 (/inquiry-write)", () => {
+  test.describe.configure({ mode: "serial" });
+
   test("폼이 보이고 필수 입력 후 등록하면 문의 상세로 이동한다", async ({ page }) => {
     await setupInquiryWriteMocks(page);
     await page.goto("/inquiry-write");
@@ -109,7 +111,6 @@ test.describe("1:1 문의 작성 (/inquiry-write)", () => {
 
     await page.getByRole("button", { name: "문의 등록" }).click();
 
-    await page.waitForURL(`**/mypage/inquiries/${E2E_INQUIRY_ID}`);
     await expect(page).toHaveURL(new RegExp(`/mypage/inquiries/${E2E_INQUIRY_ID}`));
     await expect(page.getByText(INQUIRY_E2E_TITLE)).toBeVisible();
   });
