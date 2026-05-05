@@ -30,7 +30,7 @@ describe("FloatingInquiryButton", () => {
     render(<FloatingInquiryButton />);
     expect(screen.getByRole("link", { name: /1:1 문의하기/ })).toHaveAttribute(
       "href",
-      "inquiry-write"
+      "/inquiry-write"
     );
   });
 });
