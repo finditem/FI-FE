@@ -129,14 +129,14 @@ describe("usePublicDataListQuery", () => {
       renderHook(() => usePublicDataListQuery());
       const [, , , options] = getLastCallArgs();
       const lastPage = { pageNo: 3, numOfRows: 10, totalCount: 30 };
-      expect(options?.getNextPageParam?.(lastPage, [], lastPage, [])).toBeUndefined();
+      expect(options?.getNextPageParam?.(lastPage)).toBeUndefined();
     });
 
     it("다음 페이지가 있으면 다음 pageNo를 반환한다", () => {
       renderHook(() => usePublicDataListQuery());
       const [, , , options] = getLastCallArgs();
       const lastPage = { pageNo: 1, numOfRows: 10, totalCount: 30 };
-      expect(options?.getNextPageParam?.(lastPage, [], lastPage, [])).toBe(2);
+      expect(options?.getNextPageParam?.(lastPage)).toBe(2);
     });
   });
 });
