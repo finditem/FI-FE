@@ -32,13 +32,13 @@ describe("InquiryWriteDetailHeader", () => {
     const user = userEvent.setup();
     const onSubmit = jest.fn();
     render(<InquiryWriteDetailHeader isDisabled={false} onSubmit={onSubmit} />);
-    await user.click(screen.getByRole("button", { name: "게시글 저장" }));
+    await user.click(screen.getByRole("button", { name: "문의 등록" }));
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 
   it("isDisabled이면 등록 버튼이 비활성화된다", () => {
     render(<InquiryWriteDetailHeader isDisabled onSubmit={jest.fn()} />);
-    const submit = screen.getByRole("button", { name: "게시글 저장" });
+    const submit = screen.getByRole("button", { name: "문의 등록" });
     expect(submit).toBeDisabled();
     expect(submit).toHaveClass("text-neutralInversed-strong-default");
   });
