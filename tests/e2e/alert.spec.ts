@@ -57,8 +57,10 @@ test.describe("알림 페이지", () => {
     await setupAlertNotificationMocks(page, MOCK_ALERT_NOTIFICATION_LIST_RESPONSE);
     await page.goto("/alert");
 
-    await page.getByRole("button", { name: "채팅 필터" }).click();
-
+    await Promise.all([
+      page.waitForURL(/\/alert\?category=chat$/, { waitUntil: "commit", timeout: 20_000 }),
+      page.getByRole("button", { name: "채팅 필터" }).click(),
+    ]);
     await expect(page).toHaveURL(/\/alert\?category=chat$/);
   });
 
