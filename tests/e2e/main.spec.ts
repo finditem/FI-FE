@@ -105,7 +105,7 @@ test.describe("메인 페이지", () => {
     const lostLink = page.getByRole("link", { name: "분실 신고 목록 페이지로 이동" });
     const listHref = await lostLink.getAttribute("href");
     await lostLink.scrollIntoViewIfNeeded();
-    await lostLink.click({ force: true });
+    await lostLink.click();
 
     try {
       await page.waitForURL(LIST_LOST_URL, NAV_WAIT_LOAD_OPTS);
@@ -122,7 +122,7 @@ test.describe("메인 페이지", () => {
     const foundLink = page.getByRole("link", { name: "발견 신고 목록 페이지로 이동" });
     const listHref = await foundLink.getAttribute("href");
     await foundLink.scrollIntoViewIfNeeded();
-    await foundLink.click({ force: true });
+    await foundLink.click();
 
     try {
       await page.waitForURL(LIST_FOUND_URL, NAV_WAIT_LOAD_OPTS);

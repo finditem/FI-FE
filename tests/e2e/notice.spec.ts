@@ -82,28 +82,13 @@ test.describe("공지사항 목록", () => {
       test.setTimeout(90_000);
       const noticeLink = page.locator('a[href="/notice/1"]');
       await expect(noticeLink).toBeVisible({ timeout: 30_000 });
-      await noticeLink.evaluate((el) => {
-        (el as HTMLElement).scrollIntoView({ block: "nearest" });
-        (el as HTMLAnchorElement).click();
-      });
-      try {
-        await page.waitForURL(/\/notice\/1\/?$/, {
-          timeout: 35_000,
-          waitUntil: "domcontentloaded",
-        });
-      } catch {
-        await page.goto("/notice/1", GOTO_OPTS);
-      }
+      await noticeLink.scrollIntoViewIfNeeded();
+      await noticeLink.click();
 
-      await expect(page).toHaveURL(/\/notice\/1\/?$/);
+      await expect(page).toHaveURL(/\/notice\/1\/?$/, { timeout: 35_000 });
 
       const titleHeading = page.getByRole("heading", { name: /서비스 점검 안내/, level: 1 });
-      try {
-        await expect(titleHeading).toBeVisible({ timeout: 30_000 });
-      } catch {
-        await page.reload(GOTO_OPTS);
-        await expect(titleHeading).toBeVisible({ timeout: 40_000 });
-      }
+      await expect(titleHeading).toBeVisible({ timeout: 30_000 });
     });
 
     test("검색어 제출 시 keyword 쿼리가 반영된다", async ({ page }) => {
@@ -119,17 +104,15 @@ test.describe("공지사항 목록", () => {
 
     test('정렬에서 "조회 많은 순" 선택 시 sortType이 반영된다', async ({ page }) => {
       test.setTimeout(60_000);
+      await expect(page.getByText("서비스 점검 안내")).toBeVisible({ timeout: 30_000 });
+
       const filterBtn = page.getByRole("button", { name: "공지사항 정렬 필터" });
       await filterBtn.scrollIntoViewIfNeeded();
-      await filterBtn.click({ force: true });
+      await filterBtn.click();
 
-      const sortOption = page.locator("button", { hasText: "조회 많은 순" });
-      try {
-        await expect(sortOption).toBeVisible({ timeout: 5_000 });
-        await sortOption.click({ force: true });
-      } catch {
-        await page.goto("/notice?sortType=most_viewed", GOTO_OPTS);
-      }
+      const sortOption = page.getByRole("button", { name: "조회 많은 순" });
+      await expect(sortOption).toBeVisible({ timeout: 30_000 });
+      await sortOption.click();
 
       await expect(page).toHaveURL(/sortType=most_viewed/, { timeout: 15_000 });
       await expect(page.getByRole("button", { name: "공지사항 정렬 필터" })).toContainText(

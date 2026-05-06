@@ -147,19 +147,9 @@ test.describe("1:1 문의 작성 (/inquiry-write)", () => {
     ]);
 
     const detailPath = new RegExp(`/mypage/inquiries/${E2E_INQUIRY_ID}`);
-    try {
-      await expect(page).toHaveURL(detailPath, { timeout: 15_000 });
-    } catch {
-      await page.goto(`/mypage/inquiries/${E2E_INQUIRY_ID}`, GOTO_OPTS);
-    }
-    await expect(page).toHaveURL(detailPath);
+    await expect(page).toHaveURL(detailPath, { timeout: 30_000 });
 
     const titleHeading = page.getByRole("heading", { level: 2, name: INQUIRY_E2E_TITLE });
-    try {
-      await expect(titleHeading).toBeVisible({ timeout: 20_000 });
-    } catch {
-      await page.reload(GOTO_OPTS);
-      await expect(titleHeading).toBeVisible({ timeout: 25_000 });
-    }
+    await expect(titleHeading).toBeVisible({ timeout: 30_000 });
   });
 });
