@@ -2,7 +2,13 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ChatRoomMain from "./ChatRoomMain";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
-import { MOCK_CHAT_MESSAGES } from "@/mock/data/chat.data";
+import {
+  MOCK_CHAT_MESSAGES,
+  MOCK_CHAT_MESSAGES_FOUR,
+  MOCK_CHAT_MESSAGES_THREE_NEXT_SENDER_CHAIN,
+  MOCK_CHAT_MESSAGE_IMAGE_PAIR,
+  MOCK_CHAT_MESSAGE_UI_TEXT,
+} from "@/mock/data/chat.data";
 
 jest.mock("./_internal/hooks", () => ({
   useChatInfiniteScroll: jest.fn(),
@@ -96,63 +102,26 @@ describe("ChatRoomMain", () => {
   });
 
   it("ChatBox에 채팅 텍스트가 올바르게 전달됩니다", () => {
-    renderWithMessages([{ ...MOCK_CHAT_MESSAGES[0], content: "테스트 메시지" }]);
+    renderWithMessages([MOCK_CHAT_MESSAGE_UI_TEXT]);
 
     expect(screen.getByText("테스트 메시지")).toBeInTheDocument();
   });
 
   it("이미지가 있는 채팅도 올바르게 렌더링됩니다", () => {
-    renderWithMessages([
-      {
-        ...MOCK_CHAT_MESSAGES[0],
-        content: "",
-        messageType: "IMAGE" as const,
-        imageUrls: ["image1.jpg", "image2.jpg"],
-      },
-    ]);
+    renderWithMessages([MOCK_CHAT_MESSAGE_IMAGE_PAIR]);
 
     expect(screen.getByText("2 images")).toBeInTheDocument();
   });
 
   it("여러 채팅이 있을 때 모든 ChatBox가 렌더링됩니다", () => {
-    const fourMessages: ChatMessage[] = [
-      ...MOCK_CHAT_MESSAGES,
-      {
-        ...MOCK_CHAT_MESSAGES[0],
-        messageId: 3,
-        content: "메시지 3",
-        createdAt: "2026-01-15T14:02:00.000Z",
-      },
-      {
-        ...MOCK_CHAT_MESSAGES[1],
-        messageId: 4,
-        content: "메시지 4",
-        createdAt: "2026-01-15T14:03:00.000Z",
-      },
-    ];
-    renderWithMessages(fourMessages);
+    renderWithMessages(MOCK_CHAT_MESSAGES_FOUR);
 
     const chatBoxes = screen.getAllByTestId("chat-box");
     expect(chatBoxes).toHaveLength(4);
   });
 
   it("연속된 같은 발신자의 채팅에서 nextSender가 올바르게 전달됩니다", () => {
-    const threeMessages: ChatMessage[] = [
-      { ...MOCK_CHAT_MESSAGES[0], content: "첫 번째" },
-      {
-        ...MOCK_CHAT_MESSAGES[0],
-        messageId: 2,
-        content: "두 번째",
-        createdAt: "2026-01-15T14:01:00.000Z",
-      },
-      {
-        ...MOCK_CHAT_MESSAGES[1],
-        messageId: 3,
-        content: "세 번째",
-        createdAt: "2026-01-15T14:02:00.000Z",
-      },
-    ];
-    renderWithMessages(threeMessages);
+    renderWithMessages(MOCK_CHAT_MESSAGES_THREE_NEXT_SENDER_CHAIN);
 
     const chatBoxes = screen.getAllByTestId("chat-box");
 
@@ -167,7 +136,7 @@ describe("ChatRoomMain", () => {
   });
 
   it("모든 주요 요소가 함께 렌더링됩니다", () => {
-    renderWithMessages([{ ...MOCK_CHAT_MESSAGES[0], content: "테스트 메시지" }]);
+    renderWithMessages([MOCK_CHAT_MESSAGE_UI_TEXT]);
 
     // ChatBox
     expect(screen.getByTestId("chat-box")).toBeInTheDocument();

@@ -8,6 +8,12 @@ const queryClient = new QueryClient();
 const meta = {
   title: "페이지/메인 페이지/MainSearchHeader",
   component: MainSearchHeader,
+  tags: ["autodocs"],
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>

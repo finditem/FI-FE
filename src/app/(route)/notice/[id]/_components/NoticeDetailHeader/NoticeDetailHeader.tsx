@@ -37,7 +37,12 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
     <div className="relative" ref={kebabMenuRef}>
       <DetailHeader>
         <HeaderShare onClick={() => setOpenShareModal(true)} ariaLabel="공지사항 공유" />
-        {isAdmin && <HeaderMenu onClick={() => setIsKebabMenuOpen((prev) => !prev)} />}
+        {isAdmin && (
+          <HeaderMenu
+            ariaLabel="공지 관리 메뉴"
+            onClick={() => setIsKebabMenuOpen((prev) => !prev)}
+          />
+        )}
       </DetailHeader>
 
       {isKebabMenuOpen && (
