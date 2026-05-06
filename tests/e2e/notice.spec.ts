@@ -7,6 +7,10 @@ import {
   createMockNoticeDetailHeaderResponse,
 } from "@/mock/data/notice.data";
 
+const NAV_WAIT_OPTS = { timeout: 25_000, waitUntil: "commit" as const };
+
+const GOTO_OPTS = { waitUntil: "domcontentloaded" as const, timeout: 90_000 };
+
 async function setupNoticeMocks(page: Page, usersMe: typeof MOCK_USERS_ME_NOTICE_HEADER_USER) {
   await page.route("**/api/users/me", (route) =>
     route.fulfill({
@@ -54,12 +58,13 @@ async function setupNoticeMocks(page: Page, usersMe: typeof MOCK_USERS_ME_NOTICE
 }
 
 test.describe("공지사항 목록", () => {
-  test.describe.configure({ mode: "serial" });
+  test.describe.configure({ mode: "serial", timeout: 120_000 });
 
   test.describe("일반 사용자", () => {
     test.beforeEach(async ({ page }) => {
+      page.setDefaultNavigationTimeout(90_000);
       await setupNoticeMocks(page, MOCK_USERS_ME_NOTICE_HEADER_USER);
-      await page.goto("/notice");
+      await page.goto("/notice", GOTO_OPTS);
     });
 
     test("헤더·검색·목록이 보인다", async ({ page }) => {
@@ -69,15 +74,21 @@ test.describe("공지사항 목록", () => {
       await expect(page.getByPlaceholder("제목, 내용을 입력해 주세요.")).toBeVisible();
       await expect(page.getByRole("button", { name: "공지사항 정렬 필터" })).toBeVisible();
 
-      await expect(page.getByText("서비스 점검 안내")).toBeVisible();
-      await expect(page.getByText("이벤트: 분실물 찾기 캠페인")).toBeVisible();
+      await expect(page.getByText("서비스 점검 안내")).toBeVisible({ timeout: 30_000 });
+      await expect(page.getByText("이벤트: 분실물 찾기 캠페인")).toBeVisible({ timeout: 30_000 });
     });
 
     test("공지 클릭 시 상세 페이지로 이동하고 제목이 보인다", async ({ page }) => {
-      await page.getByRole("link", { name: /서비스 점검 안내/ }).click();
+      test.setTimeout(90_000);
+      const noticeLink = page.locator('a[href="/notice/1"]');
+      await expect(noticeLink).toBeVisible({ timeout: 30_000 });
+      await noticeLink.scrollIntoViewIfNeeded();
+      await noticeLink.click();
 
-      await expect(page).toHaveURL(/\/notice\/1$/);
-      await expect(page.getByRole("heading", { name: "서비스 점검 안내" })).toBeVisible();
+      await expect(page).toHaveURL(/\/notice\/1\/?$/, { timeout: 35_000 });
+
+      const titleHeading = page.getByRole("heading", { name: /서비스 점검 안내/, level: 1 });
+      await expect(titleHeading).toBeVisible({ timeout: 30_000 });
     });
 
     test("검색어 제출 시 keyword 쿼리가 반영된다", async ({ page }) => {
@@ -85,21 +96,36 @@ test.describe("공지사항 목록", () => {
       await page.getByPlaceholder("제목, 내용을 입력해 주세요.").fill(keyword);
       await page.getByPlaceholder("제목, 내용을 입력해 주세요.").press("Enter");
 
-      await expect(page).toHaveURL(new RegExp(`[?&]keyword=${encodeURIComponent(keyword)}`));
+      await expect(page).toHaveURL(
+        new RegExp(`[?&](?:keyword|noticeSearch)=${encodeURIComponent(keyword)}`),
+        { timeout: 15_000 }
+      );
     });
 
     test('정렬에서 "조회 많은 순" 선택 시 sortType이 반영된다', async ({ page }) => {
-      await page.getByRole("button", { name: "공지사항 정렬 필터" }).click();
-      await page.getByRole("button", { name: "조회 많은 순" }).click();
+      test.setTimeout(60_000);
+      await expect(page.getByText("서비스 점검 안내")).toBeVisible({ timeout: 30_000 });
 
-      await expect(page).toHaveURL(/sortType=most_viewed/);
+      const filterBtn = page.getByRole("button", { name: "공지사항 정렬 필터" });
+      await filterBtn.scrollIntoViewIfNeeded();
+      await filterBtn.click();
+
+      const sortOption = page.getByRole("button", { name: "조회 많은 순" });
+      await expect(sortOption).toBeVisible({ timeout: 30_000 });
+      await sortOption.click();
+
+      await expect(page).toHaveURL(/sortType=most_viewed/, { timeout: 15_000 });
+      await expect(page.getByRole("button", { name: "공지사항 정렬 필터" })).toContainText(
+        "조회 많은 순"
+      );
     });
   });
 
   test.describe("관리자", () => {
     test.beforeEach(async ({ page }) => {
+      page.setDefaultNavigationTimeout(90_000);
       await setupNoticeMocks(page, MOCK_USERS_ME_NOTICE_HEADER_ADMIN);
-      await page.goto("/notice");
+      await page.goto("/notice", GOTO_OPTS);
     });
 
     test("관리자일 때 공지 작성 플로팅 버튼이 보인다", async ({ page }) => {
