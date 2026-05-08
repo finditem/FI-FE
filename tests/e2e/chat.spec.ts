@@ -53,9 +53,11 @@ test.describe("채팅 목록 페이지", () => {
     await setupChatListMocks(page, MOCK_CHAT_LIST_FIRST_PAGE_RESPONSE);
     await page.goto("/chat");
 
-    await page.getByRole("button", { name: "채팅 리스트 지역 선택 필터" }).click();
-
-    await expect(page).toHaveURL(/search=region/);
+    await Promise.all([
+      page.waitForURL(/[?&]search=region/, { waitUntil: "commit", timeout: 20_000 }),
+      page.getByRole("button", { name: "채팅 리스트 지역 선택 필터" }).click(),
+    ]);
+    await expect(page).toHaveURL(/[?&]search=region/);
     await expect(page.getByRole("heading", { level: 2, name: "지역 선택" })).toBeVisible();
     await expect(page.getByPlaceholder("시/군/구를 입력해 주세요.")).toBeVisible();
   });
