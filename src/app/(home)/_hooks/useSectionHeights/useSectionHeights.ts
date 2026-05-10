@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { DefaultSheetContentHeights } from "../_utils/heightUtils";
+import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
 
 const useSectionHeights = (onSectionHeights?: (heights: DefaultSheetContentHeights) => void) => {
   const lostFindRef = useRef<HTMLDivElement>(null);

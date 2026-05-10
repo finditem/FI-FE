@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { BOTTOM_OFFSET_PX } from "../../_constants/HEIGHT_PX";
-import useBottomSheetHeight from "../../_hooks/useBottomSheetHeight";
+import { useBottomSheetHeight } from "../../_hooks";
 import MyLocationButton from "../MyLocationButton/MyLocationButton";
 import DefaultSheetContent from "../DefaultSheetContent/DefaultSheetContent";
 import PostSheetContent from "../PostSheetContent/PostSheetContent";

@@ -1,7 +1,5 @@
 import { Suspense } from "react";
-import Image from "next/image";
 import type { Metadata } from "next";
-import { DetailHeader } from "@/components/layout";
 import { formatMetadataKeyword } from "@/utils";
 import { PublicDataSearchContent, PublicDataSearchDetailHeader } from "./_components";
 

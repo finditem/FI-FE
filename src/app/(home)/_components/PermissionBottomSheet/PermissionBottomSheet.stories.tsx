@@ -13,7 +13,7 @@ const queryClient = new QueryClient({
 });
 
 const meta: Meta<typeof PermissionSheet> = {
-  title: "페이지/홈/PermissionBottomSheet",
+  title: "페이지/메인 페이지/PermissionBottomSheet",
   component: PermissionSheet,
   tags: ["autodocs"],
   parameters: {
