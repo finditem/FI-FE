@@ -20,7 +20,7 @@ const DefaultSheetContent = ({ onSectionHeights }: DefaultSheetContentProps) => 
   const refs = useSectionHeights(onSectionHeights);
 
   return (
-    <div className="space-y-5">
+    <div ref={refs.contentRootRef} className="space-y-5">
       <div ref={refs.lostFindRef}>
         <LostFindActions />
       </div>
