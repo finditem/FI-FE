@@ -31,7 +31,7 @@ const MainSearchEmpty = () => {
             {button.label}
             <Image
               src={button.icon}
-              alt={button.label}
+              alt=""
               width={50}
               height={70}
               className="absolute -top-1 left-0"

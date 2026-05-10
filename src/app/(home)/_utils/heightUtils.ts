@@ -40,8 +40,8 @@ export const getSnapHeightsByContent = (
   const { upToLostFindActions, upToRecentFoundItemSection, upToPoliceSection, totalContentHeight } =
     contentHeights;
 
-  const peekAfterLost = (upToRecentFoundItemSection - upToLostFindActions) / 2;
-  const peekAfterRecent = (upToPoliceSection - upToRecentFoundItemSection) / 2;
+  const peekAfterLost = Math.max(0, upToRecentFoundItemSection - upToLostFindActions) / 2;
+  const peekAfterRecent = Math.max(0, upToPoliceSection - upToRecentFoundItemSection) / 2;
   const peekAfterPolice = Math.max(0, totalContentHeight - upToPoliceSection) / 2;
 
   const secondRaw = base + upToLostFindActions - CONTENT_SNAP_OFFSET_PX + peekAfterLost;
