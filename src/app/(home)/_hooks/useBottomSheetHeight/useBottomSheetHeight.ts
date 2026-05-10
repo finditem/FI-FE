@@ -3,9 +3,13 @@
 import { animate, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { INITIAL_HEIGHT_PX, MIN_HEIGHT_PX } from "../_constants/HEIGHT_PX";
-import { MARKER_ID } from "../_constants/QUERY_PARAMS";
-import { getMaxHeightPx, getSnapHeights, DefaultSheetContentHeights } from "../_utils/heightUtils";
+import { INITIAL_HEIGHT_PX, MIN_HEIGHT_PX } from "../../_constants/HEIGHT_PX";
+import { MARKER_ID } from "../../_constants/QUERY_PARAMS";
+import {
+  getMaxHeightPx,
+  getSnapHeights,
+  DefaultSheetContentHeights,
+} from "../../_utils/heightUtils";
 import { useMainKakaoMapStore } from "@/store";
 
 const FULLY_EXPANDED_HEIGHT_RATIO = 0.8;

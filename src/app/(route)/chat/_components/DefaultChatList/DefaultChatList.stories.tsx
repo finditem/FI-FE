@@ -6,7 +6,7 @@ import { ToastProvider } from "@/providers/ToastProviders";
 const queryClient = new QueryClient();
 
 const meta: Meta<typeof DefaultChatList> = {
-  title: "페이지/채팅 페이지/DefaultChatList",
+  title: "페이지/채팅 목록 페이지/DefaultChatList",
   component: DefaultChatList,
   tags: ["autodocs"],
   parameters: {

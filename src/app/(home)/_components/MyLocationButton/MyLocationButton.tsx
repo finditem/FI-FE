@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@/components/common";
-import useMyLocationButton from "../../_hooks/useMyLocationButton";
+import { useMyLocationButton } from "../../_hooks";
 import { LocationPermissionBottomSheet } from "../PermissionBottomSheet/PermissionBottomSheet";
 
 const MyLocationButton = () => {

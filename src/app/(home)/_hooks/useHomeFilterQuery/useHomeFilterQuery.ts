@@ -2,8 +2,8 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CATEGORY_OPTIONS } from "@/constants";
-import { CATEGORY, POST_TYPE } from "../_constants/QUERY_PARAMS";
-import { PostFilterChipValue } from "../_types/PostFilterChipValue";
+import { CATEGORY, POST_TYPE } from "../../_constants/QUERY_PARAMS";
+import { PostFilterChipValue } from "../../_types/PostFilterChipValue";
 
 const getSelectedPostFilterFromQuery = (postType: string | null): PostFilterChipValue => {
   if (postType === "lost") return "lost";
