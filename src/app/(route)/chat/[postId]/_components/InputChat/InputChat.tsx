@@ -70,6 +70,7 @@ const InputChat = ({
                 )}
                 aria-label="이미지 첨부"
                 role="button"
+                aria-disabled={withdrawn}
               >
                 <Icon
                   name="Image"

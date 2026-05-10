@@ -35,7 +35,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
     if (withdrawn) {
       addToast("알 수 없는 사용자이거나 탈퇴한 회원이에요", "warning");
     }
-  }, [withdrawn]);
+  }, [withdrawn, addToast]);
 
   useChatSocketMessage(roomId, currentUserId);
 

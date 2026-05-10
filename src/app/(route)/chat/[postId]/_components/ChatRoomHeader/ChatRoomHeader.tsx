@@ -88,7 +88,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoom
           <div className="flex items-center gap-1">
             <ChatChip postMode={postType} postStatus={postStatus} />
             <h2 className="truncate text-body1-semibold text-layout-header-default">
-              {deleted === !withdrawn ? `삭제됨 ${title}` : title}
+              {deleted && !withdrawn ? `삭제됨 ${title}` : title}
             </h2>
           </div>
           <p className="min-h-4 text-caption1-medium text-layout-body-default">{address}</p>
