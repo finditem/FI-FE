@@ -30,14 +30,30 @@ jest.mock("../ChatRoomHeaderInfoButton/ChatRoomHeaderInfoButton", () => ({
   default: () => <div data-testid="chat-room-header-info-button">InfoButton</div>,
 }));
 
+const renderChatRoomHeader = (
+  overrides: Partial<React.ComponentProps<typeof ChatRoomHeader>> = {}
+) =>
+  render(
+    <ChatRoomHeader
+      chatRoom={MOCK_CHAT_ROOM_FOUND}
+      roomId={MOCK_CHAT_ROOM_FOUND.roomId}
+      withdrawn={false}
+      {...overrides}
+    />
+  );
+
 describe("ChatRoomHeader", () => {
   it("chatRoom이 undefined일 때 null을 반환합니다", () => {
-    const { container } = render(<ChatRoomHeader chatRoom={undefined} roomId={0} />);
+    const { container } = renderChatRoomHeader({
+      chatRoom: undefined,
+      roomId: 0,
+      withdrawn: false,
+    });
     expect(container.firstChild).toBeNull();
   });
 
   it("뒤로가기 링크가 렌더링되고 /chat 경로를 가집니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     const backLink = screen.getByRole("link", { name: "뒤로 가기 버튼" });
     expect(backLink).toBeInTheDocument();
@@ -46,13 +62,13 @@ describe("ChatRoomHeader", () => {
   });
 
   it("사용자 닉네임이 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     expect(screen.getByText("사용자 닉네임")).toBeInTheDocument();
   });
 
   it("게시글 썸네일 이미지가 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     const image = screen.getByAltText("채팅방 게시글 썸네일");
     expect(image).toBeInTheDocument();
@@ -60,7 +76,7 @@ describe("ChatRoomHeader", () => {
   });
 
   it("ChatChip이 postType과 함께 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     const chatChip = screen.getByTestId("chat-chip");
     expect(chatChip).toBeInTheDocument();
@@ -68,14 +84,14 @@ describe("ChatRoomHeader", () => {
   });
 
   it("postType이 LOST일 때 ChatChip에 LOST가 전달됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_LOST} roomId={MOCK_CHAT_ROOM_LOST.roomId} />);
+    renderChatRoomHeader({ chatRoom: MOCK_CHAT_ROOM_LOST, roomId: MOCK_CHAT_ROOM_LOST.roomId });
 
     const chatChip = screen.getByTestId("chat-chip");
     expect(chatChip).toHaveTextContent("LOST");
   });
 
   it("게시글명이 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     expect(
       screen.getByText("여기에 게시글명이 표기됩니다 여기에 게시글명이 표기됩니다. 여기에")
@@ -83,19 +99,19 @@ describe("ChatRoomHeader", () => {
   });
 
   it("위치 정보가 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     expect(screen.getByText("서울시 중구 회현동")).toBeInTheDocument();
   });
 
   it("ChatRoomHeaderInfoButton이 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     expect(screen.getByTestId("chat-room-header-info-button")).toBeInTheDocument();
   });
 
   it("게시글 링크가 올바른 href를 가집니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     const link = screen.getByRole("link", { name: "게시글 상세 페이지 이동" });
     expect(link).toHaveAttribute("href", `/list/${MOCK_CHAT_ROOM_FOUND.postInfo.postId}`);
@@ -111,19 +127,17 @@ describe("ChatRoomHeader", () => {
       },
     };
 
-    render(
-      <ChatRoomHeader
-        chatRoom={chatRoomWithoutThumbnail}
-        roomId={chatRoomWithoutThumbnail.roomId}
-      />
-    );
+    renderChatRoomHeader({
+      chatRoom: chatRoomWithoutThumbnail,
+      roomId: chatRoomWithoutThumbnail.roomId,
+    });
 
     const image = screen.getByAltText("채팅방 게시글 썸네일");
     expect(image).toBeInTheDocument();
   });
 
   it("모든 주요 요소가 함께 렌더링됩니다", () => {
-    render(<ChatRoomHeader chatRoom={MOCK_CHAT_ROOM_FOUND} roomId={MOCK_CHAT_ROOM_FOUND.roomId} />);
+    renderChatRoomHeader();
 
     // 뒤로가기 링크
     expect(screen.getByRole("link", { name: "뒤로 가기 버튼" })).toBeInTheDocument();
@@ -148,5 +162,24 @@ describe("ChatRoomHeader", () => {
 
     // 위치 정보
     expect(screen.getByText("서울시 중구 회현동")).toBeInTheDocument();
+  });
+
+  it("withdrawn이 true이면 닉네임 대신 탈퇴 문구를 표시한다", () => {
+    renderChatRoomHeader({
+      withdrawn: true,
+      currentUserId: 999,
+    });
+
+    expect(screen.getByText("탈퇴한 회원이에요")).toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "상대방 프로필 이동" })).not.toBeInTheDocument();
+  });
+
+  it("withdrawn이 true이고 내 게시글 채팅이면 상대 닉네임 대신 탈퇴 문구를 표시한다", () => {
+    renderChatRoomHeader({
+      withdrawn: true,
+      currentUserId: MOCK_CHAT_ROOM_FOUND.opponentUser.opponentUserId,
+    });
+
+    expect(screen.getByText("탈퇴한 회원이에요")).toBeInTheDocument();
   });
 });

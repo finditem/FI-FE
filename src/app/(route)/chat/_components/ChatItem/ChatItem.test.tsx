@@ -72,6 +72,7 @@ describe("ChatItem", () => {
         userId: 1,
         nickname: "사용자 닉네임",
         profileImageUrl: "profile.jpg",
+        withdrawn: false,
       },
     });
 
@@ -115,6 +116,16 @@ describe("ChatItem", () => {
     render(<ChatItem chatRoom={chatRoomNoUnread} />);
 
     expect(screen.queryByText("0")).not.toBeInTheDocument();
+  });
+
+  it("withdrawn이 true이면 닉네임 대신 탈퇴한 회원을 표시한다", () => {
+    const withdrawnRoom = createMockChatRoom({
+      contactUser: { ...MOCK_CHAT_ITEM.contactUser, nickname: "이전닉네임", withdrawn: true },
+    });
+    render(<ChatItem chatRoom={withdrawnRoom} />);
+
+    expect(screen.getByText("탈퇴한 회원")).toBeInTheDocument();
+    expect(screen.queryByText("이전닉네임")).not.toBeInTheDocument();
   });
 
   it("모든 주요 요소가 함께 렌더링됩니다", () => {
