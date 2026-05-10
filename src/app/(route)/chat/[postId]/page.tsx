@@ -77,7 +77,12 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
-      <ChatRoomHeader chatRoom={chatRoomData} roomId={roomId} currentUserId={currentUserId} />
+      <ChatRoomHeader
+        chatRoom={chatRoomData}
+        roomId={roomId}
+        currentUserId={currentUserId}
+        withdrawn={withdrawn}
+      />
       <h1 className="sr-only">채팅 상세 페이지</h1>
 
       <div className="flex min-h-0 flex-1 flex-col">
@@ -103,6 +108,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
               roomId={roomId}
               userId={userId}
               onImageSendSuccess={triggerScrollToBottom}
+              withdrawn={withdrawn}
             />
           </form>
         </FormProvider>
