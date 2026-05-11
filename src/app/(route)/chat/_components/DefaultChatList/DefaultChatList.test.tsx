@@ -56,7 +56,12 @@ jest.mock("@/api/fetch/chatRoom", () => {
       data: Array.from({ length: 5 }, (_, i) => ({
         ...MOCK_CHAT_ITEM,
         roomId: i + 1,
-        contactUser: { userId: i + 1, nickname: `User${i + 1}`, profileImageUrl: null },
+        contactUser: {
+          userId: i + 1,
+          nickname: `User${i + 1}`,
+          profileImageUrl: null,
+          withdrawn: false,
+        },
         postInfo: {
           postId: i + 1,
           postType: MOCK_POST_ITEM.postType,

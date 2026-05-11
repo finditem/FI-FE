@@ -13,6 +13,7 @@ export const MOCK_CHAT_ITEM: ChatRoom = {
     userId: 1,
     nickname: "사용자 닉네임",
     profileImageUrl: null,
+    withdrawn: false,
   },
   postInfo: {
     postId: 1,
@@ -51,6 +52,22 @@ export const MOCK_CHAT_LIST_EMPTY_RESPONSE: ApiBaseResponseType<ChatListType> = 
   },
 };
 
+/** 채팅 목록에서 상대가 탈퇴한 케이스 */
+export const MOCK_CHAT_ITEM_WITHDRAWN: ChatRoom = {
+  ...MOCK_CHAT_ITEM,
+  contactUser: { ...MOCK_CHAT_ITEM.contactUser, withdrawn: true },
+};
+
+export const MOCK_CHAT_LIST_WITH_WITHDRAWN_RESPONSE: ApiBaseResponseType<ChatListType> = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: {
+    chatRooms: [MOCK_CHAT_ITEM_WITHDRAWN],
+    nextCursor: null,
+  },
+};
+
 export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
   roomId: 1,
   unreadCount: 0,
@@ -59,6 +76,7 @@ export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
     nickname: "사용자 닉네임",
     profileImageUrl: "https://via.placeholder.com/40",
     emailVerified: true,
+    withdrawn: false,
   },
   postInfo: {
     postId: 1,
@@ -80,6 +98,7 @@ export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
     nickname: "다른 사용자",
     profileImageUrl: "https://via.placeholder.com/40",
     emailVerified: true,
+    withdrawn: false,
   },
   postInfo: {
     postId: 2,
