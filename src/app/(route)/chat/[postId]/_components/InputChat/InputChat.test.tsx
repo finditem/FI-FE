@@ -25,6 +25,7 @@ const renderComponent = (props: Partial<React.ComponentProps<typeof InputChat>> 
     name: "test-chat",
     roomId: 1,
     userId: 1,
+    withdrawn: false,
   };
   const mergedProps = { ...defaultProps, ...props };
 
@@ -105,6 +106,16 @@ describe("InputChat 컴포넌트", () => {
 
   it("disabled prop이 true일 때 전송 버튼이 비활성화되는지 확인", () => {
     renderComponent({ disabled: true });
+
+    const sendButton = screen.getByLabelText("전송 버튼");
+    expect(sendButton).toBeDisabled();
+  });
+
+  it("withdrawn이 true이면 입력창·전송이 비활성화되고 탈퇴 안내 placeholder를 쓴다", () => {
+    renderComponent({ withdrawn: true });
+
+    const input = screen.getByPlaceholderText("상대방이 탈퇴한 회원입니다.");
+    expect(input).toBeDisabled();
 
     const sendButton = screen.getByLabelText("전송 버튼");
     expect(sendButton).toBeDisabled();

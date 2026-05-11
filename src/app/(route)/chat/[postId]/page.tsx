@@ -11,6 +11,7 @@ import {
   useChatMessageSubmit,
 } from "./_hooks";
 import useReadMessage from "@/api/fetch/chatMessage/api/useReadMessage";
+import { useToast } from "@/context/ToastContext";
 
 interface ChatFormValues {
   content: string;
@@ -18,15 +19,23 @@ interface ChatFormValues {
 
 const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
   const { postId: postIdString } = use(params);
+  const { addToast } = useToast();
   const postId = Number(postIdString);
 
-  const { roomId, chatRoomData, userInfo, postMode, unreadCount } = useChatRoomData(postId);
+  const { roomId, chatRoomData, userInfo, postMode, unreadCount, withdrawn } =
+    useChatRoomData(postId);
   const userId = Number(userInfo?.result?.userId);
   const currentUserId = userId != null ? userId : undefined;
   const [scrollToBottomSignal, setScrollToBottomSignal] = useState(0);
   const triggerScrollToBottom = useCallback(() => {
     setScrollToBottomSignal((prev) => prev + 1);
   }, []);
+
+  useEffect(() => {
+    if (withdrawn) {
+      addToast("알 수 없는 사용자이거나 탈퇴한 회원이에요", "warning");
+    }
+  }, [withdrawn, addToast]);
 
   useChatSocketMessage(roomId, currentUserId);
 
@@ -68,7 +77,12 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
 
   return (
     <div className="flex h-dvh flex-col overflow-hidden">
-      <ChatRoomHeader chatRoom={chatRoomData} roomId={roomId} currentUserId={currentUserId} />
+      <ChatRoomHeader
+        chatRoom={chatRoomData}
+        roomId={roomId}
+        currentUserId={currentUserId}
+        withdrawn={withdrawn}
+      />
       <h1 className="sr-only">채팅 상세 페이지</h1>
 
       <div className="flex min-h-0 flex-1 flex-col">
@@ -94,6 +108,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
               roomId={roomId}
               userId={userId}
               onImageSendSuccess={triggerScrollToBottom}
+              withdrawn={withdrawn}
             />
           </form>
         </FormProvider>
