@@ -3,6 +3,7 @@ import {
   MOCK_CHAT_LIST_EMPTY_RESPONSE,
   MOCK_CHAT_LIST_FIRST_PAGE_RESPONSE,
   MOCK_CHAT_ITEM,
+  MOCK_CHAT_LIST_WITH_WITHDRAWN_RESPONSE,
 } from "@/mock/data/chat.data";
 import { addRefreshCookie, setupProtectedSessionMocks } from "./utils/auth";
 
@@ -60,6 +61,16 @@ test.describe("채팅 목록 페이지", () => {
     await expect(page).toHaveURL(/[?&]search=region/);
     await expect(page.getByRole("heading", { level: 2, name: "지역 선택" })).toBeVisible();
     await expect(page.getByPlaceholder("시/군/구를 입력해 주세요.")).toBeVisible();
+  });
+
+  test("탈퇴한 상대 채팅은 목록에 탈퇴 문구로 표시된다", async ({ context, page, baseURL }) => {
+    await addRefreshCookie(context, baseURL);
+    await setupChatListMocks(page, MOCK_CHAT_LIST_WITH_WITHDRAWN_RESPONSE);
+    await page.goto("/chat");
+
+    await expect(page.getByRole("heading", { level: 2, name: "채팅" })).toBeVisible();
+    await expect(page.getByText("탈퇴한 회원")).toBeVisible();
+    await expect(page.getByText(MOCK_CHAT_ITEM.postInfo.address)).toBeVisible();
   });
 
   test("채팅이 없을 때 빈 상태 문구가 표시된다", async ({ context, page, baseURL }) => {
