@@ -30,6 +30,7 @@ const makeChatRoomResult = (overrides: Partial<ChatRoomResponse> = {}): ChatRoom
     nickname: "상대",
     profileImageUrl: "",
     emailVerified: true,
+    withdrawn: false,
   },
   postInfo: {
     postId: 99,
@@ -155,5 +156,25 @@ describe("useChatRoomData", () => {
     expect(result.current.roomId).toBe(0);
     expect(result.current.chatRoomData).toBeUndefined();
     expect(result.current.unreadCount).toBeUndefined();
+  });
+
+  it("opponentUser.withdrawn이 true이면 withdrawn이 true다", () => {
+    mockUseSearchParams.mockReturnValue({
+      get: jest.fn(() => null),
+    });
+    const room = makeChatRoomResult({
+      opponentUser: {
+        ...makeChatRoomResult().opponentUser,
+        withdrawn: true,
+      },
+    });
+    mockUseChatRoom.mockReturnValue({
+      data: { result: room },
+    } as ReturnType<typeof useChatRoom>);
+    mockUseGetChatRoom.mockReturnValue({ data: undefined } as ReturnType<typeof useGetChatRoom>);
+
+    const { result } = renderHook(() => useChatRoomData(1), { wrapper });
+
+    expect(result.current.withdrawn).toBe(true);
   });
 });

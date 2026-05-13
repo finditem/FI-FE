@@ -10,7 +10,7 @@ interface ChatItemProps {
 const ChatItem = ({ chatRoom }: ChatItemProps) => {
   const { lastMessageSentAt, lastMessage, unreadCount, messageType } = chatRoom;
   const { postId, address, thumbnailUrl, category } = chatRoom.postInfo;
-  const { nickname, profileImageUrl } = chatRoom.contactUser;
+  const { nickname, profileImageUrl, withdrawn } = chatRoom.contactUser;
   const { roomId } = chatRoom;
 
   const lastMessageIsImage = lastMessageSentAt && messageType === "IMAGE";
@@ -41,7 +41,7 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
       <div className="w-full min-w-0 space-y-[2px]">
         <div className="flex items-center justify-between truncate">
           <span className="truncate text-h3-semibold text-layout-header-default">
-            {nickname || "닉네임을 불러오지 못했습니다."}
+            {withdrawn ? "탈퇴한 회원" : nickname || "닉네임을 불러오지 못했습니다."}
           </span>
           {unreadCount > 0 && (
             <span className="rounded-full bg-flatGreen-500 px-[5.5px] py-[1.5px] text-caption2-semibold text-white flex-center">

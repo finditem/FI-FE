@@ -1,16 +1,19 @@
+import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import {
+  ChatListType,
   ChatRoom,
   ChatRoomResponse,
   WebSocketChatMessage,
 } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
 
-export const MOCK_CHAT_ITEM = {
+export const MOCK_CHAT_ITEM: ChatRoom = {
   roomId: 1,
   contactUser: {
     userId: 1,
     nickname: "사용자 닉네임",
-    profileImageUrl: "profile.jpg",
+    profileImageUrl: null,
+    withdrawn: false,
   },
   postInfo: {
     postId: 1,
@@ -18,14 +21,52 @@ export const MOCK_CHAT_ITEM = {
     category: "WALLET",
     title: "테스트 게시글",
     address: "서울시 강남구 신사동",
-    thumbnailUrl: "test-thumbnail.jpg",
+    thumbnailUrl: null,
+    deleted: false,
+    postStatus: "SEARCHING",
   },
   messageType: "TEXT",
   lastMessage:
     "안녕하세요! 혹시 올리신 검정색 카드 지갑, 명동에서 발견하신 지갑이실까요? 혹시나 해서",
   lastMessageSentAt: "2026-01-01T10:00:00.000Z",
   unreadCount: 1,
-} as ChatRoom;
+};
+
+export const MOCK_CHAT_LIST_FIRST_PAGE_RESPONSE: ApiBaseResponseType<ChatListType> = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: {
+    chatRooms: [MOCK_CHAT_ITEM],
+    nextCursor: null,
+  },
+};
+
+export const MOCK_CHAT_LIST_EMPTY_RESPONSE: ApiBaseResponseType<ChatListType> = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: {
+    chatRooms: [],
+    nextCursor: null,
+  },
+};
+
+/** 채팅 목록에서 상대가 탈퇴한 케이스 */
+export const MOCK_CHAT_ITEM_WITHDRAWN: ChatRoom = {
+  ...MOCK_CHAT_ITEM,
+  contactUser: { ...MOCK_CHAT_ITEM.contactUser, withdrawn: true },
+};
+
+export const MOCK_CHAT_LIST_WITH_WITHDRAWN_RESPONSE: ApiBaseResponseType<ChatListType> = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: {
+    chatRooms: [MOCK_CHAT_ITEM_WITHDRAWN],
+    nextCursor: null,
+  },
+};
 
 export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
   roomId: 1,
@@ -35,6 +76,7 @@ export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
     nickname: "사용자 닉네임",
     profileImageUrl: "https://via.placeholder.com/40",
     emailVerified: true,
+    withdrawn: false,
   },
   postInfo: {
     postId: 1,
@@ -56,6 +98,7 @@ export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
     nickname: "다른 사용자",
     profileImageUrl: "https://via.placeholder.com/40",
     emailVerified: true,
+    withdrawn: false,
   },
   postInfo: {
     postId: 2,

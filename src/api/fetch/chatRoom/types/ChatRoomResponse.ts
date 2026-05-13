@@ -19,6 +19,7 @@ export interface ChatRoom {
     userId: number;
     nickname: string;
     profileImageUrl: string | null;
+    withdrawn: boolean;
   };
   postInfo: ChatRoomPostInfo;
   messageType: MessageType | null;
@@ -58,6 +59,7 @@ export interface ChatRoomResponse {
     nickname: string;
     profileImageUrl: string;
     emailVerified: boolean;
+    withdrawn: boolean;
   };
   postInfo: ChatRoomPostInfo;
 }

@@ -10,22 +10,25 @@ class ResizeObserverMock {
 describe("useSectionHeights", () => {
   let offsetHeightSpy: jest.SpyInstance;
   let offsetTopSpy: jest.SpyInstance;
+  let scrollHeightSpy: jest.SpyInstance;
 
   beforeEach(() => {
     global.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
     offsetHeightSpy = jest.spyOn(HTMLElement.prototype, "offsetHeight", "get").mockReturnValue(50);
     offsetTopSpy = jest.spyOn(HTMLElement.prototype, "offsetTop", "get").mockReturnValue(10);
+    scrollHeightSpy = jest.spyOn(HTMLElement.prototype, "scrollHeight", "get").mockReturnValue(300);
   });
 
   afterEach(() => {
     offsetHeightSpy.mockRestore();
     offsetTopSpy.mockRestore();
+    scrollHeightSpy.mockRestore();
   });
 
   function Harness({ onMeasure }: { onMeasure: jest.Mock }) {
     const refs = useSectionHeights(onMeasure);
     return (
-      <div>
+      <div ref={refs.contentRootRef} data-testid="root">
         <div ref={refs.lostFindRef} data-testid="lost" />
         <div ref={refs.recentRef} data-testid="recent" />
         <div ref={refs.policeRef} data-testid="police" />
@@ -43,6 +46,7 @@ describe("useSectionHeights", () => {
         upToLostFindActions: 60,
         upToRecentFoundItemSection: 60,
         upToPoliceSection: 60,
+        totalContentHeight: 300,
       });
     });
   });
@@ -51,7 +55,7 @@ describe("useSectionHeights", () => {
     function EmptyHarness() {
       const refs = useSectionHeights(undefined);
       return (
-        <div>
+        <div ref={refs.contentRootRef}>
           <div ref={refs.lostFindRef} />
           <div ref={refs.recentRef} />
           <div ref={refs.policeRef} />

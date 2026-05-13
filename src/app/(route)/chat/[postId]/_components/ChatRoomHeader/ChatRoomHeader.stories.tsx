@@ -51,12 +51,25 @@ type Story = StoryObj<typeof ChatRoomHeader>;
 export const Found: Story = {
   args: {
     chatRoom: MOCK_CHAT_ROOM_FOUND,
+    roomId: MOCK_CHAT_ROOM_FOUND.roomId,
+    withdrawn: false,
   },
 };
 
 export const Lost: Story = {
   args: {
     chatRoom: MOCK_CHAT_ROOM_LOST,
+    roomId: MOCK_CHAT_ROOM_LOST.roomId,
+    withdrawn: false,
+  },
+};
+
+export const OpponentWithdrawn: Story = {
+  args: {
+    chatRoom: MOCK_CHAT_ROOM_FOUND,
+    roomId: MOCK_CHAT_ROOM_FOUND.roomId,
+    withdrawn: true,
+    currentUserId: 999,
   },
 };
 
@@ -69,11 +82,15 @@ export const WithoutThumbnail: Story = {
         thumbnailUrl: "",
       },
     },
+    roomId: MOCK_CHAT_ROOM_FOUND.roomId,
+    withdrawn: false,
   },
 };
 
 export const Undefined: Story = {
   args: {
     chatRoom: undefined,
+    roomId: 0,
+    withdrawn: false,
   },
 };
