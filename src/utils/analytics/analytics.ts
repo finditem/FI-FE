@@ -9,7 +9,7 @@ export const trackPostStart = (type: "분실물" | "습득물") =>
 export const trackPostComplete = (type: "분실물" | "습득물") =>
   trackingEvent({ action: "post_complete", category: "post", label: type });
 
-// 감섹 실행
+// 검색 실행
 export const trackSearch = (keyword: string) =>
   trackingEvent({ action: "search", category: "explore", label: keyword });
 
