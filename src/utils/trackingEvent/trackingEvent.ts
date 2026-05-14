@@ -1,5 +1,3 @@
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
 declare global {
   interface Window {
     gtag: (command: string, action: string, params?: Record<string, unknown>) => void;
