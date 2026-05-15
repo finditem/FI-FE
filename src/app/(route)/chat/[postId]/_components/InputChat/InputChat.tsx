@@ -14,6 +14,7 @@ interface InputChatProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   roomId: number;
   userId: number;
   onImageSendSuccess?: () => void;
+  withdrawn: boolean;
 }
 
 const InputChat = ({
@@ -23,6 +24,7 @@ const InputChat = ({
   roomId,
   userId,
   onImageSendSuccess,
+  withdrawn,
   ...props
 }: InputChatProps) => {
   const { control, watch } = useFormContext();
@@ -62,9 +64,13 @@ const InputChat = ({
               {/* 이미지 첨부 */}
               <label
                 htmlFor="ImageAttach"
-                className="relative h-11 w-11 shrink-0 rounded-full bg-fill-neutral-strong-default"
+                className={cn(
+                  "relative h-11 w-11 shrink-0 rounded-full bg-fill-neutral-strong-default",
+                  withdrawn && "cursor-default"
+                )}
                 aria-label="이미지 첨부"
                 role="button"
+                aria-disabled={withdrawn}
               >
                 <Icon
                   name="Image"
@@ -78,7 +84,7 @@ const InputChat = ({
                 accept="image/*"
                 multiple
                 className="hidden"
-                disabled={disabled}
+                disabled={disabled || withdrawn}
                 onChange={(e) => fileInputHandler(e, images, setImages)}
               />
 
@@ -100,8 +106,8 @@ const InputChat = ({
                   "max-h-[120px] min-h-11 min-w-0 flex-1 resize-none overflow-y-hidden rounded-[24px] px-4 py-[10px] text-body1-medium text-neutral-normal-placeholder bg-fill-neutral-strong-default focus:text-black disabled:text-neutral-strong-disabled",
                   field.value && "text-neutral-strong-focused"
                 )}
-                placeholder="메시지 보내기"
-                disabled={disabled}
+                placeholder={withdrawn ? "상대방이 탈퇴한 회원입니다." : "메시지 보내기"}
+                disabled={disabled || withdrawn}
                 maxLength={255}
               />
 

@@ -3,6 +3,7 @@ import { UseFormReturn, useWatch } from "react-hook-form";
 import { useWriteStore } from "@/store";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
+import { trackPostComplete } from "@/utils/analytics/analytics";
 
 interface UsePostWriteSubmitProps {
   methods: UseFormReturn<PostWriteFormValues>;
@@ -88,6 +89,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
     if (!formData) return;
 
+    if (postType) trackPostComplete(postType as "분실물" | "습득물");
     postPosts(formData);
     clearLocation();
   };

@@ -29,10 +29,12 @@ version-resolver:
   default: patch
 
 template: |
-  ## 개요
-  - 이번 배포는 운영 환경에 반영되는 공식 릴리즈입니다.
+  <p align="center">
+    <a href="https://www.finditem.kr/">
+      <img src="https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png" width="100%" alt="Find My Item Banner" style="border-radius: 12px; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);" />
+    </a>
+  </p>
+
+  ## 변경사항
 
   $CHANGES
-
-  ## 참고 사항
-  - 특이사항이나 추가 주의사항이 있다면 여기에 작성해주세요.

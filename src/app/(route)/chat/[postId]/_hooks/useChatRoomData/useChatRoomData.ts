@@ -25,6 +25,7 @@ const useChatRoomData = (postId: number) => {
     userInfo,
     postMode,
     unreadCount,
+    withdrawn: chatRoomData?.opponentUser.withdrawn || false,
   };
 };
 

@@ -17,6 +17,7 @@ interface ChatRoomHeaderProps {
   chatRoom: ChatRoomResponse | undefined;
   roomId: number;
   currentUserId?: number;
+  withdrawn: boolean;
 }
 
 const LinkWrapper = ({ deleted, children, href }: LinkWrapperProps) => {
@@ -39,7 +40,7 @@ const LinkWrapper = ({ deleted, children, href }: LinkWrapperProps) => {
 
 const NICK_NAME_STYLE = "text-body2-semibold text-layout-body-default";
 
-const ChatRoomHeader = ({ chatRoom, roomId, currentUserId }: ChatRoomHeaderProps) => {
+const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoomHeaderProps) => {
   if (!chatRoom) return null;
   const { address, postType, title, thumbnailUrl, postId, category, postStatus, deleted } =
     chatRoom.postInfo;
@@ -58,8 +59,8 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId }: ChatRoomHeaderProps
           <Icon name="ArrowLeftSmall" size={18} className="text-neutral-normal-default" />
         </Link>
 
-        {isOwnPostChatRoom ? (
-          <p className={NICK_NAME_STYLE}>{nickname}</p>
+        {isOwnPostChatRoom || withdrawn ? (
+          <p className={NICK_NAME_STYLE}>{withdrawn ? "탈퇴한 회원이에요" : nickname}</p>
         ) : (
           <Link
             href={`/user/${opponentUserId}`}
@@ -87,7 +88,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId }: ChatRoomHeaderProps
           <div className="flex items-center gap-1">
             <ChatChip postMode={postType} postStatus={postStatus} />
             <h2 className="truncate text-body1-semibold text-layout-header-default">
-              {deleted ? `삭제됨 ${title}` : title}
+              {deleted && !withdrawn ? `삭제됨 ${title}` : title}
             </h2>
           </div>
           <p className="min-h-4 text-caption1-medium text-layout-body-default">{address}</p>
