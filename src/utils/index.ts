@@ -32,3 +32,4 @@ export { isWebPushSupported } from "./webPush/isWebPushSupported/isWebPushSuppor
 export { registerWebPushServiceWorker } from "./webPush/registerWebPushServiceWorker/registerWebPushServiceWorker";
 export { syncWebPushSubscription } from "./webPush/syncWebPushSubscription/syncWebPushSubscription";
 export { unsubscribeWebPushFromServer } from "./webPush/unsubscribeWebPushFromServer/unsubscribeWebPushFromServer";
+export { trackingEvent } from "./trackingEvent/trackingEvent";

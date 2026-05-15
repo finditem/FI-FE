@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { InputSearch } from "@/components/common";
 import { useInfiniteScroll } from "@/hooks";
 import { PostSearchView } from "./_internal";
+import { trackSearch } from "@/utils/analytics/analytics";
 
 const DefaultListSearch = () => {
   const router = useRouter();
@@ -39,6 +40,7 @@ const DefaultListSearch = () => {
 
     if (!value || value === keyword) return;
 
+    trackSearch(value);
     router.replace(`/list?search=post&keyword=${value}`);
   };
 
