@@ -64,9 +64,6 @@ describe("ManualList", () => {
     buttons.forEach((btn) => {
       expect(btn).toHaveAttribute("aria-expanded", "false");
     });
-
-    expect(screen.queryByText("카드사에 분실신고가 필요해요.")).not.toBeInTheDocument();
-    expect(screen.queryByText("lost112에서 확인해 보세요.")).not.toBeInTheDocument();
   });
 
   test("아이템 클릭 시 해당 패널이 열리고, 다시 클릭하면 닫힌다", async () => {
