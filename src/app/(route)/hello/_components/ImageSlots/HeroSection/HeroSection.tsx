@@ -21,6 +21,7 @@ const HeroSection = () => {
             src="/hello/hero/service-hero-background.svg"
             width={318}
             height={220}
+            priority
           />
         </div>
       </div>
@@ -39,5 +40,5 @@ const HeroSection = () => {
 export default HeroSection;
 
 const HeroSectionImage = (props: Omit<ImageProps, "alt">) => {
-  return <Image alt="" {...props} draggable={false} className="select-none" priority />;
+  return <Image alt="" {...props} draggable={false} className="select-none" />;
 };
