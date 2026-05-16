@@ -24,7 +24,6 @@ const FourthSection = () => {
         alt=""
         width={280}
         height={75}
-        priority
         draggable={false}
         className="h-[75px] w-[280px]"
       />
