@@ -36,7 +36,7 @@ const nextConfig: NextConfig = {
     reactCompiler: true,
   },
   compiler: {
-    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error"] } : false,
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
   async rewrites() {
     if (!apiBaseUrl) {
