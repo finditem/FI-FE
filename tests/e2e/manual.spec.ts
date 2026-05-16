@@ -71,9 +71,13 @@ test.describe("매뉴얼 페이지", () => {
   test("항목에 외부 링크 버튼이 표시된다", async ({ page }) => {
     await page.goto("/manual");
 
-    await page.getByRole("button", { name: "경찰청 신고 내역을 확인했나요?" }).click();
+    const section = page.getByRole("listitem").filter({
+      hasText: "경찰청 신고 내역을 확인했나요?",
+    });
 
-    await expect(page.getByRole("link", { name: "경찰청 바로가기" })).toBeVisible({
+    await section.getByRole("button", { name: "경찰청 신고 내역을 확인했나요?" }).click();
+
+    await expect(section.getByRole("link", { name: "경찰청 바로가기" })).toBeVisible({
       timeout: 3000,
     });
   });

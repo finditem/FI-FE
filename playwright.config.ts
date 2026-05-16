@@ -6,8 +6,8 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   /* 테스트 실행 파일 위치 */
   testDir: "./tests/e2e",
-  /* 파일 단위로 테스트를 병렬 실행한다 */
-  fullyParallel: true,
+  /* 파일 단위로 테스트를 순차 실행한다 */
+  fullyParallel: false,
   /* CI 환경에서 test.only가 source code에 남아있을 경우 build를 실패시킨다 */
   forbidOnly: !!process.env.CI,
   /* CI 환경에서 테스트를 재시도한다 */

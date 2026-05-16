@@ -35,7 +35,7 @@ export const MANUAL_DATA: Manual = {
       content: (
         <>'찾아줘'에 분실 게시물을 작성하면 물건을 습득한 분이 게시글을 통해 연락할 수 있어요.</>
       ),
-      href: "https://www.finditem.kr/write/post?type=lost/",
+      href: "https://www.finditem.kr/write/post?type=lost",
       btnText: "분실 게시글 쓰러가기",
     },
     {
@@ -71,7 +71,7 @@ export const MANUAL_DATA: Manual = {
           신청을 할 수 있어요.
         </>
       ),
-      href: "www.minwon.go.kr",
+      href: "https://plus.gov.kr",
       btnText: "민원 24 바로가기",
     },
     {
@@ -80,11 +80,11 @@ export const MANUAL_DATA: Manual = {
         <>
           핸드폰 분실 시 통신사 고객센터(114)나 직영대리점, 통신사 홈페이지를 통해 분실신고와
           발신정지를 해야 해요. <br />
-          <br /> 또한 핸드폰 찾기 콜센터(https://www.handphone.co.kr/lostinfo.php)에서 핸드폰
-          습득물을 조회할 수 있어요.
+          <br /> 또한 핸드폰 찾기 콜센터(https://www.handphone.or.kr)에서 핸드폰 습득물을 조회할 수
+          있어요.
         </>
       ),
-      href: "https://www.handphone.co.kr/lostinfo.php",
+      href: "https://www.handphone.or.kr",
       btnText: "핸드폰 습득물 보러가기",
     },
   ],
@@ -93,11 +93,11 @@ export const MANUAL_DATA: Manual = {
       title: "경찰청 신고 내역을 확인했나요?",
       content: (
         <>
-          경찰청 유실물 종합 포털(https://www.lost112.go.kr/)에서 분실 신고가 접수된 유실물 목록을
+          경찰청 유실물 종합 포털(https://www.lost112.go.kr)에서 분실 신고가 접수된 유실물 목록을
           확인해 보세요.
         </>
       ),
-      href: "https://www.lost112.go.kr/",
+      href: "https://www.lost112.go.kr",
       btnText: "경찰청 바로가기",
     },
     {
@@ -115,11 +115,11 @@ export const MANUAL_DATA: Manual = {
       title: "습득물 신고를 하셨나요?",
       content: (
         <>
-          물건을 습득한 경우 경찰청 유실물 종합 포털(https://www.lost112.go.kr/)이나 가까운 경찰서에
+          물건을 습득한 경우 경찰청 유실물 종합 포털(https://www.lost112.go.kr)이나 가까운 경찰서에
           방문하여 습득 신고를 할 수 있어요.
         </>
       ),
-      href: "https://www.lost112.go.kr/",
+      href: "https://www.lost112.go.kr",
       btnText: "습득 신고 하러가기",
     },
   ],
@@ -128,11 +128,11 @@ export const MANUAL_DATA: Manual = {
       title: "경찰청 습득물 목록을 확인했나요?",
       content: (
         <>
-          먼저 경찰청 유실물 종합 포털(https://www.lost112.go.kr/)을 통해 경찰청에서 보관 중인
+          먼저 경찰청 유실물 종합 포털(https://www.lost112.go.kr)을 통해 경찰청에서 보관 중인
           유실물을 확인해 보세요.
         </>
       ),
-      href: "https://www.lost112.go.kr/",
+      href: "https://www.lost112.go.kr",
       btnText: "경찰청 바로가기",
     },
     {
