@@ -76,7 +76,7 @@ describe("useMakeDate", () => {
       expect(result.current.selectDate.day).toBe(20);
     });
 
-    it("month 변경 시 day가 해당 월 최대 일수를 초과하면 최대값으로 보정된다 (1월 31일 → 2월 28일)", () => {
+    it("month 변경 시 day가 해당 월 최대 일수를 초과하면 최대값으로 보정된다 (1월 31일 -> 2월 28일)", () => {
       const queryDate = { year: 2025, month: 1, day: 31 };
       const { result } = renderHook(() => useMakeDate(queryDate));
       act(() => {

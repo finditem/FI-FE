@@ -19,7 +19,7 @@ jest.mock("@/hooks", () => ({
 }));
 
 jest.mock("@/utils", () => ({
-  applyFiltersToUrl: (...args: any[]) => mockApplyFiltersToUrl(...args),
+  applyFiltersToUrl: (...args: any[]) => mockApplyFiltersToUrl.apply(null, args),
   cn: (...args: any[]) => args.filter(Boolean).join(" "),
   highlightText: (text: string) => text,
 }));
@@ -130,7 +130,7 @@ describe("<FilterBottomSheet />", () => {
       expect(setFilters).toHaveBeenCalled();
     });
 
-    it("검색어 2글자 이상 + 결과 없음 → '검색 결과가 없습니다.' 표시", () => {
+    it("검색어 2글자 이상 + 결과 없음 -> '검색 결과가 없습니다.' 표시", () => {
       render(
         <FilterBottomSheet
           {...defaultProps}
@@ -166,7 +166,7 @@ describe("<FilterBottomSheet />", () => {
       expect(setFilters).toHaveBeenCalled();
     });
 
-    it("검색어 2글자 이상 → 지우기 버튼 표시, 클릭 시 setFilters 호출", () => {
+    it("검색어 2글자 이상 -> 지우기 버튼 표시, 클릭 시 setFilters 호출", () => {
       const setFilters = jest.fn();
       render(
         <FilterBottomSheet
