@@ -30,7 +30,7 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
     likeCount: likeCount || 0,
     commentCount: commentCount || 0,
     viewCount: viewCount || 0,
-    link: window.location.href,
+    link: typeof window !== "undefined" ? window.location.href : "",
   };
 
   return (

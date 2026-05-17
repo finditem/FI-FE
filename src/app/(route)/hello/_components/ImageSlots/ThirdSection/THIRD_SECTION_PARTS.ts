@@ -1,5 +1,5 @@
 export const PHONE = {
-  src: "/hello/third/service-third-phone-layout.svg",
+  src: "/hello/third/service-third-phone-layout.webp",
   width: 200,
   height: 270,
 } as const;

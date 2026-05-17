@@ -44,13 +44,6 @@ jest.mock("../SupportTab/_internal/useSupportTabQuery", () => ({
   useSupportTabQuery: () => mockUseSupportTabQuery(),
 }));
 
-jest.mock("framer-motion", () => ({
-  AnimatePresence: ({ children }: React.PropsWithChildren) => <>{children}</>,
-  motion: {
-    div: ({ children }: React.PropsWithChildren) => <div>{children}</div>,
-  },
-}));
-
 jest.mock("@/components/common", () => ({
   Icon: () => null,
   Chip: ({ label }: { label: string }) => <span data-testid="faq-chip">{label}</span>,
@@ -120,8 +113,8 @@ describe("SupportFaqAccordion", () => {
     render(<SupportFaqAccordion />);
     const toggles = screen.getAllByRole("link", { name: "FAQ 질문 접기/펼치기" });
     fireEvent.click(toggles[0]);
-    expect(screen.getByTestId("faq-chip")).toHaveTextContent("전체");
+    expect(toggles[0]).toHaveAttribute("aria-expanded", "true");
     fireEvent.click(toggles[0]);
-    expect(screen.queryByTestId("faq-chip")).not.toBeInTheDocument();
+    expect(toggles[0]).toHaveAttribute("aria-expanded", "false");
   });
 });

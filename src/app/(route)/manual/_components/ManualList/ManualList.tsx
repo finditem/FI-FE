@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/utils";
 import { Button, Icon } from "@/components/common";
 import { ManualItemType } from "../../_types/ManualType";
@@ -57,32 +56,29 @@ const ManualItem = ({ item, isOpen, onToggle }: ManualItemProps) => {
           <Icon name="ArrowDown" />
         </span>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full overflow-hidden bg-fill-neutral-strong-default"
-          >
-            <div className="flex flex-col items-start justify-center px-[20px] py-[24px] text-body2-regular text-layout-body-default">
-              <p className="mb-[26px]">{content}</p>
-              {href && (
-                <Link
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex w-full items-center justify-center gap-[6px] rounded-[10px] border border-neutral-normal-default bg-white py-[10px] text-center text-body2-semibold text-neutral-normal-default"
-                >
-                  {btnText}
-                  <Icon name="ArrowRightSmall" size={20} className="text-neutral-normal-default" />
-                </Link>
-              )}
-            </div>
-          </motion.div>
+      <div
+        className={cn(
+          "grid w-full transition-all duration-300 bg-fill-neutral-strong-default",
+          isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
         )}
-      </AnimatePresence>
+      >
+        <div className="overflow-hidden">
+          <div className="flex flex-col items-start justify-center px-[20px] py-[24px] text-body2-regular text-layout-body-default">
+            <p className="mb-[26px]">{content}</p>
+            {href && (
+              <Link
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-[6px] rounded-[10px] border border-neutral-normal-default bg-white py-[10px] text-center text-body2-semibold text-neutral-normal-default"
+              >
+                {btnText}
+                <Icon name="ArrowRightSmall" size={20} className="text-neutral-normal-default" />
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </li>
   );
 };

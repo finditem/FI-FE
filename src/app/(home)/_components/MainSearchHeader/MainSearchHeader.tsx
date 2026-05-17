@@ -10,6 +10,7 @@ import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
 import { useMainKakaoMapStore, useMainRecentSearch } from "@/store";
+import { trackSearch } from "@/utils/analytics/analytics";
 
 interface LocationFormValues {
   search: string;
@@ -69,6 +70,7 @@ const HeaderSearchForm = ({
     const trimmedSearch = search.trim();
     if (!trimmedSearch) return;
     addRecentSearch(trimmedSearch);
+    trackSearch(trimmedSearch);
     router.push(`/?search=${encodeURIComponent(trimmedSearch)}`);
     setFocused(false);
   };

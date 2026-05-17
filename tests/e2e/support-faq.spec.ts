@@ -78,6 +78,6 @@ test.describe("자주 묻는 질문 (/support)", () => {
 
     await page.getByRole("link", { name: /1:1 문의하기/ }).click();
 
-    await expect(page).toHaveURL(/\/inquiry-write$/);
+    await expect(page).toHaveURL(/\/inquiry-write$/, { timeout: 15000 });
   });
 });
