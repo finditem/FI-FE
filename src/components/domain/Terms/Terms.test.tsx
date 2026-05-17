@@ -164,6 +164,7 @@ describe("<Terms />", () => {
     it("isError=true이면 addToast가 경고 메시지로 호출된다", () => {
       mockIsError = true;
       render(<Terms termName="marketingConsent" pageType="TERM" />);
+      expect(mockAddToast).toHaveBeenCalledTimes(1);
       expect(mockAddToast).toHaveBeenCalledWith("정보를 불러오는데 실패했어요", "warning");
     });
   });

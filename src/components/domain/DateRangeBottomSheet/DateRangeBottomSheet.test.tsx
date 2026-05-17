@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import DateRangeBottomSheet from "./DateRangeBottomSheet";
+import { parseYmd } from "@/utils";
 
 const mockRouterReplace = jest.fn();
 const mockAddToast = jest.fn();
@@ -19,8 +20,13 @@ jest.mock("./_hooks/useMakeDate", () => ({
   default: (...args: any[]) => mockUseMakeDate(...args),
 }));
 
+let mockFilterParams: { startDate: string | undefined; endDate: string | undefined } = {
+  startDate: undefined,
+  endDate: undefined,
+};
+
 jest.mock("@/hooks/domain", () => ({
-  useFilterParams: () => ({ startDate: undefined, endDate: undefined }),
+  useFilterParams: () => mockFilterParams,
 }));
 
 jest.mock("@/context/ToastContext", () => ({
@@ -52,7 +58,7 @@ jest.mock("@/components/common", () => ({
 }));
 
 jest.mock("../../../utils/applyFiltersToUrl/applyFiltersToUrl", () => ({
-  applyFiltersToUrl: (...args: any[]) => mockApplyFiltersToUrl(...args),
+  applyFiltersToUrl: (...args: any[]) => mockApplyFiltersToUrl.apply(null, args),
 }));
 
 jest.mock("@/utils", () => ({
@@ -81,6 +87,7 @@ const defaultProps = {
 beforeEach(() => {
   jest.clearAllMocks();
   mockUseMakeDate.mockReturnValue(baseUseMakeDateReturn);
+  mockFilterParams = { startDate: undefined, endDate: undefined };
 });
 
 describe("<DateRangeBottomSheet />", () => {
@@ -207,6 +214,23 @@ describe("<DateRangeBottomSheet />", () => {
       expect(setFilters).toHaveBeenCalledWith(
         expect.objectContaining({ startDate: "2025-05-01", endDate: "2025-05-07" })
       );
+    });
+  });
+
+  describe("URL 쿼리 파라미터 초기값", () => {
+    it("URL에 startDate와 endDate가 있으면 parseYmd로 파싱한 값을 useMakeDate 초기값으로 전달한다", () => {
+      const parsedStart = { year: 2025, month: 3, day: 1 };
+      const parsedEnd = { year: 2025, month: 3, day: 15 };
+
+      mockFilterParams = { startDate: "2025-03-01", endDate: "2025-03-15" };
+      (parseYmd as jest.Mock).mockReturnValueOnce(parsedStart).mockReturnValueOnce(parsedEnd);
+
+      render(<DateRangeBottomSheet {...defaultProps} />);
+
+      expect(parseYmd).toHaveBeenCalledWith("2025-03-01");
+      expect(parseYmd).toHaveBeenCalledWith("2025-03-15");
+      expect(mockUseMakeDate).toHaveBeenCalledWith(parsedStart);
+      expect(mockUseMakeDate).toHaveBeenCalledWith(parsedEnd);
     });
   });
 });
