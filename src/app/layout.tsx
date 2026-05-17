@@ -41,7 +41,7 @@ const pretendard = localFont({
   ],
   variable: "--font-pretendard",
   display: "swap",
-  preload: false,
+  preload: true,
 });
 
 export const metadata: Metadata = {
