@@ -12,11 +12,9 @@ const MainKakaoMap = () => {
   const searchParams = useSearchParams();
   const triggerLevelReset = useMainKakaoMapStore((s) => s.triggerLevelReset);
   const triggerMarkerSheetSnap = useMainKakaoMapStore((s) => s.triggerMarkerSheetSnap);
-  const { mapCenter, mapLevel, isPermissionResolved, setMapLevel, setLatLng } = useMainKakaoMap();
+  const { mapCenter, mapLevel, setMapLevel, setLatLng } = useMainKakaoMap();
   const { data: markerData } = useGetMarker();
   const showPostMarkers = !isMarkerFetchDisabledByZoom(mapLevel);
-
-  if (!isPermissionResolved) return null;
 
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
     triggerLevelReset();
