@@ -1,4 +1,3 @@
-import { DEFAULT_LAT_LNG } from "@/constants";
 import { useMainKakaoMapStore } from "@/store";
 import {
   clearMainGeoSessionConfirmed,
@@ -19,7 +18,6 @@ const useMainKakaoMap = () => {
     triggerLevelReset,
   } = useMainKakaoMapStore();
   const [isPermissionResolved, setIsPermissionResolved] = useState(false);
-  const [mapCenter, setMapCenter] = useState(DEFAULT_LAT_LNG);
   const mapLevelRef = useRef(mapLevel);
   const prevLevelResetSignalRef = useRef(levelResetSignal);
 
@@ -92,11 +90,6 @@ const useMainKakaoMap = () => {
   }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerLevelReset]);
 
   useEffect(() => {
-    if (!isPermissionResolved) return;
-    setMapCenter(latLng);
-  }, [latLng, isPermissionResolved]);
-
-  useEffect(() => {
     mapLevelRef.current = mapLevel;
   }, [mapLevel]);
 
@@ -107,7 +100,7 @@ const useMainKakaoMap = () => {
   }, [levelResetSignal, setMapLevel]);
 
   return {
-    mapCenter,
+    mapCenter: latLng,
     mapLevel,
     setMapLevel,
     setLatLng,
