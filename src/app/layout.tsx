@@ -11,16 +11,37 @@ import { Metadata } from "next";
 import MSWProvider from "@/providers/MSWProvider";
 import AuthBootstrap from "./authBootStrap";
 import { NotificationSSEProvider } from "@/providers/NotificationSSEProvider";
-import { GoogleTagManager } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import { PWAProvider } from "@/providers/PWAProvider";
 import { WebPushProvider } from "@/providers/WebPushProvider";
 import TermsProvider from "@/providers/TermsProvider";
 
 const pretendard = localFont({
-  src: "../../public/fonts/PretendardVariable.woff2",
+  src: [
+    {
+      path: "../../public/fonts/Pretendard-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-SemiBold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/Pretendard-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-pretendard",
   display: "swap",
-  weight: "100 900",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -59,6 +80,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const isProd = process.env.VERCEL_ENV === "production";
+  const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
   const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID;
 
@@ -75,6 +97,7 @@ export default function RootLayout({
         <meta name="naver-site-verification" content="6e6273a72b1c013d4f54c30896dbdb7a6ab63945" />
       </head>
       <body className="mx-auto max-w-[768px] border-x-2 flex-col-center">
+        {isProd && gaId && <GoogleAnalytics gaId={gaId} />}
         {isProd && gtmId && <GoogleTagManager gtmId={gtmId} />}
         {isProd && clarityId && (
           <Script id="clarity-script" strategy="afterInteractive">
