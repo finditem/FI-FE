@@ -7,6 +7,7 @@ export const metadata: Metadata = {
     template: "%s | 찾아줘! 공지사항",
   },
   description: "찾아줘에 등록된 공지사항을 확인해 보세요.",
+  other: { "page-type": "notice" },
 };
 
 const Layout = ({ children }: { children: ReactNode }) => {

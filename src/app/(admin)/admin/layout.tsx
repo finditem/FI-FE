@@ -30,6 +30,7 @@ export const metadata: Metadata = {
     description: "접근 권한이 필요합니다.",
     images: [],
   },
+  other: { "page-type": "admin" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {
