@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button, ProfileAvatar } from "@/components/common";
 import { cn } from "@/utils";
 import { ImageResponse, userInformation } from "@/api/fetch/post";
-import ImageSection from "@/app/(route)/list/[id]/_components/PostDetailHeader/_internal/ImageSection/ImageSection";
+import ImageSection from "@/app/(route)/list/[id]/_components/_internal/ImageSection/ImageSection";
 import PublicCallBottomSheet from "../PublicCallBottomSheet/PublicCallBottomSheet";
 import Image from "next/image";
 

@@ -8,7 +8,7 @@ import { cn } from "@/utils";
 import { FilterTab } from "@/components/domain/FilterSectionBottomSheet/_types/types";
 import { PUBLIC_CATEGORY_CODES, PUBLIC_REGION_CODES } from "@/constants";
 import { PublicFilterStateType } from "../../../_types/PublicFilterStateType";
-import { PUBLIC_DEFAULT_TABS } from "../../../_constants/PUBLIC_DEFAULT_FILTERS";
+import { PUBLIC_DEFAULT_TABS } from "../../PUBLIC_DATA_CONST";
 
 interface PublicDataFilterBottomSheetProps {
   isOpen: boolean;

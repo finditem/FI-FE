@@ -7,7 +7,7 @@ import { useFilterParams } from "@/hooks/domain";
 import { PUBLIC_CATEGORY_CODES, PUBLIC_REGION_CODES } from "@/constants";
 import PublicDataFilterBottomSheet from "../PublicDataFilterBottomSheet/PublicDataFilterBottomSheet";
 import { PublicFilterStateType } from "../../../_types/PublicFilterStateType";
-import { PUBLIC_DEFAULT_FILTERS } from "../../../_constants/PUBLIC_DEFAULT_FILTERS";
+import { PUBLIC_DEFAULT_FILTERS } from "../../PUBLIC_DATA_CONST";
 
 const PublicDataFilterSection = () => {
   const { region, category } = useFilterParams();
