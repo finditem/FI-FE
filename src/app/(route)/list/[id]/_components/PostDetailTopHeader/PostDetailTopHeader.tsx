@@ -9,7 +9,7 @@ import {
   HeaderStar,
 } from "@/components/layout/DetailHeader/DetailHeaderParts";
 import { PostActionData } from "../../_types/PostActionType";
-import { useToggleFavorite } from "../../_hooks/useToggleFavorite";
+import { useToggleFavorite } from "../../_hooks/useToggleFavorite/useToggleFavorite";
 import { useClickOutside } from "@/hooks";
 import { ContentShareModal } from "@/components/domain";
 import { useGetMetaData } from "@/api/fetch/post";
