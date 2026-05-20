@@ -1,5 +1,10 @@
 import { DetailHeader } from "@/components/layout";
 import { ReactNode } from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  other: { "page-type": "admin-notice-write" },
+};
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
