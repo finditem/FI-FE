@@ -1,4 +1,4 @@
-import { FourthSection, HeroSection, SecondSection, ThirdSection } from "../_components/ImageSlots";
+import { FourthSection, HeroSection, SecondSection, ThirdSection } from "./ImageSlots";
 
 export const FEATURES = [
   {
