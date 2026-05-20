@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetUsersMePosts } from "@/api/fetch/user";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import {
   FindStatusFilterValue,
   StatusFilterValue,

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useGetMarketingPosts } from "@/api/fetch/admin";
 import { PostListItem, EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 import { ContentAgreeFilter } from "../_internal";
 

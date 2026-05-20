@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetUserComments } from "@/api/fetch/user/api/useGetUserComments";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { LoadingState, CommentCard, MypageEmptyUI } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";

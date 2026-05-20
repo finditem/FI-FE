@@ -1,6 +1,6 @@
 "use client";
 
-import { useFilterParams, useFilterSync } from "@/hooks/domain";
+import { useFilterParams, useFilterSync } from "@/hooks";
 import { useState } from "react";
 import { INQUIRIES_KEBAB_OPTIONS, INQUIRIES_LABEL_MAP } from "../../_constants/INQUIRY_LABEL";
 import { filterSelectionState, normalizedFilterValues, normalizeEnumValue } from "@/utils";

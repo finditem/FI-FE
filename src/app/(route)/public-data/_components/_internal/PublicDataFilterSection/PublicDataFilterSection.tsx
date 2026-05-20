@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Filter, FilterTab } from "@/components";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { PUBLIC_CATEGORY_CODES, PUBLIC_REGION_CODES } from "@/constants";
 import PublicDataFilterBottomSheet from "../PublicDataFilterBottomSheet/PublicDataFilterBottomSheet";
 import { PublicFilterStateType } from "../../../_types/PublicFilterStateType";

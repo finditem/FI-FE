@@ -9,7 +9,7 @@ import {
   findStatus as findStatusOptions,
 } from "@/components";
 import { useClickOutside } from "@/hooks";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { AdminDropdown } from "@/app/(admin)/admin/_components";
 import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
 

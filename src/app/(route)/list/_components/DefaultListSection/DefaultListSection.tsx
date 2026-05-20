@@ -5,7 +5,7 @@ import { FilterSection, Tab } from "@/components";
 import { ItemStatus } from "@/types";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { DefaultList } from "../_internal";
 import { TABS } from "../LIST_CONST";
 

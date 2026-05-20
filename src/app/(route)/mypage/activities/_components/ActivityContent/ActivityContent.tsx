@@ -6,7 +6,7 @@ import { ACTIVITY_STYLE_CONFIG } from "../../_constants/ACTIVITY_STYLE_CONFIG";
 import formatHHMM from "../../_utils/formatHHMM";
 import { ActivityEachItemType, ActivityGroupItemType, useGetUserActivity } from "@/api/fetch/user";
 import { useToast } from "@/context/ToastContext";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { useInfiniteScroll } from "@/hooks";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";

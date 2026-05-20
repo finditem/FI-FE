@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { normalizeEnumValue } from "@/utils";
 import {
   ACTIVITY_DEFAULT_FILTERS,

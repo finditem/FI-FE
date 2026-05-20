@@ -1,6 +1,6 @@
 import { useGetUserMeFavorites } from "@/api/fetch/user";
 import { StatusFilterValue, LoadingState, MypageEmptyUI, PostListItem } from "@/components";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useSearchParams } from "next/navigation";

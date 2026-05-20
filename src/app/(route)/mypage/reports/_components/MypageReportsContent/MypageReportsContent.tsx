@@ -4,7 +4,7 @@ import { ReportItemType, useGetUserReports } from "@/api/fetch/report";
 import { Chip, MypageEmptyUI, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { formatDate, highlightText } from "@/utils";
 import Link from "next/link";
 import { useEffect } from "react";

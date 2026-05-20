@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { Button, InputText } from "@/components";
 import { cn } from "@/utils";
 import Link from "next/link";
-import { useFindPwSubmit } from "@/hooks/domain";
+import { useFindPwSubmit } from "@/hooks";
 import { ApiFindPwType } from "@/api/fetch/auth";
 
 const FindPwForm = () => {

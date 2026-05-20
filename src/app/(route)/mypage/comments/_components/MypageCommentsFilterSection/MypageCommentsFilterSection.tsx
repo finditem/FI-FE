@@ -2,7 +2,7 @@
 
 import { Filter, KebabMenu, DateRangeBottomSheet } from "@/components";
 import { useState } from "react";
-import { useFilterParams, useFilterSync } from "@/hooks/domain";
+import { useFilterParams, useFilterSync } from "@/hooks";
 import { getDateRangeLabel, normalizeEnumValue } from "@/utils";
 import {
   filterSelectionState,
