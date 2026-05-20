@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ScrollToTopButton } from "@/components/common";
 
 export const metadata: Metadata = {
-  other: { "page-type": "public-data" },
+  other: { "page-type": "public-data-list" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {
