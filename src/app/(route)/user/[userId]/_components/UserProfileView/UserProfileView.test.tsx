@@ -25,7 +25,7 @@ jest.mock("@/api/fetch/user", () => ({
   useGetUserProfileById: (...args: unknown[]) => mockUseGetUserProfileById(...args),
 }));
 
-jest.mock("../../_hooks/useUserProfileTabQuery", () => ({
+jest.mock("../../_hooks/useUserProfileTabQuery/useUserProfileTabQuery", () => ({
   useUserProfileTabQuery: () => mockUseUserProfileTabQuery(),
 }));
 
