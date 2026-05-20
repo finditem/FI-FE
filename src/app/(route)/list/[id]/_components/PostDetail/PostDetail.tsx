@@ -1,6 +1,6 @@
 import type { PostDetailData } from "@/api/fetch/post/types/PostDetailType";
-import { PostDetailBody, PostDetailPreviewKakaoMap } from "./_internal";
 import PostDetailHeader from "../PostDetailHeader/PostDetailHeader";
+import { PostDetailBody, PostDetailPreviewKakaoMap } from "../_internal";
 
 interface PostDetailProps {
   data: PostDetailData;

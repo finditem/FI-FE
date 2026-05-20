@@ -2,12 +2,12 @@
 
 import { useGetPosts } from "@/api/fetch/post";
 import { FilterSection, Tab } from "@/components/domain";
-import { TABS } from "../../_constants/TABS";
 import { ItemStatus } from "@/types";
+import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 import { useFilterParams } from "@/hooks/domain";
 import { DefaultList } from "../_internal";
-import { ErrorBoundary } from "@/app/ErrorBoundary";
+import { TABS } from "../LIST_CONST";
 
 type PostType = "LOST" | "FOUND";
 

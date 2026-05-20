@@ -10,7 +10,7 @@ import {
   SIDE_MESSAGES,
 } from "./THIRD_SECTION_PARTS";
 import "./ThirdSection.css";
-import { useInView } from "../../../_hooks";
+import { useInView } from "../../../_hooks/useInView/useInView";
 
 const ThirdSection = () => {
   const { ref, inView } = useInView();

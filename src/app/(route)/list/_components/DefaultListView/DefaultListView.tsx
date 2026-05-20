@@ -3,9 +3,9 @@
 import { useSearchUpdateQueryString } from "@/hooks";
 import { DetailHeader } from "@/components/layout";
 import DefaultListSection from "../DefaultListSection/DefaultListSection";
-import { SEARCH_HEADER_TITLE } from "../../_constants/SEARCH_HEADER_TITLE";
 import { HeaderSearch } from "@/components/layout/DetailHeader/DetailHeaderParts";
 import DefaultListSearch from "../DefaultListSearch/DefaultListSearch";
+import { SEARCH_HEADER_TITLE } from "../LIST_CONST";
 
 const DefaultListView = () => {
   const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString();
