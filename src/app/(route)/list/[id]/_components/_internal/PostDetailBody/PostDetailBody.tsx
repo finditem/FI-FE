@@ -2,7 +2,7 @@ import { Icon } from "@/components/common";
 import { PostDetailData } from "@/api/fetch/post";
 import { formatDate, formatViewCount } from "@/utils";
 import PostChipSection from "../PostChipSection/PostChipSection";
-import { useToggleFavorite } from "../../../../_hooks/useToggleFavorite";
+import { useToggleFavorite } from "../../../_hooks/useToggleFavorite/useToggleFavorite";
 
 interface PostDetailBodyProps {
   data: PostDetailData;

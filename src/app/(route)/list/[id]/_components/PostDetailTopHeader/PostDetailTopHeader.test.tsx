@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PostDetailTopHeader from "./PostDetailTopHeader";
-import { useToggleFavorite } from "../../_hooks/useToggleFavorite";
+import { useToggleFavorite } from "../../_hooks/useToggleFavorite/useToggleFavorite";
 import { useGetMetaData } from "@/api/fetch/post";
 
 jest.mock("next/navigation", () => ({
@@ -18,7 +18,7 @@ jest.mock("next/image", () => ({
   default: (props: any) => <img {...props} alt={props.alt ?? ""} />,
 }));
 
-jest.mock("../../_hooks/useToggleFavorite");
+jest.mock("../../_hooks/useToggleFavorite/useToggleFavorite");
 
 jest.mock("@/api/fetch/post", () => ({
   useGetMetaData: jest.fn(),
