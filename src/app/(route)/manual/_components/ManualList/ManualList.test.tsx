@@ -22,7 +22,7 @@ jest.mock("@/utils", () => ({
   cn: (...args: any[]) => args.filter(Boolean).join(" "),
 }));
 
-jest.mock("../../_constants/MANUAL_CONSTANT", () => ({
+jest.mock("../MANUAL_CONST", () => ({
   MANUAL_DATA: {
     lost: [
       {
