@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { cn } from "@/utils";
-import { Button, Icon } from "@/components/common";
-import { ManualItemType } from "../../_types/ManualType";
-import { MANUAL_DATA } from "../../_constants/MANUAL_CONSTANT";
+import { Icon } from "@/components/common";
+import { MANUAL_DATA } from "../MANUAL_CONST";
+import type { ManualItemType } from "../../_types/ManualType";
 
 interface ManualListProps {
   openIndex: number | null;

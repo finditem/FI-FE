@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Button, ProfileAvatar } from "@/components/common";
-import ImageSection from "./_internal/ImageSection/ImageSection";
 import { cn, formatCappedNumber } from "@/utils";
 import { ImageResponse, userInformation } from "@/api/fetch/post";
+import { ImageSection } from "../_internal";
 
 type HeaderData = {
   id: string;

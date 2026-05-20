@@ -4,7 +4,7 @@ import Image from "next/image";
 import { cn } from "@/utils";
 import "./SecondSection.css";
 import { IMAGES } from "./SECOND_SECTION_IMAGES";
-import { useInView } from "../../../_hooks";
+import { useInView } from "../../../_hooks/useInView/useInView";
 
 const SecondSection = () => {
   const { ref, inView } = useInView({ threshold: 0.5 });
