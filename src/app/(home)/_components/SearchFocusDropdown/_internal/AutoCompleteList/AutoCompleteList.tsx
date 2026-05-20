@@ -49,6 +49,7 @@ const AutoCompleteList = ({ searchKeyword, setFocused }: AutoCompleteListProps) 
         return (
           <li key={address}>
             <button
+              tabIndex={0}
               type="button"
               aria-label="자동완성 지역 검색어 클릭"
               onClick={() => handleSelect(item)}
