@@ -3,7 +3,7 @@
 import { ChangeEvent, TextareaHTMLAttributes, useEffect, useRef, useState } from "react";
 import { cn, textareaAutoResize, fileInputHandler, textareaSubmitKeyHandler } from "@/utils";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import InputChatImageSection from "./_internal/InputChatImageSection";
 import { SelectedImage } from "@/types/SelectedImage";
 

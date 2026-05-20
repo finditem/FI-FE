@@ -1,4 +1,4 @@
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

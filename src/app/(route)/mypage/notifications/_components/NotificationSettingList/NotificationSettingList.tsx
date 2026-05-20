@@ -1,10 +1,9 @@
 "use client";
 
-import { ToggleButton } from "@/components/common";
+import { ToggleButton, LoadingState } from "@/components";
 import { NOTIFICATION_CONFIG } from "../../_constants/NOTIFICATION_ITEM";
 import NotificationSettingItem from "../NotificationSettingItem/NotificationSettingItem";
 import { useGetNotificationSetting } from "@/api/fetch/notification";
-import { LoadingState } from "@/components/state";
 import { useToggleClick } from "../../_hooks/useToggleClick";
 import { DEFAULT_NOTIFICATION_SETTING } from "../../_constants/DEFAULT_NOTIFICATION_SETTING";
 import { useEffect } from "react";

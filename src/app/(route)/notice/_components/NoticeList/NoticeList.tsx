@@ -1,8 +1,7 @@
-import { Badge, Icon, ListItemImage } from "@/components/common";
+import { Badge, Icon, ListItemImage, EmptyState } from "@/components";
 import Link from "next/link";
 import { NoticeItem } from "@/api/fetch/notice";
 import { formatDate, highlightText } from "@/utils";
-import { EmptyState } from "@/components/state";
 import { useSearchParams } from "next/navigation";
 
 const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {

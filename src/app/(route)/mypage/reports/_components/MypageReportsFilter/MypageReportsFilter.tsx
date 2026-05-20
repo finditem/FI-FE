@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter, KebabMenu } from "@/components/common";
+import { Filter, KebabMenu } from "@/components";
 import { useFilterParams, useFilterSync } from "@/hooks/domain";
 import { filterSelectionState, normalizedFilterValues, normalizeEnumValue } from "@/utils";
 import { useState } from "react";

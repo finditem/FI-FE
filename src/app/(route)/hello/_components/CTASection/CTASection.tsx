@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/common";
+import { Button } from "@/components";
 import { cn } from "@/utils";
 
 const CTASection = () => {

@@ -1,9 +1,7 @@
 "use client";
 
 import { InquiryItemType, useGetUserInquiries } from "@/api/fetch/inquiry";
-import { Chip } from "@/components/common";
-import { MypageEmptyUI } from "@/components/domain";
-import { LoadingState } from "@/components/state";
+import { Chip, MypageEmptyUI, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks/domain";

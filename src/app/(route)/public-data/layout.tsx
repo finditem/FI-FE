@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { ScrollToTopButton } from "@/components/common";
+import { ScrollToTopButton } from "@/components";
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (

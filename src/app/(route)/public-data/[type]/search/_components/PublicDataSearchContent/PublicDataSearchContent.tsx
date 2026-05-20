@@ -1,9 +1,8 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { InputSearch } from "@/components/common";
+import { InputSearch, Tab } from "@/components";
 import PublicDataSearchList from "../PublicDataSearchList/PublicDataSearchList";
-import { Tab } from "@/components/domain";
 import { usePublicDataTabQuery } from "@/app/(route)/public-data/_hooks/usePublicDataTabQuery/usePublicDataTabQuery";
 import PublicDataBeforeSearch from "../PublicDataBeforeSearch/PublicDataBeforeSearch";
 import useRecentSearch from "../../_hooks/useRecentSearch/useRecentSearch";

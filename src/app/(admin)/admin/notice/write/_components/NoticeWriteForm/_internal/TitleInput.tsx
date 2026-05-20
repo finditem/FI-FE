@@ -1,4 +1,4 @@
-import { RequiredText } from "@/components/common";
+import { RequiredText } from "@/components";
 import { useFormContext, useWatch } from "react-hook-form";
 import { NoticeWriteFormValues } from "../../../_types/NoticeWriteType";
 

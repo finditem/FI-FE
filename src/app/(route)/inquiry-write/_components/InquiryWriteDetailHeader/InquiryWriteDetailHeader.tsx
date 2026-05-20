@@ -1,5 +1,4 @@
-import { DetailHeader } from "@/components/layout";
-import { HeaderPost } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { DetailHeader, HeaderPost } from "@/components";
 
 interface InquiryWriteDetailHeaderProps {
   isDisabled: boolean;

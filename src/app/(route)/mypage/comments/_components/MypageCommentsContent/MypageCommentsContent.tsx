@@ -2,9 +2,8 @@
 
 import { useGetUserComments } from "@/api/fetch/user/api/useGetUserComments";
 import { useFilterParams } from "@/hooks/domain";
-import { LoadingState } from "@/components/state";
+import { LoadingState, CommentCard, MypageEmptyUI } from "@/components";
 import { useToast } from "@/context/ToastContext";
-import { CommentCard, MypageEmptyUI } from "@/components/domain";
 import { useInfiniteScroll } from "@/hooks";
 import { useEffect } from "react";
 import { useSearchParams } from "next/navigation";

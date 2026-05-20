@@ -1,8 +1,7 @@
 "use client";
 
 import { Suspense, useState } from "react";
-import { ProfileEditSection } from "@/components/domain";
-import { AdminProfileChangeConfirmModal } from "@/components/domain/ProfileForm/_internal";
+import { ProfileEditSection, AdminProfileChangeConfirmModal } from "@/components";
 
 const page = () => {
   const [isOpen, setIsOpen] = useState(false);

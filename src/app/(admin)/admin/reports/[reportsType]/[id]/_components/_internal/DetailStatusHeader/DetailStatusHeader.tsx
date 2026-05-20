@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useParams } from "next/navigation";
 import { cn } from "@/utils";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { useClickOutside } from "@/hooks";
 import { InquiryStatus, ReportStatus } from "@/types";
 import {

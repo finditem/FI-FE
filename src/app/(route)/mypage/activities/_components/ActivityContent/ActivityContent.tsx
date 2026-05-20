@@ -1,12 +1,10 @@
 "use client";
 
-import Icon from "@/components/common/Icon/Icon";
+import { Icon, MypageEmptyUI, LoadingState } from "@/components";
 import { cn, highlightText } from "@/utils";
 import { ACTIVITY_STYLE_CONFIG } from "../../_constants/ACTIVITY_STYLE_CONFIG";
-import { MypageEmptyUI } from "@/components/domain";
 import formatHHMM from "../../_utils/formatHHMM";
 import { ActivityEachItemType, ActivityGroupItemType, useGetUserActivity } from "@/api/fetch/user";
-import { LoadingState } from "@/components/state";
 import { useToast } from "@/context/ToastContext";
 import { useFilterParams } from "@/hooks/domain";
 import { useInfiniteScroll } from "@/hooks";

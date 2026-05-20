@@ -8,7 +8,7 @@ import {
   InquiryStatusFilterState,
   InquiryStatusFilterValue,
 } from "../../_types/MypageInquiriesFilterType";
-import { Filter, KebabMenu } from "@/components/common";
+import { Filter, KebabMenu } from "@/components";
 
 const MypageInquiriesFilter = () => {
   const [isKebabMenu, setIsKebabMenu] = useState(false);

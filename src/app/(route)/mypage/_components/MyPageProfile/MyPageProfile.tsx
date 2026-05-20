@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, ProfileAvatar } from "@/components/common";
+import { Button, ProfileAvatar } from "@/components";
 
 interface ProfileProps {
   userData?: {

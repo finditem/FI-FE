@@ -2,8 +2,7 @@
 
 import { useRef } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { Icon } from "@/components/common";
-import ImagePreviewList from "@/components/domain/WriteImageSection/_internal/ImagePreviewList";
+import { Icon, ImagePreviewList } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { NoticeEditFormValues } from "../../../_types/NoticeEditFormValues";
 import { NoticeEditImageItem } from "../../../_types/NoticeEditImageItem";

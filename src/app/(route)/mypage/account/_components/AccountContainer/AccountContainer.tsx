@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetUsersMe } from "@/api/fetch/user";
-import { Icon, ProfileAvatar } from "@/components/common";
+import { Icon, ProfileAvatar } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useLogout } from "@/hooks";
 import Link from "next/link";

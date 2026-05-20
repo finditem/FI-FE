@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 
 export const metadata: Metadata = {
   title: "프로필 설정",

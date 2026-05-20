@@ -1,7 +1,6 @@
 "use client";
 
-import { DetailHeader } from "@/components/layout";
-import Search from "@/components/layout/DetailHeader/DetailHeaderParts/HeaderSearch";
+import { DetailHeader, HeaderSearch as Search } from "@/components";
 import { useRouter } from "next/navigation";
 
 const ContentAgreeHeader = () => {

@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { PopupLayout } from "@/components/domain";
-import { Button, RadioOptionItem } from "@/components/common";
+import { PopupLayout, Button, RadioOptionItem } from "@/components";
 import { AdminFilter, AdminSearch } from "../../../_components";
 import { WITHDRAWAL_REASON_OPTIONS } from "../../_constants/WITHDRAWAL_REASON_OPTIONS";
 import { WithdrawalReasonType } from "../../_types/WithdrawalReasonType";

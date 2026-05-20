@@ -1,4 +1,4 @@
-import { ProfileAvatar } from "@/components/common";
+import { ProfileAvatar } from "@/components";
 
 interface UserHeaderProps {
   data?: {

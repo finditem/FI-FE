@@ -1,7 +1,6 @@
 "use client";
 
-import { PostListItem } from "@/components/domain";
-import { EmptyState, LoadingState } from "@/components/state";
+import { PostListItem, EmptyState, LoadingState } from "@/components";
 import { UserCommentsDataType, UserPostsDataType, UserProfileItem } from "@/api/fetch/user";
 import { UserProfileTabKey } from "../../_types/UserProfileTabType";
 import { UserCommentItem } from "../_internal";

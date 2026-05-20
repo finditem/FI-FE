@@ -1,7 +1,7 @@
 "use client";
 
 import { FormProvider, useForm } from "react-hook-form";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { ChangePasswordForm } from "./_components";
 
 interface ChangePasswordFormType {

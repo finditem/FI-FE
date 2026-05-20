@@ -1,6 +1,6 @@
 "use client";
 
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { NoticeWriteForm } from "./_components";
 import { NoticeWriteFormValues } from "./_types/NoticeWriteType";

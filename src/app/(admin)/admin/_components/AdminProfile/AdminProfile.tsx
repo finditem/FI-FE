@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Button, ProfileAvatar } from "@/components/common";
+import { Button, ProfileAvatar } from "@/components";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { SkeletonAdminProfile } from "../_internal";
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Icon } from "@/components/common";
-import { BaseKakaoMap } from "@/components/domain";
+import { Icon, BaseKakaoMap } from "@/components";
 import { cn } from "@/utils";
 
 type MapData = {

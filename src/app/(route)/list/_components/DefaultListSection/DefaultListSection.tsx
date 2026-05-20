@@ -1,7 +1,7 @@
 "use client";
 
 import { useGetPosts } from "@/api/fetch/post";
-import { FilterSection, Tab } from "@/components/domain";
+import { FilterSection, Tab } from "@/components";
 import { ItemStatus } from "@/types";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";

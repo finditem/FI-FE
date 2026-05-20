@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
 import { Suspense, useEffect, useRef, useState } from "react";

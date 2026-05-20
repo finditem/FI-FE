@@ -2,8 +2,7 @@
 
 import { useEffect } from "react";
 import { useGetMarketingPosts } from "@/api/fetch/admin";
-import { PostListItem } from "@/components/domain";
-import { EmptyState, LoadingState } from "@/components/state";
+import { PostListItem, EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks/domain";
 import { useToast } from "@/context/ToastContext";

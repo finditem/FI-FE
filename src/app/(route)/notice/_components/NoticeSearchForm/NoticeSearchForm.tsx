@@ -1,7 +1,7 @@
 "use client";
 
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
-import { InputSearch } from "@/components/common";
+import { InputSearch } from "@/components";
 import { useSearchUpdateQueryString } from "@/hooks";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";

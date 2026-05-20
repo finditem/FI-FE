@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 
 const PublicDataSearchDetailHeader = () => {
   const params = useParams();
