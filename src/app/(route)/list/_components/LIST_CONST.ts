@@ -23,3 +23,26 @@ export const LIST_ITEM_MOCK = [
     body: "2025년 10월 1일부터 새로운 개인정보 처리방침이 적용됩니다. 주요 개정 내용은 제3자 제공 범위 확대 및 보관 기간 변경 사항이며, 자세한 내용은 공지사항 본문을 확인해 주세요.",
   },
 ];
+
+export const SEARCH_HEADER_TITLE = {
+  default: "게시글",
+  region: "지역 선택",
+  post: "게시글 검색",
+};
+
+export const TABS = [
+  {
+    key: "lost",
+    label: "분실",
+  },
+  {
+    key: "found",
+    label: "발견",
+  },
+];
+
+export const WRITE_MENU_STYLES = {
+  menuButton: "flex items-center gap-2 px-7 py-4",
+  menuLabel: "text-h3-medium text-neutral-normal-default",
+  findModalButton: "min-h-11 w-full",
+};
