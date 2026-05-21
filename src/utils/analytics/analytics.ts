@@ -1,5 +1,4 @@
 import { trackingEvent } from "../trackingEvent/trackingEvent";
-export { trackingEvent };
 
 // 글쓰기 페이지 진입
 export const trackPostStart = (type: "분실물" | "습득물") =>
