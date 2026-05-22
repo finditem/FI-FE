@@ -1,6 +1,6 @@
 "use client";
 
-import { BaseKakaoMap } from "@/components/domain";
+import { BaseKakaoMap } from "@/components";
 import { useMainKakaoMap } from "../../_hooks";
 import { useGetMarker, isMarkerFetchDisabledByZoom } from "@/api/fetch/mapController";
 import { useRouter, useSearchParams } from "next/navigation";

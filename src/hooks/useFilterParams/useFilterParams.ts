@@ -40,7 +40,7 @@ import {
   FindStatusFilterValue,
   SortFilterValue,
   StatusFilterValue,
-} from "../../../components/domain/FilterSectionBottomSheet/_types/types";
+} from "@/components/domain/FilterSectionBottomSheet/_types/types";
 import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
 import { SimpleSortType } from "@/types";
 import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";

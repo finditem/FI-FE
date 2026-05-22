@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 
 const LogoLink = () => {
   return (

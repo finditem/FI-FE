@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 
 export const metadata: Metadata = {
   title: "서비스 소개",

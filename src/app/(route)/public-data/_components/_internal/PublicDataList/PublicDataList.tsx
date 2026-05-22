@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { EmptyState, LoadingState } from "@/components/state";
+import { EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { PublicDataItem, PublicDataResponse } from "@/types";
 import { useToast } from "@/context/ToastContext";

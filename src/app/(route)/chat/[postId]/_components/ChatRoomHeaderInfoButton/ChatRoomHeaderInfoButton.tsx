@@ -1,7 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/common";
-import { ReportModal } from "@/components/domain";
+import { Icon, ReportModal } from "@/components";
 import { cn } from "@/utils";
 import { useState } from "react";
 import { INFO_OPTIONS } from "./_internal/INFO_OPTIONS";

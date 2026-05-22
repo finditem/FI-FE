@@ -1,6 +1,6 @@
 "use client";
 
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 
 const PostEditSkeleton = () => {
   return (

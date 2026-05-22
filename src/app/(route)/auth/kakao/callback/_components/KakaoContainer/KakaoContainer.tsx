@@ -4,11 +4,10 @@
 import { useApiKakaoLogin } from "@/api/fetch/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Terms, TermsAgreement } from "@/components/domain";
+import { Terms, TermsAgreement, ErrorView } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
 import { useAgreeStore } from "@/store";
-import { ErrorView } from "@/components/state";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
 
 const KakaoContainer = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { DeleteAccountContainer, DeleteComplete } from "./_components";
 import { Suspense, useState } from "react";
 import { DeleteAccountType, useDeleteAccount } from "@/api/fetch/user";

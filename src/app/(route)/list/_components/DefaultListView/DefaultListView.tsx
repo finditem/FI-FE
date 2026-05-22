@@ -1,9 +1,8 @@
 "use client";
 
 import { useSearchUpdateQueryString } from "@/hooks";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, HeaderSearch } from "@/components";
 import DefaultListSection from "../DefaultListSection/DefaultListSection";
-import { HeaderSearch } from "@/components/layout/DetailHeader/DetailHeaderParts";
 import DefaultListSearch from "../DefaultListSearch/DefaultListSearch";
 import { SEARCH_HEADER_TITLE } from "../LIST_CONST";
 

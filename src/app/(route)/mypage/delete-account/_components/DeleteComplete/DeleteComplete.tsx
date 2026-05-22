@@ -1,4 +1,4 @@
-import { Button, Icon } from "@/components/common";
+import { Button, Icon } from "@/components";
 import Link from "next/link";
 
 const DeleteComplete = () => {

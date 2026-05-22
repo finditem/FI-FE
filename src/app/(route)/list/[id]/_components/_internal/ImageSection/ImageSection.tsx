@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
-import { ImageViewerModal } from "@/components/domain";
+import { ImageViewerModal } from "@/components";
 
 import "swiper/css";
 import "swiper/css/pagination";

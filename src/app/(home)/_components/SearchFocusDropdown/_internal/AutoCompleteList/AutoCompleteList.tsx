@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { useVWorldAddressSearch } from "@/hooks";
 import { useMainRecentSearch } from "@/store";
 import type { VWorldAddressItem } from "@/types";

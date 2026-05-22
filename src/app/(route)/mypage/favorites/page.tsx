@@ -1,7 +1,6 @@
 "use client";
 
-import { FilterSection, MypageSearch } from "@/components/domain";
-import { DetailHeader } from "@/components/layout";
+import { FilterSection, MypageSearch, DetailHeader } from "@/components";
 import { MypageFavoritesContent } from "./_components";
 
 const page = () => {

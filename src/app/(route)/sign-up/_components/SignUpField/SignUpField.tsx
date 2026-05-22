@@ -1,12 +1,11 @@
 "use no memo";
 
 import { SIGNUP_INPUT_CONFIG } from "../../_constants/SIGNUP_INPUT_CONFIG";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, FooterButton } from "@/components";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useSignUpBtnClick } from "../../_hooks/useSignUpBtnClick";
 import { useEffect } from "react";
 import SignUpItem from "../SignUpItem/SignUpItem";
-import { FooterButton } from "@/components/domain";
 
 const SignUpField = ({ onNext }: { onNext: () => void }) => {
   const {

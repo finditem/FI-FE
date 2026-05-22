@@ -1,8 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { Icon } from "@/components/common";
-import { BaseKakaoMap } from "@/components/domain";
+import { Icon, BaseKakaoMap } from "@/components";
 import { cn, getMapLevelByRadius, parseNumber } from "@/utils";
 import { Radius } from "@/types";
 

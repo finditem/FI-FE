@@ -1,8 +1,7 @@
 "use client";
 
 import { useGetReportById } from "@/api/fetch/report";
-import { Chip } from "@/components/common";
-import { LoadingState } from "@/components/state";
+import { Chip, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { formatDate } from "@/utils";
 import { useEffect } from "react";

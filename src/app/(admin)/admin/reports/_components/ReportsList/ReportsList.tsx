@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useInfiniteScroll } from "@/hooks";
-import { EmptyState, LoadingState } from "@/components/state";
+import { EmptyState, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { toInquiryItemVM, toReportItemVM } from "../../../_utils/toReportsItemVM/toReportsItemVM";
 import { ReportsTabType } from "../../_types/ReportsTabType";

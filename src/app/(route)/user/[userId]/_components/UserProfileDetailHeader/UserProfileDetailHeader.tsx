@@ -2,9 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useParams } from "next/navigation";
-import { ReportModal } from "@/components/domain";
-import { DetailHeader } from "@/components/layout";
-import { HeaderMenu } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { ReportModal, DetailHeader, HeaderMenu } from "@/components";
 import { cn } from "@/utils";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { usePopoverOutsideClose } from "@/hooks";

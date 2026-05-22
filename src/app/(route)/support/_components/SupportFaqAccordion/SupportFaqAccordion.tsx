@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Chip, Icon } from "@/components/common";
+import { Button, Chip, Icon } from "@/components";
 import { cn } from "@/utils";
 import {
   FAQ_ITEMS,

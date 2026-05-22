@@ -1,6 +1,6 @@
 "use client";
 
-import { useFilterParams, useFilterSync } from "@/hooks/domain";
+import { useFilterParams, useFilterSync } from "@/hooks";
 import { useState } from "react";
 import { INQUIRIES_KEBAB_OPTIONS, INQUIRIES_LABEL_MAP } from "../../_constants/INQUIRY_LABEL";
 import { filterSelectionState, normalizedFilterValues, normalizeEnumValue } from "@/utils";
@@ -8,7 +8,7 @@ import {
   InquiryStatusFilterState,
   InquiryStatusFilterValue,
 } from "../../_types/MypageInquiriesFilterType";
-import { Filter, KebabMenu } from "@/components/common";
+import { Filter, KebabMenu } from "@/components";
 
 const MypageInquiriesFilter = () => {
   const [isKebabMenu, setIsKebabMenu] = useState(false);

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import { ScrollToTopButton } from "@/components/common";
+import { ScrollToTopButton } from "@/components";
 
 export const metadata: Metadata = {
   other: { "page-type": "public-data-list" },

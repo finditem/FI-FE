@@ -1,8 +1,7 @@
 "use client";
 
 import { useNotificationList } from "@/api/fetch/notification";
-import { DetailHeader } from "@/components/layout";
-import { HeaderDelete, HeaderSetting } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { DetailHeader, HeaderDelete, HeaderSetting } from "@/components";
 import { useRouter } from "next/navigation";
 
 const AlertDetailHeader = ({

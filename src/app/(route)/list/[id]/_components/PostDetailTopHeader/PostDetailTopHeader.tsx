@@ -1,17 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, HeaderMenu, HeaderShare, HeaderStar, ContentShareModal } from "@/components";
 import PostActionMenu from "../PostActionMenu/PostActionMenu";
-import {
-  HeaderMenu,
-  HeaderShare,
-  HeaderStar,
-} from "@/components/layout/DetailHeader/DetailHeaderParts";
 import { PostActionData } from "../../_types/PostActionType";
 import { useToggleFavorite } from "../../_hooks/useToggleFavorite/useToggleFavorite";
 import { useClickOutside } from "@/hooks";
-import { ContentShareModal } from "@/components/domain";
 import { useGetMetaData } from "@/api/fetch/post";
 
 interface PostDetailTopHeaderProps {
