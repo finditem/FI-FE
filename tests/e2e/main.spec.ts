@@ -137,7 +137,7 @@ test.describe("메인 페이지", () => {
     await waitForMainBottomSheetInteractive(page);
 
     const keyword = "테스트키워드";
-    const searchInput = page.getByPlaceholder("현재 위치 (위치 정보 허용 시)");
+    const searchInput = page.getByPlaceholder("장소, 주소를 입력해 주세요.");
     await searchInput.click();
     await searchInput.fill(keyword);
 
