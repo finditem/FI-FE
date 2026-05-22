@@ -59,7 +59,6 @@ const AutoCompleteList = ({
           <li key={address}>
             <button
               data-search-dropdown-item
-              tabIndex={0}
               type="button"
               aria-label="자동완성 지역 검색어 클릭"
               onClick={() => handleSelect(item)}
