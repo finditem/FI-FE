@@ -24,7 +24,6 @@ declare global {
   }
 }
 
-// GA4 스펙에 맞게 유연한 객체 타입을 받도록 확장
 export const trackingEvent = (action: string, params?: Record<string, any>) => {
   if (typeof window !== "undefined" && window.gtag) {
     const isProd = process.env.NODE_ENV === "production";
