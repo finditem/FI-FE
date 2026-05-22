@@ -1,4 +1,4 @@
-import { InputSearch } from "@/components/common";
+import { InputSearch } from "@/components";
 
 interface AdminSearchProps {
   placeholder?: string;

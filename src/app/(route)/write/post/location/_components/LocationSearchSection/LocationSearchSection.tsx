@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
-import { InputSearch } from "@/components/common";
+import { InputSearch } from "@/components";
 import { highlightText } from "@/utils";
 import { useVWorldAddressSearch } from "@/hooks";
 

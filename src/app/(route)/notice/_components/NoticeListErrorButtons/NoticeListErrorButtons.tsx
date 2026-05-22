@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common";
+import { Button } from "@/components";
 import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 

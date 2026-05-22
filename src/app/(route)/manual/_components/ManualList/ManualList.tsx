@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/utils";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { MANUAL_DATA } from "../MANUAL_CONST";
 import type { ManualItemType } from "../../_types/ManualType";
 

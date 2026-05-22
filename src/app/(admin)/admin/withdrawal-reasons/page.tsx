@@ -1,6 +1,5 @@
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, ScrollToTopButton } from "@/components";
 import { AdminWithdrawalReasonsView } from "./_components";
-import { ScrollToTopButton } from "@/components/common";
 
 export const dynamic = "force-dynamic";
 

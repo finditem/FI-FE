@@ -4,6 +4,7 @@ import { MOCK_WITHDRAW_REASON_LIST } from "@/mock/data";
 import { WITHDRAWAL_REASON_OPTIONS } from "../../_constants/WITHDRAWAL_REASON_OPTIONS";
 
 jest.mock("@/utils", () => ({
+  ...jest.requireActual("@/utils"),
   formatDate: (iso: string) => `formatted:${iso}`,
 }));
 

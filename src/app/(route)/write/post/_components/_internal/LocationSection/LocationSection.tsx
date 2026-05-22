@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/utils";
 import { useWriteStore } from "@/store";
-import { Icon, RequiredText } from "@/components/common";
+import { Icon, RequiredText } from "@/components";
 
 const LocationSection = () => {
   const { fullAddress } = useWriteStore();

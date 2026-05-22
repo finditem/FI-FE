@@ -1,8 +1,7 @@
 "use client";
 
 import { InquiriesCommentType } from "@/api/fetch/inquiry";
-import { Chip, ProfileAvatar } from "@/components/common";
-import { ImageViewerModal } from "@/components/domain";
+import { Chip, ProfileAvatar, ImageViewerModal } from "@/components";
 import { cn, formatDate } from "@/utils";
 import Image from "next/image";
 import { useState } from "react";

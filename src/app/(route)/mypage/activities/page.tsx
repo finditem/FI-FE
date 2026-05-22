@@ -1,5 +1,4 @@
-import { MypageSearch } from "@/components/domain";
-import { DetailHeader } from "@/components/layout";
+import { MypageSearch, DetailHeader } from "@/components";
 import { ActivityContent, ActivityFilterSection } from "./_components";
 
 const page = () => {

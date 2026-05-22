@@ -3,8 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { notFound } from "next/navigation";
 import { useGetDetailPost } from "@/api/fetch/post";
-import { DetailHeader } from "@/components/layout";
-import { WriteImageSection, WriteActionSection } from "@/components/domain";
+import { DetailHeader, WriteImageSection, WriteActionSection } from "@/components";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
 import usePostEditSubmit from "../../../_hooks/usePostEditSubmit/usePostEditSubmit";
 import usePostEditInit from "../../../_hooks/usePostEditInit/usePostEditInit";

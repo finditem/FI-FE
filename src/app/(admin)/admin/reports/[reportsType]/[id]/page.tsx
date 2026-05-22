@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, notFound } from "next/navigation";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { AdminReportsView, ReportsInputComment } from "./_components";
 import { VALID_TYPES } from "./_types/VALID_TYPES";
 import { ReportsType } from "./_types/ReportsType";

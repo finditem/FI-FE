@@ -2,7 +2,7 @@
 
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import RegionSearchView from "./_internal/RegionSearchView";
-import InputSearch from "@/components/common/Input/InputSearch/InputSearch";
+import { InputSearch } from "@/components";
 import { useRouter } from "next/navigation";
 
 const ListSearch = () => {

@@ -1,14 +1,11 @@
 "use client";
 
 import { useGetUsersMe } from "@/api/fetch/user";
-import { KebabMenu } from "@/components/common";
-import { DetailHeader } from "@/components/layout";
-import { HeaderMenu, HeaderShare } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { KebabMenu, DetailHeader, HeaderMenu, HeaderShare, ContentShareModal } from "@/components";
 import { useClickOutside } from "@/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NoticeDeleteModal from "./_internal/NoticeDeleteModal";
-import { ContentShareModal } from "@/components/domain";
 import { useGetNoticeDetail } from "@/api/fetch/notice";
 
 const NoticeDetailHeader = ({ id }: { id: number }) => {

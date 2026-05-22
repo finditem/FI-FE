@@ -1,7 +1,6 @@
 "use client";
 
-import { Button } from "@/components/common";
-import { LoadingState } from "@/components/state";
+import { Button, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { AdminDetailSection } from "@/app/(admin)/admin/_components";
 import { useGetDetailGuestInquiries } from "@/api/fetch/admin";

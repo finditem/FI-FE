@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon, ImageSelectButton } from "@/components/common";
+import { Icon, ImageSelectButton } from "@/components";
 import useSendImage from "@/api/fetch/chatMessage/api/useSendImage";
 import { useHandleSendImage } from "./useHandleSendImage";
 import {

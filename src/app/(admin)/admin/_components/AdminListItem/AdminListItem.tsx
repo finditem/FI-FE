@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Badge, Icon, ListItemImage } from "@/components/common";
+import { Badge, Icon, ListItemImage } from "@/components";
 import { formatDate } from "@/utils";
 import { NoticeItem } from "@/api/fetch/notice";
 

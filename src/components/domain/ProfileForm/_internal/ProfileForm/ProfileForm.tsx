@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { UsersMeType } from "@/api/fetch/user/types/UserMeType";
 import { Icon, InputText, KebabMenu, ProfileAvatar } from "@/components/common";
 import { FooterButton } from "@/components/domain";
-import { useNicknameCheck } from "@/hooks/domain";
+import { useNicknameCheck } from "@/hooks";
 import { useProfileFormSubmit } from "../../_hooks/useProfileFormSubmit";
 import { usePreventLeave } from "../../_hooks/usePreventLeave";
 import { useChangeImg } from "../../_hooks/useChangeImg";

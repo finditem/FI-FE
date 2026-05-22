@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { cn } from "@/utils";
 import { useMainRecentSearch } from "@/store";
 import { useRouter } from "next/navigation";

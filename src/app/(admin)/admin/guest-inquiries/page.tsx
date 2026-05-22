@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { GuestInquiriesView } from "./_components";
 
 const page = () => {

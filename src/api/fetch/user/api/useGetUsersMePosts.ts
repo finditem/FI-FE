@@ -5,7 +5,7 @@ import { CategoryType, ItemStatus, PostType } from "@/types";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { PostItem } from "../../post";
 import { useAuthStore } from "@/store";
-import { SortFilterValue } from "@/components/domain/FilterSectionBottomSheet/_types/types";
+import { SortFilterValue } from "@/components";
 
 interface useGetUsersMePostsParams {
   postType?: PostType;

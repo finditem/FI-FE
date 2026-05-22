@@ -1,6 +1,6 @@
 "use client";
 
-import { Chip, Icon } from "@/components/common";
+import { Chip, Icon } from "@/components";
 import { useHorizontalDragScroll } from "@/hooks";
 import Link from "next/link";
 import PublicMoreViewCard from "./PublicMoreViewCard";
@@ -28,7 +28,7 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
 
   return (
     <Link href={href} className="relative rounded-2xl border-[0.7px] border-divider-default">
-      <div className="bg-fill-neutralInversed-normal-pressed h-[120px] w-[123px] rounded-2xl">
+      <div className="h-[120px] w-[123px] rounded-2xl bg-fill-neutralInversed-normal-pressed">
         <div className="relative flex h-full w-full justify-center">
           {thumbnailImageUrl ? (
             <Image

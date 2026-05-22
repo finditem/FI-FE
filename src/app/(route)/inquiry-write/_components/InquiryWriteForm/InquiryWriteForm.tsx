@@ -1,7 +1,7 @@
 import { InquiryWriteFormValues } from "../../_types/InquiryWriteFormValues";
 import { FormProvider, UseFormReturn } from "react-hook-form";
 import { InquiryInput, InquiryCategoryButton, InquiryTextarea } from "./_internal";
-import { WriteImageSection } from "@/components/domain";
+import { WriteImageSection } from "@/components";
 import { useEffect } from "react";
 
 interface InquiryWriteFormProps {

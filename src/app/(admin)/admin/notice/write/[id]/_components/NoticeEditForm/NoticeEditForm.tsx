@@ -6,7 +6,7 @@ import {
   ContentInput,
   CategoryInput,
 } from "../../../_components/NoticeWriteForm/_internal";
-import { WriteActionSection } from "@/components/domain";
+import { WriteActionSection } from "@/components";
 import { NoticeEditFormValues } from "../../_types/NoticeEditFormValues";
 import { useSubmitNoticeEdit } from "./_internal/useSubmitNoticeEdit";
 import NoticeEditImageSection from "./_internal/NoticeEditImageSection";

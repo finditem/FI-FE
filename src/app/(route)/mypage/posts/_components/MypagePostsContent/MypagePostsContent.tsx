@@ -1,15 +1,16 @@
 "use client";
 
 import { useGetUsersMePosts } from "@/api/fetch/user";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import {
   FindStatusFilterValue,
   StatusFilterValue,
-} from "@/components/domain/FilterSectionBottomSheet/_types/types";
-import { LoadingState } from "@/components/state";
+  LoadingState,
+  MypageEmptyUI,
+  PostListItem,
+} from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
-import { MypageEmptyUI, PostListItem } from "@/components/domain";
 import { useSearchParams } from "next/navigation";
 
 const MypagePostsContent = () => {

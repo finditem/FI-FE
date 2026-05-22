@@ -1,6 +1,5 @@
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, MypageSearch } from "@/components";
 import { MypageCommentsContent, MypageCommentsFilterSection } from "./_components";
-import { MypageSearch } from "@/components/domain";
 
 const page = () => {
   return (

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useGetGuestInquiries } from "@/api/fetch/admin";
-import { EmptyState, LoadingState } from "@/components/state";
+import { EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 import { AdminReportsItem } from "../../../_components";

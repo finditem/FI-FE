@@ -1,4 +1,4 @@
-import { IconName } from "@/components/common/Icon/Icon";
+import { IconName } from "@/components";
 
 export const DEFAULT_ICON = {
   name: "ArrowDown" as IconName,
