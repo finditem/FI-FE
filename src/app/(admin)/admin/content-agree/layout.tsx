@@ -4,6 +4,7 @@ import { ScrollToTopButton } from "@/components/common";
 
 export const metadata: Metadata = {
   title: "콘텐츠 활용 동의",
+  other: { "page-type": "admin-content-agree" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {
