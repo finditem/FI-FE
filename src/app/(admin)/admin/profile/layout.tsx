@@ -4,6 +4,7 @@ import { DetailHeader } from "@/components";
 
 export const metadata: Metadata = {
   title: "프로필 설정",
+  other: { "page-type": "admin-profile-settings" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {

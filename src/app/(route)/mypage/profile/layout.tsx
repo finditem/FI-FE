@@ -5,6 +5,7 @@ import { DetailHeader } from "@/components";
 export const metadata: Metadata = {
   title: "프로필 설정",
   description: "나의 찾아줘 프로필을 관리해 보세요.",
+  other: { "page-type": "mypage-profile" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {

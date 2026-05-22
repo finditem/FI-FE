@@ -4,6 +4,7 @@ import { ScrollToTopButton } from "@/components";
 
 export const metadata: Metadata = {
   title: "비회원 문의 내역",
+  other: { "page-type": "admin-guest-inquiries" },
 };
 
 const layout = ({ children }: { children: ReactNode }) => {

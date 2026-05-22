@@ -1,5 +1,10 @@
 import { ReactNode } from "react";
+import type { Metadata } from "next";
 import { DetailHeader } from "@/components";
+
+export const metadata: Metadata = {
+  other: { "page-type": "mypage-blocked-users" },
+};
 
 const layout = ({ children }: { children: ReactNode }) => {
   return (
