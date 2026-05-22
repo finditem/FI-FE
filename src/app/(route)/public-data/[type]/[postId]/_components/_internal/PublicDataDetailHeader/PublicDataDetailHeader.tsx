@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ContentShareModal } from "@/components/domain";
-import { DetailHeader } from "@/components/layout";
-import { HeaderShare } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { ContentShareModal, DetailHeader, HeaderShare } from "@/components";
 
 interface PublicDataDetailHeaderProps {
   metaData: {

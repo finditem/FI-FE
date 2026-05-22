@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef, ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { SnackBarContext } from "@/context/SnackBarContext";
-import SnackBar from "@/components/common/SnackBar/SnackBar";
+import { SnackBar } from "@/components";
 
 /**
  * 스낵바 메시지를 전역에서 표시하기 위한 Context Provider 컴포넌트입니다.

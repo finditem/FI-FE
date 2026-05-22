@@ -1,5 +1,5 @@
 import { cn } from "@/utils";
-import { RequiredText } from "@/components/common";
+import { RequiredText } from "@/components";
 import { Controller, useFormContext } from "react-hook-form";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
 

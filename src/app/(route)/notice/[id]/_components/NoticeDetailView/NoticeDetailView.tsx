@@ -1,6 +1,6 @@
 "use client";
 
-import { CommentList } from "@/components/domain";
+import { CommentList } from "@/components";
 import { NoticeCommentForm, NoticeDetailContent, NoticeDetailSkeleton } from "./_internal";
 import { useGetNoticeDetail } from "@/api/fetch/notice";
 import { useEffect } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { AdminFilterItemType } from "../../_types";
 import { DEFAULT_ICON, DEFAULT_ICON_POSITION } from "./DEFAULT_FILTER_ICON";
 

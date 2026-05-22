@@ -1,4 +1,4 @@
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 

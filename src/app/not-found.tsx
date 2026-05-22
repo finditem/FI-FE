@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ErrorView } from "@/components/state";
+import { ErrorView } from "@/components";
 
 export const metadata: Metadata = {
   title: "페이지를 찾을 수 없어요",

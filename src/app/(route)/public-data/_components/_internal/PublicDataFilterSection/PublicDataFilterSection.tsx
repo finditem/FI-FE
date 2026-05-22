@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Filter } from "@/components/common";
-import { FilterTab } from "@/components/domain/FilterSectionBottomSheet/_types/types";
-import { useFilterParams } from "@/hooks/domain";
+import { Filter, FilterTab } from "@/components";
+import { useFilterParams } from "@/hooks";
 import { PUBLIC_CATEGORY_CODES, PUBLIC_REGION_CODES } from "@/constants";
 import PublicDataFilterBottomSheet from "../PublicDataFilterBottomSheet/PublicDataFilterBottomSheet";
 import { PublicFilterStateType } from "../../../_types/PublicFilterStateType";

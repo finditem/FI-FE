@@ -4,7 +4,7 @@ import MypageInquiriesFilter from "./MypageInquiriesFilter";
 const mockUpdateFilters = jest.fn();
 const mockUseFilterParams = jest.fn();
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useFilterParams: () => mockUseFilterParams(),
   useFilterSync: () => ({ updateFilters: mockUpdateFilters }),
 }));

@@ -2,9 +2,8 @@
 "use no memo";
 
 import { Fragment, useState } from "react";
-import { FooterButton } from "@/components/domain";
+import { FooterButton, CheckBox, InputField } from "@/components";
 import { CheckBoxConfig } from "../../_constants/CheckBoxConfig";
-import { CheckBox, InputField } from "@/components/common";
 import { useFormContext } from "react-hook-form";
 import DeleteAccountModal from "../DeleteAccountModal/DeleteAccountModal";
 

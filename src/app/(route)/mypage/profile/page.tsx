@@ -2,7 +2,7 @@
 "use no memo";
 
 import { Suspense } from "react";
-import { ProfileEditSection } from "@/components/domain";
+import { ProfileEditSection } from "@/components";
 
 const page = () => {
   return (

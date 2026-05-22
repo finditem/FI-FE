@@ -1,5 +1,5 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
-import { ReportReason } from "@/components/domain/ReportModal/_internal";
+import { ReportReason } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { ReportRequest } from "../types/ReportRequest";

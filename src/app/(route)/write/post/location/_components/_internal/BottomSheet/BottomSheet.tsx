@@ -1,5 +1,5 @@
 import { useRouter, useSearchParams } from "next/navigation";
-import { Button } from "@/components/common";
+import { Button } from "@/components";
 import { useWriteStore } from "@/store";
 import { cn } from "@/utils";
 import { Radius } from "@/types";

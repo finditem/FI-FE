@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/common";
-import { EmptyState } from "@/components/state";
+import { Button, EmptyState } from "@/components";
 
 const sanitizeKeyword = (keyword?: string) => {
   if (!keyword) return "물건";

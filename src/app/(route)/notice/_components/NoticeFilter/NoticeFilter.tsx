@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { useClickOutside } from "@/hooks";
 import { cn } from "@/utils";
 import { useSearchParams } from "next/navigation";

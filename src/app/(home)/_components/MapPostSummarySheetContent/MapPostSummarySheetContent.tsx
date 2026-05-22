@@ -1,6 +1,6 @@
 "use client";
 
-import { PostListItem } from "@/components/domain";
+import { PostListItem } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useMapPostSummary } from "@/api/fetch/mapController";
 import { MARKER_ID } from "../../_constants/QUERY_PARAMS";

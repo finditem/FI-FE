@@ -1,13 +1,12 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter, EmptyState, LoadingState } from "@/components";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSearchParams } from "next/navigation";
 import FilterDropdown from "../FilterDropdown/FilterDropdown";
 import { FilTER_DROPDOWN_OPTIONS } from "../../constants/FILTER";
 import { useChatList } from "@/api/fetch/chatRoom";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
-import { EmptyState, LoadingState } from "@/components/state";
 
 interface DefaultChatListProps {
   searchUpdateQuery: (key: string, value?: string) => void;

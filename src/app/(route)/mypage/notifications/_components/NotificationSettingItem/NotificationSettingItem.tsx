@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { NotificationLabelType, NotificationSettingType } from "../../_types/NotificationType";
 import { cn } from "@/utils";
-import { Icon, ToggleButton } from "@/components/common";
+import { Icon, ToggleButton } from "@/components";
 import NotificationCategory from "../NotificationCategory/NotificationCategory";
 import { NotificationSetting } from "@/api/fetch/notification";
 import { useToggleClick } from "../../_hooks/useToggleClick";

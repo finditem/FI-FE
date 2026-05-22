@@ -1,5 +1,5 @@
 import { ReportByIdType } from "@/api/fetch/report";
-import { Chip, ProfileAvatar } from "@/components/common";
+import { Chip, ProfileAvatar } from "@/components";
 import { cn, formatDate } from "@/utils";
 import Image from "next/image";
 

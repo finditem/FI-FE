@@ -1,15 +1,13 @@
 "use client";
 
 import { useGetUserInquiryById } from "@/api/fetch/inquiry";
-import { LoadingState } from "@/components/state";
+import { LoadingState, Chip, ImageViewerModal } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useEffect, useState } from "react";
 import { INQUIRY_STATUS_CHIP } from "../../../_constants/INQUIRY_STATUS_CHIP";
-import { Chip } from "@/components/common";
 import { formatDate } from "@/utils";
 import Image from "next/image";
 import InquiryCommentItem from "../InquiryCommentItem/InquiryCommentItem";
-import { ImageViewerModal } from "@/components/domain";
 import InquiryInputComment from "../InquiryInputComment/InquiryInputComment";
 
 interface MypageInquiriesIdContainerProps {

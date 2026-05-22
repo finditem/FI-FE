@@ -1,7 +1,7 @@
 "use client";
 
 import { useHorizontalDragScroll } from "@/hooks";
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { POST_FILTER_ITEMS, CATEGORY_FILTER_ITEM } from "../../_constants/FILTER";
 import { CATEGORY, POST_TYPE } from "../../_constants/QUERY_PARAMS";
 import CategoryFilter from "./_internal/CategoryFilter/CategoryFilter";

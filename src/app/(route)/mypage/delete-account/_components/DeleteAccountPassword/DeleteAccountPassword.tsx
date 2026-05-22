@@ -2,8 +2,7 @@
 "use no memo";
 
 import { usePostVerifyPassword } from "@/api/fetch/user";
-import { InputText } from "@/components/common";
-import { FooterButton } from "@/components/domain";
+import { InputText, FooterButton } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";

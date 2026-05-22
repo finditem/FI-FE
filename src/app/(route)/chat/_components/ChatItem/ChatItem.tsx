@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
-import { ListItemImage, ProfileAvatar } from "@/components/common";
+import { ListItemImage, ProfileAvatar } from "@/components";
 import { formatDate } from "@/utils";
 
 interface ChatItemProps {

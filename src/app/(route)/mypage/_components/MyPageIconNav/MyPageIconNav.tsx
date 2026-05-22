@@ -1,5 +1,4 @@
-import { Icon } from "@/components/common";
-import { IconName } from "@/components/common/Icon/Icon";
+import { Icon, IconName } from "@/components";
 import { MyPageTapType } from "../../_types/MyPageTapType";
 import Link from "next/link";
 import { MYPAGE_TAP_CONFIG } from "../../_constants/MYPAGE_ROUTE_CONFIG";

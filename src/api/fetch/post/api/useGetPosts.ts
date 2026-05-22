@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import useAppInfiniteQuery from "@/api/_base/query/useAppInfiniteQuery";
-import { SortFilterValue } from "@/components/domain/FilterSectionBottomSheet/_types/types";
+import { SortFilterValue } from "@/components";
 import { ItemStatus, PostType } from "@/types";
 import { PostItem, PostSearchResponse } from "../types/PostItemType";
 import { useAuthStore } from "@/store";

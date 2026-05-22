@@ -1,4 +1,4 @@
-import { Chip } from "@/components/common";
+import { Chip } from "@/components";
 
 interface PublicDetailInfoProps {
   category: string;

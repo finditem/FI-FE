@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { MAP_CATEGORY_FILTER_OPTIONS } from "@/constants";
 import { CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX } from "../../../../_constants/FILTER";
 import { cn } from "@/utils";

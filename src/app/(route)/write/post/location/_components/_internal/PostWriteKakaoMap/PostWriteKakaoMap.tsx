@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BaseKakaoMap } from "@/components/domain";
+import { BaseKakaoMap } from "@/components";
 import { Radius } from "@/types";
 import { getMapLevelByRadius } from "@/utils";
 

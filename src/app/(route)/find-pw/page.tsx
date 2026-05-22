@@ -2,7 +2,7 @@
 "use no memo";
 
 import { ApiFindPwType } from "@/api/fetch/auth";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
 import { FindPwForm } from "./_components";
 
