@@ -88,7 +88,7 @@ test.describe("메인 페이지", () => {
   });
 
   test("헤더·바텀시트 기본 UI가 보인다", async ({ page }) => {
-    await expect(page.getByPlaceholder("현재 위치 (위치 정보 허용 시)")).toBeVisible();
+    await expect(page.getByPlaceholder("장소, 주소를 입력해 주세요.")).toBeVisible();
 
     await expect(page.getByRole("link", { name: "분실 신고 목록 페이지로 이동" })).toBeVisible();
     await expect(page.getByRole("link", { name: "발견 신고 목록 페이지로 이동" })).toBeVisible();
