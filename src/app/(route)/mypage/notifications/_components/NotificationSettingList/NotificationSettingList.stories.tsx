@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import NotificationSettingList from "./NotificationSettingList";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,9 +24,11 @@ const meta: Meta<typeof NotificationSettingList> = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div className="w-[390px] border border-gray-200">
-          <Story />
-        </div>
+        <ToastProvider>
+          <div className="w-[390px] border border-gray-200">
+            <Story />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     ),
   ],

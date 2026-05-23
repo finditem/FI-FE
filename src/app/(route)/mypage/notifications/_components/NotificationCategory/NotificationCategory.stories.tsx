@@ -53,13 +53,15 @@ export const WithSelectedCategories: Story = {
 
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="w-[390px]">
-          <NotificationCategory
-            isBottomSheetOpen={isOpen}
-            setIsBottomSheetOpen={setIsOpen}
-            categoryOn={["WALLET", "BAG"]}
-          />
-        </div>
+        <ToastProvider>
+          <div className="w-[390px]">
+            <NotificationCategory
+              isBottomSheetOpen={isOpen}
+              setIsBottomSheetOpen={setIsOpen}
+              categoryOn={["WALLET", "BAG"]}
+            />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     );
   },
