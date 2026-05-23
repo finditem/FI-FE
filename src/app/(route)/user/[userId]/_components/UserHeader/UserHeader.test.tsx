@@ -8,7 +8,7 @@ jest.mock("@/components/common", () => ({
     <svg data-testid="icon" data-name={name} data-size={size} className={className} />
   ),
   ProfileAvatar: ({ src, alt, size }: any) => (
-    <img src={src || "/test_list.JPG"} alt={alt} data-size={size} />
+    <img src={src || "https://picsum.photos/400/300?random=1"} alt={alt} data-size={size} />
   ),
 }));
 
@@ -27,7 +27,7 @@ describe("UserHeader", () => {
     render(<UserHeader data={{ nickname: "test", profileImg: "" }} />);
 
     const img = screen.getByRole("img");
-    expect(img).toHaveAttribute("src", "/test_list.JPG");
+    expect(img).toHaveAttribute("src", "https://picsum.photos/400/300?random=1");
   });
 
   it("닉네임이 표시되어야 합니다", () => {

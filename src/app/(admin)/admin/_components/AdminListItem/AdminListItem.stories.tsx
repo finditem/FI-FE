@@ -33,7 +33,7 @@ const meta: Meta<typeof AdminListItem> = {
       createdAt: "text",
       isNew: true,
       isHot: true,
-      thumbnailUrl: "/test_list.JPG",
+      thumbnailUrl: "https://picsum.photos/400/300?random=1",
     },
     imageAlt: "text",
     link: "text",
