@@ -27,7 +27,7 @@ export const MOCK_MYPAGE_COMMENTS_ITEM = [
 export const MOCK_USER_PROFILE = {
   userId: 1,
   nickname: "tester01",
-  profileImg: "test_list.JPG",
+  profileImg: "https://picsum.photos/400/300?random=1",
   posts: [
     {
       postId: 1,
