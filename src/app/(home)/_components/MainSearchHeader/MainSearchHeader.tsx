@@ -23,7 +23,7 @@ interface FocusedProps {
   focused: boolean;
 }
 
-const LOCATION_PLACEHOLDER_DEFAULT = "현재 위치 (위치 정보 허용 시)";
+const LOCATION_PLACEHOLDER_DEFAULT = "장소, 주소를 입력해 주세요.";
 const HeaderSearchForm = ({
   searchValue,
   setFocused,

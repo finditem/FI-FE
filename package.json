@@ -12,7 +12,7 @@
     "prepare": "husky",
     "chromatic": "npx chromatic --project-token=$CHROMATIC_PROJECT_TOKEN",
     "test:ci": "jest --ci --runInBand",
-    "check:all": "run-s test test:e2e build build-storybook",
+    "check:all": "run-s test build test:e2e build-storybook",
     "check:fast": "run-p test test:e2e build-storybook",
     "analyze": "ANALYZE=true next build",
     "test:e2e": "playwright test",
