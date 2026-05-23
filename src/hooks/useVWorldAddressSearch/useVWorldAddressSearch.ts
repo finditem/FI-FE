@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { VWorldAddressItem } from "@/types";
 
 interface VWorldSearchResponse {
@@ -71,6 +71,7 @@ const useVWorldAddressSearch = (query: string, delay = 300) => {
     },
     enabled: debouncedQuery.trim().length >= 2,
     staleTime: 1000 * 60 * 5,
+    placeholderData: keepPreviousData,
   });
 };
 

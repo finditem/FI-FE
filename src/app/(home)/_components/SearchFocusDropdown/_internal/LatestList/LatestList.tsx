@@ -4,7 +4,9 @@ import { Icon } from "@/components";
 import { cn } from "@/utils";
 import { useMainRecentSearch } from "@/store";
 import { useRouter } from "next/navigation";
+import type { RefObject } from "react";
 import RecentSearchEmpty from "../../../MainSearchHeader/_internal/RecentSearchEmpty/RecentSearchEmpty";
+import { handleSearchDropdownRowKeyDown } from "../searchDropdownListKeyboard";
 
 const formatShortDate = (iso: string) => {
   const d = new Date(iso);
@@ -16,9 +18,11 @@ const formatShortDate = (iso: string) => {
 
 interface LatestListProps {
   setFocused: (focused: boolean) => void;
+  dropdownRootRef: RefObject<HTMLElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
 }
 
-const LatestList = ({ setFocused }: LatestListProps) => {
+const LatestList = ({ setFocused, dropdownRootRef, searchInputRef }: LatestListProps) => {
   const router = useRouter();
   const recentItems = useMainRecentSearch((s) => s.recentItems);
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
@@ -37,6 +41,7 @@ const LatestList = ({ setFocused }: LatestListProps) => {
       {recentItems.map((item) => (
         <li key={item.keyword}>
           <div
+            data-search-dropdown-item
             role="button"
             tabIndex={0}
             aria-label={`${item.keyword} 검색`}
@@ -45,7 +50,9 @@ const LatestList = ({ setFocused }: LatestListProps) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 runSearch(item.keyword);
+                return;
               }
+              handleSearchDropdownRowKeyDown(e, dropdownRootRef, searchInputRef);
             }}
             className={cn(
               "flex w-full cursor-pointer items-center justify-between gap-3 border-b border-labelsVibrant-quaternary py-4 transition-colors",
