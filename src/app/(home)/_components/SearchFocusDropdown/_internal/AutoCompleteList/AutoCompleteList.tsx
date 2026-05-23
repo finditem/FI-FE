@@ -7,14 +7,23 @@ import type { VWorldAddressItem } from "@/types";
 import { cn } from "@/utils";
 import { highlightText } from "@/utils";
 import { useRouter } from "next/navigation";
+import type { RefObject } from "react";
 import { useMemo } from "react";
+import { handleSearchDropdownRowKeyDown } from "../searchDropdownListKeyboard";
 
 interface AutoCompleteListProps {
   searchKeyword: string;
   setFocused: (focused: boolean) => void;
+  dropdownRootRef: RefObject<HTMLElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
 }
 
-const AutoCompleteList = ({ searchKeyword, setFocused }: AutoCompleteListProps) => {
+const AutoCompleteList = ({
+  searchKeyword,
+  setFocused,
+  dropdownRootRef,
+  searchInputRef,
+}: AutoCompleteListProps) => {
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
   const query = searchKeyword.trim();
@@ -49,9 +58,11 @@ const AutoCompleteList = ({ searchKeyword, setFocused }: AutoCompleteListProps) 
         return (
           <li key={address}>
             <button
+              data-search-dropdown-item
               type="button"
               aria-label="자동완성 지역 검색어 클릭"
               onClick={() => handleSelect(item)}
+              onKeyDown={(e) => handleSearchDropdownRowKeyDown(e, dropdownRootRef, searchInputRef)}
               className={cn(
                 "w-full cursor-pointer border-b border-labelsVibrant-quaternary py-4 transition-colors",
                 "[&:is(:hover,:focus)]:bg-fill-brand-subtle-default_2",
