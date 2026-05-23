@@ -2,16 +2,16 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { DateRangeBottomSheet } from "@/components/domain";
-import { useClickOutside } from "@/hooks";
-import { useFilterParams } from "@/hooks/domain";
-import { Filter } from "@/components/common";
-import { AdminDropdown } from "@/app/(admin)/admin/_components";
-import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
 import {
+  DateRangeBottomSheet,
+  Filter,
   categories,
   findStatus as findStatusOptions,
-} from "@/components/domain/FilterSectionBottomSheet/_constants/CONSTANTS";
+} from "@/components";
+import { useClickOutside } from "@/hooks";
+import { useFilterParams } from "@/hooks";
+import { AdminDropdown } from "@/app/(admin)/admin/_components";
+import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
 
 const getSortLabel = (sortValue?: string) => {
   switch (sortValue) {

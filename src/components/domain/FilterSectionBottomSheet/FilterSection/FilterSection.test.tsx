@@ -28,7 +28,7 @@ let mockNormalizedValues = {
   normalizedFindStatus: undefined as any,
 };
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useFilterParams: () => mockUseFilterParamsReturn,
 }));
 

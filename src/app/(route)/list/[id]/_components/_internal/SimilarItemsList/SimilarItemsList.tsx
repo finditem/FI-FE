@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SimilarDataItem } from "@/api/fetch/post";
 import { formatDate } from "@/utils";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 
 const SimilarItemsList = ({ data }: { data: SimilarDataItem[] }) => {
   return (
@@ -32,7 +32,7 @@ const SimilarItem = ({ data }: SimilarItemProps) => {
         href={`/list/${postId}`}
         className="flex h-[120px] w-[124px] flex-col overflow-hidden rounded-[16px] border border-divider-default bg-white"
       >
-        <div className="bg-fill-neutralInversed-normal-pressed flex h-[76px] w-[124px] items-center justify-center">
+        <div className="flex h-[76px] w-[124px] items-center justify-center bg-fill-neutralInversed-normal-pressed">
           {thumbnailImageUrl ? (
             <Image
               src={thumbnailImageUrl}

@@ -6,7 +6,7 @@ import { useFormContext } from "react-hook-form";
 import { EMAIL_LOGIN_ERROR_MESSAGE } from "../_constants/EMAIL_LOGIN_ERROR_MESSAGE";
 import { useToast } from "@/context/ToastContext";
 import { LoginFormType } from "../_types/LoginFormType";
-import { useErrorToast } from "@/hooks/domain";
+import { useErrorToast } from "@/hooks";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
 

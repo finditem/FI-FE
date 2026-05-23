@@ -12,7 +12,7 @@ export default {
 
 export const Default: StoryObj<typeof ListItemImage> = {
   args: {
-    src: "/test_list.JPG",
+    src: "https://picsum.photos/400/300?random=1",
     alt: "프로필",
     size: 120,
   },
@@ -20,7 +20,7 @@ export const Default: StoryObj<typeof ListItemImage> = {
 
 export const WithImageCount: StoryObj<typeof ListItemImage> = {
   args: {
-    src: "/test_list.JPG",
+    src: "https://picsum.photos/400/300?random=1",
     alt: "프로필",
     size: 120,
     imageCount: 5,

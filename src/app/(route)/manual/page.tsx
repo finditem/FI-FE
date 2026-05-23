@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Tab } from "@/components/domain";
-import ManualList from "./_components/ManualList/ManualList";
-import { MANUAL_DATA, MANUAL_LIST } from "./_constants/MANUAL_CONSTANT";
+import { Tab } from "@/components";
+import { ManualList } from "./_components";
+import { MANUAL_DATA, MANUAL_LIST } from "./_components/MANUAL_CONST";
 
 const page = () => {
   const [selected, setSelected] = useState<keyof typeof MANUAL_DATA>("LOST");

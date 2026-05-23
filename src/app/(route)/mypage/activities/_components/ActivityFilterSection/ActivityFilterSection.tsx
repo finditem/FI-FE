@@ -1,8 +1,7 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter, DateRangeBottomSheet } from "@/components";
 import { useState } from "react";
-import { DateRangeBottomSheet } from "@/components/domain";
 import { ACTIVITY_OPTIONS } from "../../_constants/ACTIVITY_OPTIONS";
 import {
   filterSelectionState,

@@ -1,4 +1,4 @@
-import { Terms } from "@/components/domain";
+import { Terms } from "@/components";
 import { notFound } from "next/navigation";
 
 interface PageProps {

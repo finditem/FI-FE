@@ -1,10 +1,4 @@
-import { Button, Icon } from "@/components/common";
-import { DetailHeader } from "@/components/layout";
-import {
-  HeaderMenu,
-  HeaderShare,
-  HeaderStar,
-} from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { Button, Icon, DetailHeader, HeaderMenu, HeaderShare, HeaderStar } from "@/components";
 import { cn } from "@/utils";
 
 interface DetailSkeletonProps {

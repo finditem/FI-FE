@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useToast } from "@/context/ToastContext";
 import { useAddToHomeScreen } from "@/hooks";
 import { useWriteFlowStore } from "@/store";
-import { CommentList, AddToHomeScreenPWA } from "@/components/domain";
+import { CommentList, AddToHomeScreenPWA } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useGetDetailPost } from "@/api/fetch/post";
 import {

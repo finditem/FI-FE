@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import NotificationCategory from "./NotificationCategory";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,13 +33,15 @@ export const Open: Story = {
 
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="w-[390px]">
-          <NotificationCategory
-            isBottomSheetOpen={isOpen}
-            setIsBottomSheetOpen={setIsOpen}
-            categoryOn={[]}
-          />
-        </div>
+        <ToastProvider>
+          <div className="w-[390px]">
+            <NotificationCategory
+              isBottomSheetOpen={isOpen}
+              setIsBottomSheetOpen={setIsOpen}
+              categoryOn={[]}
+            />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     );
   },
@@ -50,13 +53,15 @@ export const WithSelectedCategories: Story = {
 
     return (
       <QueryClientProvider client={queryClient}>
-        <div className="w-[390px]">
-          <NotificationCategory
-            isBottomSheetOpen={isOpen}
-            setIsBottomSheetOpen={setIsOpen}
-            categoryOn={["WALLET", "BAG"]}
-          />
-        </div>
+        <ToastProvider>
+          <div className="w-[390px]">
+            <NotificationCategory
+              isBottomSheetOpen={isOpen}
+              setIsBottomSheetOpen={setIsOpen}
+              categoryOn={["WALLET", "BAG"]}
+            />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     );
   },

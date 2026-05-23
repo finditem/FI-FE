@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { PostDetailKakaoMap } from "./_components";
 
 const HEADER_TITLE = "분실/발견 위치";

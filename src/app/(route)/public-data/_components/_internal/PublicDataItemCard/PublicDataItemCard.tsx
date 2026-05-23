@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Chip, ListItemImage } from "@/components/common";
+import { Chip, ListItemImage } from "@/components";
 import { PublicDataItem } from "@/types";
 import { cn, formatDate } from "@/utils";
 

@@ -11,6 +11,7 @@ import {
 } from "@/mock/data";
 
 import NoticeDetailHeader from "./NoticeDetailHeader";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 function HeaderStoryShell({ id, role }: { id: number; role: "ADMIN" | "USER" }) {
   const queryClient = useMemo(() => {
@@ -37,9 +38,11 @@ function HeaderStoryShell({ id, role }: { id: number; role: "ADMIN" | "USER" }) 
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="relative min-h-[120px] w-full max-w-[430px] bg-white">
-        <NoticeDetailHeader id={id} />
-      </div>
+      <ToastProvider>
+        <div className="relative min-h-[120px] w-full max-w-[430px] bg-white">
+          <NoticeDetailHeader id={id} />
+        </div>
+      </ToastProvider>
     </QueryClientProvider>
   );
 }

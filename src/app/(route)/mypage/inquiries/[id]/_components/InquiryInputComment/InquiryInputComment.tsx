@@ -1,6 +1,6 @@
 "use client";
 
-import { InputComment } from "@/components/common";
+import { InputComment } from "@/components";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { InquiryFormType } from "../../_types/InquiryFormType";

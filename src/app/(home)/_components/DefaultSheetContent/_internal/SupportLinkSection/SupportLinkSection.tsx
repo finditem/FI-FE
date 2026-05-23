@@ -1,4 +1,4 @@
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import Link from "next/link";
 import { SUPPORT_MENU_ITEMS } from "./SUPPORT_MENU_ITEMS";
 

@@ -5,10 +5,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetSearchKeyword } from "@/api/fetch/post";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { InputSearch } from "@/components/common";
+import { InputSearch } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
-import { PostSearchView } from "./_internal";
 import { trackSearch } from "@/utils/analytics/analytics";
+import { PostSearchView } from "../_internal";
 
 const DefaultListSearch = () => {
   const router = useRouter();

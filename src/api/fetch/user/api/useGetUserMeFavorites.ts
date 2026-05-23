@@ -5,7 +5,7 @@ import useAppInfiniteQuery from "@/api/_base/query/useAppInfiniteQuery";
 import { PostItem } from "../../post";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { useAuthStore } from "@/store";
-import { SortFilterValue } from "@/components/domain/FilterSectionBottomSheet/_types/types";
+import { SortFilterValue } from "@/components";
 
 interface useGetUserMeFavoritesProps {
   address?: string;

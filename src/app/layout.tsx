@@ -1,4 +1,4 @@
-import { Footer } from "@/components/layout";
+import { Footer } from "@/components";
 import "./globals.css";
 import Providers from "@/providers/QueryProviders";
 import { ToastProvider } from "@/providers/ToastProviders";

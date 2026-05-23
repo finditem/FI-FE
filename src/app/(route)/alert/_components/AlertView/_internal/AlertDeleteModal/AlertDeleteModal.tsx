@@ -1,5 +1,5 @@
 import { cn } from "@/utils";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
+import { ModalLayout } from "@/components";
 
 interface AlertDeleteModalProps {
   isOpen: boolean;

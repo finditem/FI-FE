@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ALERT_CATEGORIES } from "../../_constants/ALERT_CATEGORIES";
 import { AlertCategoryKey } from "../../_types/alertKeyType";

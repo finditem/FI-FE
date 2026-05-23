@@ -1,7 +1,6 @@
 "use no memo";
 
-import { InputText } from "@/components/common";
-import { InputTextProps } from "@/components/common/Input/InputText/InputText";
+import { InputText, InputTextProps } from "@/components";
 import { useFormContext, useController, RegisterOptions } from "react-hook-form";
 import { FormType } from "../../types/FormType";
 

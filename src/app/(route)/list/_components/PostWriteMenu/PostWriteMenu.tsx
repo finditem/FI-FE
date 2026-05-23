@@ -3,11 +3,10 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Button, FloatingButton, Icon, ScrollToTopButton } from "@/components/common";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
+import { Button, FloatingButton, Icon, ScrollToTopButton, ModalLayout } from "@/components";
 import { cn } from "@/utils";
-import { WRITE_MENU_STYLES } from "./WRITE_MENU_STYLES";
 import { useClickOutside } from "@/hooks";
+import { WRITE_MENU_STYLES } from "../LIST_CONST";
 
 const PostWriteMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

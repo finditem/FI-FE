@@ -1,7 +1,6 @@
 import { RefObject, Suspense, useEffect, useState } from "react";
 import { PostItem } from "@/api/fetch/post";
-import { PostListItem } from "@/components/domain";
-import { EmptyState, LoadingState } from "@/components/state";
+import { PostListItem, EmptyState, LoadingState } from "@/components";
 
 interface DefaultListProps {
   listData?: PostItem[];

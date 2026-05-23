@@ -40,7 +40,7 @@ export const MOCK_USER_PROFILE_DATA_BY_POSTS = {
   profile: {
     userId: 1,
     nickname: "짱구",
-    profileImg: "/test_list.JPG",
+    profileImg: "https://picsum.photos/400/300?random=1",
   },
   list: [MOCK_USER_PROFILE_POST_DATA],
 };
@@ -50,7 +50,7 @@ export const MOCK_USER_PROFILE_DATA_BY_COMMENTS = {
   profile: {
     userId: 1,
     nickname: "짱구",
-    profileImg: "/test_list.JPG",
+    profileImg: "https://picsum.photos/400/300?random=1",
   },
   list: [MOCK_USER_PROFILE_COMMENT_DATA],
 };

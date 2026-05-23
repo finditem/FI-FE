@@ -1,5 +1,5 @@
 import { InquiryComments } from "@/api/fetch/admin";
-import { ReadOnlyCommentItem } from "@/components/domain";
+import { ReadOnlyCommentItem } from "@/components";
 import { ReadOnlyCommentItemProps } from "@/types";
 
 interface AdminReportsCommentSectionProps {

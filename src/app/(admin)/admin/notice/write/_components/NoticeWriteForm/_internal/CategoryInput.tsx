@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { NoticeCategory } from "@/types";
 import { NoticeWriteFormValues } from "../../../_types/NoticeWriteType";
-import { Icon, RequiredText } from "@/components/common";
-import { CategoryPopup } from "@/components/domain";
+import { Icon, RequiredText, CategoryPopup } from "@/components";
 
 const CATEGORY_LABEL: Record<NoticeCategory, string> = {
   IMPORTANT: "중요",

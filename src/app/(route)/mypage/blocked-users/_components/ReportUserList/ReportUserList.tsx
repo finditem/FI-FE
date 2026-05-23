@@ -1,8 +1,7 @@
 "use client";
 
 import { BlockUserItem, useDeleteBlockUser, useGetBlockUser } from "@/api/fetch/report";
-import { Button, ProfileAvatar } from "@/components/common";
-import { EmptyState, LoadingState } from "@/components/state";
+import { Button, ProfileAvatar, EmptyState, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useEffect } from "react";
