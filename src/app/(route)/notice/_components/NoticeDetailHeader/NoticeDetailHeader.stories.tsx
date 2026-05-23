@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import NoticeDetailHeader from "./NoticeDetailHeader";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 const BACK_PATH_OPTIONS = ["/find", "/lost", "/notice?tab=notice", "/notice?tab=customer"] as const;
 
@@ -26,9 +27,11 @@ const meta: Meta<typeof NoticeDetailHeader> = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "390px", border: "1px solid #E2E2E2" }}>
-        <Story />
-      </div>
+      <ToastProvider>
+        <div style={{ width: "390px", border: "1px solid #E2E2E2" }}>
+          <Story />
+        </div>
+      </ToastProvider>
     ),
   ],
 };
