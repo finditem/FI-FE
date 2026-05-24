@@ -3,9 +3,9 @@
 import { Chip, Icon } from "@/components";
 import { useHorizontalDragScroll } from "@/hooks";
 import Link from "next/link";
-import PublicMoreViewCard from "./PublicMoreViewCard";
+import PublicMoreViewCard from "../PublicMoreViewCard/PublicMoreViewCard";
 import Image from "next/image";
-import RecentFoundItemSkeleton from "../RecentFoundItemSection/RecentFoundItemSkeleton";
+import RecentFoundItemSkeleton from "../RecentFoundItemSkeleton/RecentFoundItemSkeleton";
 import { formatDate } from "@/utils";
 
 interface CardListData {

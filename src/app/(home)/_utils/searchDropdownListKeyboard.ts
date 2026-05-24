@@ -2,26 +2,26 @@ import type { KeyboardEvent as ReactKeyboardEvent, RefObject } from "react";
 
 const DROPDOWN_ITEM_SELECTOR = "[data-search-dropdown-item]";
 
-export function getSearchDropdownItems(root: Element | null): HTMLElement[] {
+const getSearchDropdownItems = (root: Element | null): HTMLElement[] => {
   if (!root) return [];
   return Array.from(root.querySelectorAll<HTMLElement>(DROPDOWN_ITEM_SELECTOR));
-}
+};
 
-export function focusSearchDropdownBoundary(
+export const focusSearchDropdownBoundary = (
   root: HTMLElement | null,
   direction: "first" | "last"
-): boolean {
+): boolean => {
   const items = getSearchDropdownItems(root);
   if (items.length === 0) return false;
   (direction === "first" ? items[0] : items[items.length - 1])?.focus();
   return true;
-}
+};
 
-export function handleSearchDropdownRowKeyDown(
+export const handleSearchDropdownRowKeyDown = (
   e: ReactKeyboardEvent<HTMLElement>,
   dropdownRootRef: RefObject<HTMLElement | null>,
   searchInputRef: RefObject<HTMLInputElement | null>
-): void {
+): void => {
   if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
 
   const root = dropdownRootRef.current;
@@ -51,4 +51,4 @@ export function handleSearchDropdownRowKeyDown(
     e.preventDefault();
     searchInputRef.current?.focus();
   }
-}
+};
