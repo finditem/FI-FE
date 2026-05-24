@@ -3,14 +3,13 @@
 import { motion } from "framer-motion";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { BOTTOM_OFFSET_PX } from "../../_constants/HEIGHT_PX";
+import { BOTTOM_OFFSET_PX, MARKER_ID } from "../HOME_CONST";
 import { useBottomSheetHeight } from "../../_hooks";
 import MyLocationButton from "../MyLocationButton/MyLocationButton";
 import DefaultSheetContent from "../DefaultSheetContent/DefaultSheetContent";
 import PostSheetContent from "../PostSheetContent/PostSheetContent";
 import MapPostSummarySheetContent from "../MapPostSummarySheetContent/MapPostSummarySheetContent";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
-import { MARKER_ID } from "../../_constants/QUERY_PARAMS";
 import PermissionSheet from "../PermissionBottomSheet/PermissionBottomSheet";
 import { usePermissionStore } from "@/store";
 import { cn } from "@/utils";

@@ -2,8 +2,7 @@
 
 import { useHorizontalDragScroll } from "@/hooks";
 import { Filter } from "@/components";
-import { POST_FILTER_ITEMS, CATEGORY_FILTER_ITEM } from "../../_constants/FILTER";
-import { CATEGORY, POST_TYPE } from "../../_constants/QUERY_PARAMS";
+import { POST_FILTER_ITEMS, CATEGORY_FILTER_ITEM, CATEGORY, POST_TYPE } from "../HOME_CONST";
 import CategoryFilter from "./_internal/CategoryFilter/CategoryFilter";
 import { useHomeFilterQuery } from "../../_hooks";
 

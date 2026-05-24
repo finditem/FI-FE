@@ -1,6 +1,6 @@
 import { Icon } from "@/components";
 import Link from "next/link";
-import { SUPPORT_MENU_ITEMS } from "./SUPPORT_MENU_ITEMS";
+import { SUPPORT_MENU_ITEMS } from "../../../HOME_CONST";
 
 const SupportLinkSection = () => {
   return (
