@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { ALERT_CATEGORIES } from "../../_constants/ALERT_CATEGORIES";
+import { ALERT_CATEGORIES } from "../ALERT_CONST";
 import AlertCategory from "./AlertCategory";
 
 const mockReplace = jest.fn();
