@@ -4,7 +4,7 @@ import useAxios from "@/api/_base/axios/useAxios";
 import useAppCompositeInfiniteQuery from "@/api/_base/query/useAppCompositeInfiniteQuery";
 import { useMainKakaoMapStore } from "@/store";
 import { useSearchParams } from "next/navigation";
-import { POST_TYPE } from "@/app/(home)/_constants/QUERY_PARAMS";
+import { POST_TYPE } from "@/app/(home)/_components/HOME_CONST";
 import { MapPostSummaryPostItem, MapPostSummaryResponse } from "../types/MapPostSummaryType";
 import { PostType } from "@/types";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
