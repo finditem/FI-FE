@@ -1,6 +1,5 @@
-import usePutNotificationSetting from "@/api/fetch/notification/api/usePutNotificationSetting";
 import { NotificationSettingType } from "../_types/NotificationType";
-import { NotificationSetting } from "@/api/fetch/notification";
+import { NotificationSetting, usePutNotificationSetting } from "@/api/fetch/notification";
 import { useToast } from "@/context/ToastContext";
 import { useCallback } from "react";
 import { syncWebPushSubscription, unsubscribeWebPushFromServer } from "@/utils";

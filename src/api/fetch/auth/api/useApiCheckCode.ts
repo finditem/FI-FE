@@ -3,12 +3,10 @@ import { CheckCodeResponseType } from "../types/CheckCodeResponseType";
 import { AxiosError } from "axios";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 
-const useApiCheckCode = () => {
+export const useApiCheckCode = () => {
   return useAppMutation<
     { email: string; code: string },
     CheckCodeResponseType,
     AxiosError<ApiBaseResponseType<null>>
   >("public", "/auth/email/verify", "post");
 };
-
-export default useApiCheckCode;

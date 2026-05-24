@@ -2,7 +2,7 @@ import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import useAppInfiniteQuery from "@/api/_base/query/useAppInfiniteQuery";
 import { BlockUserItem, BlockUserResponse } from "../types/BlockUserResponse";
 
-const useGetBlockUser = (size: number = 10) => {
+export const useGetBlockUser = (size: number = 10) => {
   const params = new URLSearchParams();
   params.set("size", String(size));
 
@@ -20,5 +20,3 @@ const useGetBlockUser = (size: number = 10) => {
     }
   );
 };
-
-export default useGetBlockUser;
