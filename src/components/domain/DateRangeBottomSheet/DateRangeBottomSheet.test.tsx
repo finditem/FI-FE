@@ -25,7 +25,7 @@ let mockFilterParams: { startDate: string | undefined; endDate: string | undefin
   endDate: undefined,
 };
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useFilterParams: () => mockFilterParams,
 }));
 

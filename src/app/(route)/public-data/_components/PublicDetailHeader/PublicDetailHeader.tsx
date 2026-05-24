@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { DetailHeader } from "@/components/layout";
-import { HeaderSearch } from "@/components/layout/DetailHeader/DetailHeaderParts";
+import { DetailHeader, HeaderSearch } from "@/components";
 import { SEARCH_PATH } from "../PUBLIC_DATA_CONST";
 
 const PublicDetailHeader = () => {

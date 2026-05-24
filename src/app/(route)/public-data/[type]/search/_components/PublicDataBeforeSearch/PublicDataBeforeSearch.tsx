@@ -1,4 +1,4 @@
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { RecentSearchItem } from "../../_types/PublicRecentSearchItem";
 
 interface PublicDataBeforeSearchProps {

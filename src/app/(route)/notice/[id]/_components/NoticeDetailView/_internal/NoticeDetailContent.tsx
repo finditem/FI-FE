@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { NoticeDetail } from "@/api/fetch/notice";
-import { Icon } from "@/components/common";
-import { ImageViewerModal } from "@/components/domain";
+import { Icon, ImageViewerModal } from "@/components";
 import { cn, formatDate, formatViewCount } from "@/utils";
 import Image from "next/image";
 import { useToggleLike } from "./useToggleLike";

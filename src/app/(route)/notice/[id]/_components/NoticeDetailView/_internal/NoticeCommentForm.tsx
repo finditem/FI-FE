@@ -1,7 +1,6 @@
 "use client";
 
-import { InputComment } from "@/components/common";
-import { GuestLoginModal } from "@/components/domain";
+import { InputComment, GuestLoginModal } from "@/components";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { usePostNoticeCommentSubmit } from "../../../_hooks/usePostNoticeCommentSubmit/usePostNoticeCommentSubmit";

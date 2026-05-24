@@ -1,6 +1,6 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";

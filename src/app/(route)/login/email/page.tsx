@@ -4,7 +4,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { EmailLoginForm } from "./_components";
 import { LoginFormType } from "./_types/LoginFormType";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 
 const page = () => {
   const methods = useForm<LoginFormType>({

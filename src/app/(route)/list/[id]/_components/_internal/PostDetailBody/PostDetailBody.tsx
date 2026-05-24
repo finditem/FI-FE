@@ -1,4 +1,4 @@
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { PostDetailData } from "@/api/fetch/post";
 import { formatDate, formatViewCount } from "@/utils";
 import PostChipSection from "../PostChipSection/PostChipSection";

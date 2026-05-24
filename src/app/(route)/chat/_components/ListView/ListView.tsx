@@ -1,7 +1,7 @@
 "use client";
 
 import ListSearch from "../ListSearch/ListSearch";
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { useSearchUpdateQueryString } from "@/hooks";
 import DefaultChatList from "../DefaultChatList/DefaultChatList";
 import { useChatSocket } from "@/api/fetch/chatRoom/api/useChatSocket";

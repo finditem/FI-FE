@@ -1,4 +1,4 @@
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader } from "@/components";
 import { MypageInquiriesIdContainer } from "./_components";
 
 interface PageProps {

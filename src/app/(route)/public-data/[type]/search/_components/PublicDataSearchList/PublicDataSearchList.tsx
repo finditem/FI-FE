@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef } from "react";
 import { PublicDataItemCard } from "../../../../_components/_internal";
-import { EmptyState, LoadingState } from "@/components/state";
+import { EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { PublicDataItem, PublicDataResponse } from "@/types";
 import { useToast } from "@/context/ToastContext";

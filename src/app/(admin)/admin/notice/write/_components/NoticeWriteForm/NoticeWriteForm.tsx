@@ -3,7 +3,7 @@
 import { UseFormReturn, useWatch } from "react-hook-form";
 import { NoticeWriteFormValues } from "../../_types/NoticeWriteType";
 import { TitleInput, ContentInput, CategoryInput, useSubmitNotice } from "./_internal";
-import { WriteImageSection, WriteActionSection } from "@/components/domain";
+import { WriteImageSection, WriteActionSection } from "@/components";
 
 const IMAGE_HELP_TEXT = "*사진은 최대 5장 첨부가 가능합니다. (선택)";
 

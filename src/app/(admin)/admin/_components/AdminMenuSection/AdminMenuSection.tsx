@@ -1,6 +1,6 @@
 import { Fragment, ReactNode } from "react";
 import Link from "next/link";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { ADMIN_NAV_SECTIONS } from "../../_constants/ADMIN_NAV_SECTIONS";
 import { AdminLogoutButton } from "../_internal";
 

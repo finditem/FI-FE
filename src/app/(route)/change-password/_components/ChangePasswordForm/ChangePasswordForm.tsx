@@ -1,7 +1,7 @@
 "use client";
 "use no memo";
 
-import { FooterButton } from "@/components/domain";
+import { FooterButton } from "@/components";
 import { PasswordConfirmSection, VerifyPasswordSection } from "../_internal";
 import { usePasswordSubmit } from "../../_hooks/usePasswordSubmit";
 

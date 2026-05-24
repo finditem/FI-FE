@@ -1,6 +1,6 @@
 "use client";
 
-import { Tab } from "@/components/domain";
+import { Tab } from "@/components";
 import { normalizeEnumValue } from "@/utils";
 import { InquiryStatus, ReportStatus } from "@/types";
 import ReportsList from "../ReportsList/ReportsList";

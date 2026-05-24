@@ -1,6 +1,5 @@
 import { Suspense } from "react";
-import { PostListItem } from "@/components/domain";
-import { LoadingState } from "@/components/state";
+import { PostListItem, LoadingState } from "@/components";
 import { PostItem } from "@/api/fetch/post";
 import PostSearchEmpty from "../PostSearchEmpty/PostSearchEmpty";
 

@@ -1,11 +1,13 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
+import type { KeyboardEvent as ReactKeyboardEvent, RefObject } from "react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import SearchFocusDropdown from "../SearchFocusDropdown/SearchFocusDropdown";
+import { focusSearchDropdownBoundary } from "../SearchFocusDropdown/_internal/searchDropdownListKeyboard";
 import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
@@ -21,13 +23,20 @@ interface FocusedProps {
   focused: boolean;
 }
 
-const LOCATION_PLACEHOLDER_DEFAULT = "현재 위치 (위치 정보 허용 시)";
+const LOCATION_PLACEHOLDER_DEFAULT = "장소, 주소를 입력해 주세요.";
 const HeaderSearchForm = ({
   searchValue,
   setFocused,
   focused,
   setSearchKeyword,
-}: FocusedProps & { searchValue: string | null; setSearchKeyword: (value: string) => void }) => {
+  dropdownRootRef,
+  searchInputRef,
+}: FocusedProps & {
+  searchValue: string | null;
+  setSearchKeyword: (value: string) => void;
+  dropdownRootRef: RefObject<HTMLDivElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
+}) => {
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
   const userGpsAddress = useMainKakaoMapStore((s) => s.userGpsAddress);
@@ -38,8 +47,6 @@ const HeaderSearchForm = ({
     userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
   const locationPlaceholder =
     geoGranted && isResolvedGpsAddress ? userGpsAddress : LOCATION_PLACEHOLDER_DEFAULT;
-
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!geoGranted || userGpsLatLng) return;
@@ -77,7 +84,7 @@ const HeaderSearchForm = ({
 
   const handleBack = () => {
     if (focused) {
-      inputRef.current?.blur();
+      searchInputRef.current?.blur();
       setFocused(false);
       if (!searchValue?.trim()) {
         setValue("search", "");
@@ -86,6 +93,15 @@ const HeaderSearchForm = ({
       return;
     }
     router.back();
+  };
+
+  const handleSearchInputKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!focused) return;
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const root = dropdownRootRef.current;
+    if (!root) return;
+    const moved = focusSearchDropdownBoundary(root, e.key === "ArrowDown" ? "first" : "last");
+    if (moved) e.preventDefault();
   };
 
   return (
@@ -100,8 +116,9 @@ const HeaderSearchForm = ({
         {...searchRegister}
         ref={(el) => {
           registerRef(el);
-          inputRef.current = el;
+          searchInputRef.current = el;
         }}
+        onKeyDown={handleSearchInputKeyDown}
         onChange={(e) => {
           searchRegister.onChange(e);
           setSearchKeyword(e.target.value);
@@ -140,7 +157,13 @@ const HeaderContent = ({
   setFocused,
   focused,
   setSearchKeyword,
-}: FocusedProps & { setSearchKeyword: (value: string) => void }) => {
+  dropdownRootRef,
+  searchInputRef,
+}: FocusedProps & {
+  setSearchKeyword: (value: string) => void;
+  dropdownRootRef: RefObject<HTMLDivElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
+}) => {
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
 
@@ -156,6 +179,8 @@ const HeaderContent = ({
         setFocused={setFocused}
         focused={focused}
         setSearchKeyword={setSearchKeyword}
+        dropdownRootRef={dropdownRootRef}
+        searchInputRef={searchInputRef}
       />
     </header>
   );
@@ -164,6 +189,8 @@ const HeaderContent = ({
 const MainSearchHeader = () => {
   const [focused, setFocused] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState("");
+  const dropdownRootRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <Suspense fallback={""}>
@@ -173,11 +200,15 @@ const MainSearchHeader = () => {
             setFocused={setFocused}
             focused={focused}
             setSearchKeyword={setSearchKeyword}
+            dropdownRootRef={dropdownRootRef}
+            searchInputRef={searchInputRef}
           />
           <SearchFocusDropdown
             focused={focused}
             setFocused={setFocused}
             searchKeyword={searchKeyword}
+            dropdownRootRef={dropdownRootRef}
+            searchInputRef={searchInputRef}
           />
         </div>
       </MainSearchLayout>

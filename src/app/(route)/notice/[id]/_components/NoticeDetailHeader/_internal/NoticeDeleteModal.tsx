@@ -1,6 +1,5 @@
 import { useDeleteNotice } from "@/api/fetch/admin";
-import { Button } from "@/components/common";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
+import { Button, ModalLayout } from "@/components";
 
 interface NoticeDeleteModalProps {
   isOpen: boolean;

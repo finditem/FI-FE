@@ -1,5 +1,4 @@
-import { Button, Icon } from "@/components/common";
-import { PopupLayout } from "@/components/domain";
+import { Button, Icon, PopupLayout } from "@/components";
 
 interface PublicCallBottomSheetData {
   location: string;
@@ -22,7 +21,7 @@ const PublicCallBottomSheet = ({
   const { location, phoneNumber } = callBottomSheetData;
 
   return (
-    <PopupLayout isOpen={isOpen} onClose={onClose} className="mb-10 !bg-transparent px-5">
+    <PopupLayout isOpen={isOpen} onClose={onClose} className="!bg-transparent mb-10 px-5">
       <div className="gap-2 rounded-[24px] bg-white px-5 py-7 flex-col-center">
         <div className="flex w-full flex-col gap-7">
           <div className="space-y-[32px] text-center">

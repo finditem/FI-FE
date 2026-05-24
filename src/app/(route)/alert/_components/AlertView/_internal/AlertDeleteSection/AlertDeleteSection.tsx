@@ -1,5 +1,5 @@
 import { DeleteTarget } from "@/app/(route)/alert/_types/DeleteTargetType";
-import { Button } from "@/components/common";
+import { Button } from "@/components";
 
 interface AlertDeleteSectionProps {
   isDeleteMode: boolean;

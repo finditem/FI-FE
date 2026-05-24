@@ -14,18 +14,6 @@ jest.mock("react-hook-form", () => ({
   }),
 }));
 
-jest.mock("@/components/common/Modal/_internal/ModalLayout", () => ({
-  __esModule: true,
-  default: ({
-    isOpen,
-    children,
-  }: {
-    isOpen: boolean;
-    children: React.ReactNode;
-    onClose?: () => void;
-  }) => (isOpen ? <div>{children}</div> : null),
-}));
-
 jest.mock("@/components/common", () => ({
   Button: ({
     children,
@@ -40,6 +28,14 @@ jest.mock("@/components/common", () => ({
       {children}
     </button>
   ),
+  ModalLayout: ({
+    isOpen,
+    children,
+  }: {
+    isOpen: boolean;
+    children: React.ReactNode;
+    onClose?: () => void;
+  }) => (isOpen ? <div>{children}</div> : null),
 }));
 
 describe("DeleteAccountModal", () => {

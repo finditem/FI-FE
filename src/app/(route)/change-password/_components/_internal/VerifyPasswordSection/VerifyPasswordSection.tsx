@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useFormContext } from "react-hook-form";
 import { usePostVerifyPassword } from "@/api/fetch/user";
-import { InputText, SnackBar } from "@/components/common";
+import { InputText, SnackBar } from "@/components";
 
 const VerifyPasswordSection = () => {
   const router = useRouter();

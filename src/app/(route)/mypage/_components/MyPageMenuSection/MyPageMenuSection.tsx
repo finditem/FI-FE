@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment } from "react";
-import { Icon } from "@/components/common";
+import { Icon } from "@/components";
 import Link from "next/link";
 import { MYPAGE_MENU_LIST } from "../../_constants/MYPAGE_ROUTE_CONFIG";
 import { cn } from "@/utils";

@@ -2,7 +2,7 @@
 "use no memo";
 
 import { useFormContext } from "react-hook-form";
-import { InputText } from "@/components/common";
+import { InputText } from "@/components";
 
 const PasswordConfirmSection = () => {
   const {

@@ -1,13 +1,11 @@
 "use client";
 
-import { DetailHeader } from "@/components/layout";
+import { DetailHeader, FloatingButton, ScrollToTopButton, ErrorState } from "@/components";
 import { NoticeFilter, NoticeSearchForm, NoticeView, NoticeListErrorButtons } from "./_components";
-import { FloatingButton, ScrollToTopButton } from "@/components/common";
 import { useRouter } from "next/navigation";
 import { Suspense } from "react";
 import { useSearchUpdateQueryString } from "@/hooks";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { ErrorState } from "@/components/state";
 import { useGetUsersMe } from "@/api/fetch/user";
 
 const NoticePageContent = () => {

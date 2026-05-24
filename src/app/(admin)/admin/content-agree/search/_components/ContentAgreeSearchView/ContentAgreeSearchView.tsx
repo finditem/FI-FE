@@ -1,11 +1,9 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { InputSearch } from "@/components/common";
-import { PostListItem } from "@/components/domain";
+import { InputSearch, PostListItem, EmptyState, LoadingState } from "@/components";
 import { useGetMarketingPosts } from "@/api/fetch/admin";
 import { useInfiniteScroll } from "@/hooks";
-import { EmptyState, LoadingState } from "@/components/state";
 
 const ContentAgreeSearchView = () => {
   const router = useRouter();

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { cn } from "@/utils";
-import { Button, Icon } from "@/components/common";
+import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";

@@ -23,7 +23,7 @@ import {
   filterSelectionState,
   normalizedFilterValues,
 } from "../../../../utils/deriveFilterParams/deriveFilterParams";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { TABS } from "../_constants/TABS";
 import DateRangeBottomSheet from "../../DateRangeBottomSheet/DateRangeBottomSheet";
 import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";

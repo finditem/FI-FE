@@ -1,4 +1,4 @@
-import { LoadingState } from "@/components/state";
+import { LoadingState } from "@/components";
 import { AdminDetailSection } from "@/app/(admin)/admin/_components";
 import AdminReportsCommentSection from "../AdminReportsCommentSection/AdminReportsCommentSection";
 import { ReportsType } from "../../_types/ReportsType";

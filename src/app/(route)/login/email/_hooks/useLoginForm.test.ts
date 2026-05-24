@@ -18,7 +18,7 @@ jest.mock("@/context/ToastContext", () => ({
   useToast: () => ({ addToast: mockAddToast }),
 }));
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useErrorToast: () => ({ handlerApiError: mockHandlerApiError }),
 }));
 

@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useGetDeletedUsers, WithdrawUserItem } from "@/api/fetch/admin";
-import { EmptyState, LoadingState } from "@/components/state";
+import { EmptyState, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { formatDate } from "@/utils";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button, ProfileAvatar } from "@/components/common";
+import { Button, ProfileAvatar } from "@/components";
 import { cn, formatCappedNumber } from "@/utils";
 import { ImageResponse, userInformation } from "@/api/fetch/post";
 import { ImageSection } from "../_internal";

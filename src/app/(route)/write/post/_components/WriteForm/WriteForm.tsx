@@ -1,11 +1,14 @@
 import { useFormContext } from "react-hook-form";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import usePostWriteSubmit from "../../_hooks/usePostWriteSubmit/usePostWriteSubmit";
-import { Button } from "@/components/common";
-import { DetailHeader } from "@/components/layout";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
+import {
+  Button,
+  DetailHeader,
+  ModalLayout,
+  WriteImageSection,
+  WriteActionSection,
+} from "@/components";
 import { CategorySection, ContentSection, LocationSection, TitleSection } from "../_internal";
-import { WriteImageSection, WriteActionSection } from "@/components/domain";
 
 const WriteForm = ({ title }: { title: string }) => {
   const methods = useFormContext<PostWriteFormValues>();

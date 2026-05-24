@@ -4,7 +4,7 @@ import { useSignUpFlow } from "../../_hooks/useSignUpFlow";
 import SignUpField from "../SignUpField/SignUpField";
 import { useSignUpSubmit } from "../../_hooks/useSignUpSubmit";
 import { useFormContext } from "react-hook-form";
-import { Terms, TermsAgreement } from "@/components/domain";
+import { Terms, TermsAgreement } from "@/components";
 
 const SignUpContainer = () => {
   const { submitSignUp, isPending } = useSignUpSubmit();
