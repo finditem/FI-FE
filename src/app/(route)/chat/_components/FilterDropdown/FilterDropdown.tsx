@@ -4,7 +4,7 @@ import { Filter } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { SELECTED_TEXT } from "../../constants/SELECTED_TEXT";
+import { SELECTED_TEXT } from "../CHATLIST_CONST";
 import { cn } from "@/utils";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
 
