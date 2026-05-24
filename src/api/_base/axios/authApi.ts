@@ -48,7 +48,7 @@ authApi.interceptors.response.use(
           currentPath.startsWith("/change-password");
 
         if (isProtectPath && window.location.pathname !== "/login")
-          window.location.replace("/login?reason=session-expired");
+          window.location.replace(`/login?reason=session-expired&callbackUrl=${currentPath}`);
         return Promise.reject(refreshError);
       }
     }

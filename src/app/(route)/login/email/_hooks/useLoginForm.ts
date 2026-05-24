@@ -1,6 +1,6 @@
 import useApiEmailLogin from "@/api/fetch/auth/api/useApiEmailLogin";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { EMAIL_LOGIN_ERROR_MESSAGE } from "../_constants/EMAIL_LOGIN_ERROR_MESSAGE";
@@ -15,6 +15,7 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const useLoginForm = () => {
   const { handleSubmit, setValue } = useFormContext<LoginFormType>();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const cookie = getCookie("email");
   const { mutate: EmailLoginMutate, isPending } = useApiEmailLogin();
   const { addToast } = useToast();
@@ -46,7 +47,15 @@ const useLoginForm = () => {
         }
 
         queryClient.clear();
-        router.replace("/");
+
+        const rawCallback = searchParams.get("callbackUrl");
+        const isValidCallback =
+          typeof rawCallback === "string" &&
+          rawCallback.startsWith("/") &&
+          !rawCallback.startsWith("//") &&
+          !rawCallback.startsWith("/login") &&
+          !rawCallback.startsWith("/sign-up");
+        router.replace(isValidCallback ? rawCallback : "/");
 
         if (data.rememberId) {
           setCookie("email", data.email, {

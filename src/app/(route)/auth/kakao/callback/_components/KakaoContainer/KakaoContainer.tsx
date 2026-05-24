@@ -50,7 +50,16 @@ const KakaoContainer = () => {
             login(termsAgreed);
 
             if (termsAgreed) {
-              router.replace("/");
+              const rawCallback = sessionStorage.getItem("callbackUrl");
+              sessionStorage.removeItem("callbackUrl");
+              const isValidCallback =
+                typeof rawCallback === "string" &&
+                rawCallback.startsWith("/") &&
+                !rawCallback.startsWith("//") &&
+                !rawCallback.startsWith("/login") &&
+                !rawCallback.startsWith("/sign-up");
+
+              router.replace(isValidCallback ? rawCallback : "/");
             } else {
               setStep("Term");
             }
