@@ -1,6 +1,6 @@
 import { RequiredText } from "@/components";
 import { useFormContext, useWatch } from "react-hook-form";
-import { NoticeWriteFormValues } from "../../../_types/NoticeWriteType";
+import { NoticeWriteFormValues } from "../../../../_types/NoticeWriteType";
 
 const TitleInput = () => {
   const { register, control } = useFormContext<NoticeWriteFormValues>();
