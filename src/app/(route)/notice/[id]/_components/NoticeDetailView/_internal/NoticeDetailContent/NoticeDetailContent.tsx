@@ -5,7 +5,7 @@ import { NoticeDetail } from "@/api/fetch/notice";
 import { Icon, ImageViewerModal } from "@/components";
 import { cn, formatDate, formatViewCount } from "@/utils";
 import Image from "next/image";
-import { useToggleLike } from "./useToggleLike";
+import { useToggleLike } from "../../../../_hooks/useToggleLike/useToggleLike";
 
 const BADGE_DEFAULT_STYLE = "inline-block rounded-full px-2 py-1 text-caption2-medium text-white";
 

@@ -3,7 +3,7 @@
 import { InputComment, GuestLoginModal } from "@/components";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { usePostNoticeCommentSubmit } from "../../../_hooks/usePostNoticeCommentSubmit/usePostNoticeCommentSubmit";
+import { usePostNoticeCommentSubmit } from "../../../../_hooks/usePostNoticeCommentSubmit/usePostNoticeCommentSubmit";
 
 interface NoticeCommentFormProps {
   noticeId: number;
