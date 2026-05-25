@@ -1,3 +1,5 @@
+import { NotificationType, ReferenceType } from "@/api/fetch/notification";
+
 export const ALERT_CATEGORIES = [
   { key: "all", label: "전체" },
   { key: "category", label: "카테고리 키워드" },
@@ -18,8 +20,6 @@ export const ALERT_ROW_BG = {
     delete: "bg-fill-brand-subtle-default_3 hover:bg-fill-brand-subtle-default_3",
   },
 } as const;
-
-import { NotificationType, ReferenceType } from "@/api/fetch/notification";
 
 type AlertIconBackgroundColor = {
   icon: string;
