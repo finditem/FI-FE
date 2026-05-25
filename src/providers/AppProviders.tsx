@@ -1,4 +1,4 @@
-import { ComponentType, ReactElement, ReactNode } from "react";
+import { ComponentType, ReactNode } from "react";
 import { QueryProviders } from "./QueryProviders";
 import { PWAProvider } from "./PWAProvider";
 import { SnackBarProvider } from "./SnackBarProviders";
@@ -39,9 +39,6 @@ const providers: ProviderComponent[] = [
  */
 
 const AppProviders = ({ children }: { children: ReactNode }) =>
-  providers.reduceRight<ReactNode>(
-    (acc, Provider) => <Provider>{acc}</Provider>,
-    children
-  ) as ReactElement;
+  providers.reduceRight<ReactNode>((acc, Provider) => <Provider>{acc}</Provider>, children);
 
 export default AppProviders;
