@@ -11,6 +11,11 @@ import {
   MOCK_WS_CHAT_MESSAGE,
 } from "@/mock/data/chat.data";
 import useChatSocketMessage from "./useChatSocketMessage";
+import findOptimisticMessage from "../../_utils/findOptimisticMessage/findOptimisticMessage";
+import {
+  addMessageToCache,
+  replaceMessageInCache,
+} from "../../_utils/chatMessageCache/chatMessageCache";
 
 const socketCallbacks: {
   onMessage?: (message: WebSocketChatMessage) => void;
@@ -39,8 +44,6 @@ jest.mock("../../_utils", () => {
     replaceMessageInCache: jest.fn(),
   };
 });
-
-import { findOptimisticMessage, addMessageToCache, replaceMessageInCache } from "../../_utils";
 
 const mockFindOptimisticMessage = jest.mocked(findOptimisticMessage);
 const mockAddMessageToCache = jest.mocked(addMessageToCache);

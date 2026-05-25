@@ -4,7 +4,7 @@ import { ChatBox, ChatDateDivider } from "./_internal";
 import { useRef } from "react";
 import { cn } from "@/utils";
 import { useGetUsersMe } from "@/api/fetch/user";
-import { enrichMessages } from "./utils/enrichMessages";
+import { enrichMessages } from "../../_utils/enrichMessages/enrichMessages";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
 import useChatScrollOnSignal from "../../_hooks/useChatScrollOnSignal/useChatScrollOnSignal";
 import useChatInfiniteScroll from "../../_hooks/useChatInfiniteScroll/useChatInfiniteScroll";
