@@ -11,7 +11,7 @@ jest.mock("@/api/fetch/chatRoom", () => ({
   sendChatSocketMessage: jest.fn(),
 }));
 
-jest.mock("../../_utils", () => ({
+jest.mock("../../_utils/chatMessageCache/chatMessageCache", () => ({
   addMessageToCache: jest.fn(),
   removeMessageFromCache: jest.fn(),
 }));

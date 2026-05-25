@@ -35,15 +35,15 @@ jest.mock("@/api/fetch/chatMessage/api/useReadMessage", () => ({
   default: jest.fn(() => ({ mutate: mockMutate })),
 }));
 
-jest.mock("../../_utils", () => {
-  const actual = jest.requireActual("../../_utils") as Record<string, unknown>;
-  return {
-    ...actual,
-    findOptimisticMessage: jest.fn(),
-    addMessageToCache: jest.fn(),
-    replaceMessageInCache: jest.fn(),
-  };
-});
+jest.mock("../../_utils/findOptimisticMessage/findOptimisticMessage", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("../../_utils/chatMessageCache/chatMessageCache", () => ({
+  addMessageToCache: jest.fn(),
+  replaceMessageInCache: jest.fn(),
+}));
 
 const mockFindOptimisticMessage = jest.mocked(findOptimisticMessage);
 const mockAddMessageToCache = jest.mocked(addMessageToCache);
