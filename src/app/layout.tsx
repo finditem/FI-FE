@@ -1,8 +1,6 @@
 import { Footer } from "@/components";
 import "./globals.css";
-import Providers from "@/providers/QueryProviders";
-import { ToastProvider } from "@/providers/ToastProviders";
-import { SnackBarProvider } from "@/providers/SnackBarProviders";
+import AppProviders from "@/providers/AppProviders";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
@@ -12,7 +10,6 @@ import MSWProvider from "@/providers/MSWProvider";
 import AuthBootstrap from "./authBootStrap";
 import { NotificationSSEProvider } from "@/providers/NotificationSSEProvider";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { PWAProvider } from "@/providers/PWAProvider";
 import { WebPushProvider } from "@/providers/WebPushProvider";
 import TermsProvider from "@/providers/TermsProvider";
 
@@ -110,23 +107,17 @@ export default function RootLayout({
             `}
           </Script>
         )}
-        <Providers>
-          <PWAProvider>
-            <SnackBarProvider>
-              <TermsProvider>
-                <ToastProvider>
-                  <MSWProvider />
-                  <AuthBootstrap />
-                  <WebPushProvider>
-                    <NotificationSSEProvider>
-                      <main className="w-full flex-1">{children}</main>
-                      <Footer />
-                    </NotificationSSEProvider>
-                  </WebPushProvider>
-                </ToastProvider>
-              </TermsProvider>
-            </SnackBarProvider>
-          </PWAProvider>
+        <AppProviders>
+          <TermsProvider>
+            <MSWProvider />
+            <AuthBootstrap />
+            <WebPushProvider>
+              <NotificationSSEProvider>
+                <main className="w-full flex-1">{children}</main>
+                <Footer />
+              </NotificationSSEProvider>
+            </WebPushProvider>
+          </TermsProvider>
           <Script
             src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js"
             integrity="sha384-tJkjbtDbvoxO+diRuDtwRO9JXR7pjWnfjfRn5ePUpl7e7RJCxKCwwnfqUAdXh53p"
@@ -139,7 +130,7 @@ export default function RootLayout({
               <SpeedInsights />
             </>
           )}
-        </Providers>
+        </AppProviders>
       </body>
     </html>
   );
