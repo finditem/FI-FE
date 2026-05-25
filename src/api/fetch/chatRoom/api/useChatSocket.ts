@@ -1,12 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import {
-  connectChatSocket,
-  disconnectChatSocket,
-  subscribeChatSocket,
-  unsubscribeChatSocket,
-} from "./chatSocket";
 import type { MessageHandler } from "./chatSocket";
 import { ChatListUpdateResponse, WebSocketChatMessage } from "../types/ChatRoomResponse";
 
@@ -17,34 +11,69 @@ interface UseChatSocketOptions {
   manageConnection?: boolean;
 }
 
+const scheduleDeferredConnect = (task: () => void) => {
+  if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+    const idleId = window.requestIdleCallback(task);
+    return () => window.cancelIdleCallback(idleId);
+  }
+
+  const timeoutId = setTimeout(task, 0);
+  return () => clearTimeout(timeoutId);
+};
+
 export const useChatSocket = ({
   onMessage,
   onListUpdate,
   onReadReceipt,
   manageConnection = false,
 }: UseChatSocketOptions = {}) => {
-  const subscriptions = [
-    { destination: "/user/queue/messages", handler: onMessage },
-    { destination: "/user/queue/list-updates", handler: onListUpdate },
-    { destination: "/user/queue/read-receipts", handler: onReadReceipt },
-  ];
-
   useEffect(() => {
-    if (manageConnection) {
-      connectChatSocket();
-      return () => disconnectChatSocket();
-    }
+    let cancelled = false;
+    let cancelDeferredConnect: (() => void) | undefined;
+    let chatSocketModule: typeof import("./chatSocket") | null = null;
 
-    subscriptions.forEach(({ destination, handler }) => {
-      if (handler) {
-        subscribeChatSocket(destination, handler as MessageHandler);
+    const subscriptions = [
+      { destination: "/user/queue/messages", handler: onMessage },
+      { destination: "/user/queue/list-updates", handler: onListUpdate },
+      { destination: "/user/queue/read-receipts", handler: onReadReceipt },
+    ];
+
+    const init = async () => {
+      chatSocketModule = await import("./chatSocket");
+      if (cancelled) return;
+
+      if (manageConnection) {
+        cancelDeferredConnect = scheduleDeferredConnect(() => {
+          if (!cancelled) {
+            chatSocketModule?.connectChatSocket();
+          }
+        });
+        return;
       }
-    });
 
-    return () => {
       subscriptions.forEach(({ destination, handler }) => {
         if (handler) {
-          unsubscribeChatSocket(destination, handler as MessageHandler);
+          chatSocketModule?.subscribeChatSocket(destination, handler as MessageHandler);
+        }
+      });
+    };
+
+    init();
+
+    return () => {
+      cancelled = true;
+      cancelDeferredConnect?.();
+
+      if (!chatSocketModule) return;
+
+      if (manageConnection) {
+        chatSocketModule.disconnectChatSocket();
+        return;
+      }
+
+      subscriptions.forEach(({ destination, handler }) => {
+        if (handler) {
+          chatSocketModule?.unsubscribeChatSocket(destination, handler as MessageHandler);
         }
       });
     };
