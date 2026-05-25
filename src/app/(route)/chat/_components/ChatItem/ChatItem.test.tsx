@@ -49,6 +49,16 @@ const createMockChatRoom = (overrides?: Partial<ChatRoom>): ChatRoom => {
 describe("ChatItem", () => {
   const mockChatRoom = createMockChatRoom();
 
+  it("채팅방 링크에 화면 텍스트와 일치하는 접근성 라벨이 설정됩니다", () => {
+    render(<ChatItem chatRoom={mockChatRoom} />);
+
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute(
+      "aria-label",
+      "사용자 닉네임, 서울시 강남구 신사동, 10분 전, 안녕하세요! 혹시 올리신 검정색 카드 지갑, 명동에서 발견하신 지갑이실까요? 혹시나 해서, 읽지 않은 메시지 1개"
+    );
+  });
+
   it("링크가 올바른 href를 가지고 렌더링됩니다", () => {
     render(<ChatItem chatRoom={mockChatRoom} />);
 

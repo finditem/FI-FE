@@ -33,7 +33,7 @@ const DefaultChatList = ({ searchUpdateQuery }: DefaultChatListProps) => {
     <>
       <div className="flex gap-2 px-5 py-[14px] no-scrollbar">
         <Filter
-          ariaLabel={`채팅 리스트 ${regionDisplayText}`}
+          ariaLabel={regionDisplayText}
           onSelected={!!selectedRegion}
           icon={{ name: "Location", size: 16 }}
           iconPosition="leading"

@@ -14,11 +14,20 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
   const { roomId } = chatRoom;
 
   const lastMessageIsImage = lastMessageSentAt && messageType === "IMAGE";
+  const displayNickname = withdrawn ? "탈퇴한 회원" : nickname || "닉네임을 불러오지 못했습니다.";
+  const displayAddress = address || "위치 정보를 불러오지 못했습니다.";
+  const displayDate = formatDate(lastMessageSentAt || "시간 정보가 없습니다.");
+  const displayMessage = lastMessageIsImage
+    ? "사진"
+    : lastMessage || "메시지를 불러오지 못했습니다.";
+  const unreadLabel =
+    unreadCount > 0 ? `, 읽지 않은 메시지 ${unreadCount > 99 ? "99+" : unreadCount}개` : "";
+  const accessibleName = `${displayNickname}, ${displayAddress}, ${displayDate}, ${displayMessage}${unreadLabel}`;
 
   return (
     <Link
       href={`/chat/${postId}?roomId=${roomId}`}
-      aria-label={`${postId} 채팅방 링크`}
+      aria-label={accessibleName}
       className="flex min-h-[113px] w-full items-center gap-3 border-b border-divider-default px-4 py-6 transition-colors hover:bg-flatGray-25"
     >
       <div className="relative h-[58px] w-[58px] shrink-0">
@@ -41,7 +50,7 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
       <div className="w-full min-w-0 space-y-[2px]">
         <div className="flex items-center justify-between truncate">
           <span className="truncate text-h3-semibold text-layout-header-default">
-            {withdrawn ? "탈퇴한 회원" : nickname || "닉네임을 불러오지 못했습니다."}
+            {displayNickname}
           </span>
           {unreadCount > 0 && (
             <span className="rounded-full bg-flatGreen-500 px-[5.5px] py-[1.5px] text-caption2-semibold text-white flex-center">
@@ -50,14 +59,10 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
           )}
         </div>
         <div className="flex truncate text-caption1-medium text-layout-body-default">
-          <span className="truncate">{address || "위치 정보를 불러오지 못했습니다."}</span>
-          <time className="flex-shrink-0 before:mx-1 before:content-['·']">
-            {formatDate(lastMessageSentAt || "시간 정보가 없습니다.")}
-          </time>
+          <span className="truncate">{displayAddress}</span>
+          <time className="flex-shrink-0 before:mx-1 before:content-['·']">{displayDate}</time>
         </div>
-        <p className="truncate text-body2-medium text-layout-header-default">
-          {lastMessageIsImage ? "사진" : lastMessage || "메시지를 불러오지 못했습니다."}
-        </p>
+        <p className="truncate text-body2-medium text-layout-header-default">{displayMessage}</p>
       </div>
     </Link>
   );
