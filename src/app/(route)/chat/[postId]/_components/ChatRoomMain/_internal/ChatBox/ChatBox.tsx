@@ -3,7 +3,7 @@ import { CHAT_SENDER_STYLE } from "../../../CHATROOM_CONST";
 import ChatImageBox from "../ChatImageBox/ChatImageBox";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
 import { useGetUsersMe } from "@/api/fetch/user";
-import ExpandableMessageBubble from "./_internal/ExpandableMessageBubble";
+import ExpandableMessageBubble from "../ExpandableMessageBubble/ExpandableMessageBubble";
 
 interface ChatBoxProps {
   chat: ChatMessage;

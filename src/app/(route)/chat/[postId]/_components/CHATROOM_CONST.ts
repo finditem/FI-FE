@@ -1,5 +1,5 @@
 import { IconName } from "@/components";
-import { InfoButtonOptionValue } from "./ChatRoomHeaderInfoButton/_internal/InfoButtonOptionValueTypes";
+import { InfoButtonOptionValue } from "../_types/InfoButtonOptionValue";
 
 export const CHAT_CHIP_MODE = {
   FIND: { style: "text-accent-foundItem bg-fill-accent-foundItem", text: "발견" },
