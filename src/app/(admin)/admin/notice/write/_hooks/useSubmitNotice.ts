@@ -1,6 +1,6 @@
 import { usePostNotices } from "@/api/fetch/admin";
 import { useDeleteS3, usePostS3 } from "@/api/fetch/s3";
-import { NoticeWriteFormValues } from "../../../_types/NoticeWriteType";
+import { NoticeWriteFormValues } from "../_types/NoticeWriteType";
 
 const useSubmitNotice = () => {
   const { mutate: postNotice } = usePostNotices();

@@ -8,8 +8,8 @@ import {
 } from "../../../_components/NoticeWriteForm/_internal";
 import { WriteActionSection } from "@/components";
 import { NoticeEditFormValues } from "../../_types/NoticeEditFormValues";
-import { useSubmitNoticeEdit } from "./_internal/useSubmitNoticeEdit";
 import NoticeEditImageSection from "./_internal/NoticeEditImageSection";
+import { useSubmitNoticeEdit } from "../../../_hooks/useSubmitNoticeEdit";
 
 const IMAGE_HELP_TEXT = "*사진은 최대 5장 첨부가 가능합니다. (선택)";
 

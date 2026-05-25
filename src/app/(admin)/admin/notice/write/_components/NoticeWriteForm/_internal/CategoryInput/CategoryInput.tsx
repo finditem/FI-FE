@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { NoticeCategory } from "@/types";
-import { NoticeWriteFormValues } from "../../../_types/NoticeWriteType";
+import { NoticeWriteFormValues } from "../../../../_types/NoticeWriteType";
 import { Icon, RequiredText, CategoryPopup } from "@/components";
 
 const CATEGORY_LABEL: Record<NoticeCategory, string> = {
