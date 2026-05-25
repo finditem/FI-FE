@@ -26,7 +26,7 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
       href={`/chat/${postId}?roomId=${roomId}`}
       className="flex min-h-[113px] w-full items-center gap-3 border-b border-divider-default px-4 py-6 transition-colors hover:bg-flatGray-25"
     >
-      <div className="relative h-[58px] w-[58px] shrink-0" aria-hidden="true">
+      <div className="relative size-[58px] shrink-0" aria-hidden="true">
         <ProfileAvatar
           src={profileImageUrl}
           alt=""
