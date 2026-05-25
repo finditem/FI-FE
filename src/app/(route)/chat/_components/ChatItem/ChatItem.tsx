@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ListItemImage, ProfileAvatar } from "@/components";
-import { formatDate } from "@/utils";
+import { formatCappedNumber, formatDate } from "@/utils";
 
 interface ChatItemProps {
   chatRoom: ChatRoom;
@@ -20,7 +20,6 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
   const displayMessage = lastMessageIsImage
     ? "사진"
     : lastMessage || "메시지를 불러오지 못했습니다.";
-  const displayUnreadCount = unreadCount > 99 ? "99+" : unreadCount;
 
   return (
     <Link
@@ -47,13 +46,15 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
           {unreadCount > 0 && (
             <span className="rounded-full bg-flatGreen-500 px-[5.5px] py-[1.5px] text-caption2-semibold text-white flex-center">
               <span className="sr-only">읽지 않은 메시지 </span>
-              {displayUnreadCount}
+              {formatCappedNumber(unreadCount)}
             </span>
           )}
         </div>
         <div className="flex truncate text-caption1-medium text-layout-body-default">
           <span className="truncate">{displayAddress}</span>
-          <time className="flex-shrink-0 before:mx-1 before:content-['·']">{displayDate}</time>
+          <time dateTime={displayDate} className="flex-shrink-0 before:mx-1 before:content-['·']">
+            {displayDate}
+          </time>
         </div>
         <p className="truncate text-body2-medium text-layout-header-default">{displayMessage}</p>
       </div>
