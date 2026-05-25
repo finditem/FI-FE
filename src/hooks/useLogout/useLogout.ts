@@ -1,4 +1,3 @@
-import useApiLogout from "@/api/fetch/auth/api/useApiLogout";
 import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notificationSSEClient";
 import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
@@ -6,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS } from "@/constants";
 import { unsubscribeWebPushFromServer } from "@/utils";
+import { useApiLogout } from "@/api/fetch/auth/api/useApiLogout";
 
 const useLogout = () => {
   const { mutate: logoutMutate, isPending } = useApiLogout();

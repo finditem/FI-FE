@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { QueryKey } from "@tanstack/react-query";
 import { ReportReasonModal, ReportPopupLayout, ReportReason, ReportSelectBox } from "./_internal";
-import useReport from "@/api/fetch/report/api/useReport";
+import { useReport } from "@/api/fetch/report/api/useReport";
 import { ReportTargetType } from "@/types";
 
 type ReportFormValues = {
