@@ -3,6 +3,9 @@ import { QueryProviders } from "./QueryProviders";
 import { PWAProvider } from "./PWAProvider";
 import { SnackBarProvider } from "./SnackBarProviders";
 import { ToastProvider } from "./ToastProviders";
+import { TermsProvider } from "./TermsProvider";
+import { WebPushProvider } from "./WebPushProvider";
+import { NotificationSSEProvider } from "./NotificationSSEProvider";
 
 type ProviderComponent = ComponentType<{ children: ReactNode }>;
 
@@ -11,6 +14,9 @@ const providers: ProviderComponent[] = [
   PWAProvider,
   SnackBarProvider,
   ToastProvider,
+  TermsProvider,
+  WebPushProvider,
+  NotificationSSEProvider,
 ];
 
 /**

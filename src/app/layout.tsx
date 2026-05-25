@@ -8,10 +8,7 @@ import Script from "next/script";
 import { Metadata } from "next";
 import MSWProvider from "@/providers/MSWProvider";
 import AuthBootstrap from "./authBootStrap";
-import { NotificationSSEProvider } from "@/providers/NotificationSSEProvider";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
-import { WebPushProvider } from "@/providers/WebPushProvider";
-import TermsProvider from "@/providers/TermsProvider";
 
 const pretendard = localFont({
   src: [
@@ -108,16 +105,10 @@ export default function RootLayout({
           </Script>
         )}
         <AppProviders>
-          <TermsProvider>
-            <MSWProvider />
-            <AuthBootstrap />
-            <WebPushProvider>
-              <NotificationSSEProvider>
-                <main className="w-full flex-1">{children}</main>
-                <Footer />
-              </NotificationSSEProvider>
-            </WebPushProvider>
-          </TermsProvider>
+          <MSWProvider />
+          <AuthBootstrap />
+          <main className="w-full flex-1">{children}</main>
+          <Footer />
           <Script
             src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js"
             integrity="sha384-tJkjbtDbvoxO+diRuDtwRO9JXR7pjWnfjfRn5ePUpl7e7RJCxKCwwnfqUAdXh53p"
