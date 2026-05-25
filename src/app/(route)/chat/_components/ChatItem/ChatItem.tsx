@@ -20,30 +20,22 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
   const displayMessage = lastMessageIsImage
     ? "사진"
     : lastMessage || "메시지를 불러오지 못했습니다.";
-  const unreadLabel =
-    unreadCount > 0 ? `, 읽지 않은 메시지 ${unreadCount > 99 ? "99+" : unreadCount}개` : "";
-  const accessibleName = `${displayNickname}, ${displayAddress}, ${displayDate}, ${displayMessage}${unreadLabel}`;
+  const displayUnreadCount = unreadCount > 99 ? "99+" : unreadCount;
 
   return (
     <Link
       href={`/chat/${postId}?roomId=${roomId}`}
-      aria-label={accessibleName}
       className="flex min-h-[113px] w-full items-center gap-3 border-b border-divider-default px-4 py-6 transition-colors hover:bg-flatGray-25"
     >
-      <div className="relative h-[58px] w-[58px] shrink-0">
+      <div className="relative h-[58px] w-[58px] shrink-0" aria-hidden="true">
         <ProfileAvatar
           src={profileImageUrl}
-          alt="유저 프로필 이미지"
+          alt=""
           size={26}
           className="absolute left-0 top-0 z-10 size-[26px] rounded-full border-[1.5px] border-white"
         />
         <div className="absolute bottom-0 right-0 rounded object-cover">
-          <ListItemImage
-            alt="채팅리스트 게시글 썸네일"
-            size={50}
-            src={thumbnailUrl}
-            category={category}
-          />
+          <ListItemImage alt="" size={50} src={thumbnailUrl} category={category} />
         </div>
       </div>
 
@@ -54,7 +46,8 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
           </span>
           {unreadCount > 0 && (
             <span className="rounded-full bg-flatGreen-500 px-[5.5px] py-[1.5px] text-caption2-semibold text-white flex-center">
-              {unreadCount > 99 ? "99+" : unreadCount}
+              <span className="sr-only">읽지 않은 메시지 </span>
+              {displayUnreadCount}
             </span>
           )}
         </div>
