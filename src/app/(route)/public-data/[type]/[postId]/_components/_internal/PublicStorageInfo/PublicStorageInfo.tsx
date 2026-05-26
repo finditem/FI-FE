@@ -19,11 +19,12 @@ const PublicStorageInfo = ({ office, department, tel, place, isLost }: PublicSto
         <div className="flex items-center justify-between">
           <h3 className="text-body1-semibold text-layout-header-default">{office}</h3>
           <Image
-            src="/public-data/public-detail-police24.svg"
+            src="/public-data/public-detail-police24.webp"
             alt="경찰청 마크"
             width={100}
             height={21}
             priority
+            unoptimized
           />
         </div>
         <ul
