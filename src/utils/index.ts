@@ -28,6 +28,7 @@ export { retryBackoffController } from "./retryBackoffController/retryBackoffCon
 export { formatMetadataKeyword } from "./formatMetadataKeyword/formatMetadataKeyword";
 export { formatMetadataAddress } from "./formatMetadataAddress/formatMetadataAddress";
 export { extractDongAddress } from "./extractDongAddress/extractDongAddress";
+export { isValidCallbackUrl } from "./isValidCallbackUrl/isValidCallbackUrl";
 export { isWebPushSupported } from "./webPush/isWebPushSupported/isWebPushSupported";
 export { registerWebPushServiceWorker } from "./webPush/registerWebPushServiceWorker/registerWebPushServiceWorker";
 export { syncWebPushSubscription } from "./webPush/syncWebPushSubscription/syncWebPushSubscription";

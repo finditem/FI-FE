@@ -9,6 +9,7 @@ import { LoginFormType } from "../_types/LoginFormType";
 import { useErrorToast } from "@/hooks";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
+import { isValidCallbackUrl } from "@/utils";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -49,13 +50,7 @@ const useLoginForm = () => {
         queryClient.clear();
 
         const rawCallback = searchParams.get("callbackUrl");
-        const isValidCallback =
-          typeof rawCallback === "string" &&
-          rawCallback.startsWith("/") &&
-          !rawCallback.startsWith("//") &&
-          !rawCallback.startsWith("/login") &&
-          !rawCallback.startsWith("/sign-up");
-        router.replace(isValidCallback ? rawCallback : "/");
+        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
 
         if (data.rememberId) {
           setCookie("email", data.email, {

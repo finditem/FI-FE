@@ -47,7 +47,8 @@ export default function AuthBootstrap() {
         logout();
         if (error.code === "AUTH401-INVALID_REFRESH" && isProtectPath) {
           router.replace(
-            "/login?reason=session-expired&callbackUrl=" + encodeURIComponent(pathname)
+            "/login?reason=session-expired&callbackUrl=" +
+              encodeURIComponent(pathname + window.location.search)
           );
         }
       },
