@@ -12,7 +12,7 @@ interface UseReportParams {
   onClose: () => void;
 }
 
-const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportParams) => {
+export const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportParams) => {
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -36,5 +36,3 @@ const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportP
     },
   });
 };
-
-export default useReport;
