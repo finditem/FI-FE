@@ -107,7 +107,6 @@ const ImageViewerModal = ({
                   alt={`상세 이미지 ${index + 1}`}
                   fill
                   className="select-none object-contain"
-                  priority
                 />
               </div>
             </SwiperSlide>
