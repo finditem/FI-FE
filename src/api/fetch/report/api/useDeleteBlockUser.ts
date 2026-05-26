@@ -7,7 +7,7 @@ interface DeleteBlockUserParams {
   userId: number;
 }
 
-const useDeleteBlockUser = () => {
+export const useDeleteBlockUser = () => {
   const queryClient = useQueryClient();
 
   return useAppMutation<DeleteBlockUserParams>(
@@ -24,5 +24,3 @@ const useDeleteBlockUser = () => {
     }
   );
 };
-
-export default useDeleteBlockUser;
