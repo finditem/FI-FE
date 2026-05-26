@@ -6,9 +6,8 @@ import NotificationCategory from "./NotificationCategory";
 const mockMutate = jest.fn();
 const mockSetIsBottomSheetOpen = jest.fn();
 
-jest.mock("@/api/fetch/notification/api/usePutNotificationSetting", () => ({
-  __esModule: true,
-  default: () => ({ mutate: mockMutate, isPending: false }),
+jest.mock("@/api/fetch/notification", () => ({
+  usePutNotificationSetting: () => ({ mutate: mockMutate, isPending: false }),
 }));
 
 jest.mock("@/components/domain", () => ({
