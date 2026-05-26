@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import useReport from "@/api/fetch/report/api/useReport";
+import { useReport } from "@/api/fetch/report/api/useReport";
 import { REPORT_REASONS } from "./_internal/REPORT_REASONS";
 import ReportModal from "./ReportModal";
 
