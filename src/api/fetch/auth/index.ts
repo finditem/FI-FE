@@ -10,3 +10,5 @@ export { useApiSendEmail } from "./api/useApiSendEmail";
 export { useApiSignUp } from "./api/useApiSignUp";
 export { useApiKakaoLogin } from "./api/useApiKakaoLogin";
 export { useApiRefreshToken } from "./api/useApiRefreshToken";
+export { useApiLogout } from "./api/useApiLogout";
+export { useApiEmailLogin } from "./api/useApiEmailLogin";
