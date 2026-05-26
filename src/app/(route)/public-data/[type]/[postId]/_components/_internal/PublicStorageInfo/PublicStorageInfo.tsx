@@ -23,7 +23,6 @@ const PublicStorageInfo = ({ office, department, tel, place, isLost }: PublicSto
             alt="경찰청 마크"
             width={100}
             height={21}
-            priority
             unoptimized
           />
         </div>

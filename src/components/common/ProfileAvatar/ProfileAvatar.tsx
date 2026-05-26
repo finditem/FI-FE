@@ -58,7 +58,7 @@ const ProfileAvatar = ({
       sizes={`${size}px`}
       priority={priority}
       draggable={false}
-      unoptimized
+      unoptimized={imgSrc === FALLBACK_SRC ? true : undefined}
       className={cn(
         "pointer-events-none select-none rounded-full object-cover",
         `w-[${size}px] h-[${size}px]`,
