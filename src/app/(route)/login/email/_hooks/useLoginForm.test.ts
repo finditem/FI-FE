@@ -12,6 +12,7 @@ const mockUseApiEmailLogin = jest.fn();
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ replace: mockRouterReplace }),
+  useSearchParams: () => ({ get: jest.fn().mockReturnValue(null) }),
 }));
 
 jest.mock("@/context/ToastContext", () => ({

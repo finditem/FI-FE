@@ -5,6 +5,7 @@ import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
+import { useSearchParams } from "next/navigation";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -14,6 +15,23 @@ const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_K
 
 const page = () => {
   const { reason } = useSessionNotification();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
+  const emailLoginHref = (() => {
+    const params = new URLSearchParams();
+    if (reason === "session-expired") params.set("reason", "session-expired");
+    if (callbackUrl) params.set("callbackUrl", callbackUrl);
+    const query = params.toString();
+    return query ? `/login/email?${query}` : "/login/email";
+  })();
+
+  const handleKakaoLogin = () => {
+    if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
+    else sessionStorage.removeItem("callbackUrl");
+
+    window.location.href = kakaoURL;
+  };
 
   return (
     <div className="min-h-screen w-full gap-8 flex-col-center">
@@ -25,7 +43,7 @@ const page = () => {
           type="submit"
           ignoreBase
           ariaLabel="카카오 로그인 버튼"
-          onClick={() => (window.location.href = kakaoURL)}
+          onClick={handleKakaoLogin}
           className={cn(
             ButtonStyle,
             "gap-1 text-flatGray-900 bg-fill-accent-kakao hover:bg-fill-accent-kakao"
@@ -36,9 +54,7 @@ const page = () => {
         </Button>
         <Button
           as={Link}
-          href={
-            reason === "session-expired" ? "/login/email?reason=session-expired" : "/login/email"
-          }
+          href={emailLoginHref}
           ignoreBase
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label="로그인 버튼"
