@@ -1,14 +1,17 @@
 import { act, renderHook } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { sendChatSocketMessage } from "@/api/fetch/chatRoom";
-import { addMessageToCache, removeMessageFromCache } from "../../_utils";
 import useChatMessageSubmit from "./useChatMessageSubmit";
+import {
+  addMessageToCache,
+  removeMessageFromCache,
+} from "../../_utils/chatMessageCache/chatMessageCache";
 
 jest.mock("@/api/fetch/chatRoom", () => ({
   sendChatSocketMessage: jest.fn(),
 }));
 
-jest.mock("../../_utils", () => ({
+jest.mock("../../_utils/chatMessageCache/chatMessageCache", () => ({
   addMessageToCache: jest.fn(),
   removeMessageFromCache: jest.fn(),
 }));

@@ -9,7 +9,7 @@ import { highlightText } from "@/utils";
 import { useRouter } from "next/navigation";
 import type { RefObject } from "react";
 import { useMemo } from "react";
-import { handleSearchDropdownRowKeyDown } from "../searchDropdownListKeyboard";
+import { handleSearchDropdownRowKeyDown } from "../../../../_utils/searchDropdownListKeyboard";
 
 interface AutoCompleteListProps {
   searchKeyword: string;

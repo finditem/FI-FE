@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CATEGORY, POST_TYPE } from "../../_constants/QUERY_PARAMS";
+import { CATEGORY, POST_TYPE } from "../../_components/HOME_CONST";
 import useHomeFilterQuery from "./useHomeFilterQuery";
 
 jest.mock("next/navigation", () => ({
