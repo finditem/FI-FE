@@ -5,8 +5,8 @@ import { useClickOutside } from "@/hooks";
 import { cn } from "@/utils";
 import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
-import { FILTER_OPTIONS } from "./FILTER_OPTIONS";
 import { NoticeSortType } from "@/types";
+import { FILTER_OPTIONS } from "../NOTICE_LIST_CONST";
 
 interface NoticeFilterProps {
   searchUpdateQuery: (key: string, value?: string) => void;
