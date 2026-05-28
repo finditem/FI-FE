@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../../constants/FILTER";
+import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
 
 const meta: Meta<typeof FilterDropdown> = {
   title: "페이지/채팅 목록 페이지/FilterDropdown",
@@ -33,7 +33,6 @@ const mockSearchUpdateQuery = (key: string, value?: string) => {
 
 export const SortFilter: Story = {
   args: {
-    ariaLabel: "채팅 리스트 최신순",
     options: SORT_OPTIONS,
     keyName: "sort",
     searchUpdateQuery: mockSearchUpdateQuery,
@@ -49,7 +48,6 @@ export const SortFilter: Story = {
 
 export const TypeFilter: Story = {
   args: {
-    ariaLabel: "채팅 리스트 분실/발견",
     options: TYPE_OPTIONS,
     keyName: "type",
     searchUpdateQuery: mockSearchUpdateQuery,

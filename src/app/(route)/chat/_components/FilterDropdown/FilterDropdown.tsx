@@ -4,7 +4,7 @@ import { Filter } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { SELECTED_TEXT } from "../../constants/SELECTED_TEXT";
+import { SELECTED_TEXT } from "../CHATLIST_CONST";
 import { cn } from "@/utils";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
 
@@ -14,18 +14,12 @@ interface FilterOption {
 }
 
 interface FilterDropdownProps {
-  ariaLabel: string;
   options: readonly FilterOption[];
   keyName: string;
   searchUpdateQuery: (key: string, value?: string) => void;
 }
 
-const FilterDropdown = ({
-  ariaLabel,
-  options,
-  keyName,
-  searchUpdateQuery,
-}: FilterDropdownProps) => {
+const FilterDropdown = ({ options, keyName, searchUpdateQuery }: FilterDropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,7 +47,7 @@ const FilterDropdown = ({
     <>
       <div ref={containerRef}>
         <Filter
-          ariaLabel={ariaLabel}
+          ariaLabel={displayText}
           onSelected={isSelected}
           icon={{ name: "ArrowDown", size: 12 }}
           iconPosition="trailing"

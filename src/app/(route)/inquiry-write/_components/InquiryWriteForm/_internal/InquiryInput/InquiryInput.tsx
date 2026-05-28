@@ -3,7 +3,7 @@ import { useHorizontalDragScroll } from "@/hooks";
 import { cn } from "@/utils";
 import { InputHTMLAttributes } from "react";
 import { FieldValues, useFormContext, UseFormSetValue, useWatch } from "react-hook-form";
-import { EMAIL_AUTO_COMPLETE_LIST } from "./EMAIL_AUTO_COMPLETE_LIST";
+import { EMAIL_AUTO_COMPLETE_LIST } from "../../../INQUIRY_WRITE_CONST";
 
 interface InquiryInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;

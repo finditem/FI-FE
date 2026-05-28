@@ -1,5 +1,5 @@
 import { cn } from "@/utils";
-import { CHAT_CHIP_MODE, ChatChipMode } from "./CHAT_CHIP_MODE";
+import { CHAT_CHIP_MODE, ChatChipMode } from "../CHATROOM_CONST";
 import { ItemStatus, PostType } from "@/types";
 
 const CHIP_BASE_CLASS = "shrink-0 rounded text-caption2-semibold flex-center";

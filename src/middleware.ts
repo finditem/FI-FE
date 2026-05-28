@@ -42,7 +42,7 @@ export function middleware(request: NextRequest) {
   // 리프레쉬 토큰이 없는 상황에서 보호된 페이지 접근하려고 할 때 로그인 페이지로 리다이렉트
   if (isProtectPath && !refreshToken) {
     const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("callbackUrl", currentPath);
+    loginUrl.searchParams.set("callbackUrl", currentPath + request.nextUrl.search);
 
     return NextResponse.redirect(loginUrl);
   }

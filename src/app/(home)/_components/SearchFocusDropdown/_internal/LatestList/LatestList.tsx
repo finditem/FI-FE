@@ -6,7 +6,7 @@ import { useMainRecentSearch } from "@/store";
 import { useRouter } from "next/navigation";
 import type { RefObject } from "react";
 import RecentSearchEmpty from "../../../MainSearchHeader/_internal/RecentSearchEmpty/RecentSearchEmpty";
-import { handleSearchDropdownRowKeyDown } from "../searchDropdownListKeyboard";
+import { handleSearchDropdownRowKeyDown } from "../../../../_utils/searchDropdownListKeyboard";
 
 const formatShortDate = (iso: string) => {
   const d = new Date(iso);

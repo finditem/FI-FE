@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import MainCardList from "../MainCardList/MainCardList";
-import { POLICE_ITEMS } from "./POLICE_ITEMS";
+import { POLICE_ITEMS } from "../../../HOME_CONST";
 import { usePublicRecentFound } from "@/api/fetch/publicData/api/usePublicRecentFound";
 import { PublicDataItem } from "@/types";
 

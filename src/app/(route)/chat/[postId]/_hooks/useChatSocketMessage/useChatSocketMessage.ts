@@ -6,9 +6,9 @@ import { ChatMessageResponse } from "@/api/fetch/chatMessage/types/ChatMessageRe
 import {
   addMessageToCache,
   replaceMessageInCache,
-  transformWebSocketMessage,
-  findOptimisticMessage,
-} from "../../_utils";
+} from "../../_utils/chatMessageCache/chatMessageCache";
+import transformWebSocketMessage from "../../_utils/transformWebSocketMessage/transformWebSocketMessage";
+import findOptimisticMessage from "../../_utils/findOptimisticMessage/findOptimisticMessage";
 import { ChatMessage } from "@/api/fetch/chatMessage/types/ChatMessageResponse";
 import useReadMessage from "@/api/fetch/chatMessage/api/useReadMessage";
 

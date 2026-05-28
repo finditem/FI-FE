@@ -3,8 +3,8 @@
 import { PopupLayout, Button, Filter } from "@/components";
 import { Dispatch, SetStateAction, useState } from "react";
 import { CategoryType } from "@/types";
-import usePutNotificationSetting from "@/api/fetch/notification/api/usePutNotificationSetting";
 import { CATEGORY_OPTIONS } from "@/constants";
+import { usePutNotificationSetting } from "@/api/fetch/notification";
 
 interface NotificationCategoryProps {
   isBottomSheetOpen: boolean;

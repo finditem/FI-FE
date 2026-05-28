@@ -18,6 +18,18 @@ jest.mock("@/hooks", () => ({
   useSearchUpdateQueryString: jest.fn(),
 }));
 
+jest.mock("@/api/fetch/chatRoom/api/useChatSocket", () => ({
+  useChatSocket: jest.fn(),
+}));
+
+jest.mock("next/dynamic", () => ({
+  __esModule: true,
+  default: () => {
+    const ListSearch = require("../ListSearch/ListSearch").default;
+    return ListSearch;
+  },
+}));
+
 jest.mock("../ListSearch/ListSearch", () => ({
   __esModule: true,
   default: () => <div data-testid="list-search"></div>,

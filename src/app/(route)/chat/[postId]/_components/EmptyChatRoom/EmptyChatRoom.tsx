@@ -1,5 +1,5 @@
 import { Icon } from "@/components";
-import { EMPTY_MODE_STYLE } from "./EMPTY_MODE_STYLE";
+import { EMPTY_MODE_STYLE } from "../CHATROOM_CONST";
 
 const EmptyChatRoom = ({ postMode }: { postMode: "find" | "lost" }) => {
   return (
