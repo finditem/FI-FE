@@ -6,9 +6,9 @@ import {
   RecentFoundItemSection,
   SupportLinkSection,
 } from "./_internal";
-import { useSectionHeights } from "../../_hooks";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
 import { cn } from "@/utils";
+import useSectionHeights from "../../_hooks/useSectionHeights/useSectionHeights";
 
 interface DefaultSheetContentProps {
   onSectionHeights?: (heights: DefaultSheetContentHeights) => void;

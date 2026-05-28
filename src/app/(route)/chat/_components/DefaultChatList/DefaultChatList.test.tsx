@@ -30,19 +30,19 @@ jest.mock("../ChatItem/ChatItem", () => ({
 
 jest.mock("../FilterDropdown/FilterDropdown", () => ({
   __esModule: true,
-  default: ({ ariaLabel, searchUpdateQuery }: any) => (
-    <div data-testid={`filter-dropdown-${ariaLabel}`}>
+  default: ({ keyName, searchUpdateQuery }: any) => (
+    <div data-testid={`filter-dropdown-${keyName}`}>
       <button
-        data-testid={`filter-${ariaLabel}`}
+        data-testid={`filter-${keyName === "sort" ? "최신순" : "발견/분실"}`}
         onClick={() => {
-          if (ariaLabel.includes("최신순")) {
+          if (keyName === "sort") {
             searchUpdateQuery("sort", "latest");
-          } else if (ariaLabel.includes("분실/발견")) {
+          } else if (keyName === "type") {
             searchUpdateQuery("type", "all");
           }
         }}
       >
-        {ariaLabel.includes("최신순") ? "최신순" : "분실/발견"}
+        {keyName === "sort" ? "최신순" : "발견/분실"}
       </button>
     </div>
   ),
@@ -117,9 +117,9 @@ describe("DefaultChatList", () => {
 
     renderWithQueryClient(<DefaultChatList searchUpdateQuery={mockSearchUpdateQuery} />);
 
-    expect(screen.getByTestId("filter-채팅 리스트 지역 선택")).toBeInTheDocument();
-    expect(screen.getByTestId("filter-채팅 리스트 최신순")).toBeInTheDocument();
-    expect(screen.getByTestId("filter-채팅 리스트 분실/발견")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-지역 선택")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-최신순")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-발견/분실")).toBeInTheDocument();
   });
 
   it("필터 버튼에 올바른 텍스트가 표시됩니다", () => {
@@ -129,7 +129,7 @@ describe("DefaultChatList", () => {
 
     expect(screen.getByText("지역 선택")).toBeInTheDocument();
     expect(screen.getByText("최신순")).toBeInTheDocument();
-    expect(screen.getByText("분실/발견")).toBeInTheDocument();
+    expect(screen.getByText("발견/분실")).toBeInTheDocument();
   });
 
   it("지역 선택 버튼 클릭 시 searchUpdateQuery가 올바른 인자로 호출됩니다", () => {
@@ -137,7 +137,7 @@ describe("DefaultChatList", () => {
 
     renderWithQueryClient(<DefaultChatList searchUpdateQuery={mockSearchUpdateQuery} />);
 
-    const regionButton = screen.getByTestId("filter-채팅 리스트 지역 선택");
+    const regionButton = screen.getByTestId("filter-지역 선택");
     regionButton.click();
 
     expect(mockSearchUpdateQuery).toHaveBeenCalledWith("search", "region");
@@ -150,7 +150,7 @@ describe("DefaultChatList", () => {
 
     renderWithQueryClient(<DefaultChatList searchUpdateQuery={mockSearchUpdateQuery} />);
 
-    const regionButton = screen.getByTestId("filter-채팅 리스트 서울시 강남구");
+    const regionButton = screen.getByTestId("filter-서울시 강남구");
     expect(regionButton).toHaveAttribute("aria-selected", "true");
   });
 
@@ -170,7 +170,7 @@ describe("DefaultChatList", () => {
 
     renderWithQueryClient(<DefaultChatList searchUpdateQuery={mockSearchUpdateQuery} />);
 
-    const regionButton = screen.getByTestId("filter-채팅 리스트 지역 선택");
+    const regionButton = screen.getByTestId("filter-지역 선택");
     expect(regionButton).toHaveAttribute("aria-selected", "false");
   });
 
@@ -189,9 +189,9 @@ describe("DefaultChatList", () => {
     renderWithQueryClient(<DefaultChatList searchUpdateQuery={mockSearchUpdateQuery} />);
 
     // Filter 버튼들
-    expect(screen.getByTestId("filter-채팅 리스트 지역 선택")).toBeInTheDocument();
-    expect(screen.getByTestId("filter-채팅 리스트 최신순")).toBeInTheDocument();
-    expect(screen.getByTestId("filter-채팅 리스트 분실/발견")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-지역 선택")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-최신순")).toBeInTheDocument();
+    expect(screen.getByTestId("filter-발견/분실")).toBeInTheDocument();
 
     // ChatItem들
     const chatItems = screen.getAllByTestId("chat-item");

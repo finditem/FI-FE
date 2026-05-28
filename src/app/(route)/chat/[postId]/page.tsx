@@ -4,14 +4,12 @@ import { ChatRoomHeader, EmptyChatRoom, ChatRoomMain, InputChat } from "./_compo
 import { FormProvider, useForm } from "react-hook-form";
 import { use, useCallback, useEffect, useState } from "react";
 import useChatMessages from "@/api/fetch/chatMessage/api/useChatMessages";
-import {
-  useChatRoomData,
-  useInitialChatPagination,
-  useChatSocketMessage,
-  useChatMessageSubmit,
-} from "./_hooks";
 import useReadMessage from "@/api/fetch/chatMessage/api/useReadMessage";
 import { useToast } from "@/context/ToastContext";
+import useChatRoomData from "./_hooks/useChatRoomData/useChatRoomData";
+import useChatSocketMessage from "./_hooks/useChatSocketMessage/useChatSocketMessage";
+import useInitialChatPagination from "./_hooks/useInitialChatPagination/useInitialChatPagination";
+import useChatMessageSubmit from "./_hooks/useChatMessageSubmit/useChatMessageSubmit";
 
 interface ChatFormValues {
   content: string;

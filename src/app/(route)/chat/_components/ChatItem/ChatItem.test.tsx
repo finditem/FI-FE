@@ -49,6 +49,14 @@ const createMockChatRoom = (overrides?: Partial<ChatRoom>): ChatRoom => {
 describe("ChatItem", () => {
   const mockChatRoom = createMockChatRoom();
 
+  it("채팅방 링크는 aria-label 없이 화면 텍스트로 접근 가능합니다", () => {
+    render(<ChatItem chatRoom={mockChatRoom} />);
+
+    const link = screen.getByRole("link", { name: /사용자 닉네임/ });
+    expect(link).not.toHaveAttribute("aria-label");
+    expect(link).toHaveAccessibleName(/읽지 않은 메시지/);
+  });
+
   it("링크가 올바른 href를 가지고 렌더링됩니다", () => {
     render(<ChatItem chatRoom={mockChatRoom} />);
 
@@ -59,11 +67,8 @@ describe("ChatItem", () => {
   it("유저 프로필 이미지와 게시글 썸네일 이미지가 렌더링됩니다", () => {
     render(<ChatItem chatRoom={mockChatRoom} />);
 
-    const profileImage = screen.getByAltText("유저 프로필 이미지");
-    const thumbnailImage = screen.getByAltText("채팅리스트 게시글 썸네일");
-
-    expect(profileImage).toBeInTheDocument();
-    expect(thumbnailImage).toBeInTheDocument();
+    expect(screen.getByTestId("profile-avatar")).toBeInTheDocument();
+    expect(screen.getByTestId("list-item-image")).toBeInTheDocument();
   });
 
   it("프로필 이미지가 있을 때 Image가 렌더링됩니다", () => {
@@ -78,8 +83,7 @@ describe("ChatItem", () => {
 
     render(<ChatItem chatRoom={chatRoomWithProfile} />);
 
-    const profileImage = screen.getByAltText("유저 프로필 이미지");
-    expect(profileImage).toBeInTheDocument();
+    expect(screen.getByTestId("profile-avatar")).toHaveAttribute("src", "profile.jpg");
   });
 
   it("사용자 닉네임이 렌더링됩니다", () => {
@@ -135,7 +139,7 @@ describe("ChatItem", () => {
     expect(screen.getByRole("link")).toBeInTheDocument();
 
     // 썸네일 이미지
-    expect(screen.getByAltText("채팅리스트 게시글 썸네일")).toBeInTheDocument();
+    expect(screen.getByTestId("list-item-image")).toBeInTheDocument();
 
     // 텍스트 내용들
     expect(screen.getByText("사용자 닉네임")).toBeInTheDocument();

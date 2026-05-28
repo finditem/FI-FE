@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useRecentFound } from "@/api/fetch/mapController";
 import MainCardList from "../MainCardList/MainCardList";
 import { useMainKakaoMapStore } from "@/store";
-import RecentFoundItemEmpty from "./RecentFoundItemEmpty";
+import RecentFoundItemEmpty from "../RecentFoundItemEmpty/RecentFoundItemEmpty";
 import { RecentFoundItem } from "@/api/fetch/mapController";
 
 const RecentFoundItemSection = () => {
