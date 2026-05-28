@@ -36,7 +36,8 @@ const getQueryClient = () => {
  * - `NODE_ENV === "development"`일 때만 `ReactQueryDevtools`를 렌더합니다.
  *
  * @author hyungjun
- 
+ */
+
 /**
  * @example
  * ```tsx
@@ -46,7 +47,7 @@ const getQueryClient = () => {
  * ```
  */
 
-const Providers = ({ children }: PropsWithChildren) => {
+export const QueryProviders = ({ children }: PropsWithChildren) => {
   const queryClient = getQueryClient();
   return (
     <QueryClientProvider client={queryClient}>
@@ -55,5 +56,3 @@ const Providers = ({ children }: PropsWithChildren) => {
     </QueryClientProvider>
   );
 };
-
-export default Providers;
