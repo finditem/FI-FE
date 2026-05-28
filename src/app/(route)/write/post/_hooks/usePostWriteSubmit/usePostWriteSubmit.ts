@@ -4,6 +4,7 @@ import { useWriteStore } from "@/store";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
 import { trackPostComplete } from "@/utils/analytics/analytics";
+import { resizeImage } from "@/utils";
 
 interface UsePostWriteSubmitProps {
   methods: UseFormReturn<PostWriteFormValues>;
@@ -59,7 +60,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
   const { mutateAsync: postPosts, isPending: isPosting } = usePostPosts();
 
-  const toPostWriteFormData = (values: PostWriteFormValues): FormData | null => {
+  const toPostWriteFormData = async (values: PostWriteFormValues): Promise<FormData | null> => {
     if (!postType || !values.category) return null;
     if (!fullAddress || lat == null || lng == null || radius == null) return null;
 
@@ -77,15 +78,29 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
     const formData = new FormData();
     formData.append("request", new Blob([JSON.stringify(request)], { type: "application/json" }));
-    values.images.forEach((image) => {
-      if (image.file) formData.append("image", image.file);
+
+    const imageFiles = values.images
+      .map((image) => image.file)
+      .filter((file): file is File => Boolean(file));
+    const resizedFiles = await Promise.all(
+      imageFiles.map(async (file) => {
+        try {
+          return await resizeImage(file);
+        } catch {
+          return file;
+        }
+      })
+    );
+
+    resizedFiles.forEach((file) => {
+      formData.append("image", file);
     });
 
     return formData;
   };
 
-  const submitFormData = (values: PostWriteFormValues) => {
-    const formData = toPostWriteFormData(values);
+  const submitFormData = async (values: PostWriteFormValues) => {
+    const formData = await toPostWriteFormData(values);
 
     if (!formData) return;
 
@@ -94,7 +109,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
     clearLocation();
   };
 
-  const onSubmit = methods.handleSubmit((values) => {
+  const onSubmit = methods.handleSubmit(async (values) => {
     const validImages = values.images.filter((image) => image.file);
     if (validImages.length === 0) {
       setPendingValues(values);
@@ -102,12 +117,12 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
       return;
     }
 
-    submitFormData(values);
+    await submitFormData(values);
   });
 
-  const onConfirmNoImageSubmit = () => {
+  const onConfirmNoImageSubmit = async () => {
     if (pendingValues) {
-      submitFormData(pendingValues);
+      await submitFormData(pendingValues);
     }
     setIsConfirmModalOpen(false);
     setPendingValues(null);

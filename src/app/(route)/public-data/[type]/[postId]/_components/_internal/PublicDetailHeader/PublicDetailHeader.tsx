@@ -40,9 +40,10 @@ const PublicDetailHeader = ({ headerData }: PostDetailHeaderProps) => {
           <Image
             width={40}
             height={40}
-            src={"/public-data/public-data-detail-avatar.png"}
+            src="/public-data/public-data-detail-avatar.webp"
             alt={userData.nickName}
             priority={true}
+            unoptimized
             draggable={false}
             className="select-none rounded-full"
           />

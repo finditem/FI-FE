@@ -16,11 +16,12 @@ const PublicDetailHeader = () => {
     <DetailHeader
       title={
         <Image
-          src="/public-data/public-detail-police24.svg"
+          src="/public-data/public-detail-police24.webp"
           alt=""
           width={130}
           height={26}
           priority
+          unoptimized
         />
       }
     >
