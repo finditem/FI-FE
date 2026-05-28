@@ -11,6 +11,11 @@ import {
   MOCK_WS_CHAT_MESSAGE,
 } from "@/mock/data/chat.data";
 import useChatSocketMessage from "./useChatSocketMessage";
+import findOptimisticMessage from "../../_utils/findOptimisticMessage/findOptimisticMessage";
+import {
+  addMessageToCache,
+  replaceMessageInCache,
+} from "../../_utils/chatMessageCache/chatMessageCache";
 
 const socketCallbacks: {
   onMessage?: (message: WebSocketChatMessage) => void;
@@ -30,17 +35,15 @@ jest.mock("@/api/fetch/chatMessage/api/useReadMessage", () => ({
   default: jest.fn(() => ({ mutate: mockMutate })),
 }));
 
-jest.mock("../../_utils", () => {
-  const actual = jest.requireActual("../../_utils") as Record<string, unknown>;
-  return {
-    ...actual,
-    findOptimisticMessage: jest.fn(),
-    addMessageToCache: jest.fn(),
-    replaceMessageInCache: jest.fn(),
-  };
-});
+jest.mock("../../_utils/findOptimisticMessage/findOptimisticMessage", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
 
-import { findOptimisticMessage, addMessageToCache, replaceMessageInCache } from "../../_utils";
+jest.mock("../../_utils/chatMessageCache/chatMessageCache", () => ({
+  addMessageToCache: jest.fn(),
+  replaceMessageInCache: jest.fn(),
+}));
 
 const mockFindOptimisticMessage = jest.mocked(findOptimisticMessage);
 const mockAddMessageToCache = jest.mocked(addMessageToCache);

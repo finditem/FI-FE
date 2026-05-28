@@ -1,4 +1,3 @@
-import useApiEmailLogin from "@/api/fetch/auth/api/useApiEmailLogin";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -9,6 +8,7 @@ import { LoginFormType } from "../_types/LoginFormType";
 import { useErrorToast } from "@/hooks";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
+import { useApiEmailLogin } from "@/api/fetch/auth";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

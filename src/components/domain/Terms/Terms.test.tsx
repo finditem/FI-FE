@@ -14,11 +14,7 @@ jest.mock("@/api/fetch/notification", () => ({
     data: mockSettingData,
     isError: mockIsError,
   }),
-}));
-
-jest.mock("@/api/fetch/notification/api/usePutNotificationSetting", () => ({
-  __esModule: true,
-  default: () => ({ mutate: mockMutate, isPending: mockIsPending }),
+  usePutNotificationSetting: () => ({ mutate: mockMutate, isPending: mockIsPending }),
 }));
 
 jest.mock("@/context/ToastContext", () => ({

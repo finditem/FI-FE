@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../../constants/FILTER";
+import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
 
 const meta: Meta<typeof FilterDropdown> = {
   title: "페이지/채팅 목록 페이지/FilterDropdown",

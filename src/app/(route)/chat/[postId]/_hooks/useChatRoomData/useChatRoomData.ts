@@ -2,7 +2,7 @@ import { useSearchParams } from "next/navigation";
 import useChatRoom from "@/api/fetch/chatRoom/api/useChatRoom";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
 import { useGetUsersMe } from "@/api/fetch/user";
-import { getPostMode } from "../../_utils";
+import getPostMode from "../../_utils/getPostMode/getPostMode";
 import { ChatRoomResponse } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 
 const useChatRoomData = (postId: number) => {

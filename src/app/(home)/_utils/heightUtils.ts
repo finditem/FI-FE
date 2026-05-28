@@ -6,7 +6,7 @@ import {
   INITIAL_HEIGHT_PX,
   SHEET_HANDLE_HEIGHT_PX,
   SHEET_CONTENT_BOTTOM_PADDING_PX,
-} from "../_constants/HEIGHT_PX";
+} from "../_components/HOME_CONST";
 
 export const getMaxHeightPx = () => {
   if (typeof window === "undefined") return INITIAL_HEIGHT_PX;

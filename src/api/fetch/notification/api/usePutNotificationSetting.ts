@@ -6,7 +6,7 @@ import {
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 
-const usePutNotificationSetting = () => {
+export const usePutNotificationSetting = () => {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
 
@@ -21,5 +21,3 @@ const usePutNotificationSetting = () => {
     }
   );
 };
-
-export default usePutNotificationSetting;

@@ -4,7 +4,7 @@ import { Filter, EmptyState, LoadingState } from "@/components";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSearchParams } from "next/navigation";
 import FilterDropdown from "../FilterDropdown/FilterDropdown";
-import { FilTER_DROPDOWN_OPTIONS } from "../../constants/FILTER";
+import { FilTER_DROPDOWN_OPTIONS } from "../CHATLIST_CONST";
 import { useChatList } from "@/api/fetch/chatRoom";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 

@@ -3,7 +3,7 @@ import {
   useNotificationList,
   useNotificationRead,
 } from "@/api/fetch/notification";
-import { ALERT_ROW_BG } from "@/app/(route)/alert/_constants/ALERT_ROW_BG";
+import { ALERT_ROW_BG } from "@/app/(route)/alert/_components/ALERT_CONST";
 import { alertRouteUrl } from "@/app/(route)/alert/_utils/alertRouteUrl";
 import { getAlertTitleSegments } from "@/app/(route)/alert/_utils/alertTitleSegments";
 import { getAlertIconBackgroundColor } from "@/app/(route)/alert/_utils/alertViewMappers";

@@ -3,8 +3,8 @@
 import { Icon, ReportModal } from "@/components";
 import { cn } from "@/utils";
 import { useState } from "react";
-import { INFO_OPTIONS } from "./_internal/INFO_OPTIONS";
-import { InfoButtonOptionValue } from "./_internal/InfoButtonOptionValueTypes";
+import { INFO_OPTIONS } from "../CHATROOM_CONST";
+import { InfoButtonOptionValue } from "../../_types/InfoButtonOptionValue";
 import useLeaveChatRoom from "@/api/fetch/chatRoom/api/useLeaveChatRoom";
 import { useClickOutside } from "@/hooks";
 import ChatLeaveModal from "./_internal/ChatLeaveModal";

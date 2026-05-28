@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../../constants/FILTER";
+import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
 import { useSearchParams } from "next/navigation";
 
 const mockSearchUpdateQuery = jest.fn();
