@@ -1,7 +1,7 @@
-import { usePostUserInquiry } from "@/api/fetch/inquiry/api/usePostUserInquiry";
 import { UseFormSetValue } from "react-hook-form";
 import { InquiryFormType } from "../_types/InquiryFormType";
 import { Dispatch, SetStateAction } from "react";
+import { usePostUserInquiry } from "@/api/fetch/inquiry";
 
 interface useSubmitInquiryProps {
   images: File[];
