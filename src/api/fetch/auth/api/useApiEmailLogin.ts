@@ -12,12 +12,10 @@ interface EmailLoginResponseType extends ApiBaseResponseType<{
   temporaryPassword: boolean;
 }> {}
 
-const useApiEmailLogin = () => {
+export const useApiEmailLogin = () => {
   return useAppMutation<
     ApiEmailLoginType,
     EmailLoginResponseType,
     AxiosError<ApiBaseResponseType<null>>
   >("auth", "auth/login", "post");
 };
-
-export default useApiEmailLogin;

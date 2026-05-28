@@ -24,8 +24,7 @@ jest.mock("@/hooks", () => ({
 }));
 
 jest.mock("@/api/fetch/auth/api/useApiEmailLogin", () => ({
-  __esModule: true,
-  default: () => mockUseApiEmailLogin(),
+  useApiEmailLogin: () => mockUseApiEmailLogin(),
 }));
 
 jest.mock("cookies-next", () => ({
