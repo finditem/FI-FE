@@ -28,6 +28,8 @@ const page = () => {
 
   const handleKakaoLogin = () => {
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
+    else sessionStorage.removeItem("callbackUrl");
+
     window.location.href = kakaoURL;
   };
 
