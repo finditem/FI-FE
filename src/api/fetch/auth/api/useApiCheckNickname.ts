@@ -2,7 +2,7 @@ import useAppQuery from "@/api/_base/query/useAppQuery";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { AxiosError } from "axios";
 
-const useApiCheckNickname = (nickname: string) => {
+export const useApiCheckNickname = (nickname: string) => {
   return useAppQuery<ApiBaseResponseType<null>, AxiosError<ApiBaseResponseType<null>>>(
     "public",
     ["/auth/check-nickname", nickname],
@@ -13,5 +13,3 @@ const useApiCheckNickname = (nickname: string) => {
     }
   );
 };
-
-export default useApiCheckNickname;

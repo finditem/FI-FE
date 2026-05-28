@@ -13,7 +13,7 @@ interface UseBlockParams {
   userId: number;
 }
 
-const useBlock = ({ onClose, userId }: UseBlockParams) => {
+export const useBlock = ({ onClose, userId }: UseBlockParams) => {
   const toast = useToast();
   const { showSnackBar } = useSnackBar();
   const router = useRouter();
@@ -41,5 +41,3 @@ const useBlock = ({ onClose, userId }: UseBlockParams) => {
     },
   });
 };
-
-export default useBlock;

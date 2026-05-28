@@ -1,4 +1,3 @@
-import usePutNotificationSetting from "@/api/fetch/notification/api/usePutNotificationSetting";
 import { Button, Icon, PopupLayout } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useMainKakaoMapStore } from "@/store";
@@ -6,6 +5,7 @@ import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/uti
 import { useState } from "react";
 import { PERMISSION_CONFIG, PERMISSION_ITEM } from "../HOME_CONST";
 import { syncWebPushSubscription } from "@/utils";
+import { usePutNotificationSetting } from "@/api/fetch/notification";
 
 interface DetailPermissionSheetProps {
   isOpen: boolean;
