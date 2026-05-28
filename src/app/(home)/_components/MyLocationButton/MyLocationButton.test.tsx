@@ -2,10 +2,11 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import MyLocationButton from "./MyLocationButton";
-import { useMyLocationButton } from "../../_hooks";
+import useMyLocationButton from "../../_hooks/useMyLocationButton/useMyLocationButton";
 
-jest.mock("../../_hooks", () => ({
-  useMyLocationButton: jest.fn(),
+jest.mock("../../_hooks/useMyLocationButton/useMyLocationButton", () => ({
+  __esModule: true,
+  default: jest.fn(),
 }));
 
 jest.mock("../PermissionBottomSheet/PermissionBottomSheet", () => ({
@@ -19,9 +20,7 @@ jest.mock("../PermissionBottomSheet/PermissionBottomSheet", () => ({
     ) : null,
 }));
 
-const mockUseMyLocationButton = useMyLocationButton as jest.MockedFunction<
-  typeof useMyLocationButton
->;
+const mockUseMyLocationButton = jest.mocked(useMyLocationButton);
 
 describe("<MyLocationButton />", () => {
   beforeEach(() => {

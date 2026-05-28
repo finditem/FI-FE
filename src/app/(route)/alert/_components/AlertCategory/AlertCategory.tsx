@@ -2,7 +2,7 @@
 
 import { Filter } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ALERT_CATEGORIES } from "../../_constants/ALERT_CATEGORIES";
+import { ALERT_CATEGORIES } from "../ALERT_CONST";
 import { AlertCategoryKey } from "../../_types/alertKeyType";
 
 const AlertCategory = () => {

@@ -1,7 +1,7 @@
 import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import LOST_FIND_ACTION_DATA from "./LOST_FIND_ACTION_DATA";
+import { LOST_FIND_ACTION_DATA } from "../../../HOME_CONST";
 
 const LostFindActions = () => {
   return (
