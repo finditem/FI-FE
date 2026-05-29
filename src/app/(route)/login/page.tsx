@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -16,6 +16,7 @@ const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_K
 const page = () => {
   const { reason } = useSessionNotification();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const callbackUrl = searchParams.get("callbackUrl");
 
   const emailLoginHref = (() => {
@@ -30,7 +31,7 @@ const page = () => {
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
-    window.location.href = kakaoURL;
+    window.location.replace(kakaoURL);
   };
 
   return (
@@ -56,6 +57,10 @@ const page = () => {
           as={Link}
           href={emailLoginHref}
           ignoreBase
+          onClick={(e: React.MouseEvent) => {
+            e.preventDefault();
+            router.replace(emailLoginHref);
+          }}
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label="로그인 버튼"
         >
