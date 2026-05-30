@@ -54,13 +54,8 @@ const page = () => {
           카카오로 3초 만에 시작하기
         </Button>
         <Button
-          as={Link}
-          href={emailLoginHref}
           ignoreBase
-          onClick={(e: React.MouseEvent) => {
-            e.preventDefault();
-            router.replace(emailLoginHref);
-          }}
+          onClick={() => router.replace(emailLoginHref)}
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label="로그인 버튼"
         >
