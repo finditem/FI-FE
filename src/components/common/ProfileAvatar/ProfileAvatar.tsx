@@ -50,25 +50,22 @@ const ProfileAvatar = ({
   }, [src]);
 
   return (
-    <Image
-      src={imgSrc}
-      alt={`${alt} 프로필`}
-      width={size}
-      height={size}
-      sizes={`${size}px`}
-      priority={priority}
-      draggable={false}
-      onDragStart={(e) => e.preventDefault()}
-      unoptimized={imgSrc === FALLBACK_SRC ? true : undefined}
-      className={cn(
-        "pointer-events-none select-none rounded-full object-cover",
-        `w-[${size}px] h-[${size}px]`,
-        className
-      )}
-      onError={() => {
-        if (imgSrc !== FALLBACK_SRC) setImgSrc(FALLBACK_SRC);
-      }}
-    />
+    <div className={cn("rounded-full", `w-[${size}px] h-[${size}px]`, className)}>
+      <Image
+        src={imgSrc}
+        alt={`${alt} 프로필`}
+        width={size}
+        height={size}
+        sizes={`${size}px`}
+        priority={priority}
+        draggable={false}
+        unoptimized={imgSrc === FALLBACK_SRC ? true : undefined}
+        className="pointer-events-none h-full w-full select-none rounded-full object-cover"
+        onError={() => {
+          if (imgSrc !== FALLBACK_SRC) setImgSrc(FALLBACK_SRC);
+        }}
+      />
+    </div>
   );
 };
 
