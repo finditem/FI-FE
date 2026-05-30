@@ -50,7 +50,7 @@ const ProfileAvatar = ({
   }, [src]);
 
   return (
-    <div className={cn("rounded-full", `w-[${size}px] h-[${size}px]`, className)}>
+    <div className={cn("rounded-full", `w-[${size}px] h-[${size}px]`)}>
       <Image
         src={imgSrc}
         alt={`${alt} 프로필`}
@@ -60,7 +60,10 @@ const ProfileAvatar = ({
         priority={priority}
         draggable={false}
         unoptimized={imgSrc === FALLBACK_SRC ? true : undefined}
-        className="pointer-events-none h-full w-full select-none rounded-full object-cover"
+        className={cn(
+          "pointer-events-none h-full w-full select-none rounded-full object-cover",
+          className
+        )}
         onError={() => {
           if (imgSrc !== FALLBACK_SRC) setImgSrc(FALLBACK_SRC);
         }}
