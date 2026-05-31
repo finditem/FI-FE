@@ -50,7 +50,11 @@ const ProfileAvatar = ({
   }, [src]);
 
   return (
-    <div className={cn("rounded-full", `w-[${size}px] h-[${size}px]`)}>
+    <div
+      className={cn("rounded-full", className)}
+      style={{ width: size, height: size }}
+      onDragStart={(e) => e.preventDefault()}
+    >
       <Image
         src={imgSrc}
         alt={`${alt} 프로필`}
