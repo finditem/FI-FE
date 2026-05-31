@@ -30,7 +30,7 @@ const page = () => {
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
-    window.location.href = kakaoURL;
+    window.location.replace(kakaoURL);
   };
 
   return (
@@ -55,6 +55,7 @@ const page = () => {
         <Button
           as={Link}
           href={emailLoginHref}
+          replace
           ignoreBase
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label="로그인 버튼"
