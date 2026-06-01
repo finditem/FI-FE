@@ -14,6 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Create Sync PR to Develop
         uses: repo-sync/pull-request@v2
         with:
@@ -22,7 +29,7 @@ jobs:
           pr_title: "[Hotfix] develop 최신화"
           pr_body: "운영 환경(main)의 긴급 수정 사항을 develop 브랜치에 반영합니다."
           pr_label: "hotfix-sync"
-          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}
 
       - name: Create Sync PR to Release
         uses: repo-sync/pull-request@v2
@@ -32,4 +39,4 @@ jobs:
           pr_title: "[Hotfix] release 최신화"
           pr_body: "운영 환경(main)의 긴급 수정 사항을 release 브랜치에 반영합니다."
           pr_label: "hotfix-sync"
-          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}
