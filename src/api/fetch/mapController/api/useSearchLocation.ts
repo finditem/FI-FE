@@ -25,6 +25,7 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
   const postStatus = searchParams.get("postStatus");
   const category = searchParams.get("category");
   const apiCategory = category?.toUpperCase();
+  const keyword = searchParams.get("search");
 
   const queryKey = [
     "search-location-posts",
@@ -34,6 +35,7 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
     apiPostType ?? "all",
     postStatus ?? "",
     apiCategory ?? "",
+    keyword ?? "",
   ] as const;
 
   const buildQueryString = (pageParam: MapPostSummaryPageParam) => {
@@ -51,6 +53,9 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
     }
     if (apiCategory) {
       params.set("category", apiCategory);
+    }
+    if (keyword) {
+      params.set("keyword", keyword);
     }
     if (pageParam) {
       params.set("lastDistance", String(pageParam.lastDistance));

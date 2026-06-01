@@ -13,7 +13,7 @@ const ListSearch = dynamic(() => import("../ListSearch/ListSearch"), {
 });
 
 const ListViewContent = () => {
-  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("replace");
+  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("push");
   const queryClient = useQueryClient();
 
   useChatSocket({
