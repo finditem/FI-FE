@@ -14,7 +14,6 @@ const SEARCH_LOCATION_PAGE_SIZE = 10;
 interface UseSearchLocationParams {
   latitude: number;
   longitude: number;
-  keyword?: string;
 }
 
 const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => {
