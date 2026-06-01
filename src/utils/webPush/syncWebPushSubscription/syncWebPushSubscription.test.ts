@@ -69,7 +69,8 @@ describe("syncWebPushSubscription", () => {
     );
     expect(mockPost).toHaveBeenCalledWith("/push/subscribe", {
       endpoint: "https://ep",
-      keys: { p256dh: "dh", auth: "au" },
+      p256dh: "dh",
+      auth: "au",
     });
   });
 
