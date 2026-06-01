@@ -55,10 +55,8 @@ export const syncWebPushSubscription = async (): Promise<void> => {
 
   const body: PostPushSubscribeRequest = {
     endpoint: json.endpoint,
-    keys: {
-      p256dh: json.keys.p256dh,
-      auth: json.keys.auth,
-    },
+    p256dh: json.keys.p256dh,
+    auth: json.keys.auth,
   };
 
   const { data: subRes } = await authApi.post("/push/subscribe", body);

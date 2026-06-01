@@ -2,10 +2,8 @@ import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 
 export interface PostPushSubscribeRequest {
   endpoint: string;
-  keys: {
-    p256dh: string;
-    auth: string;
-  };
+  p256dh: string;
+  auth: string;
 }
 
 export interface PostPushSubscribeResponse extends ApiBaseResponseType<string> {}
