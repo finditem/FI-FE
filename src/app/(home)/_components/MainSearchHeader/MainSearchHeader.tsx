@@ -123,6 +123,7 @@ const HeaderSearchForm = ({
           searchRegister.onChange(e);
           setSearchKeyword(e.target.value);
         }}
+        autoComplete="off"
         type="text"
         onFocus={() => {
           setFocused(true);
