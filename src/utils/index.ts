@@ -30,6 +30,12 @@ export { formatMetadataAddress } from "./formatMetadataAddress/formatMetadataAdd
 export { extractDongAddress } from "./extractDongAddress/extractDongAddress";
 export { isValidCallbackUrl } from "./isValidCallbackUrl/isValidCallbackUrl";
 export { isWebPushSupported } from "./webPush/isWebPushSupported/isWebPushSupported";
+export {
+  buildRoutePathFromReference,
+  normalizePushNotificationPath,
+  resolvePushNotificationOpenUrl,
+  resolvePushNotificationPathFromPayload,
+} from "./webPush/normalizePushNotificationUrl/normalizePushNotificationUrl";
 export { registerWebPushServiceWorker } from "./webPush/registerWebPushServiceWorker/registerWebPushServiceWorker";
 export { syncWebPushSubscription } from "./webPush/syncWebPushSubscription/syncWebPushSubscription";
 export { unsubscribeWebPushFromServer } from "./webPush/unsubscribeWebPushFromServer/unsubscribeWebPushFromServer";

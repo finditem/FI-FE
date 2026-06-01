@@ -1,0 +1,131 @@
+/**
+ * 웹 푸시 payload의 URL을 현재 앱 라우트에 맞게 정규화합니다.
+ * (알림 목록 {@link alertRouteUrl} 과 동일한 경로 규칙)
+ */
+
+/**
+ * @param {string | undefined | null} referenceType
+ * @param {number | string | undefined | null} referenceId
+ * @param {number | string | undefined | null} roomId
+ * @returns {string | null}
+ */
+function buildRoutePathFromReference(referenceType, referenceId, roomId) {
+  if (!referenceType || referenceId == null || referenceId === "") return null;
+
+  const id = String(referenceId);
+
+  switch (referenceType) {
+    case "POST":
+    case "COMMENT":
+      return `/list/${id}`;
+    case "CHAT": {
+      const base = `/chat/${id}`;
+      if (roomId != null && roomId !== "") {
+        return `${base}?roomId=${encodeURIComponent(String(roomId))}`;
+      }
+      return base;
+    }
+    case "INQUIRY":
+      return `/mypage/inquiries/${id}`;
+    case "NOTICE":
+      return `/notice/${id}`;
+    case "REPORT":
+      return `/mypage/reports/${id}`;
+    default:
+      return null;
+  }
+}
+
+/**
+ * 절대 URL의 호스트는 무시하고 pathname + search 만 사용합니다.
+ * @param {string} raw
+ * @returns {string}
+ */
+function normalizePushNotificationPath(raw) {
+  if (!raw || typeof raw !== "string") return "/";
+
+  let pathWithQuery = raw.trim();
+  if (!pathWithQuery) return "/";
+
+  if (pathWithQuery.startsWith("http://") || pathWithQuery.startsWith("https://")) {
+    try {
+      const parsed = new URL(pathWithQuery);
+      pathWithQuery = parsed.pathname + parsed.search;
+    } catch {
+      return "/";
+    }
+  } else if (!pathWithQuery.startsWith("/")) {
+    pathWithQuery = `/${pathWithQuery}`;
+  }
+
+  const queryIndex = pathWithQuery.indexOf("?");
+  let pathname = queryIndex >= 0 ? pathWithQuery.slice(0, queryIndex) : pathWithQuery;
+  const search = queryIndex >= 0 ? pathWithQuery.slice(queryIndex) : "";
+
+  const legacyPathMatchers = [
+    [/^\/posts\/(\d+)\/chats\/?$/i, "/chat/$1"],
+    [/^\/api\/posts\/(\d+)\/chats\/?$/i, "/chat/$1"],
+    [/^\/posts\/(\d+)\/?$/i, "/list/$1"],
+    [/^\/api\/posts\/(\d+)\/?$/i, "/list/$1"],
+    [/^\/inquiries\/(\d+)\/?$/i, "/mypage/inquiries/$1"],
+    [/^\/api\/inquiries\/(\d+)\/?$/i, "/mypage/inquiries/$1"],
+    [/^\/notices\/(\d+)\/?$/i, "/notice/$1"],
+    [/^\/api\/notices\/(\d+)\/?$/i, "/notice/$1"],
+    [/^\/reports\/(\d+)\/?$/i, "/mypage/reports/$1"],
+    [/^\/api\/reports\/(\d+)\/?$/i, "/mypage/reports/$1"],
+  ];
+
+  for (const [pattern, replacement] of legacyPathMatchers) {
+    const match = pathname.match(pattern);
+    if (match) {
+      pathname = replacement.replace("$1", match[1]);
+      break;
+    }
+  }
+
+  return pathname + search;
+}
+
+/**
+ * @param {Record<string, unknown> | null | undefined} payload
+ * @returns {string}
+ */
+function resolvePushNotificationPathFromPayload(payload) {
+  if (!payload || typeof payload !== "object") return "/";
+
+  const data =
+    payload.data && typeof payload.data === "object" && !Array.isArray(payload.data)
+      ? payload.data
+      : null;
+
+  const referenceType = payload.referenceType ?? data?.referenceType;
+  const referenceId = payload.referenceId ?? data?.referenceId;
+  const roomId = payload.roomId ?? data?.roomId;
+
+  const fromReference = buildRoutePathFromReference(referenceType, referenceId, roomId);
+  if (fromReference) return fromReference;
+
+  const rawUrl =
+    payload.url ?? payload.link ?? payload.click_action ?? data?.url ?? data?.link ?? "/";
+
+  return normalizePushNotificationPath(typeof rawUrl === "string" ? rawUrl : "/");
+}
+
+/**
+ * @param {string} rawPath
+ * @param {string} origin
+ * @returns {string}
+ */
+function resolvePushNotificationOpenUrl(rawPath, origin) {
+  const path = normalizePushNotificationPath(rawPath);
+  return origin + path;
+}
+
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    buildRoutePathFromReference,
+    normalizePushNotificationPath,
+    resolvePushNotificationPathFromPayload,
+    resolvePushNotificationOpenUrl,
+  };
+}
