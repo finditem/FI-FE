@@ -241,20 +241,10 @@ export const subscribeChatSocket = <T>(destination: string, handler: MessageHand
   subscribe();
 };
 
-export const unsubscribeChatSocket = (destination: string, handler?: MessageHandler) => {
-  if (handler) {
-    handlers.get(destination)?.delete(handler);
-    savedSubscriptions.get(destination)?.delete(handler);
-    if (handlers.get(destination)?.size === 0) {
-      const subscription = subscriptions.get(destination);
-      if (subscription) {
-        subscription.unsubscribe();
-        subscriptions.delete(destination);
-        handlers.delete(destination);
-        savedSubscriptions.delete(destination);
-      }
-    }
-  } else {
+export const unsubscribeChatSocket = (destination: string, handler: MessageHandler) => {
+  handlers.get(destination)?.delete(handler);
+  savedSubscriptions.get(destination)?.delete(handler);
+  if (handlers.get(destination)?.size === 0) {
     const subscription = subscriptions.get(destination);
     if (subscription) {
       subscription.unsubscribe();
