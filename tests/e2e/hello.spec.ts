@@ -15,6 +15,6 @@ test.describe("서비스 소개 페이지", () => {
     await ctaButton.click();
 
     await page.waitForURL("**/", { timeout: 10000 });
-    await expect(page).toHaveURL("/intentional-e2e-failure");
+    await expect(page).toHaveURL("/");
   });
 });
