@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { InquiryTargetType } from "@/types";
 import { INQUIRY_WRITE_CATEGORY_OPTIONS } from "@/constants";
-import { Icon, RequiredText } from "@/components/common";
-import { CategoryPopup } from "@/components/domain";
+import { Icon, RequiredText, CategoryPopup } from "@/components";
 import { cn } from "@/utils";
 
 interface InquiryWriteFormValues {
@@ -34,7 +33,7 @@ const InquiryCategoryButton = () => {
     <div className="px-5 py-2">
       <button
         className={cn(
-          "flex w-full items-center rounded-full border border-transparent px-4 py-3 text-start text-body1-regular bg-fill-neutral-subtle-default focus:border-brand-normal-default focus:outline-none disabled:bg-fill-neutral-subtle-pressed",
+          "border-transparent flex w-full items-center rounded-full border px-4 py-3 text-start text-body1-regular bg-fill-neutral-subtle-default focus:border-brand-normal-default focus:outline-none disabled:bg-fill-neutral-subtle-pressed",
           category ? "text-layout-header-default" : "text-layout-body-default"
         )}
         type="button"

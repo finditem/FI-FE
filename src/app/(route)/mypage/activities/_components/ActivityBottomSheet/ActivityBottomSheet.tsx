@@ -1,7 +1,6 @@
 "use client";
 
-import { Button, Filter } from "@/components/common";
-import { PopupLayout } from "@/components/domain";
+import { Button, Filter, PopupLayout } from "@/components";
 import { applyFiltersToUrl } from "@/utils/applyFiltersToUrl/applyFiltersToUrl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";

@@ -90,6 +90,8 @@ jest.mock("@/components/common", () => ({
       </div>
     );
   },
+  ModalLayout: ({ isOpen, children, dialogTestId }: any) =>
+    isOpen ? <div data-testid={dialogTestId}>{children}</div> : null,
 }));
 
 jest.mock("@/utils", () => ({

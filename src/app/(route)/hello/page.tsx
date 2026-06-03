@@ -1,5 +1,5 @@
 import { CTASection, FeatureSection } from "./_components";
-import { FEATURES } from "./_constants/FEATURES";
+import { FEATURES } from "./_components/FEATURES_CONST";
 
 const page = () => {
   return (

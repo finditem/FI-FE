@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAgreeStore, useAuthStore } from "@/store";
 
-export default function TermsProvider({ children }: { children: ReactNode }) {
+export const TermsProvider = ({ children }: { children: ReactNode }) => {
   const { isLoggedIn, termsAgreed } = useAgreeStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -21,4 +21,4 @@ export default function TermsProvider({ children }: { children: ReactNode }) {
   }, [isAuthInitialized, isLoggedIn, termsAgreed, pathname, router]);
 
   return <>{children}</>;
-}
+};

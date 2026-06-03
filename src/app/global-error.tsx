@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import * as Sentry from "@sentry/nextjs";
-import { ErrorView } from "@/components/state";
+import { ErrorView } from "@/components";
 import { cn } from "@/utils";
 import "@/app/globals.css";
 

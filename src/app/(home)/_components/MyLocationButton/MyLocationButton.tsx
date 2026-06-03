@@ -1,8 +1,8 @@
 "use client";
 
-import { Icon } from "@/components/common";
-import { useMyLocationButton } from "../../_hooks";
+import { Icon } from "@/components";
 import { LocationPermissionBottomSheet } from "../PermissionBottomSheet/PermissionBottomSheet";
+import useMyLocationButton from "../../_hooks/useMyLocationButton/useMyLocationButton";
 
 const MyLocationButton = () => {
   const { handleMyLocationClick, isLocationPermissionSheetOpen, closeLocationPermissionSheet } =

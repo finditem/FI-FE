@@ -3,14 +3,18 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
-import { Button, Icon } from "@/components/common";
+import {
+  Button,
+  Icon,
+  ModalLayout,
+  PostReportBlockActions,
+  ReportModal,
+  BlockUserModal as UserBlockModal,
+} from "@/components";
 import { useDeleteDetailPost, usePutPostStatus } from "@/api/fetch/post";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
-import { ACTION_MENU } from "./ACTION_MENU_STYLES";
-import { PostReportBlockActions, ReportModal } from "@/components/domain";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { PostActionData } from "../../_types/PostActionType";
-import UserBlockModal from "@/components/domain/PostReportBlockActions/UserBlockModal/UserBlockModal";
+import { ACTION_MENU } from "../LIST_DETAIL_CONST";
 
 interface PostOptionBoxProps {
   open: boolean;

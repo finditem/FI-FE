@@ -5,7 +5,7 @@ import Image from "next/image";
 import { AdminDetailGuestInquiry, AdminDetailInquiry, AdminDetailReport } from "@/api/fetch/admin";
 import { formatDate } from "@/utils";
 import { getDetailContentVM } from "../../../_utils/DetailContentVM";
-import { ImageViewerModal } from "@/components/domain";
+import { ImageViewerModal } from "@/components";
 
 interface DetailContentProps {
   data: AdminDetailGuestInquiry | AdminDetailReport | AdminDetailInquiry;

@@ -1,5 +1,5 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
-import { ReportReason } from "@/components/domain/ReportModal/_internal";
+import { ReportReason } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { ReportRequest } from "../types/ReportRequest";
@@ -12,7 +12,7 @@ interface UseReportParams {
   onClose: () => void;
 }
 
-const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportParams) => {
+export const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportParams) => {
   const toast = useToast();
   const queryClient = useQueryClient();
 
@@ -36,5 +36,3 @@ const useReport = ({ reset, setReportType, invalidateKeys, onClose }: UseReportP
     },
   });
 };
-
-export default useReport;

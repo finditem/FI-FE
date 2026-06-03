@@ -12,19 +12,19 @@ const mockUseApiEmailLogin = jest.fn();
 
 jest.mock("next/navigation", () => ({
   useRouter: () => ({ replace: mockRouterReplace }),
+  useSearchParams: () => ({ get: jest.fn().mockReturnValue(null) }),
 }));
 
 jest.mock("@/context/ToastContext", () => ({
   useToast: () => ({ addToast: mockAddToast }),
 }));
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useErrorToast: () => ({ handlerApiError: mockHandlerApiError }),
 }));
 
 jest.mock("@/api/fetch/auth/api/useApiEmailLogin", () => ({
-  __esModule: true,
-  default: () => mockUseApiEmailLogin(),
+  useApiEmailLogin: () => mockUseApiEmailLogin(),
 }));
 
 jest.mock("cookies-next", () => ({

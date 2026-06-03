@@ -4,7 +4,7 @@ import MypageCommentsFilterSection from "./MypageCommentsFilterSection";
 const mockUpdateFilters = jest.fn();
 const mockUseFilterParams = jest.fn();
 
-jest.mock("@/hooks/domain", () => ({
+jest.mock("@/hooks", () => ({
   useFilterParams: () => mockUseFilterParams(),
   useFilterSync: () => ({
     filters: { startDate: "", endDate: "", simpleSort: "LATEST" },

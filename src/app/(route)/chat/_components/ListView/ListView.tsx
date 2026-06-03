@@ -1,15 +1,19 @@
 "use client";
 
-import ListSearch from "../ListSearch/ListSearch";
-import { DetailHeader } from "@/components/layout";
+import dynamic from "next/dynamic";
+import { DetailHeader, LoadingState } from "@/components";
 import { useSearchUpdateQueryString } from "@/hooks";
 import DefaultChatList from "../DefaultChatList/DefaultChatList";
 import { useChatSocket } from "@/api/fetch/chatRoom/api/useChatSocket";
 import { useQueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 
+const ListSearch = dynamic(() => import("../ListSearch/ListSearch"), {
+  loading: () => <LoadingState title="지역 검색 불러오는 중..." />,
+});
+
 const ListViewContent = () => {
-  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("replace");
+  const { searchMode, searchUpdateQuery } = useSearchUpdateQueryString("push");
   const queryClient = useQueryClient();
 
   useChatSocket({

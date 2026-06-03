@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { InputCommentField } from "@/components/common";
+import { InputCommentField } from "@/components";
 import { ReportsType } from "../../_types/ReportsType";
 import { usePostS3 } from "@/api/fetch/s3";
 import { usePostReportsComment } from "../../_hooks/usePostReportsComment";

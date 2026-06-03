@@ -2,7 +2,7 @@
 
 import useAxios from "@/api/_base/axios/useAxios";
 import useAppCompositeInfiniteQuery from "@/api/_base/query/useAppCompositeInfiniteQuery";
-import { POST_TYPE } from "@/app/(home)/_constants/QUERY_PARAMS";
+import { POST_TYPE } from "@/app/(home)/_components/HOME_CONST";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { MapPostSummaryPageParam, mapPostTypeQueryToApiParam } from "./useMapPostSummary";
@@ -25,6 +25,7 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
   const postStatus = searchParams.get("postStatus");
   const category = searchParams.get("category");
   const apiCategory = category?.toUpperCase();
+  const keyword = searchParams.get("search");
 
   const queryKey = [
     "search-location-posts",
@@ -34,6 +35,7 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
     apiPostType ?? "all",
     postStatus ?? "",
     apiCategory ?? "",
+    keyword ?? "",
   ] as const;
 
   const buildQueryString = (pageParam: MapPostSummaryPageParam) => {
@@ -51,6 +53,9 @@ const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => 
     }
     if (apiCategory) {
       params.set("category", apiCategory);
+    }
+    if (keyword) {
+      params.set("keyword", keyword);
     }
     if (pageParam) {
       params.set("lastDistance", String(pageParam.lastDistance));

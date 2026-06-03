@@ -3,13 +3,11 @@ import {
   useNotificationList,
   useNotificationRead,
 } from "@/api/fetch/notification";
-import { ALERT_ROW_BG } from "@/app/(route)/alert/_constants/ALERT_ROW_BG";
+import { ALERT_ROW_BG } from "@/app/(route)/alert/_components/ALERT_CONST";
 import { alertRouteUrl } from "@/app/(route)/alert/_utils/alertRouteUrl";
 import { getAlertTitleSegments } from "@/app/(route)/alert/_utils/alertTitleSegments";
 import { getAlertIconBackgroundColor } from "@/app/(route)/alert/_utils/alertViewMappers";
-import { CheckBox, Icon } from "@/components/common";
-import { IconName } from "@/components/common/Icon/Icon";
-import { EmptyState } from "@/components/state";
+import { CheckBox, Icon, IconName, EmptyState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { cn, formatDate } from "@/utils";
 import { useRouter } from "next/navigation";

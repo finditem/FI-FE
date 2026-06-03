@@ -10,7 +10,7 @@ import PopupLayout from "../PopupLayout/PopupLayout";
 import { Button, Filter } from "@/components/common";
 import { applyFiltersToUrl } from "../../../utils/applyFiltersToUrl/applyFiltersToUrl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 
 const DateWheel = ({

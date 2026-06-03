@@ -1,13 +1,13 @@
 "use client";
 
 import { useGetPosts } from "@/api/fetch/post";
-import { FilterSection, Tab } from "@/components/domain";
-import { TABS } from "../../_constants/TABS";
+import { FilterSection, Tab } from "@/components";
 import { ItemStatus } from "@/types";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
-import { useFilterParams } from "@/hooks/domain";
-import { DefaultList } from "../_internal";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { useFilterParams } from "@/hooks";
+import { DefaultList } from "../_internal";
+import { TABS } from "../LIST_CONST";
 
 type PostType = "LOST" | "FOUND";
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Icon, ListItemImage } from "@/components/common";
+import { Icon, ListItemImage } from "@/components";
 import ChatChip from "../ChatChip/ChatChip";
 import ChatRoomHeaderInfoButton from "../ChatRoomHeaderInfoButton/ChatRoomHeaderInfoButton";
 import { ChatRoomResponse } from "@/api/fetch/chatRoom/types/ChatRoomResponse";

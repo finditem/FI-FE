@@ -4,12 +4,12 @@
 import { useApiKakaoLogin } from "@/api/fetch/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Terms, TermsAgreement } from "@/components/domain";
+import { Terms, TermsAgreement, ErrorView } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
 import { useAgreeStore } from "@/store";
-import { ErrorView } from "@/components/state";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
+import { isValidCallbackUrl } from "@/utils";
 
 const KakaoContainer = () => {
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
@@ -50,7 +50,9 @@ const KakaoContainer = () => {
             login(termsAgreed);
 
             if (termsAgreed) {
-              router.replace("/");
+              const rawCallback = sessionStorage.getItem("callbackUrl");
+              sessionStorage.removeItem("callbackUrl");
+              router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
             } else {
               setStep("Term");
             }

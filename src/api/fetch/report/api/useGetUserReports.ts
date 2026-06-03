@@ -11,7 +11,7 @@ interface useGetUserReportsParams {
   size?: number;
 }
 
-const useGetUserReports = ({ status, keyword, size = 10 }: useGetUserReportsParams) => {
+export const useGetUserReports = ({ status, keyword, size = 10 }: useGetUserReportsParams) => {
   const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
 
   const queryParams = new URLSearchParams();
@@ -33,5 +33,3 @@ const useGetUserReports = ({ status, keyword, size = 10 }: useGetUserReportsPara
     }
   );
 };
-
-export default useGetUserReports;

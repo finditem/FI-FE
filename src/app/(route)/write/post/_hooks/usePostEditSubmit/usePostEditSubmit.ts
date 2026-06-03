@@ -4,6 +4,7 @@ import { useWriteStore } from "@/store";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import { usePutPost } from "@/api/fetch/post";
 import { PutPostEditRequest } from "@/api/fetch/post/types/PutPostEditType";
+import { resizeImage } from "@/utils";
 
 interface UsePostEditSubmitProps {
   postId: number;
@@ -33,7 +34,7 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
 
   const { mutateAsync: putPost, isPending: isPosting } = usePutPost(postId);
 
-  const toFormData = (values: PostWriteFormValues): FormData | null => {
+  const toFormData = async (values: PostWriteFormValues): Promise<FormData | null> => {
     if (!postType || !values.category) return null;
     if (!fullAddress || lat == null || lng == null || radius == null) return null;
 
@@ -57,15 +58,29 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
 
     const formData = new FormData();
     formData.append("request", new Blob([JSON.stringify(request)], { type: "application/json" }));
-    values.images.forEach((image) => {
-      if (image.file) formData.append("image", image.file);
+
+    const imageFiles = values.images
+      .map((image) => image.file)
+      .filter((file): file is File => Boolean(file));
+    const resizedFiles = await Promise.all(
+      imageFiles.map(async (file) => {
+        try {
+          return await resizeImage(file);
+        } catch {
+          return file;
+        }
+      })
+    );
+
+    resizedFiles.forEach((file) => {
+      formData.append("image", file);
     });
 
     return formData;
   };
 
-  const onSubmit = methods.handleSubmit((values) => {
-    const formData = toFormData(values);
+  const onSubmit = methods.handleSubmit(async (values) => {
+    const formData = await toFormData(values);
     if (!formData) return;
     putPost(formData);
     clearLocation();

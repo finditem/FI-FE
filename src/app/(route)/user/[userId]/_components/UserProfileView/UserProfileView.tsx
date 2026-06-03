@@ -2,12 +2,12 @@
 
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
-import { Tab } from "@/components/domain";
+import { Tab } from "@/components";
 import { useGetUserProfileById, UserTabType, UserUpperTabType } from "@/api/fetch/user";
 import UserHeader from "../UserHeader/UserHeader";
 import TabContents from "../TabContents/TabContents";
-import { USER_TABS } from "../../_types/USER_TABS";
-import { useUserProfileTabQuery } from "../../_hooks/useUserProfileTabQuery";
+import { USER_TABS } from "../../_types/UserProfileTabType";
+import { useUserProfileTabQuery } from "../../_hooks/useUserProfileTabQuery/useUserProfileTabQuery";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 
 const upperCase = (tab: UserTabType): UserUpperTabType => {

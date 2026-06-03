@@ -1,8 +1,8 @@
-import { Button, Icon } from "@/components/common";
+import { Button, Icon } from "@/components";
 import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { BUTTON_DEFAULT_STYLE, WRITE_BUTTONS } from "./WRITE_BUTTONS";
+import { BUTTON_DEFAULT_STYLE, WRITE_BUTTONS } from "../HOME_CONST";
 
 const MainSearchEmpty = () => {
   return (

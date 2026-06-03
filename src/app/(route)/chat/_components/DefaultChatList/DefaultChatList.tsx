@@ -1,13 +1,12 @@
 "use client";
 
-import { Filter } from "@/components/common";
+import { Filter, EmptyState, LoadingState } from "@/components";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSearchParams } from "next/navigation";
 import FilterDropdown from "../FilterDropdown/FilterDropdown";
-import { FilTER_DROPDOWN_OPTIONS } from "../../constants/FILTER";
+import { FilTER_DROPDOWN_OPTIONS } from "../CHATLIST_CONST";
 import { useChatList } from "@/api/fetch/chatRoom";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
-import { EmptyState, LoadingState } from "@/components/state";
 
 interface DefaultChatListProps {
   searchUpdateQuery: (key: string, value?: string) => void;
@@ -34,7 +33,7 @@ const DefaultChatList = ({ searchUpdateQuery }: DefaultChatListProps) => {
     <>
       <div className="flex gap-2 px-5 py-[14px] no-scrollbar">
         <Filter
-          ariaLabel={`채팅 리스트 ${regionDisplayText}`}
+          ariaLabel={regionDisplayText}
           onSelected={!!selectedRegion}
           icon={{ name: "Location", size: 16 }}
           iconPosition="leading"

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ToastProvider } from "@/providers/ToastProviders";
 import SearchFocusDropdown from "./SearchFocusDropdown";
 
@@ -37,7 +37,17 @@ type Story = StoryObj<typeof SearchFocusDropdown>;
 
 const FocusedTemplate = (args: { searchKeyword: string }) => {
   const [, setFocused] = useState(true);
-  return <SearchFocusDropdown focused setFocused={setFocused} searchKeyword={args.searchKeyword} />;
+  const dropdownRootRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  return (
+    <SearchFocusDropdown
+      focused
+      setFocused={setFocused}
+      searchKeyword={args.searchKeyword}
+      dropdownRootRef={dropdownRootRef}
+      searchInputRef={searchInputRef}
+    />
+  );
 };
 
 export const OpenEmptyKeyword: Story = {

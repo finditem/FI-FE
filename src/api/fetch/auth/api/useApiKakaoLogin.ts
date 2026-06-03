@@ -15,7 +15,7 @@ interface KakaoRequestType {
   marketingConsent?: boolean;
 }
 
-const useApiKakaoLogin = () => {
+export const useApiKakaoLogin = () => {
   const router = useRouter();
 
   const { addToast } = useToast();
@@ -42,5 +42,3 @@ const useApiKakaoLogin = () => {
     },
   });
 };
-
-export default useApiKakaoLogin;

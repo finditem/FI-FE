@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { cn } from "@/utils";
 import "./FourthSection.css";
-import { useInView } from "../../../_hooks";
+import { useInView } from "../../../_hooks/useInView/useInView";
 
 const FourthSection = () => {
   const { ref, inView } = useInView();

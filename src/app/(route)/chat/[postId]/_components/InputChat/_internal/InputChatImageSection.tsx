@@ -1,12 +1,12 @@
 "use client";
 
-import { Icon, ImageSelectButton } from "@/components/common";
+import { Icon, ImageSelectButton } from "@/components";
 import useSendImage from "@/api/fetch/chatMessage/api/useSendImage";
-import { useHandleSendImage } from "./useHandleSendImage";
 import {
   InputChatImageSectionIds,
   InputChatImageSectionImageState,
-} from "./InputChatImageSectionType";
+} from "../../../_types/InputChatImageSection";
+import { useHandleSendImage } from "../../../_hooks/useHandleSendImage/useHandleSendImage";
 
 interface InputChatImageSectionProps {
   ids: InputChatImageSectionIds;

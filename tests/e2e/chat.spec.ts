@@ -45,7 +45,7 @@ test.describe("채팅 목록 페이지", () => {
     await expect(page.getByText(MOCK_CHAT_ITEM.contactUser.nickname)).toBeVisible();
     await expect(page.getByText(MOCK_CHAT_ITEM.postInfo.address)).toBeVisible();
     await expect(
-      page.getByRole("link", { name: `${MOCK_CHAT_ITEM.postInfo.postId} 채팅방 링크` })
+      page.getByRole("link", { name: new RegExp(MOCK_CHAT_ITEM.contactUser.nickname) })
     ).toBeVisible();
   });
 
@@ -56,7 +56,7 @@ test.describe("채팅 목록 페이지", () => {
 
     await Promise.all([
       page.waitForURL(/[?&]search=region/, { waitUntil: "commit", timeout: 20_000 }),
-      page.getByRole("button", { name: "채팅 리스트 지역 선택 필터" }).click(),
+      page.getByRole("button", { name: "지역 선택 필터" }).click(),
     ]);
     await expect(page).toHaveURL(/[?&]search=region/);
     await expect(page.getByRole("heading", { level: 2, name: "지역 선택" })).toBeVisible();

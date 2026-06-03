@@ -4,8 +4,14 @@ import ProfileAvatar from "./ProfileAvatar";
 
 jest.mock("next/image", () => ({
   __esModule: true,
-  default: ({ src, alt, onError, priority, draggable, sizes, ...props }: any) => (
-    <img src={src} alt={alt} onError={onError} {...props} />
+  default: ({ src, alt, onError, priority, draggable, sizes, unoptimized, ...props }: any) => (
+    <img
+      src={src}
+      alt={alt}
+      onError={onError}
+      data-unoptimized={unoptimized ? "true" : undefined}
+      {...props}
+    />
   ),
 }));
 
@@ -21,9 +27,19 @@ describe("<ProfileAvatar />", () => {
     expect(screen.getByRole("img")).toHaveAttribute("src", "https://example.com/avatar.jpg");
   });
 
+  it("src가 있으면 unoptimized를 적용하지 않습니다.", () => {
+    render(<ProfileAvatar src="https://example.com/avatar.jpg" size={40} />);
+    expect(screen.getByRole("img")).not.toHaveAttribute("data-unoptimized");
+  });
+
   it("src가 없으면 기본 프로필 이미지를 렌더링합니다.", () => {
     render(<ProfileAvatar size={40} />);
     expect(screen.getByRole("img")).toHaveAttribute("src", FALLBACK_SRC);
+  });
+
+  it("기본 프로필 이미지에는 unoptimized를 적용합니다.", () => {
+    render(<ProfileAvatar size={40} />);
+    expect(screen.getByRole("img")).toHaveAttribute("data-unoptimized", "true");
   });
 
   it("src가 null이면 기본 프로필 이미지를 렌더링합니다.", () => {

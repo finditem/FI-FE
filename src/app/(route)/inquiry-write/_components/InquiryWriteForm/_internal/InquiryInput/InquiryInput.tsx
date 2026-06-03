@@ -1,10 +1,9 @@
-import { RequiredText } from "@/components/common";
-import DeleteButton from "@/components/common/Input/_internal/DeleteButton/DeleteButton";
+import { RequiredText, DeleteButton } from "@/components";
 import { useHorizontalDragScroll } from "@/hooks";
 import { cn } from "@/utils";
 import { InputHTMLAttributes } from "react";
 import { FieldValues, useFormContext, UseFormSetValue, useWatch } from "react-hook-form";
-import { EMAIL_AUTO_COMPLETE_LIST } from "./EMAIL_AUTO_COMPLETE_LIST";
+import { EMAIL_AUTO_COMPLETE_LIST } from "../../../INQUIRY_WRITE_CONST";
 
 interface InquiryInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -64,7 +63,7 @@ const InquiryInput = ({ name, className, disabled, ...props }: InquiryInputProps
           <input
             {...register(name)}
             className={cn(
-              "peer w-full rounded-full border border-transparent px-4 py-3 text-body1-regular text-layout-header-default bg-fill-neutral-subtle-default placeholder:text-layout-body-default focus:border-brand-normal-default focus:outline-none disabled:text-layout-body-default disabled:bg-fill-neutral-subtle-pressed",
+              "border-transparent peer w-full rounded-full border px-4 py-3 text-body1-regular text-layout-header-default bg-fill-neutral-subtle-default placeholder:text-layout-body-default focus:border-brand-normal-default focus:outline-none disabled:text-layout-body-default disabled:bg-fill-neutral-subtle-pressed",
               hasInputValue && "pr-10",
               className
             )}

@@ -2,7 +2,7 @@
 
 import { createPortal } from "react-dom";
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Toast } from "@/components/common";
+import { Toast } from "@/components";
 import { ToastType } from "@/types/ToastTypes";
 import { ToastContext } from "@/context/ToastContext";
 import { AnimatePresence, motion } from "framer-motion";

@@ -1,9 +1,9 @@
 "use client";
 
-import { PostListItem } from "@/components/domain";
+import { PostListItem } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useMapPostSummary } from "@/api/fetch/mapController";
-import { MARKER_ID } from "../../_constants/QUERY_PARAMS";
+import { MARKER_ID } from "../HOME_CONST";
 import SearchLoading from "../SearchLoading/SearchLoading";
 import MainSearchEmpty from "../MainSearchEmpty/MainSearchEmpty";
 import HomeFilterSection from "../HomeFilterSection/HomeFilterSection";

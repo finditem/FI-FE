@@ -10,11 +10,24 @@ import {
   MOCK_CHAT_MESSAGE_UI_TEXT,
 } from "@/mock/data/chat.data";
 
-jest.mock("./_internal/hooks", () => ({
-  useChatInfiniteScroll: jest.fn(),
-  useChatInitialScroll: jest.fn(() => true),
-  useChatScrollPreserve: jest.fn(),
-  useChatScrollOnSignal: jest.fn(),
+jest.mock("../../_hooks/useChatInfiniteScroll/useChatInfiniteScroll", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("../../_hooks/useChatInitialScroll/useChatInitialScroll", () => ({
+  __esModule: true,
+  default: jest.fn(() => true),
+}));
+
+jest.mock("../../_hooks/useChatScrollPreserve/useChatScrollPreserve", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("../../_hooks/useChatScrollOnSignal/useChatScrollOnSignal", () => ({
+  __esModule: true,
+  default: jest.fn(),
 }));
 
 jest.mock("@/api/fetch/user", () => ({

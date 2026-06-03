@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Button, ProfileAvatar } from "@/components/common";
+import { Button, ProfileAvatar } from "@/components";
 import { cn } from "@/utils";
 import { ImageResponse, userInformation } from "@/api/fetch/post";
-import ImageSection from "@/app/(route)/list/[id]/_components/PostDetailHeader/_internal/ImageSection/ImageSection";
+import ImageSection from "@/app/(route)/list/[id]/_components/_internal/ImageSection/ImageSection";
 import PublicCallBottomSheet from "../PublicCallBottomSheet/PublicCallBottomSheet";
 import Image from "next/image";
 
@@ -40,9 +40,10 @@ const PublicDetailHeader = ({ headerData }: PostDetailHeaderProps) => {
           <Image
             width={40}
             height={40}
-            src={"/public-data/public-data-detail-avatar.png"}
+            src="/public-data/public-data-detail-avatar.webp"
             alt={userData.nickName}
             priority={true}
+            unoptimized
             draggable={false}
             className="select-none rounded-full"
           />

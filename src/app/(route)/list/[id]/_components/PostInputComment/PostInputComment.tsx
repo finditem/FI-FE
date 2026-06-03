@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { InputCommentField } from "@/components/common";
-import { GuestLoginModal } from "@/components/domain";
+import { InputCommentField, GuestLoginModal } from "@/components";
 import { usePostCommentSubmit } from "../../_hooks/usePostCommentSubmit/usePostCommentSubmit";
 
 interface PostInputCommentProps {

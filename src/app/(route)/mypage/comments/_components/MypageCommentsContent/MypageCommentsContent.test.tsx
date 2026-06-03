@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import MypageCommentsContent from "./MypageCommentsContent";
 import { useGetUserComments } from "@/api/fetch/user/api/useGetUserComments";
-import { useFilterParams } from "@/hooks/domain";
+import { useFilterParams } from "@/hooks";
 import { useInfiniteScroll } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 import { useSearchParams } from "next/navigation";
 
 jest.mock("@/api/fetch/user/api/useGetUserComments");
-jest.mock("@/hooks/domain");
+jest.mock("@/hooks");
 jest.mock("@/hooks");
 jest.mock("@/context/ToastContext");
 jest.mock("next/navigation");

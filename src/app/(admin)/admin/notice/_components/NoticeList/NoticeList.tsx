@@ -3,7 +3,7 @@
 import { Suspense } from "react";
 import { AdminListItem } from "../../../_components";
 import { useGetNotices } from "@/api/fetch/notice";
-import { LoadingState } from "@/components/state";
+import { LoadingState } from "@/components";
 import { NoticeSortType } from "@/types/NoticeType";
 import { useInfiniteScroll } from "@/hooks";
 

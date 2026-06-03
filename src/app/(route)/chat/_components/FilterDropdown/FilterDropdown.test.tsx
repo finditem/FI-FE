@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../../constants/FILTER";
+import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
 import { useSearchParams } from "next/navigation";
 
 const mockSearchUpdateQuery = jest.fn();
@@ -36,14 +36,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       expect(filterButton).toHaveTextContent("최신순");
     });
 
@@ -54,14 +53,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       expect(filterButton).toHaveTextContent("최신순");
     });
 
@@ -72,14 +70,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-오래된순");
       expect(filterButton).toHaveTextContent("오래된순");
     });
 
@@ -90,14 +87,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       expect(filterButton).toHaveAttribute("aria-selected", "false");
     });
 
@@ -108,14 +104,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-오래된순");
       expect(filterButton).toHaveAttribute("aria-selected", "true");
     });
 
@@ -124,14 +119,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       expect(filterButton).toHaveAttribute("aria-selected", "false");
     });
 
@@ -141,14 +135,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       // 드롭다운 옵션들이 모두 표시되는지 확인 (Filter 버튼과 구분하기 위해 getAllByText 사용)
@@ -163,14 +156,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       const oldestOption = screen.getByText("오래된순");
@@ -186,14 +178,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       expect(screen.getByText("오래된순")).toBeInTheDocument();
@@ -209,14 +200,13 @@ describe("FilterDropdown", () => {
 
       const { container } = render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       expect(screen.getByText("오래된순")).toBeInTheDocument();
@@ -237,7 +227,6 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 발견/분실"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
@@ -254,14 +243,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 발견/분실"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 발견/분실");
+      const filterButton = screen.getByTestId("filter-발견/분실");
       expect(filterButton).toHaveTextContent("발견/분실");
     });
 
@@ -272,14 +260,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 발견/분실"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 발견/분실");
+      const filterButton = screen.getByTestId("filter-발견");
       expect(filterButton).toHaveTextContent("발견");
     });
 
@@ -290,14 +277,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 발견/분실"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 발견/분실");
+      const filterButton = screen.getByTestId("filter-분실");
       expect(filterButton).toHaveTextContent("분실");
     });
 
@@ -308,14 +294,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 분실/발견"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 분실/발견");
+      const filterButton = screen.getByTestId("filter-발견");
       expect(filterButton).toHaveAttribute("aria-selected", "true");
     });
 
@@ -326,14 +311,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 분실/발견"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 분실/발견");
+      const filterButton = screen.getByTestId("filter-발견/분실");
       expect(filterButton).toHaveAttribute("aria-selected", "false");
     });
 
@@ -342,14 +326,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 분실/발견"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 분실/발견");
+      const filterButton = screen.getByTestId("filter-발견/분실");
       expect(filterButton).toHaveAttribute("aria-selected", "false");
     });
 
@@ -359,14 +342,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 분실/발견"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 분실/발견");
+      const filterButton = screen.getByTestId("filter-발견/분실");
       await user.click(filterButton);
 
       expect(screen.getByText("전체")).toBeInTheDocument();
@@ -380,14 +362,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 분실/발견"
           options={TYPE_OPTIONS}
           keyName="type"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 분실/발견");
+      const filterButton = screen.getByTestId("filter-발견/분실");
       await user.click(filterButton);
 
       const foundOption = screen.getByText("발견");
@@ -404,14 +385,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       expect(screen.getByText("오래된순")).toBeInTheDocument();
@@ -427,14 +407,13 @@ describe("FilterDropdown", () => {
 
       render(
         <FilterDropdown
-          ariaLabel="채팅 리스트 최신순"
           options={SORT_OPTIONS}
           keyName="sort"
           searchUpdateQuery={mockSearchUpdateQuery}
         />
       );
 
-      const filterButton = screen.getByTestId("filter-채팅 리스트 최신순");
+      const filterButton = screen.getByTestId("filter-최신순");
       await user.click(filterButton);
 
       // 드롭다운 옵션들이 모두 표시되는지 확인 (Filter 버튼과 구분하기 위해 getAllByText 사용)
