@@ -6,7 +6,6 @@ import { useGetUsersMe } from "@/api/fetch/user";
 import { useHiddenPath } from "@/hooks";
 import { FOOTER_LINK, type FooterLinkHref } from "../_constants/CONST_FOOTER";
 import useLoginNoticeTimer from "./useLoginNoticeTimer";
-import { useAgreeStore } from "@/store";
 
 type FooterLinkItem = (typeof FOOTER_LINK)[number];
 
@@ -20,12 +19,11 @@ interface FooterNavItem {
   onClick: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-const useFooterNav = () => {
+const useFooterNav = (hasToken: boolean) => {
   const pathname = usePathname();
   const isHidden = useHiddenPath();
 
-  const { isLoggedIn: hasSession } = useAgreeStore();
-  const { data: userData, isError } = useGetUsersMe(hasSession);
+  const { data: userData, isError } = useGetUsersMe(hasToken);
   const isLoggedIn = !!userData && !isError;
   const isUserRole = userData?.result?.role ?? "USER";
 

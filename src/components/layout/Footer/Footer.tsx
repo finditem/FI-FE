@@ -23,8 +23,8 @@ const FOOTER_HEIGHT = "h-[86.67px]";
  * ```
  */
 
-const Footer = () => {
-  const { isHidden, items } = useFooterNav();
+const Footer = ({ hasToken }: { hasToken: boolean }) => {
+  const { isHidden, items } = useFooterNav(hasToken);
   if (isHidden) return null;
 
   return (
