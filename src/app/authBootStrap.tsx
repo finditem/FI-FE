@@ -8,7 +8,7 @@ import { useAgreeStore, useAuthStore } from "@/store";
 export default function AuthBootstrap() {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout, isLoggedIn } = useAgreeStore();
+  const { logout } = useAgreeStore();
 
   const { mutate: refreshTokenMutate } = useApiRefreshToken();
   const ranRef = useRef(false);
@@ -30,11 +30,6 @@ export default function AuthBootstrap() {
     }
 
     if (!isMainPage && !isProtectPath) {
-      setAuthInitialized(true);
-      return;
-    }
-
-    if (!isLoggedIn) {
       setAuthInitialized(true);
       return;
     }
@@ -61,7 +56,7 @@ export default function AuthBootstrap() {
         setAuthInitialized(true);
       },
     });
-  }, [refreshTokenMutate, router, pathname, setAuthInitialized, isLoggedIn]);
+  }, [refreshTokenMutate, router, pathname, setAuthInitialized]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
