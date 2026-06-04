@@ -7,7 +7,6 @@ import { ChatListUpdateResponse, WebSocketChatMessage } from "../types/ChatRoomR
 interface UseChatSocketOptions {
   onMessage?: (data: WebSocketChatMessage) => void;
   onListUpdate?: (data: ChatListUpdateResponse) => void;
-  onReadReceipt?: (data: any) => void;
   manageConnection?: boolean;
 }
 
@@ -24,7 +23,6 @@ const scheduleDeferredConnect = (task: () => void) => {
 export const useChatSocket = ({
   onMessage,
   onListUpdate,
-  onReadReceipt,
   manageConnection = false,
 }: UseChatSocketOptions = {}) => {
   useEffect(() => {
@@ -35,7 +33,6 @@ export const useChatSocket = ({
     const subscriptions = [
       { destination: "/user/queue/messages", handler: onMessage },
       { destination: "/user/queue/list-updates", handler: onListUpdate },
-      { destination: "/user/queue/read-receipts", handler: onReadReceipt },
     ];
 
     const init = async () => {
@@ -77,5 +74,5 @@ export const useChatSocket = ({
         }
       });
     };
-  }, [onMessage, onListUpdate, onReadReceipt, manageConnection]);
+  }, [onMessage, onListUpdate, manageConnection]);
 };

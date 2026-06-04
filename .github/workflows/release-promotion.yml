@@ -12,6 +12,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Create or Update Pull Request
         uses: repo-sync/pull-request@v2
         with:
@@ -22,4 +29,4 @@ jobs:
             ## 작업 요약
             Develop 브랜치의 최신 변경 사항을 Release 브랜치로 반영합니다.
           pr_label: "🌱 release"
-          github_token: ${{ secrets.YML_GITHUB_TOKEN }}
+          github_token: ${{ steps.app-token.outputs.token }}
