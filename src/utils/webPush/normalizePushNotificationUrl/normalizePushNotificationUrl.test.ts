@@ -15,14 +15,15 @@ describe("normalizePushNotificationPath", () => {
     expect(normalizePushNotificationPath("/posts/3")).toBe("/list/3");
   });
 
-  it("채팅 API 경로를 /chat으로 매핑한다", () => {
-    expect(normalizePushNotificationPath("/posts/5/chats")).toBe("/chat/5");
-    expect(normalizePushNotificationPath("/posts/5/chats?roomId=9")).toBe("/chat/5?roomId=9");
+  it("채팅 관련 경로를 채팅 리스트(/chat)로 매핑한다", () => {
+    expect(normalizePushNotificationPath("/posts/5/chats")).toBe("/chat");
+    expect(normalizePushNotificationPath("/posts/5/chats?roomId=9")).toBe("/chat");
+    expect(normalizePushNotificationPath("/chat/1?roomId=2")).toBe("/chat");
   });
 
   it("이미 앱 라우트인 경로는 유지한다", () => {
     expect(normalizePushNotificationPath("/list/3")).toBe("/list/3");
-    expect(normalizePushNotificationPath("/chat/1?roomId=2")).toBe("/chat/1?roomId=2");
+    expect(normalizePushNotificationPath("/chat")).toBe("/chat");
     expect(normalizePushNotificationPath("/mypage/inquiries/4")).toBe("/mypage/inquiries/4");
     expect(normalizePushNotificationPath("/notice/5")).toBe("/notice/5");
     expect(normalizePushNotificationPath("/mypage/reports/6")).toBe("/mypage/reports/6");
@@ -30,10 +31,11 @@ describe("normalizePushNotificationPath", () => {
 });
 
 describe("buildRoutePathFromReference", () => {
-  it("referenceType 기준으로 alertRouteUrl과 동일한 경로를 만든다", () => {
+  it("referenceType 기준으로 경로를 만든다", () => {
     expect(buildRoutePathFromReference("POST", 3)).toBe("/list/3");
     expect(buildRoutePathFromReference("COMMENT", 3)).toBe("/list/3");
-    expect(buildRoutePathFromReference("CHAT", 1, 2)).toBe("/chat/1?roomId=2");
+    expect(buildRoutePathFromReference("CHAT", 1, 2)).toBe("/chat");
+    expect(buildRoutePathFromReference("CHAT")).toBe("/chat");
     expect(buildRoutePathFromReference("INQUIRY", 4)).toBe("/mypage/inquiries/4");
     expect(buildRoutePathFromReference("NOTICE", 5)).toBe("/notice/5");
     expect(buildRoutePathFromReference("REPORT", 6)).toBe("/mypage/reports/6");
@@ -56,7 +58,7 @@ describe("resolvePushNotificationPathFromPayload", () => {
       resolvePushNotificationPathFromPayload({
         data: { referenceType: "CHAT", referenceId: 10, roomId: 20 },
       })
-    ).toBe("/chat/10?roomId=20");
+    ).toBe("/chat");
   });
 });
 

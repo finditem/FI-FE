@@ -1,30 +1,25 @@
 /**
  * 웹 푸시 payload의 URL을 현재 앱 라우트에 맞게 정규화합니다.
- * (알림 목록 {@link alertRouteUrl} 과 동일한 경로 규칙)
+ * CHAT은 채팅 리스트(`/chat`), 그 외는 알림 목록과 동일한 경로 규칙
  */
 
 /**
  * @param {string | undefined | null} referenceType
  * @param {number | string | undefined | null} referenceId
- * @param {number | string | undefined | null} roomId
  * @returns {string | null}
  */
-function buildRoutePathFromReference(referenceType, referenceId, roomId) {
-  if (!referenceType || referenceId == null || referenceId === "") return null;
+function buildRoutePathFromReference(referenceType, referenceId) {
+  if (!referenceType) return null;
+  if (referenceType !== "CHAT" && (referenceId == null || referenceId === "")) return null;
 
   const id = String(referenceId);
 
   switch (referenceType) {
+    case "CHAT":
+      return "/chat";
     case "POST":
     case "COMMENT":
       return `/list/${id}`;
-    case "CHAT": {
-      const base = `/chat/${id}`;
-      if (roomId != null && roomId !== "") {
-        return `${base}?roomId=${encodeURIComponent(String(roomId))}`;
-      }
-      return base;
-    }
     case "INQUIRY":
       return `/mypage/inquiries/${id}`;
     case "NOTICE":
@@ -60,11 +55,11 @@ function normalizePushNotificationPath(raw) {
 
   const queryIndex = pathWithQuery.indexOf("?");
   let pathname = queryIndex >= 0 ? pathWithQuery.slice(0, queryIndex) : pathWithQuery;
-  const search = queryIndex >= 0 ? pathWithQuery.slice(queryIndex) : "";
+  let search = queryIndex >= 0 ? pathWithQuery.slice(queryIndex) : "";
 
   const legacyPathMatchers = [
-    [/^\/posts\/(\d+)\/chats\/?$/i, "/chat/$1"],
-    [/^\/api\/posts\/(\d+)\/chats\/?$/i, "/chat/$1"],
+    [/^\/posts\/(\d+)\/chats\/?$/i, "/chat"],
+    [/^\/api\/posts\/(\d+)\/chats\/?$/i, "/chat"],
     [/^\/posts\/(\d+)\/?$/i, "/list/$1"],
     [/^\/api\/posts\/(\d+)\/?$/i, "/list/$1"],
     [/^\/inquiries\/(\d+)\/?$/i, "/mypage/inquiries/$1"],
@@ -78,9 +73,14 @@ function normalizePushNotificationPath(raw) {
   for (const [pattern, replacement] of legacyPathMatchers) {
     const match = pathname.match(pattern);
     if (match) {
-      pathname = replacement.replace("$1", match[1]);
+      pathname = replacement.includes("$1") ? replacement.replace("$1", match[1]) : replacement;
       break;
     }
+  }
+
+  if (pathname === "/chat" || /^\/chat\/\d+\/?$/i.test(pathname)) {
+    pathname = "/chat";
+    search = "";
   }
 
   return pathname + search;
@@ -105,8 +105,7 @@ function resolvePushNotificationPathFromPayload(payload) {
   const fromReference = buildRoutePathFromReference(referenceType, referenceId, roomId);
   if (fromReference) return fromReference;
 
-  const rawUrl =
-    payload.url ?? payload.link ?? payload.click_action ?? data?.url ?? data?.link ?? "/";
+  const rawUrl = payload.url ?? payload.link ?? payload.click_action ?? data?.url ?? data?.link;
 
   return normalizePushNotificationPath(typeof rawUrl === "string" ? rawUrl : "/");
 }
