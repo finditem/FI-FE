@@ -14,18 +14,25 @@ export const useBrowserNotificationPermission = (): NotificationPermission | und
   const [permission, setPermission] = useState(readNotificationPermission);
 
   useEffect(() => {
-    const syncPermission = () => setPermission(readNotificationPermission());
+    let isMounted = true;
+    let permissionStatus: PermissionStatus | null = null;
+
+    const syncPermission = () => {
+      if (isMounted) {
+        setPermission(readNotificationPermission());
+      }
+    };
+
     syncPermission();
 
     if (!navigator.permissions?.query) return;
-
-    let permissionStatus: PermissionStatus | null = null;
 
     const handlePermissionChange = () => syncPermission();
 
     void navigator.permissions
       .query({ name: "notifications" as PermissionName })
       .then((status) => {
+        if (!isMounted) return;
         permissionStatus = status;
         status.addEventListener("change", handlePermissionChange);
         syncPermission();
@@ -33,7 +40,10 @@ export const useBrowserNotificationPermission = (): NotificationPermission | und
       .catch(() => {});
 
     return () => {
-      permissionStatus?.removeEventListener("change", handlePermissionChange);
+      isMounted = false;
+      if (permissionStatus) {
+        permissionStatus.removeEventListener("change", handlePermissionChange);
+      }
     };
   }, []);
 
