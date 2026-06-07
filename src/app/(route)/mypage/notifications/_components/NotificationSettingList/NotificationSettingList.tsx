@@ -5,7 +5,9 @@ import { NOTIFICATION_CONFIG } from "../../_constants/NOTIFICATION_ITEM";
 import NotificationSettingItem from "../NotificationSettingItem/NotificationSettingItem";
 import { useGetNotificationSetting } from "@/api/fetch/notification";
 import { useToggleClick } from "../../_hooks/useToggleClick";
+import { useBrowserNotificationPermission } from "../../_hooks/useBrowserNotificationPermission";
 import { DEFAULT_NOTIFICATION_SETTING } from "../../_constants/DEFAULT_NOTIFICATION_SETTING";
+import { isBrowserNotificationEffectivelyEnabled } from "../../_utils/isBrowserNotificationEffectivelyEnabled";
 import { useEffect } from "react";
 
 const NotificationSettingList = () => {
@@ -14,12 +16,17 @@ const NotificationSettingList = () => {
   const { handleToggle } = useToggleClick(notificationData?.result);
 
   const toggleState = notificationData?.result ?? DEFAULT_NOTIFICATION_SETTING;
+  const notificationPermission = useBrowserNotificationPermission();
+  const isBrowserNotificationOn = isBrowserNotificationEffectivelyEnabled(
+    toggleState.browserNotificationEnabled,
+    notificationPermission
+  );
 
   useEffect(() => {
-    if (toggleState?.browserNotificationEnabled && Notification.permission === "denied") {
+    if (toggleState?.browserNotificationEnabled && notificationPermission === "denied") {
       handleToggle("browserNotificationEnabled");
     }
-  }, [toggleState?.browserNotificationEnabled, handleToggle]);
+  }, [toggleState?.browserNotificationEnabled, notificationPermission, handleToggle]);
 
   if (isLoading) return <LoadingState />;
 
@@ -30,7 +37,7 @@ const NotificationSettingList = () => {
           <h3 className="text-h3-semibold text-neutral-normal-default">알림 설정</h3>
           <ToggleButton
             ariaLabel="전체 알림 설정"
-            toggleState={toggleState?.browserNotificationEnabled ?? false}
+            toggleState={isBrowserNotificationOn}
             onClick={() => handleToggle("browserNotificationEnabled")}
           />
         </div>
@@ -45,7 +52,7 @@ const NotificationSettingList = () => {
             <NotificationSettingItem
               key={item.value}
               item={item}
-              browserNotification={toggleState?.browserNotificationEnabled ?? false}
+              browserNotification={isBrowserNotificationOn}
               isOn={isCategorySelector ? false : (currentState as boolean)}
               notificationStatus={toggleState}
             />
