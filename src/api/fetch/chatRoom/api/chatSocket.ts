@@ -24,6 +24,8 @@ const reconnectRetryController = retryBackoffController({
 
 let tokenRefreshHandler: (() => void) | null = null;
 
+const ACCESS_TOKEN_API_PATH = "/api/auth/access-token";
+
 const REMOTE_CHAT_BROKER_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")}/ws`
   : "";
@@ -33,18 +35,43 @@ const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
   return `${wsProtocol}//${loc.host}/api/ws`;
 };
 
+const isReleaseHostname = (): boolean =>
+  typeof window !== "undefined" && window.location.hostname === RELEASE_HOSTNAME;
+
 const getChatSocketBrokerURL = (): string => {
   if (typeof window === "undefined") return REMOTE_CHAT_BROKER_URL;
 
   const { hostname } = window.location;
   const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
-  const shouldUseSameOriginProxy = isLocal || hostname === RELEASE_HOSTNAME;
 
-  if (process.env.NODE_ENV !== "production" || shouldUseSameOriginProxy) {
+  if (process.env.NODE_ENV !== "production" || isLocal) {
     return toSameOriginWsBrokerUrl(window.location);
   }
 
   return REMOTE_CHAT_BROKER_URL;
+};
+
+const fetchAccessTokenForWs = async (): Promise<string | null> => {
+  try {
+    const res = await fetch(ACCESS_TOKEN_API_PATH, { cache: "no-store" });
+    if (!res.ok) return null;
+
+    const data = (await res.json()) as { accessToken: string | null };
+    return data.accessToken ?? null;
+  } catch {
+    return null;
+  }
+};
+
+const resolveStompConnectHeaders = async (): Promise<Record<string, string> | undefined> => {
+  if (!isReleaseHostname()) return undefined;
+
+  const accessToken = await fetchAccessTokenForWs();
+  if (!accessToken) return undefined;
+
+  return {
+    Authorization: `Bearer ${accessToken}`,
+  };
 };
 
 const MAX_AUTH_REFRESH_FAILURES = 1;
@@ -87,7 +114,7 @@ const performReconnectChatSocket = async () => {
       }
     }
 
-    connectChatSocket();
+    await connectChatSocket();
     isReconnecting = false;
   } catch {
     isReconnecting = false;
@@ -110,7 +137,7 @@ const scheduleReconnectChatSocket = ({
   reconnectRetryController.schedule(performReconnectChatSocket, { immediate, resetAttempt });
 };
 
-export const connectChatSocket = () => {
+export const connectChatSocket = async () => {
   if (client?.connected) return;
 
   if (client && !client.connected) {
@@ -121,8 +148,11 @@ export const connectChatSocket = () => {
   // 성공적으로 연결할 것이므로 재시도 상태(백오프/대기 타이머)를 초기화합니다.
   reconnectRetryController.reset();
 
+  const connectHeaders = await resolveStompConnectHeaders();
+
   client = new Client({
     brokerURL: getChatSocketBrokerURL(),
+    connectHeaders,
     reconnectDelay: 0,
 
     debug: (msg) => {
