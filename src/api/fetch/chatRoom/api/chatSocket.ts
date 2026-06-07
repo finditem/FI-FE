@@ -44,7 +44,6 @@ const getChatSocketBrokerURL = (): string => {
   const { hostname } = window.location;
   const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
 
-  // 로컬만 same-origin 프록시 사용. Vercel(릴리즈)은 WS rewrite 프록시를 지원하지 않음.
   if (process.env.NODE_ENV !== "production" || isLocal) {
     return toSameOriginWsBrokerUrl(window.location);
   }
