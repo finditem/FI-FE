@@ -6,11 +6,9 @@ import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
 import { useGetUsersMe } from "@/api/fetch/user";
-import { useAgreeStore } from "@/store";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
-  const { isLoggedIn } = useAgreeStore();
-  const { data, isFetching, error } = useGetUsersMe(hasToken && isLoggedIn);
+  const { data, isFetching, error } = useGetUsersMe(hasToken);
 
   const { addToast } = useToast();
 
