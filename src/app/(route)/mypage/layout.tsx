@@ -18,7 +18,7 @@ export default async function layout({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient();
 
   const cookieStore = await cookies();
-  const hasToken = cookieStore.has("accessToken");
+  const hasToken = cookieStore.has("access_token");
 
   if (hasToken) {
     try {
