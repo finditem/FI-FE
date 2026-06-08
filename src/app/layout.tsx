@@ -1,6 +1,7 @@
 import { Footer } from "@/components";
 import "./globals.css";
 import AppProviders from "@/providers/AppProviders";
+import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
@@ -68,11 +69,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const hasToken = cookieStore.has("refresh_token");
   const isProd = process.env.VERCEL_ENV === "production";
   const gaId = process.env.NEXT_PUBLIC_GA_ID;
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
@@ -108,7 +111,7 @@ export default function RootLayout({
           <MSWProvider />
           <AuthBootstrap />
           <main className="w-full flex-1">{children}</main>
-          <Footer />
+          <Footer hasToken={hasToken} />
           <Script
             src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js"
             integrity="sha384-tJkjbtDbvoxO+diRuDtwRO9JXR7pjWnfjfRn5ePUpl7e7RJCxKCwwnfqUAdXh53p"

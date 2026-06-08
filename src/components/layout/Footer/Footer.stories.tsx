@@ -23,5 +23,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Basic: Story = {
-  render: () => <Footer />,
+  args: {
+    hasToken: false,
+  },
 };
