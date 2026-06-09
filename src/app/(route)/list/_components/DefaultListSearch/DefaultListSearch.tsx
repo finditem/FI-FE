@@ -3,6 +3,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useGetSearchKeyword } from "@/api/fetch/post";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { InputSearch } from "@/components";
@@ -10,14 +12,27 @@ import { useInfiniteScroll } from "@/hooks";
 import { trackSearch } from "@/utils/analytics/analytics";
 import { PostSearchView } from "../_internal";
 
+const postSearchSchema = z.object({
+  postSearch: z.string().trim().min(1).max(50),
+});
+
+type PostSearchFormValues = z.infer<typeof postSearchSchema>;
+
 const DefaultListSearch = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const keyword = searchParams.get("keyword") ?? "";
+  const keyword = postSearchSchema.shape.postSearch.safeParse(searchParams.get("keyword") ?? "")
+    .success
+    ? (searchParams.get("keyword") ?? "").trim()
+    : "";
 
-  const methods = useForm({
+  const methods = useForm<PostSearchFormValues>({
+    resolver: zodResolver(postSearchSchema),
     mode: "onChange",
     reValidateMode: "onChange",
+    defaultValues: {
+      postSearch: keyword,
+    },
   });
 
   const {
@@ -36,12 +51,14 @@ const DefaultListSearch = () => {
 
   const handleSearchSubmit = () => {
     const raw = methods.getValues("postSearch");
-    const value = raw?.trim();
+    const result = postSearchSchema.shape.postSearch.safeParse(raw);
+    const value = result.success ? result.data : "";
 
     if (!value || value === keyword) return;
 
     trackSearch(value);
-    router.replace(`/list?search=post&keyword=${value}`);
+    const params = new URLSearchParams({ search: "post", keyword: value });
+    router.replace(`/list?${params.toString()}`);
   };
 
   return (
@@ -51,7 +68,6 @@ const DefaultListSearch = () => {
           <InputSearch
             mode="RHF"
             name="postSearch"
-            defaultValue={keyword}
             placeholder="제목, 내용을 입력해 주세요."
             onEnter={handleSearchSubmit}
           />

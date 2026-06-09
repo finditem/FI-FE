@@ -34,7 +34,7 @@
  */
 
 import { useSearchParams } from "next/navigation";
-import { normalizeEnumValue } from "@/utils";
+import { z } from "zod";
 import {
   CategoryFilterValue,
   FindStatusFilterValue,
@@ -46,31 +46,50 @@ import { SimpleSortType } from "@/types";
 import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
 import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
 
+const optionalEnumParam = <T extends [string, ...string[]]>(values: T, value: string | null) => {
+  if (!value) return undefined;
+  return z.enum(values).safeParse(value.toUpperCase()).data;
+};
+
 export const useFilterParams = () => {
   const searchParams = useSearchParams();
 
   return {
-    type: normalizeEnumValue(searchParams.get("type")),
-    status: normalizeEnumValue<Exclude<StatusFilterValue, undefined>>(searchParams.get("status")),
-    category: normalizeEnumValue<Exclude<CategoryFilterValue, undefined>>(
+    type: optionalEnumParam(["LOST", "FOUND"], searchParams.get("type")),
+    status: optionalEnumParam(["LOST", "FOUND"], searchParams.get("status")) as Exclude<
+      StatusFilterValue,
+      undefined
+    >,
+    category: optionalEnumParam(
+      ["ELECTRONICS", "WALLET", "ID_CARD", "JEWELRY", "BAG", "CARD", "ETC"],
       searchParams.get("category")
-    ),
-    sort: normalizeEnumValue<SortFilterValue>(searchParams.get("sort")),
+    ) as Exclude<CategoryFilterValue, undefined>,
+    sort: optionalEnumParam(
+      ["LATEST", "OLDEST", "MOST_FAVORITED", "MOST_VIEWED"],
+      searchParams.get("sort")
+    ) as SortFilterValue,
     region: searchParams.get("region"),
-    findStatus: normalizeEnumValue<Exclude<FindStatusFilterValue, undefined>>(
+    findStatus: optionalEnumParam(
+      ["SEARCHING", "FOUND"],
       searchParams.get("find-status")
-    ),
+    ) as Exclude<FindStatusFilterValue, undefined>,
     startDate: searchParams.get("startDate"),
     endDate: searchParams.get("endDate"),
-    activity: normalizeEnumValue<Exclude<ActivityFilterValue, undefined>>(
+    activity: optionalEnumParam(
+      ["POST", "COMMENT", "FAVORITE", "INQUIRY", "REPORT"],
       searchParams.get("activity")
-    ),
-    simpleSort: normalizeEnumValue<SimpleSortType>(searchParams.get("simpleSort")),
-    reportStatus: normalizeEnumValue<Exclude<ReportStatusFilterValue, undefined>>(
+    ) as Exclude<ActivityFilterValue, undefined>,
+    simpleSort: optionalEnumParam(
+      ["LATEST", "OLDEST"],
+      searchParams.get("simpleSort")
+    ) as SimpleSortType,
+    reportStatus: optionalEnumParam(
+      ["ALL", "PENDING", "REVIEWED", "RESOLVED"],
       searchParams.get("reportStatus")
-    ),
-    inquiryStatus: normalizeEnumValue<Exclude<InquiryStatusFilterValue, undefined>>(
+    ) as Exclude<ReportStatusFilterValue, undefined>,
+    inquiryStatus: optionalEnumParam(
+      ["ALL", "RECEIVED", "PENDING", "ANSWERED"],
       searchParams.get("inquiryStatus")
-    ),
+    ) as Exclude<InquiryStatusFilterValue, undefined>,
   };
 };
