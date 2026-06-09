@@ -4,7 +4,7 @@
  * URL 쿼리 파라미터를 읽어 필터 상태 객체로 변환하는 커스텀 훅입니다.
  *
  * @remarks
- * - `useSearchParams`로 URL 쿼리를 읽고 `normalizeEnumValue`로 Enum 타입으로 정규화합니다.
+ * - `useSearchParams`로 URL 쿼리를 읽고 zod enum으로 검증 및 정규화합니다.
  * - 잘못된 쿼리 값은 undefined로 반환됩니다.
  * - 필터 UI 초기값 설정 및 API 요청 파라미터 생성에 사용됩니다.
  *
@@ -34,7 +34,7 @@
  */
 
 import { useSearchParams } from "next/navigation";
-import { normalizeEnumValue } from "@/utils";
+import { z } from "zod";
 import {
   CategoryFilterValue,
   FindStatusFilterValue,
@@ -46,31 +46,47 @@ import { SimpleSortType } from "@/types";
 import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
 import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
 
+const optionalEnumParam = <T extends [string, ...string[]]>(values: T, value: string | null) => {
+  if (!value) return undefined;
+  return z.enum(values).safeParse(value.toUpperCase()).data;
+};
+
 export const useFilterParams = () => {
   const searchParams = useSearchParams();
 
   return {
-    type: normalizeEnumValue(searchParams.get("type")),
-    status: normalizeEnumValue<Exclude<StatusFilterValue, undefined>>(searchParams.get("status")),
-    category: normalizeEnumValue<Exclude<CategoryFilterValue, undefined>>(
+    type: optionalEnumParam(["LOST", "FOUND"], searchParams.get("type")),
+    status: optionalEnumParam(["LOST", "FOUND"], searchParams.get("status")) as StatusFilterValue,
+    category: optionalEnumParam(
+      ["ELECTRONICS", "WALLET", "ID_CARD", "JEWELRY", "BAG", "CARD", "ETC"],
       searchParams.get("category")
-    ),
-    sort: normalizeEnumValue<SortFilterValue>(searchParams.get("sort")),
+    ) as CategoryFilterValue,
+    sort: optionalEnumParam(
+      ["LATEST", "OLDEST", "MOST_FAVORITED", "MOST_VIEWED"],
+      searchParams.get("sort")
+    ) as SortFilterValue,
     region: searchParams.get("region"),
-    findStatus: normalizeEnumValue<Exclude<FindStatusFilterValue, undefined>>(
+    findStatus: optionalEnumParam(
+      ["SEARCHING", "FOUND"],
       searchParams.get("find-status")
-    ),
+    ) as FindStatusFilterValue,
     startDate: searchParams.get("startDate"),
     endDate: searchParams.get("endDate"),
-    activity: normalizeEnumValue<Exclude<ActivityFilterValue, undefined>>(
+    activity: optionalEnumParam(
+      ["POST", "COMMENT", "FAVORITE", "INQUIRY", "REPORT"],
       searchParams.get("activity")
-    ),
-    simpleSort: normalizeEnumValue<SimpleSortType>(searchParams.get("simpleSort")),
-    reportStatus: normalizeEnumValue<Exclude<ReportStatusFilterValue, undefined>>(
+    ) as ActivityFilterValue,
+    simpleSort: optionalEnumParam(
+      ["LATEST", "OLDEST"],
+      searchParams.get("simpleSort")
+    ) as SimpleSortType,
+    reportStatus: optionalEnumParam(
+      ["ALL", "PENDING", "REVIEWED", "RESOLVED"],
       searchParams.get("reportStatus")
-    ),
-    inquiryStatus: normalizeEnumValue<Exclude<InquiryStatusFilterValue, undefined>>(
+    ) as ReportStatusFilterValue,
+    inquiryStatus: optionalEnumParam(
+      ["ALL", "RECEIVED", "PENDING", "ANSWERED"],
       searchParams.get("inquiryStatus")
-    ),
+    ) as InquiryStatusFilterValue,
   };
 };

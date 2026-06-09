@@ -25,6 +25,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@emotion/is-prop-valid": "^1.4.0",
+    "@hookform/resolvers": "^5.4.0",
     "@next/third-parties": "^16.1.6",
     "@sentry/nextjs": "^10.51.0",
     "@stomp/stompjs": "^7.2.1",

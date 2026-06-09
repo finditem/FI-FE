@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { z } from "zod";
 import { formatMetadataAddress } from "@/utils";
 import { hasValidToken } from "@/utils/hasValidToken/hasValidToken";
 import ClientDetail from "./_components/ClientDetail/ClientDetail";
@@ -7,10 +9,15 @@ interface ListDetailProps {
   params: Promise<{ id: string }>;
 }
 
+const postIdParamSchema = z.coerce.number().int().positive();
+
 export async function generateMetadata({ params }: ListDetailProps): Promise<Metadata> {
   const { id } = await params;
+  const postId = postIdParamSchema.safeParse(id);
 
-  const post = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${id}/share`, {
+  if (!postId.success) return {};
+
+  const post = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/posts/${postId.data}/share`, {
     next: { revalidate: 600 },
   }).then((res) => res.json());
 
@@ -44,10 +51,13 @@ export async function generateMetadata({ params }: ListDetailProps): Promise<Met
 
 const page = async ({ params }: ListDetailProps) => {
   const { id } = await params;
+  const postId = postIdParamSchema.safeParse(id);
+
+  if (!postId.success) notFound();
 
   const isLoggedIn = await hasValidToken();
 
-  return <ClientDetail id={Number(id)} isLoggedIn={isLoggedIn} />;
+  return <ClientDetail id={postId.data} isLoggedIn={isLoggedIn} />;
 };
 
 export default page;
