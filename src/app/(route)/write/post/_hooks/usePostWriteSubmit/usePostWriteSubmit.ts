@@ -7,12 +7,17 @@ import {
   postWriteSubmitSchema,
 } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
-import { trackPostComplete } from "@/utils/analytics/analytics";
+import { trackPostComplete, type PostAnalyticsType } from "@/utils/analytics/analytics";
 import { resizeImage } from "@/utils";
 
 interface UsePostWriteSubmitProps {
   methods: UseFormReturn<PostWriteFormValues>;
 }
+
+const POST_TYPE_ANALYTICS_LABEL = {
+  LOST: "분실물",
+  FOUND: "습득물",
+} as const satisfies Record<PostWriteSubmitValues["postType"], PostAnalyticsType>;
 
 const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
   const { lat, lng, fullAddress, radius, postType, clearLocation } = useWriteStore();
@@ -105,7 +110,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
     const formData = await toPostWriteFormData(submitValues.data);
 
-    trackPostComplete(submitValues.data.postType as "분실물" | "습득물");
+    trackPostComplete(POST_TYPE_ANALYTICS_LABEL[submitValues.data.postType]);
     postPosts(formData);
     clearLocation();
   };

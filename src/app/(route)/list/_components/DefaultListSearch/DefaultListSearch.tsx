@@ -21,10 +21,10 @@ type PostSearchFormValues = z.infer<typeof postSearchSchema>;
 const DefaultListSearch = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const keyword = postSearchSchema.shape.postSearch.safeParse(searchParams.get("keyword") ?? "")
-    .success
-    ? (searchParams.get("keyword") ?? "").trim()
-    : "";
+  const keywordResult = postSearchSchema.shape.postSearch.safeParse(
+    searchParams.get("keyword") ?? ""
+  );
+  const keyword = keywordResult.success ? keywordResult.data : "";
 
   const methods = useForm<PostSearchFormValues>({
     resolver: zodResolver(postSearchSchema),
