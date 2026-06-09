@@ -11,13 +11,6 @@ const TitleSection = () => {
       <Controller
         control={control}
         name="title"
-        rules={{
-          required: "제목을 입력해 주세요.",
-          maxLength: {
-            value: 50,
-            message: "제목은 50자 이내로 입력해 주세요.",
-          },
-        }}
         render={({ field }) => (
           <div className="relative w-full">
             <input
