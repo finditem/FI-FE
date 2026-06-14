@@ -2,10 +2,13 @@
 
 import { retryBackoffController } from "@/utils/retryBackoffController/retryBackoffController";
 import type { NotificationEventData } from "../types/notificationSSETypes";
-import { RELEASE_HOSTNAME } from "@/constants/RELEASE_HOSTNAME";
 
 const ACCESS_TOKEN_API_PATH = "/api/auth/access-token";
-const DEV_SSE_ACCESS_TOKEN_QUERY_KEY = "token";
+const SAME_ORIGIN_SSE_SUBSCRIBE_PATH = "/api/notifications/subscribe";
+
+const REMOTE_SSE_SUBSCRIBE_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/\/$/, "")}/notifications/subscribe`
+  : "";
 
 const RUNTIME_KEY = "__fmi_notification_sse_runtime__";
 
@@ -62,11 +65,23 @@ export function setNotificationSSEHandlers(next: Partial<Handlers>) {
   Object.assign(handlers, next);
 }
 
-async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string } | null> {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
-  if (!apiBase) return null;
+const getNotificationSSESubscribeURL = (): string => {
+  if (typeof window === "undefined") return REMOTE_SSE_SUBSCRIBE_URL;
 
-  const subscribeUrl = `${apiBase}/notifications/subscribe`;
+  const { hostname } = window.location;
+  const isLocal = hostname === "localhost" || hostname === "127.0.0.1";
+
+  if (process.env.NODE_ENV !== "production" || isLocal) {
+    return SAME_ORIGIN_SSE_SUBSCRIBE_PATH;
+  }
+
+  return REMOTE_SSE_SUBSCRIBE_URL;
+};
+
+async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string } | null> {
+  const subscribeUrl = getNotificationSSESubscribeURL();
+  if (!subscribeUrl) return null;
+
   const rt = getRuntime();
 
   try {
@@ -81,19 +96,6 @@ async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string }
     if (!token) {
       rt.isAuthInvalid = true;
       return null;
-    }
-
-    const q = new URLSearchParams();
-    q.set(DEV_SSE_ACCESS_TOKEN_QUERY_KEY, token);
-    const isReleaseHostname =
-      typeof window !== "undefined" && window.location.hostname === RELEASE_HOSTNAME;
-    const shouldSendTokenByQuery = process.env.NODE_ENV === "development" || isReleaseHostname;
-
-    if (shouldSendTokenByQuery) {
-      return {
-        url: `${subscribeUrl}?${q.toString()}`,
-        accessToken: token,
-      };
     }
 
     return {

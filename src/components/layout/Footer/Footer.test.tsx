@@ -37,7 +37,7 @@ describe("Footer", () => {
 
   it("isHidden이 true이면 렌더하지 않습니다", () => {
     (useFooterNav as jest.Mock).mockReturnValue({ isHidden: true, items: [] });
-    const { container } = render(<Footer />);
+    const { container } = render(<Footer hasToken={false} />);
     expect(container.firstChild).toBeNull();
   });
 
@@ -46,7 +46,7 @@ describe("Footer", () => {
       isHidden: false,
       items: [homeItem],
     });
-    render(<Footer />);
+    render(<Footer hasToken={false} />);
     expect(screen.getByRole("navigation")).toBeInTheDocument();
     expect(screen.getByText("홈")).toBeInTheDocument();
   });
@@ -56,7 +56,7 @@ describe("Footer", () => {
       isHidden: false,
       items: [homeItem],
     });
-    const { container } = render(<Footer />);
+    const { container } = render(<Footer hasToken={false} />);
     const spacers = container.querySelectorAll("[aria-hidden='true']");
     expect(spacers.length).toBeGreaterThanOrEqual(1);
   });
