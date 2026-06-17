@@ -1,7 +1,7 @@
 "use client";
 
 import { useToast } from "@/context/ToastContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
@@ -9,13 +9,7 @@ import { useGetUsersMe } from "@/api/fetch/user";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const { data, isFetching, error } = useGetUsersMe(hasToken);
-  const [mounted, setMounted] = useState(false);
-
   const { addToast } = useToast();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!error) return;
@@ -40,15 +34,13 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
       }
     : undefined;
 
-  const isLoading = mounted && isFetching;
-
   return (
     <div className="flex w-full flex-col h-f-base">
-      <MyPageProfile userData={userData} loading={isLoading} />
+      <MyPageProfile userData={userData} loading={isFetching} />
 
-      <MyPageIconNav disabled={isLoading} />
+      <MyPageIconNav disabled={isFetching} />
 
-      <MyPageMenuSection isUserLogin={!!userData} disabled={isLoading} />
+      <MyPageMenuSection isUserLogin={!!userData} disabled={isFetching} />
     </div>
   );
 };
