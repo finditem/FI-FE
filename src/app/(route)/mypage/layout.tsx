@@ -1,6 +1,3 @@
-import useServerPrefetchQuery from "@/api/_base/query/useServerPrefetchQuery";
-import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { cookies } from "next/headers";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
