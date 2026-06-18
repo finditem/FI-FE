@@ -9,7 +9,6 @@ import { useGetUsersMe } from "@/api/fetch/user";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const { data, isFetching, error } = useGetUsersMe(hasToken);
-
   const { addToast } = useToast();
 
   useEffect(() => {
