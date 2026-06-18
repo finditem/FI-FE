@@ -11,6 +11,6 @@ export const metadata: Metadata = {
   other: { "page-type": "mypage" },
 };
 
-export default async function layout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default function layout({ children }: { children: ReactNode }) {
+  return children;
 }
