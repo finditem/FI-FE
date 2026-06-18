@@ -109,8 +109,5 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "*"
   }
 }
