@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { useWriteStore } from "@/store";
-import { PostWriteFormValues } from "../../_types/PostWriteType";
+import {
+  PostWriteFormValues,
+  PostWriteSubmitValues,
+  postWriteSubmitSchema,
+} from "../../_types/PostWriteType";
 import { usePutPost } from "@/api/fetch/post";
 import { PutPostEditRequest } from "@/api/fetch/post/types/PutPostEditType";
 import { resizeImage } from "@/utils";
@@ -14,6 +18,16 @@ interface UsePostEditSubmitProps {
 const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
   const { lat, lng, fullAddress, radius, postType, clearLocation } = useWriteStore();
 
+  const getSubmitValues = (values: PostWriteFormValues) =>
+    postWriteSubmitSchema.safeParse({
+      ...values,
+      postType: values.postType || postType || "",
+      address: values.address || fullAddress || "",
+      latitude: values.latitude ?? lat ?? null,
+      longitude: values.longitude ?? lng ?? null,
+      radius: values.radius ?? radius ?? null,
+    });
+
   useEffect(() => {
     methods.setValue("postType", postType ?? "", { shouldValidate: true });
     methods.setValue("address", fullAddress ?? "", { shouldValidate: true });
@@ -23,33 +37,24 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
   }, [postType, fullAddress, lat, lng, radius, methods]);
 
   const canSubmit = (values: PostWriteFormValues) => {
-    if (!postType) return false;
-    if (!fullAddress) return false;
-    if (lat == null || lng == null || radius == null) return false;
-    if (!values.category) return false;
-    if (!values.title || !values.content) return false;
-
-    return true;
+    return getSubmitValues(values).success;
   };
 
   const { mutateAsync: putPost, isPending: isPosting } = usePutPost(postId);
 
-  const toFormData = async (values: PostWriteFormValues): Promise<FormData | null> => {
-    if (!postType || !values.category) return null;
-    if (!fullAddress || lat == null || lng == null || radius == null) return null;
-
+  const toFormData = async (values: PostWriteSubmitValues): Promise<FormData> => {
     const firstImage = values.images[0];
     const thumbnailImageId = firstImage?.id ?? null;
 
     const request: PutPostEditRequest = {
-      postType: postType,
+      postType: values.postType,
       title: values.title,
       category: values.category,
       content: values.content,
-      address: fullAddress,
-      latitude: lat,
-      longitude: lng,
-      radius: radius,
+      address: values.address,
+      latitude: values.latitude,
+      longitude: values.longitude,
+      radius: values.radius,
       date: new Date().toISOString(),
       keepImageIdList: values.images.filter((img) => img.id).map((img) => Number(img.id)),
       thumbnailImageId,
@@ -80,8 +85,10 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
   };
 
   const onSubmit = methods.handleSubmit(async (values) => {
-    const formData = await toFormData(values);
-    if (!formData) return;
+    const submitValues = getSubmitValues(values);
+    if (!submitValues.success) return;
+
+    const formData = await toFormData(submitValues.data);
     putPost(formData);
     clearLocation();
   });

@@ -11,13 +11,6 @@ const ContentSection = () => {
       <Controller
         control={control}
         name="content"
-        rules={{
-          required: "내용을 입력해주세요.",
-          maxLength: {
-            value: 500,
-            message: "내용은 500자 이내로 입력해주세요.",
-          },
-        }}
         render={({ field }) => (
           <div className="relative">
             <textarea

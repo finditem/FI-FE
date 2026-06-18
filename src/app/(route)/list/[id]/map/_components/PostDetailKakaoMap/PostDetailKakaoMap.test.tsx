@@ -28,6 +28,9 @@ describe("PostDetailKakaoMap", () => {
     render(<PostDetailKakaoMap />);
 
     expect(screen.getByText("서울특별시 중구 세종대로 110 서울특별시청")).toBeInTheDocument();
+    const map = screen.getByTestId("base-kakao-map");
+    expect(map).toHaveAttribute("data-lat", "37.566370748");
+    expect(map).toHaveAttribute("data-lng", "126.977918341");
   });
 
   it("searchParams의 address가 화면에 표시되어야 한다.", () => {
@@ -102,5 +105,30 @@ describe("PostDetailKakaoMap", () => {
     render(<PostDetailKakaoMap />);
 
     expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "8");
+  });
+
+  it("허용되지 않는 radius는 기본 지도 레벨 6으로 전달되어야 한다.", () => {
+    mockUseSearchParams.mockReturnValue({
+      get: (key: string) => (key === "radius" ? "2000" : null),
+    });
+
+    render(<PostDetailKakaoMap />);
+
+    expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "6");
+  });
+
+  it("잘못된 좌표는 기본 좌표로 전달되어야 한다.", () => {
+    mockUseSearchParams.mockReturnValue({
+      get: (key: string) => {
+        const params: Record<string, string> = { lat: "abc", lng: "999" };
+        return params[key] ?? null;
+      },
+    });
+
+    render(<PostDetailKakaoMap />);
+
+    const map = screen.getByTestId("base-kakao-map");
+    expect(map).toHaveAttribute("data-lat", "37.566370748");
+    expect(map).toHaveAttribute("data-lng", "126.977918341");
   });
 });
