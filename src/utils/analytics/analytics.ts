@@ -1,10 +1,12 @@
 import { trackingEvent } from "../trackingEvent/trackingEvent";
 
+export type PostAnalyticsType = "분실물" | "습득물";
+
 /**
  * 사용자가 글쓰기 페이지(분실물 또는 습득물 작성 폼)에 진입했을 때 호출합니다.
  * @param type - 진입한 페이지의 글 종류 ('분실물' 또는 '습득물')
  */
-export const trackPostStart = (type: "분실물" | "습득물") =>
+export const trackPostStart = (type: PostAnalyticsType) =>
   trackingEvent("post_start", { item_type: type });
 
 /**
@@ -12,7 +14,7 @@ export const trackPostStart = (type: "분실물" | "습득물") =>
  * @remarks 반드시 게시글 등록 API 요청이 성공(200 OK)한 시점에 실행되어야 합니다.
  * @param type - 등록 완료된 글 종류 ('분실물' 또는 '습득물')
  */
-export const trackPostComplete = (type: "분실물" | "습득물") =>
+export const trackPostComplete = (type: PostAnalyticsType) =>
   trackingEvent("post_complete", { item_type: type });
 
 /**

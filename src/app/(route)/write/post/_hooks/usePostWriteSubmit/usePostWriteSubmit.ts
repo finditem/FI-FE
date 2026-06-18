@@ -1,17 +1,36 @@
 import { useEffect, useState, useMemo } from "react";
 import { UseFormReturn, useWatch } from "react-hook-form";
 import { useWriteStore } from "@/store";
-import { PostWriteFormValues } from "../../_types/PostWriteType";
+import {
+  PostWriteFormValues,
+  PostWriteSubmitValues,
+  postWriteSubmitSchema,
+} from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
-import { trackPostComplete } from "@/utils/analytics/analytics";
+import { trackPostComplete, type PostAnalyticsType } from "@/utils/analytics/analytics";
 import { resizeImage } from "@/utils";
 
 interface UsePostWriteSubmitProps {
   methods: UseFormReturn<PostWriteFormValues>;
 }
 
+const POST_TYPE_ANALYTICS_LABEL = {
+  LOST: "분실물",
+  FOUND: "습득물",
+} as const satisfies Record<PostWriteSubmitValues["postType"], PostAnalyticsType>;
+
 const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
   const { lat, lng, fullAddress, radius, postType, clearLocation } = useWriteStore();
+
+  const getSubmitValues = (values: Partial<PostWriteFormValues>) =>
+    postWriteSubmitSchema.safeParse({
+      ...values,
+      postType: values.postType || postType || "",
+      address: values.address || fullAddress || "",
+      latitude: values.latitude ?? lat ?? null,
+      longitude: values.longitude ?? lng ?? null,
+      radius: values.radius ?? radius ?? null,
+    });
 
   useEffect(() => {
     methods.setValue("postType", postType ?? "", { shouldValidate: true });
@@ -26,19 +45,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
   });
 
   const canSubmit = useMemo(() => {
-    const currentPostType = watchedValues.postType || postType;
-    const currentAddress = watchedValues.address || fullAddress;
-    const currentLat = watchedValues.latitude ?? lat;
-    const currentLng = watchedValues.longitude ?? lng;
-    const currentRadius = watchedValues.radius ?? radius;
-
-    const hasLocation =
-      !!currentAddress && currentLat != null && currentLng != null && currentRadius != null;
-    const hasCategory = !!watchedValues.category;
-    const hasTitle = !!watchedValues.title && watchedValues.title.trim() !== "";
-    const hasContent = !!watchedValues.content && watchedValues.content.trim() !== "";
-
-    return !!currentPostType && hasLocation && hasCategory && hasTitle && hasContent;
+    return getSubmitValues(watchedValues as Partial<PostWriteFormValues>).success;
   }, [
     watchedValues.postType,
     watchedValues.address,
@@ -60,19 +67,16 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
   const { mutateAsync: postPosts, isPending: isPosting } = usePostPosts();
 
-  const toPostWriteFormData = async (values: PostWriteFormValues): Promise<FormData | null> => {
-    if (!postType || !values.category) return null;
-    if (!fullAddress || lat == null || lng == null || radius == null) return null;
-
+  const toPostWriteFormData = async (values: PostWriteSubmitValues): Promise<FormData> => {
     const request: PostWriteRequest = {
-      postType: postType,
+      postType: values.postType,
       title: values.title,
       category: values.category,
       content: values.content,
-      address: fullAddress,
-      latitude: lat,
-      longitude: lng,
-      radius: radius,
+      address: values.address,
+      latitude: values.latitude,
+      longitude: values.longitude,
+      radius: values.radius,
       date: new Date().toISOString(),
     };
 
@@ -100,11 +104,13 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
   };
 
   const submitFormData = async (values: PostWriteFormValues) => {
-    const formData = await toPostWriteFormData(values);
+    const submitValues = getSubmitValues(values);
 
-    if (!formData) return;
+    if (!submitValues.success) return;
 
-    if (postType) trackPostComplete(postType as "분실물" | "습득물");
+    const formData = await toPostWriteFormData(submitValues.data);
+
+    trackPostComplete(POST_TYPE_ANALYTICS_LABEL[submitValues.data.postType]);
     postPosts(formData);
     clearLocation();
   };
