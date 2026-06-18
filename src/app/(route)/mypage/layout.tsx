@@ -1,6 +1,3 @@
-import useServerPrefetchQuery from "@/api/_base/query/useServerPrefetchQuery";
-import { QueryClient, dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import { cookies } from "next/headers";
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 
@@ -14,30 +11,6 @@ export const metadata: Metadata = {
   other: { "page-type": "mypage" },
 };
 
-export default async function layout({ children }: { children: ReactNode }) {
-  const queryClient = new QueryClient();
-
-  const cookieStore = await cookies();
-  const hasToken = cookieStore.has("access_token");
-
-  if (hasToken) {
-    try {
-      await useServerPrefetchQuery({
-        queryClient,
-        queryKey: ["users-me"],
-        fetcher: () =>
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/me`, {
-            headers: { Cookie: cookieStore.toString() },
-            next: { revalidate: 0 },
-          }).then((res) => {
-            if (!res.ok) throw new Error("Unauthorized");
-            return res.json();
-          }),
-      });
-    } catch (error) {
-      // no-op
-    }
-  }
-
-  return <HydrationBoundary state={dehydrate(queryClient)}>{children}</HydrationBoundary>;
+export default function layout({ children }: { children: ReactNode }) {
+  return children;
 }
