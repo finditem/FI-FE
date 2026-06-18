@@ -35,6 +35,24 @@ describe("useFilterParams", () => {
       expect(result.current.reportStatus).toBeUndefined();
       expect(result.current.inquiryStatus).toBeUndefined();
     });
+
+    it("허용되지 않는 enum 값은 undefined를 반환한다", () => {
+      (useSearchParams as jest.Mock).mockReturnValue(
+        createSearchParams({
+          category: "invalid",
+          sort: "popular",
+          status: "done",
+          "find-status": "lost",
+        })
+      );
+
+      const { result } = renderHook(() => useFilterParams());
+
+      expect(result.current.category).toBeUndefined();
+      expect(result.current.sort).toBeUndefined();
+      expect(result.current.status).toBeUndefined();
+      expect(result.current.findStatus).toBeUndefined();
+    });
   });
 
   describe("find-status 파라미터 변환", () => {
