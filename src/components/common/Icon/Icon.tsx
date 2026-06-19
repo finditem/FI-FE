@@ -1,9 +1,26 @@
 "use client";
 
-import type { SVGProps } from "react";
-import * as Icons from "./index";
+import { lazy, Suspense } from "react";
+import type { ComponentType, SVGProps } from "react";
+import { iconImports } from "./index";
+import type { IconName } from "./index";
 
-export type IconName = keyof typeof Icons;
+type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
+
+const iconCache = new Map<IconName, ComponentType<SVGProps<SVGSVGElement>>>();
+
+function getLazyIcon(name: IconName): SvgComponent {
+  let LazyIcon = iconCache.get(name);
+
+  if (!LazyIcon) {
+    LazyIcon = lazy(iconImports[name]);
+    iconCache.set(name, LazyIcon);
+  }
+
+  return LazyIcon;
+}
+
+export type { IconName };
 
 /**
  * SVG 아이콘 컴포넌트입니다.
@@ -16,7 +33,7 @@ export type IconName = keyof typeof Icons;
  */
 
 export type Props = Omit<SVGProps<SVGSVGElement>, "ref"> & {
-  /** 사용할 아이콘 이름 (`Icons` 객체의 key) */
+  /** 사용할 아이콘 이름 (`iconImports` 객체의 key) */
   name: IconName;
   /** 아이콘 크기(px) (default: 24) */
   size?: number;
@@ -33,15 +50,17 @@ export type Props = Omit<SVGProps<SVGSVGElement>, "ref"> & {
  */
 
 export default function Icon({ name, size = 24, title, ...props }: Props) {
-  const Svg = Icons[name];
+  const Svg = getLazyIcon(name);
 
   return (
-    <Svg
-      width={size}
-      height={size}
-      aria-label={title}
-      aria-hidden={title ? "false" : "true"}
-      {...props}
-    />
+    <Suspense fallback={<span style={{ display: "inline-block", width: size, height: size }} />}>
+      <Svg
+        width={size}
+        height={size}
+        aria-label={title}
+        aria-hidden={title ? "false" : "true"}
+        {...props}
+      />
+    </Suspense>
   );
 }

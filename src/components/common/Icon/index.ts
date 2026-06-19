@@ -1,119 +1,128 @@
-export { default as EyeOpen } from "@/assets/eye-open.svg";
-export { default as Menu } from "@/assets/menu.svg";
-export { default as XSecond } from "@/assets/x-second.svg";
-export { default as Logo } from "@/assets/logo.svg";
-export { default as ArrowLeftSmall } from "@/assets/arrow-left-small.svg";
-export { default as Book } from "@/assets/book.svg";
-export { default as ArrowDown } from "@/assets/arrow-down.svg";
-export { default as ArrowUp } from "@/assets/arrow-up.svg";
-export { default as ArrowRightSmall } from "@/assets/arrow-right-small.svg";
-export { default as Star } from "@/assets/star.svg";
-export { default as Eye } from "@/assets/item-eye.svg";
-export { default as Position } from "@/assets/position.svg";
-export { default as Search } from "@/assets/search.svg";
-export { default as Check } from "@/assets/check.svg";
-export { default as EyeOff } from "@/assets/eye-off.svg";
-export { default as KakaoLogin } from "@/assets/kakao_login.svg";
-export { default as Mail } from "@/assets/mail.svg";
-export { default as Camera } from "@/assets/camera.svg";
-export { default as Location } from "@/assets/location.svg";
-export { default as ArrowRight } from "@/assets/arrow-right.svg";
-export { default as ProfileCheck } from "@/assets/profile-check.svg";
-export { default as Image } from "@/assets/image.svg";
-export { default as Delete } from "@/assets/delete.svg";
-export { default as Share } from "@/assets/share.svg";
-export { default as DetailMenu } from "@/assets/detail-menu.svg";
-export { default as FloatingPlus } from "@/assets/floating-plus.svg";
-export { default as Success } from "@/assets/success.svg";
-export { default as Warning } from "@/assets/warning.svg";
-export { default as Error } from "@/assets/error.svg";
-export { default as Loading } from "@/assets/loading.svg";
-export { default as NotFound } from "@/assets/not-found.svg";
-export { default as Information } from "@/assets/information.svg";
-export { default as ChatLost } from "@/assets/chat-lost.svg";
-export { default as ChatFind } from "@/assets/chat-find.svg";
-export { default as HeadPhone } from "@/assets/headphones.svg";
-export { default as MessageTyping } from "@/assets/message-typing.svg";
-export { default as AnnotationAlert } from "@/assets/annotation-alert.svg";
-export { default as Download } from "@/assets/download.svg";
-export { default as Setting } from "@/assets/settings.svg";
-export { default as AlertItem } from "@/assets/alert-item.svg";
-export { default as AlertNewChat } from "@/assets/alert-new-chat.svg";
-export { default as AlertNewComment } from "@/assets/alert-new-comment.svg";
-export { default as AlertStar } from "@/assets/alert-star.svg";
-export { default as AlertUnreadChat } from "@/assets/alert-unread-chat.svg";
-export { default as UserProfile } from "@/assets/user-profile.svg";
-export { default as CameraBorder } from "@/assets/camera-border.svg";
-export { default as Heart } from "@/assets/heart.svg";
-export { default as AlertState } from "@/assets/alert-state.svg";
-export { default as FindWriteBtn } from "@/assets/find-write-btn.svg";
-export { default as LostWriteBtn } from "@/assets/lost-write-btn.svg";
-export { default as Calendar } from "@/assets/calendar.svg";
-export { default as NoComments } from "@/assets/no-comments.svg";
-export { default as ArrowSwitchHorizontal } from "@/assets/arrow-switch-horizontal.svg";
-export { default as Edit } from "@/assets/edit.svg";
-export { default as Trash } from "@/assets/trash.svg";
-export { default as NoInquiries } from "@/assets/no-inquiries.svg";
-export { default as NoReports } from "@/assets/no-reports.svg";
-export { default as NoPosts } from "@/assets/no-posts.svg";
-export { default as NoActivity } from "@/assets/no-activity.svg";
-export { default as ArrowDownSmall } from "@/assets/arrow-down-small.svg";
-export { default as CommentLikeIcon } from "@/assets/comment-like-icon.svg";
-export { default as CommentReplyIcon } from "@/assets/comment-reply-icon.svg";
-export { default as Post } from "@/assets/post.svg";
-export { default as Comment } from "@/assets/comment.svg";
-export { default as EmptyStar } from "@/assets/empty-star.svg";
-export { default as Inquiry } from "@/assets/inquiry.svg";
-export { default as Report } from "@/assets/report.svg";
-export { default as Alert } from "@/assets/alert.svg";
-export { default as Wallet } from "@/assets/wallet.svg";
-export { default as Card } from "@/assets/card.svg";
-export { default as Electronics } from "@/assets/electronics.svg";
-export { default as Etc } from "@/assets/etc.svg";
-export { default as IdCard } from "@/assets/id-card.svg";
-export { default as Jewelry } from "@/assets/jewelry.svg";
-export { default as Bag } from "@/assets/bag.svg";
-export { default as ServerError } from "@/assets/server-error.svg";
-export { default as Pencil } from "@/assets/pencil.svg";
-export { default as Like } from "@/assets/like.svg";
-export { default as EmptyFavorite } from "@/assets/empty-favorite.svg";
-export { default as ScrollTopArrow } from "@/assets/scrolltop-arrow-up.svg";
-export { default as CommentImageClear } from "@/assets/comment-image-clear.svg";
-export { default as Home } from "@/assets/home.svg";
-export { default as Luggage } from "@/assets/luggage.svg";
-export { default as Chat } from "@/assets/chat.svg";
-export { default as UserProfileHome } from "@/assets/user-profile-home.svg";
-export { default as MapMyLocation } from "@/assets/map-my-location.svg";
-export { default as StarFilled } from "@/assets/star-filled.svg";
-export { default as ErrorSimilarSection } from "@/assets/error-similar-section.svg";
-export { default as UserReport } from "@/assets/user-report.svg";
-export { default as UserBlock } from "@/assets/user-block.svg";
-export { default as EmptyPostSearch } from "@/assets/empty-post-search.svg";
-export { default as MainSearchWarning } from "@/assets/main-search-warning.svg";
-export { default as Clock } from "@/assets/clock.svg";
-export { default as AlertBell } from "@/assets/alert-bell.svg";
-export { default as ChatListEmpty } from "@/assets/chat-list-empty.svg";
-export { default as LoadingSkeleton } from "@/assets/loading-skeleton.svg";
-export { default as AlertBellFooter } from "@/assets/alert-bell-footer.svg";
-export { default as LikeActive } from "@/assets/like-active.svg";
-export { default as AccordionToggle } from "@/assets/accordion-toggle.svg";
-export { default as AccordionQMark } from "@/assets/accordion-q-mark.svg";
-export { default as EyeDetail } from "@/assets/eye-detail.svg";
-export { default as HotBadge } from "@/assets/hot-badge.svg";
-export { default as NewBadge } from "@/assets/new-badge.svg";
-export { default as AlertInquiry } from "@/assets/alert-inquiry.svg";
-export { default as AlertNotice } from "@/assets/alert-notice.svg";
-export { default as AlertReportResult } from "@/assets/alert-report-result.svg";
-export { default as AccordionArrowRight } from "@/assets/accordion-arrow-right.svg";
-export { default as LogoCharacter } from "@/assets/logo-character.svg";
-export { default as DetailPolice24 } from "@/assets/detail-police24.svg";
-export { default as MessageAlertCircle } from "@/assets/message-alert-circle.svg";
-export { default as Phone } from "@/assets/phone.svg";
-export { default as LogoCharacterOutlined } from "@/assets/logo-character-outlined.svg";
-export { default as SendArrow } from "@/assets/send-arrow.svg";
-export { default as NoWithdrawalAdmin } from "@/assets/no-withdrawal-admin.svg";
-export { default as DetailImageFail } from "@/assets/detail-image-fail.svg";
-export { default as CompleteCheck } from "@/assets/complete-check.svg";
-export { default as Marker } from "@/assets/marker.svg";
-export { default as NoPublicDataSearch } from "@/assets/no-public-data-search.svg";
-export { default as InquiryAnswered } from "@/assets/inquiry_answered.svg";
+import type { ComponentType, SVGProps } from "react";
+
+type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
+type IconImporter = () => Promise<{ default: SvgComponent }>;
+
+export const iconImports = {
+  EyeOpen: () => import("@/assets/eye-open.svg"),
+  Menu: () => import("@/assets/menu.svg"),
+  XSecond: () => import("@/assets/x-second.svg"),
+  Logo: () => import("@/assets/logo.svg"),
+  ArrowLeftSmall: () => import("@/assets/arrow-left-small.svg"),
+  Book: () => import("@/assets/book.svg"),
+  ArrowDown: () => import("@/assets/arrow-down.svg"),
+  ArrowUp: () => import("@/assets/arrow-up.svg"),
+  ArrowRightSmall: () => import("@/assets/arrow-right-small.svg"),
+  Star: () => import("@/assets/star.svg"),
+  Eye: () => import("@/assets/item-eye.svg"),
+  Position: () => import("@/assets/position.svg"),
+  Search: () => import("@/assets/search.svg"),
+  Check: () => import("@/assets/check.svg"),
+  EyeOff: () => import("@/assets/eye-off.svg"),
+  KakaoLogin: () => import("@/assets/kakao_login.svg"),
+  Mail: () => import("@/assets/mail.svg"),
+  Camera: () => import("@/assets/camera.svg"),
+  Location: () => import("@/assets/location.svg"),
+  ArrowRight: () => import("@/assets/arrow-right.svg"),
+  ProfileCheck: () => import("@/assets/profile-check.svg"),
+  Image: () => import("@/assets/image.svg"),
+  Delete: () => import("@/assets/delete.svg"),
+  Share: () => import("@/assets/share.svg"),
+  DetailMenu: () => import("@/assets/detail-menu.svg"),
+  FloatingPlus: () => import("@/assets/floating-plus.svg"),
+  Success: () => import("@/assets/success.svg"),
+  Warning: () => import("@/assets/warning.svg"),
+  Error: () => import("@/assets/error.svg"),
+  Loading: () => import("@/assets/loading.svg"),
+  NotFound: () => import("@/assets/not-found.svg"),
+  Information: () => import("@/assets/information.svg"),
+  ChatLost: () => import("@/assets/chat-lost.svg"),
+  ChatFind: () => import("@/assets/chat-find.svg"),
+  HeadPhone: () => import("@/assets/headphones.svg"),
+  MessageTyping: () => import("@/assets/message-typing.svg"),
+  AnnotationAlert: () => import("@/assets/annotation-alert.svg"),
+  Download: () => import("@/assets/download.svg"),
+  Setting: () => import("@/assets/settings.svg"),
+  AlertItem: () => import("@/assets/alert-item.svg"),
+  AlertNewChat: () => import("@/assets/alert-new-chat.svg"),
+  AlertNewComment: () => import("@/assets/alert-new-comment.svg"),
+  AlertStar: () => import("@/assets/alert-star.svg"),
+  AlertUnreadChat: () => import("@/assets/alert-unread-chat.svg"),
+  UserProfile: () => import("@/assets/user-profile.svg"),
+  CameraBorder: () => import("@/assets/camera-border.svg"),
+  Heart: () => import("@/assets/heart.svg"),
+  AlertState: () => import("@/assets/alert-state.svg"),
+  FindWriteBtn: () => import("@/assets/find-write-btn.svg"),
+  LostWriteBtn: () => import("@/assets/lost-write-btn.svg"),
+  Calendar: () => import("@/assets/calendar.svg"),
+  NoComments: () => import("@/assets/no-comments.svg"),
+  ArrowSwitchHorizontal: () => import("@/assets/arrow-switch-horizontal.svg"),
+  Edit: () => import("@/assets/edit.svg"),
+  Trash: () => import("@/assets/trash.svg"),
+  NoInquiries: () => import("@/assets/no-inquiries.svg"),
+  NoReports: () => import("@/assets/no-reports.svg"),
+  NoPosts: () => import("@/assets/no-posts.svg"),
+  NoActivity: () => import("@/assets/no-activity.svg"),
+  ArrowDownSmall: () => import("@/assets/arrow-down-small.svg"),
+  CommentLikeIcon: () => import("@/assets/comment-like-icon.svg"),
+  CommentReplyIcon: () => import("@/assets/comment-reply-icon.svg"),
+  Post: () => import("@/assets/post.svg"),
+  Comment: () => import("@/assets/comment.svg"),
+  EmptyStar: () => import("@/assets/empty-star.svg"),
+  Inquiry: () => import("@/assets/inquiry.svg"),
+  Report: () => import("@/assets/report.svg"),
+  Alert: () => import("@/assets/alert.svg"),
+  Wallet: () => import("@/assets/wallet.svg"),
+  Card: () => import("@/assets/card.svg"),
+  Electronics: () => import("@/assets/electronics.svg"),
+  Etc: () => import("@/assets/etc.svg"),
+  IdCard: () => import("@/assets/id-card.svg"),
+  Jewelry: () => import("@/assets/jewelry.svg"),
+  Bag: () => import("@/assets/bag.svg"),
+  ServerError: () => import("@/assets/server-error.svg"),
+  Pencil: () => import("@/assets/pencil.svg"),
+  Like: () => import("@/assets/like.svg"),
+  EmptyFavorite: () => import("@/assets/empty-favorite.svg"),
+  ScrollTopArrow: () => import("@/assets/scrolltop-arrow-up.svg"),
+  CommentImageClear: () => import("@/assets/comment-image-clear.svg"),
+  Home: () => import("@/assets/home.svg"),
+  Luggage: () => import("@/assets/luggage.svg"),
+  Chat: () => import("@/assets/chat.svg"),
+  UserProfileHome: () => import("@/assets/user-profile-home.svg"),
+  MapMyLocation: () => import("@/assets/map-my-location.svg"),
+  StarFilled: () => import("@/assets/star-filled.svg"),
+  ErrorSimilarSection: () => import("@/assets/error-similar-section.svg"),
+  UserReport: () => import("@/assets/user-report.svg"),
+  UserBlock: () => import("@/assets/user-block.svg"),
+  EmptyPostSearch: () => import("@/assets/empty-post-search.svg"),
+  MainSearchWarning: () => import("@/assets/main-search-warning.svg"),
+  Clock: () => import("@/assets/clock.svg"),
+  AlertBell: () => import("@/assets/alert-bell.svg"),
+  ChatListEmpty: () => import("@/assets/chat-list-empty.svg"),
+  LoadingSkeleton: () => import("@/assets/loading-skeleton.svg"),
+  AlertBellFooter: () => import("@/assets/alert-bell-footer.svg"),
+  LikeActive: () => import("@/assets/like-active.svg"),
+  AccordionToggle: () => import("@/assets/accordion-toggle.svg"),
+  AccordionQMark: () => import("@/assets/accordion-q-mark.svg"),
+  EyeDetail: () => import("@/assets/eye-detail.svg"),
+  HotBadge: () => import("@/assets/hot-badge.svg"),
+  NewBadge: () => import("@/assets/new-badge.svg"),
+  AlertInquiry: () => import("@/assets/alert-inquiry.svg"),
+  AlertNotice: () => import("@/assets/alert-notice.svg"),
+  AlertReportResult: () => import("@/assets/alert-report-result.svg"),
+  AccordionArrowRight: () => import("@/assets/accordion-arrow-right.svg"),
+  LogoCharacter: () => import("@/assets/logo-character.svg"),
+  DetailPolice24: () => import("@/assets/detail-police24.svg"),
+  MessageAlertCircle: () => import("@/assets/message-alert-circle.svg"),
+  Phone: () => import("@/assets/phone.svg"),
+  LogoCharacterOutlined: () => import("@/assets/logo-character-outlined.svg"),
+  SendArrow: () => import("@/assets/send-arrow.svg"),
+  NoWithdrawalAdmin: () => import("@/assets/no-withdrawal-admin.svg"),
+  DetailImageFail: () => import("@/assets/detail-image-fail.svg"),
+  CompleteCheck: () => import("@/assets/complete-check.svg"),
+  Marker: () => import("@/assets/marker.svg"),
+  NoPublicDataSearch: () => import("@/assets/no-public-data-search.svg"),
+  InquiryAnswered: () => import("@/assets/inquiry_answered.svg"),
+} satisfies Record<string, IconImporter>;
+
+export type IconName = keyof typeof iconImports;

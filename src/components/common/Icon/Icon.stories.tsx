@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import Icon from "./Icon";
-import * as Icons from "./index";
+import { iconImports } from "./index";
+import type { IconName } from "./index";
 
-const iconOptions = Object.keys(Icons) as Array<keyof typeof Icons>;
+const iconOptions = Object.keys(iconImports) as Array<IconName>;
 
 const meta: Meta<typeof Icon> = {
   title: "아이콘/Icon",
