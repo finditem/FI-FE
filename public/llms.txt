@@ -1,0 +1,30 @@
+# 찾아줘!
+
+> 찾아줘!는 지도 기반으로 분실물과 습득물을 쉽게 찾고 공유할 수 있는 한국어 커뮤니티 서비스입니다. 경찰청 Lost112 유실물 데이터와 사용자 게시글을 함께 제공하며, 내 주변 물품 검색, 상세 필터, 실시간 채팅과 알림을 통해 잃어버린 물건을 빠르게 찾도록 돕습니다.
+
+Important notes:
+
+- 주 언어는 한국어입니다.
+- 공개 콘텐츠는 분실물/습득물 목록, 상세 페이지, 경찰청 Lost112 공공데이터, 서비스 소개, 공지사항입니다.
+- `/admin`, `/mypage`, `/chat`, `/write`, `/alert`, `/login`, `/sign-up`은 개인화 또는 비공개 기능 영역이므로 주요 공개 콘텐츠로 다루지 않습니다.
+- 동적 게시글과 공지사항 상세 URL은 sitemap에서 확인할 수 있습니다.
+
+## Main Pages
+
+- [홈](https://www.finditem.kr/): 지도 기반으로 주변 분실물과 습득물을 확인하는 메인 페이지
+- [서비스 소개](https://www.finditem.kr/hello): 찾아줘! 서비스의 목적과 주요 기능 소개
+- [분실물/습득물 목록](https://www.finditem.kr/list): 사용자가 등록한 분실물과 습득물 게시글 목록
+- [경찰청 유실물 공공데이터](https://www.finditem.kr/public-data): 경찰청 Lost112 연동 유실물 정보
+- [공지사항](https://www.finditem.kr/notice): 서비스 공지사항
+
+## Item Search
+
+- [분실 게시글](https://www.finditem.kr/list?type=lost): 사용자가 등록한 분실물 목록
+- [습득 게시글](https://www.finditem.kr/list?type=found): 사용자가 등록한 습득물 목록
+- [경찰청 분실물](https://www.finditem.kr/public-data?type=lost): 경찰청 Lost112 기반 분실물 목록
+- [경찰청 습득물](https://www.finditem.kr/public-data?type=found): 경찰청 Lost112 기반 습득물 목록
+
+## Optional
+
+- [사이트맵](https://www.finditem.kr/sitemap.xml): 최신 공개 게시글과 공지사항 상세 URL 목록
+- [robots.txt](https://www.finditem.kr/robots.txt): 크롤러 접근 정책

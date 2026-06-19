@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import { ReactNode, useEffect, useRef } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { PostWriteFormValues } from "../../../_types/PostWriteType";
+import { FormProvider, Resolver, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PostWriteFormValues, postWriteSubmitSchema } from "../../../_types/PostWriteType";
 import { useWriteFlowStore, useWriteStore } from "@/store";
 
 const defaultValues: PostWriteFormValues = {
@@ -33,6 +34,7 @@ const PostWriteFormProvider = ({ children }: { children: ReactNode }) => {
       longitude,
       radius,
     },
+    resolver: zodResolver(postWriteSubmitSchema) as Resolver<PostWriteFormValues>,
     mode: "onChange",
     reValidateMode: "onChange",
     shouldUnregister: false,
