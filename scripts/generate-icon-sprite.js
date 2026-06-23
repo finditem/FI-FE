@@ -39,17 +39,30 @@ function buildSymbol(name, slug) {
   const filePath = path.join(ASSETS_DIR, `${slug}.svg`);
   const raw = fs.readFileSync(filePath, "utf-8");
 
-  const viewBoxMatch = raw.match(/viewBox="([^"]+)"/);
+  const rootMatch = raw.match(/<svg([^>]*)>/);
+  if (!rootMatch) {
+    throw new Error(`${filePath}에 svg 루트 태그가 없습니다.`);
+  }
+  const rootAttrs = rootMatch[1];
+
+  const viewBoxMatch = rootAttrs.match(/viewBox="([^"]+)"/);
   if (!viewBoxMatch) {
     throw new Error(`${filePath}에 viewBox가 없습니다.`);
   }
+
+  // fill="none"처럼 자식 엘리먼트가 상속받는 루트의 presentation 속성은
+  // symbol에도 그대로 옮겨야 원본과 동일하게 렌더링됩니다.
+  const inheritedAttrs = (rootAttrs.match(/[\w:-]+="[^"]*"/g) || [])
+    .filter((attr) => !/^(width|height|viewBox|xmlns)/.test(attr))
+    .join(" ");
 
   const innerMatch = raw.match(/<svg[^>]*>([\s\S]*)<\/svg>/);
   const inner = innerMatch ? innerMatch[1].trim() : "";
 
   const content = toCurrentColor(namespaceIds(inner, name));
+  const attrSuffix = inheritedAttrs ? ` ${inheritedAttrs}` : "";
 
-  return `<symbol id="${name}" viewBox="${viewBoxMatch[1]}">${content}</symbol>`;
+  return `<symbol id="${name}" viewBox="${viewBoxMatch[1]}"${attrSuffix}>${content}</symbol>`;
 }
 
 function main() {
