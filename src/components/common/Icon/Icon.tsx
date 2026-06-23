@@ -2,19 +2,19 @@
 
 import { lazy, Suspense } from "react";
 import type { ComponentType, SVGProps } from "react";
-import { iconImports } from "./index";
+import { iconImports, spriteIconNames } from "./index";
 import type { IconName } from "./index";
 
 type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
 
-const iconCache = new Map<IconName, ComponentType<SVGProps<SVGSVGElement>>>();
+const lazyIconCache = new Map<keyof typeof iconImports, SvgComponent>();
 
-function getLazyIcon(name: IconName): SvgComponent {
-  let LazyIcon = iconCache.get(name);
+function getLazyIcon(name: keyof typeof iconImports): SvgComponent {
+  let LazyIcon = lazyIconCache.get(name);
 
   if (!LazyIcon) {
     LazyIcon = lazy(iconImports[name]);
-    iconCache.set(name, LazyIcon);
+    lazyIconCache.set(name, LazyIcon);
   }
 
   return LazyIcon;
@@ -50,17 +50,24 @@ export type Props = Omit<SVGProps<SVGSVGElement>, "ref"> & {
  */
 
 export default function Icon({ name, size = 24, title, ...props }: Props) {
-  const Svg = getLazyIcon(name);
+  const ariaProps = {
+    "aria-label": title,
+    "aria-hidden": (title ? "false" : "true") as "true" | "false",
+  };
+
+  if (spriteIconNames.has(name as never)) {
+    return (
+      <svg width={size} height={size} {...ariaProps} {...props}>
+        <use href={`/icons/sprite.svg#${name}`} />
+      </svg>
+    );
+  }
+
+  const Svg = getLazyIcon(name as keyof typeof iconImports);
 
   return (
     <Suspense fallback={<span style={{ display: "inline-block", width: size, height: size }} />}>
-      <Svg
-        width={size}
-        height={size}
-        aria-label={title}
-        aria-hidden={title ? "false" : "true"}
-        {...props}
-      />
+      <Svg width={size} height={size} {...ariaProps} {...props} />
     </Suspense>
   );
 }
