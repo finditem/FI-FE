@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Button from "./Button";
 
@@ -8,14 +8,16 @@ describe("Button", () => {
     expect(screen.getByRole("button", { name: "저장" })).toBeInTheDocument();
   });
 
-  it("loading이면 스피너 역할의 로딩 아이콘이 보이고 children은 보이지 않습니다", () => {
+  it("loading이면 스피너 역할의 로딩 아이콘이 보이고 children은 보이지 않습니다", async () => {
     render(
       <Button loading icon={{ name: "Search" }}>
         검색
       </Button>
     );
     expect(screen.queryByText("검색")).not.toBeInTheDocument();
-    expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    });
   });
 
   it("loading일 때 클릭해도 onClick이 호출되지 않습니다", async () => {

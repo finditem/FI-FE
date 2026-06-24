@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import SimilarItemsList from "./SimilarItemsList";
 import { MOCK_SIMILAR_POST_ITEMS } from "@/mock/data";
 
@@ -31,11 +31,13 @@ describe("비슷한 게시글 리스트 아이템", () => {
     expect(dateElement).toBeInTheDocument();
   });
 
-  it("이미지가 없을 경우 대체 아이콘이 렌더링되어야 한다.", () => {
+  it("이미지가 없을 경우 대체 아이콘이 렌더링되어야 한다.", async () => {
     const noImageData = { ...MOCK_SIMILAR_POST_ITEMS, thumbnailImageUrl: "" };
     render(<SimilarItemsList data={[noImageData]} />);
 
-    const iconElement = screen.getByTestId("icon-LogoCharacter");
-    expect(iconElement).toBeInTheDocument();
+    await waitFor(() => {
+      const iconElement = screen.getByTestId("icon-LogoCharacter");
+      expect(iconElement).toBeInTheDocument();
+    });
   });
 });
