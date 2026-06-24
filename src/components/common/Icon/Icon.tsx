@@ -30,6 +30,7 @@ export type { IconName };
  * - `title`을 전달하지 않으면 `aria-hidden="true"`가 자동으로 추가됩니다.
  *
  * @author jikwon
+ * @author suhyeon (refactoring)
  */
 
 export type Props = Omit<SVGProps<SVGSVGElement>, "ref"> & {
