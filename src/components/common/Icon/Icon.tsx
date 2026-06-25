@@ -13,7 +13,13 @@ function getLazyIcon(name: keyof typeof iconImports): SvgComponent {
   let LazyIcon = lazyIconCache.get(name);
 
   if (!LazyIcon) {
-    LazyIcon = lazy(iconImports[name]);
+    const importer = iconImports[name];
+    if (!importer) {
+      throw new Error(
+        `Icon "${name}"을 찾을 수 없습니다. icon-manifest.json 또는 iconImports에 등록되어 있는지 확인해주세요.`
+      );
+    }
+    LazyIcon = lazy(importer);
     lazyIconCache.set(name, LazyIcon);
   }
 
@@ -67,7 +73,14 @@ export default function Icon({ name, size = 24, title, ...props }: Props) {
   const Svg = getLazyIcon(name as keyof typeof iconImports);
 
   return (
-    <Suspense fallback={<span style={{ display: "inline-block", width: size, height: size }} />}>
+    <Suspense
+      fallback={
+        <span
+          className={props.className}
+          style={{ display: "inline-block", width: size, height: size }}
+        />
+      }
+    >
       <Svg width={size} height={size} {...ariaProps} {...props} />
     </Suspense>
   );
