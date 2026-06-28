@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import { Footer } from "@/components";
 import "./globals.css";
 import AppProviders from "@/providers/AppProviders";
@@ -74,6 +75,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ReactDOM.preload("/icons/sprite.svg", { as: "image", type: "image/svg+xml" });
   const cookieStore = await cookies();
   const hasToken = cookieStore.has("refresh_token");
   const isProd = process.env.VERCEL_ENV === "production";
