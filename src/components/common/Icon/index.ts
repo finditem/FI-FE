@@ -1,119 +1,53 @@
-export { default as EyeOpen } from "@/assets/eye-open.svg";
-export { default as Menu } from "@/assets/menu.svg";
-export { default as XSecond } from "@/assets/x-second.svg";
-export { default as Logo } from "@/assets/logo.svg";
-export { default as ArrowLeftSmall } from "@/assets/arrow-left-small.svg";
-export { default as Book } from "@/assets/book.svg";
-export { default as ArrowDown } from "@/assets/arrow-down.svg";
-export { default as ArrowUp } from "@/assets/arrow-up.svg";
-export { default as ArrowRightSmall } from "@/assets/arrow-right-small.svg";
-export { default as Star } from "@/assets/star.svg";
-export { default as Eye } from "@/assets/item-eye.svg";
-export { default as Position } from "@/assets/position.svg";
-export { default as Search } from "@/assets/search.svg";
-export { default as Check } from "@/assets/check.svg";
-export { default as EyeOff } from "@/assets/eye-off.svg";
-export { default as KakaoLogin } from "@/assets/kakao_login.svg";
-export { default as Mail } from "@/assets/mail.svg";
-export { default as Camera } from "@/assets/camera.svg";
-export { default as Location } from "@/assets/location.svg";
-export { default as ArrowRight } from "@/assets/arrow-right.svg";
-export { default as ProfileCheck } from "@/assets/profile-check.svg";
-export { default as Image } from "@/assets/image.svg";
-export { default as Delete } from "@/assets/delete.svg";
-export { default as Share } from "@/assets/share.svg";
-export { default as DetailMenu } from "@/assets/detail-menu.svg";
-export { default as FloatingPlus } from "@/assets/floating-plus.svg";
-export { default as Success } from "@/assets/success.svg";
-export { default as Warning } from "@/assets/warning.svg";
-export { default as Error } from "@/assets/error.svg";
-export { default as Loading } from "@/assets/loading.svg";
-export { default as NotFound } from "@/assets/not-found.svg";
-export { default as Information } from "@/assets/information.svg";
-export { default as ChatLost } from "@/assets/chat-lost.svg";
-export { default as ChatFind } from "@/assets/chat-find.svg";
-export { default as HeadPhone } from "@/assets/headphones.svg";
-export { default as MessageTyping } from "@/assets/message-typing.svg";
-export { default as AnnotationAlert } from "@/assets/annotation-alert.svg";
-export { default as Download } from "@/assets/download.svg";
-export { default as Setting } from "@/assets/settings.svg";
-export { default as AlertItem } from "@/assets/alert-item.svg";
-export { default as AlertNewChat } from "@/assets/alert-new-chat.svg";
-export { default as AlertNewComment } from "@/assets/alert-new-comment.svg";
-export { default as AlertStar } from "@/assets/alert-star.svg";
-export { default as AlertUnreadChat } from "@/assets/alert-unread-chat.svg";
-export { default as UserProfile } from "@/assets/user-profile.svg";
-export { default as CameraBorder } from "@/assets/camera-border.svg";
-export { default as Heart } from "@/assets/heart.svg";
-export { default as AlertState } from "@/assets/alert-state.svg";
-export { default as FindWriteBtn } from "@/assets/find-write-btn.svg";
-export { default as LostWriteBtn } from "@/assets/lost-write-btn.svg";
-export { default as Calendar } from "@/assets/calendar.svg";
-export { default as NoComments } from "@/assets/no-comments.svg";
-export { default as ArrowSwitchHorizontal } from "@/assets/arrow-switch-horizontal.svg";
-export { default as Edit } from "@/assets/edit.svg";
-export { default as Trash } from "@/assets/trash.svg";
-export { default as NoInquiries } from "@/assets/no-inquiries.svg";
-export { default as NoReports } from "@/assets/no-reports.svg";
-export { default as NoPosts } from "@/assets/no-posts.svg";
-export { default as NoActivity } from "@/assets/no-activity.svg";
-export { default as ArrowDownSmall } from "@/assets/arrow-down-small.svg";
-export { default as CommentLikeIcon } from "@/assets/comment-like-icon.svg";
-export { default as CommentReplyIcon } from "@/assets/comment-reply-icon.svg";
-export { default as Post } from "@/assets/post.svg";
-export { default as Comment } from "@/assets/comment.svg";
-export { default as EmptyStar } from "@/assets/empty-star.svg";
-export { default as Inquiry } from "@/assets/inquiry.svg";
-export { default as Report } from "@/assets/report.svg";
-export { default as Alert } from "@/assets/alert.svg";
-export { default as Wallet } from "@/assets/wallet.svg";
-export { default as Card } from "@/assets/card.svg";
-export { default as Electronics } from "@/assets/electronics.svg";
-export { default as Etc } from "@/assets/etc.svg";
-export { default as IdCard } from "@/assets/id-card.svg";
-export { default as Jewelry } from "@/assets/jewelry.svg";
-export { default as Bag } from "@/assets/bag.svg";
-export { default as ServerError } from "@/assets/server-error.svg";
-export { default as Pencil } from "@/assets/pencil.svg";
-export { default as Like } from "@/assets/like.svg";
-export { default as EmptyFavorite } from "@/assets/empty-favorite.svg";
-export { default as ScrollTopArrow } from "@/assets/scrolltop-arrow-up.svg";
-export { default as CommentImageClear } from "@/assets/comment-image-clear.svg";
-export { default as Home } from "@/assets/home.svg";
-export { default as Luggage } from "@/assets/luggage.svg";
-export { default as Chat } from "@/assets/chat.svg";
-export { default as UserProfileHome } from "@/assets/user-profile-home.svg";
-export { default as MapMyLocation } from "@/assets/map-my-location.svg";
-export { default as StarFilled } from "@/assets/star-filled.svg";
-export { default as ErrorSimilarSection } from "@/assets/error-similar-section.svg";
-export { default as UserReport } from "@/assets/user-report.svg";
-export { default as UserBlock } from "@/assets/user-block.svg";
-export { default as EmptyPostSearch } from "@/assets/empty-post-search.svg";
-export { default as MainSearchWarning } from "@/assets/main-search-warning.svg";
-export { default as Clock } from "@/assets/clock.svg";
-export { default as AlertBell } from "@/assets/alert-bell.svg";
-export { default as ChatListEmpty } from "@/assets/chat-list-empty.svg";
-export { default as LoadingSkeleton } from "@/assets/loading-skeleton.svg";
-export { default as AlertBellFooter } from "@/assets/alert-bell-footer.svg";
-export { default as LikeActive } from "@/assets/like-active.svg";
-export { default as AccordionToggle } from "@/assets/accordion-toggle.svg";
-export { default as AccordionQMark } from "@/assets/accordion-q-mark.svg";
-export { default as EyeDetail } from "@/assets/eye-detail.svg";
-export { default as HotBadge } from "@/assets/hot-badge.svg";
-export { default as NewBadge } from "@/assets/new-badge.svg";
-export { default as AlertInquiry } from "@/assets/alert-inquiry.svg";
-export { default as AlertNotice } from "@/assets/alert-notice.svg";
-export { default as AlertReportResult } from "@/assets/alert-report-result.svg";
-export { default as AccordionArrowRight } from "@/assets/accordion-arrow-right.svg";
-export { default as LogoCharacter } from "@/assets/logo-character.svg";
-export { default as DetailPolice24 } from "@/assets/detail-police24.svg";
-export { default as MessageAlertCircle } from "@/assets/message-alert-circle.svg";
-export { default as Phone } from "@/assets/phone.svg";
-export { default as LogoCharacterOutlined } from "@/assets/logo-character-outlined.svg";
-export { default as SendArrow } from "@/assets/send-arrow.svg";
-export { default as NoWithdrawalAdmin } from "@/assets/no-withdrawal-admin.svg";
-export { default as DetailImageFail } from "@/assets/detail-image-fail.svg";
-export { default as CompleteCheck } from "@/assets/complete-check.svg";
-export { default as Marker } from "@/assets/marker.svg";
-export { default as NoPublicDataSearch } from "@/assets/no-public-data-search.svg";
-export { default as InquiryAnswered } from "@/assets/inquiry_answered.svg";
+import type { ComponentType, SVGProps } from "react";
+import iconManifest from "./icon-manifest.json";
+
+type SvgComponent = ComponentType<SVGProps<SVGSVGElement>>;
+type IconImporter = () => Promise<{ default: SvgComponent }>;
+
+/**
+ * 자주 쓰이는 작은 아이콘은 스프라이트(public/icons/sprite.svg)로 묶여 전역에서 1회만 로드됩니다.
+ * 이 목록은 scripts/generate-icon-sprite.js가 스프라이트를 생성할 때 사용하는 매니페스트와 동일합니다.
+ */
+export { iconManifest };
+export type SpriteIconName = keyof typeof iconManifest;
+
+export const spriteIconNames = new Set(Object.keys(iconManifest)) as Set<SpriteIconName>;
+
+/**
+ * 용량이 큰 일러스트/에러 화면용 아이콘은 실제 사용되는 페이지에서만 동적으로 로드됩니다.
+ */
+export const iconImports = {
+  // foreignObject + backdrop-filter를 사용하는 아이콘은 <use> 클로닝 호환성 문제로 스프라이트에서 제외합니다.
+  Logo: () => import("@/assets/logo.svg"),
+  LoadingSkeleton: () => import("@/assets/loading-skeleton.svg"),
+  LogoCharacter: () => import("@/assets/logo-character.svg"),
+  Book: () => import("@/assets/book.svg"),
+  KakaoLogin: () => import("@/assets/kakao_login.svg"),
+  Loading: () => import("@/assets/loading.svg"),
+  NotFound: () => import("@/assets/not-found.svg"),
+  ChatLost: () => import("@/assets/chat-lost.svg"),
+  ChatFind: () => import("@/assets/chat-find.svg"),
+  Setting: () => import("@/assets/settings.svg"),
+  AlertState: () => import("@/assets/alert-state.svg"),
+  NoComments: () => import("@/assets/no-comments.svg"),
+  NoInquiries: () => import("@/assets/no-inquiries.svg"),
+  NoReports: () => import("@/assets/no-reports.svg"),
+  NoPosts: () => import("@/assets/no-posts.svg"),
+  NoActivity: () => import("@/assets/no-activity.svg"),
+  ServerError: () => import("@/assets/server-error.svg"),
+  EmptyFavorite: () => import("@/assets/empty-favorite.svg"),
+  Chat: () => import("@/assets/chat.svg"),
+  ErrorSimilarSection: () => import("@/assets/error-similar-section.svg"),
+  UserBlock: () => import("@/assets/user-block.svg"),
+  EmptyPostSearch: () => import("@/assets/empty-post-search.svg"),
+  AlertBell: () => import("@/assets/alert-bell.svg"),
+  ChatListEmpty: () => import("@/assets/chat-list-empty.svg"),
+  DetailPolice24: () => import("@/assets/detail-police24.svg"),
+  Phone: () => import("@/assets/phone.svg"),
+  LogoCharacterOutlined: () => import("@/assets/logo-character-outlined.svg"),
+  NoWithdrawalAdmin: () => import("@/assets/no-withdrawal-admin.svg"),
+  Marker: () => import("@/assets/marker.svg"),
+  NoPublicDataSearch: () => import("@/assets/no-public-data-search.svg"),
+} satisfies Record<string, IconImporter>;
+
+export type IconName = SpriteIconName | keyof typeof iconImports;
