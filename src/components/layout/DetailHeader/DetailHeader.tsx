@@ -26,7 +26,7 @@ interface DetailHeaderProps {
   onBack?: () => void;
 }
 
-const HEADER_HEIGHT = "h-14";
+const HEADER_HEIGHT = "h-[calc(56px+var(--safe-area-top))]";
 
 /**
  * @example
@@ -72,7 +72,7 @@ const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
     <>
       <header
         className={cn(
-          "fixed top-0 z-30 mx-auto flex h-14 w-full max-w-[764px] items-center justify-between bg-white px-5",
+          "fixed top-0 z-30 mx-auto flex w-full max-w-[764px] items-center justify-between bg-white px-5 pt-[var(--safe-area-top)]",
           HEADER_HEIGHT
         )}
       >

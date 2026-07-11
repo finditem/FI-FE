@@ -29,7 +29,7 @@ const ImageViewerHeader = ({
   };
 
   return (
-    <header className="absolute left-0 right-0 top-0 flex items-center justify-between px-4 py-1">
+    <header className="absolute left-0 right-0 top-0 flex items-center justify-between px-4 pt-[var(--safe-area-top)]">
       <button
         onClick={onClose}
         className={cn(NAV_BUTTON_STYLE, "w-10")}

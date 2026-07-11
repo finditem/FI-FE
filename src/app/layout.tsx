@@ -7,7 +7,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import localFont from "next/font/local";
 import Script from "next/script";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import MSWProvider from "@/providers/MSWProvider";
 import AuthBootstrap from "./authBootStrap";
 import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
@@ -39,6 +39,12 @@ const pretendard = localFont({
   display: "swap",
   preload: true,
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   title: {
