@@ -36,6 +36,8 @@ interface CommentMetaHeaderProps {
   };
   /** 비회원 여부 */
   isGuest: boolean;
+  /** 비회원이 상호작용을 시도할 때 호출되는 함수 */
+  onGuestAction?: () => void;
   /** 답글 여부 */
   isThreadItem: boolean;
   /** 쿼리 키 */
@@ -49,6 +51,7 @@ const authorStyle = "line-clamp-2 break-all text-body1-medium text-layout-header
 const CommentMetaHeader = ({
   data,
   isGuest,
+  onGuestAction,
   isThreadItem,
   queryKey,
   onDeleteComment,
@@ -63,6 +66,15 @@ const CommentMetaHeader = ({
   const handleDeleteComment = () => {
     onDeleteComment?.({ commentId, queryKey });
     setIsKebabMenuOpen(false);
+  };
+
+  const handleKebabMenuToggle = () => {
+    if (isGuest) {
+      onGuestAction?.();
+      return;
+    }
+
+    setIsKebabMenuOpen((prev) => !prev);
   };
 
   return (
@@ -102,8 +114,7 @@ const CommentMetaHeader = ({
           <KebabMenuButton
             size="small"
             ariaLabel={isKebabMenuOpen ? "댓글 메뉴 닫기" : "댓글 메뉴 열기"}
-            disabled={isGuest}
-            onClick={() => setIsKebabMenuOpen((prev) => !prev)}
+            onClick={handleKebabMenuToggle}
           />
 
           {isKebabMenuOpen && (

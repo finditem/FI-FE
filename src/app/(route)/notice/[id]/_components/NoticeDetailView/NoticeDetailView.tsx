@@ -26,10 +26,7 @@ const NoticeDetailView = ({ id }: { id: number }) => {
   const { data: userData } = useGetUsersMe();
   const isLoggedIn = !!userData?.result;
 
-  const { data: noticeComments, fetchNextPage } = useGetNoticeComment({
-    noticeId: id,
-    enabled: isLoggedIn,
-  });
+  const { data: noticeComments, fetchNextPage } = useGetNoticeComment({ noticeId: id });
 
   const { mutate: deleteNoticeComment } = useDeleteNoticeComment();
   const { handleToggleFavorite } = useToggleNoticeCommentLike(id);
