@@ -34,9 +34,9 @@ interface CommentMetaHeaderProps {
     /** 댓글 삭제 가능 여부 */
     canDelete: boolean;
   };
-  /** 비회원 여부 */
+  /** 비회원 여부, 비회원은 프로필 조회만 가능하고 메뉴는 이용할 수 없습니다. */
   isGuest: boolean;
-  /** 비회원이 상호작용을 시도할 때 호출되는 함수 */
+  /** 비회원이 메뉴를 열려고 할 때 호출되는 함수 */
   onGuestAction?: () => void;
   /** 답글 여부 */
   isThreadItem: boolean;
@@ -80,35 +80,21 @@ const CommentMetaHeader = ({
   return (
     <>
       <div className="flex items-start justify-between">
-        {isGuest ? (
-          <div className="flex gap-[14px]">
-            <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
+        <Link
+          href={`/user/${authorId}`}
+          aria-label={`${authorName} 프로필 보기`}
+          className="flex gap-[14px]"
+        >
+          <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
 
-            <div className="flex flex-col flex-wrap items-start">
-              <span className={authorStyle}>{authorName}</span>
+          <div className="flex flex-col flex-wrap items-start">
+            <span className={authorStyle}>{authorName}</span>
 
-              <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
-                {formatDate(createdAt)}
-              </time>
-            </div>
+            <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
+              {formatDate(createdAt)}
+            </time>
           </div>
-        ) : (
-          <Link
-            href={`/user/${authorId}`}
-            aria-label={`${authorName} 프로필 보기`}
-            className="flex gap-[14px]"
-          >
-            <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
-
-            <div className="flex flex-col flex-wrap items-start">
-              <span className={authorStyle}>{authorName}</span>
-
-              <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
-                {formatDate(createdAt)}
-              </time>
-            </div>
-          </Link>
-        )}
+        </Link>
 
         <div ref={ref} className="relative">
           <KebabMenuButton

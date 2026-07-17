@@ -77,4 +77,12 @@ describe("<CommentMeta />", () => {
     expect(onGuestAction).toHaveBeenCalledTimes(1);
     expect(screen.queryByText("댓글 삭제하기")).not.toBeInTheDocument();
   });
+
+  it("비회원도 작성자 프로필로 이동할 수 있습니다.", () => {
+    render(<CommentMeta {...defaultProps} isGuest />);
+    expect(screen.getByRole("link", { name: "테스트유저 프로필 보기" })).toHaveAttribute(
+      "href",
+      "/user/1"
+    );
+  });
 });

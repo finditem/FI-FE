@@ -90,7 +90,7 @@ const CommentList = ({
       </header>
 
       {isEmpty ? (
-        <EmptyCommentUI />
+        <EmptyCommentUI isGuest={isGuest} />
       ) : (
         <ul>
           {data.map((comment) => (
