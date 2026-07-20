@@ -5,7 +5,7 @@ import { SIGNUP_ERROR_MESSAGE } from "../_constants/SIGNUP_ERROR_MESSAGE";
 import { useErrorToast } from "@/hooks";
 import { usePermissionStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useMemo } from "react";
 
 export const useSignUpSubmit = () => {
