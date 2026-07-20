@@ -1,11 +1,11 @@
 ---
 name: create-pr
-description: 사용자가 PR(풀 리퀘스트) 생성을 요청했을 때 이 스킬을 실행한다. .github/pull_request_template.md 구조에 맞춰 본문을 작성하고 gh pr create --body로 전달한다. PR 리뷰나 PR 목록 조회 등 생성이 아닌 요청에는 사용하지 않는다.
+description: 사용자가 PR(풀 리퀘스트) 생성을 요청했을 때 이 스킬을 실행한다. .github/pull_request_template.md 구조에 맞춰 본문을 작성하고 gh pr create --title "<title>" --body "<body>"로 전달한다. PR 리뷰나 PR 목록 조회 등 생성이 아닌 요청에는 사용하지 않는다.
 ---
 
 # create-pr
 
-`.github/pull_request_template.md` 구조(관련 이슈 / 작업 내용 / 참고 사항 / 체크리스트)를 그대로 따라 PR 본문을 작성하고 `gh pr create --body`로 전달한다.
+`.github/pull_request_template.md` 구조(관련 이슈 / 작업 내용 / 참고 사항 / 체크리스트)를 그대로 따라 PR 본문을 작성하고 `gh pr create --title "<title>" --body "<body>"`로 전달한다.
 
 ## 절차
 
@@ -17,7 +17,7 @@ description: 사용자가 PR(풀 리퀘스트) 생성을 요청했을 때 이 �
    - **작업 내용**: 커밋 히스토리와 diff를 근거로 실제 변경된 내용을 온전한 문장으로 요약한다.
    - **참고 사항**: 리뷰어가 알아야 할 맥락(브레이킹 체인지, 후속 작업 필요 여부, 임시 조치 등)이 있으면 적고 없으면 생략한다.
    - **체크리스트**: 템플릿 항목을 그대로 유지한다 (실제 확인 여부는 사람이 체크).
-5. 작성한 제목/본문을 사용자에게 보여주고 확인을 받은 뒤 `gh pr create --title --body`로 실행한다. `gh pr create` 실행 자체는 원격 저장소에 영향을 주는 작업이므로 사용자 확인 없이 먼저 실행하지 않는다.
+5. 작성한 제목/본문을 사용자에게 보여주고 확인을 받은 뒤 `gh pr create --title "<title>" --body "<body>"` 형태로 실행한다. `gh pr create` 실행 자체는 원격 저장소에 영향을 주는 작업이므로 사용자 확인 없이 먼저 실행하지 않는다.
 
 ## 주의
 
