@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import KebabMenu from "./KebabMenu";
 
@@ -24,9 +24,11 @@ describe("KebabMenu", () => {
     expect(onEdit).toHaveBeenCalled();
   });
 
-  it("loading이면 해당 행에 더보기 텍스트 대신 스피너만 보입니다", () => {
+  it("loading이면 해당 행에 더보기 텍스트 대신 스피너만 보입니다", async () => {
     render(<KebabMenu items={[{ text: "불러오는 중", loading: true, onClick: jest.fn() }]} />);
     expect(screen.queryByText("불러오는 중")).not.toBeInTheDocument();
-    expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    });
   });
 });

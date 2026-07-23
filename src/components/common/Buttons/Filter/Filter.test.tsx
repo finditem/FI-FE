@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Filter from "./Filter";
 
@@ -30,14 +30,16 @@ describe("Filter", () => {
     );
   });
 
-  it("loading이면 스피너가 보이고 라벨 텍스트는 숨깁니다", () => {
+  it("loading이면 스피너가 보이고 라벨 텍스트는 숨깁니다", async () => {
     render(
       <Filter ariaLabel="필터" onSelected loading>
         로딩필터
       </Filter>
     );
     expect(screen.queryByText("로딩필터")).not.toBeInTheDocument();
-    expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    await waitFor(() => {
+      expect(document.querySelector(".animate-spin")).toBeInTheDocument();
+    });
   });
 
   it("클릭 시 onClick이 호출됩니다", async () => {
