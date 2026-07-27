@@ -4,6 +4,7 @@ import { useDeleteNoticeCommentLike, usePostNoticeCommentLike } from "@/api/fetc
 import { useToggleNoticeCommentLike } from "./useToggleNoticeCommentLike";
 
 jest.mock("es-toolkit/compat", () => ({
+  ...jest.requireActual("es-toolkit/compat"),
   throttle: jest.fn((fn: (...args: unknown[]) => unknown, _waitMs?: number) =>
     Object.assign((...args: unknown[]) => (fn as (...a: unknown[]) => unknown)(...args), {
       cancel: jest.fn(),
