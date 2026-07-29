@@ -1,18 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { ViewMoreComment } from "@/components/common";
 import {
   DeleteCommentVariables,
   GetPostsCommentsData,
   useGetRepliesPostsComments,
 } from "@/api/fetch/comment";
+import GuestLoginModal from "@/components/domain/GuestLoginModal/GuestLoginModal";
 import CommentItem from "./CommentItem";
-import { EmptyCommentUI, GuestCommentUI } from "./_internal";
+import { EmptyCommentUI } from "./_internal";
 import { formatCappedNumber } from "@/utils";
 
 /**
  * 게시글의 댓글 목록을 렌더링하는 컴포넌트입니다.
  *
  * @remarks
- * - 비로그인 상태(`isLoggedIn`이 false)이면 `GuestCommentUI`를 렌더링합니다.
+ * - 댓글 조회는 로그인 여부와 무관하게 동작합니다.
+ * - 비로그인 상태에서는 댓글을 읽을 수만 있고, 좋아요·답글·신고를 시도하면 `GuestLoginModal`을 띄웁니다.
  * - 댓글이 없으면 `EmptyCommentUI`를 렌더링합니다.
  *
  * @author jikwon
@@ -66,12 +71,15 @@ const CommentList = ({
   onFavoriteComment,
   onCommentLoadMore,
 }: CommentListProps) => {
-  if (!isLoggedIn) return <GuestCommentUI />;
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
+
   if (!comments) return null;
 
   const hasNext = comments.hasNext;
   const data = comments.comments;
   const isEmpty = data.length === 0;
+  const isGuest = !isLoggedIn;
+  const openGuestModal = () => setIsGuestModalOpen(true);
 
   return (
     <>
@@ -81,8 +89,8 @@ const CommentList = ({
         </h2>
       </header>
 
-      {isEmpty && isLoggedIn ? (
-        <EmptyCommentUI />
+      {isEmpty ? (
+        <EmptyCommentUI isGuest={isGuest} />
       ) : (
         <ul>
           {data.map((comment) => (
@@ -92,6 +100,8 @@ const CommentList = ({
               data={comment}
               onSubmit={onSubmit}
               isPending={isPending}
+              isGuest={isGuest}
+              onGuestAction={openGuestModal}
               useFetchReplies={useFetchReplies}
               onDeleteComment={onDeleteComment}
               onFavoriteComment={onFavoriteComment}
@@ -101,6 +111,8 @@ const CommentList = ({
       )}
 
       {hasNext && <ViewMoreComment count={comments.remainingCount} onClick={onCommentLoadMore} />}
+
+      <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
     </>
   );
 };

@@ -5,12 +5,20 @@ import CommentList from "./CommentList";
 
 jest.mock("./_internal", () => ({
   EmptyCommentUI: () => <div data-testid="empty-comment-ui" />,
-  GuestCommentUI: () => <div data-testid="guest-comment-ui" />,
 }));
 
 jest.mock("./CommentItem", () => ({
   __esModule: true,
-  default: ({ data }: any) => <li data-testid="comment-item">{data.id}</li>,
+  default: ({ data, isGuest }: any) => (
+    <li data-testid="comment-item" data-guest={String(isGuest)}>
+      {data.id}
+    </li>
+  ),
+}));
+
+jest.mock("@/components/domain/GuestLoginModal/GuestLoginModal", () => ({
+  __esModule: true,
+  default: ({ isOpen }: any) => (isOpen ? <div data-testid="guest-login-modal" /> : null),
 }));
 
 jest.mock("@/components/common", () => ({
@@ -51,21 +59,34 @@ describe("<CommentList />", () => {
     onFavoriteComment: jest.fn(),
   };
 
-  it("isLoggedIn이 false이면 GuestCommentUI를 렌더링합니다.", () => {
-    render(<CommentList {...defaultProps} isLoggedIn={false} />);
-    expect(screen.getByTestId("guest-comment-ui")).toBeInTheDocument();
+  it("comments가 없으면 null을 렌더링합니다.", () => {
+    const { container } = render(<CommentList {...defaultProps} />);
+    expect(container.firstChild).toBeNull();
   });
 
-  it("isLoggedIn이 true이고 comments가 없으면 null을 렌더링합니다.", () => {
-    const { container } = render(<CommentList {...defaultProps} isLoggedIn={true} />);
-    expect(container.firstChild).toBeNull();
+  it("비로그인 상태에서도 댓글 목록을 렌더링합니다.", () => {
+    render(<CommentList {...defaultProps} isLoggedIn={false} comments={baseComments as any} />);
+    expect(screen.getAllByTestId("comment-item")).toHaveLength(2);
+  });
+
+  it("비로그인 상태이면 CommentItem에 isGuest를 true로 전달합니다.", () => {
+    render(<CommentList {...defaultProps} isLoggedIn={false} comments={baseComments as any} />);
+    screen
+      .getAllByTestId("comment-item")
+      .forEach((item) => expect(item).toHaveAttribute("data-guest", "true"));
+  });
+
+  it("로그인 상태이면 CommentItem에 isGuest를 false로 전달합니다.", () => {
+    render(<CommentList {...defaultProps} isLoggedIn={true} comments={baseComments as any} />);
+    screen
+      .getAllByTestId("comment-item")
+      .forEach((item) => expect(item).toHaveAttribute("data-guest", "false"));
   });
 
   it("댓글이 없으면 EmptyCommentUI를 렌더링합니다.", () => {
     render(
       <CommentList
         {...defaultProps}
-        isLoggedIn={true}
         comments={{ ...baseComments, comments: [], totalCommentCount: 0 } as any}
       />
     );
@@ -73,12 +94,12 @@ describe("<CommentList />", () => {
   });
 
   it("댓글 목록을 렌더링합니다.", () => {
-    render(<CommentList {...defaultProps} isLoggedIn={true} comments={baseComments as any} />);
+    render(<CommentList {...defaultProps} comments={baseComments as any} />);
     expect(screen.getAllByTestId("comment-item")).toHaveLength(2);
   });
 
   it("총 댓글 수를 헤더에 표시합니다.", () => {
-    render(<CommentList {...defaultProps} isLoggedIn={true} comments={baseComments as any} />);
+    render(<CommentList {...defaultProps} comments={baseComments as any} />);
     expect(screen.getByText("3")).toBeInTheDocument();
   });
 
@@ -86,7 +107,6 @@ describe("<CommentList />", () => {
     render(
       <CommentList
         {...defaultProps}
-        isLoggedIn={true}
         comments={{ ...baseComments, hasNext: true, remainingCount: 5 } as any}
       />
     );
@@ -94,7 +114,7 @@ describe("<CommentList />", () => {
   });
 
   it("hasNext가 false이면 ViewMoreComment를 렌더링하지 않습니다.", () => {
-    render(<CommentList {...defaultProps} isLoggedIn={true} comments={baseComments as any} />);
+    render(<CommentList {...defaultProps} comments={baseComments as any} />);
     expect(screen.queryByTestId("view-more")).not.toBeInTheDocument();
   });
 
@@ -103,7 +123,6 @@ describe("<CommentList />", () => {
     render(
       <CommentList
         {...defaultProps}
-        isLoggedIn={true}
         comments={{ ...baseComments, hasNext: true, remainingCount: 5 } as any}
         onCommentLoadMore={onCommentLoadMore}
       />
