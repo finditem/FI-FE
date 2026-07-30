@@ -4,16 +4,15 @@ import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 
 interface UseGetPostsCommentsParams {
   postId: number;
-  enabled: boolean;
 }
 
-export const useGetPostsComments = ({ postId, enabled }: UseGetPostsCommentsParams) => {
+export const useGetPostsComments = ({ postId }: UseGetPostsCommentsParams) => {
   return useAppInfiniteQuery<GetPostsCommentsResponse, unknown, GetPostsCommentsData>(
     "auth",
     ["post-comments", postId],
     `/comments/posts/${postId}?postId=${postId}`,
     {
-      enabled: !!postId && enabled,
+      enabled: !!postId,
       pageParamName: "page",
       initialPageParam: 0,
       getNextPageParam: (lastPage) =>
