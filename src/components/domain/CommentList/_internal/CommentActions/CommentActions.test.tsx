@@ -46,4 +46,22 @@ describe("<CommentActions />", () => {
     await userEvent.click(buttons[1]);
     expect(defaultProps.setIsReplyFormOpen).toHaveBeenCalled();
   });
+
+  it("비회원도 답글 보기를 사용할 수 있습니다.", async () => {
+    const onGuestAction = jest.fn();
+    render(<CommentActions {...defaultProps} isGuest onGuestAction={onGuestAction} />);
+    const buttons = screen.getAllByRole("button");
+    await userEvent.click(buttons[0]);
+    expect(defaultProps.setViewReply).toHaveBeenCalled();
+    expect(onGuestAction).not.toHaveBeenCalled();
+  });
+
+  it("비회원이 답글 작성을 클릭하면 setIsReplyFormOpen 대신 onGuestAction이 호출됩니다.", async () => {
+    const onGuestAction = jest.fn();
+    render(<CommentActions {...defaultProps} isGuest onGuestAction={onGuestAction} />);
+    const buttons = screen.getAllByRole("button");
+    await userEvent.click(buttons[1]);
+    expect(onGuestAction).toHaveBeenCalledTimes(1);
+    expect(defaultProps.setIsReplyFormOpen).not.toHaveBeenCalled();
+  });
 });

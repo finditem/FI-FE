@@ -32,10 +32,7 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   const { showManualPopup, setShowManualPopup } = useWriteFlowStore();
 
   const { data, isLoading, isError } = useGetDetailPost({ id });
-  const { data: commentsData, fetchNextPage } = useGetPostsComments({
-    postId: id,
-    enabled: isLoggedIn,
-  });
+  const { data: commentsData, fetchNextPage } = useGetPostsComments({ postId: id });
   const { handleReplySubmit, isPending } = useHandleReplySubmit(id);
   const { mutate: deleteComment } = useDeleteComment();
   const { handleToggleFavorite } = useToggleCommentLike();

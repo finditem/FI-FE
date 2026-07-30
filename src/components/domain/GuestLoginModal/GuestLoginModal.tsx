@@ -3,7 +3,10 @@ import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
 
 /**
- * 비회원이 댓글 작성을 시도할 때 표시되는 로그인 유도 모달 컴포넌트입니다.
+ * 비회원이 로그인이 필요한 기능을 시도할 때 표시되는 로그인 유도 모달 컴포넌트입니다.
+ *
+ * @remarks
+ * 댓글·답글 작성, 좋아요, 신고/차단 등 여러 진입점에서 공통으로 사용되므로 문구는 특정 동작에 종속되지 않습니다.
  *
  * @author jikwon
  */
@@ -26,10 +29,10 @@ const GuestLoginModal = ({ isOpen, onClose }: GuestLoginModalProps) => {
   return (
     <ModalLayout isOpen={isOpen} onClose={onClose} className="space-y-6 rounded-[8px] p-6">
       <div className="gap-1 text-center flex-col-center">
-        <h2 className="text-h3-semibold text-layout-header-default">
-          회원만 댓글을 작성할 수 있어요.
-        </h2>
-        <p className="text-body2-regular text-layout-body-default">로그인하고 의견을 남겨보세요.</p>
+        <h2 className="text-h3-semibold text-layout-header-default">로그인이 필요한 기능이에요.</h2>
+        <p className="text-body2-regular text-layout-body-default">
+          로그인하고 댓글에 함께 참여해보세요.
+        </p>
       </div>
       <div className="w-full gap-2 flex-center">
         <Button variant="outlined" className="min-h-11 w-[147px] flex-1" onClick={onClose}>
