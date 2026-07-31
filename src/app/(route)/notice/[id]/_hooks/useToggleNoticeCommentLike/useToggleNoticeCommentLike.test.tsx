@@ -1,9 +1,10 @@
 import { act, renderHook } from "@testing-library/react";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useDeleteNoticeCommentLike, usePostNoticeCommentLike } from "@/api/fetch/noticeComment";
 import { useToggleNoticeCommentLike } from "./useToggleNoticeCommentLike";
 
-jest.mock("lodash", () => ({
+jest.mock("es-toolkit/compat", () => ({
+  ...jest.requireActual("es-toolkit/compat"),
   throttle: jest.fn((fn: (...args: unknown[]) => unknown, _waitMs?: number) =>
     Object.assign((...args: unknown[]) => (fn as (...a: unknown[]) => unknown)(...args), {
       cancel: jest.fn(),
