@@ -5,7 +5,7 @@
 ## 스택
 
 - Next.js 15 / React 19 / TypeScript 5
-- Tailwind CSS 4, Framer Motion
+- Tailwind CSS 3, Framer Motion
 - Zustand(상태), TanStack Query v5(서버 상태)
 - 실시간: 채팅은 STOMP(`@stomp/stompjs`), 알림은 SSE
 - 테스트: Jest(단위), Playwright(e2e, `tests/e2e`), Storybook + Chromatic
