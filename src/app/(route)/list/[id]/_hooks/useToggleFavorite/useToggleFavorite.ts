@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { useDeletePostFavorites, usePostFavorites } from "@/api/fetch/post";
 

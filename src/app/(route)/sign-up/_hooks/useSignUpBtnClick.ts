@@ -2,7 +2,7 @@ import { useFormContext, UseFormSetFocus, useWatch } from "react-hook-form";
 import { useToast } from "@/context/ToastContext";
 import { useEffect, useMemo, useState } from "react";
 import { EMAIL_ERROR_MESSAGE, EMAIL_CHECK_CODE_MESSAGE } from "../_constants/SIGNUP_ERROR_MESSAGE";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useApiCheckCode, useApiSendEmail } from "@/api/fetch/auth";
 import { useErrorToast, useNicknameCheck } from "@/hooks";
 import { FormType } from "../types/FormType";

@@ -22,6 +22,8 @@ interface CommentFooterProps {
   isReply: boolean;
   /** 비회원 여부 */
   isGuest: boolean;
+  /** 비회원이 상호작용을 시도할 때 호출되는 함수 */
+  onGuestAction?: () => void;
   /** 답글 폼 열림 상태 */
   isReplyFormOpen: boolean;
   /** 답글 폼 열림 상태 변경 함수 */
@@ -36,6 +38,7 @@ const CommentFooter = ({
   footerData,
   isReply,
   isGuest,
+  onGuestAction,
   isReplyFormOpen,
   setIsReplyFormOpen,
   queryKey,
@@ -44,7 +47,21 @@ const CommentFooter = ({
   const { likeCount, id, isLike, deleted } = footerData;
 
   const handleLikeClick = () => {
+    if (isGuest) {
+      onGuestAction?.();
+      return;
+    }
+
     onFavoriteComment(id, isLike, queryKey);
+  };
+
+  const handleReplyFormToggle = () => {
+    if (isGuest) {
+      onGuestAction?.();
+      return;
+    }
+
+    setIsReplyFormOpen(!isReplyFormOpen);
   };
 
   return (
@@ -55,8 +72,8 @@ const CommentFooter = ({
           "flex items-center gap-1 text-body2-regular text-neutral-strong-placeholder",
           "disabled:cursor-not-allowed disabled:opacity-40"
         )}
-        onClick={isGuest || deleted ? undefined : handleLikeClick}
-        disabled={isGuest || deleted}
+        onClick={deleted ? undefined : handleLikeClick}
+        disabled={deleted}
       >
         <Icon
           name="Heart"
@@ -72,7 +89,7 @@ const CommentFooter = ({
             "text-body1-regular",
             isReplyFormOpen ? "text-brand-normal-enteredSelected" : "text-neutral-strong-default"
           )}
-          onClick={isGuest ? undefined : () => setIsReplyFormOpen(!isReplyFormOpen)}
+          onClick={handleReplyFormToggle}
         >
           답글 작성
         </button>

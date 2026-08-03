@@ -3,7 +3,7 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
-import { debounce } from "lodash";
+import { debounce } from "es-toolkit/compat";
 import {
   NotificationEventData,
   NOTIFICATION_TYPE,
