@@ -1,8 +1,8 @@
 import { renderHook } from "@testing-library/react";
 import { useHiddenPath } from "./useHiddenPath";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 
-jest.mock("next/navigation", () => ({
+jest.mock("@/i18n/navigation", () => ({
   usePathname: jest.fn(),
 }));
 

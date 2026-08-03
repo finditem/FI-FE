@@ -47,12 +47,21 @@ const NotificationDot = ({
 
 const FooterItem = ({ item }: FooterItemProps) => {
   const { hasUnreadNotification, unreadNotificationTypes } = useNotificationStore();
-  const { link, href, isActive, isLoginRequiredDisabled, showLoginRequiredNotice, onClick } = item;
+  const {
+    link,
+    label,
+    href,
+    linkHref,
+    isActive,
+    isLoginRequiredDisabled,
+    showLoginRequiredNotice,
+    onClick,
+  } = item;
   const iconClassName = isActive ? "text-brand-normal-pressed" : "text-labelsVibrant-quaternary";
 
   return (
     <Link
-      href={href}
+      href={linkHref}
       aria-disabled={isLoginRequiredDisabled}
       className={cn(
         FOOTER_ITEM_BASE_STYLE,
@@ -77,7 +86,7 @@ const FooterItem = ({ item }: FooterItemProps) => {
           unreadNotificationTypes={unreadNotificationTypes}
         />
       </div>
-      <span className={cn("py-[2px]", isActive)}>{link.name}</span>
+      <span className={cn("py-[2px]", isActive)}>{label}</span>
       {isLoginRequiredDisabled && showLoginRequiredNotice ? <LoginRequiredNotice /> : null}
     </Link>
   );
