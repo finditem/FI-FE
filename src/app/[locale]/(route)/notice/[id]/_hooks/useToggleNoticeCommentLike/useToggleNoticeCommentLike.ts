@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useDeleteNoticeCommentLike, usePostNoticeCommentLike } from "@/api/fetch/noticeComment";
 import { ToggleCommentLikeVariables } from "@/api/fetch/comment/types/CommentType";
 

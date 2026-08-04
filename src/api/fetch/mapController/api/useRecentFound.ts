@@ -3,7 +3,7 @@
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { RecentFoundResponse } from "../types/RecentFoundType";
 import { useMainKakaoMapStore } from "@/store";
-import { debounce } from "lodash";
+import { debounce } from "es-toolkit/compat";
 import { useEffect, useRef, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { throttle } from "lodash";
+import { throttle } from "es-toolkit/compat";
 import { useDeleteNoticeLike, usePostNoticeLike } from "@/api/fetch/notice";
 
 interface ToggleLikeProps {
