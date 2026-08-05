@@ -6,7 +6,7 @@ export { default as FooterButton } from "./FooterButton/FooterButton";
 export { default as PostListItem } from "./PostListItem/PostListItem";
 export { default as MypageSearch } from "./MypageSearch/MypageSearch";
 export { default as MypageEmptyUI } from "./MypageEmptyUI/MypageEmptyUI";
-export { default as MypageCommentItem } from "../../app/(route)/mypage/reports/[id]/_components/ReportCommentItem/ReportCommentItem";
+export { default as MypageCommentItem } from "../../app/[locale]/(route)/mypage/reports/[id]/_components/ReportCommentItem/ReportCommentItem";
 export { default as CommentCard } from "./CommentCard/CommentCard";
 export { default as BaseKakaoMap } from "./BaseKakaoMap/BaseKakaoMap";
 export { default as FilterSection } from "./FilterSectionBottomSheet/FilterSection/FilterSection";

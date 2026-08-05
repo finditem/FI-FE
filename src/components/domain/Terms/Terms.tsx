@@ -5,7 +5,7 @@ import { FooterButton } from "@/components/domain";
 import { CheckBox } from "@/components/common";
 import { TERM_CONTENTS } from "./_constants/TERM_CONTENTS";
 import { useGetNotificationSetting, usePutNotificationSetting } from "@/api/fetch/notification";
-import { DEFAULT_NOTIFICATION_SETTING } from "@/app/(route)/mypage/notifications/_constants/DEFAULT_NOTIFICATION_SETTING";
+import { DEFAULT_NOTIFICATION_SETTING } from "@/app/[locale]/(route)/mypage/notifications/_constants/DEFAULT_NOTIFICATION_SETTING";
 import { useToast } from "@/context/ToastContext";
 
 interface TermsProps {

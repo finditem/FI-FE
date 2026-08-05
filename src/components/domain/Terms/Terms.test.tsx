@@ -48,22 +48,25 @@ jest.mock("@/components/common", () => ({
   ),
 }));
 
-jest.mock("@/app/(route)/mypage/notifications/_constants/DEFAULT_NOTIFICATION_SETTING", () => ({
-  DEFAULT_NOTIFICATION_SETTING: {
-    commentEnabled: false,
-    chatEnabled: false,
-    inquiryReplyEnabled: false,
-    reportResultEnabled: false,
-    favoriteEnabled: false,
-    noticeEnabled: false,
-    categoryEnabled: false,
-    enabledCategories: [],
-    browserNotificationEnabled: false,
-    marketingConsent: false,
-    contentPolicyAgreed: false,
-    termsOfServiceAgreed: false,
-  },
-}));
+jest.mock(
+  "@/app/[locale]/(route)/mypage/notifications/_constants/DEFAULT_NOTIFICATION_SETTING",
+  () => ({
+    DEFAULT_NOTIFICATION_SETTING: {
+      commentEnabled: false,
+      chatEnabled: false,
+      inquiryReplyEnabled: false,
+      reportResultEnabled: false,
+      favoriteEnabled: false,
+      noticeEnabled: false,
+      categoryEnabled: false,
+      enabledCategories: [],
+      browserNotificationEnabled: false,
+      marketingConsent: false,
+      contentPolicyAgreed: false,
+      termsOfServiceAgreed: false,
+    },
+  })
+);
 
 beforeEach(() => {
   jest.clearAllMocks();
