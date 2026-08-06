@@ -2,7 +2,7 @@
 
 import useAxios from "@/api/_base/axios/useAxios";
 import useAppCompositeInfiniteQuery from "@/api/_base/query/useAppCompositeInfiniteQuery";
-import { POST_TYPE } from "@/app/(home)/_components/HOME_CONST";
+import { POST_TYPE } from "@/app/[locale]/(home)/_components/HOME_CONST";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { MapPostSummaryPageParam, mapPostTypeQueryToApiParam } from "./useMapPostSummary";

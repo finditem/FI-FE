@@ -1,22 +1,22 @@
 export const FOOTER_LINK = [
-  { name: "홈", href: "/", icon: "Home", requiresLogin: false },
-  { name: "게시글 목록", href: "/list", icon: "Luggage", requiresLogin: false },
+  { labelKey: "home", href: "/", icon: "Home", requiresLogin: false },
+  { labelKey: "list", href: "/list", icon: "Luggage", requiresLogin: false },
   {
-    name: "채팅",
+    labelKey: "chat",
     href: "/chat",
     icon: "Chat",
     alert: "top-[5px] right-[-4px]",
     requiresLogin: true,
   },
   {
-    name: "알림",
+    labelKey: "alert",
     href: "/alert",
     icon: "AlertBellFooter",
     alert: "top-[6px] right-[0.3px]",
     requiresLogin: true,
   },
   {
-    name: "마이페이지",
+    labelKey: "mypage",
     href: "/mypage",
     adminHref: "/admin",
     icon: "UserProfileHome",

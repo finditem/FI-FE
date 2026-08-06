@@ -1,4 +1,4 @@
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 
 /**
  * 현재 URL 경로가 Footer 노출 허용 경로와 정확히 일치하지 않으면 `true`를 반환하는 훅입니다.

@@ -1,0 +1,33 @@
+{
+  "Metadata": {
+    "title": "Find lost items near you, finditem!",
+    "titleTemplate": "%s | finditem!",
+    "description": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
+    "ogAlt": "finditem!"
+  },
+  "Home": {
+    "defaultTitle": "Find lost items near you",
+    "defaultDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
+    "searchTitle": "Search results for {search}",
+    "searchDescription": "Looking for {search} on finditem? Find lost {search} items near you!"
+  },
+  "NotFound": {
+    "metaTitle": "Page not found",
+    "metaDescription": "We couldn't find the page you requested. The address may be incorrect or the page may have been removed. Please check again from the finditem homepage.",
+    "title": "Page not found.",
+    "descriptionLine1": "The address you entered doesn't exist, or",
+    "descriptionLine2": "the page you requested is unavailable."
+  },
+  "Footer": {
+    "home": "Home",
+    "list": "Listings",
+    "chat": "Chat",
+    "alert": "Alerts",
+    "mypage": "My Page"
+  },
+  "LanguageSwitcher": {
+    "label": "Language",
+    "ko": "한국어",
+    "en": "English"
+  }
+}
