@@ -17,6 +17,9 @@ Sentry.init({
   // Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
   tracesSampleRate: 1,
 
+  // 서버 런타임과 동일하게, 외부 API로는 트레이스 헤더를 전파하지 않는다.
+  tracePropagationTargets: [/^\//, /^https:\/\/(www\.|api\.|dev-api\.)?finditem\.kr/],
+
   // Enable logs to be sent to Sentry
   enableLogs: true,
 
