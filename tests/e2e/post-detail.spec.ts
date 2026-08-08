@@ -105,11 +105,10 @@ const MOCK_USERS_ME = {
 type SetupOptions = {
   isMine?: boolean;
   favoriteStatus?: boolean;
-  isLoggedIn?: boolean;
 };
 
 async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
-  const { isMine = false, favoriteStatus = false, isLoggedIn = false } = options;
+  const { isMine = false, favoriteStatus = false } = options;
 
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({
@@ -146,15 +145,14 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
     })
   );
 
-  if (isLoggedIn) {
-    await page.route(`**/api/comments/posts/${POST_ID}**`, (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: JSON.stringify(MOCK_COMMENTS),
-      })
-    );
-  }
+  /* 댓글 조회는 로그인 여부와 무관하게 동작하므로 항상 목을 등록한다 */
+  await page.route(`**/api/comments/posts/${POST_ID}**`, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(MOCK_COMMENTS),
+    })
+  );
 
   await page.route("**/api/users/me", (route) =>
     route.fulfill({
@@ -169,7 +167,7 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
 
 test.describe("게시글 상세 페이지", () => {
   test("비로그인 상태에서 게시글 정보가 정상 렌더링된다", async ({ page }) => {
-    await setupDetailPageMocks(page, { isLoggedIn: false });
+    await setupDetailPageMocks(page);
 
     await page.goto(`/list/${POST_ID}`);
 
@@ -187,14 +185,25 @@ test.describe("게시글 상세 페이지", () => {
     await expect(page.getByTestId("post-chat-button")).toBeVisible();
   });
 
-  test("비로그인 상태에서 댓글 입력 시 게스트 로그인 모달이 뜬다", async ({ page }) => {
-    await setupDetailPageMocks(page, { isLoggedIn: false });
+  test("비로그인 상태에서도 댓글 목록이 표시된다", async ({ page }) => {
+    await setupDetailPageMocks(page);
 
     await page.goto(`/list/${POST_ID}`);
 
-    await page.getByPlaceholder("메시지 보내기").click();
+    await expect(page.getByText("혹시 제 물건 아닌가요?")).toBeVisible();
+  });
 
-    await expect(page.getByRole("heading", { name: "로그인하고 댓글을 확인하세요" })).toBeVisible({
+  test("비로그인 상태에서 댓글 작성 시 게스트 로그인 모달이 뜬다", async ({ page }) => {
+    await setupDetailPageMocks(page);
+
+    await page.goto(`/list/${POST_ID}`);
+
+    /* 전송 버튼은 dev 서버의 React Query Devtools 플로팅 버튼과 겹치므로 Enter로 제출한다 */
+    const commentInput = page.getByPlaceholder("메시지 보내기");
+    await commentInput.fill("비회원 댓글");
+    await commentInput.press("Enter");
+
+    await expect(page.getByRole("heading", { name: "로그인이 필요한 기능이에요." })).toBeVisible({
       timeout: 3000,
     });
   });
@@ -203,7 +212,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isLoggedIn: true });
+    await setupDetailPageMocks(page);
 
     await page.goto(`/list/${POST_ID}`);
 
@@ -214,7 +223,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isLoggedIn: true, favoriteStatus: false });
+    await setupDetailPageMocks(page, { favoriteStatus: false });
 
     let favoriteCalled = false;
     await page.route(`**/api/posts/${POST_ID}/favorites`, (route) => {
@@ -239,7 +248,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isLoggedIn: true, favoriteStatus: true });
+    await setupDetailPageMocks(page, { favoriteStatus: true });
 
     let deleteCalledMethod = "";
     await page.route(`**/api/posts/${POST_ID}/favorites`, (route) => {
@@ -263,7 +272,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isMine: true, isLoggedIn: true });
+    await setupDetailPageMocks(page, { isMine: true });
 
     await page.goto(`/list/${POST_ID}`);
 
@@ -278,7 +287,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isMine: false, isLoggedIn: true });
+    await setupDetailPageMocks(page, { isMine: false });
 
     await page.goto(`/list/${POST_ID}`);
 
@@ -292,7 +301,7 @@ test.describe("게시글 상세 페이지", () => {
     await context.addCookies([
       { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
     ]);
-    await setupDetailPageMocks(page, { isMine: true, isLoggedIn: true });
+    await setupDetailPageMocks(page, { isMine: true });
 
     await page.route(`**/api/posts/${POST_ID}`, async (route) => {
       if (route.request().method() === "DELETE") {

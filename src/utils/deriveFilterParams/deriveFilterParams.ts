@@ -5,10 +5,10 @@ import {
   SortFilterValue,
   StatusFilterValue,
 } from "../../components/domain/FilterSectionBottomSheet/_types/types";
-import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/[locale]/(route)/mypage/activities/_types/ActivityFilterType";
 import { SimpleSortType } from "@/types";
-import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
-import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
+import { ReportStatusFilterValue } from "@/app/[locale]/(route)/mypage/reports/_types/MypageReportsFilterType";
+import { InquiryStatusFilterValue } from "@/app/[locale]/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
 
 /**
  * URL 쿼리 파라미터를 앱 내 규격화된 타입으로 변환하거나

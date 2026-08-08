@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
-import { debounce } from "lodash";
+import { debounce } from "es-toolkit/compat";
 
 const ADDRESS_REVALIDATE_DELAY_MS = 500;
 

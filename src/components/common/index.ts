@@ -29,5 +29,6 @@ export { default as SnackBar } from "./SnackBar/SnackBar";
 export { default as InputCommentField } from "./Input/InputComment/InputComment";
 export { default as ModalLayout } from "./Modal/_internal/ModalLayout";
 export { default as DeleteButton } from "./Input/_internal/DeleteButton/DeleteButton";
+export { default as LanguageSwitcher } from "./LanguageSwitcher/LanguageSwitcher";
 export type { IconName } from "./Icon/Icon";
 export type { InputTextProps } from "./Input/InputText/InputText";

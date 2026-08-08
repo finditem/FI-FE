@@ -5,7 +5,7 @@ import { useFieldArray, useFormContext } from "react-hook-form";
 import { Icon } from "@/components/common";
 import ImagePreviewList from "./_internal/ImagePreviewList";
 import { useToast } from "@/context/ToastContext";
-import { PostWriteFormValues } from "@/app/(route)/write/post/_types/PostWriteType";
+import { PostWriteFormValues } from "@/app/[locale]/(route)/write/post/_types/PostWriteType";
 
 const DEFAULT_HELP_TEXT = "최대 10MB, 총 5장의 이미지를 첨부할 수 있습니다. (jpg, jpeg, png)";
 

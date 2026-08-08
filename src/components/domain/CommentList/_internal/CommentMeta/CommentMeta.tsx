@@ -34,8 +34,10 @@ interface CommentMetaHeaderProps {
     /** 댓글 삭제 가능 여부 */
     canDelete: boolean;
   };
-  /** 비회원 여부 */
+  /** 비회원 여부, 비회원은 프로필 조회만 가능하고 메뉴는 이용할 수 없습니다. */
   isGuest: boolean;
+  /** 비회원이 메뉴를 열려고 할 때 호출되는 함수 */
+  onGuestAction?: () => void;
   /** 답글 여부 */
   isThreadItem: boolean;
   /** 쿼리 키 */
@@ -49,6 +51,7 @@ const authorStyle = "line-clamp-2 break-all text-body1-medium text-layout-header
 const CommentMetaHeader = ({
   data,
   isGuest,
+  onGuestAction,
   isThreadItem,
   queryKey,
   onDeleteComment,
@@ -65,45 +68,39 @@ const CommentMetaHeader = ({
     setIsKebabMenuOpen(false);
   };
 
+  const handleKebabMenuToggle = () => {
+    if (isGuest) {
+      onGuestAction?.();
+      return;
+    }
+
+    setIsKebabMenuOpen((prev) => !prev);
+  };
+
   return (
     <>
       <div className="flex items-start justify-between">
-        {isGuest ? (
-          <div className="flex gap-[14px]">
-            <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
+        <Link
+          href={`/user/${authorId}`}
+          aria-label={`${authorName} 프로필 보기`}
+          className="flex gap-[14px]"
+        >
+          <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
 
-            <div className="flex flex-col flex-wrap items-start">
-              <span className={authorStyle}>{authorName}</span>
+          <div className="flex flex-col flex-wrap items-start">
+            <span className={authorStyle}>{authorName}</span>
 
-              <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
-                {formatDate(createdAt)}
-              </time>
-            </div>
+            <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
+              {formatDate(createdAt)}
+            </time>
           </div>
-        ) : (
-          <Link
-            href={`/user/${authorId}`}
-            aria-label={`${authorName} 프로필 보기`}
-            className="flex gap-[14px]"
-          >
-            <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
-
-            <div className="flex flex-col flex-wrap items-start">
-              <span className={authorStyle}>{authorName}</span>
-
-              <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
-                {formatDate(createdAt)}
-              </time>
-            </div>
-          </Link>
-        )}
+        </Link>
 
         <div ref={ref} className="relative">
           <KebabMenuButton
             size="small"
             ariaLabel={isKebabMenuOpen ? "댓글 메뉴 닫기" : "댓글 메뉴 열기"}
-            disabled={isGuest}
-            onClick={() => setIsKebabMenuOpen((prev) => !prev)}
+            onClick={handleKebabMenuToggle}
           />
 
           {isKebabMenuOpen && (
