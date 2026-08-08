@@ -43,7 +43,7 @@ const PublicDataList = () => {
           iconName: "NoPosts",
           iconSize: 70,
         }}
-        title="조회된 데이터가 없습니다."
+        title={isError ? "현재 공공데이터를 불러올 수 없어요." : "조회된 데이터가 없습니다."}
       />
     );
   }

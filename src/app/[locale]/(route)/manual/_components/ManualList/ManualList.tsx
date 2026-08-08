@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils";
 import { Icon } from "@/components";
 import { MANUAL_DATA } from "../MANUAL_CONST";

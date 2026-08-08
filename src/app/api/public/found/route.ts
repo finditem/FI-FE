@@ -55,7 +55,15 @@ export async function GET(request: NextRequest) {
     });
 
     if (!response.ok) {
-      return NextResponse.json({ error: "포털 서버 연결 실패" }, { status: response.status });
+      // 게이트웨이 단계에서 차단되면 정상 응답과 다른 스키마가 오므로 정규식으로만 사유를 추출한다.
+      const errorBody = await response.text().catch(() => "");
+      const errMsg = errorBody.match(/<errMsg>([^<]*)<\/errMsg>/)?.[1];
+      const reasonCode = errorBody.match(/<returnReasonCode>([^<]*)<\/returnReasonCode>/)?.[1];
+
+      return NextResponse.json(
+        { error: errMsg || "포털 서버 연결 실패", code: reasonCode },
+        { status: response.status }
+      );
     }
 
     const responseText = await response.text();
