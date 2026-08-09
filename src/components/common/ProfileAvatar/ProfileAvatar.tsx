@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 
 /**
@@ -36,13 +37,8 @@ interface ProfileAvatarProps {
 
 const FALLBACK_SRC = "/user/default-profile.svg";
 
-const ProfileAvatar = ({
-  src,
-  alt = "사용자",
-  size,
-  className,
-  priority = false,
-}: ProfileAvatarProps) => {
+const ProfileAvatar = ({ src, alt, size, className, priority = false }: ProfileAvatarProps) => {
+  const t = useTranslations("ProfileAvatar");
   const [imgSrc, setImgSrc] = useState(src?.trim() ? src : FALLBACK_SRC);
 
   useEffect(() => {
@@ -57,7 +53,7 @@ const ProfileAvatar = ({
     >
       <Image
         src={imgSrc}
-        alt={`${alt} 프로필`}
+        alt={t("profileAlt", { name: alt ?? t("defaultAlt") })}
         width={size}
         height={size}
         sizes={`${size}px`}

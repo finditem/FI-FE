@@ -29,5 +29,73 @@
     "label": "언어 선택",
     "ko": "한국어",
     "en": "English"
+  },
+  "Badge": {
+    "new": "최신 글",
+    "hot": "인기 글"
+  },
+  "Bookmark": {
+    "ariaLabel": "즐겨찾기 버튼"
+  },
+  "Filter": {
+    "ariaLabel": "{label} 필터"
+  },
+  "FloatingButton": {
+    "ariaLabel": "플로팅 메뉴 버튼"
+  },
+  "ImageSelectButton": {
+    "attachAriaLabel": "이미지 첨부",
+    "importedImageAlt": "{number}번째 가져온 이미지"
+  },
+  "Location": {
+    "ariaLabel": "상세 위치 보기"
+  },
+  "ScrollToTopButton": {
+    "ariaLabel": "스크롤 맨 위로 이동"
+  },
+  "ToggleButton": {
+    "ariaLabel": "토글 버튼"
+  },
+  "ViewMoreComment": {
+    "ariaLabel": "댓글 더 보기",
+    "moreReplies": "답글 {count}개 더 보기",
+    "moreComments": "댓글 {count}개 더 보기"
+  },
+  "ViewMoreReply": {
+    "viewMoreAriaLabel": "답글 더보기",
+    "writeReply": "답글 쓰기"
+  },
+  "CheckBox": {
+    "checked": "체크됨",
+    "unchecked": "체크안됨"
+  },
+  "DeleteButton": {
+    "ariaLabel": "입력값 전체 삭제"
+  },
+  "InputCommentImageSection": {
+    "listAriaLabel": "댓글 이미지 목록",
+    "imageAlt": "댓글 이미지 {number}",
+    "deleteAriaLabel": "댓글 이미지 삭제"
+  },
+  "InputComment": {
+    "attachAriaLabel": "이미지 첨부",
+    "placeholder": "메시지 보내기",
+    "submitAriaLabel": "전송 버튼"
+  },
+  "InputText": {
+    "hidePassword": "비밀번호 숨기기",
+    "showPassword": "비밀번호 보기"
+  },
+  "ListItemImage": {
+    "categoryFallbackAlt": "{category} 기본 이미지",
+    "imageCountAlt": "이미지 {count}장"
+  },
+  "ConfirmModal": {
+    "cancel": "취소",
+    "confirm": "확인"
+  },
+  "ProfileAvatar": {
+    "defaultAlt": "사용자",
+    "profileAlt": "{name} 프로필"
   }
 }

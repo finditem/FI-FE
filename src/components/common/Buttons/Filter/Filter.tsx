@@ -1,4 +1,7 @@
+"use client";
+
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Icon, { Props } from "../../Icon/Icon";
 
@@ -52,12 +55,13 @@ const Filter = ({
   ariaLabel,
   ...props
 }: FilterProps) => {
+  const t = useTranslations("Filter");
   const finalIconPosition = icon && (iconPosition ?? "leading");
 
   return (
     <button
       {...props}
-      aria-label={`${ariaLabel} 필터`}
+      aria-label={t("ariaLabel", { label: ariaLabel })}
       className={cn(
         "gap-[4px] whitespace-nowrap rounded-full px-[18px] py-[8px] text-body1-semibold transition-colors duration-150 flex-center",
         !onSelected &&

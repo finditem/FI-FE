@@ -1,4 +1,7 @@
+"use client";
+
 import { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Icon from "@/components/common/Icon/Icon";
 
@@ -16,6 +19,7 @@ const DeleteButton = ({
   onDelete,
   ...props
 }: DeleteButtonProps) => {
+  const t = useTranslations("DeleteButton");
   const hasValue = !!value.trim();
   if (!hasValue) return null;
 
@@ -23,7 +27,7 @@ const DeleteButton = ({
     <button
       type="button"
       tabIndex={-1}
-      aria-label="입력값 전체 삭제"
+      aria-label={t("ariaLabel")}
       onClick={onDelete}
       className={cn(
         "absolute size-5 rounded-full bg-fg-neutral-strong-placeholder outline-none flex-center",

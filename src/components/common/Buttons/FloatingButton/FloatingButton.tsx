@@ -1,4 +1,7 @@
+"use client";
+
 import { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import Icon from "../../Icon/Icon";
 import { cn } from "@/utils";
 
@@ -36,17 +39,18 @@ interface FloatingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 
 const FloatingButton = ({
-  ariaLabel = "플로팅 메뉴 버튼",
+  ariaLabel,
   buttonClassName,
   iconClassName,
   mode = "post",
   ...props
 }: FloatingButtonProps) => {
+  const t = useTranslations("FloatingButton");
   const iconName = mode === "post" ? "FloatingPlus" : "Pencil";
 
   return (
     <button
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? t("ariaLabel")}
       className={cn(
         "h-[70px] w-[70px] rounded-full p-3 transition-colors duration-150 flex-center",
         "border border-white bg-opacity-70 bg-fill-brand-strong-default",

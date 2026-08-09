@@ -1,4 +1,7 @@
+"use client";
+
 import { ButtonHTMLAttributes, ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import Icon from "../../Icon/Icon";
 
 /**
@@ -28,12 +31,14 @@ interface LocationProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * ```
  */
 
-const Location = ({ children, ariaLabel = "상세 위치 보기", ...props }: LocationProps) => {
+const Location = ({ children, ariaLabel, ...props }: LocationProps) => {
+  const t = useTranslations("Location");
+
   return (
     <button
       {...props}
       className="flex items-center gap-[5px] text-sm text-neutral-normal-default transition-colors duration-150 hover:text-black active:text-neutral-normal-pressed disabled:text-neutral-normal-disabled"
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? t("ariaLabel")}
     >
       <Icon name="Location" size={16} />
       <span>{children}</span>

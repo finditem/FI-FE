@@ -1,4 +1,7 @@
+"use client";
+
 import { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import Icon from "../../Icon/Icon";
 import { cn } from "@/utils";
 
@@ -31,13 +34,14 @@ interface ViewMoreCommentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 
 const ViewMoreComment = ({ count, isThreadItem = false, ...props }: ViewMoreCommentProps) => {
+  const t = useTranslations("ViewMoreComment");
   if (count <= 0) return null;
 
   return (
     <div className={cn(!isThreadItem && "px-5 py-2 flex-center")}>
       <button
         type="button"
-        aria-label="댓글 더 보기"
+        aria-label={t("ariaLabel")}
         className={cn(
           "flex items-center gap-1 px-5 py-2 text-brand-normal-default",
           isThreadItem &&
@@ -46,9 +50,7 @@ const ViewMoreComment = ({ count, isThreadItem = false, ...props }: ViewMoreComm
         )}
         {...props}
       >
-        <span>{isThreadItem ? "답글" : "댓글"}</span>
-        <span>{count}개</span>
-        <span>더 보기</span>
+        <span>{t(isThreadItem ? "moreReplies" : "moreComments", { count })}</span>
         <Icon name="ArrowDownSmall" size={24} className="text-brand-normal-default" />
       </button>
     </div>

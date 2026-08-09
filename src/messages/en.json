@@ -29,5 +29,73 @@
     "label": "Language",
     "ko": "한국어",
     "en": "English"
+  },
+  "Badge": {
+    "new": "New",
+    "hot": "Popular"
+  },
+  "Bookmark": {
+    "ariaLabel": "Bookmark"
+  },
+  "Filter": {
+    "ariaLabel": "{label} filter"
+  },
+  "FloatingButton": {
+    "ariaLabel": "Quick actions"
+  },
+  "ImageSelectButton": {
+    "attachAriaLabel": "Attach photo",
+    "importedImageAlt": "Imported photo {number}"
+  },
+  "Location": {
+    "ariaLabel": "View location"
+  },
+  "ScrollToTopButton": {
+    "ariaLabel": "Scroll to top"
+  },
+  "ToggleButton": {
+    "ariaLabel": "Toggle"
+  },
+  "ViewMoreComment": {
+    "ariaLabel": "View more comments",
+    "moreReplies": "View {count, plural, one {# more reply} other {# more replies}}",
+    "moreComments": "View {count, plural, one {# more comment} other {# more comments}}"
+  },
+  "ViewMoreReply": {
+    "viewMoreAriaLabel": "View replies",
+    "writeReply": "Write a reply"
+  },
+  "CheckBox": {
+    "checked": "Checked",
+    "unchecked": "Unchecked"
+  },
+  "DeleteButton": {
+    "ariaLabel": "Clear input"
+  },
+  "InputCommentImageSection": {
+    "listAriaLabel": "Comment photos",
+    "imageAlt": "Comment photo {number}",
+    "deleteAriaLabel": "Remove photo"
+  },
+  "InputComment": {
+    "attachAriaLabel": "Attach photo",
+    "placeholder": "Write a message",
+    "submitAriaLabel": "Send"
+  },
+  "InputText": {
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
+  },
+  "ListItemImage": {
+    "categoryFallbackAlt": "{category} default image",
+    "imageCountAlt": "{count} photos"
+  },
+  "ConfirmModal": {
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ProfileAvatar": {
+    "defaultAlt": "User",
+    "profileAlt": "{name}'s profile"
   }
 }

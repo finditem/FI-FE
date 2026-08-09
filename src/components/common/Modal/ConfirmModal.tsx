@@ -1,4 +1,7 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Icon, { Props as IconProps } from "../Icon/Icon";
 import { sizeMap, style } from "./CONST_MODAL";
@@ -56,9 +59,10 @@ const ConfirmModal = ({
   onCancel,
   size = "medium",
 }: ConfirmModalProps) => {
+  const t = useTranslations("ConfirmModal");
   const buttons = [
-    { key: "cancel", label: "취소", onClick: onCancel, className: style.cancelBtn },
-    { key: "confirm", label: "확인", onClick: onConfirm, className: style.confirmBtn },
+    { key: "cancel", label: t("cancel"), onClick: onCancel, className: style.cancelBtn },
+    { key: "confirm", label: t("confirm"), onClick: onConfirm, className: style.confirmBtn },
   ] as const;
 
   return (
