@@ -60,7 +60,3 @@ CI(`jest.yml`: PR→develop, `playwright.yml`: PR→main/develop)가 PR 시점�
 ## 라우트 작업 계획
 
 특정 라우트(`page.tsx`가 있는 디렉토리) 하나에 국한된 작업을 시작하기 전에 `plan-route` 스킬을 실행한다. 해당 라우트 폴더의 `_docs/plan.md`에 작업 항목을 todo 체크리스트로 기록하고 진행에 따라 갱신해, 세션이 끊겨도 다음 세션이나 다른 팀원이 이어받을 수 있게 한다. 여러 라우트에 걸친 작업이나 전역 공통 코드(`src/components`, `src/hooks` 등) 작업에는 적용하지 않는다.
-
-## 기타 도구
-
-- `.gemini/`: Gemini Code Assist의 PR 자동 리뷰 설정. CLAUDE.md와 무관하며 PR 리뷰 시점에만 관여한다.
