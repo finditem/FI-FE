@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn, formatCappedNumber } from "@/utils";
 
@@ -44,6 +47,7 @@ const CommentFooter = ({
   queryKey,
   onFavoriteComment,
 }: CommentFooterProps) => {
+  const t = useTranslations("CommentFooter");
   const { likeCount, id, isLike, deleted } = footerData;
 
   const handleLikeClick = () => {
@@ -67,7 +71,7 @@ const CommentFooter = ({
   return (
     <div className="flex items-center gap-3">
       <button
-        aria-label={isLike ? "좋아요 취소" : "좋아요"}
+        aria-label={isLike ? t("unlikeAriaLabel") : t("likeAriaLabel")}
         className={cn(
           "flex items-center gap-1 text-body2-regular text-neutral-strong-placeholder",
           "disabled:cursor-not-allowed disabled:opacity-40"
@@ -80,7 +84,7 @@ const CommentFooter = ({
           size={16}
           className={cn(isLike ? "text-system-favorite" : "text-border-divider-default")}
         />
-        <span>좋아요 {formatCappedNumber(likeCount, 999)}</span>
+        <span>{t("likeCount", { count: formatCappedNumber(likeCount, 999) })}</span>
       </button>
 
       {isReply && (
@@ -91,7 +95,7 @@ const CommentFooter = ({
           )}
           onClick={handleReplyFormToggle}
         >
-          답글 작성
+          {t("writeReply")}
         </button>
       )}
     </div>

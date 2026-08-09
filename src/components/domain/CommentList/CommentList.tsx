@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ViewMoreComment } from "@/components/common";
 import {
   DeleteCommentVariables,
@@ -71,6 +72,7 @@ const CommentList = ({
   onFavoriteComment,
   onCommentLoadMore,
 }: CommentListProps) => {
+  const t = useTranslations("CommentList");
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
 
   if (!comments) return null;
@@ -85,7 +87,7 @@ const CommentList = ({
     <>
       <header className="w-full border-t border-divider-default px-5">
         <h2 className="mt-[18px] flex items-center gap-1 py-2 text-body1-semibold text-layout-header-default">
-          댓글<span>{formatCappedNumber(comments.totalCommentCount, 999)}</span>
+          {t("heading", { count: formatCappedNumber(comments.totalCommentCount, 999) })}
         </h2>
       </header>
 

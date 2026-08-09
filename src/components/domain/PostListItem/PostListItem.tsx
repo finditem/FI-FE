@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, getItemCategoryLabel, getItemStatusLabel, highlightText } from "@/utils";
@@ -31,6 +34,7 @@ interface PostListItemProps {
  */
 
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
+  const t = useTranslations("PostListItem");
   const { id, postStatus, category, createdAt, isNew, isHot, imageCount } = post;
   const isFound = postStatus === "FOUND";
 
@@ -92,7 +96,7 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
                 )}
               >
                 <span className="after:inline-block after:px-1 after:content-['·']">
-                  {post.address || "위치 정보가 이상해요."}
+                  {post.address || t("invalidAddress")}
                 </span>
                 <time dateTime={createdAt}>{formatDate(createdAt)}</time>
               </span>
@@ -121,7 +125,7 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
 
         <ListItemImage
           src={post.thumbnailImageUrl}
-          alt="게시글 대표 이미지"
+          alt={t("thumbnailAlt")}
           size={90}
           category={category}
           imageCount={imageCount}

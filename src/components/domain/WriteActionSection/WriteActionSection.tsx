@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 
 /**
@@ -22,10 +25,12 @@ interface ActionSectionProps {
  */
 
 const WriteActionSection = ({ disabled }: ActionSectionProps) => {
+  const t = useTranslations("WriteActionSection");
+
   return (
     <section className="px-5 pb-8 pt-3">
       <Button type="submit" className="w-full" disabled={disabled}>
-        작성 완료
+        {t("submit")}
       </Button>
     </section>
   );

@@ -1,15 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { normalizeEnumValue } from "@/utils";
 import { Filter } from "@/components/common";
 import FilterBottomSheet from "../FilterBottomSheet/FilterBottomSheet";
-import {
-  CATEGORY_LABEL_MAP,
-  FIND_STATUS_LABEL_MAP,
-  SORT_LABEL_MAP,
-  STATUS_LABEL_MAP,
-} from "../_constants/LABELS";
+import { useFilterLabelMaps } from "../_constants/LABELS";
 import {
   CategoryFilterValue,
   FilterTab,
@@ -24,7 +20,7 @@ import {
   normalizedFilterValues,
 } from "../../../../utils/deriveFilterParams/deriveFilterParams";
 import { useFilterParams } from "@/hooks";
-import { TABS } from "../_constants/TABS";
+import { useFilterTabs } from "../_constants/TABS";
 import DateRangeBottomSheet from "../../DateRangeBottomSheet/DateRangeBottomSheet";
 import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
 
@@ -56,6 +52,17 @@ interface FilterSectionProps {
  */
 
 const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
+  const tf = useTranslations("FilterSection");
+  const TABS = useFilterTabs();
+  const {
+    categoryDefaultLabel,
+    categoryLabelMap: CATEGORY_LABEL_MAP,
+    sortLabelMap: SORT_LABEL_MAP,
+    findStatusDefaultLabel,
+    findStatusLabelMap: FIND_STATUS_LABEL_MAP,
+    statusDefaultLabel,
+    statusLabelMap: STATUS_LABEL_MAP,
+  } = useFilterLabelMaps();
   const { region, category, sort, status, findStatus, startDate, endDate } = useFilterParams();
   const [filters, setFilters] = useState<FiltersStateType>(DEFAULT_FILTERS);
   const [selectedTab, setSelectedTab] = useState<FilterTab>("region");
@@ -100,45 +107,47 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
 
   const filterConfigs: Record<FilterTab, any> = {
     date: {
-      ariaLabel: "기간 필터",
+      ariaLabel: tf("dateAriaLabel"),
       onSelected: selectionState.isDateSelected,
       icon: { name: "Calendar", size: 16 },
       label: dateLabel,
       iconPosition: "leading",
     },
     region: {
-      ariaLabel: "지역 선택 필터",
+      ariaLabel: tf("regionAriaLabel"),
       onSelected: selectionState.isRegionSelected,
       icon: { name: "Location", size: 16 },
-      label: selectionState.isRegionSelected ? region : "지역 선택",
+      label: selectionState.isRegionSelected ? region : tf("regionPlaceholder"),
       iconPosition: "leading",
     },
     category: {
-      ariaLabel: "카테고리 필터",
+      ariaLabel: tf("categoryAriaLabel"),
       onSelected: selectionState.isCategorySelected,
       icon: { name: "ArrowDown", size: 12 },
-      label: (normalizedCategory && CATEGORY_LABEL_MAP[normalizedCategory]) ?? "카테고리",
+      label: (normalizedCategory && CATEGORY_LABEL_MAP[normalizedCategory]) ?? categoryDefaultLabel,
       iconPosition: "trailing",
     },
     sort: {
-      ariaLabel: "정렬 필터",
+      ariaLabel: tf("sortAriaLabel"),
       onSelected: selectionState.isSortSelected && normalizedSort !== "LATEST",
       icon: { name: "ArrowDown", size: 12 },
-      label: (normalizedSort && SORT_LABEL_MAP[normalizedSort]) ?? "최신순",
+      label: (normalizedSort && SORT_LABEL_MAP[normalizedSort]) ?? SORT_LABEL_MAP.LATEST,
       iconPosition: "trailing",
     },
     findStatus: {
-      ariaLabel: "찾음 여부 필터",
+      ariaLabel: tf("findStatusAriaLabel"),
       onSelected: selectionState.isFindStatusSelected,
       icon: { name: "ArrowDown", size: 12 },
-      label: (normalizedFindStatus && FIND_STATUS_LABEL_MAP[normalizedFindStatus]) ?? "찾음 여부",
+      label:
+        (normalizedFindStatus && FIND_STATUS_LABEL_MAP[normalizedFindStatus]) ??
+        findStatusDefaultLabel,
       iconPosition: "trailing",
     },
     status: {
-      ariaLabel: "분류 필터",
+      ariaLabel: tf("statusAriaLabel"),
       onSelected: selectionState.isStatusSelected,
       icon: { name: "ArrowDown", size: 12 },
-      label: (normalizedStatus && STATUS_LABEL_MAP[normalizedStatus]) ?? "분류",
+      label: (normalizedStatus && STATUS_LABEL_MAP[normalizedStatus]) ?? statusDefaultLabel,
       iconPosition: "trailing",
     },
   };
@@ -146,7 +155,7 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
   return (
     <>
       <section
-        aria-label="필터 영역"
+        aria-label={tf("sectionAriaLabel")}
         className="flex h-[67px] w-full items-center gap-2 overflow-x-auto overflow-y-hidden whitespace-nowrap px-5 no-scrollbar"
       >
         {TABS[pageType].map((tab) => {

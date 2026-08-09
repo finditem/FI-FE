@@ -2,12 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import {
-  DateRangeBottomSheet,
-  Filter,
-  categories,
-  findStatus as findStatusOptions,
-} from "@/components";
+import { DateRangeBottomSheet, Filter } from "@/components";
 import { useClickOutside } from "@/hooks";
 import { useFilterParams } from "@/hooks";
 import { AdminDropdown } from "@/app/[locale]/(admin)/admin/_components";
@@ -26,6 +21,23 @@ const getSortLabel = (sortValue?: string) => {
       return "최신순";
   }
 };
+
+const categories = [
+  { label: "전체", value: undefined },
+  { label: "전자기기", value: "ELECTRONICS" },
+  { label: "지갑", value: "WALLET" },
+  { label: "신분증", value: "ID_CARD" },
+  { label: "귀금속", value: "JEWELRY" },
+  { label: "가방", value: "BAG" },
+  { label: "카드", value: "CARD" },
+  { label: "기타", value: "ETC" },
+] as const;
+
+const findStatusOptions = [
+  { label: "전체", value: undefined },
+  { label: "찾아요", value: "SEARCHING" },
+  { label: "찾았어요", value: "FOUND" },
+] as const;
 
 const getCategoryLabel = (categoryValue?: string) => {
   const found = categories.find((c) => c.value === categoryValue);

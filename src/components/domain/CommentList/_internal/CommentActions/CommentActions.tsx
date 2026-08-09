@@ -1,4 +1,7 @@
+"use client";
+
 import type { Dispatch, SetStateAction } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn, formatCappedNumber } from "@/utils";
 
@@ -37,6 +40,7 @@ const CommentActions = ({
   onGuestAction,
   replyCount,
 }: CommentActionsProps) => {
+  const t = useTranslations("CommentActions");
   const handleReplyFormToggle = () => {
     if (isGuest) {
       onGuestAction?.();
@@ -60,7 +64,7 @@ const CommentActions = ({
               viewReply ? "text-brand-normal-enteredSelected" : "text-layout-header-default"
             )}
           >
-            답글 <span>{formatCappedNumber(replyCount, 999)}</span>개
+            {t("replyCount", { count: formatCappedNumber(replyCount, 999) })}
           </span>
           <Icon
             name="ArrowDownSmall"
@@ -81,7 +85,7 @@ const CommentActions = ({
           )}
           onClick={handleReplyFormToggle}
         >
-          답글 작성
+          {t("writeReply")}
         </button>
       </div>
     )

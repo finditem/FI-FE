@@ -3,6 +3,7 @@
 import { DetailHeader } from "@/components/layout";
 import { Button, InputField } from "@/components/common";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useForm, FormProvider } from "react-hook-form";
 import { QueryKey } from "@tanstack/react-query";
 import { ReportReasonModal, ReportPopupLayout, ReportReason, ReportSelectBox } from "./_internal";
@@ -60,6 +61,7 @@ const ReportModal = ({
   targetId,
   invalidateKeys,
 }: ReportModalProps) => {
+  const t = useTranslations("ReportModal");
   const [openReportReasonModal, setOpenReportReasonModal] = useState(false);
   const [reportType, setReportType] = useState<ReportReason | null>(null);
   const methods = useForm<ReportFormValues>({
@@ -91,7 +93,7 @@ const ReportModal = ({
 
   return (
     <ReportPopupLayout isOpen={isOpen}>
-      <DetailHeader title="신고하기" onBack={onClose} />
+      <DetailHeader title={t("title")} onBack={onClose} />
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <div className="space-y-10 p-5">
@@ -101,15 +103,15 @@ const ReportModal = ({
             />
             <InputField
               name="reason"
-              label="신고 내용 (선택)"
-              placeholder="신고 사유를 입력해주세요. (최대 300자)"
+              label={t("detailsLabel")}
+              placeholder={t("detailsPlaceholder")}
               maxLength={300}
             />
           </div>
 
           <div className="fixed bottom-0 w-full max-w-[768px] border-t border-flatGray-50 px-4 pb-8 pt-3">
             <Button type="submit" size="big" className="w-full" disabled={isDisabled}>
-              차단 및 신고하기
+              {t("submit")}
             </Button>
           </div>
         </form>

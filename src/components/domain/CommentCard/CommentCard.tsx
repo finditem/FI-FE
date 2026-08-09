@@ -1,4 +1,7 @@
+"use client";
+
 import { CommentItem } from "@/api/fetch/user";
+import { useTranslations } from "next-intl";
 import { Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, highlightText } from "@/utils";
 import Link from "next/link";
@@ -33,6 +36,7 @@ interface CommentCardProps {
  */
 
 const CommentCard = ({ data, keyword }: CommentCardProps) => {
+  const t = useTranslations("CommentCard");
   const {
     commentId,
     postId,
@@ -63,7 +67,7 @@ const CommentCard = ({ data, keyword }: CommentCardProps) => {
           <span className="mt-2 flex gap-1 text-body2-regular text-neutral-strong-placeholder">
             <Icon
               name="Heart"
-              aria-label="좋아요"
+              aria-label={t("likeAriaLabel")}
               size={16}
               className={cn(like ? "text-system-favorite" : "text-border-divider-default")}
             />
@@ -71,7 +75,7 @@ const CommentCard = ({ data, keyword }: CommentCardProps) => {
           </span>
         </div>
 
-        {imageUrl && <ListItemImage src={imageUrl} alt="댓글 이미지" size={90} />}
+        {imageUrl && <ListItemImage src={imageUrl} alt={t("imageAlt")} size={90} />}
       </Link>
     </li>
   );

@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
 
@@ -26,20 +29,20 @@ interface GuestLoginModalProps {
  */
 
 const GuestLoginModal = ({ isOpen, onClose }: GuestLoginModalProps) => {
+  const t = useTranslations("GuestLoginModal");
+
   return (
     <ModalLayout isOpen={isOpen} onClose={onClose} className="space-y-6 rounded-[8px] p-6">
       <div className="gap-1 text-center flex-col-center">
-        <h2 className="text-h3-semibold text-layout-header-default">로그인이 필요한 기능이에요.</h2>
-        <p className="text-body2-regular text-layout-body-default">
-          로그인하고 댓글에 함께 참여해보세요.
-        </p>
+        <h2 className="text-h3-semibold text-layout-header-default">{t("title")}</h2>
+        <p className="text-body2-regular text-layout-body-default">{t("description")}</p>
       </div>
       <div className="w-full gap-2 flex-center">
         <Button variant="outlined" className="min-h-11 w-[147px] flex-1" onClick={onClose}>
-          취소
+          {t("cancel")}
         </Button>
         <Button as={Link} href="/login" className="min-h-11 w-[147px] flex-1">
-          로그인
+          {t("login")}
         </Button>
       </div>
     </ModalLayout>

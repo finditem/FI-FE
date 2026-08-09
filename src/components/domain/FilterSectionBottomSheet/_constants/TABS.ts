@@ -1,25 +1,31 @@
-export const TABS = {
-  LIST: [
-    { label: "지역", value: "region" },
-    { label: "카테고리", value: "category" },
-    { label: "정렬", value: "sort" },
-    { label: "찾음 여부", value: "findStatus" },
-  ],
-  MY_POSTS: [
-    { label: "기간", value: "date" },
-    { label: "분류", value: "status" },
-    { label: "카테고리", value: "category" },
-    { label: "정렬", value: "sort" },
-    { label: "찾음 여부", value: "findStatus" },
-  ],
-  MY_FAVORITES: [
-    { label: "지역", value: "region" },
-    { label: "분류", value: "status" },
-    { label: "카테고리", value: "category" },
-    { label: "정렬", value: "sort" },
-  ],
-  PUBLIC_DATA: [
-    { label: "지역", value: "region" },
-    { label: "카테고리", value: "category" },
-  ],
-} as const;
+import { useTranslations } from "next-intl";
+
+export const useFilterTabs = () => {
+  const t = useTranslations("FilterOptions.field");
+
+  return {
+    LIST: [
+      { label: t("region"), value: "region" },
+      { label: t("category"), value: "category" },
+      { label: t("sort"), value: "sort" },
+      { label: t("findStatus"), value: "findStatus" },
+    ],
+    MY_POSTS: [
+      { label: t("date"), value: "date" },
+      { label: t("status"), value: "status" },
+      { label: t("category"), value: "category" },
+      { label: t("sort"), value: "sort" },
+      { label: t("findStatus"), value: "findStatus" },
+    ],
+    MY_FAVORITES: [
+      { label: t("region"), value: "region" },
+      { label: t("status"), value: "status" },
+      { label: t("category"), value: "category" },
+      { label: t("sort"), value: "sort" },
+    ],
+    PUBLIC_DATA: [
+      { label: t("region"), value: "region" },
+      { label: t("category"), value: "category" },
+    ],
+  } as const;
+};

@@ -80,8 +80,15 @@ describe("<TermsAgreement />", () => {
 
     it("TERMS_CONFIG의 모든 항목(5개)이 체크박스로 렌더된다", () => {
       render(<TermsAgreement onOpenDetail={jest.fn()} onComplete={jest.fn()} />);
-      TERMS_CONFIG.forEach((item) => {
-        expect(screen.getByLabelText(item.label)).toBeInTheDocument();
+      const expectedLabels = [
+        "만 14세 이상입니다. (필수)",
+        "개인정보 수집 및 이용 동의 (필수)",
+        "약관 이용 동의 (필수)",
+        "마케팅 수신 동의 (선택)",
+        "콘텐츠 활동 동의 (선택)",
+      ];
+      expectedLabels.forEach((label) => {
+        expect(screen.getByLabelText(label)).toBeInTheDocument();
       });
     });
 

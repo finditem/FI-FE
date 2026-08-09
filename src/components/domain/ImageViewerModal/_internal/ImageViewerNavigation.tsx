@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 
 interface ImageViewerNavigationProps {
@@ -11,6 +14,7 @@ const ImageViewerNavigation = ({
   handleNext,
   imagesLength,
 }: ImageViewerNavigationProps) => {
+  const t = useTranslations("ImageViewerModal");
   if (imagesLength <= 1) return null;
 
   return (
@@ -21,7 +25,7 @@ const ImageViewerNavigation = ({
           handlePrev();
         }}
         className="absolute left-5 z-10 text-white"
-        aria-label="이전 이미지 버튼"
+        aria-label={t("prevAriaLabel")}
       >
         <Icon name="ArrowLeftSmall" size={36} className="text-white" />
       </button>
@@ -31,7 +35,7 @@ const ImageViewerNavigation = ({
           handleNext();
         }}
         className="absolute right-5 z-10 text-white"
-        aria-label="다음 이미지 버튼"
+        aria-label={t("nextAriaLabel")}
       >
         <Icon name="ArrowRightSmall" size={36} className="text-white" />
       </button>

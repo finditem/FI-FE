@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 
 /**
@@ -23,13 +26,14 @@ interface EmptyCommentUIProps {
  */
 
 const EmptyCommentUI = ({ isGuest = false }: EmptyCommentUIProps) => {
-  const guide = isGuest ? "로그인하고 첫 번째 댓글을 남겨보세요!" : "첫 번째 댓글을 남겨보세요!";
+  const t = useTranslations("EmptyCommentUI");
+  const guide = t(isGuest ? "guideGuest" : "guideMember");
 
   return (
     <div className="gap-5 py-8 text-center flex-col-center">
       <Icon name="NoComments" size={70} />
       <p className="whitespace-pre-line text-body2-regular text-layout-body-default">
-        {`아직 작성된 댓글이 없습니다.\n${guide}`}
+        {t("message", { guide })}
       </p>
     </div>
   );
