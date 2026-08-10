@@ -376,5 +376,14 @@
     "maxImagesWarning": "You can attach up to 5 photos.",
     "uploadAriaLabel": "Upload photo",
     "helpText": "Attach up to 5 photos, 10MB each (jpg, jpeg, png)"
+  },
+  "ErrorState": {
+    "defaultTitle": "Something went wrong."
+  },
+  "ErrorView": {
+    "goHome": "Go to Home"
+  },
+  "LoadingState": {
+    "defaultTitle": "Loading…"
   }
 }

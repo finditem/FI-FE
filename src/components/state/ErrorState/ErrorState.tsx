@@ -1,4 +1,7 @@
+"use client";
+
 import { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { IconName } from "@/components/common/Icon/Icon";
 import BaseStateLayout from "../BaseStateLayout/BaseStateLayout";
@@ -43,19 +46,15 @@ interface ErrorStateProps {
  * ```
  */
 
-const ErrorState = ({
-  title = "오류가 발생했어요.",
-  description,
-  children,
-  icon,
-}: ErrorStateProps) => {
+const ErrorState = ({ title, description, children, icon }: ErrorStateProps) => {
+  const t = useTranslations("ErrorState");
   const { iconName = "Error", iconClass, iconSize = 30 } = icon;
 
   return (
     <BaseStateLayout>
       <div role="alert" className="gap-5 flex-col-center">
         <Icon name={iconName} className={iconClass} size={iconSize} />
-        <p className="text-h2-bold text-layout-header-default">{title}</p>
+        <p className="text-h2-bold text-layout-header-default">{title ?? t("defaultTitle")}</p>
         {description && (
           <p className="whitespace-pre-line text-body2-regular text-layout-body-default">
             {description}

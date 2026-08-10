@@ -376,5 +376,14 @@
     "maxImagesWarning": "이미지는 최대 5장만 첨부할 수 있어요.",
     "uploadAriaLabel": "이미지 업로드",
     "helpText": "최대 10MB, 총 5장의 이미지를 첨부할 수 있습니다. (jpg, jpeg, png)"
+  },
+  "ErrorState": {
+    "defaultTitle": "오류가 발생했어요."
+  },
+  "ErrorView": {
+    "goHome": "홈으로 이동하기"
+  },
+  "LoadingState": {
+    "defaultTitle": "페이지 로딩 중..."
   }
 }

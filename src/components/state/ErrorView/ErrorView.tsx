@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Button, Icon } from "@/components/common";
 
 /**
@@ -35,6 +38,8 @@ interface ErrorViewProps {
  */
 
 const ErrorView = ({ code, title, description, iconName }: ErrorViewProps) => {
+  const t = useTranslations("ErrorView");
+
   return (
     <main className="min-h-screen flex-col-center">
       <Icon name={iconName} size={74} />
@@ -51,7 +56,7 @@ const ErrorView = ({ code, title, description, iconName }: ErrorViewProps) => {
 
         <footer className="flex-center">
           <Button as={Link} href="/" variant="outlined" replace className="min-h-11">
-            홈으로 이동하기
+            {t("goHome")}
           </Button>
         </footer>
       </section>
