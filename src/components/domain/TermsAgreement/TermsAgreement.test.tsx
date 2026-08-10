@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TermsAgreement from "./TermsAgreement";
 import { TERMS_CONFIG } from "./_constants/TERMS_CONFIG";
+import koMessages from "@/messages/ko.json";
 
 let mockIsValid = false;
 let mockSelectAll = false;
@@ -80,14 +81,8 @@ describe("<TermsAgreement />", () => {
 
     it("TERMS_CONFIG의 모든 항목(5개)이 체크박스로 렌더된다", () => {
       render(<TermsAgreement onOpenDetail={jest.fn()} onComplete={jest.fn()} />);
-      const expectedLabels = [
-        "만 14세 이상입니다. (필수)",
-        "개인정보 수집 및 이용 동의 (필수)",
-        "약관 이용 동의 (필수)",
-        "마케팅 수신 동의 (선택)",
-        "콘텐츠 활동 동의 (선택)",
-      ];
-      expectedLabels.forEach((label) => {
+      TERMS_CONFIG.forEach((item) => {
+        const label = (koMessages.TermsConfig as Record<string, string>)[item.name];
         expect(screen.getByLabelText(label)).toBeInTheDocument();
       });
     });

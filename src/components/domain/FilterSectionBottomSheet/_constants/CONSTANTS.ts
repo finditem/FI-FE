@@ -1,9 +1,5 @@
-export const tabs = [
-  { label: "지역", value: "region" },
-  { label: "카테고리", value: "category" },
-  { label: "정렬", value: "sort" },
-  { label: "찾음 여부", value: "status" },
-] as const;
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 
 export const categoryValues = [
   undefined,
@@ -21,3 +17,26 @@ export const sortValues = ["LATEST", "OLDEST", "MOST_FAVORITED", "MOST_VIEWED"] 
 export const findStatusValues = [undefined, "SEARCHING", "FOUND"] as const;
 
 export const statusValues = [undefined, "LOST", "FOUND"] as const;
+
+export const useFilterOptions = () => {
+  const t = useTranslations("FilterOptions");
+
+  return useMemo(
+    () => ({
+      categories: categoryValues.map((value) => ({
+        value,
+        label: value ? t(`category.${value}`) : t("all"),
+      })),
+      sort: sortValues.map((value) => ({ value, label: t(`sort.${value}`) })),
+      findStatus: findStatusValues.map((value) => ({
+        value,
+        label: value ? t(`findStatus.${value}`) : t("all"),
+      })),
+      status: statusValues.map((value) => ({
+        value,
+        label: value ? t(`status.${value}`) : t("all"),
+      })),
+    }),
+    [t]
+  );
+};

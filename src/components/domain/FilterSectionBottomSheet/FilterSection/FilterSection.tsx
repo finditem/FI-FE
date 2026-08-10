@@ -117,7 +117,7 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
       ariaLabel: tf("regionAriaLabel"),
       onSelected: selectionState.isRegionSelected,
       icon: { name: "Location", size: 16 },
-      label: selectionState.isRegionSelected ? region : tf("regionPlaceholder"),
+      label: selectionState.isRegionSelected ? region : tf("regionUnselectedLabel"),
       iconPosition: "leading",
     },
     category: {

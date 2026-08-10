@@ -88,7 +88,16 @@
   },
   "ListItemImage": {
     "categoryFallbackAlt": "{category} 기본 이미지",
-    "imageCountAlt": "이미지 {count}장"
+    "imageCountAlt": "이미지 {count}장",
+    "category": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
   },
   "ConfirmModal": {
     "cancel": "취소",
@@ -204,7 +213,7 @@
   "FilterSection": {
     "dateAriaLabel": "기간 필터",
     "regionAriaLabel": "지역 선택 필터",
-    "regionPlaceholder": "지역 선택",
+    "regionUnselectedLabel": "지역 선택",
     "categoryAriaLabel": "카테고리 필터",
     "sortAriaLabel": "정렬 필터",
     "findStatusAriaLabel": "찾음 여부 필터",
@@ -243,27 +252,27 @@
   "MypageEmptyUI": {
     "posts": {
       "heading": "아직 작성한 게시글이 없어요.",
-      "body": "아직 작성한 게시글이 없습니다. 지금 바로 글을 남겨보세요!"
+      "body": "아직 작성한 게시글이 없습니다.\n지금 바로 글을 남겨보세요!"
     },
     "comments": {
       "heading": "아직 작성한 댓글이 없어요.",
-      "body": "아직 작성한 댓글이 없습니다. 게시글에 댓글을 남겨 보세요!"
+      "body": "아직 작성한 댓글이 없습니다.\n게시글에 댓글을 남겨 보세요!"
     },
     "favorites": {
       "heading": "아직 즐겨찾기한 게시글이 없어요.",
-      "body": "아직 즐겨찾기한 게시글이 없습니다. 나중에 다시 보고 싶은 게시글을 모아보세요!"
+      "body": "아직 즐겨찾기한 게시글이 없습니다.\n나중에 다시 보고 싶은 게시글을 모아보세요!"
     },
     "reports": {
       "heading": "아직 신고 내역이 없어요.",
-      "body": "아직 신고 내역이 없습니다. 이용 중 불편 사항이 있을 경우 신고할 수 있어요."
+      "body": "아직 신고 내역이 없습니다.\n이용 중 불편 사항이 있을 경우 신고할 수 있어요."
     },
     "inquiries": {
       "heading": "아직 문의 내역이 없어요.",
-      "body": "아직 문의 내역이 없습니다. 궁금한 점이 있다면 언제든 문의해 주세요."
+      "body": "아직 문의 내역이 없습니다.\n궁금한 점이 있다면 언제든 문의해 주세요."
     },
     "activity": {
       "heading": "아직 활동 내역이 없어요.",
-      "body": "아직 활동 내역이 없습니다. 게시글 작성이나 댓글 참여를 시작해보세요"
+      "body": "아직 활동 내역이 없습니다.\n게시글 작성이나 댓글 참여를 시작해보세요"
     }
   },
   "MypageSearch": {

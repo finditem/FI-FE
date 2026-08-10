@@ -82,7 +82,7 @@ const ListItemImage = ({
       ) : (
         <div
           className="h-full w-full flex-center"
-          aria-label={t("categoryFallbackAlt", { category: category ?? "ETC" })}
+          aria-label={t("categoryFallbackAlt", { category: t(`category.${category ?? "ETC"}`) })}
         >
           <Icon
             name={CATEGORY_ICON_MAP[category!]}

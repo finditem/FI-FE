@@ -58,9 +58,9 @@ const ReportReasonModal = ({
         <fieldset className="flex flex-col gap-[2px]">
           {REPORT_REASONS.map((reason) => (
             <RadioOptionItem
-              key={reason.id}
-              option={{ value: reason.id, label: reason.label }}
-              selected={tempSelectedReportReason?.id ?? ""}
+              key={reason.value}
+              option={{ value: reason.value, label: reason.label }}
+              selected={tempSelectedReportReason?.value ?? ""}
               onChange={() => setTempSelectedReportReason(reason)}
               inputName="reportReason"
             />

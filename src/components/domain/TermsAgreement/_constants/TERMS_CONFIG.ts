@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
 export const TERMS_CONFIG = [
@@ -10,5 +11,5 @@ export const TERMS_CONFIG = [
 
 export const useTermsConfig = () => {
   const t = useTranslations("TermsConfig");
-  return TERMS_CONFIG.map((item) => ({ ...item, label: t(item.name) }));
+  return useMemo(() => TERMS_CONFIG.map((item) => ({ ...item, label: t(item.name) })), [t]);
 };

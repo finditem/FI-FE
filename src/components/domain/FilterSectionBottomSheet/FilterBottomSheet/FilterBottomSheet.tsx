@@ -15,12 +15,7 @@ import {
   StatusFilterValue,
   tabsType,
 } from "../_types/types";
-import {
-  categoryValues,
-  sortValues,
-  statusValues,
-  findStatusValues,
-} from "../_constants/CONSTANTS";
+import { useFilterOptions } from "../_constants/CONSTANTS";
 import { FiltersStateType } from "../_types/filtersStateType";
 import { useFilterTabs } from "../_constants/TABS";
 import PopupLayout from "../../PopupLayout/PopupLayout";
@@ -77,28 +72,14 @@ const FilterBottomSheet = ({
   setFilters,
   pageType = "LIST",
 }: FilterBottomSheetProps) => {
-  const t = useTranslations("FilterOptions");
   const tf = useTranslations("FilterBottomSheet");
   const TABS = useFilterTabs();
+  const { categories, sort, findStatus, status } = useFilterOptions();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const { data: results = [], isLoading } = useVWorldAddressSearch(filters.region);
-
-  const categories = categoryValues.map((value) => ({
-    value,
-    label: value ? t(`category.${value}`) : t("all"),
-  }));
-  const sort = sortValues.map((value) => ({ value, label: t(`sort.${value}`) }));
-  const findStatus = findStatusValues.map((value) => ({
-    value,
-    label: value ? t(`findStatus.${value}`) : t("all"),
-  }));
-  const status = statusValues.map((value) => ({
-    value,
-    label: value ? t(`status.${value}`) : t("all"),
-  }));
 
   const handleRegionSelect = (item: VWorldAddressItem) => {
     const address = item.address.road || item.address.parcel;

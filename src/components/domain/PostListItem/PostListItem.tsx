@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
-import { cn, formatDate, getItemCategoryLabel, getItemStatusLabel, highlightText } from "@/utils";
+import { cn, formatDate, highlightText } from "@/utils";
 
 /**
  * 게시글 목록의 개별 아이템 컴포넌트입니다.
@@ -35,6 +35,7 @@ interface PostListItemProps {
 
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
   const t = useTranslations("PostListItem");
+  const tFilterOptions = useTranslations("FilterOptions");
   const { id, postStatus, category, createdAt, isNew, isHot, imageCount } = post;
   const isFound = postStatus === "FOUND";
 
@@ -65,11 +66,11 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
           {linkState === "list" && (
             <div className="mb-2 flex gap-2">
               <Chip
-                label={getItemStatusLabel(postStatus)}
+                label={tFilterOptions(`findStatus.${postStatus}`)}
                 type={isFound ? "toast" : "brandSubtle"}
               />
               <Chip
-                label={getItemCategoryLabel(category)}
+                label={tFilterOptions(`category.${category}`)}
                 type={isFound ? "neutralDisabled" : "neutralStrong"}
               />
             </div>

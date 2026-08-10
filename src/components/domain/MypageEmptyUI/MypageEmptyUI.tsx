@@ -19,7 +19,9 @@ const MypageEmptyUI = ({ pageType }: MypageEmptyUIProps) => {
         className={pageType == "activity" ? "w-[160px]" : ""}
       />
       <h2 className="text-h2-bold text-layout-header-default">{t(`${pageType}.heading`)}</h2>
-      <p className="text-body2-regular text-layout-body-default">{t(`${pageType}.body`)}</p>
+      <p className="whitespace-pre-line text-body2-regular text-layout-body-default">
+        {t(`${pageType}.body`)}
+      </p>
     </div>
   );
 };

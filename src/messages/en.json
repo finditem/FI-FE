@@ -88,7 +88,16 @@
   },
   "ListItemImage": {
     "categoryFallbackAlt": "{category} default image",
-    "imageCountAlt": "{count} photos"
+    "imageCountAlt": "{count} photos",
+    "category": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallet",
+      "ID_CARD": "ID Card",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bag",
+      "CARD": "Card",
+      "ETC": "Other"
+    }
   },
   "ConfirmModal": {
     "cancel": "Cancel",
@@ -204,7 +213,7 @@
   "FilterSection": {
     "dateAriaLabel": "Date filter",
     "regionAriaLabel": "Location filter",
-    "regionPlaceholder": "Select location",
+    "regionUnselectedLabel": "Select location",
     "categoryAriaLabel": "Category filter",
     "sortAriaLabel": "Sort filter",
     "findStatusAriaLabel": "Status filter",
@@ -220,8 +229,8 @@
     "title": "Select date range",
     "startDate": "Start date",
     "endDate": "End date",
-    "month": "",
-    "day": "",
+    "month": " mo",
+    "day": " day",
     "reset": "Reset",
     "resetAriaLabel": "Reset dates",
     "apply": "Apply"
