@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import { useBlock } from "@/api/fetch/report";
 import { Button } from "@/components/common";

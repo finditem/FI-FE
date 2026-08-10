@@ -1,5 +1,3 @@
-"use client";
-
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import Icon from "../../Icon/Icon";

@@ -1,5 +1,3 @@
-"use client";
-
 import { CommentItem } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";
 import { Icon, ListItemImage } from "@/components/common";
