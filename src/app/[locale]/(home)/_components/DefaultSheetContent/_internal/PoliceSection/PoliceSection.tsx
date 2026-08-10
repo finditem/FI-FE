@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import MainCardList from "../MainCardList/MainCardList";
 import { POLICE_ITEMS } from "../../../HOME_CONST";
 import { usePublicRecentFound } from "@/api/fetch/publicData/api/usePublicRecentFound";

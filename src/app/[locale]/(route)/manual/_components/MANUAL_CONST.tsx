@@ -35,7 +35,7 @@ export const MANUAL_DATA: Manual = {
       content: (
         <>'찾아줘'에 분실 게시물을 작성하면 물건을 습득한 분이 게시글을 통해 연락할 수 있어요.</>
       ),
-      href: "https://www.finditem.kr/write/post?type=lost",
+      href: "/write/post?type=lost",
       btnText: "분실 게시글 쓰러가기",
     },
     {
@@ -108,7 +108,7 @@ export const MANUAL_DATA: Manual = {
           찾는 데에 도움이 돼요.
         </>
       ),
-      href: "https://www.finditem.kr/write/post?type=find",
+      href: "/write/post?type=find",
       btnText: "발견 게시물 쓰러가기",
     },
     {
