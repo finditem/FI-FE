@@ -52,7 +52,7 @@ interface FilterSectionProps {
  */
 
 const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
-  const tf = useTranslations("FilterSection");
+  const t = useTranslations("FilterSection");
   const TABS = useFilterTabs();
   const {
     categoryDefaultLabel,
@@ -107,35 +107,35 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
 
   const filterConfigs: Record<FilterTab, any> = {
     date: {
-      ariaLabel: tf("dateAriaLabel"),
+      ariaLabel: t("dateAriaLabel"),
       onSelected: selectionState.isDateSelected,
       icon: { name: "Calendar", size: 16 },
       label: dateLabel,
       iconPosition: "leading",
     },
     region: {
-      ariaLabel: tf("regionAriaLabel"),
+      ariaLabel: t("regionAriaLabel"),
       onSelected: selectionState.isRegionSelected,
       icon: { name: "Location", size: 16 },
-      label: selectionState.isRegionSelected ? region : tf("regionUnselectedLabel"),
+      label: selectionState.isRegionSelected ? region : t("regionUnselectedLabel"),
       iconPosition: "leading",
     },
     category: {
-      ariaLabel: tf("categoryAriaLabel"),
+      ariaLabel: t("categoryAriaLabel"),
       onSelected: selectionState.isCategorySelected,
       icon: { name: "ArrowDown", size: 12 },
       label: (normalizedCategory && CATEGORY_LABEL_MAP[normalizedCategory]) ?? categoryDefaultLabel,
       iconPosition: "trailing",
     },
     sort: {
-      ariaLabel: tf("sortAriaLabel"),
+      ariaLabel: t("sortAriaLabel"),
       onSelected: selectionState.isSortSelected && normalizedSort !== "LATEST",
       icon: { name: "ArrowDown", size: 12 },
       label: (normalizedSort && SORT_LABEL_MAP[normalizedSort]) ?? SORT_LABEL_MAP.LATEST,
       iconPosition: "trailing",
     },
     findStatus: {
-      ariaLabel: tf("findStatusAriaLabel"),
+      ariaLabel: t("findStatusAriaLabel"),
       onSelected: selectionState.isFindStatusSelected,
       icon: { name: "ArrowDown", size: 12 },
       label:
@@ -144,7 +144,7 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
       iconPosition: "trailing",
     },
     status: {
-      ariaLabel: tf("statusAriaLabel"),
+      ariaLabel: t("statusAriaLabel"),
       onSelected: selectionState.isStatusSelected,
       icon: { name: "ArrowDown", size: 12 },
       label: (normalizedStatus && STATUS_LABEL_MAP[normalizedStatus]) ?? statusDefaultLabel,
@@ -155,7 +155,7 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
   return (
     <>
       <section
-        aria-label={tf("sectionAriaLabel")}
+        aria-label={t("sectionAriaLabel")}
         className="flex h-[67px] w-full items-center gap-2 overflow-x-auto overflow-y-hidden whitespace-nowrap px-5 no-scrollbar"
       >
         {TABS[pageType].map((tab) => {

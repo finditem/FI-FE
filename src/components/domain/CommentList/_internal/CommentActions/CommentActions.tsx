@@ -1,5 +1,3 @@
-"use client";
-
 import type { Dispatch, SetStateAction } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";

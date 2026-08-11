@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/utils";
 import { ButtonHTMLAttributes } from "react";
 import { useTranslations } from "next-intl";
