@@ -440,5 +440,84 @@
   },
   "LoginForm": {
     "invalidEmail": "아이디에 이메일을 입력해주세요."
+  },
+  "SignUpLayout": {
+    "title": "회원가입",
+    "description": "찾아줘 계정을 만들어 분실물을 찾고 습득물을 공유해 보세요."
+  },
+  "SignUpField": {
+    "title": "회원가입",
+    "nextAriaLabel": "다음 버튼",
+    "next": "다음"
+  },
+  "SignUpItem": {
+    "emailRequired": "이메일을 입력해 주세요.",
+    "emailInvalid": "이메일 형식을 입력해 주세요.",
+    "emailAuthRequired": "이메일 인증이 필요해요.",
+    "passwordRequired": "비밀번호를 입력해 주세요.",
+    "passwordInvalid": "대문자/소문자/숫자/특수 문자 포함 8자리 이상을 입력해 주세요.",
+    "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+    "nicknameRequired": "닉네임을 입력해 주세요.",
+    "nicknameInvalidChars": "자음·모음 및 특수문자는 입력할 수 없습니다.",
+    "nicknameLength": "2~10자 사이의 닉네임을 입력해 주세요."
+  },
+  "SignUpInputConfig": {
+    "emailPlaceholder": "이메일을 입력해 주세요.",
+    "emailLabel": "아이디(이메일)",
+    "emailBtnLabel": "인증번호 발송",
+    "emailAuthPlaceholder": "인증번호를 입력해 주세요.",
+    "emailAuthBtnLabel": "인증번호 확인",
+    "emailAuthSuccessMessage": "인증되었습니다.",
+    "emailAuthLabel": "이메일 인증",
+    "passwordPlaceholder": "비밀번호을 입력해 주세요.",
+    "passwordRule": "8~16자리, 대문자/소문자/숫자/특수 문자 포함",
+    "passwordSuccessMessage": "대문자/소문자/숫자/특수 문자 포함 8~16자리 사이",
+    "passwordLabel": "비밀번호",
+    "passwordConfirmPlaceholder": "비밀번호 한번 더 입력해 주세요.",
+    "passwordConfirmSuccessMessage": "비밀번호가 일치합니다.",
+    "passwordConfirmLabel": "비밀번호 확인",
+    "nicknamePlaceholder": "닉네임을 입력해 주세요.",
+    "nicknameBtnLabel": "중복 확인",
+    "nicknameRule": "2~10자, 특수문자/금칙어 제한",
+    "nicknameSuccessMessage": "사용할 수 있는 닉네임입니다.",
+    "nicknameLabel": "닉네임"
+  },
+  "SignUpErrorMessage": {
+    "AUTH409-EMAIL_DUPLICATED": "이미 가입된 이메일이에요",
+    "AUTH400-EMAIL_INVALID": "올바른 이메일 형식이 아니에요",
+    "AUTH400-WEAK_PASSWORD": "비밀번호 규칙을 만족하지 않아요",
+    "AUTH409-EMAIL_RECENTLY_DELETED": "최근 탈퇴한 이메일이에요. 7일 후 재가입 해주세요",
+    "AUTH400-EMAIL_NOT_VERIFIED": "이메일 인증이 완료되지 않았어요. 이메일 인증을 먼저 완료해주세요",
+    "AUTH400-EMAIL_VERIFY_FAILED": "인증코드가 만료되었거나 일치하지 않아요",
+    "COMMON400": "잘못된 요청이에요"
+  },
+  "EmailErrorMessage": {
+    "AUTH409-EMAIL_DUPLICATED": "이미 존재하는 이메일이에요",
+    "_EMAIL_RECENTLY_DELETED": "최근 탈퇴한 이메일이에요. 7일 후 재가입 해주세요",
+    "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요"
+  },
+  "EmailCheckCodeMessage": {
+    "_INVALID_CREDENTIALS": "인증번호가 일치하지 않아요",
+    "AUTH400-EMAIL_VERIFY_FAILED": "인증번호가 만료되었거나 일치하지 않아요"
+  },
+  "RoutingGard": {
+    "invalidAccess": "잘못된 접근이에요"
+  },
+  "SignUpBtnClick": {
+    "codeSent": "인증번호가 발송되었어요",
+    "codeVerified": "인증되었습니다."
+  },
+  "SignUpSubmit": {
+    "completed": "회원가입이 완료되었어요."
+  },
+  "NicknameCheck": {
+    "lengthErrorMessage": "2~10자 사이의 닉네임을 입력해 주세요.",
+    "lengthErrorToast": "2~10자 사이의 닉네임을 입력해 주세요",
+    "verifiedToast": "사용할 수 있는 닉네임이에요.",
+    "invalidWordMessage": "사용할 수 없는 단어가 포함되어 있어요.",
+    "invalidWordToast": "사용할 수 없는 단어가 포함되어 있어요",
+    "duplicateMessage": "이미 사용 중인 닉네임이에요.",
+    "duplicateToast": "이미 사용중인 닉네임이에요",
+    "unexpectedError": "예상치 못한 오류가 발생했어요"
   }
 }

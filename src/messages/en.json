@@ -440,5 +440,84 @@
   },
   "LoginForm": {
     "invalidEmail": "Please enter a valid email address."
+  },
+  "SignUpLayout": {
+    "title": "Sign Up",
+    "description": "Create a finditem account to search for lost items and share what you've found."
+  },
+  "SignUpField": {
+    "title": "Sign Up",
+    "nextAriaLabel": "Next",
+    "next": "Next"
+  },
+  "SignUpItem": {
+    "emailRequired": "Please enter your email.",
+    "emailInvalid": "Please enter a valid email address.",
+    "emailAuthRequired": "Email verification is required.",
+    "passwordRequired": "Please enter your password.",
+    "passwordInvalid": "Use at least 8 characters with uppercase, lowercase, a number, and a special character.",
+    "passwordMismatch": "Passwords don't match.",
+    "nicknameRequired": "Please enter a nickname.",
+    "nicknameInvalidChars": "Nicknames can't contain special characters.",
+    "nicknameLength": "Nicknames must be 2-10 characters."
+  },
+  "SignUpInputConfig": {
+    "emailPlaceholder": "Enter your email",
+    "emailLabel": "Email",
+    "emailBtnLabel": "Send code",
+    "emailAuthPlaceholder": "Enter verification code",
+    "emailAuthBtnLabel": "Verify code",
+    "emailAuthSuccessMessage": "Verified.",
+    "emailAuthLabel": "Email Verification",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRule": "8-16 characters, with uppercase, lowercase, a number, and a special character",
+    "passwordSuccessMessage": "8-16 characters, with uppercase, lowercase, a number, and a special character",
+    "passwordLabel": "Password",
+    "passwordConfirmPlaceholder": "Re-enter your password",
+    "passwordConfirmSuccessMessage": "Passwords match.",
+    "passwordConfirmLabel": "Confirm Password",
+    "nicknamePlaceholder": "Enter a nickname",
+    "nicknameBtnLabel": "Check availability",
+    "nicknameRule": "2-10 characters, no special characters or banned words",
+    "nicknameSuccessMessage": "This nickname is available.",
+    "nicknameLabel": "Nickname"
+  },
+  "SignUpErrorMessage": {
+    "AUTH409-EMAIL_DUPLICATED": "This email is already registered",
+    "AUTH400-EMAIL_INVALID": "That doesn't look like a valid email",
+    "AUTH400-WEAK_PASSWORD": "Your password doesn't meet the requirements",
+    "AUTH409-EMAIL_RECENTLY_DELETED": "This email recently deleted its account. Please try again in 7 days.",
+    "AUTH400-EMAIL_NOT_VERIFIED": "Your email isn't verified yet. Please verify it first.",
+    "AUTH400-EMAIL_VERIFY_FAILED": "This code has expired or doesn't match",
+    "COMMON400": "Something went wrong"
+  },
+  "EmailErrorMessage": {
+    "AUTH409-EMAIL_DUPLICATED": "This email is already in use",
+    "_EMAIL_RECENTLY_DELETED": "This email recently deleted its account. Please try again in 7 days.",
+    "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email"
+  },
+  "EmailCheckCodeMessage": {
+    "_INVALID_CREDENTIALS": "That code doesn't match",
+    "AUTH400-EMAIL_VERIFY_FAILED": "This code has expired or doesn't match"
+  },
+  "RoutingGard": {
+    "invalidAccess": "Invalid access"
+  },
+  "SignUpBtnClick": {
+    "codeSent": "We sent a verification code",
+    "codeVerified": "Verified."
+  },
+  "SignUpSubmit": {
+    "completed": "Sign up complete!"
+  },
+  "NicknameCheck": {
+    "lengthErrorMessage": "Nicknames must be 2-10 characters.",
+    "lengthErrorToast": "Nicknames must be 2-10 characters",
+    "verifiedToast": "This nickname is available.",
+    "invalidWordMessage": "This nickname contains a restricted word.",
+    "invalidWordToast": "This nickname contains a restricted word",
+    "duplicateMessage": "This nickname is already taken.",
+    "duplicateToast": "This nickname is already taken",
+    "unexpectedError": "Something unexpected went wrong"
   }
 }
