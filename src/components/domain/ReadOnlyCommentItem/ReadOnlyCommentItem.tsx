@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn, formatDate } from "@/utils";
 import { ProfileAvatar, Chip } from "@/components/common";
 import { ReadOnlyCommentItemProps } from "@/types";
@@ -31,6 +32,7 @@ const ReadOnlyCommentItem = ({
   data: ReadOnlyCommentItemProps;
   images?: string[];
 }) => {
+  const t = useTranslations("ReadOnlyCommentItem");
   const { isAdmin, userImageUrl, userName, content, createdAt } = data;
 
   return (
@@ -45,7 +47,7 @@ const ReadOnlyCommentItem = ({
           <ProfileAvatar src={userImageUrl} alt={userName} size={30} />
           <div className="flex flex-col gap-[2px]">
             <div className="flex items-center gap-[6px]">
-              {isAdmin && <Chip label="관리자" type="admin" />}
+              {isAdmin && <Chip label={t("admin")} type="admin" />}
               <p className="text-body1-medium text-layout-header-default">{userName}</p>
             </div>
             <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">

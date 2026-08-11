@@ -2,6 +2,7 @@
 "use no memo";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { useToast } from "@/context/ToastContext";
@@ -13,6 +14,7 @@ interface ProfileEditSectionProps {
 }
 
 const ProfileEditSection = ({ onConfirmRequest }: ProfileEditSectionProps) => {
+  const t = useTranslations("ProfileEditSection");
   const { addToast } = useToast();
   const { data, isError } = useGetUsersMe();
 
@@ -20,7 +22,7 @@ const ProfileEditSection = ({ onConfirmRequest }: ProfileEditSectionProps) => {
 
   useEffect(() => {
     if (isError) {
-      addToast("프로필 정보를 불러오지 못했어요", "error");
+      addToast(t("loadError"), "error");
     }
   }, [isError, addToast]);
 

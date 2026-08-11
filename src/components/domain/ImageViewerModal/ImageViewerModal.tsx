@@ -2,6 +2,7 @@
 
 import { createPortal } from "react-dom";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -60,6 +61,7 @@ const ImageViewerModal = ({
   onClose,
   imageInfo,
 }: ImageViewerModalProps) => {
+  const t = useTranslations("ImageViewerModal");
   const swiperRef = useRef<SwiperType | null>(null);
 
   const handleNext = () => swiperRef.current?.slideNext();
@@ -73,7 +75,7 @@ const ImageViewerModal = ({
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="이미지 상세 보기 모달"
+      aria-label={t("modalAriaLabel")}
       className="fixed inset-0 z-50 bg-dimOpaque"
     >
       <ImageViewerHeader
@@ -104,7 +106,7 @@ const ImageViewerModal = ({
               <div className="relative h-full w-full select-none">
                 <Image
                   src={image}
-                  alt={`상세 이미지 ${index + 1}`}
+                  alt={t("imageAlt", { number: index + 1 })}
                   fill
                   className="select-none object-contain"
                 />

@@ -100,7 +100,7 @@ describe("<CommentList />", () => {
 
   it("총 댓글 수를 헤더에 표시합니다.", () => {
     render(<CommentList {...defaultProps} comments={baseComments as any} />);
-    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getByText("댓글 3")).toBeInTheDocument();
   });
 
   it("hasNext가 true이면 ViewMoreComment를 렌더링합니다.", () => {

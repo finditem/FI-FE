@@ -29,8 +29,7 @@ describe("<CommentActions />", () => {
 
   it("답글 보기 개수가 올바르게 표시됩니다.", () => {
     render(<CommentActions {...defaultProps} />);
-    expect(screen.getByText("5")).toBeInTheDocument();
-    expect(screen.getByText(/개/)).toBeInTheDocument();
+    expect(screen.getByText("답글 5개")).toBeInTheDocument();
   });
 
   it("답글수 영역 클릭 시 setViewReply가 호출됩니다.", async () => {

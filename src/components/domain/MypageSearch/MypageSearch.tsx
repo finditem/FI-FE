@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { InputSearch } from "@/components/common";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -8,6 +9,7 @@ interface MypageSearchProps {
 }
 
 const MypageSearch = ({ searchMode }: MypageSearchProps) => {
+  const t = useTranslations("MypageSearch");
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -28,11 +30,11 @@ const MypageSearch = ({ searchMode }: MypageSearchProps) => {
 
   return (
     <section className="w-full px-5 py-[10px]">
-      <h2 className="sr-only">검색 영역</h2>
+      <h2 className="sr-only">{t("sectionHeading")}</h2>
       <InputSearch
         name="search"
         defaultValue={currentKeyword}
-        placeholder="제목, 내용을 입력해 주세요."
+        placeholder={t("placeholder")}
         mode="onChange"
         onEnter={(value) => handleSearch(value)}
       />

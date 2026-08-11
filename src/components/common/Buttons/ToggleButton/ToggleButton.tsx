@@ -1,5 +1,6 @@
 import { cn } from "@/utils";
 import { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * ON/OFF를 슬라이더 형태로 보여 주는 토글 컨트롤입니다.
@@ -34,17 +35,18 @@ interface ToggleButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  */
 
 const ToggleButton = ({
-  ariaLabel = "토글 버튼",
+  ariaLabel,
   toggleState,
   disabled = false,
   ...props
 }: ToggleButtonProps) => {
+  const t = useTranslations("ToggleButton");
   const finalToggleState = disabled ? false : toggleState;
   return (
     <button
       {...props}
       disabled={disabled}
-      aria-label={ariaLabel}
+      aria-label={ariaLabel ?? t("ariaLabel")}
       aria-checked={finalToggleState}
       className={cn(
         "h-[30px] w-[64px] rounded-full p-1 transition-colors duration-200 disabled:bg-fill-neutralInversed-normal-disabled",

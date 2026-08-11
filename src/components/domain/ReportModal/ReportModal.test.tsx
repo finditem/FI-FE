@@ -50,7 +50,7 @@ describe("ReportModal", () => {
     await user.click(screen.getByRole("button", { name: "신고 사유 선택" }));
     expect(screen.getByRole("heading", { name: "신고 사유 선택" })).toBeInTheDocument();
 
-    const firstLabel = REPORT_REASONS[0].label;
+    const firstLabel = "실제 분실/발견한 물건이 아닌 내용이에요.";
     await user.click(screen.getByText(firstLabel));
     await user.click(screen.getByRole("button", { name: "선택하기" }));
 
