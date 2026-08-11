@@ -11,6 +11,7 @@ import {
   useState,
 } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button, Icon } from "@/components/common";
 import { cn } from "@/utils";
 
@@ -34,6 +35,7 @@ interface ReplyFormProps {
 }
 
 const ReplyForm = ({ isThreadItem, className, disabled, onSubmit, isPending }: ReplyFormProps) => {
+  const t = useTranslations("ReplyForm");
   const inputId = useId();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -110,7 +112,7 @@ const ReplyForm = ({ isThreadItem, className, disabled, onSubmit, isPending }: R
         <textarea
           id="reply-form-textarea"
           ref={textareaRef}
-          placeholder="답글 작성란"
+          placeholder={t("placeholder")}
           maxLength={500}
           value={content}
           onChange={handleChange}
@@ -135,11 +137,11 @@ const ReplyForm = ({ isThreadItem, className, disabled, onSubmit, isPending }: R
                 className="size-[60px] rounded-[16px] object-cover"
               />
 
-              <div className="absolute inset-0 rounded-[16px] bg-gradient-to-b from-black/10 to-transparent" />
+              <div className="to-transparent absolute inset-0 rounded-[16px] bg-gradient-to-b from-black/10" />
 
               <button
                 type="button"
-                aria-label="이미지 삭제"
+                aria-label={t("deleteImageAriaLabel")}
                 className="absolute right-1.5 top-1 z-10"
                 onClick={() => setImage(null)}
               >
@@ -164,19 +166,19 @@ const ReplyForm = ({ isThreadItem, className, disabled, onSubmit, isPending }: R
 
           <label
             htmlFor={inputId}
-            aria-label="이미지 추가"
+            aria-label={t("addImageAriaLabel")}
             className="size-11 cursor-pointer rounded-full bg-white flex-center"
           >
             <Icon name="Image" size={20} className="text-neutralInversed-normal-default" />
           </label>
 
           <Button
-            aria-label="댓글 등록"
+            aria-label={t("submitAriaLabel")}
             className="min-h-11 !min-w-[52px] rounded-full px-3"
             type="submit"
             disabled={disabled || isPending || !content.trim()}
           >
-            등록
+            {t("submit")}
           </Button>
         </div>
       </div>

@@ -2,6 +2,7 @@
 "use no memo";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Button, RadioOptionItem } from "@/components/common";
 import { PopupLayout } from "@/components/domain";
 import { CategoryType, InquiryTargetType, NoticeCategory } from "@/types";
@@ -46,6 +47,7 @@ const CategoryPopup = <T extends CategoryPopupMode = "post">({
   onSelect,
   defaultSelected,
 }: CategoryPopupProps<T>) => {
+  const t = useTranslations("CategoryPopup");
   const [selected, setSelected] = useState<CategoryValueByMode[T]>();
   const categoryOptions = CATEGORY_OPTIONS_BY_MODE[mode];
 
@@ -63,7 +65,7 @@ const CategoryPopup = <T extends CategoryPopupMode = "post">({
   return (
     <PopupLayout isOpen={isOpen} onClose={onClose} className="flex flex-col gap-12 px-5 py-10">
       <section className="flex flex-col gap-8">
-        <h2 className="text-center text-h2-medium text-layout-header-default">카테고리 선택</h2>
+        <h2 className="text-center text-h2-medium text-layout-header-default">{t("title")}</h2>
 
         <div className="flex flex-col gap-[2px]">
           {categoryOptions.map((option) => (
@@ -79,7 +81,7 @@ const CategoryPopup = <T extends CategoryPopupMode = "post">({
       </section>
 
       <Button type="button" className="min-h-11" disabled={!selected} onClick={handleApply}>
-        적용하기
+        {t("apply")}
       </Button>
     </PopupLayout>
   );

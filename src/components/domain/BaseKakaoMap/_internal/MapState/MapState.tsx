@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 
@@ -48,12 +49,14 @@ const StateLayout = ({ icon, title, children, contentClassName }: StateLayoutPro
  */
 
 const MapLoadingState = () => {
+  const t = useTranslations("MapState");
+
   return (
     <StateLayout
       icon={
         <Icon name="LogoCharacterOutlined" size={70} className="text-labelsVibrant-quaternary" />
       }
-      title="페이지 로딩 중입니다."
+      title={t("loadingTitle")}
       contentClassName="gap-8"
     >
       <Icon name="Loading" className="animate-spin" size={30} />
@@ -75,15 +78,17 @@ const MapLoadingState = () => {
  */
 
 const MapErrorState = () => {
+  const t = useTranslations("MapState");
+
   return (
     <StateLayout
       icon={<Icon name="AlertState" size={70} />}
-      title="지도를 표시할 수 없습니다."
+      title={t("errorTitle")}
       contentClassName="gap-5"
     >
       <span className="text-center text-body2-regular text-layout-body-default">
-        일시적인 서비스 오류가 발생했습니다. <br />
-        잠시 후 다시 시도해 주세요.
+        {t("errorDescriptionLine1")} <br />
+        {t("errorDescriptionLine2")}
       </span>
     </StateLayout>
   );

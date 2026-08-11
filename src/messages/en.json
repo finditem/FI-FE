@@ -29,5 +29,352 @@
     "label": "Language",
     "ko": "한국어",
     "en": "English"
+  },
+  "Badge": {
+    "new": "New",
+    "hot": "Popular"
+  },
+  "Bookmark": {
+    "ariaLabel": "Bookmark"
+  },
+  "Filter": {
+    "ariaLabel": "{label} filter"
+  },
+  "FloatingButton": {
+    "ariaLabel": "Quick actions"
+  },
+  "ImageSelectButton": {
+    "attachAriaLabel": "Attach photo",
+    "importedImageAlt": "Imported photo {number}"
+  },
+  "Location": {
+    "ariaLabel": "View location"
+  },
+  "ScrollToTopButton": {
+    "ariaLabel": "Scroll to top"
+  },
+  "ToggleButton": {
+    "ariaLabel": "Toggle"
+  },
+  "ViewMoreComment": {
+    "ariaLabel": "View more comments",
+    "moreReplies": "View {count, plural, one {# more reply} other {# more replies}}",
+    "moreComments": "View {count, plural, one {# more comment} other {# more comments}}"
+  },
+  "ViewMoreReply": {
+    "viewMoreAriaLabel": "View replies",
+    "writeReply": "Write a reply"
+  },
+  "CheckBox": {
+    "checked": "Checked",
+    "unchecked": "Unchecked"
+  },
+  "DeleteButton": {
+    "ariaLabel": "Clear input"
+  },
+  "InputCommentImageSection": {
+    "listAriaLabel": "Comment photos",
+    "imageAlt": "Comment photo {number}",
+    "deleteAriaLabel": "Remove photo"
+  },
+  "InputComment": {
+    "attachAriaLabel": "Attach photo",
+    "placeholder": "Write a message",
+    "submitAriaLabel": "Send"
+  },
+  "InputText": {
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
+  },
+  "ListItemImage": {
+    "categoryFallbackAlt": "{category} default image",
+    "imageCountAlt": "{count} photos",
+    "category": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallet",
+      "ID_CARD": "ID Card",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bag",
+      "CARD": "Card",
+      "ETC": "Other"
+    }
+  },
+  "ConfirmModal": {
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "ProfileAvatar": {
+    "defaultAlt": "User",
+    "profileAlt": "{name}'s profile"
+  },
+  "AddToHomeScreenPWA": {
+    "title": "Add finditem to your home screen\nfor quicker access",
+    "description": "Adding finditem to your home screen makes it\nfaster and easier to use",
+    "install": "Add to Home Screen",
+    "later": "Maybe later"
+  },
+  "MapState": {
+    "loadingTitle": "Loading page…",
+    "errorTitle": "Map unavailable",
+    "errorDescriptionLine1": "We're having a temporary issue.",
+    "errorDescriptionLine2": "Please try again in a moment."
+  },
+  "CategoryPopup": {
+    "title": "Select category",
+    "apply": "Apply"
+  },
+  "CommentCard": {
+    "likeAriaLabel": "Like",
+    "imageAlt": "Comment photo"
+  },
+  "CommentActions": {
+    "replyCount": "{count} replies",
+    "writeReply": "Write a reply"
+  },
+  "CommentBody": {
+    "imageAlt": "Photo {number}"
+  },
+  "CommentFooter": {
+    "unlikeAriaLabel": "Unlike",
+    "likeAriaLabel": "Like",
+    "likeCount": "{count} likes",
+    "writeReply": "Write a reply"
+  },
+  "CommentMeta": {
+    "profileAriaLabel": "View {name}'s profile",
+    "menuOpenAriaLabel": "Open comment menu",
+    "menuCloseAriaLabel": "Close comment menu",
+    "delete": "Delete comment",
+    "reportAuthor": "Report user",
+    "blockAuthor": "Block user"
+  },
+  "EmptyCommentUI": {
+    "guideGuest": "Log in and be the first to comment!",
+    "guideMember": "Be the first to leave a comment!",
+    "message": "No comments yet.\n{guide}"
+  },
+  "ReplyForm": {
+    "placeholder": "Write a reply",
+    "deleteImageAriaLabel": "Remove photo",
+    "addImageAriaLabel": "Add photo",
+    "submitAriaLabel": "Post reply",
+    "submit": "Post"
+  },
+  "CommentList": {
+    "heading": "{count} Comments"
+  },
+  "FilterOptions": {
+    "all": "All",
+    "field": {
+      "region": "Location",
+      "category": "Category",
+      "sort": "Sort",
+      "findStatus": "Status",
+      "status": "Type",
+      "date": "Date"
+    },
+    "category": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallet",
+      "ID_CARD": "ID Card",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bag",
+      "CARD": "Card",
+      "ETC": "Other"
+    },
+    "sort": {
+      "LATEST": "Newest",
+      "OLDEST": "Oldest",
+      "MOST_FAVORITED": "Most saved",
+      "MOST_VIEWED": "Most viewed"
+    },
+    "findStatus": {
+      "SEARCHING": "Still searching",
+      "FOUND": "Found"
+    },
+    "status": {
+      "LOST": "Lost",
+      "FOUND": "Found"
+    }
+  },
+  "FilterBottomSheet": {
+    "title": "Filters",
+    "tabAriaLabel": "{label} filter",
+    "regionPlaceholder": "Search for a location",
+    "clearRegionAriaLabel": "Clear location search",
+    "noRegionResults": "No results found.",
+    "categoryRadioGroupAriaLabel": "Select category",
+    "sortRadioGroupAriaLabel": "Select sort order",
+    "findStatusRadioGroupAriaLabel": "Select status",
+    "statusRadioGroupAriaLabel": "Select type",
+    "applyAriaLabel": "Apply filter",
+    "apply": "Apply"
+  },
+  "FilterSection": {
+    "dateAriaLabel": "Date filter",
+    "regionAriaLabel": "Location filter",
+    "regionUnselectedLabel": "Select location",
+    "categoryAriaLabel": "Category filter",
+    "sortAriaLabel": "Sort filter",
+    "findStatusAriaLabel": "Status filter",
+    "statusAriaLabel": "Type filter",
+    "sectionAriaLabel": "Filters"
+  },
+  "ContentShareModal": {
+    "title": "Share this post",
+    "close": "Close"
+  },
+  "DateRangeBottomSheet": {
+    "invalidRange": "End date can't be before the start date",
+    "title": "Select date range",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "month": " mo",
+    "day": " day",
+    "reset": "Reset",
+    "resetAriaLabel": "Reset dates",
+    "apply": "Apply"
+  },
+  "GuestLoginModal": {
+    "title": "Sign in to continue",
+    "description": "Log in to join the conversation.",
+    "cancel": "Cancel",
+    "login": "Log in"
+  },
+  "ImageViewerModal": {
+    "closeAriaLabel": "Close image viewer",
+    "downloadAriaLabel": "Download image",
+    "prevAriaLabel": "Previous image",
+    "nextAriaLabel": "Next image",
+    "modalAriaLabel": "Image viewer",
+    "imageAlt": "Photo {number}"
+  },
+  "MypageEmptyUI": {
+    "posts": {
+      "heading": "No posts yet",
+      "body": "Share your first post!"
+    },
+    "comments": {
+      "heading": "No comments yet",
+      "body": "Leave a comment on a post!"
+    },
+    "favorites": {
+      "heading": "No saved posts yet",
+      "body": "Save posts you'd like to revisit later!"
+    },
+    "reports": {
+      "heading": "No reports yet",
+      "body": "You can report anything that's giving you trouble."
+    },
+    "inquiries": {
+      "heading": "No inquiries yet",
+      "body": "Feel free to reach out anytime you have a question."
+    },
+    "activity": {
+      "heading": "No activity yet",
+      "body": "Start by writing a post or leaving a comment."
+    }
+  },
+  "MypageSearch": {
+    "sectionHeading": "Search",
+    "placeholder": "Enter a title or keyword"
+  },
+  "PostListItem": {
+    "invalidAddress": "Location unavailable",
+    "thumbnailAlt": "Post thumbnail"
+  },
+  "PostReportBlockActions": {
+    "reportPost": "Report post",
+    "blockAuthor": "Block user"
+  },
+  "UserBlockModal": {
+    "title": "Block this user?",
+    "description": "You won't be able to see their posts or comments anymore.",
+    "cancel": "Cancel",
+    "confirm": "Block"
+  },
+  "ReadOnlyCommentItem": {
+    "admin": "Admin"
+  },
+  "AdminProfileChangeConfirmModal": {
+    "title": "Change your profile?",
+    "description": "You're signed in with an admin account.\nDo you want to update the profile now?",
+    "cancel": "Cancel",
+    "confirm": "Change"
+  },
+  "ProfileEditLeaveConfirmModal": {
+    "title": "Your changes haven't been saved",
+    "description": "Leave without saving?",
+    "cancel": "Cancel",
+    "leave": "Leave"
+  },
+  "ProfileForm": {
+    "profileAlt": "Profile",
+    "changePhotoAriaLabel": "Change profile photo",
+    "chooseFromAlbum": "Choose from album",
+    "deletePhoto": "Delete profile photo",
+    "noSpacesError": "Spaces aren't allowed.",
+    "nickname": "Nickname",
+    "checkDuplicate": "Check availability",
+    "nicknameRule": "2-10 characters, no special characters or banned words",
+    "nicknameAvailable": "This nickname is available",
+    "submit": "Save"
+  },
+  "ProfileEditSection": {
+    "loadError": "Couldn't load your profile"
+  },
+  "ReportReasons": {
+    "IRRELEVANT_CONTENT": "This isn't actually a lost or found item.",
+    "DUPLICATE": "This has already been posted multiple times.",
+    "SPAM": "This is promotional content unrelated to lost items.",
+    "OFFENSIVE_LANGUAGE": "There's offensive language in the chat or comments.",
+    "EXTORTION": "Someone is demanding money in exchange for returning the item.",
+    "FALSE_CLAIM": "Someone who isn't the real owner is claiming this item.",
+    "ETC": "Something else is wrong."
+  },
+  "ReportReasonModal": {
+    "title": "Select a reason",
+    "select": "Select"
+  },
+  "ReportSelectBox": {
+    "label": "Reason for report",
+    "ariaLabel": "Select a reason for report",
+    "placeholder": "Choose a reason"
+  },
+  "ReportModal": {
+    "title": "Report",
+    "detailsLabel": "Details (optional)",
+    "detailsPlaceholder": "Tell us more (up to 300 characters)",
+    "submit": "Block and report"
+  },
+  "Terms": {
+    "loadError": "Couldn't load this information",
+    "agree": "Agree"
+  },
+  "TermsConfig": {
+    "over14Age": "I'm 14 or older (required)",
+    "privacyPolicyAgreed": "Privacy policy (required)",
+    "termsOfServiceAgreed": "Terms of service (required)",
+    "marketingConsent": "Marketing communications (optional)",
+    "contentPolicyAgreed": "Content policy (optional)"
+  },
+  "TermsAgreement": {
+    "defaultTitle": "Sign up",
+    "descriptionLine1": "Please review and agree to",
+    "descriptionLine2": "the terms to continue.",
+    "selectAll": "Agree to all",
+    "submit": "Complete sign up"
+  },
+  "WriteActionSection": {
+    "submit": "Post"
+  },
+  "WriteImageSection": {
+    "primaryBadge": "Cover",
+    "deleteAriaLabel": "Remove photo",
+    "reorderAriaLabel": "Drag to reorder photo {number}",
+    "previewListAriaLabel": "Photo preview list",
+    "maxImagesWarning": "You can attach up to 5 photos.",
+    "uploadAriaLabel": "Upload photo",
+    "helpText": "Attach up to 5 photos, 10MB each (jpg, jpeg, png)"
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { DetailHeader } from "@/components/layout";
 import { FooterButton } from "@/components/domain";
 import { CheckBox } from "@/components/common";
@@ -16,6 +17,7 @@ interface TermsProps {
 }
 
 const Terms = ({ termName, onAgree, showButton = false, pageType = "TERM" }: TermsProps) => {
+  const t = useTranslations("Terms");
   const isOptionalTerm = termName === "marketingConsent" || termName === "contentPolicyAgreed";
   const { data: SettingData, isError } = useGetNotificationSetting({
     enabled: isOptionalTerm && pageType === "TERM",
@@ -23,7 +25,7 @@ const Terms = ({ termName, onAgree, showButton = false, pageType = "TERM" }: Ter
   const { mutate: SettingMutate, isPending } = usePutNotificationSetting();
   const { addToast } = useToast();
 
-  if (isError) addToast("정보를 불러오는데 실패했어요", "warning");
+  if (isError) addToast(t("loadError"), "warning");
 
   const term = TERM_CONTENTS[termName as keyof typeof TERM_CONTENTS];
 
@@ -67,7 +69,7 @@ const Terms = ({ termName, onAgree, showButton = false, pageType = "TERM" }: Ter
         <div>{content}</div>
       </div>
 
-      {showButton && <FooterButton onClick={onAgree}>동의</FooterButton>}
+      {showButton && <FooterButton onClick={onAgree}>{t("agree")}</FooterButton>}
     </>
   );
 };

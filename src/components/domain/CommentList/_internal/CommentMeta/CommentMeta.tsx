@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Icon, KebabMenuButton, ProfileAvatar } from "@/components/common";
 import { cn, formatDate } from "@/utils";
 import { useClickOutside } from "@/hooks";
@@ -56,6 +57,7 @@ const CommentMetaHeader = ({
   queryKey,
   onDeleteComment,
 }: CommentMetaHeaderProps) => {
+  const t = useTranslations("CommentMeta");
   const { authorId, createdAt, authorName, profileImage, commentId, deleted, canDelete } = data;
 
   const [isKebabMenuOpen, setIsKebabMenuOpen] = useState(false);
@@ -82,7 +84,7 @@ const CommentMetaHeader = ({
       <div className="flex items-start justify-between">
         <Link
           href={`/user/${authorId}`}
-          aria-label={`${authorName} 프로필 보기`}
+          aria-label={t("profileAriaLabel", { name: authorName })}
           className="flex gap-[14px]"
         >
           <ProfileAvatar src={profileImage} size={isThreadItem ? 30 : 40} />
@@ -99,7 +101,7 @@ const CommentMetaHeader = ({
         <div ref={ref} className="relative">
           <KebabMenuButton
             size="small"
-            ariaLabel={isKebabMenuOpen ? "댓글 메뉴 닫기" : "댓글 메뉴 열기"}
+            ariaLabel={isKebabMenuOpen ? t("menuCloseAriaLabel") : t("menuOpenAriaLabel")}
             onClick={handleKebabMenuToggle}
           />
 
@@ -116,13 +118,13 @@ const CommentMetaHeader = ({
                   disabled={deleted}
                 >
                   <Icon name="Trash" size={20} />
-                  <span className="text-h3-medium">댓글 삭제하기</span>
+                  <span className="text-h3-medium">{t("delete")}</span>
                 </button>
               ) : (
                 <div className="glass-card rounded-[20px] border border-white bg-fill-neutral-subtle-default">
                   <MenuItem
                     icon="UserReport"
-                    label="작성자 신고하기"
+                    label={t("reportAuthor")}
                     onClick={() => setReportOpen(true)}
                   />
 
@@ -130,7 +132,7 @@ const CommentMetaHeader = ({
 
                   <MenuItem
                     icon="UserBlock"
-                    label="작성자 차단하기"
+                    label={t("blockAuthor")}
                     onClick={() => setBlockOpen(true)}
                   />
                 </div>

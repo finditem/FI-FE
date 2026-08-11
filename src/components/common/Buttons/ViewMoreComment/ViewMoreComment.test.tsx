@@ -18,8 +18,9 @@ describe("ViewMoreComment", () => {
         생략
       </ViewMoreComment>
     );
-    expect(screen.getByRole("button", { name: "댓글 더 보기" })).toHaveTextContent("댓글");
-    expect(screen.getByText("3개")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "댓글 더 보기" })).toHaveTextContent(
+      "댓글 3개 더 보기"
+    );
   });
 
   it("isThreadItem이면 답글 문구를 씁니다", () => {

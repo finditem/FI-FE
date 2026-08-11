@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { executeShare } from "@/utils";
 import { Button } from "@/components/common";
 import { PopupLayout } from "@/components/domain";
@@ -17,6 +18,7 @@ interface ContentShareModalProps {
 }
 
 const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentShareModalProps) => {
+  const t = useTranslations("ContentShareModal");
   const { addToast } = useToast();
 
   const handleOption = (id: ShareId) =>
@@ -30,7 +32,7 @@ const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentSha
   return (
     <PopupLayout isOpen={isOpen} onClose={onClose} className="min-h-[305px] space-y-12 px-5 py-10">
       <section className="gap-5 flex-col-center">
-        <h2 className="text-h3-semibold text-layout-header-default">게시글 공유하기</h2>
+        <h2 className="text-h3-semibold text-layout-header-default">{t("title")}</h2>
         <div className="w-full gap-[18px] flex-center">
           {SHARE.map((item) => (
             <ShareOptionButton
@@ -43,8 +45,13 @@ const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentSha
         </div>
       </section>
 
-      <Button aria-label="닫기" onClick={onClose} variant="outlined" className="min-h-11 w-full">
-        닫기
+      <Button
+        aria-label={t("close")}
+        onClick={onClose}
+        variant="outlined"
+        className="min-h-11 w-full"
+      >
+        {t("close")}
       </Button>
     </PopupLayout>
   );

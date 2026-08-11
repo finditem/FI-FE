@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel } from "swiper/modules";
@@ -95,6 +96,7 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
   filters,
   setFilters,
 }: DateRangeBottomSheetProps<T>) => {
+  const t = useTranslations("DateRangeBottomSheet");
   const { startDate, endDate } = useFilterParams();
 
   const queryStartDate = parseYmd(startDate);
@@ -132,7 +134,7 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
     const end = new Date(formattedEndDate);
 
     if (start > end) {
-      addToast("종료일은 시작일보다 이전일 수 없어요", "warning");
+      addToast(t("invalidRange"), "warning");
       return;
     }
 
@@ -174,25 +176,25 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
       className="w-full gap-12 px-5 py-10 flex-col-center"
     >
       <div className="w-full gap-8 flex-col-center">
-        <h2 className="text-h2-medium">기간 설정</h2>
+        <h2 className="text-h2-medium">{t("title")}</h2>
 
         {/* 상단 탭 버튼 */}
         <div className="flex gap-[14px]">
           <Filter
-            ariaLabel="시작일"
+            ariaLabel={t("startDate")}
             onSelected={activeTab === "startDate"}
             onClick={() => setActiveTab("startDate")}
             className="!px-10 !py-2"
           >
-            시작일
+            {t("startDate")}
           </Filter>
           <Filter
-            ariaLabel="종료일"
+            ariaLabel={t("endDate")}
             onSelected={activeTab === "endDate"}
             className="!px-10 !py-2"
             onClick={() => setActiveTab("endDate")}
           >
-            종료일
+            {t("endDate")}
           </Filter>
         </div>
 
@@ -215,7 +217,7 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
                 ? handleStartDateChange("month", val)
                 : handleEndDateChange("month", val)
             }
-            label="월"
+            label={t("month")}
           />
 
           <DateWheel
@@ -226,22 +228,22 @@ const DateRangeBottomSheet = <T extends DateRangeFilterBase>({
                 ? handleStartDateChange("day", val)
                 : handleEndDateChange("day", val)
             }
-            label="일"
+            label={t("day")}
           />
         </div>
       </div>
 
       <div className="flex w-full gap-2">
         <Button
-          ariaLabel="날짜 초기화 버튼"
+          ariaLabel={t("resetAriaLabel")}
           variant="outlined"
           className="h-11 w-1/3"
           onClick={handleResetDateFilters}
         >
-          초기화
+          {t("reset")}
         </Button>
         <Button onClick={handleApply} size="big" className="h-11 w-2/3">
-          적용하기
+          {t("apply")}
         </Button>
       </div>
     </PopupLayout>
