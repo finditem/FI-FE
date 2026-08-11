@@ -120,8 +120,7 @@ src/
   - 미정
 
 <details>
-
-**<summary>1차 MVP</summary>**
+<summary>1차 MVP</summary>
 
 - **[서지권](https://github.com/wlrnjs) (Lead)**
   - RSC 기반 프론트엔드 아키텍처 설계
