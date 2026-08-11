@@ -50,6 +50,7 @@
 - **Data Fetching:** `TanStack Query v5`
 - **API Client:** `Axios`
 - **Real-time:** `STOMP`, `SockJS`
+- **i18n:** `next-intl`
 
 ### **Testing**
 
@@ -107,7 +108,20 @@ src/
 └── assets/         # 폰트, 이미지 등 정적 리소스
 ```
 
-## 프론트엔드 팀원 및 역할
+## 2차 MVP 프론트엔드 팀원 및 역할
+
+- **[서지권](https://github.com/wlrnjs) (Lead)**
+  - 미정
+
+- **[이수현](https://github.com/suhyeon0111)**
+  - next-intl 기반 다국어 지원
+
+- **[김준열](https://github.com/junye0l)**
+  - 미정
+
+<details>
+
+**<summary>1차 MVP</summary>**
 
 - **[서지권](https://github.com/wlrnjs) (Lead)**
   - RSC 기반 프론트엔드 아키텍처 설계
@@ -121,6 +135,8 @@ src/
   - 맞춤형 검색 및 필터 UI 구현
   - 고객센터(문의하기) 기능 개발
   - 마이페이지 사용자 활동 기록 관리 기능 구현
+
+</details>
 
 ## 시작하기
 
