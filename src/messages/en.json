@@ -385,5 +385,26 @@
   },
   "LoadingState": {
     "defaultTitle": "Loading…"
+  },
+  "Login": {
+    "kakaoAriaLabel": "Log in with Kakao",
+    "kakaoButton": "Get started in seconds with Kakao",
+    "emailAriaLabel": "Log in",
+    "emailButton": "Log in with email",
+    "divider": "or",
+    "notMemberYet": "Don't have an account?",
+    "signUp": "Sign up"
+  },
+  "LoginLayout": {
+    "title": "Log In",
+    "description": "Log in to your finditem account to search for lost items and share what you've found."
+  },
+  "LogoLink": {
+    "homeAriaLabel": "Go to home",
+    "logoIconTitle": "Logo",
+    "brandName": "finditem!"
+  },
+  "SessionNotification": {
+    "sessionExpired": "Your session has expired. Please log in again."
   }
 }

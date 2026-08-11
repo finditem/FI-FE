@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
@@ -14,6 +15,7 @@ const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
 const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const page = () => {
+  const t = useTranslations("Login");
   const { reason } = useSessionNotification();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -42,7 +44,7 @@ const page = () => {
         <Button
           type="submit"
           ignoreBase
-          ariaLabel="카카오 로그인 버튼"
+          ariaLabel={t("kakaoAriaLabel")}
           onClick={handleKakaoLogin}
           className={cn(
             ButtonStyle,
@@ -50,7 +52,7 @@ const page = () => {
           )}
         >
           <Icon name="KakaoLogin" size={20} />
-          카카오로 3초 만에 시작하기
+          {t("kakaoButton")}
         </Button>
         <Button
           as={Link}
@@ -58,24 +60,24 @@ const page = () => {
           replace
           ignoreBase
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
-          aria-label="로그인 버튼"
+          aria-label={t("emailAriaLabel")}
         >
           <Icon name="Mail" size={20} className="text-white" />
-          이메일로 로그인
+          {t("emailButton")}
         </Button>
       </div>
 
       {/* divider 구분선 */}
       <div className="flex h-[18px] w-full items-center px-5 tablet:px-[96px]">
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
-        <span className="px-3 text-caption1-medium text-layout-body-default">또는</span>
+        <span className="px-3 text-caption1-medium text-layout-body-default">{t("divider")}</span>
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
       </div>
 
       {/* 회원확인 여부 */}
       <div className="h-11">
         <span className="text-caption1-medium text-neutral-normal-placeholder">
-          아직 회원이 아니신가요?
+          {t("notMemberYet")}
         </span>
         <Link
           href="/sign-up"
@@ -83,7 +85,7 @@ const page = () => {
             "Inversed-strong-default p-3 text-caption1-semibold text-brand-normal-default"
           )}
         >
-          회원가입
+          {t("signUp")}
         </Link>
       </div>
     </div>

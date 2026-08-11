@@ -385,5 +385,26 @@
   },
   "LoadingState": {
     "defaultTitle": "페이지 로딩 중..."
+  },
+  "Login": {
+    "kakaoAriaLabel": "카카오 로그인 버튼",
+    "kakaoButton": "카카오로 3초 만에 시작하기",
+    "emailAriaLabel": "로그인 버튼",
+    "emailButton": "이메일로 로그인",
+    "divider": "또는",
+    "notMemberYet": "아직 회원이 아니신가요?",
+    "signUp": "회원가입"
+  },
+  "LoginLayout": {
+    "title": "로그인",
+    "description": "찾아줘 계정에 로그인하여 분실물을 찾고 습득물을 공유해보세요."
+  },
+  "LogoLink": {
+    "homeAriaLabel": "메인페이지 이동",
+    "logoIconTitle": "로고",
+    "brandName": "찾아줘!"
+  },
+  "SessionNotification": {
+    "sessionExpired": "세션이 만료되었어요. 다시 로그인 해주세요."
   }
 }
