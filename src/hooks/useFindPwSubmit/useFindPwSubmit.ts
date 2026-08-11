@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ApiFindPwType, useApiFindPw } from "@/api/fetch/auth";
-import { FIND_PW_ERROR } from "@/constants";
+import { useFindPwErrorMessage } from "@/constants";
 import useErrorToast from "../useErrorToast/useErrorToast";
 import { useToast } from "@/context/ToastContext";
 
 const useFindPwSubmit = () => {
+  const t = useTranslations("FindPwSubmit");
+  const findPwErrorMessage = useFindPwErrorMessage();
   const [email, setEmail] = useState("");
   const { mutate: FindPwMutate, isPending } = useApiFindPw();
   const { handlerApiError } = useErrorToast();
@@ -18,9 +21,9 @@ const useFindPwSubmit = () => {
       onError: (error) => {
         const errorCode = error.response?.data.code;
         if (errorCode) {
-          handlerApiError(FIND_PW_ERROR, errorCode);
+          handlerApiError(findPwErrorMessage, errorCode);
         } else {
-          addToast("예상치 못한 에러가 발생했어요", "error");
+          addToast(t("unexpectedError"), "error");
         }
       },
     });

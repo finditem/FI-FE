@@ -519,5 +519,31 @@
     "duplicateMessage": "이미 사용 중인 닉네임이에요.",
     "duplicateToast": "이미 사용중인 닉네임이에요",
     "unexpectedError": "예상치 못한 오류가 발생했어요"
+  },
+  "FindPwLayout": {
+    "title": "비밀번호 찾기",
+    "description": "찾아줘에서 계정 이메일 인증을 통해 비밀번호를 변경해 보세요."
+  },
+  "FindPwPage": {
+    "title": "비밀번호 찾기 페이지"
+  },
+  "FindPwForm": {
+    "label": "아이디 (이메일)",
+    "placeholder": "아이디를 입력해 주세요.",
+    "required": "이메일을 입력해 주세요.",
+    "invalidEmail": "이메일 형식을 입력해주세요.",
+    "submitBtnLabel": "비밀번호 찾기",
+    "sentMessage": "<highlight>{email}</highlight>으로 <br></br>임시 비밀번호를 발송했습니다.",
+    "loginAriaLabel": "로그인 화면으로 이동",
+    "changePassword": "비밀번호 변경"
+  },
+  "FindPwSubmit": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "FindPwErrorMessage": {
+    "COMMON400": "잘못된 요청이에요",
+    "USER404-NOT_FOUND": "등록되지 않은 이메일이에요",
+    "AUTH400-SOCIAL_ACCOUNT": "해당 이메일은 소셜 로그인 계정이에요",
+    "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요. 잠시 후 다시 시도해 주세요"
   }
 }

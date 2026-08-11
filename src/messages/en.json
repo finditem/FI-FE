@@ -519,5 +519,31 @@
     "duplicateMessage": "This nickname is already taken.",
     "duplicateToast": "This nickname is already taken",
     "unexpectedError": "Something unexpected went wrong"
+  },
+  "FindPwLayout": {
+    "title": "Find Password",
+    "description": "Verify your finditem account email to reset your password."
+  },
+  "FindPwPage": {
+    "title": "Find Password"
+  },
+  "FindPwForm": {
+    "label": "Email",
+    "placeholder": "Enter your email",
+    "required": "Please enter your email.",
+    "invalidEmail": "Please enter a valid email address.",
+    "submitBtnLabel": "Find password",
+    "sentMessage": "We've sent a temporary password to<br></br><highlight>{email}</highlight>",
+    "loginAriaLabel": "Go to login",
+    "changePassword": "Change password"
+  },
+  "FindPwSubmit": {
+    "unexpectedError": "Something unexpected went wrong"
+  },
+  "FindPwErrorMessage": {
+    "COMMON400": "Something went wrong",
+    "USER404-NOT_FOUND": "We couldn't find an account with that email",
+    "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
+    "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
   }
 }
