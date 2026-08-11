@@ -406,5 +406,39 @@
   },
   "SessionNotification": {
     "sessionExpired": "Your session has expired. Please log in again."
+  },
+  "DetailHeader": {
+    "backAriaLabel": "Go back",
+    "actionsAriaLabel": "Header actions"
+  },
+  "ErrorToast": {
+    "unexpectedError": "Something unexpected went wrong"
+  },
+  "EmailLoginPage": {
+    "title": "Email Login",
+    "srHeading": "Email login page"
+  },
+  "EmailLoginForm": {
+    "legend": "Enter your login details",
+    "rememberId": "Remember me",
+    "submit": "Log in",
+    "troubleLoggingIn": "Having trouble logging in?",
+    "findPassword": "Forgot password",
+    "signUp": "Sign up"
+  },
+  "EmailLoginConfig": {
+    "emailPlaceholder": "Enter your email",
+    "emailLabel": "Email",
+    "passwordPlaceholder": "Enter your password",
+    "passwordLabel": "Password"
+  },
+  "EmailLoginErrorMessage": {
+    "COMMON400": "Something went wrong. Please try again.",
+    "AUTH401-INVALID_CREDENTIALS": "Incorrect email or password",
+    "COMMON500": "A server error occurred. Please contact support.",
+    "ERR_BAD_REQUEST": "Something went wrong."
+  },
+  "LoginForm": {
+    "invalidEmail": "Please enter a valid email address."
   }
 }

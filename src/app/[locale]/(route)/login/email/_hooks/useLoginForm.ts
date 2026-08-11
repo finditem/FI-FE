@@ -2,7 +2,8 @@ import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { EMAIL_LOGIN_ERROR_MESSAGE } from "../_constants/EMAIL_LOGIN_ERROR_MESSAGE";
+import { useTranslations } from "next-intl";
+import { useEmailLoginErrorMessage } from "../_constants/EMAIL_LOGIN_ERROR_MESSAGE";
 import { useToast } from "@/context/ToastContext";
 import { LoginFormType } from "../_types/LoginFormType";
 import { useErrorToast } from "@/hooks";
@@ -14,6 +15,8 @@ import { useApiEmailLogin } from "@/api/fetch/auth";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const useLoginForm = () => {
+  const t = useTranslations("LoginForm");
+  const emailLoginErrorMessage = useEmailLoginErrorMessage();
   const { handleSubmit, setValue } = useFormContext<LoginFormType>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,7 +35,7 @@ const useLoginForm = () => {
 
   const onSubmitLogin = handleSubmit((data) => {
     if (!EMAIL_REGEX.test(data.email)) {
-      addToast("아이디에 이메일을 입력해주세요.", "warning");
+      addToast(t("invalidEmail"), "warning");
       return;
     }
 
@@ -65,7 +68,7 @@ const useLoginForm = () => {
       onError: (error) => {
         const errorCode = error.response?.data.code;
         if (errorCode) {
-          handlerApiError(EMAIL_LOGIN_ERROR_MESSAGE, errorCode);
+          handlerApiError(emailLoginErrorMessage, errorCode);
         }
       },
     });

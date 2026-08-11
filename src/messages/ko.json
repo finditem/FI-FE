@@ -406,5 +406,39 @@
   },
   "SessionNotification": {
     "sessionExpired": "세션이 만료되었어요. 다시 로그인 해주세요."
+  },
+  "DetailHeader": {
+    "backAriaLabel": "뒤로가기",
+    "actionsAriaLabel": "헤더 액션"
+  },
+  "ErrorToast": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "EmailLoginPage": {
+    "title": "이메일 로그인",
+    "srHeading": "이메일 로그인 페이지"
+  },
+  "EmailLoginForm": {
+    "legend": "로그인 정보 입력",
+    "rememberId": "아이디 기억하기",
+    "submit": "로그인",
+    "troubleLoggingIn": "로그인이 되지 않는다면?",
+    "findPassword": "비밀번호 찾기",
+    "signUp": "회원가입"
+  },
+  "EmailLoginConfig": {
+    "emailPlaceholder": "이메일을 입력해주세요.",
+    "emailLabel": "아이디(이메일)",
+    "passwordPlaceholder": "비밀번호를 입력해주세요.",
+    "passwordLabel": "비밀번호"
+  },
+  "EmailLoginErrorMessage": {
+    "COMMON400": "잘못된 요청이에요. 다시 시도해 주세요.",
+    "AUTH401-INVALID_CREDENTIALS": "아이디 또는 비밀번호가 일치하지 않아요",
+    "COMMON500": "서버에러로 관리자에게 문의 해주세요.",
+    "ERR_BAD_REQUEST": "잘못된 요청이에요."
+  },
+  "LoginForm": {
+    "invalidEmail": "아이디에 이메일을 입력해주세요."
   }
 }
