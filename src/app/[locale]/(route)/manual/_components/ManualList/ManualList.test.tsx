@@ -3,13 +3,13 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import ManualList from "./ManualList";
 
-jest.mock("next/link", () => {
-  return ({ href, children, ...props }: any) => (
+jest.mock("@/i18n/navigation", () => ({
+  Link: ({ href, children, ...props }: any) => (
     <a href={href} {...props}>
       {children}
     </a>
-  );
-});
+  ),
+}));
 
 window.scrollTo = jest.fn();
 

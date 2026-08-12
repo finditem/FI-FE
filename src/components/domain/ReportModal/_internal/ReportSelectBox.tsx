@@ -1,5 +1,3 @@
-"use client";
-
 import { useTranslations } from "next-intl";
 import { Icon, RequiredText } from "@/components/common";
 import { cn } from "@/utils";

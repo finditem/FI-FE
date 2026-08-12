@@ -72,7 +72,7 @@ const FilterBottomSheet = ({
   setFilters,
   pageType = "LIST",
 }: FilterBottomSheetProps) => {
-  const tf = useTranslations("FilterBottomSheet");
+  const t = useTranslations("FilterBottomSheet");
   const TABS = useFilterTabs();
   const { categories, sort, findStatus, status } = useFilterOptions();
   const searchParams = useSearchParams();
@@ -107,7 +107,7 @@ const FilterBottomSheet = ({
       className="flex h-[574px] flex-col py-10"
     >
       <div className="w-full gap-6 flex-col-center">
-        <h2 className="text-h2-medium text-layout-header-default">{tf("title")}</h2>
+        <h2 className="text-h2-medium text-layout-header-default">{t("title")}</h2>
 
         <section role="tablist" className="w-full flex-center">
           {currentTabs.map((tab) => {
@@ -119,7 +119,7 @@ const FilterBottomSheet = ({
                   key={tab.value}
                   role="tab"
                   aria-selected={isSelected}
-                  aria-label={tf("tabAriaLabel", { label: tab.label })}
+                  aria-label={t("tabAriaLabel", { label: tab.label })}
                   className={cn(
                     "min-h-[60px] flex-1 text-[20px] font-semibold",
                     isSelected
@@ -146,7 +146,7 @@ const FilterBottomSheet = ({
               />
               <input
                 className="w-full rounded-full px-5 py-[10px] pl-10 bg-fill-neutral-subtle-default"
-                placeholder={tf("regionPlaceholder")}
+                placeholder={t("regionPlaceholder")}
                 value={filters.region}
                 onChange={(e) => setFilters((prev) => ({ ...prev, region: e.target.value }))}
               />
@@ -155,7 +155,7 @@ const FilterBottomSheet = ({
                   type="button"
                   onClick={() => setFilters((prev) => ({ ...prev, region: "" }))}
                   className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-[#787878] p-1"
-                  aria-label={tf("clearRegionAriaLabel")}
+                  aria-label={t("clearRegionAriaLabel")}
                 >
                   <Icon name="Delete" size={9} />
                 </button>
@@ -185,7 +185,7 @@ const FilterBottomSheet = ({
               {isEmptyRegionResult && (
                 <li className="mt-[6px] px-5 py-[10px]">
                   <p className="text-body1-medium text-layout-header-default">
-                    {tf("noRegionResults")}
+                    {t("noRegionResults")}
                   </p>
                 </li>
               )}
@@ -197,7 +197,7 @@ const FilterBottomSheet = ({
         {selectedTab === "category" && (
           <div
             role="radiogroup"
-            aria-label={tf("categoryRadioGroupAriaLabel")}
+            aria-label={t("categoryRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {categories.map((category) => (
@@ -216,7 +216,7 @@ const FilterBottomSheet = ({
         {selectedTab === "sort" && (
           <div
             role="radiogroup"
-            aria-label={tf("sortRadioGroupAriaLabel")}
+            aria-label={t("sortRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {sort.map((sortItem, index) => (
@@ -235,7 +235,7 @@ const FilterBottomSheet = ({
         {selectedTab === "findStatus" && (
           <div
             role="radiogroup"
-            aria-label={tf("findStatusRadioGroupAriaLabel")}
+            aria-label={t("findStatusRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {findStatus.map((findStatusItem, index) => (
@@ -256,7 +256,7 @@ const FilterBottomSheet = ({
         {selectedTab === "status" && (
           <div
             role="radiogroup"
-            aria-label={tf("statusRadioGroupAriaLabel")}
+            aria-label={t("statusRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {status.map((statusItem, index) => (
@@ -274,11 +274,11 @@ const FilterBottomSheet = ({
 
       <Button
         role="button"
-        ariaLabel={tf("applyAriaLabel")}
+        ariaLabel={t("applyAriaLabel")}
         className="mt-auto w-full"
         onClick={handleApply}
       >
-        {tf("apply")}
+        {t("apply")}
       </Button>
     </PopupLayout>
   );

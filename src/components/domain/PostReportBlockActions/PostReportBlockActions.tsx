@@ -1,5 +1,3 @@
-"use client";
-
 import { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
