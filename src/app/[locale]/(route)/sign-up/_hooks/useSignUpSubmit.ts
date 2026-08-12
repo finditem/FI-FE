@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/context/ToastContext";
 import { useTranslations } from "next-intl";
 import { ApiSignUpType, useApiSignUp } from "@/api/fetch/auth";
-import { useSignUpErrorMessage } from "../_constants/SIGNUP_ERROR_MESSAGE";
+import { useSignUpErrorMessage } from "./useSignUpErrorMessage/useSignUpErrorMessage";
 import { useErrorToast } from "@/hooks";
 import { usePermissionStore } from "@/store";
 import { useQueryClient } from "@tanstack/react-query";

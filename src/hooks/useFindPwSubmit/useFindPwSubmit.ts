@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { ApiFindPwType, useApiFindPw } from "@/api/fetch/auth";
-import { useFindPwErrorMessage } from "@/constants";
+import { useFindPwErrorMessage } from "../useFindPwErrorMessage/useFindPwErrorMessage";
 import useErrorToast from "../useErrorToast/useErrorToast";
 import { useToast } from "@/context/ToastContext";
 

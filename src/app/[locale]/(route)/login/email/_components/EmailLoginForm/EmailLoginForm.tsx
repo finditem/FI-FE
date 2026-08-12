@@ -2,7 +2,7 @@
 
 import { useFormContext, useWatch } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useEmailLoginConfig } from "../../_constants/EMAIL_LOGIN_CONFIG";
+import { useEmailLoginConfig } from "../../_hooks/useEmailLoginConfig/useEmailLoginConfig";
 import useLoginForm from "../../_hooks/useLoginForm";
 import { LoginFormType } from "../../_types/LoginFormType";
 import { Button, CheckBox, InputText } from "@/components";

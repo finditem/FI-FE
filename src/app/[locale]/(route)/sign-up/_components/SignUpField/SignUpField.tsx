@@ -1,7 +1,7 @@
 "use no memo";
 
 import { useTranslations } from "next-intl";
-import { useSignUpInputConfig } from "../../_constants/SIGNUP_INPUT_CONFIG";
+import { useSignUpInputConfig } from "../../_hooks/useSignUpInputConfig/useSignUpInputConfig";
 import { DetailHeader, FooterButton } from "@/components";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useSignUpBtnClick } from "../../_hooks/useSignUpBtnClick";

@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { useEmailLoginErrorMessage } from "../_constants/EMAIL_LOGIN_ERROR_MESSAGE";
+import { useEmailLoginErrorMessage } from "./useEmailLoginErrorMessage/useEmailLoginErrorMessage";
 import { useToast } from "@/context/ToastContext";
 import { LoginFormType } from "../_types/LoginFormType";
 import { useErrorToast } from "@/hooks";
