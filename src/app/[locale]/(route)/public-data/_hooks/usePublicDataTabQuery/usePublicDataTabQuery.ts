@@ -1,15 +1,16 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type PublicDataTabType = "lost" | "found";
 
-const PUBLIC_LIST_TABS: { label: string; key: PublicDataTabType }[] = [
-  { label: "분실", key: "lost" },
-  { label: "습득", key: "found" },
-];
-
 export const usePublicDataTabQuery = () => {
+  const t = useTranslations("PublicDataTabs");
+  const PUBLIC_LIST_TABS: { label: string; key: PublicDataTabType }[] = [
+    { label: t("lostLabel"), key: "lost" },
+    { label: t("foundLabel"), key: "found" },
+  ];
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

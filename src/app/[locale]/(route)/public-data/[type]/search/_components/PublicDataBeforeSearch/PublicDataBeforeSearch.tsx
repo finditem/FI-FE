@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { RecentSearchItem } from "../../_types/PublicRecentSearchItem";
 
@@ -19,6 +20,7 @@ const PublicDataBeforeSearch = ({
   removeSearch,
   onSearch,
 }: PublicDataBeforeSearchProps) => {
+  const t = useTranslations("PublicDataBeforeSearch");
   const isEmpty = recentSearches.length === 0;
 
   if (isEmpty) {
@@ -27,7 +29,7 @@ const PublicDataBeforeSearch = ({
         <div className="rounded-full p-[6px] bg-fill-neutral-strong-default">
           <Icon name="Clock" size={20} />
         </div>
-        <p className="text-body1-regular text-labelsVibrant-primary">최근 검색한 기록이 없어요.</p>
+        <p className="text-body1-regular text-labelsVibrant-primary">{t("emptyText")}</p>
       </section>
     );
   }

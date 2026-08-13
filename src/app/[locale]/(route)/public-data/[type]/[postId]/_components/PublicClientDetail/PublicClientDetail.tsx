@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import {
   PublicDataDetailHeader,
@@ -13,14 +14,15 @@ import {
 import { usePublicClientDetail } from "../../_hooks/usePublicClientDetail/usePublicClientDetail";
 
 const PublicClientDetail = ({ id }: { id: string }) => {
+  const t = useTranslations("PublicClientDetail");
   const { addToast } = useToast();
   const { isLoading, isError, detailData } = usePublicClientDetail(id);
 
   useEffect(() => {
     if (isError) {
-      addToast("게시글 불러오기에 실패했어요", "error");
+      addToast(t("loadFailedToast"), "error");
     }
-  }, [isError, addToast]);
+  }, [isError, addToast, t]);
 
   if (isLoading) return <PublicDetailSkeleton />;
   if (isError || !detailData) return <PublicDetailSkeleton isError />;
@@ -28,8 +30,8 @@ const PublicClientDetail = ({ id }: { id: string }) => {
   const { isLost, headerData, itemData, title, content, place, office, tel, imageSrc } = detailData;
 
   const metaData = {
-    title: title || "찾아줘 경찰청 데이터 공유",
-    summary: content || "경찰청 데이터를 확인해보세요",
+    title: title || t("defaultShareTitle"),
+    summary: content || t("defaultShareSummary"),
     thumbnailUrl: imageSrc,
     likeCount: 0,
     commentCount: 0,

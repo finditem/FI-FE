@@ -545,5 +545,117 @@
     "USER404-NOT_FOUND": "등록되지 않은 이메일이에요",
     "AUTH400-SOCIAL_ACCOUNT": "해당 이메일은 소셜 로그인 계정이에요",
     "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요. 잠시 후 다시 시도해 주세요"
+  },
+  "PublicDataPage": {
+    "postTypeLost": "분실한",
+    "postTypeFound": "습득한",
+    "postDescriptionLost": "분실물",
+    "postDescriptionFound": "습득물",
+    "searchTitle": "{keyword} 검색결과 | 찾아줘!",
+    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
+    "listTitle": "경찰청 {postType} 물건",
+    "listDescription": "경찰청 유실물 센터, lost112에 올라온 {postDescription} 데이터를 더욱 쉽게 확인해보세요."
+  },
+  "PublicDefaultTabs": {
+    "region": "지역",
+    "category": "카테고리"
+  },
+  "PublicDataFilterBottomSheet": {
+    "filterTitle": "필터",
+    "tabFilterAriaLabel": "{label} 필터",
+    "regionSelectAriaLabel": "지역 선택",
+    "categorySelectAriaLabel": "카테고리 선택",
+    "allLabel": "전체",
+    "applyAriaLabel": "필터 적용",
+    "applyButton": "적용하기"
+  },
+  "PublicDataFilterSection": {
+    "regionFilterAriaLabel": "지역 선택 필터",
+    "categoryFilterAriaLabel": "카테고리 필터",
+    "regionDefaultLabel": "지역 선택",
+    "categoryDefaultLabel": "카테고리",
+    "filterAreaAriaLabel": "필터 영역"
+  },
+  "PublicDataItemCard": {
+    "policeChipLabel": "경찰청",
+    "defaultImageAlt": "게시글 대표 이미지"
+  },
+  "PublicDataList": {
+    "loadFailedToast": "데이터를 불러오지 못했어요.",
+    "listAriaLabel": "목록",
+    "errorTitle": "현재 공공데이터를 불러올 수 없어요.",
+    "emptyTitle": "조회된 데이터가 없습니다."
+  },
+  "PublicDataTabs": {
+    "lostLabel": "분실",
+    "foundLabel": "습득"
+  },
+  "PublicClientDetail": {
+    "loadFailedToast": "게시글 불러오기에 실패했어요",
+    "defaultShareTitle": "찾아줘 경찰청 데이터 공유",
+    "defaultShareSummary": "경찰청 데이터를 확인해보세요"
+  },
+  "PublicCallBottomSheet": {
+    "title": "보관 장소로 연결해드릴게요",
+    "askTitle": "이렇게 물어보면 좋아요",
+    "askDescription": "안녕하세요! 분실물을 찾고 있는데요,\n경찰청 습득물에 등록되어있는 글을 보고\n연락드렸어요.",
+    "idCheckTitle": "물건을 받으실 때는 본인 확인이 필요해요",
+    "idCheckDescription": "다음 신분증 중 하나를 꼭 지참해주세요\n주민등록증, 여권, 운전면허증, 청소년증 등",
+    "callButton": "전화하기"
+  },
+  "PublicDetailHeader": {
+    "authorInfoAriaLabel": "게시글 작성자 정보",
+    "policeLabel": "경찰청",
+    "contactButton": "연락처 확인하기"
+  },
+  "PublicDetailInfo": {
+    "policeChipLabel": "경찰청"
+  },
+  "PublicDetailSkeleton": {
+    "loadingStatus": "상세 정보를 불러오는 중입니다.",
+    "contactButton": "연락처 확인하기"
+  },
+  "PublicLostItemInfo": {
+    "lostDateLabel": "분실일",
+    "foundDateLabel": "습득일",
+    "dateInfoAriaLabel": "{dateLabel} 정보"
+  },
+  "PublicStorageInfo": {
+    "lostInfoTitle": "분실 정보",
+    "storageInfoTitle": "보관 정보",
+    "policeMarkAlt": "경찰청 마크",
+    "departmentLabel": "부서",
+    "lostPlaceLabel": "분실 장소",
+    "foundPlaceLabel": "습득 장소",
+    "storagePlaceAriaLabel": "보관 장소 상세 정보"
+  },
+  "PublicDataDetailPage": {
+    "defaultItemName": "물품",
+    "lostLabel": "분실",
+    "foundLabel": "발견",
+    "defaultPlace": "업데이트 예정",
+    "defaultSummary": "상세 내용을 확인해보세요.",
+    "metaTitleTemplate": "{title} {postType} | {place} | 찾아줘! 경찰청 유실물",
+    "fallbackTitle": "물품 상세 | 찾아줘! 경찰청 유실물",
+    "fallbackDescription": "경찰청 연동 유실물 정보를 확인해보세요."
+  },
+  "PublicDataSearchPage": {
+    "searchTitle": "{keyword} 검색결과",
+    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!"
+  },
+  "PublicDataBeforeSearch": {
+    "emptyText": "최근 검색한 기록이 없어요."
+  },
+  "PublicDataSearchContent": {
+    "searchAreaAriaLabel": "경찰청 데이터 검색",
+    "searchPlaceholder": "검색어를 입력해주세요."
+  },
+  "PublicDataSearchDetailHeader": {
+    "lostTitle": "분실물 검색",
+    "foundTitle": "습득물 검색"
+  },
+  "PublicDataSearchList": {
+    "loadFailedToast": "데이터를 불러오지 못했어요.",
+    "noResultsTitle": "검색 결과가 없습니다."
   }
 }
