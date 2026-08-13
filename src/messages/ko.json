@@ -545,5 +545,104 @@
     "USER404-NOT_FOUND": "등록되지 않은 이메일이에요",
     "AUTH400-SOCIAL_ACCOUNT": "해당 이메일은 소셜 로그인 계정이에요",
     "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요. 잠시 후 다시 시도해 주세요"
+  },
+  "HomeLayout": {
+    "title": "우리 동네 분실물 찾기, 찾아줘!",
+    "description": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!"
+  },
+  "BottomSheet": {
+    "heightAdjustLabel": "바텀시트 높이 조절"
+  },
+  "LostFindActionData": {
+    "lost": "분실 신고",
+    "found": "발견 신고"
+  },
+  "LostFindActions": {
+    "goToListLabel": "{title} 목록 페이지로 이동"
+  },
+  "MainCardList": {
+    "altText": "최근 발견된 분실물 {title} 이미지",
+    "policeChipLabel": "경찰청"
+  },
+  "PoliceSection": {
+    "noTitle": "제목 없음",
+    "banner": "경찰청 분실물도\n찾아줘!에서 확인해요",
+    "logoAlt": "경찰민원24로고"
+  },
+  "PoliceItems": {
+    "lostHeadLabel": "분실",
+    "lostLabel": "했어요",
+    "foundHeadLabel": "발견",
+    "foundLabel": "했어요"
+  },
+  "SupportMenuItems": {
+    "notificationSettingLabel": "키워드 알람 설정하기",
+    "noticeLabel": "공지사항"
+  },
+  "WriteButtons": {
+    "lostLabel": "분실한 물건 등록하기",
+    "foundLabel": "발견한 물건 등록하기"
+  },
+  "MainSearchEmpty": {
+    "emptyTitle": "검색한 위치에 등록된 분실물이 없어요",
+    "emptyDescription": "직접 글을 올려 찾아줘에 등록할 수 있어요"
+  },
+  "FilterItems": {
+    "all": "모두보기",
+    "lost": "분실물만",
+    "find": "발견물만",
+    "category": "카테고리"
+  },
+  "PermissionItem": {
+    "locationTitle": "위치 (선택)",
+    "locationDescription": "현 위치 기반으로 유실물 정보 확인",
+    "alertTitle": "알림 (선택)",
+    "alertDescription": "찾아줘 서비스 알림 수신"
+  },
+  "PermissionConfig": {
+    "locationTitle": "더 편한 서비스를 위해 위치 정보를 접근의 허용해 주세요.",
+    "locationDescription": "위치 정보 허용 시 현재 위치를 기반으로\n 유실물 정보를 제공해요.",
+    "locationAgreeBtnText": "위치 접근 허용하기",
+    "alertTitle": "알림을 허용하고 더 많은 소식을 받아보세요.",
+    "alertDescription": "알림 허용은 마이페이지의 설정에서\n 언제든지 변경할 수 있어요.",
+    "alertAgreeBtnText": "알림 허용하기"
+  },
+  "PermissionBottomSheet": {
+    "browserNoLocation": "위치 기능을 지원하지 않는 브라우저에요",
+    "locationPermissionDenied": "위치 권한이 거부되었습니다. 설정에서 허용해주세요.",
+    "browserNoNotification": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "notificationRegisterFailed": "브라우저 알림 등록에 실패했어요",
+    "notificationPermissionBlocked": "알림 권한이 차단되어 있어요. 브라우저 설정에서 허용해 주세요",
+    "allowPermissionsTitle": "서비스 사용을 위해 아래 권한을 허용해 주세요.",
+    "confirm": "확인",
+    "skipForNow": "다음에 할래요."
+  },
+  "MainSearchHeader": {
+    "placeholder": "장소, 주소를 입력해 주세요.",
+    "backLabel": "뒤로가기",
+    "searchLabel": "위치 검색"
+  },
+  "RecentSearchEmpty": {
+    "emptyText": "최근 검색한 기록이 없어요."
+  },
+  "RecentFoundItemEmpty": {
+    "emptyText": "아직 발견된 분실물이 없어요"
+  },
+  "RecentFoundItemSection": {
+    "sectionTitle": "최근 발견된 분실물"
+  },
+  "PublicMoreViewCard": {
+    "policeLostItemLabel": "경찰청 분실물",
+    "moreLabel": "더보기"
+  },
+  "MyLocationButton": {
+    "myLocationLabel": "내 위치로 이동"
+  },
+  "AutoCompleteList": {
+    "autoCompleteItemLabel": "자동완성 지역 검색어 클릭"
+  },
+  "LatestList": {
+    "searchLabel": "{keyword} 검색",
+    "deleteLabel": "최근 검색어 삭제"
   }
 }
