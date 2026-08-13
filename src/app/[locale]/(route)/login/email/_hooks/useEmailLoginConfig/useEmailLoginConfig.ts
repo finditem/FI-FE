@@ -1,35 +1,30 @@
-import { useMemo } from "react";
 import { useTranslations } from "next-intl";
 
 export const useEmailLoginConfig = () => {
   const t = useTranslations("EmailLoginConfig");
 
-  return useMemo(
-    () =>
-      [
-        {
-          inputOption: {
-            name: "email",
-            type: "text",
-            placeholder: t("emailPlaceholder"),
-            validation: {
-              required: true,
-            },
-          },
-          label: t("emailLabel"),
+  return [
+    {
+      inputOption: {
+        name: "email",
+        type: "text",
+        placeholder: t("emailPlaceholder"),
+        validation: {
+          required: true,
         },
-        {
-          inputOption: {
-            name: "password",
-            type: "password",
-            placeholder: t("passwordPlaceholder"),
-            validation: {
-              required: true,
-            },
-          },
-          label: t("passwordLabel"),
+      },
+      label: t("emailLabel"),
+    },
+    {
+      inputOption: {
+        name: "password",
+        type: "password",
+        placeholder: t("passwordPlaceholder"),
+        validation: {
+          required: true,
         },
-      ] as const,
-    [t]
-  );
+      },
+      label: t("passwordLabel"),
+    },
+  ] as const;
 };
