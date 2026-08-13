@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { PostDetailData } from "@/api/fetch/post";
 import { formatDate, formatViewCount } from "@/utils";
@@ -9,6 +10,7 @@ interface PostDetailBodyProps {
 }
 
 const PostDetailBody = ({ data }: PostDetailBodyProps) => {
+  const t = useTranslations("PostDetailBody");
   const { title, content, favoriteCount, postStatus, category, createdAt, viewCount } = data;
   const { handleToggleFavorite, isPending } = useToggleFavorite({ postId: data.id });
 
@@ -29,7 +31,7 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
         <ul className="mt-8 flex gap-5 text-body2-medium text-layout-body-default">
           <li className="flex items-center gap-1">
             <Icon name="EyeDetail" size={20} className="text-border-divider-default" />
-            <span>조회 {formatViewCount(viewCount)}</span>
+            <span>{t("viewCountLabel", { count: formatViewCount(viewCount) })}</span>
           </li>
           <li>
             <button
@@ -45,7 +47,7 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
                   data.favoriteStatus ? "text-system-bookmark" : "text-border-divider-default"
                 }
               />
-              <span>즐겨찾기</span>
+              <span>{t("favoriteLabel")}</span>
               <span>{formatViewCount(favoriteCount)}</span>
             </button>
           </li>

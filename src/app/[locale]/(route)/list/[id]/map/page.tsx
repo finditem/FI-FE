@@ -1,14 +1,16 @@
 import { Suspense } from "react";
+import { useTranslations } from "next-intl";
 import { DetailHeader } from "@/components";
 import { PostDetailKakaoMap } from "./_components";
 
-const HEADER_TITLE = "분실/발견 위치";
-
 const page = () => {
+  const t = useTranslations("PostDetailMap");
+  const headerTitle = t("headerTitle");
+
   return (
     <section className="flex h-screen flex-col">
-      <DetailHeader title={HEADER_TITLE} />
-      <h1 className="sr-only">{HEADER_TITLE}</h1>
+      <DetailHeader title={headerTitle} />
+      <h1 className="sr-only">{headerTitle}</h1>
 
       <div className="min-h-0 flex-1">
         <Suspense fallback={null}>

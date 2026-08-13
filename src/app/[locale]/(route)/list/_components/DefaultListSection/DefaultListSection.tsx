@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useGetPosts } from "@/api/fetch/post";
 import { FilterSection, Tab } from "@/components";
 import { ItemStatus } from "@/types";
@@ -7,7 +8,7 @@ import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 import { useFilterParams } from "@/hooks";
 import { DefaultList } from "../_internal";
-import { TABS } from "../LIST_CONST";
+import useTabs from "../../_hooks/useTabs/useTabs";
 
 type PostType = "LOST" | "FOUND";
 
@@ -16,6 +17,8 @@ interface DefaultListProps {
 }
 
 const DefaultListSection = ({ searchUpdateQuery }: DefaultListProps) => {
+  const t = useTranslations("DefaultListSection");
+  const tabs = useTabs();
   const { type, region, category, sort, findStatus } = useFilterParams();
   const normalizedType = type?.toLowerCase();
   const selectedType = (normalizedType ?? "lost") as "lost" | "found";
@@ -45,7 +48,7 @@ const DefaultListSection = ({ searchUpdateQuery }: DefaultListProps) => {
   return (
     <section className="h-hf-base">
       <Tab
-        tabs={TABS}
+        tabs={tabs}
         className="sticky top-[56px] z-10 bg-white"
         selected={selectedType}
         onValueChange={(key) => searchUpdateQuery("type", key)}
@@ -53,7 +56,7 @@ const DefaultListSection = ({ searchUpdateQuery }: DefaultListProps) => {
 
       <FilterSection />
 
-      <ErrorBoundary toastMessage="목록을 불러올 수 없어요. 다시 시도해 주세요.">
+      <ErrorBoundary toastMessage={t("errorToast")}>
         <DefaultList listData={listData} listRef={listRef} hasNextPage={hasNextPage} />
       </ErrorBoundary>
     </section>

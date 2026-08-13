@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { cn } from "@/utils";
 import {
@@ -24,6 +25,7 @@ interface PostOptionBoxProps {
 }
 
 const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps) => {
+  const t = useTranslations("PostActionMenu");
   const router = useRouter();
   const { isMine, writerId, postStatus } = postData;
   const { data: me } = useGetUsersMe();
@@ -76,7 +78,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
                 data-testid="post-menu-edit-button"
               >
                 <Icon name="Edit" size={20} />
-                <span>게시글 수정하기</span>
+                <span>{t("editPost")}</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
               <button
@@ -85,7 +87,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
                 data-testid="post-menu-delete-button"
               >
                 <Icon name="Trash" size={20} />
-                <span>게시글 삭제하기</span>
+                <span>{t("deletePost")}</span>
               </button>
               <hr className={ACTION_MENU.hrStyle} aria-hidden="true" />
               <button
@@ -94,7 +96,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
                 data-testid="post-menu-status-button"
               >
                 <Icon name="ArrowSwitchHorizontal" size={20} />
-                <span>{isFound ? "찾아요 상태로 변경" : "찾았어요 상태로 변경"}</span>
+                <span>{isFound ? t("changeToSearching") : t("changeToFound")}</span>
               </button>
             </>
           ) : (
@@ -134,6 +136,7 @@ interface PostDeleteModalProps {
 }
 
 const PostDeleteModal = ({ isOpen, onClose, postId }: PostDeleteModalProps) => {
+  const t = useTranslations("PostActionMenu");
   const { mutate: deletePost } = useDeleteDetailPost(postId);
 
   const handleDeletePost = (postId: number) => {
@@ -152,22 +155,22 @@ const PostDeleteModal = ({ isOpen, onClose, postId }: PostDeleteModalProps) => {
           className="text-h3-semibold text-layout-header-default"
           data-testid="post-delete-modal-title"
         >
-          정말로 삭제하시겠습니까?
+          {t("deleteConfirmTitle")}
         </h2>
         <p className="text-body5-regular text-layout-body-default">
-          게시글 삭제 후에는 취소가 불가능합니다.
+          {t("deleteConfirmDescription")}
         </p>
       </div>
       <div className="w-full gap-2 flex-center">
         <Button variant="outlined" onClick={onClose} className={ACTION_MENU.deleteButtonStyle}>
-          취소
+          {t("cancel")}
         </Button>
         <Button
           onClick={() => handleDeletePost(postId)}
           className={ACTION_MENU.deleteButtonStyle}
           data-testid="post-delete-confirm-button"
         >
-          삭제하기
+          {t("deleteButton")}
         </Button>
       </div>
     </ModalLayout>
