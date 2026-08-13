@@ -7,7 +7,7 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
-import { trackLoginAttempt, trackLoginButtonClick } from "@/utils/analytics/analytics";
+import { trackKakaoLoginClick, trackLoginButtonClick } from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -30,7 +30,7 @@ const page = () => {
   })();
 
   const handleKakaoLogin = () => {
-    trackLoginAttempt("kakao");
+    trackKakaoLoginClick();
 
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");

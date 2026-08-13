@@ -33,11 +33,19 @@ export type LoginButtonLocation = "mypage" | "guest_modal" | "find_pw" | "login_
 export const trackLoginButtonClick = (location: LoginButtonLocation) =>
   trackingEvent("login_button_click", { location });
 
-export type LoginAttemptMethod = "kakao" | "email";
+export type LoginAttemptMethod = "email";
 
 /**
- * 실제 로그인을 시도했을 때(카카오 로그인 리다이렉트, 이메일 로그인 제출) 호출합니다.
+ * 실제 로그인을 시도했을 때(이메일 로그인 제출) 호출합니다.
  * @param method - 로그인 시도 방식
  */
 export const trackLoginAttempt = (method: LoginAttemptMethod) =>
   trackingEvent("login_attempt", { method });
+
+/**
+ * 카카오 로그인 버튼을 클릭했을 때 호출합니다.
+ * @remarks 클릭 즉시 카카오 인증 페이지로 리다이렉트되어 이벤트 전송이 끊길 수 있어,
+ * gtag 요청을 navigator.sendBeacon으로 보내도록 transport_type을 지정합니다.
+ */
+export const trackKakaoLoginClick = () =>
+  trackingEvent("kakao_login_click", { transport_type: "beacon" });
