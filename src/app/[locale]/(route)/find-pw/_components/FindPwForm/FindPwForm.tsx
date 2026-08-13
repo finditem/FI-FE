@@ -49,7 +49,7 @@ const FindPwForm = () => {
         </div>
       ) : (
         <>
-          <p className="flex flex-col items-center py-[18.5px] text-center text-body2-regular">
+          <p className="py-[18.5px] text-center text-body2-regular">
             {t.rich("sentMessage", {
               email,
               highlight: (chunks) => (
