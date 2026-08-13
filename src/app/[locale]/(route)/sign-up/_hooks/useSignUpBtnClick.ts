@@ -1,7 +1,9 @@
 import { useFormContext, UseFormSetFocus, useWatch } from "react-hook-form";
 import { useToast } from "@/context/ToastContext";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
-import { EMAIL_ERROR_MESSAGE, EMAIL_CHECK_CODE_MESSAGE } from "../_constants/SIGNUP_ERROR_MESSAGE";
+import { useEmailErrorMessage } from "./useEmailErrorMessage/useEmailErrorMessage";
+import { useEmailCheckCodeMessage } from "./useEmailCheckCodeMessage/useEmailCheckCodeMessage";
 import { throttle } from "es-toolkit/compat";
 import { useApiCheckCode, useApiSendEmail } from "@/api/fetch/auth";
 import { useErrorToast, useNicknameCheck } from "@/hooks";
@@ -11,6 +13,9 @@ type SignUpFieldType = Omit<FormType, "privacyPolicyAgreed" | "marketingConsent"
 type SignUpSetFocus = UseFormSetFocus<SignUpFieldType>;
 
 export const useSignUpBtnClick = () => {
+  const t = useTranslations("SignUpBtnClick");
+  const emailErrorMessage = useEmailErrorMessage();
+  const emailCheckCodeMessage = useEmailCheckCodeMessage();
   const { getValues, trigger, control, setValue } = useFormContext();
 
   const [emailValue, setEmailValue] = useState("");
@@ -64,7 +69,7 @@ export const useSignUpBtnClick = () => {
                 { email: inputValue },
                 {
                   onSuccess: () => {
-                    addToast("인증번호가 발송되었어요", "success");
+                    addToast(t("codeSent"), "success");
                     setTimer(300);
                     setIsEmailAuthDisabled(false);
                     setEmailValue(inputValue);
@@ -73,7 +78,7 @@ export const useSignUpBtnClick = () => {
                   onError: (error) => {
                     const errorCode = error.response?.data.code;
                     if (errorCode) {
-                      handlerApiError(EMAIL_ERROR_MESSAGE, errorCode || "", "email");
+                      handlerApiError(emailErrorMessage, errorCode || "", "email");
                     }
                   },
                 }
@@ -83,7 +88,7 @@ export const useSignUpBtnClick = () => {
                 { email: emailValue, code: inputValue },
                 {
                   onSuccess: () => {
-                    addToast("인증되었습니다.", "success");
+                    addToast(t("codeVerified"), "success");
                     setTimer(0);
                     setIsEmailAuthDisabled(true);
                     setIsEmailDisabled(true);
@@ -95,7 +100,7 @@ export const useSignUpBtnClick = () => {
                   onError: (error) => {
                     const errorCode = error.response?.data.code;
                     if (errorCode)
-                      handlerApiError(EMAIL_CHECK_CODE_MESSAGE, errorCode || "", "emailAuth");
+                      handlerApiError(emailCheckCodeMessage, errorCode || "", "emailAuth");
                   },
                 }
               );
@@ -116,6 +121,9 @@ export const useSignUpBtnClick = () => {
       CodeMutate,
       emailValue,
       handleClickNickname,
+      t,
+      emailErrorMessage,
+      emailCheckCodeMessage,
     ]
   );
 

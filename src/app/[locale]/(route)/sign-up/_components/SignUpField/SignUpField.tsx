@@ -1,6 +1,7 @@
 "use no memo";
 
-import { SIGNUP_INPUT_CONFIG } from "../../_constants/SIGNUP_INPUT_CONFIG";
+import { useTranslations } from "next-intl";
+import { useSignUpInputConfig } from "../../_hooks/useSignUpInputConfig/useSignUpInputConfig";
 import { DetailHeader, FooterButton } from "@/components";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useSignUpBtnClick } from "../../_hooks/useSignUpBtnClick";
@@ -8,6 +9,8 @@ import { useEffect } from "react";
 import SignUpItem from "../SignUpItem/SignUpItem";
 
 const SignUpField = ({ onNext }: { onNext: () => void }) => {
+  const t = useTranslations("SignUpField");
+  const signUpInputConfig = useSignUpInputConfig();
   const {
     control,
     trigger,
@@ -64,9 +67,9 @@ const SignUpField = ({ onNext }: { onNext: () => void }) => {
 
   return (
     <>
-      <DetailHeader title="회원가입" />
+      <DetailHeader title={t("title")} />
       <div className="flex w-full flex-1 flex-col gap-5 px-4 py-5 h-hfb-base tablet:px-[80px]">
-        {SIGNUP_INPUT_CONFIG.map((item) => (
+        {signUpInputConfig.map((item) => (
           <SignUpItem
             key={item.inputOption.name}
             {...item}
@@ -89,8 +92,8 @@ const SignUpField = ({ onNext }: { onNext: () => void }) => {
         ))}
       </div>
 
-      <FooterButton aria-label="다음 버튼" onClick={onNext} disabled={!isNextEnabled}>
-        다음
+      <FooterButton aria-label={t("nextAriaLabel")} onClick={onNext} disabled={!isNextEnabled}>
+        {t("next")}
       </FooterButton>
     </>
   );

@@ -4,9 +4,11 @@
 import { ApiFindPwType } from "@/api/fetch/auth";
 import { DetailHeader } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { FindPwForm } from "./_components";
 
 const Page = () => {
+  const t = useTranslations("FindPwPage");
   const methods = useForm<ApiFindPwType>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -15,7 +17,7 @@ const Page = () => {
 
   return (
     <FormProvider {...methods}>
-      <DetailHeader title="비밀번호 찾기 페이지" />
+      <DetailHeader title={t("title")} />
       <FindPwForm />
     </FormProvider>
   );
