@@ -7,6 +7,7 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
+import { trackLoginAttempt, trackLoginButtonClick } from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -29,6 +30,8 @@ const page = () => {
   })();
 
   const handleKakaoLogin = () => {
+    trackLoginAttempt("kakao");
+
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
@@ -61,6 +64,7 @@ const page = () => {
           ignoreBase
           className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
           aria-label={t("emailAriaLabel")}
+          onClick={() => trackLoginButtonClick("login_email_select")}
         >
           <Icon name="Mail" size={20} className="text-white" />
           {t("emailButton")}

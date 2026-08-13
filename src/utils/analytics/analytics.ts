@@ -23,3 +23,21 @@ export const trackPostComplete = (type: PostAnalyticsType) =>
  * @param keyword - 사용자가 입력한 실제 검색어 (예: '지갑', '에어팟')
  */
 export const trackSearch = (keyword: string) => trackingEvent("search", { search_term: keyword });
+
+export type LoginButtonLocation = "mypage" | "guest_modal" | "find_pw" | "login_email_select";
+
+/**
+ * 로그인 페이지로 진입시키는 버튼을 클릭했을 때 호출합니다.
+ * @param location - 버튼이 위치한 화면/컴포넌트
+ */
+export const trackLoginButtonClick = (location: LoginButtonLocation) =>
+  trackingEvent("login_button_click", { location });
+
+export type LoginAttemptMethod = "kakao" | "email";
+
+/**
+ * 실제 로그인을 시도했을 때(카카오 로그인 리다이렉트, 이메일 로그인 제출) 호출합니다.
+ * @param method - 로그인 시도 방식
+ */
+export const trackLoginAttempt = (method: LoginAttemptMethod) =>
+  trackingEvent("login_attempt", { method });

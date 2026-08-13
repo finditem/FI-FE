@@ -7,6 +7,7 @@ import { cn } from "@/utils";
 import Link from "next/link";
 import { useFindPwSubmit } from "@/hooks";
 import { ApiFindPwType } from "@/api/fetch/auth";
+import { trackLoginButtonClick } from "@/utils/analytics/analytics";
 
 const FindPwForm = () => {
   const t = useTranslations("FindPwForm");
@@ -60,7 +61,13 @@ const FindPwForm = () => {
               br: () => <br />,
             })}
           </p>
-          <Button as={Link} href="/login/email" className="w-full" ariaLabel={t("loginAriaLabel")}>
+          <Button
+            as={Link}
+            href="/login/email"
+            className="w-full"
+            ariaLabel={t("loginAriaLabel")}
+            onClick={() => trackLoginButtonClick("find_pw")}
+          >
             {t("changePassword")}
           </Button>
         </>
