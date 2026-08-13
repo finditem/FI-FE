@@ -4,7 +4,7 @@
 
 ## 스택
 
-- Next.js 15 / React 19 / TypeScript 5
+- Next.js 15 / React 19 / TypeScript 5 (`next.config.ts`에서 `reactCompiler: true` — React Compiler 활성화)
 - Tailwind CSS 3, Framer Motion
 - Zustand(상태), TanStack Query v5(서버 상태)
 - 실시간: 채팅은 STOMP(`@stomp/stompjs`), 알림은 SSE
@@ -45,6 +45,10 @@ CI(`jest.yml`: PR→develop, `playwright.yml`: PR→main/develop)가 PR 시점�
 ## 텍스트 작성 원칙
 
 커밋 메시지, PR 본문, 코드 주석 등 Claude가 작성하는 모든 텍스트 산출물은 온전한 문장으로만 작성하고 이모티콘을 사용하지 않는다.
+
+## React Compiler와 메모이제이션
+
+이 프로젝트는 React Compiler가 켜져 있다(`next.config.ts`의 `reactCompiler: true`). 컴포넌트/훅 내부에서 `useMemo`, `useCallback`을 수동으로 작성하지 않는다 — 컴파일러가 자동으로 처리한다. 새 훅이나 컴포넌트를 작성할 때도, 기존 코드를 참고해 복사할 때도 이 패턴을 넣지 않는다. 외부 라이브러리 API가 메모이즈된 함수/값을 명시적으로 요구하는 경우처럼 컴파일러가 커버하지 못하는 예외적 상황에서만 사용하고, 그 경우 왜 필요한지 주석으로 남긴다.
 
 ## 표준 작업 흐름
 
