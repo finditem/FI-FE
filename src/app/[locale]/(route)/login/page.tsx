@@ -55,15 +55,17 @@ const page = () => {
           {t("kakaoButton")}
         </Button>
         <Button
-          as={Link}
-          href={emailLoginHref}
-          replace
+          type="submit"
           ignoreBase
-          className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
-          aria-label={t("emailAriaLabel")}
+          ariaLabel={t("appleAriaLabel")}
+          onClick={() => alert("애플 로그인은 현재 지원하지 않습니다.")}
+          className={cn(
+            ButtonStyle,
+            "gap-1 bg-labelsVibrant-primary text-white hover:bg-labelsVibrant-primary"
+          )}
         >
-          <Icon name="Mail" size={20} className="text-white" />
-          {t("emailButton")}
+          <Icon name="AppleLogin" size={20} />
+          {t("appleButton")}
         </Button>
       </div>
 
