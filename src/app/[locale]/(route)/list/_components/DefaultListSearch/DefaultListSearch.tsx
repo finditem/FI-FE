@@ -9,7 +9,7 @@ import { useGetSearchKeyword } from "@/api/fetch/post";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { InputSearch } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
-import { trackSearch } from "@/utils/analytics/analytics";
+import { trackClickSearchBar, trackSearch } from "@/utils/analytics/analytics";
 import { PostSearchView } from "../_internal";
 
 const postSearchSchema = z.object({
@@ -70,6 +70,7 @@ const DefaultListSearch = () => {
             name="postSearch"
             placeholder="제목, 내용을 입력해 주세요."
             onEnter={handleSearchSubmit}
+            onFocus={() => trackClickSearchBar("list")}
           />
         </div>
       </FormProvider>

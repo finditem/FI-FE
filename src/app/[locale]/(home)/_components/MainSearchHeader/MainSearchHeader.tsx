@@ -12,7 +12,7 @@ import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
 import { useMainKakaoMapStore, useMainRecentSearch } from "@/store";
-import { trackSearch } from "@/utils/analytics/analytics";
+import { trackClickSearchBar, trackSearch } from "@/utils/analytics/analytics";
 
 interface LocationFormValues {
   search: string;
@@ -126,6 +126,7 @@ const HeaderSearchForm = ({
         autoComplete="off"
         type="text"
         onFocus={() => {
+          trackClickSearchBar("home");
           setFocused(true);
           if (!searchValue?.trim() && geoGranted && isResolvedGpsAddress) {
             setValue("search", userGpsAddress);

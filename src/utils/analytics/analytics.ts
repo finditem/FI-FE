@@ -49,3 +49,82 @@ export const trackLoginAttempt = (method: LoginAttemptMethod) =>
  */
 export const trackKakaoLoginClick = () =>
   trackingEvent("kakao_login_click", { transport_type: "beacon" });
+
+export type SearchBarLocation = "home" | "list";
+
+/**
+ * 검색창을 클릭(포커스)했을 때 호출합니다.
+ * @param page - 검색창이 위치한 화면
+ */
+export const trackClickSearchBar = (page: SearchBarLocation) =>
+  trackingEvent("click_search_bar", { page });
+
+export type ItemTypeLabel = "lost" | "found";
+
+/**
+ * 게시글 목록에서 카드를 클릭했을 때 호출합니다.
+ * @param itemId - 클릭한 게시글 id
+ * @param itemType - 게시글 종류
+ */
+export const trackClickItemCard = (itemId: number, itemType: ItemTypeLabel) =>
+  trackingEvent("click_item_card", { item_id: itemId, item_type: itemType });
+
+/**
+ * 게시글 상세 페이지에 진입했을 때 호출합니다.
+ * @param itemId - 조회한 게시글 id
+ * @param itemType - 게시글 종류
+ */
+export const trackViewItemDetail = (itemId: number, itemType: ItemTypeLabel) =>
+  trackingEvent("view_item_detail", { item_id: itemId, item_type: itemType });
+
+export type WriteButtonLocation = "home" | "list";
+
+/**
+ * 글쓰기 페이지로 진입시키는 버튼을 클릭했을 때 호출합니다.
+ * @param page - 버튼이 위치한 화면
+ */
+export const trackClickWriteButton = (page: WriteButtonLocation) =>
+  trackingEvent("click_write_button", { page });
+
+/**
+ * 게시글 등록 버튼을 눌러 최종 제출했을 때 호출합니다.
+ * @param itemType - 등록한 게시글 종류
+ * @param category - 게시글 카테고리
+ */
+export const trackSubmitItem = (itemType: ItemTypeLabel, category: string) =>
+  trackingEvent("submit_item", { item_type: itemType, category });
+
+/**
+ * 게시글 작성 중 이미지를 첨부했을 때 호출합니다.
+ * @param imageCount - 이번 첨부로 추가된 이미지 수
+ * @param itemType - 작성 중인 게시글 종류
+ */
+export const trackUploadImage = (imageCount: number, itemType: ItemTypeLabel) =>
+  trackingEvent("upload_image", { image_count: imageCount, item_type: itemType });
+
+/**
+ * 게시글 작성 중 위치 등록을 클릭했을 때 호출합니다.
+ * @param itemType - 작성 중인 게시글 종류
+ */
+export const trackClickLocation = (itemType: ItemTypeLabel) =>
+  trackingEvent("click_location", { item_type: itemType });
+
+/**
+ * 게시글 작성을 뒤로 가기/취소로 중단했을 때 호출합니다.
+ * @param itemType - 작성 중이던 게시글 종류
+ */
+export const trackWriteAbandon = (itemType: ItemTypeLabel) =>
+  trackingEvent("write_abandon", { item_type: itemType });
+
+/**
+ * 경찰청 분실물(112) 바로가기 버튼을 클릭했을 때 호출합니다.
+ * @param page - 버튼이 위치한 화면
+ */
+export const trackClick112LostItem = (page: string) =>
+  trackingEvent("click_112_lost_item", { page });
+
+/** 회원가입을 최종 완료했을 때 호출합니다. */
+export const trackSignUp = () => trackingEvent("sign_up");
+
+/** 회원가입 폼으로 진입하는 링크/버튼을 클릭했을 때 호출합니다. */
+export const trackClickSignupStart = () => trackingEvent("click_signup_start");

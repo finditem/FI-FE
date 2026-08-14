@@ -1,12 +1,19 @@
+import { useEffect } from "react";
 import type { PostDetailData } from "@/api/fetch/post/types/PostDetailType";
 import PostDetailHeader from "../PostDetailHeader/PostDetailHeader";
 import { PostDetailBody, PostDetailPreviewKakaoMap } from "../_internal";
+import { trackViewItemDetail, type ItemTypeLabel } from "@/utils/analytics/analytics";
 
 interface PostDetailProps {
   data: PostDetailData;
 }
 
 const PostDetail = ({ data }: PostDetailProps) => {
+  useEffect(() => {
+    if (!data) return;
+    trackViewItemDetail(data.id, data.postType.toLowerCase() as ItemTypeLabel);
+  }, [data?.id, data?.postType]);
+
   if (!data) return null;
 
   const headerData = {

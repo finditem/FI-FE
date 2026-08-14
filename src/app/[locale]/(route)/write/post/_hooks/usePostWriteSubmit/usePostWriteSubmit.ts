@@ -7,7 +7,12 @@ import {
   postWriteSubmitSchema,
 } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
-import { trackPostComplete, type PostAnalyticsType } from "@/utils/analytics/analytics";
+import {
+  trackPostComplete,
+  trackSubmitItem,
+  type ItemTypeLabel,
+  type PostAnalyticsType,
+} from "@/utils/analytics/analytics";
 import { resizeImage } from "@/utils";
 
 interface UsePostWriteSubmitProps {
@@ -111,6 +116,10 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
     const formData = await toPostWriteFormData(submitValues.data);
 
     trackPostComplete(POST_TYPE_ANALYTICS_LABEL[submitValues.data.postType]);
+    trackSubmitItem(
+      submitValues.data.postType.toLowerCase() as ItemTypeLabel,
+      submitValues.data.category
+    );
     postPosts(formData);
     clearLocation();
   };

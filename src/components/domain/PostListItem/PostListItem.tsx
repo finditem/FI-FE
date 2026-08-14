@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, highlightText } from "@/utils";
+import { trackClickItemCard, type ItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 목록의 개별 아이템 컴포넌트입니다.
@@ -34,7 +35,7 @@ interface PostListItemProps {
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
   const t = useTranslations("PostListItem");
   const tFilterOptions = useTranslations("FilterOptions");
-  const { id, postStatus, category, createdAt, isNew, isHot, imageCount } = post;
+  const { id, postStatus, postType, category, createdAt, isNew, isHot, imageCount } = post;
   const isFound = postStatus === "FOUND";
 
   const VIEW_ITEM = [
@@ -54,6 +55,11 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
     <li>
       <Link
         href={linkState === "list" ? `/list/${id}` : `/notice/${id}`}
+        onClick={
+          linkState === "list"
+            ? () => trackClickItemCard(id, (postType as string)?.toLowerCase() as ItemTypeLabel)
+            : undefined
+        }
         className={cn(
           "flex w-full items-center gap-[14px] px-5 py-[30px]",
           "border-b border-b-flatGray-50 transition-colors",

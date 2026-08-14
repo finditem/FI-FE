@@ -3,6 +3,7 @@ import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { BUTTON_DEFAULT_STYLE, WRITE_BUTTONS } from "../HOME_CONST";
+import { trackClickWriteButton } from "@/utils/analytics/analytics";
 
 const MainSearchEmpty = () => {
   return (
@@ -27,6 +28,7 @@ const MainSearchEmpty = () => {
             href={button.href}
             ignoreBase
             className={cn(BUTTON_DEFAULT_STYLE, button.style)}
+            onClick={() => trackClickWriteButton("home")}
           >
             {button.label}
             <Image

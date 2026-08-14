@@ -7,7 +7,11 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
-import { trackKakaoLoginClick, trackLoginButtonClick } from "@/utils/analytics/analytics";
+import {
+  trackClickSignupStart,
+  trackKakaoLoginClick,
+  trackLoginButtonClick,
+} from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -85,6 +89,7 @@ const page = () => {
         </span>
         <Link
           href="/sign-up"
+          onClick={trackClickSignupStart}
           className={cn(
             "Inversed-strong-default p-3 text-caption1-semibold text-brand-normal-default"
           )}

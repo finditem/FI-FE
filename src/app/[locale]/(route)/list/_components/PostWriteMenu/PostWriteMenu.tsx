@@ -7,6 +7,7 @@ import { Button, FloatingButton, Icon, ScrollToTopButton, ModalLayout } from "@/
 import { cn } from "@/utils";
 import { useClickOutside } from "@/hooks";
 import { WRITE_MENU_STYLES } from "../LIST_CONST";
+import { trackClickWriteButton } from "@/utils/analytics/analytics";
 
 const PostWriteMenu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,7 +32,11 @@ const PostWriteMenu = () => {
           {isMenuOpen && (
             <div className="absolute bottom-[65px] left-1/2 mb-3 -translate-x-[85%]">
               <div className="glass-card w-[213px] overflow-hidden text-nowrap rounded-[20px] border border-white">
-                <Link href={"/write/post?type=lost"} className={WRITE_MENU_STYLES.menuButton}>
+                <Link
+                  href={"/write/post?type=lost"}
+                  className={WRITE_MENU_STYLES.menuButton}
+                  onClick={() => trackClickWriteButton("list")}
+                >
                   <Icon name="LostWriteBtn" size={20} />
                   <span className={WRITE_MENU_STYLES.menuLabel}>분실했어요 글쓰기</span>
                 </Link>
@@ -89,6 +94,7 @@ const FindWarningModal = ({ isOpen, onClose }: FindWarningModalProps) => {
           as={Link}
           href="/write/post?type=find"
           className={WRITE_MENU_STYLES.findModalButton}
+          onClick={() => trackClickWriteButton("list")}
         >
           글쓰기
         </Button>

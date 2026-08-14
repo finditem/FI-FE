@@ -25,6 +25,8 @@ interface DetailHeaderProps {
   children?: ReactNode;
   /** 뒤로 버튼 클릭 시 직접 처리할 때 전달(없으면 라우터 기본 뒤로/홈) */
   onBack?: () => void;
+  /** 뒤로 버튼 클릭 시 기본 동작보다 먼저 호출(로깅 등 부수효과용) */
+  onBeforeBack?: () => void;
 }
 
 const HEADER_HEIGHT = "h-14";
@@ -48,11 +50,13 @@ const HEADER_HEIGHT = "h-14";
  * ```
  */
 
-const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
+const DetailHeader = ({ title = "", children, onBack, onBeforeBack }: DetailHeaderProps) => {
   const t = useTranslations("DetailHeader");
   const router = useRouter();
 
   const handleBack = () => {
+    onBeforeBack?.();
+
     if (onBack) {
       onBack();
       return;
