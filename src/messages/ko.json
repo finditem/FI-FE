@@ -389,11 +389,13 @@
   "Login": {
     "kakaoAriaLabel": "카카오 로그인 버튼",
     "kakaoButton": "카카오로 3초 만에 시작하기",
+    "appleAriaLabel": "애플 로그인 버튼",
+    "appleButton": "Apple로 계속하기",
     "emailAriaLabel": "로그인 버튼",
-    "emailButton": "이메일로 로그인",
+    "emailButton": "이메일 로그인",
     "divider": "또는",
     "notMemberYet": "아직 회원이 아니신가요?",
-    "signUp": "회원가입"
+    "createAccount": "회원가입"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -402,7 +404,8 @@
   "LogoLink": {
     "homeAriaLabel": "메인페이지 이동",
     "logoIconTitle": "로고",
-    "brandName": "찾아줘!"
+    "brandName": "찾아줘!",
+    "slogan": "위치 기반 매칭 분실물 서비스"
   },
   "SessionNotification": {
     "sessionExpired": "세션이 만료되었어요. 다시 로그인 해주세요."
