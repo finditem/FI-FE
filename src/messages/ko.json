@@ -402,7 +402,8 @@
   "LogoLink": {
     "homeAriaLabel": "메인페이지 이동",
     "logoIconTitle": "로고",
-    "brandName": "찾아줘!"
+    "brandName": "찾아줘!",
+    "slogan": "위치 기반 매칭 분실물 서비스"
   },
   "SessionNotification": {
     "sessionExpired": "세션이 만료되었어요. 다시 로그인 해주세요."
