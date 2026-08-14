@@ -77,7 +77,7 @@ const page = () => {
       </div>
 
       {/* 이메일 로그인 및 회원가입 */}
-      <div className="h-11 gap-[6px] flex-center">
+      <div className="h-11 gap-1.5 flex-center">
         <Link
           href={emailLoginHref}
           replace
