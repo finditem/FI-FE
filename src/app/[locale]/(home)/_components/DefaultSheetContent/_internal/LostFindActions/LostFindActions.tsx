@@ -18,7 +18,7 @@ const LostFindActions = () => {
             <Link
               href={`/list?type=${type}`}
               key={type}
-              aria-label={t("goToListLabel", { title })}
+              aria-label={t(`${type}AriaLabel`)}
               className={cn(
                 "relative h-[106px] w-full min-w-0 flex-1 overflow-hidden rounded-2xl",
                 bgColor

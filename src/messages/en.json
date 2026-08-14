@@ -558,7 +558,8 @@
     "found": "Report found item"
   },
   "LostFindActions": {
-    "goToListLabel": "Go to {title} list"
+    "lostAriaLabel": "Go to lost items list",
+    "foundAriaLabel": "Go to found items list"
   },
   "MainCardList": {
     "altText": "Image of recently found item: {title}",
@@ -571,9 +572,9 @@
   },
   "PoliceItems": {
     "lostHeadLabel": "Lost",
-    "lostLabel": "it",
+    "lostLabel": "Items",
     "foundHeadLabel": "Found",
-    "foundLabel": "it"
+    "foundLabel": "Items"
   },
   "SupportMenuItems": {
     "notificationSettingLabel": "Set up keyword alerts",

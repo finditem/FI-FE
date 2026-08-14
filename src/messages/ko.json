@@ -558,7 +558,8 @@
     "found": "발견 신고"
   },
   "LostFindActions": {
-    "goToListLabel": "{title} 목록 페이지로 이동"
+    "lostAriaLabel": "분실 신고 목록 페이지로 이동",
+    "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
   "MainCardList": {
     "altText": "최근 발견된 분실물 {title} 이미지",
