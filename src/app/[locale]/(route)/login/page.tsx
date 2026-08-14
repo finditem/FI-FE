@@ -76,18 +76,24 @@ const page = () => {
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
       </div>
 
-      {/* 회원확인 여부 */}
-      <div className="h-11">
-        <span className="text-caption1-medium text-neutral-normal-placeholder">
-          {t("notMemberYet")}
-        </span>
+      {/* 이메일 로그인 및 회원가입 */}
+      <div className="h-11 gap-[6px] flex-center">
+        <Link
+          href={emailLoginHref}
+          replace
+          aria-label={t("emailAriaLabel")}
+          className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
+        >
+          {t("emailButton")}
+        </Link>
+
+        <div className="h-4 w-px bg-flatGray-50" aria-hidden={true} />
+
         <Link
           href="/sign-up"
-          className={cn(
-            "Inversed-strong-default p-3 text-caption1-semibold text-brand-normal-default"
-          )}
+          className={cn("min-w-[128px] p-3 text-caption1-semibold text-brand-normal-default")}
         >
-          {t("signUp")}
+          {t("createAccount")}
         </Link>
       </div>
     </div>
