@@ -387,8 +387,8 @@
     "defaultTitle": "Loading…"
   },
   "Login": {
-    "kakaoAriaLabel": "Log in with Kakao",
-    "kakaoButton": "Get started in seconds with Kakao",
+    "kakaoAriaLabel": "Login with Kakao",
+    "kakaoButton": "Login with Kakao",
     "emailAriaLabel": "Log in",
     "emailButton": "Log in with email",
     "divider": "or",
@@ -402,7 +402,8 @@
   "LogoLink": {
     "homeAriaLabel": "Go to home",
     "logoIconTitle": "Logo",
-    "brandName": "finditem!"
+    "brandName": "finditem!",
+    "slogan": "Find What's Lost, Right Where You Are"
   },
   "SessionNotification": {
     "sessionExpired": "Your session has expired. Please log in again."
