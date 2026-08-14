@@ -389,6 +389,8 @@
   "Login": {
     "kakaoAriaLabel": "Login with Kakao",
     "kakaoButton": "Login with Kakao",
+    "appleAriaLabel": "Sign in with Apple",
+    "appleButton": "Sign in with Apple",
     "emailAriaLabel": "Log in",
     "emailButton": "Log in with email",
     "divider": "or",
