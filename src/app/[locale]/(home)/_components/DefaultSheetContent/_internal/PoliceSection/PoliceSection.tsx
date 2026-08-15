@@ -1,9 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import MainCardList from "../MainCardList/MainCardList";
-import { POLICE_ITEMS } from "../../../HOME_CONST";
+import usePoliceItems from "../../../../_hooks/usePoliceItems/usePoliceItems";
 import { usePublicRecentFound } from "@/api/fetch/publicData/api/usePublicRecentFound";
 import { PublicDataItem } from "@/types";
 import { trackClick112LostItem } from "@/utils/analytics/analytics";
@@ -11,6 +12,8 @@ import { trackClick112LostItem } from "@/utils/analytics/analytics";
 const NO_IMAGE_URL = "https://minwon24.police.go.kr/images/sub/img02_no_img.gif";
 
 const PoliceSection = () => {
+  const t = useTranslations("PoliceSection");
+  const policeItems = usePoliceItems();
   const { data, isLoading } = usePublicRecentFound(5);
 
   const rawItems = data?.items?.item;
@@ -18,7 +21,7 @@ const PoliceSection = () => {
 
   const publicData = itemsArray.map((item) => ({
     postId: item.atcId,
-    title: item.fdPrdtNm || item.fdSbjt || "제목 없음",
+    title: item.fdPrdtNm || item.fdSbjt || t("noTitle"),
     thumbnailImageUrl:
       item.fdFilePathImg && item.fdFilePathImg !== NO_IMAGE_URL ? item.fdFilePathImg : "",
     createdAt: item.fdYmd,
@@ -28,12 +31,14 @@ const PoliceSection = () => {
     <section className="space-y-4">
       <div className="flex items-center gap-3 rounded-2xl px-3 py-4 bg-fill-brand-subtle-default_2 tablet:gap-10">
         <div className="flex shrink-0 flex-col gap-[10px] px-3 py-[10px]">
-          <span className="whitespace-pre text-body2-semibold text-brand-normal-default">{`경찰청 분실물도\n찾아줘!에서 확인해요`}</span>
-          <Image src="/main/police24-icon.svg" alt="경찰민원24로고" width={77} height={21} />
+          <span className="whitespace-pre text-body2-semibold text-brand-normal-default">
+            {t("banner")}
+          </span>
+          <Image src="/main/police24-icon.svg" alt={t("logoAlt")} width={77} height={21} />
         </div>
 
         <div className="flex min-w-0 flex-1 items-stretch justify-end gap-2 tablet:gap-3">
-          {POLICE_ITEMS.map(({ href, headLabel, label }) => (
+          {policeItems.map(({ href, headLabel, label }) => (
             <Link
               key={href}
               href={href}

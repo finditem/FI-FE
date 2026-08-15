@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Button, Icon, DetailHeader, HeaderMenu, HeaderShare, HeaderStar } from "@/components";
 import { cn } from "@/utils";
 
@@ -6,10 +7,12 @@ interface DetailSkeletonProps {
 }
 
 const DetailSkeleton = ({ isError = false }: DetailSkeletonProps) => {
+  const t = useTranslations("DetailSkeleton");
+
   return (
     <>
       <span className="sr-only" role="status">
-        상세 정보를 불러오는 중입니다.
+        {t("loadingStatus")}
       </span>
       <DetailHeader>
         <HeaderStar isActive={false} />
@@ -53,7 +56,7 @@ const DetailSkeleton = ({ isError = false }: DetailSkeletonProps) => {
             )}
             disabled
           >
-            채팅하러 가기
+            {t("chatButton")}
           </Button>
         </div>
       </section>

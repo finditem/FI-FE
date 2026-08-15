@@ -1,6 +1,7 @@
 "use client";
 "use no memo";
 
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -19,6 +20,7 @@ const postSearchSchema = z.object({
 type PostSearchFormValues = z.infer<typeof postSearchSchema>;
 
 const DefaultListSearch = () => {
+  const t = useTranslations("DefaultListSearch");
   const router = useRouter();
   const searchParams = useSearchParams();
   const keywordResult = postSearchSchema.shape.postSearch.safeParse(
@@ -68,14 +70,14 @@ const DefaultListSearch = () => {
           <InputSearch
             mode="RHF"
             name="postSearch"
-            placeholder="제목, 내용을 입력해 주세요."
+            placeholder={t("placeholder")}
             onEnter={handleSearchSubmit}
             onFocus={() => trackClickSearchBar("list")}
           />
         </div>
       </FormProvider>
 
-      <ErrorBoundary toastMessage="검색 결과를 불러올 수 없어요. 다시 시도해 주세요.">
+      <ErrorBoundary toastMessage={t("errorToast")}>
         <PostSearchView data={listData ?? []} keyword={keyword} />
         {hasNextPage && <div ref={searchRef} className="h-10 w-full" />}
       </ErrorBoundary>

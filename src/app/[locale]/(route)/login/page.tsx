@@ -8,6 +8,7 @@ import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
 import {
+  trackAppleLoginClick,
   trackClickSignupStart,
   trackKakaoLoginClick,
   trackLoginButtonClick,
@@ -42,6 +43,11 @@ const page = () => {
     window.location.replace(kakaoURL);
   };
 
+  const handleAppleLogin = () => {
+    trackAppleLoginClick();
+    alert("애플 로그인은 현재 지원하지 않습니다.");
+  };
+
   return (
     <div className="min-h-screen w-full gap-8 flex-col-center">
       <LogoLink />
@@ -62,16 +68,17 @@ const page = () => {
           {t("kakaoButton")}
         </Button>
         <Button
-          as={Link}
-          href={emailLoginHref}
-          replace
+          type="submit"
           ignoreBase
-          className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
-          aria-label={t("emailAriaLabel")}
-          onClick={() => trackLoginButtonClick("login_email_select")}
+          ariaLabel={t("appleAriaLabel")}
+          onClick={handleAppleLogin}
+          className={cn(
+            ButtonStyle,
+            "gap-1 bg-labelsVibrant-primary text-white hover:bg-labelsVibrant-primary"
+          )}
         >
-          <Icon name="Mail" size={20} className="text-white" />
-          {t("emailButton")}
+          <Icon name="AppleLogin" size={20} />
+          {t("appleButton")}
         </Button>
       </div>
 
@@ -82,19 +89,26 @@ const page = () => {
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
       </div>
 
-      {/* 회원확인 여부 */}
-      <div className="h-11">
-        <span className="text-caption1-medium text-neutral-normal-placeholder">
-          {t("notMemberYet")}
-        </span>
+      {/* 이메일 로그인 및 회원가입 */}
+      <div className="h-11 gap-1.5 flex-center">
+        <Link
+          href={emailLoginHref}
+          replace
+          aria-label={t("emailAriaLabel")}
+          onClick={() => trackLoginButtonClick("login_email_select")}
+          className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
+        >
+          {t("emailButton")}
+        </Link>
+
+        <div className="h-4 w-px bg-flatGray-50" aria-hidden={true} />
+
         <Link
           href="/sign-up"
           onClick={trackClickSignupStart}
-          className={cn(
-            "Inversed-strong-default p-3 text-caption1-semibold text-brand-normal-default"
-          )}
+          className={cn("min-w-[128px] p-3 text-caption1-semibold text-brand-normal-default")}
         >
-          {t("signUp")}
+          {t("createAccount")}
         </Link>
       </div>
     </div>

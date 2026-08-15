@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { PublicDataItemCard } from "../../../../_components/_internal";
 import { EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
@@ -9,6 +10,7 @@ import { useToast } from "@/context/ToastContext";
 import { usePublicDataListQuery } from "../../../../_hooks/usePublicDataListQuery/usePublicDataListQuery";
 
 const PublicDataSearchList = () => {
+  const t = useTranslations("PublicDataSearchList");
   const { addToast } = useToast();
   const hasErrorToastShown = useRef(false);
 
@@ -32,13 +34,13 @@ const PublicDataSearchList = () => {
   useEffect(() => {
     if (isError) {
       if (!hasErrorToastShown.current) {
-        addToast("데이터를 불러오지 못했어요.", "error");
+        addToast(t("loadFailedToast"), "error");
         hasErrorToastShown.current = true;
       }
     } else {
       hasErrorToastShown.current = false;
     }
-  }, [isError, addToast]);
+  }, [isError, addToast, t]);
 
   if (isLoading) return <LoadingState />;
 
@@ -49,7 +51,7 @@ const PublicDataSearchList = () => {
           iconName: "NoPublicDataSearch",
           iconSize: 70,
         }}
-        title="검색 결과가 없습니다."
+        title={t("noResultsTitle")}
       />
     );
   }

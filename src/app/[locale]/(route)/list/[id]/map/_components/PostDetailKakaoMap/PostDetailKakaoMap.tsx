@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { z } from "zod";
 import { Icon, BaseKakaoMap } from "@/components";
 import { cn, getMapLevelByRadius } from "@/utils";
@@ -39,6 +40,7 @@ const decodeAddress = (address: string) => {
 };
 
 const PostDetailKakaoMap = () => {
+  const t = useTranslations("PostDetailKakaoMap");
   const searchParams = useSearchParams();
 
   const rawData = mapQuerySchema.parse({
@@ -50,7 +52,7 @@ const PostDetailKakaoMap = () => {
 
   return (
     <section className="relative h-full w-full">
-      <h2 className="sr-only">지도 영역</h2>
+      <h2 className="sr-only">{t("mapAreaLabel")}</h2>
 
       <BaseKakaoMap
         center={{ lat: rawData.lat, lng: rawData.lng }}

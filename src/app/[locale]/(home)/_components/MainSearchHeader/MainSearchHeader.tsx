@@ -1,6 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/utils";
@@ -23,7 +24,6 @@ interface FocusedProps {
   focused: boolean;
 }
 
-const LOCATION_PLACEHOLDER_DEFAULT = "장소, 주소를 입력해 주세요.";
 const HeaderSearchForm = ({
   searchValue,
   setFocused,
@@ -37,6 +37,7 @@ const HeaderSearchForm = ({
   dropdownRootRef: RefObject<HTMLDivElement | null>;
   searchInputRef: RefObject<HTMLInputElement | null>;
 }) => {
+  const t = useTranslations("MainSearchHeader");
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
   const userGpsAddress = useMainKakaoMapStore((s) => s.userGpsAddress);
@@ -46,7 +47,7 @@ const HeaderSearchForm = ({
   const isResolvedGpsAddress =
     userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
   const locationPlaceholder =
-    geoGranted && isResolvedGpsAddress ? userGpsAddress : LOCATION_PLACEHOLDER_DEFAULT;
+    geoGranted && isResolvedGpsAddress ? userGpsAddress : t("placeholder");
 
   useEffect(() => {
     if (!geoGranted || userGpsLatLng) return;
@@ -142,7 +143,7 @@ const HeaderSearchForm = ({
         type="button"
         onMouseDown={(e) => e.preventDefault()}
         onClick={isDropdownOpen ? handleBack : handleSubmit(onSubmit)}
-        aria-label={isDropdownOpen ? "뒤로가기" : "위치 검색"}
+        aria-label={isDropdownOpen ? t("backLabel") : t("searchLabel")}
         className="absolute left-5 top-1/2 -translate-y-1/2"
       >
         <Icon

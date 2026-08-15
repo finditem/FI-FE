@@ -1,10 +1,12 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { DetailHeader } from "@/components";
 
 const PublicDataSearchDetailHeader = () => {
+  const t = useTranslations("PublicDataSearchDetailHeader");
   const params = useParams();
   const type = params.type === "found" ? "found" : "lost";
 
@@ -22,7 +24,7 @@ const PublicDataSearchDetailHeader = () => {
               unoptimized
             />
             <p className="text-h2-bold text-layout-header-default">
-              {type === "found" ? "습득물" : "분실물"} 검색
+              {type === "found" ? t("foundTitle") : t("lostTitle")}
             </p>
           </div>
         }

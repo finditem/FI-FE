@@ -50,6 +50,14 @@ export const trackLoginAttempt = (method: LoginAttemptMethod) =>
 export const trackKakaoLoginClick = () =>
   trackingEvent("kakao_login_click", { transport_type: "beacon" });
 
+/**
+ * 애플 로그인 버튼을 클릭했을 때 호출합니다.
+ * @remarks 클릭 즉시 애플 인증 페이지로 리다이렉트되어 이벤트 전송이 끊길 수 있어,
+ * gtag 요청을 navigator.sendBeacon으로 보내도록 transport_type을 지정합니다.
+ */
+export const trackAppleLoginClick = () =>
+  trackingEvent("apple_login_click", { transport_type: "beacon" });
+
 export type SearchBarLocation = "home" | "list";
 
 /**

@@ -18,7 +18,7 @@ jest.mock("@/components/common", () => ({
 describe("<LogoLink />", () => {
   it("메인페이지(/) 링크가 렌더된다", () => {
     render(<LogoLink />);
-    expect(screen.getByRole("link", { name: "메인페이지 이동" })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: /메인페이지 이동/ })).toHaveAttribute("href", "/");
   });
 
   it("'찾아줘!' 텍스트가 렌더된다", () => {
