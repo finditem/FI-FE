@@ -2,12 +2,14 @@
 
 import { useHorizontalDragScroll } from "@/hooks";
 import { Filter } from "@/components";
-import { POST_FILTER_ITEMS, CATEGORY_FILTER_ITEM, CATEGORY, POST_TYPE } from "../HOME_CONST";
+import { CATEGORY, POST_TYPE } from "../HOME_CONST";
 import CategoryFilter from "./_internal/CategoryFilter/CategoryFilter";
 import useHomeFilterQuery from "../../_hooks/useHomeFilterQuery/useHomeFilterQuery";
+import useFilterItems from "../../_hooks/useFilterItems/useFilterItems";
 
 const HomeFilterSection = ({ isHidden = false }: { isHidden?: boolean }) => {
   const { ref, onMouseDown } = useHorizontalDragScroll();
+  const { postFilterItems, categoryFilterItem } = useFilterItems();
   const {
     categoryParam,
     selectedPostFilter,
@@ -24,7 +26,7 @@ const HomeFilterSection = ({ isHidden = false }: { isHidden?: boolean }) => {
       onMouseDown={onMouseDown}
       className="sticky top-0 z-10 -mx-5 flex gap-2 border-b border-divider-default bg-white pb-[14px] pl-5 no-scrollbar"
     >
-      {POST_FILTER_ITEMS.map((item) => (
+      {postFilterItems.map((item) => (
         <Filter
           key={item.value}
           ariaLabel={item.label}
@@ -35,7 +37,7 @@ const HomeFilterSection = ({ isHidden = false }: { isHidden?: boolean }) => {
         </Filter>
       ))}
       <CategoryFilter
-        ariaLabel={CATEGORY_FILTER_ITEM.label}
+        ariaLabel={categoryFilterItem.label}
         label={categoryFilterLabel}
         isSelected={isCategorySelected}
         selectedValue={categoryParam}

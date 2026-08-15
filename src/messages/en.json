@@ -548,5 +548,105 @@
     "USER404-NOT_FOUND": "We couldn't find an account with that email",
     "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
     "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
+  },
+  "HomeLayout": {
+    "title": "Find lost items near you | Finditem",
+    "description": "The fastest, easiest lost-and-found center. From police lost-item reports to items nearby, check them all on the map."
+  },
+  "BottomSheet": {
+    "heightAdjustLabel": "Adjust bottom sheet height"
+  },
+  "LostFindActionData": {
+    "lost": "Report lost item",
+    "found": "Report found item"
+  },
+  "LostFindActions": {
+    "lostAriaLabel": "Go to lost items list",
+    "foundAriaLabel": "Go to found items list"
+  },
+  "MainCardList": {
+    "altText": "Image of recently found item: {title}",
+    "policeChipLabel": "Police"
+  },
+  "PoliceSection": {
+    "noTitle": "No title",
+    "banner": "Check lost items reported to\nthe police on Finditem too",
+    "logoAlt": "Korean National Police Agency Lost & Found logo"
+  },
+  "PoliceItems": {
+    "lostHeadLabel": "Lost",
+    "lostLabel": "Items",
+    "foundHeadLabel": "Found",
+    "foundLabel": "Items"
+  },
+  "SupportMenuItems": {
+    "notificationSettingLabel": "Set up keyword alerts",
+    "noticeLabel": "Notices"
+  },
+  "WriteButtons": {
+    "lostLabel": "Report a lost item",
+    "foundLabel": "Report a found item"
+  },
+  "MainSearchEmpty": {
+    "emptyTitle": "No lost items found in this area",
+    "emptyDescription": "Post directly to list it on Finditem"
+  },
+  "FilterItems": {
+    "all": "All",
+    "lost": "Lost only",
+    "find": "Found only",
+    "category": "Category"
+  },
+  "PermissionItem": {
+    "locationTitle": "Location (optional)",
+    "locationDescription": "Show lost-item info based on your current location",
+    "alertTitle": "Notifications (optional)",
+    "alertDescription": "Receive alerts from Finditem"
+  },
+  "PermissionConfig": {
+    "locationTitle": "Allow location access for a better experience.",
+    "locationDescription": "Allowing location access lets us show\nlost-item info near you.",
+    "locationAgreeBtnText": "Allow location access",
+    "alertTitle": "Allow notifications to get more updates.",
+    "alertDescription": "You can change notification permissions anytime\nin My Page settings.",
+    "alertAgreeBtnText": "Allow notifications"
+  },
+  "PermissionBottomSheet": {
+    "browserNoLocation": "Your browser doesn't support location services",
+    "locationPermissionDenied": "Location access was denied. Please allow it in your settings.",
+    "browserNoNotification": "This browser doesn't support notifications",
+    "notificationRegisterFailed": "Failed to register for browser notifications",
+    "notificationPermissionBlocked": "Notifications are blocked. Please allow them in your browser settings",
+    "allowPermissionsTitle": "Please allow the permissions below to use the service.",
+    "confirm": "Confirm",
+    "skipForNow": "Maybe later"
+  },
+  "MainSearchHeader": {
+    "placeholder": "Enter a place or address",
+    "backLabel": "Back",
+    "searchLabel": "Search location"
+  },
+  "RecentSearchEmpty": {
+    "emptyText": "No recent searches"
+  },
+  "RecentFoundItemEmpty": {
+    "emptyText": "No lost items found yet"
+  },
+  "RecentFoundItemSection": {
+    "sectionTitle": "Recently found items"
+  },
+  "PublicMoreViewCard": {
+    "policeLostItemLabel": "Police lost items",
+    "moreLabel": "View more"
+  },
+  "MyLocationButton": {
+    "myLocationLabel": "Move to my location"
+  },
+  "AutoCompleteList": {
+    "autoCompleteItemLabel": "Select autocomplete location"
+  },
+  "LatestList": {
+    "searchLabel": "Search {keyword}",
+    "deleteLabel": "Delete recent search"
   }
 }
