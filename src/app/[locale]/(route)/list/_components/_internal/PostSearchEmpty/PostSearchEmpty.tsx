@@ -22,13 +22,16 @@ const PostSearchEmpty = ({ keyword }: { keyword?: string }) => {
 
       <div className={keyword ? "visible" : "invisible"}>
         <div className="flex flex-col items-start gap-6">
-          <p className="whitespace-pre-line px-5 text-h2-bold text-layout-header-default">
-            {t.rich("searchPrompt", {
-              keyword: displayKeyword,
-              highlight: (chunks) => (
-                <span className="text-brand-strongUseThis-default">{chunks}</span>
-              ),
-            })}
+          <p className="flex flex-col gap-3 px-5 text-h2-bold text-layout-header-default">
+            <span>
+              {t.rich("searchPromptLine1", {
+                keyword: displayKeyword,
+                highlight: (chunks) => (
+                  <span className="text-brand-strongUseThis-default">{chunks}</span>
+                ),
+              })}
+            </span>
+            <span>{t("searchPromptLine2")}</span>
           </p>
 
           <div className="w-full border-t border-divider-default px-4 pb-8 pt-3">

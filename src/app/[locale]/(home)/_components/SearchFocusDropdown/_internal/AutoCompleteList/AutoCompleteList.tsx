@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { useVWorldAddressSearch } from "@/hooks";
 import { useMainRecentSearch } from "@/store";
@@ -24,6 +25,7 @@ const AutoCompleteList = ({
   dropdownRootRef,
   searchInputRef,
 }: AutoCompleteListProps) => {
+  const t = useTranslations("AutoCompleteList");
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
   const query = searchKeyword.trim();
@@ -60,7 +62,7 @@ const AutoCompleteList = ({
             <button
               data-search-dropdown-item
               type="button"
-              aria-label="자동완성 지역 검색어 클릭"
+              aria-label={t("autoCompleteItemLabel")}
               onClick={() => handleSelect(item)}
               onKeyDown={(e) => handleSearchDropdownRowKeyDown(e, dropdownRootRef, searchInputRef)}
               className={cn(

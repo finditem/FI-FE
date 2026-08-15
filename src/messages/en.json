@@ -387,13 +387,15 @@
     "defaultTitle": "Loading…"
   },
   "Login": {
-    "kakaoAriaLabel": "Log in with Kakao",
-    "kakaoButton": "Get started in seconds with Kakao",
+    "kakaoAriaLabel": "Login with Kakao",
+    "kakaoButton": "Login with Kakao",
+    "appleAriaLabel": "Sign in with Apple",
+    "appleButton": "Sign in with Apple",
     "emailAriaLabel": "Log in",
     "emailButton": "Log in with email",
-    "divider": "or",
+    "divider": "Or",
     "notMemberYet": "Don't have an account?",
-    "signUp": "Sign up"
+    "createAccount": "Create account"
   },
   "LoginLayout": {
     "title": "Log In",
@@ -402,7 +404,8 @@
   "LogoLink": {
     "homeAriaLabel": "Go to home",
     "logoIconTitle": "Logo",
-    "brandName": "finditem!"
+    "brandName": "finditem!",
+    "slogan": "Find What's Lost, Right Where You Are"
   },
   "SessionNotification": {
     "sessionExpired": "Your session has expired. Please log in again."
@@ -590,7 +593,8 @@
     "defaultKeyword": "item",
     "noResultsTitle": "No results found.",
     "noResultsDescription": "Please double-check what you entered.",
-    "searchPrompt": "Want to also search for <highlight>{keyword}</highlight>\nin the police lost items list?",
+    "searchPromptLine1": "Want to also search for <highlight>{keyword}</highlight>",
+    "searchPromptLine2": "in the police lost items list?",
     "policeListButton": "Search police lost items"
   },
   "ClientDetail": {
@@ -643,8 +647,8 @@
     "imageAlt": "Post image {index}"
   },
   "PostDetailBody": {
-    "viewCountLabel": "Views {count}",
-    "favoriteLabel": "Bookmark"
+    "viewCountLabel": "{count, plural, one {# view} other {# views}}",
+    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}"
   },
   "PostDetailPreviewKakaoMap": {
     "viewOnMapAriaLabel": "View location on map in detail",
@@ -662,5 +666,105 @@
     "defaultItemName": "Item",
     "titleTemplate": "{title} | {address} | Finditem {postType}",
     "defaultDescription": "List detail"
+  },
+  "HomeLayout": {
+    "title": "Find lost items near you | Finditem",
+    "description": "The fastest, easiest lost-and-found center. From police lost-item reports to items nearby, check them all on the map."
+  },
+  "BottomSheet": {
+    "heightAdjustLabel": "Adjust bottom sheet height"
+  },
+  "LostFindActionData": {
+    "lost": "Report lost item",
+    "found": "Report found item"
+  },
+  "LostFindActions": {
+    "lostAriaLabel": "Go to lost items list",
+    "foundAriaLabel": "Go to found items list"
+  },
+  "MainCardList": {
+    "altText": "Image of recently found item: {title}",
+    "policeChipLabel": "Police"
+  },
+  "PoliceSection": {
+    "noTitle": "No title",
+    "banner": "Check lost items reported to\nthe police on Finditem too",
+    "logoAlt": "Korean National Police Agency Lost & Found logo"
+  },
+  "PoliceItems": {
+    "lostHeadLabel": "Lost",
+    "lostLabel": "Items",
+    "foundHeadLabel": "Found",
+    "foundLabel": "Items"
+  },
+  "SupportMenuItems": {
+    "notificationSettingLabel": "Set up keyword alerts",
+    "noticeLabel": "Notices"
+  },
+  "WriteButtons": {
+    "lostLabel": "Report a lost item",
+    "foundLabel": "Report a found item"
+  },
+  "MainSearchEmpty": {
+    "emptyTitle": "No lost items found in this area",
+    "emptyDescription": "Post directly to list it on Finditem"
+  },
+  "FilterItems": {
+    "all": "All",
+    "lost": "Lost only",
+    "find": "Found only",
+    "category": "Category"
+  },
+  "PermissionItem": {
+    "locationTitle": "Location (optional)",
+    "locationDescription": "Show lost-item info based on your current location",
+    "alertTitle": "Notifications (optional)",
+    "alertDescription": "Receive alerts from Finditem"
+  },
+  "PermissionConfig": {
+    "locationTitle": "Allow location access for a better experience.",
+    "locationDescription": "Allowing location access lets us show\nlost-item info near you.",
+    "locationAgreeBtnText": "Allow location access",
+    "alertTitle": "Allow notifications to get more updates.",
+    "alertDescription": "You can change notification permissions anytime\nin My Page settings.",
+    "alertAgreeBtnText": "Allow notifications"
+  },
+  "PermissionBottomSheet": {
+    "browserNoLocation": "Your browser doesn't support location services",
+    "locationPermissionDenied": "Location access was denied. Please allow it in your settings.",
+    "browserNoNotification": "This browser doesn't support notifications",
+    "notificationRegisterFailed": "Failed to register for browser notifications",
+    "notificationPermissionBlocked": "Notifications are blocked. Please allow them in your browser settings",
+    "allowPermissionsTitle": "Please allow the permissions below to use the service.",
+    "confirm": "Confirm",
+    "skipForNow": "Maybe later"
+  },
+  "MainSearchHeader": {
+    "placeholder": "Enter a place or address",
+    "backLabel": "Back",
+    "searchLabel": "Search location"
+  },
+  "RecentSearchEmpty": {
+    "emptyText": "No recent searches"
+  },
+  "RecentFoundItemEmpty": {
+    "emptyText": "No lost items found yet"
+  },
+  "RecentFoundItemSection": {
+    "sectionTitle": "Recently found items"
+  },
+  "PublicMoreViewCard": {
+    "policeLostItemLabel": "Police lost items",
+    "moreLabel": "View more"
+  },
+  "MyLocationButton": {
+    "myLocationLabel": "Move to my location"
+  },
+  "AutoCompleteList": {
+    "autoCompleteItemLabel": "Select autocomplete location"
+  },
+  "LatestList": {
+    "searchLabel": "Search {keyword}",
+    "deleteLabel": "Delete recent search"
   }
 }
