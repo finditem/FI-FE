@@ -549,6 +549,124 @@
     "AUTH400-SOCIAL_ACCOUNT": "해당 이메일은 소셜 로그인 계정이에요",
     "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요. 잠시 후 다시 시도해 주세요"
   },
+  "ListPage": {
+    "postTypeLost": "분실한",
+    "postTypeFound": "발견된",
+    "searchTitle": "{keyword} 검색결과",
+    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 우리 동네에서 잃어버린 {keyword} 분실물을 찾아보세요!",
+    "listTitle": "{postType} 물건 리스트",
+    "listDescription": "{postType} 물건을 한눈에 확인해보세요! 우리 동네 분실물들이 이곳에 모여 있어요."
+  },
+  "DefaultListSearch": {
+    "placeholder": "제목, 내용을 입력해 주세요.",
+    "errorToast": "검색 결과를 불러올 수 없어요. 다시 시도해 주세요."
+  },
+  "DefaultListSection": {
+    "errorToast": "목록을 불러올 수 없어요. 다시 시도해 주세요."
+  },
+  "DefaultListView": {
+    "searchAriaLabel": "게시글 검색"
+  },
+  "SearchHeaderTitle": {
+    "default": "게시글",
+    "region": "지역 선택",
+    "post": "게시글 검색"
+  },
+  "Tabs": {
+    "lostLabel": "분실",
+    "foundLabel": "발견"
+  },
+  "PostWriteMenu": {
+    "lostWriteLabel": "분실했어요 글쓰기",
+    "foundWriteLabel": "발견했어요 글쓰기",
+    "menuAriaLabel": "글쓰기 메뉴",
+    "findModalTitle": "게시글 작성 전 확인해 주세요!",
+    "findModalDescription": "발견했어요 게시글 작성 시에는 경찰청에 우선 신고해 주시고 작성해 주시기 바랍니다.",
+    "cancel": "취소",
+    "write": "글쓰기"
+  },
+  "DefaultList": {
+    "listAriaLabel": "게시글 목록",
+    "emptyDescription": "아직 게시글이 없어요.\n가장 먼저 작성해보세요!"
+  },
+  "PostSearchEmpty": {
+    "defaultKeyword": "물건",
+    "noResultsTitle": "검색 결과가 없습니다.",
+    "noResultsDescription": "입력한 내용을 다시 한 번 확인해 주세요.",
+    "searchPromptLine1": "방금 검색한 <highlight>{keyword}</highlight>을",
+    "searchPromptLine2": "경찰청 분실물 목록에서 다시 찾아볼까요?",
+    "policeListButton": "경찰청 목록에서 찾아보기"
+  },
+  "ClientDetail": {
+    "loadFailedToast": "게시글 불러오기에 실패했어요",
+    "defaultTitle": "게시글",
+    "detailPageTitle": "{title} 상세 페이지",
+    "similarReportTitle": "비슷한 제보글",
+    "similarLostTitle": "비슷한 분실물"
+  },
+  "PostActionMenu": {
+    "editPost": "게시글 수정하기",
+    "deletePost": "게시글 삭제하기",
+    "changeToSearching": "찾아요 상태로 변경",
+    "changeToFound": "찾았어요 상태로 변경",
+    "deleteConfirmTitle": "정말로 삭제하시겠습니까?",
+    "deleteConfirmDescription": "게시글 삭제 후에는 취소가 불가능합니다.",
+    "cancel": "취소",
+    "deleteButton": "삭제하기"
+  },
+  "PostDetailHeader": {
+    "authorInfoAriaLabel": "게시글 작성자 정보",
+    "profileAriaLabel": "{nickname} 프로필 보기",
+    "postCountLabel": "작성글 {count}",
+    "chatCountLabel": "현재 채팅 {count}",
+    "goToChatList": "채팅 목록으로 이동하기",
+    "startChat": "채팅하러 가기"
+  },
+  "PostDetailTopHeader": {
+    "defaultShareTitle": "찾아줘 게시글 공유",
+    "defaultShareSummary": "게시글을 확인해보세요",
+    "defaultAddress": "위치 정보 없음",
+    "favoriteAriaLabel": "게시글 즐겨찾기",
+    "shareAriaLabel": "게시글 공유",
+    "menuAriaLabel": "게시글 메뉴"
+  },
+  "SimilarItemsSection": {
+    "defaultTitle": "비슷한 분실물"
+  },
+  "DetailSkeleton": {
+    "loadingStatus": "상세 정보를 불러오는 중입니다.",
+    "chatButton": "채팅하러 가기"
+  },
+  "ErrorSimilarSection": {
+    "defaultTitle": "비슷한 분실물",
+    "loadFailedTitle": "게시글을 불러올 수 없습니다.",
+    "loadFailedDescription": "오류가 발생해 게시글을 불러오지 못했습니다.\n다시 한 번 시도해 주세요.",
+    "refresh": "새로고침"
+  },
+  "ImageSection": {
+    "imageAlt": "게시글 이미지 {index}"
+  },
+  "PostDetailBody": {
+    "viewCountLabel": "조회 {count}",
+    "favoriteLabel": "즐겨찾기"
+  },
+  "PostDetailPreviewKakaoMap": {
+    "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
+    "noAddress": "위치 정보가 없어요"
+  },
+  "PostDetailKakaoMap": {
+    "mapAreaLabel": "지도 영역"
+  },
+  "PostDetailMap": {
+    "headerTitle": "분실/발견 위치"
+  },
+  "ListDetailPage": {
+    "postTypeLost": "분실",
+    "postTypeFound": "발견",
+    "defaultItemName": "물품",
+    "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
+    "defaultDescription": "리스트 상세"
+  },
   "HomeLayout": {
     "title": "우리 동네 분실물 찾기, 찾아줘!",
     "description": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!"

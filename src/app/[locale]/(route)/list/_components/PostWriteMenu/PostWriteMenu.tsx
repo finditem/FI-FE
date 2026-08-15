@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Button, FloatingButton, Icon, ScrollToTopButton, ModalLayout } from "@/components";
@@ -9,6 +10,7 @@ import { useClickOutside } from "@/hooks";
 import { WRITE_MENU_STYLES } from "../LIST_CONST";
 
 const PostWriteMenu = () => {
+  const t = useTranslations("PostWriteMenu");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFindModalOpen, setIsFindModalOpen] = useState(false);
 
@@ -33,19 +35,19 @@ const PostWriteMenu = () => {
               <div className="glass-card w-[213px] overflow-hidden text-nowrap rounded-[20px] border border-white">
                 <Link href={"/write/post?type=lost"} className={WRITE_MENU_STYLES.menuButton}>
                   <Icon name="LostWriteBtn" size={20} />
-                  <span className={WRITE_MENU_STYLES.menuLabel}>분실했어요 글쓰기</span>
+                  <span className={WRITE_MENU_STYLES.menuLabel}>{t("lostWriteLabel")}</span>
                 </Link>
                 <hr className="h-px w-full bg-white" />
                 <button className={WRITE_MENU_STYLES.menuButton} onClick={handleClickFindButton}>
                   <Icon name="FindWriteBtn" size={20} />
-                  <span className={WRITE_MENU_STYLES.menuLabel}>발견했어요 글쓰기</span>
+                  <span className={WRITE_MENU_STYLES.menuLabel}>{t("foundWriteLabel")}</span>
                 </button>
               </div>
             </div>
           )}
 
           <FloatingButton
-            ariaLabel="글쓰기 메뉴"
+            ariaLabel={t("menuAriaLabel")}
             buttonClassName={cn(isMenuOpen && "bg-fill-brand-strong-pressed", "transition-colors")}
             iconClassName={cn(isMenuOpen && "rotate-45", "transition-transform")}
             onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -66,6 +68,8 @@ interface FindWarningModalProps {
 }
 
 const FindWarningModal = ({ isOpen, onClose }: FindWarningModalProps) => {
+  const t = useTranslations("PostWriteMenu");
+
   return (
     <ModalLayout
       isOpen={isOpen}
@@ -73,24 +77,22 @@ const FindWarningModal = ({ isOpen, onClose }: FindWarningModalProps) => {
       className="min-h-[186px] w-[350px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-1 flex-col-center">
-        <h2 className="text-h3-semibold text-layout-header-default">
-          게시글 작성 전 확인해 주세요!
-        </h2>
+        <h2 className="text-h3-semibold text-layout-header-default">{t("findModalTitle")}</h2>
         <span className="text-body5-regular text-center text-layout-body-default">
-          발견했어요 게시글 작성 시에는 경찰청에 우선 신고해 주시고 작성해 주시기 바랍니다.
+          {t("findModalDescription")}
         </span>
       </div>
 
       <div className="flex w-full gap-2">
         <Button variant="outlined" className={WRITE_MENU_STYLES.findModalButton} onClick={onClose}>
-          취소
+          {t("cancel")}
         </Button>
         <Button
           as={Link}
           href="/write/post?type=find"
           className={WRITE_MENU_STYLES.findModalButton}
         >
-          글쓰기
+          {t("write")}
         </Button>
       </div>
     </ModalLayout>

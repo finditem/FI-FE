@@ -549,6 +549,124 @@
     "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
     "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
   },
+  "ListPage": {
+    "postTypeLost": "Lost",
+    "postTypeFound": "Found",
+    "searchTitle": "{keyword} search results",
+    "searchDescription": "Looking for {keyword} on Finditem? Search for {keyword} lost near your neighborhood.",
+    "listTitle": "{postType} items list",
+    "listDescription": "See {postType} items at a glance! Lost items from your neighborhood, all in one place."
+  },
+  "DefaultListSearch": {
+    "placeholder": "Enter a title or description",
+    "errorToast": "Couldn't load search results. Please try again."
+  },
+  "DefaultListSection": {
+    "errorToast": "Couldn't load the list. Please try again."
+  },
+  "DefaultListView": {
+    "searchAriaLabel": "Search posts"
+  },
+  "SearchHeaderTitle": {
+    "default": "Posts",
+    "region": "Select region",
+    "post": "Search posts"
+  },
+  "Tabs": {
+    "lostLabel": "Lost",
+    "foundLabel": "Found"
+  },
+  "PostWriteMenu": {
+    "lostWriteLabel": "Report a lost item",
+    "foundWriteLabel": "Report a found item",
+    "menuAriaLabel": "Write menu",
+    "findModalTitle": "Please check before posting!",
+    "findModalDescription": "Before posting a found item, please report it to the police first.",
+    "cancel": "Cancel",
+    "write": "Post"
+  },
+  "DefaultList": {
+    "listAriaLabel": "Post list",
+    "emptyDescription": "No posts yet.\nBe the first to write one!"
+  },
+  "PostSearchEmpty": {
+    "defaultKeyword": "item",
+    "noResultsTitle": "No results found.",
+    "noResultsDescription": "Please double-check what you entered.",
+    "searchPromptLine1": "Want to also search for <highlight>{keyword}</highlight>",
+    "searchPromptLine2": "in the police lost items list?",
+    "policeListButton": "Search police lost items"
+  },
+  "ClientDetail": {
+    "loadFailedToast": "Failed to load the post",
+    "defaultTitle": "Post",
+    "detailPageTitle": "{title} detail page",
+    "similarReportTitle": "Similar reports",
+    "similarLostTitle": "Similar lost items"
+  },
+  "PostActionMenu": {
+    "editPost": "Edit post",
+    "deletePost": "Delete post",
+    "changeToSearching": "Mark as searching",
+    "changeToFound": "Mark as found",
+    "deleteConfirmTitle": "Are you sure you want to delete this?",
+    "deleteConfirmDescription": "This can't be undone once the post is deleted.",
+    "cancel": "Cancel",
+    "deleteButton": "Delete"
+  },
+  "PostDetailHeader": {
+    "authorInfoAriaLabel": "Post author info",
+    "profileAriaLabel": "View {nickname}'s profile",
+    "postCountLabel": "{count} posts",
+    "chatCountLabel": "{count} active chats",
+    "goToChatList": "Go to chat list",
+    "startChat": "Start chatting"
+  },
+  "PostDetailTopHeader": {
+    "defaultShareTitle": "Share a Finditem post",
+    "defaultShareSummary": "Check out this post",
+    "defaultAddress": "No location info",
+    "favoriteAriaLabel": "Bookmark post",
+    "shareAriaLabel": "Share post",
+    "menuAriaLabel": "Post menu"
+  },
+  "SimilarItemsSection": {
+    "defaultTitle": "Similar lost items"
+  },
+  "DetailSkeleton": {
+    "loadingStatus": "Loading details.",
+    "chatButton": "Start chatting"
+  },
+  "ErrorSimilarSection": {
+    "defaultTitle": "Similar lost items",
+    "loadFailedTitle": "Couldn't load the post.",
+    "loadFailedDescription": "Something went wrong loading the post.\nPlease try again.",
+    "refresh": "Refresh"
+  },
+  "ImageSection": {
+    "imageAlt": "Post image {index}"
+  },
+  "PostDetailBody": {
+    "viewCountLabel": "{count, plural, one {# view} other {# views}}",
+    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}"
+  },
+  "PostDetailPreviewKakaoMap": {
+    "viewOnMapAriaLabel": "View location on map in detail",
+    "noAddress": "No location info"
+  },
+  "PostDetailKakaoMap": {
+    "mapAreaLabel": "Map area"
+  },
+  "PostDetailMap": {
+    "headerTitle": "Lost/found location"
+  },
+  "ListDetailPage": {
+    "postTypeLost": "Lost",
+    "postTypeFound": "Found",
+    "defaultItemName": "Item",
+    "titleTemplate": "{title} | {address} | Finditem {postType}",
+    "defaultDescription": "List detail"
+  },
   "HomeLayout": {
     "title": "Find lost items near you | Finditem",
     "description": "The fastest, easiest lost-and-found center. From police lost-item reports to items nearby, check them all on the map."
