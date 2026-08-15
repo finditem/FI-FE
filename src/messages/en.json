@@ -878,5 +878,39 @@
   "LatestList": {
     "searchLabel": "Search {keyword}",
     "deleteLabel": "Delete recent search"
+  },
+  "PostWritePage": {
+    "defaultTitle": "Register an item",
+    "defaultDescription": "Register details about a lost or found item.",
+    "lostTitle": "Register a lost item",
+    "lostDescription": "Register details about the item you lost.",
+    "foundTitle": "Register a found item",
+    "foundDescription": "Register details about the item you found."
+  },
+  "useWritePageType": {
+    "lostTitle": "Report a lost item",
+    "foundTitle": "Report a found item"
+  },
+  "WriteForm": {
+    "srOnlyPageTitle": "{title} page",
+    "noImageConfirmTitle": "Post without a photo?",
+    "noImageConfirmDescription": "Adding a photo makes it easier for others to recognize the item.",
+    "cancelButton": "No",
+    "confirmButton": "Post without photo"
+  },
+  "TitleSection": {
+    "placeholder": "Enter a title."
+  },
+  "ContentSection": {
+    "placeholder": "Enter details.",
+    "guideLine1": "Include the date, item type, and distinguishing features to help others find or return the item.",
+    "guideLine2": "If your post references copyrighted material, be sure to credit the source. Suspicious posts may be restricted."
+  },
+  "CategorySection": {
+    "placeholder": "Select a category.",
+    "ariaLabel": "Select category"
+  },
+  "LocationSection": {
+    "placeholder": "Register a location."
   }
 }

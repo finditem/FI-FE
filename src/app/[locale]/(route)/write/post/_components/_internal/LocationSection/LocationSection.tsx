@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { useWriteStore } from "@/store";
 import { Icon, RequiredText } from "@/components";
 
 const LocationSection = () => {
+  const t = useTranslations("LocationSection");
   const { fullAddress } = useWriteStore();
-  const displayText = fullAddress ?? "위치를 등록해 주세요.";
+  const displayText = fullAddress ?? t("placeholder");
 
   return (
     <Link

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { WritePage } from "./_components";
 
 interface PageProps {
@@ -8,16 +9,17 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { type } = await searchParams;
+  const t = await getTranslations("PostWritePage");
 
-  let title = "물건 등록";
-  let description = "분실 또는 발견한 물건의 정보를 등록해보세요.";
+  let title = t("defaultTitle");
+  let description = t("defaultDescription");
 
   if (type === "lost") {
-    title = "분실한 물건 등록";
-    description = "분실한 물건의 정보를 등록해보세요.";
+    title = t("lostTitle");
+    description = t("lostDescription");
   } else {
-    title = "발견한 물건 등록";
-    description = "발견한 물건의 정보를 등록해보세요.";
+    title = t("foundTitle");
+    description = t("foundDescription");
   }
 
   return {
