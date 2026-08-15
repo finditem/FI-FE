@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAddToHomeScreen } from "@/hooks";
 import { useWriteFlowStore } from "@/store";
@@ -27,6 +28,7 @@ interface ClientDetailProps {
 }
 
 const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
+  const t = useTranslations("ClientDetail");
   const { addToast } = useToast();
   const { showPrompt, incrementViewCount, closePrompt } = useAddToHomeScreen();
   const { showManualPopup, setShowManualPopup } = useWriteFlowStore();
@@ -39,9 +41,9 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
 
   useEffect(() => {
     if (isError) {
-      addToast("게시글 불러오기에 실패했어요", "error");
+      addToast(t("loadFailedToast"), "error");
     }
-  }, [isError, addToast]);
+  }, [isError, addToast, t]);
 
   useEffect(() => {
     if (!isLoading && data?.result) {
@@ -69,7 +71,8 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }
 
   const { isMine, postUserInformation } = data.result;
-  const similarTitle = data.result.postType === "LOST" ? "비슷한 제보글" : "비슷한 분실물";
+  const similarTitle =
+    data.result.postType === "LOST" ? t("similarReportTitle") : t("similarLostTitle");
 
   return (
     <>
@@ -84,7 +87,9 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
         }}
       />
 
-      <h1 className="sr-only">{data?.result?.title || "게시글"} 상세 페이지</h1>
+      <h1 className="sr-only">
+        {t("detailPageTitle", { title: data?.result?.title || t("defaultTitle") })}
+      </h1>
 
       <article className="flex flex-col h-base">
         <PostDetail data={data.result} />

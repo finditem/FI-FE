@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CATEGORY_OPTIONS } from "@/constants";
 import { CATEGORY, POST_TYPE } from "../../_components/HOME_CONST";
@@ -12,6 +13,7 @@ const getSelectedPostFilterFromQuery = (postType: string | null): PostFilterChip
 };
 
 const useHomeFilterQuery = () => {
+  const t = useTranslations("FilterItems");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -22,7 +24,7 @@ const useHomeFilterQuery = () => {
   const selectedPostFilter = getSelectedPostFilterFromQuery(postTypeParam);
   const selectedCategoryOption = CATEGORY_OPTIONS.find((option) => option.value === categoryParam);
   const isCategorySelected = !!selectedCategoryOption;
-  const categoryFilterLabel = selectedCategoryOption?.label ?? "카테고리";
+  const categoryFilterLabel = selectedCategoryOption?.label ?? t("category");
 
   const replaceQuery = (updater: (params: URLSearchParams) => void) => {
     const params = new URLSearchParams(searchParams.toString());

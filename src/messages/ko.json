@@ -389,11 +389,13 @@
   "Login": {
     "kakaoAriaLabel": "카카오 로그인 버튼",
     "kakaoButton": "카카오로 3초 만에 시작하기",
+    "appleAriaLabel": "애플 로그인 버튼",
+    "appleButton": "Apple로 계속하기",
     "emailAriaLabel": "로그인 버튼",
-    "emailButton": "이메일로 로그인",
+    "emailButton": "이메일 로그인",
     "divider": "또는",
     "notMemberYet": "아직 회원이 아니신가요?",
-    "signUp": "회원가입"
+    "createAccount": "회원가입"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -402,7 +404,8 @@
   "LogoLink": {
     "homeAriaLabel": "메인페이지 이동",
     "logoIconTitle": "로고",
-    "brandName": "찾아줘!"
+    "brandName": "찾아줘!",
+    "slogan": "위치 기반 매칭 분실물 서비스"
   },
   "SessionNotification": {
     "sessionExpired": "세션이 만료되었어요. 다시 로그인 해주세요."
@@ -632,7 +635,7 @@
   "PublicDataDetailPage": {
     "defaultItemName": "물품",
     "lostLabel": "분실",
-    "foundLabel": "발견",
+    "foundLabel": "습득",
     "defaultPlace": "업데이트 예정",
     "defaultSummary": "상세 내용을 확인해보세요.",
     "metaTitleTemplate": "{title} {postType} | {place} | 찾아줘! 경찰청 유실물",
@@ -657,5 +660,223 @@
   "PublicDataSearchList": {
     "loadFailedToast": "데이터를 불러오지 못했어요.",
     "noResultsTitle": "검색 결과가 없습니다."
+  },
+  "ListPage": {
+    "postTypeLost": "분실한",
+    "postTypeFound": "발견된",
+    "searchTitle": "{keyword} 검색결과",
+    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 우리 동네에서 잃어버린 {keyword} 분실물을 찾아보세요!",
+    "listTitle": "{postType} 물건 리스트",
+    "listDescription": "{postType} 물건을 한눈에 확인해보세요! 우리 동네 분실물들이 이곳에 모여 있어요."
+  },
+  "DefaultListSearch": {
+    "placeholder": "제목, 내용을 입력해 주세요.",
+    "errorToast": "검색 결과를 불러올 수 없어요. 다시 시도해 주세요."
+  },
+  "DefaultListSection": {
+    "errorToast": "목록을 불러올 수 없어요. 다시 시도해 주세요."
+  },
+  "DefaultListView": {
+    "searchAriaLabel": "게시글 검색"
+  },
+  "SearchHeaderTitle": {
+    "default": "게시글",
+    "region": "지역 선택",
+    "post": "게시글 검색"
+  },
+  "Tabs": {
+    "lostLabel": "분실",
+    "foundLabel": "발견"
+  },
+  "PostWriteMenu": {
+    "lostWriteLabel": "분실했어요 글쓰기",
+    "foundWriteLabel": "발견했어요 글쓰기",
+    "menuAriaLabel": "글쓰기 메뉴",
+    "findModalTitle": "게시글 작성 전 확인해 주세요!",
+    "findModalDescription": "발견했어요 게시글 작성 시에는 경찰청에 우선 신고해 주시고 작성해 주시기 바랍니다.",
+    "cancel": "취소",
+    "write": "글쓰기"
+  },
+  "DefaultList": {
+    "listAriaLabel": "게시글 목록",
+    "emptyDescription": "아직 게시글이 없어요.\n가장 먼저 작성해보세요!"
+  },
+  "PostSearchEmpty": {
+    "defaultKeyword": "물건",
+    "noResultsTitle": "검색 결과가 없습니다.",
+    "noResultsDescription": "입력한 내용을 다시 한 번 확인해 주세요.",
+    "searchPromptLine1": "방금 검색한 <highlight>{keyword}</highlight>을",
+    "searchPromptLine2": "경찰청 분실물 목록에서 다시 찾아볼까요?",
+    "policeListButton": "경찰청 목록에서 찾아보기"
+  },
+  "ClientDetail": {
+    "loadFailedToast": "게시글 불러오기에 실패했어요",
+    "defaultTitle": "게시글",
+    "detailPageTitle": "{title} 상세 페이지",
+    "similarReportTitle": "비슷한 제보글",
+    "similarLostTitle": "비슷한 분실물"
+  },
+  "PostActionMenu": {
+    "editPost": "게시글 수정하기",
+    "deletePost": "게시글 삭제하기",
+    "changeToSearching": "찾아요 상태로 변경",
+    "changeToFound": "찾았어요 상태로 변경",
+    "deleteConfirmTitle": "정말로 삭제하시겠습니까?",
+    "deleteConfirmDescription": "게시글 삭제 후에는 취소가 불가능합니다.",
+    "cancel": "취소",
+    "deleteButton": "삭제하기"
+  },
+  "PostDetailHeader": {
+    "authorInfoAriaLabel": "게시글 작성자 정보",
+    "profileAriaLabel": "{nickname} 프로필 보기",
+    "postCountLabel": "작성글 {count}",
+    "chatCountLabel": "현재 채팅 {count}",
+    "goToChatList": "채팅 목록으로 이동하기",
+    "startChat": "채팅하러 가기"
+  },
+  "PostDetailTopHeader": {
+    "defaultShareTitle": "찾아줘 게시글 공유",
+    "defaultShareSummary": "게시글을 확인해보세요",
+    "defaultAddress": "위치 정보 없음",
+    "favoriteAriaLabel": "게시글 즐겨찾기",
+    "shareAriaLabel": "게시글 공유",
+    "menuAriaLabel": "게시글 메뉴"
+  },
+  "SimilarItemsSection": {
+    "defaultTitle": "비슷한 분실물"
+  },
+  "DetailSkeleton": {
+    "loadingStatus": "상세 정보를 불러오는 중입니다.",
+    "chatButton": "채팅하러 가기"
+  },
+  "ErrorSimilarSection": {
+    "defaultTitle": "비슷한 분실물",
+    "loadFailedTitle": "게시글을 불러올 수 없습니다.",
+    "loadFailedDescription": "오류가 발생해 게시글을 불러오지 못했습니다.\n다시 한 번 시도해 주세요.",
+    "refresh": "새로고침"
+  },
+  "ImageSection": {
+    "imageAlt": "게시글 이미지 {index}"
+  },
+  "PostDetailBody": {
+    "viewCountLabel": "조회 {count}",
+    "favoriteLabel": "즐겨찾기"
+  },
+  "PostDetailPreviewKakaoMap": {
+    "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
+    "noAddress": "위치 정보가 없어요"
+  },
+  "PostDetailKakaoMap": {
+    "mapAreaLabel": "지도 영역"
+  },
+  "PostDetailMap": {
+    "headerTitle": "분실/발견 위치"
+  },
+  "ListDetailPage": {
+    "postTypeLost": "분실",
+    "postTypeFound": "발견",
+    "defaultItemName": "물품",
+    "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
+    "defaultDescription": "리스트 상세"
+  },
+  "HomeLayout": {
+    "title": "우리 동네 분실물 찾기, 찾아줘!",
+    "description": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!"
+  },
+  "BottomSheet": {
+    "heightAdjustLabel": "바텀시트 높이 조절"
+  },
+  "LostFindActionData": {
+    "lost": "분실 신고",
+    "found": "발견 신고"
+  },
+  "LostFindActions": {
+    "lostAriaLabel": "분실 신고 목록 페이지로 이동",
+    "foundAriaLabel": "발견 신고 목록 페이지로 이동"
+  },
+  "MainCardList": {
+    "altText": "최근 발견된 분실물 {title} 이미지",
+    "policeChipLabel": "경찰청"
+  },
+  "PoliceSection": {
+    "noTitle": "제목 없음",
+    "banner": "경찰청 분실물도\n찾아줘!에서 확인해요",
+    "logoAlt": "경찰민원24로고"
+  },
+  "PoliceItems": {
+    "lostHeadLabel": "분실",
+    "lostLabel": "했어요",
+    "foundHeadLabel": "발견",
+    "foundLabel": "했어요"
+  },
+  "SupportMenuItems": {
+    "notificationSettingLabel": "키워드 알람 설정하기",
+    "noticeLabel": "공지사항"
+  },
+  "WriteButtons": {
+    "lostLabel": "분실한 물건 등록하기",
+    "foundLabel": "발견한 물건 등록하기"
+  },
+  "MainSearchEmpty": {
+    "emptyTitle": "검색한 위치에 등록된 분실물이 없어요",
+    "emptyDescription": "직접 글을 올려 찾아줘에 등록할 수 있어요"
+  },
+  "FilterItems": {
+    "all": "모두보기",
+    "lost": "분실물만",
+    "find": "발견물만",
+    "category": "카테고리"
+  },
+  "PermissionItem": {
+    "locationTitle": "위치 (선택)",
+    "locationDescription": "현 위치 기반으로 유실물 정보 확인",
+    "alertTitle": "알림 (선택)",
+    "alertDescription": "찾아줘 서비스 알림 수신"
+  },
+  "PermissionConfig": {
+    "locationTitle": "더 편한 서비스를 위해 위치 정보를 접근의 허용해 주세요.",
+    "locationDescription": "위치 정보 허용 시 현재 위치를 기반으로\n 유실물 정보를 제공해요.",
+    "locationAgreeBtnText": "위치 접근 허용하기",
+    "alertTitle": "알림을 허용하고 더 많은 소식을 받아보세요.",
+    "alertDescription": "알림 허용은 마이페이지의 설정에서\n 언제든지 변경할 수 있어요.",
+    "alertAgreeBtnText": "알림 허용하기"
+  },
+  "PermissionBottomSheet": {
+    "browserNoLocation": "위치 기능을 지원하지 않는 브라우저에요",
+    "locationPermissionDenied": "위치 권한이 거부되었습니다. 설정에서 허용해주세요.",
+    "browserNoNotification": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "notificationRegisterFailed": "브라우저 알림 등록에 실패했어요",
+    "notificationPermissionBlocked": "알림 권한이 차단되어 있어요. 브라우저 설정에서 허용해 주세요",
+    "allowPermissionsTitle": "서비스 사용을 위해 아래 권한을 허용해 주세요.",
+    "confirm": "확인",
+    "skipForNow": "다음에 할래요."
+  },
+  "MainSearchHeader": {
+    "placeholder": "장소, 주소를 입력해 주세요.",
+    "backLabel": "뒤로가기",
+    "searchLabel": "위치 검색"
+  },
+  "RecentSearchEmpty": {
+    "emptyText": "최근 검색한 기록이 없어요."
+  },
+  "RecentFoundItemEmpty": {
+    "emptyText": "아직 발견된 분실물이 없어요"
+  },
+  "RecentFoundItemSection": {
+    "sectionTitle": "최근 발견된 분실물"
+  },
+  "PublicMoreViewCard": {
+    "policeLostItemLabel": "경찰청 분실물",
+    "moreLabel": "더보기"
+  },
+  "MyLocationButton": {
+    "myLocationLabel": "내 위치로 이동"
+  },
+  "AutoCompleteList": {
+    "autoCompleteItemLabel": "자동완성 지역 검색어 클릭"
+  },
+  "LatestList": {
+    "searchLabel": "{keyword} 검색",
+    "deleteLabel": "최근 검색어 삭제"
   }
 }

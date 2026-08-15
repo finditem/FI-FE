@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Icon, BaseKakaoMap } from "@/components";
 import { cn } from "@/utils";
@@ -15,6 +16,7 @@ interface PostDetailPreviewKakaoMapProps {
 }
 
 const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => {
+  const t = useTranslations("PostDetailPreviewKakaoMap");
   const { address, latitude, longitude, postId, radius } = data;
 
   return (
@@ -29,7 +31,7 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
       </div>
 
       <Link
-        aria-label="지도에서 위치 자세히 보기"
+        aria-label={t("viewOnMapAriaLabel")}
         href={`/list/${postId}/map?lat=${latitude}&lng=${longitude}&address=${encodeURIComponent(address)}&radius=${radius}`}
       >
         <address className="flex items-center gap-[6px] not-italic">
@@ -43,7 +45,7 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
               />
             )}
             <p className="text-body2-medium text-neutral-normal-default">
-              {address || "위치 정보가 없어요"}
+              {address || t("noAddress")}
             </p>
           </span>
           {address && <Icon name="ArrowRight" size={14} />}

@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import { Button, Icon, PopupLayout } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useMainKakaoMapStore } from "@/store";
 import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import { useState } from "react";
-import { PERMISSION_CONFIG, PERMISSION_ITEM } from "../HOME_CONST";
+import usePermissionConfig from "../../_hooks/usePermissionConfig/usePermissionConfig";
+import usePermissionItem from "../../_hooks/usePermissionItem/usePermissionItem";
 import { syncWebPushSubscription } from "@/utils";
 import { usePutNotificationSetting } from "@/api/fetch/notification";
 
@@ -14,7 +16,9 @@ interface DetailPermissionSheetProps {
 }
 
 const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheetProps) => {
-  const { iconName, title, description, agreeBtnText } = PERMISSION_CONFIG[state];
+  const t = useTranslations("PermissionBottomSheet");
+  const permissionConfig = usePermissionConfig();
+  const { iconName, title, description, agreeBtnText } = permissionConfig[state];
 
   const { addToast } = useToast();
   const { mutate: updateNotification } = usePutNotificationSetting();
@@ -22,7 +26,7 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
   const handleRequestPermission = async () => {
     if (state === "Location") {
       if (typeof navigator === "undefined" || !navigator.geolocation) {
-        addToast("위치 기능을 지원하지 않는 브라우저에요", "warning");
+        addToast(t("browserNoLocation"), "warning");
         onClose();
         return;
       }
@@ -40,14 +44,14 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           useMainKakaoMapStore.getState().clearLatLng();
           if (error.code === error.PERMISSION_DENIED) {
             clearMainGeoSessionConfirmed();
-            addToast("위치 권한이 거부되었습니다. 설정에서 허용해주세요.", "warning");
+            addToast(t("locationPermissionDenied"), "warning");
           }
           onClose();
         }
       );
     } else if (state === "Alert") {
       if (typeof window === "undefined" || !("Notification" in window)) {
-        addToast("이 브라우저는 알림 기능을 지원하지 않아요", "warning");
+        addToast(t("browserNoNotification"), "warning");
         onClose();
         return;
       }
@@ -58,7 +62,7 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           {
             onSuccess: () => {
               void syncWebPushSubscription().catch(() =>
-                addToast("브라우저 알림 등록에 실패했어요", "warning")
+                addToast(t("notificationRegisterFailed"), "warning")
               );
             },
           }
@@ -68,7 +72,7 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
       }
 
       if (Notification.permission === "denied") {
-        addToast("알림 권한이 차단되어 있어요. 브라우저 설정에서 허용해 주세요", "warning");
+        addToast(t("notificationPermissionBlocked"), "warning");
         onClose();
         return;
       }
@@ -80,7 +84,7 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           {
             onSuccess: () => {
               void syncWebPushSubscription().catch(() =>
-                addToast("브라우저 알림 등록에 실패했어요", "warning")
+                addToast(t("notificationRegisterFailed"), "warning")
               );
             },
           }
@@ -113,7 +117,7 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
           className="w-full py-2 text-body2-semibold text-neutralInversed-strong-default"
           onClick={onClose}
         >
-          다음에 할래요.
+          {t("skipForNow")}
         </button>
       </div>
     </PopupLayout>
@@ -126,6 +130,8 @@ interface PermissionSheetProps {
 }
 
 const PermissionSheet = ({ isOpen, onClose }: PermissionSheetProps) => {
+  const t = useTranslations("PermissionBottomSheet");
+  const permissionItem = usePermissionItem();
   const [isDetailPermissionSheet, setIsDetailPermissionSheet] = useState<{
     open: boolean;
     state: "Alert" | "Location";
@@ -158,12 +164,12 @@ const PermissionSheet = ({ isOpen, onClose }: PermissionSheetProps) => {
     >
       <div className="flex w-full flex-col items-center gap-10 rounded-[20px] bg-white p-4">
         <h3 className="text-h3-semibold text-layout-header-default">
-          서비스 사용을 위해 아래 권한을 허용해 주세요.
+          {t("allowPermissionsTitle")}
         </h3>
 
         <div className="flex w-full flex-col gap-6 rounded-[20px] p-5 bg-fill-neutral-subtle-default">
-          {PERMISSION_ITEM.map((item) => (
-            <div className="flex w-full gap-[18px]" key={item.title}>
+          {permissionItem.map((item) => (
+            <div className="flex w-full gap-[18px]" key={item.type}>
               <Icon name={item.iconName} size={44} />
               <div className="flex flex-col gap-[2px]">
                 <span className="text-body1-semibold text-layout-header-default">{item.title}</span>
@@ -184,7 +190,7 @@ const PermissionSheet = ({ isOpen, onClose }: PermissionSheetProps) => {
             }))
           }
         >
-          확인
+          {t("confirm")}
         </Button>
       </div>
     </PopupLayout>

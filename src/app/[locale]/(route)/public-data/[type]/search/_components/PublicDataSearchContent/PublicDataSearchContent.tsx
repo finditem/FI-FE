@@ -14,7 +14,7 @@ const PublicDataSearchContent = () => {
   const searchParams = useSearchParams();
   const paramsConfig = useParams();
   const type = paramsConfig.type === "found" ? "found" : "lost";
-  const { activeTab, handleTabChange, PUBLIC_LIST_TABS } = usePublicDataTabQuery();
+  const { activeTab, handleTabChange, tabs } = usePublicDataTabQuery();
   const params = new URLSearchParams(searchParams.toString());
   const { recentSearches, addSearch, removeSearch } = useRecentSearch();
 
@@ -45,7 +45,7 @@ const PublicDataSearchContent = () => {
 
       {params.get("keyword") && (
         <Tab
-          tabs={PUBLIC_LIST_TABS}
+          tabs={tabs}
           selected={activeTab}
           onValueChange={(key) => handleTabChange(key)}
           className="sticky left-0 top-[56px]"

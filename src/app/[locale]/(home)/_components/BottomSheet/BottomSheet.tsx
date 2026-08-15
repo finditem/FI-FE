@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Suspense, useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { BOTTOM_OFFSET_PX, MARKER_ID } from "../HOME_CONST";
 import useBottomSheetHeight from "../../_hooks/useBottomSheetHeight/useBottomSheetHeight";
@@ -15,6 +16,7 @@ import { usePermissionStore } from "@/store";
 import { cn } from "@/utils";
 
 const BottomSheetContent = () => {
+  const t = useTranslations("BottomSheet");
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
   const markerId = searchParams.get(MARKER_ID);
@@ -46,7 +48,7 @@ const BottomSheetContent = () => {
       <div className="flex h-full flex-col overflow-hidden rounded-t-[20px] bg-white">
         <div
           role="button"
-          aria-label="바텀시트 높이 조절"
+          aria-label={t("heightAdjustLabel")}
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}

@@ -2,15 +2,13 @@
 
 import { useTranslations } from "next-intl";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { PUBLIC_LIST_TAB_KEYS } from "../../_components/PUBLIC_DATA_CONST";
 
-type PublicDataTabType = "lost" | "found";
+type PublicDataTabType = (typeof PUBLIC_LIST_TAB_KEYS)[number];
 
 export const usePublicDataTabQuery = () => {
   const t = useTranslations("PublicDataTabs");
-  const PUBLIC_LIST_TABS: { label: string; key: PublicDataTabType }[] = [
-    { label: t("lostLabel"), key: "lost" },
-    { label: t("foundLabel"), key: "found" },
-  ];
+  const tabs = PUBLIC_LIST_TAB_KEYS.map((key) => ({ label: t(`${key}Label`), key }));
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -37,6 +35,6 @@ export const usePublicDataTabQuery = () => {
   return {
     activeTab,
     handleTabChange,
-    PUBLIC_LIST_TABS,
+    tabs,
   };
 };

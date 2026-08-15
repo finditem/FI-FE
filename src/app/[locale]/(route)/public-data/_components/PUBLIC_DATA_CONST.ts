@@ -1,5 +1,7 @@
 export const PUBLIC_DEFAULT_TABS = [{ value: "region" }, { value: "category" }] as const;
 
+export const PUBLIC_LIST_TAB_KEYS = ["lost", "found"] as const;
+
 export const PUBLIC_DEFAULT_FILTERS = {
   publicRegion: "",
   publicCategory: "",
