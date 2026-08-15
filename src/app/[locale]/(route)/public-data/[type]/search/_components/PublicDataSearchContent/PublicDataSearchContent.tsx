@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { InputSearch, Tab } from "@/components";
 import PublicDataSearchList from "../PublicDataSearchList/PublicDataSearchList";
@@ -8,11 +9,12 @@ import PublicDataBeforeSearch from "../PublicDataBeforeSearch/PublicDataBeforeSe
 import useRecentSearch from "../../_hooks/useRecentSearch/useRecentSearch";
 
 const PublicDataSearchContent = () => {
+  const t = useTranslations("PublicDataSearchContent");
   const router = useRouter();
   const searchParams = useSearchParams();
   const paramsConfig = useParams();
   const type = paramsConfig.type === "found" ? "found" : "lost";
-  const { activeTab, handleTabChange, PUBLIC_LIST_TABS } = usePublicDataTabQuery();
+  const { activeTab, handleTabChange, tabs } = usePublicDataTabQuery();
   const params = new URLSearchParams(searchParams.toString());
   const { recentSearches, addSearch, removeSearch } = useRecentSearch();
 
@@ -31,19 +33,19 @@ const PublicDataSearchContent = () => {
 
   return (
     <>
-      <section aria-label="경찰청 데이터 검색" className="px-5 py-[10px]">
+      <section aria-label={t("searchAreaAriaLabel")} className="px-5 py-[10px]">
         <InputSearch
           name="search"
           mode="onChange"
           defaultValue={searchParams.get("keyword") || ""}
-          placeholder="검색어를 입력해주세요."
+          placeholder={t("searchPlaceholder")}
           onEnter={handlePublicDataSearch}
         />
       </section>
 
       {params.get("keyword") && (
         <Tab
-          tabs={PUBLIC_LIST_TABS}
+          tabs={tabs}
           selected={activeTab}
           onValueChange={(key) => handleTabChange(key)}
           className="sticky left-0 top-[56px]"

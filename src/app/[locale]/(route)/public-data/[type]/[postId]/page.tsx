@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { getTranslations } from "next-intl/server";
 import { PublicClientDetail } from "./_components";
 
 interface PublicDataDetailProps {
@@ -9,6 +10,7 @@ interface PublicDataDetailProps {
 export async function generateMetadata({ params }: PublicDataDetailProps): Promise<Metadata> {
   const { type, postId } = await params;
   const isLost = type === "lost";
+  const t = await getTranslations("PublicDataDetailPage");
 
   const host = (await headers()).get("host");
   const protocol = host?.includes("localhost") ? "http" : "https";
@@ -26,12 +28,16 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
 
     if (!itemData) throw new Error("데이터를 찾을 수 없습니다.");
 
-    const title = itemData.fdPrdtNm || "물품";
+    const title = itemData.fdPrdtNm || t("defaultItemName");
     const place = isLost ? itemData.depPlace : itemData.fdPlace;
     const content = isLost ? itemData.fdSbjt : itemData.uniq;
-    const summary = content ? content.slice(0, 120) : "상세 내용을 확인해보세요.";
+    const summary = content ? content.slice(0, 120) : t("defaultSummary");
 
-    const metaTitle = `${title} ${isLost ? "분실" : "발견"} | ${place || "업데이트 예정"} | 찾아줘! 경찰청 유실물`;
+    const metaTitle = t("metaTitleTemplate", {
+      title,
+      postType: isLost ? t("lostLabel") : t("foundLabel"),
+      place: place || t("defaultPlace"),
+    });
     const thumbnailUrl =
       itemData.fdFilePathImg && !itemData.fdFilePathImg.includes("no_img.gif")
         ? itemData.fdFilePathImg
@@ -59,8 +65,8 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
     };
   } catch (error) {
     return {
-      title: "물품 상세 | 찾아줘! 경찰청 유실물",
-      description: "경찰청 연동 유실물 정보를 확인해보세요.",
+      title: t("fallbackTitle"),
+      description: t("fallbackDescription"),
     };
   }
 }
