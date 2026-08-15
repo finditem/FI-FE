@@ -931,7 +931,7 @@
     "guideTitle": "Try searching by neighborhood or district.",
     "guideExample": "e.g. 428 Samil-daero, Gijang-eup, Busan",
     "srLoading": "Loading search results",
-    "srResultsCount": "{count} search results",
+    "srResultsCount": "{count, plural, one {# search result} other {# search results}}",
     "emptyResultsTitle": "No search results found."
   },
   "LocationRangeSection": {
