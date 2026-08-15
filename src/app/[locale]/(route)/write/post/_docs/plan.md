@@ -23,12 +23,12 @@
 
 ## 커밋 3 — 위치 등록 페이지
 
-- [ ] `location/layout.tsx`를 async + `getTranslations("PostWriteLocationLayout")`로 전환
-- [ ] `LocationSearchSection.tsx`에 `useTranslations("LocationSearchSection")` 적용 (`LocationGuideUI` 포함)
-- [ ] `LocationRangeSection.tsx`에 `useTranslations("LocationRangeSection")` 적용
-- [ ] `BottomSheet.tsx`에 `useTranslations("PostWriteBottomSheet")` 적용
-- [ ] `messages/ko.json`/`messages/en.json`에 네임스페이스 추가
-- [ ] `npx jest` / `npx tsc --noEmit` / `npm run build` 최종 검증
+- [x] `location/layout.tsx`를 async + `getTranslations("PostWriteLocationLayout")`로 전환
+- [x] `LocationSearchSection.tsx`에 `useTranslations("LocationSearchSection")` 적용 (`LocationGuideUI` 포함)
+- [x] `LocationRangeSection.tsx`에 `useTranslations("LocationRangeSection")` 적용
+- [x] `BottomSheet.tsx`에 `useTranslations("PostWriteBottomSheet")` 적용
+- [x] `messages/ko.json`/`messages/en.json`에 네임스페이스 추가
+- [x] `npx jest` / `npx tsc --noEmit` / `npm run build` 최종 검증 완료 (246 스위트/1385 테스트 통과, 신규 tsc 에러 없음, `/write/post`·`/write/post/[id]`·`/write/post/location` ko/en 정적 생성 확인)
 
 ## 스코프 제외 (참고, 수정 안 함)
 

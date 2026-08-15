@@ -920,5 +920,26 @@
   },
   "PostEditSkeleton": {
     "title": "Edit post"
+  },
+  "PostWriteLocationLayout": {
+    "title": "Register location",
+    "srOnlyPageTitle": "Register location page"
+  },
+  "LocationSearchSection": {
+    "searchPlaceholder": "Enter a region name.",
+    "resultsSectionAriaLabel": "Search results",
+    "guideTitle": "Try searching by neighborhood or district.",
+    "guideExample": "e.g. 428 Samil-daero, Gijang-eup, Busan",
+    "srLoading": "Loading search results",
+    "srResultsCount": "{count} search results",
+    "emptyResultsTitle": "No search results found."
+  },
+  "LocationRangeSection": {
+    "addressLoadError": "Couldn't load location information."
+  },
+  "PostWriteBottomSheet": {
+    "nearbyTitle": "Near {address}",
+    "selectedLocationFallback": "the selected location",
+    "applyButton": "Apply"
   }
 }

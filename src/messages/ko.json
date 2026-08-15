@@ -920,5 +920,26 @@
   },
   "PostEditSkeleton": {
     "title": "게시글 수정"
+  },
+  "PostWriteLocationLayout": {
+    "title": "위치 등록",
+    "srOnlyPageTitle": "위치 등록 페이지"
+  },
+  "LocationSearchSection": {
+    "searchPlaceholder": "지역명을 입력해 주세요.",
+    "resultsSectionAriaLabel": "검색 결과",
+    "guideTitle": "읍/면/동/리를 검색해 보세요.",
+    "guideExample": "예) 삼일대로 428, 부산시 기장읍",
+    "srLoading": "검색 결과를 불러오는 중입니다",
+    "srResultsCount": "검색 결과 {count}개",
+    "emptyResultsTitle": "검색 결과가 없습니다."
+  },
+  "LocationRangeSection": {
+    "addressLoadError": "위치 정보를 불러오는데 실패했어요"
+  },
+  "PostWriteBottomSheet": {
+    "nearbyTitle": "{address} 근처",
+    "selectedLocationFallback": "선택한 위치",
+    "applyButton": "적용하기"
   }
 }
