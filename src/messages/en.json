@@ -617,8 +617,8 @@
   "PostDetailHeader": {
     "authorInfoAriaLabel": "Post author info",
     "profileAriaLabel": "View {nickname}'s profile",
-    "postCountLabel": "Posts {count}",
-    "chatCountLabel": "Active chats {count}",
+    "postCountLabel": "{count} posts",
+    "chatCountLabel": "{count} active chats",
     "goToChatList": "Go to chat list",
     "startChat": "Start chatting"
   },
