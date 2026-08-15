@@ -4,22 +4,22 @@
 
 ## 커밋 1 — 작성 페이지
 
-- [ ] `page.tsx`의 `generateMetadata`를 `getTranslations("PostWritePage")`로 전환
-- [ ] `useWritePageType.ts`에 `useTranslations("useWritePageType")` 적용
-- [ ] `WriteForm.tsx`에 `useTranslations("WriteForm")` 적용 (sr-only, 이미지 미첨부 확인 모달 4문구)
-- [ ] `TitleSection.tsx`에 `useTranslations("TitleSection")` 적용
-- [ ] `ContentSection.tsx`에 `useTranslations("ContentSection")` 적용
-- [ ] `CategorySection.tsx`에 `useTranslations("CategorySection")` 적용 (`getItemCategoryLabel` 호출부는 제외)
-- [ ] `LocationSection.tsx`에 `useTranslations("LocationSection")` 적용
-- [ ] `messages/ko.json`/`messages/en.json`에 위 네임스페이스 추가
-- [ ] `npx jest` / `npx tsc --noEmit` 검증
+- [x] `page.tsx`의 `generateMetadata`를 `getTranslations("PostWritePage")`로 전환
+- [x] `useWritePageType.ts`에 `useTranslations("useWritePageType")` 적용
+- [x] `WriteForm.tsx`에 `useTranslations("WriteForm")` 적용 (sr-only, 이미지 미첨부 확인 모달 4문구)
+- [x] `TitleSection.tsx`에 `useTranslations("TitleSection")` 적용
+- [x] `ContentSection.tsx`에 `useTranslations("ContentSection")` 적용
+- [x] `CategorySection.tsx`에 `useTranslations("CategorySection")` 적용 (`getItemCategoryLabel` 호출부는 제외)
+- [x] `LocationSection.tsx`에 `useTranslations("LocationSection")` 적용
+- [x] `messages/ko.json`/`messages/en.json`에 위 네임스페이스 추가
+- [x] `npx jest` / `npx tsc --noEmit` 검증 (커밋 d842f331)
 
 ## 커밋 2 — 게시글 수정 페이지
 
-- [ ] `PostEditPage.tsx`에 `useTranslations("PostEditPage")` 적용
-- [ ] `PostEditSkeleton.tsx`에 `useTranslations("PostEditSkeleton")` 적용
-- [ ] `messages/ko.json`/`messages/en.json`에 네임스페이스 추가
-- [ ] `npx jest` / `npx tsc --noEmit` 검증
+- [x] `PostEditPage.tsx`에 `useTranslations("PostEditPage")` 적용
+- [x] `PostEditSkeleton.tsx`에 `useTranslations("PostEditSkeleton")` 적용
+- [x] `messages/ko.json`/`messages/en.json`에 네임스페이스 추가
+- [x] `npx jest` / `npx tsc --noEmit` 검증
 
 ## 커밋 3 — 위치 등록 페이지
 

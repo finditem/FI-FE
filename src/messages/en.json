@@ -912,5 +912,13 @@
   },
   "LocationSection": {
     "placeholder": "Register a location."
+  },
+  "PostEditPage": {
+    "lostTitle": "Edit lost item post",
+    "foundTitle": "Edit found item post",
+    "srOnlyPageTitle": "{title} page"
+  },
+  "PostEditSkeleton": {
+    "title": "Edit post"
   }
 }

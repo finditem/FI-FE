@@ -912,5 +912,13 @@
   },
   "LocationSection": {
     "placeholder": "위치를 등록해 주세요."
+  },
+  "PostEditPage": {
+    "lostTitle": "분실했어요 수정",
+    "foundTitle": "발견했어요 수정",
+    "srOnlyPageTitle": "{title} 페이지"
+  },
+  "PostEditSkeleton": {
+    "title": "게시글 수정"
   }
 }
