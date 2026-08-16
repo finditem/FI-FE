@@ -19,7 +19,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
   };
 
   return (
-    <div className="flex w-full items-center justify-between px-5 py-[30px]">
+    <div className="flex w-full items-center justify-between px-5 pb-[30px] pt-[calc(30px+var(--safe-area-top))]">
       <div className="flex w-[188px] items-center gap-6">
         <ProfileAvatar
           size={60}
