@@ -9,7 +9,7 @@ import {
   WriteActionSection,
 } from "@/components";
 import { CategorySection, ContentSection, LocationSection, TitleSection } from "../_internal";
-import { trackWriteAbandon, type ItemTypeLabel } from "@/utils/analytics/analytics";
+import { trackWriteAbandon, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const WriteForm = ({ title }: { title: string }) => {
   const methods = useFormContext<PostWriteFormValues>();
@@ -29,9 +29,7 @@ const WriteForm = ({ title }: { title: string }) => {
     <>
       <DetailHeader
         title={title}
-        onBeforeBack={() =>
-          values.postType && trackWriteAbandon(values.postType.toLowerCase() as ItemTypeLabel)
-        }
+        onBeforeBack={() => values.postType && trackWriteAbandon(toItemTypeLabel(values.postType))}
       />
       <h1 className="sr-only">{`${title} 페이지`}</h1>
       <form onSubmit={onSubmit} className="flex flex-col h-base">

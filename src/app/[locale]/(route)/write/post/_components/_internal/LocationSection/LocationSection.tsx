@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/utils";
 import { useWriteStore } from "@/store";
 import { Icon, RequiredText } from "@/components";
-import { trackClickLocation, type ItemTypeLabel } from "@/utils/analytics/analytics";
+import { trackClickLocation, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const LocationSection = () => {
   const { fullAddress, postType } = useWriteStore();
@@ -11,7 +11,7 @@ const LocationSection = () => {
   return (
     <Link
       href={"/write/post/location"}
-      onClick={() => postType && trackClickLocation(postType.toLowerCase() as ItemTypeLabel)}
+      onClick={() => postType && trackClickLocation(toItemTypeLabel(postType))}
       className="flex cursor-pointer items-center justify-between border-b border-flatGray-50 px-5 py-6"
     >
       <span

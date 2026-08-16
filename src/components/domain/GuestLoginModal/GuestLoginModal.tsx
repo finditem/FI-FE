@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
-import { trackLoginButtonClick } from "@/utils/analytics/analytics";
+import { trackClickLoginButton } from "@/utils/analytics/analytics";
 
 /**
  * 비회원이 로그인이 필요한 기능을 시도할 때 표시되는 로그인 유도 모달 컴포넌트입니다.
@@ -44,7 +44,7 @@ const GuestLoginModal = ({ isOpen, onClose }: GuestLoginModalProps) => {
           as={Link}
           href="/login"
           className="min-h-11 w-[147px] flex-1"
-          onClick={() => trackLoginButtonClick("guest_modal")}
+          onClick={() => trackClickLoginButton("guest_modal")}
         >
           {t("login")}
         </Button>

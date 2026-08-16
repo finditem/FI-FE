@@ -10,7 +10,7 @@ import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
 import {
   trackPostComplete,
   trackSubmitItem,
-  type ItemTypeLabel,
+  toItemTypeLabel,
   type PostAnalyticsType,
 } from "@/utils/analytics/analytics";
 import { resizeImage } from "@/utils";
@@ -115,12 +115,14 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
 
     const formData = await toPostWriteFormData(submitValues.data);
 
+    try {
+      await postPosts(formData);
+    } catch {
+      return;
+    }
+
     trackPostComplete(POST_TYPE_ANALYTICS_LABEL[submitValues.data.postType]);
-    trackSubmitItem(
-      submitValues.data.postType.toLowerCase() as ItemTypeLabel,
-      submitValues.data.category
-    );
-    postPosts(formData);
+    trackSubmitItem(toItemTypeLabel(submitValues.data.postType), submitValues.data.category);
     clearLocation();
   };
 

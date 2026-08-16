@@ -8,7 +8,7 @@ import ImagePreviewList from "./_internal/ImagePreviewList";
 import { useToast } from "@/context/ToastContext";
 import { PostWriteFormValues } from "@/app/[locale]/(route)/write/post/_types/PostWriteType";
 import { useWriteStore } from "@/store";
-import { trackUploadImage, type ItemTypeLabel } from "@/utils/analytics/analytics";
+import { trackUploadImage, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 작성 화면에서 이미지 첨부·미리보기·순서 조절을 담당하는 섹션입니다.
@@ -66,6 +66,8 @@ const WriteImageSection = ({ helpText }: WriteImageSectionProps) => {
 
     const filesToAdd = fileArray.slice(0, remainCount);
 
+    if (filesToAdd.length === 0) return;
+
     filesToAdd.forEach((file) => {
       append({
         file,
@@ -74,7 +76,7 @@ const WriteImageSection = ({ helpText }: WriteImageSectionProps) => {
     });
 
     if (postType) {
-      trackUploadImage(filesToAdd.length, postType.toLowerCase() as ItemTypeLabel);
+      trackUploadImage(filesToAdd.length, toItemTypeLabel(postType));
     }
   };
 

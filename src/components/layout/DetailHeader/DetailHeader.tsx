@@ -47,6 +47,10 @@ const HEADER_HEIGHT = "h-14";
  *   <DetailHeaderStar isActive />
  *   <DetailHeaderMenu onClick={handleMenu} />
  * </DetailHeader>
+ *
+ * <DetailHeader title="글쓰기" onBeforeBack={handleWriteAbandonLog}>
+ *   <DetailHeaderSave onClick={handleSave} />
+ * </DetailHeader>
  * ```
  */
 

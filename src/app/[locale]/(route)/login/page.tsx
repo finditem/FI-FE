@@ -8,10 +8,10 @@ import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
 import {
-  trackAppleLoginClick,
+  trackClickAppleLogin,
   trackClickSignupStart,
-  trackKakaoLoginClick,
-  trackLoginButtonClick,
+  trackClickKakaoLogin,
+  trackClickLoginButton,
 } from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
@@ -35,7 +35,7 @@ const page = () => {
   })();
 
   const handleKakaoLogin = () => {
-    trackKakaoLoginClick();
+    trackClickKakaoLogin();
 
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
@@ -44,7 +44,7 @@ const page = () => {
   };
 
   const handleAppleLogin = () => {
-    trackAppleLoginClick();
+    trackClickAppleLogin();
     alert("애플 로그인은 현재 지원하지 않습니다.");
   };
 
@@ -95,7 +95,7 @@ const page = () => {
           href={emailLoginHref}
           replace
           aria-label={t("emailAriaLabel")}
-          onClick={() => trackLoginButtonClick("login_email_select")}
+          onClick={() => trackClickLoginButton("login_email_select")}
           className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
         >
           {t("emailButton")}

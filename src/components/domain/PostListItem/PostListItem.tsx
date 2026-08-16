@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, highlightText } from "@/utils";
-import { trackClickItemCard, type ItemTypeLabel } from "@/utils/analytics/analytics";
+import { trackClickItemCard, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 목록의 개별 아이템 컴포넌트입니다.
@@ -56,9 +56,7 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
       <Link
         href={linkState === "list" ? `/list/${id}` : `/notice/${id}`}
         onClick={
-          linkState === "list"
-            ? () => trackClickItemCard(id, (postType as string)?.toLowerCase() as ItemTypeLabel)
-            : undefined
+          linkState === "list" ? () => trackClickItemCard(toItemTypeLabel(postType)) : undefined
         }
         className={cn(
           "flex w-full items-center gap-[14px] px-5 py-[30px]",
