@@ -12,8 +12,8 @@ const MainSearchLayout = ({ focused, children }: MainSearchLayoutProps) => {
       className={cn(
         "fixed top-0",
         focused
-          ? "inset-x-0 bottom-0 z-[9999] mx-auto max-w-[768px] border-x-2 bg-white px-5 py-3"
-          : "bg-transparent left-1/2 z-10 w-full max-w-[768px] -translate-x-1/2 px-5 py-[10px]"
+          ? "inset-x-0 bottom-0 z-[9999] mx-auto max-w-[768px] border-x-2 bg-white px-5 pb-3 pt-[calc(12px+var(--safe-area-top))]"
+          : "bg-transparent left-1/2 z-10 w-full max-w-[768px] -translate-x-1/2 px-5 pb-[10px] pt-[calc(10px+var(--safe-area-top))]"
       )}
     >
       {children}
