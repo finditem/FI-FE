@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BUTTON_DEFAULT_STYLE } from "../HOME_CONST";
 import useWriteButtons from "../../_hooks/useWriteButtons/useWriteButtons";
+import { trackClickWriteButton } from "@/utils/analytics/analytics";
 
 const MainSearchEmpty = () => {
   const t = useTranslations("MainSearchEmpty");
@@ -28,6 +29,7 @@ const MainSearchEmpty = () => {
             href={button.href}
             ignoreBase
             className={cn(BUTTON_DEFAULT_STYLE, button.style)}
+            onClick={() => trackClickWriteButton("home")}
           >
             {button.label}
             <Image

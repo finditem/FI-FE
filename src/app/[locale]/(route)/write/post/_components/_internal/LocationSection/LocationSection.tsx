@@ -2,14 +2,16 @@ import Link from "next/link";
 import { cn } from "@/utils";
 import { useWriteStore } from "@/store";
 import { Icon, RequiredText } from "@/components";
+import { trackClickLocation, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const LocationSection = () => {
-  const { fullAddress } = useWriteStore();
+  const { fullAddress, postType } = useWriteStore();
   const displayText = fullAddress ?? "위치를 등록해 주세요.";
 
   return (
     <Link
       href={"/write/post/location"}
+      onClick={() => postType && trackClickLocation(toItemTypeLabel(postType))}
       className="flex cursor-pointer items-center justify-between border-b border-flatGray-50 px-5 py-6"
     >
       <span

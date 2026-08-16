@@ -7,6 +7,8 @@ import { Icon } from "@/components/common";
 import ImagePreviewList from "./_internal/ImagePreviewList";
 import { useToast } from "@/context/ToastContext";
 import { PostWriteFormValues } from "@/app/[locale]/(route)/write/post/_types/PostWriteType";
+import { useWriteStore } from "@/store";
+import { trackUploadImage, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 작성 화면에서 이미지 첨부·미리보기·순서 조절을 담당하는 섹션입니다.
@@ -39,6 +41,7 @@ const WriteImageSection = ({ helpText }: WriteImageSectionProps) => {
   const t = useTranslations("WriteImageSection");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
+  const { postType } = useWriteStore();
 
   const { control } = useFormContext<PostWriteFormValues>();
 
@@ -61,12 +64,20 @@ const WriteImageSection = ({ helpText }: WriteImageSectionProps) => {
       return;
     }
 
-    fileArray.slice(0, remainCount).forEach((file) => {
+    const filesToAdd = fileArray.slice(0, remainCount);
+
+    if (filesToAdd.length === 0) return;
+
+    filesToAdd.forEach((file) => {
       append({
         file,
         previewUrl: URL.createObjectURL(file),
       });
     });
+
+    if (postType) {
+      trackUploadImage(filesToAdd.length, toItemTypeLabel(postType));
+    }
   };
 
   return (

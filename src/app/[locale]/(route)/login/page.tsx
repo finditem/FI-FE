@@ -7,6 +7,12 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
+import {
+  trackClickAppleLogin,
+  trackClickSignupStart,
+  trackClickKakaoLogin,
+  trackClickLoginButton,
+} from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
@@ -29,10 +35,17 @@ const page = () => {
   })();
 
   const handleKakaoLogin = () => {
+    trackClickKakaoLogin();
+
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
     window.location.replace(kakaoURL);
+  };
+
+  const handleAppleLogin = () => {
+    trackClickAppleLogin();
+    alert("애플 로그인은 현재 지원하지 않습니다.");
   };
 
   return (
@@ -58,7 +71,7 @@ const page = () => {
           type="submit"
           ignoreBase
           ariaLabel={t("appleAriaLabel")}
-          onClick={() => alert("애플 로그인은 현재 지원하지 않습니다.")}
+          onClick={handleAppleLogin}
           className={cn(
             ButtonStyle,
             "gap-1 bg-labelsVibrant-primary text-white hover:bg-labelsVibrant-primary"
@@ -82,6 +95,7 @@ const page = () => {
           href={emailLoginHref}
           replace
           aria-label={t("emailAriaLabel")}
+          onClick={() => trackClickLoginButton("login_email_select")}
           className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
         >
           {t("emailButton")}
@@ -91,6 +105,7 @@ const page = () => {
 
         <Link
           href="/sign-up"
+          onClick={trackClickSignupStart}
           className={cn("min-w-[128px] p-3 text-caption1-semibold text-brand-normal-default")}
         >
           {t("createAccount")}
