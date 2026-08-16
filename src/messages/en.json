@@ -887,7 +887,7 @@
     "foundTitle": "Register a found item",
     "foundDescription": "Register details about the item you found."
   },
-  "useWritePageType": {
+  "PostWriteHeader": {
     "lostTitle": "Report a lost item",
     "foundTitle": "Report a found item"
   },

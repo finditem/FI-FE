@@ -6,7 +6,7 @@ import { useWriteStore } from "@/store";
 const useWritePageType = () => {
   const searchParams = useSearchParams();
   const postTypeParam = searchParams.get("type");
-  const t = useTranslations("useWritePageType");
+  const t = useTranslations("PostWriteHeader");
 
   const { setPostType } = useWriteStore();
 

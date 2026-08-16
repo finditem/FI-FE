@@ -17,7 +17,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   if (type === "lost") {
     title = t("lostTitle");
     description = t("lostDescription");
-  } else {
+  } else if (type === "find") {
     title = t("foundTitle");
     description = t("foundDescription");
   }

@@ -887,7 +887,7 @@
     "foundTitle": "발견한 물건 등록",
     "foundDescription": "발견한 물건의 정보를 등록해보세요."
   },
-  "useWritePageType": {
+  "PostWriteHeader": {
     "lostTitle": "분실했어요 글쓰기",
     "foundTitle": "발견했어요 글쓰기"
   },
