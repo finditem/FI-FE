@@ -2,11 +2,13 @@
 "use no memo";
 
 import { FormProvider, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { EmailLoginForm } from "./_components";
 import { LoginFormType } from "./_types/LoginFormType";
 import { DetailHeader } from "@/components";
 
 const page = () => {
+  const t = useTranslations("EmailLoginPage");
   const methods = useForm<LoginFormType>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -14,8 +16,8 @@ const page = () => {
 
   return (
     <>
-      <DetailHeader title="이메일 로그인" />
-      <h1 className="sr-only">이메일 로그인 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srHeading")}</h1>
 
       <FormProvider {...methods}>
         <EmailLoginForm />

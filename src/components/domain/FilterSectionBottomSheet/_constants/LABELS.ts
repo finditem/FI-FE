@@ -1,32 +1,47 @@
+import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { CategoryType, ItemStatus, PostType } from "@/types";
 import { SortFilterValue } from "../_types/types";
 
-export const CATEGORY_DEFAULT_LABEL = "카테고리";
-export const CATEGORY_LABEL_MAP: Record<CategoryType, string> = {
-  ELECTRONICS: "전자기기",
-  WALLET: "지갑",
-  ID_CARD: "신분증",
-  JEWELRY: "귀금속",
-  BAG: "가방",
-  CARD: "카드",
-  ETC: "기타",
-};
+export const useFilterLabelMaps = () => {
+  const t = useTranslations("FilterOptions");
 
-export const SORT_LABEL_MAP: Record<SortFilterValue, string> = {
-  LATEST: "최신순",
-  OLDEST: "오래된 순",
-  MOST_FAVORITED: "즐겨찾기 많은 순",
-  MOST_VIEWED: "조회수 많은 순",
-};
+  return useMemo(() => {
+    const categoryLabelMap: Record<CategoryType, string> = {
+      ELECTRONICS: t("category.ELECTRONICS"),
+      WALLET: t("category.WALLET"),
+      ID_CARD: t("category.ID_CARD"),
+      JEWELRY: t("category.JEWELRY"),
+      BAG: t("category.BAG"),
+      CARD: t("category.CARD"),
+      ETC: t("category.ETC"),
+    };
 
-export const FIND_STATUS_DEFAULT_LABEL = "전체";
-export const FIND_STATUS_LABEL_MAP: Record<ItemStatus, string> = {
-  SEARCHING: "찾아요",
-  FOUND: "찾았어요",
-};
+    const sortLabelMap: Record<SortFilterValue, string> = {
+      LATEST: t("sort.LATEST"),
+      OLDEST: t("sort.OLDEST"),
+      MOST_FAVORITED: t("sort.MOST_FAVORITED"),
+      MOST_VIEWED: t("sort.MOST_VIEWED"),
+    };
 
-export const STATUS_DEFAULT_LABEL = "전체";
-export const STATUS_LABEL_MAP: Record<PostType, string> = {
-  LOST: "분실",
-  FOUND: "발견",
+    const findStatusLabelMap: Record<ItemStatus, string> = {
+      SEARCHING: t("findStatus.SEARCHING"),
+      FOUND: t("findStatus.FOUND"),
+    };
+
+    const statusLabelMap: Record<PostType, string> = {
+      LOST: t("status.LOST"),
+      FOUND: t("status.FOUND"),
+    };
+
+    return {
+      categoryDefaultLabel: t("field.category"),
+      categoryLabelMap,
+      sortLabelMap,
+      findStatusDefaultLabel: t("field.findStatus"),
+      findStatusLabelMap,
+      statusDefaultLabel: t("field.status"),
+      statusLabelMap,
+    };
+  }, [t]);
 };

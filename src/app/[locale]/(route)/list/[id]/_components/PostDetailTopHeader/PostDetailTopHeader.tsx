@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { DetailHeader, HeaderMenu, HeaderShare, HeaderStar, ContentShareModal } from "@/components";
 import PostActionMenu from "../PostActionMenu/PostActionMenu";
 import { PostActionData } from "../../_types/PostActionType";
@@ -14,6 +15,7 @@ interface PostDetailTopHeaderProps {
 }
 
 const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => {
+  const t = useTranslations("PostDetailTopHeader");
   const [openShareModal, setOpenShareModal] = useState(false);
   const [openOptionModal, setOpenOptionModal] = useState(false);
 
@@ -25,9 +27,9 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
     postMetaData?.result || {};
 
   const metaData = {
-    title: title || "찾아줘 게시글 공유",
-    summary: summary || "게시글을 확인해보세요",
-    address: address || "위치 정보 없음",
+    title: title || t("defaultShareTitle"),
+    summary: summary || t("defaultShareSummary"),
+    address: address || t("defaultAddress"),
     thumbnailUrl,
     likeCount: likeCount || 0,
     commentCount: commentCount || 0,
@@ -43,18 +45,18 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
             disabled={isPending}
             isActive={postData.favoriteStatus}
             onClick={() => handleToggleFavorite(postData.favoriteStatus)}
-            ariaLabel="게시글 즐겨찾기"
+            ariaLabel={t("favoriteAriaLabel")}
             data-testid="post-detail-favorite-button"
           />
           <HeaderShare
             onClick={() => setOpenShareModal(true)}
-            ariaLabel="게시글 공유"
+            ariaLabel={t("shareAriaLabel")}
             data-testid="post-detail-share-button"
           />
           <div ref={ref} className="relative flex items-center">
             <HeaderMenu
               onClick={() => setOpenOptionModal((v) => !v)}
-              ariaLabel="게시글 메뉴"
+              ariaLabel={t("menuAriaLabel")}
               data-testid="post-detail-menu-button"
             />
             <PostActionMenu

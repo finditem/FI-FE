@@ -1,8 +1,10 @@
 import { useToast } from "@/context/ToastContext";
 import { ToastType } from "@/types";
+import { useTranslations } from "next-intl";
 import { useFormContext } from "react-hook-form";
 
 const useErrorToast = () => {
+  const t = useTranslations("ErrorToast");
   const { addToast } = useToast();
   const { setError } = useFormContext();
 
@@ -16,7 +18,7 @@ const useErrorToast = () => {
       if (name) setError(name, { message: target.message });
       addToast(target.message, target.status);
     } else {
-      addToast("예상치 못한 에러가 발생했어요", "error");
+      addToast(t("unexpectedError"), "error");
     }
   };
 

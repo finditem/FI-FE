@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { cn } from "@/utils";
 import { useMainRecentSearch } from "@/store";
@@ -23,6 +24,7 @@ interface LatestListProps {
 }
 
 const LatestList = ({ setFocused, dropdownRootRef, searchInputRef }: LatestListProps) => {
+  const t = useTranslations("LatestList");
   const router = useRouter();
   const recentItems = useMainRecentSearch((s) => s.recentItems);
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
@@ -44,7 +46,7 @@ const LatestList = ({ setFocused, dropdownRootRef, searchInputRef }: LatestListP
             data-search-dropdown-item
             role="button"
             tabIndex={0}
-            aria-label={`${item.keyword} 검색`}
+            aria-label={t("searchLabel", { keyword: item.keyword })}
             onClick={() => runSearch(item.keyword)}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -76,7 +78,7 @@ const LatestList = ({ setFocused, dropdownRootRef, searchInputRef }: LatestListP
               </time>
               <button
                 type="button"
-                aria-label="최근 검색어 삭제"
+                aria-label={t("deleteLabel")}
                 onClick={(e) => {
                   e.stopPropagation();
                   removeRecentSearch(item.keyword);

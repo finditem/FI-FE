@@ -1,4 +1,5 @@
 import { RefObject, Suspense, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { PostListItem, EmptyState, LoadingState } from "@/components";
 
@@ -9,6 +10,7 @@ interface DefaultListProps {
 }
 
 const DefaultList = ({ listData, listRef, hasNextPage }: DefaultListProps) => {
+  const t = useTranslations("DefaultList");
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const DefaultList = ({ listData, listRef, hasNextPage }: DefaultListProps) => {
 
   return (
     <Suspense fallback={<LoadingState />}>
-      <section aria-label="게시글 목록" className="w-full">
+      <section aria-label={t("listAriaLabel")} className="w-full">
         {listData.length === 0 ? (
           <EmptyState
             icon={{
@@ -27,7 +29,7 @@ const DefaultList = ({ listData, listRef, hasNextPage }: DefaultListProps) => {
               iconSize: 130,
               iconColor: "text-labelsVibrant-quaternary",
             }}
-            description={"아직 게시글이 없어요.\n가장 먼저 작성해보세요!"}
+            description={t("emptyDescription")}
           />
         ) : (
           <>

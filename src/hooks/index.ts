@@ -18,3 +18,4 @@ export { default as useNicknameCheck } from "./useNicknameCheck/useNicknameCheck
 export { default as useErrorToast } from "./useErrorToast/useErrorToast";
 export { default as useFindPwSubmit } from "./useFindPwSubmit/useFindPwSubmit";
 export { useFilterSync } from "./useFilterSync/useFilterSync";
+export { useFindPwErrorMessage } from "./useFindPwErrorMessage/useFindPwErrorMessage";

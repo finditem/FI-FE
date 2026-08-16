@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
@@ -14,6 +15,7 @@ const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
 const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const page = () => {
+  const t = useTranslations("Login");
   const { reason } = useSessionNotification();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -42,7 +44,7 @@ const page = () => {
         <Button
           type="submit"
           ignoreBase
-          ariaLabel="카카오 로그인 버튼"
+          ariaLabel={t("kakaoAriaLabel")}
           onClick={handleKakaoLogin}
           className={cn(
             ButtonStyle,
@@ -50,40 +52,48 @@ const page = () => {
           )}
         >
           <Icon name="KakaoLogin" size={20} />
-          카카오로 3초 만에 시작하기
+          {t("kakaoButton")}
         </Button>
         <Button
-          as={Link}
-          href={emailLoginHref}
-          replace
+          type="submit"
           ignoreBase
-          className={cn(ButtonStyle, "gap-2 text-white bg-fill-brand-normal-default")}
-          aria-label="로그인 버튼"
+          ariaLabel={t("appleAriaLabel")}
+          onClick={() => alert("애플 로그인은 현재 지원하지 않습니다.")}
+          className={cn(
+            ButtonStyle,
+            "gap-1 bg-labelsVibrant-primary text-white hover:bg-labelsVibrant-primary"
+          )}
         >
-          <Icon name="Mail" size={20} className="text-white" />
-          이메일로 로그인
+          <Icon name="AppleLogin" size={20} />
+          {t("appleButton")}
         </Button>
       </div>
 
       {/* divider 구분선 */}
       <div className="flex h-[18px] w-full items-center px-5 tablet:px-[96px]">
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
-        <span className="px-3 text-caption1-medium text-layout-body-default">또는</span>
+        <span className="px-3 text-caption1-medium text-layout-body-default">{t("divider")}</span>
         <hr className="h-px flex-1 bg-flatGray-50" aria-hidden={true} />
       </div>
 
-      {/* 회원확인 여부 */}
-      <div className="h-11">
-        <span className="text-caption1-medium text-neutral-normal-placeholder">
-          아직 회원이 아니신가요?
-        </span>
+      {/* 이메일 로그인 및 회원가입 */}
+      <div className="h-11 gap-1.5 flex-center">
+        <Link
+          href={emailLoginHref}
+          replace
+          aria-label={t("emailAriaLabel")}
+          className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
+        >
+          {t("emailButton")}
+        </Link>
+
+        <div className="h-4 w-px bg-flatGray-50" aria-hidden={true} />
+
         <Link
           href="/sign-up"
-          className={cn(
-            "Inversed-strong-default p-3 text-caption1-semibold text-brand-normal-default"
-          )}
+          className={cn("min-w-[128px] p-3 text-caption1-semibold text-brand-normal-default")}
         >
-          회원가입
+          {t("createAccount")}
         </Link>
       </div>
     </div>

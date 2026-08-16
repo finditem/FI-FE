@@ -23,6 +23,7 @@ export const iconImports = {
   LogoCharacter: () => import("@/assets/logo-character.svg"),
   Book: () => import("@/assets/book.svg"),
   KakaoLogin: () => import("@/assets/kakao_login.svg"),
+  AppleLogin: () => import("@/assets/apple_login.svg"),
   Loading: () => import("@/assets/loading.svg"),
   NotFound: () => import("@/assets/not-found.svg"),
   ChatLost: () => import("@/assets/chat-lost.svg"),

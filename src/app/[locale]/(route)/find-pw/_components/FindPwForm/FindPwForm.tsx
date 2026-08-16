@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { Button, InputText } from "@/components";
 import { cn } from "@/utils";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import { useFindPwSubmit } from "@/hooks";
 import { ApiFindPwType } from "@/api/fetch/auth";
 
 const FindPwForm = () => {
+  const t = useTranslations("FindPwForm");
   const { handleSubmit } = useFormContext<ApiFindPwType>();
   const { onSubmitFindPassword, email, isPending } = useFindPwSubmit();
 
@@ -23,22 +25,22 @@ const FindPwForm = () => {
       {!email ? (
         <div className="w-full tablet:px-4">
           <InputText
-            label="아이디 (이메일)"
+            label={t("label")}
             inputOption={{
               name: "email",
               type: "email",
-              placeholder: "아이디를 입력해 주세요.",
+              placeholder: t("placeholder"),
               maxLength: 254,
               validation: {
-                required: "이메일을 입력해 주세요.",
+                required: t("required"),
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "이메일 형식을 입력해주세요.",
+                  message: t("invalidEmail"),
                 },
               },
             }}
             btnOption={{
-              btnLabel: "비밀번호 찾기",
+              btnLabel: t("submitBtnLabel"),
               btnType: "submit",
               className: "min-w-[127px]",
               loading: isPending,
@@ -47,17 +49,19 @@ const FindPwForm = () => {
         </div>
       ) : (
         <>
-          <p className="flex flex-col items-center py-[18.5px] text-center text-body2-regular">
-            <span className="flex items-center justify-center">
-              <span className="inline-block max-w-[200px] truncate text-flatGreen-500">
-                {email}
-              </span>
-              으로 <br />
-            </span>
-            임시 비밀번호를 발송했습니다.
+          <p className="py-[18.5px] text-center text-body2-regular">
+            {t.rich("sentMessage", {
+              email,
+              highlight: (chunks) => (
+                <span className="inline-block max-w-[200px] truncate text-flatGreen-500">
+                  {chunks}
+                </span>
+              ),
+              br: () => <br />,
+            })}
           </p>
-          <Button as={Link} href="/login/email" className="w-full" ariaLabel="로그인 화면으로 이동">
-            비밀번호 변경
+          <Button as={Link} href="/login/email" className="w-full" ariaLabel={t("loginAriaLabel")}>
+            {t("changePassword")}
           </Button>
         </>
       )}

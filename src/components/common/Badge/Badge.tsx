@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Icon from "../Icon/Icon";
 
 /**
@@ -25,10 +26,11 @@ interface BadgeProps {
  */
 
 function Badge({ variant, size = 15 }: BadgeProps) {
+  const t = useTranslations("Badge");
   const isNew = variant === "new";
 
   return (
-    <div aria-label={isNew ? "최신 글" : "인기 글"}>
+    <div aria-label={isNew ? t("new") : t("hot")}>
       <Icon name={isNew ? "NewBadge" : "HotBadge"} size={size} />
     </div>
   );

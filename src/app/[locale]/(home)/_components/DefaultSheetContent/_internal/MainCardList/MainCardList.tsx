@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Chip, Icon } from "@/components";
 import { useHorizontalDragScroll } from "@/hooks";
 import Link from "next/link";
@@ -22,6 +23,7 @@ interface MainCardItemProps {
 }
 
 const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
+  const t = useTranslations("MainCardList");
   const { postId, title, thumbnailImageUrl, createdAt } = cardItemData;
 
   const href = mode === "public" ? `/public-data/found/${postId}` : `/list/${postId}`;
@@ -33,7 +35,7 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
           {thumbnailImageUrl ? (
             <Image
               src={thumbnailImageUrl}
-              alt={`최근 발견된 분실물 ${title} 이미지`}
+              alt={t("altText", { title })}
               fill
               className="rounded-2xl object-cover"
             />
@@ -42,7 +44,7 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
           )}
           {showChip && (
             <div className="absolute left-2 top-2">
-              <Chip label="경찰청" className="!px-2" />
+              <Chip label={t("policeChipLabel")} className="!px-2" />
             </div>
           )}
         </div>

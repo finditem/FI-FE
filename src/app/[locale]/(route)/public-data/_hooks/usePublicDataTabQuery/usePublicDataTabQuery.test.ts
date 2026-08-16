@@ -101,10 +101,10 @@ describe("usePublicDataTabQuery", () => {
     });
   });
 
-  describe("PUBLIC_LIST_TABS", () => {
+  describe("tabs", () => {
     it("분실·습득 두 탭을 반환한다", () => {
       const { result } = renderHook(() => usePublicDataTabQuery());
-      expect(result.current.PUBLIC_LIST_TABS).toEqual([
+      expect(result.current.tabs).toEqual([
         { label: "분실", key: "lost" },
         { label: "습득", key: "found" },
       ]);

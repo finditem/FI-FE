@@ -3,7 +3,6 @@ import { PostFilterChipValue } from "../_types/PostFilterChipValue";
 export const LOST_FIND_ACTION_DATA = [
   {
     type: "lost",
-    title: "분실 신고",
     positionImage: "/main/LostFindActions/lost-position.svg",
     markImage: {
       src: "/main/LostFindActions/question.svg",
@@ -18,7 +17,6 @@ export const LOST_FIND_ACTION_DATA = [
   },
   {
     type: "found",
-    title: "발견 신고",
     positionImage: "/main/LostFindActions/found-position.svg",
     markImage: {
       src: "/main/LostFindActions/exclamation.svg",
@@ -35,74 +33,60 @@ export const LOST_FIND_ACTION_DATA = [
 
 export const POLICE_ITEMS = [
   {
+    type: "lost",
     href: "/public-data?type=lost",
-    headLabel: "분실",
-    label: "했어요",
   },
   {
+    type: "found",
     href: "/public-data?type=found",
-    headLabel: "발견",
-    label: "했어요",
   },
-];
+] as const;
 
 export const SUPPORT_MENU_ITEMS = [
   {
-    label: "키워드 알람 설정하기",
+    type: "notificationSetting",
     href: "/mypage/notifications",
   },
   {
-    label: "공지사항",
+    type: "notice",
     href: "/notice",
   },
-];
+] as const;
 
 export const BUTTON_DEFAULT_STYLE =
   "block w-full rounded-2xl py-7 pl-[30px] text-h2-bold relative overflow-hidden";
 
 export const WRITE_BUTTONS = [
   {
-    label: "분실한 물건 등록하기",
+    type: "lost",
     href: "/write/post?type=lost",
     icon: "/main/LostFindActions/lost-position.svg",
     style: "text-[#5B3322] bg-fill-accent-lostItem2",
   },
   {
-    label: "발견한 물건 등록하기",
+    type: "found",
     href: "/write/post?type=find",
     icon: "/main/LostFindActions/found-position.svg",
     style: "text-[#173C28] bg-fill-brand-subtle-hover",
   },
-];
+] as const;
 
 export const FILTER_ITEMS = [
-  {
-    label: "모두보기",
-    value: "all",
-  },
-  {
-    label: "분실물만",
-    value: "lost",
-  },
-  {
-    label: "발견물만",
-    value: "find",
-  },
-  {
-    label: "카테고리",
-    value: "category",
-  },
-];
+  { value: "all" },
+  { value: "lost" },
+  { value: "find" },
+  { value: "category" },
+] as const;
 
 type FilterItemValue = PostFilterChipValue | "category";
 
 export const POST_FILTER_ITEMS = FILTER_ITEMS.filter(
-  (item): item is { label: string; value: PostFilterChipValue } => item.value !== "category"
+  (item): item is { value: PostFilterChipValue } => item.value !== "category"
 );
 
 export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
-  (item): item is { label: string; value: "category" } => item.value === "category"
-) ?? { label: "카테고리", value: "category" as FilterItemValue };
+  (item): item is { value: "category" } => item.value === "category"
+) ?? { value: "category" as FilterItemValue };
 
 export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;
 
@@ -119,29 +103,21 @@ export const SHEET_CONTENT_BOTTOM_PADDING_PX = 18;
 
 export const PERMISSION_ITEM = [
   {
+    type: "location",
     iconName: "Marker" as const,
-    title: "위치 (선택)",
-    description: "현 위치 기반으로 유실물 정보 확인",
   },
   {
+    type: "alert",
     iconName: "AlertBell" as const,
-    title: "알림 (선택)",
-    description: "찾아줘 서비스 알림 수신",
   },
-];
+] as const;
 
 export const PERMISSION_CONFIG = {
   Location: {
-    title: "더 편한 서비스를 위해 위치 정보를 접근의 허용해 주세요.",
-    description: `위치 정보 허용 시 현재 위치를 기반으로\n 유실물 정보를 제공해요.`,
     iconName: "Marker" as const,
-    agreeBtnText: "위치 접근 허용하기",
   },
   Alert: {
-    title: "알림을 허용하고 더 많은 소식을 받아보세요.",
-    description: `알림 허용은 마이페이지의 설정에서\n 언제든지 변경할 수 있어요.`,
     iconName: "AlertBell" as const,
-    agreeBtnText: "알림 허용하기",
   },
 };
 

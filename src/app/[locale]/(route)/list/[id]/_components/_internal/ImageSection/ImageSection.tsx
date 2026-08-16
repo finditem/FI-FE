@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -16,6 +17,8 @@ interface ImageSectionProps {
 }
 
 const ImageSection = ({ imageUrls }: ImageSectionProps) => {
+  const t = useTranslations("ImageSection");
+
   if (imageUrls.length === 0) return null;
 
   const sortedData = [...imageUrls].sort((a, b) => {
@@ -59,7 +62,7 @@ const ImageSection = ({ imageUrls }: ImageSectionProps) => {
               <div className="relative h-[260px] w-full tablet:h-[420px]">
                 <Image
                   src={image.imgUrl}
-                  alt={`게시글 이미지 ${index + 1}`}
+                  alt={t("imageAlt", { index: index + 1 })}
                   fill
                   draggable={false}
                   priority={index === 0}

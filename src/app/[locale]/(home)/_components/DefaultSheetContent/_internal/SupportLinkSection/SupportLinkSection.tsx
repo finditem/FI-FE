@@ -1,11 +1,13 @@
 import { Icon } from "@/components";
 import Link from "next/link";
-import { SUPPORT_MENU_ITEMS } from "../../../HOME_CONST";
+import useSupportMenuItems from "../../../../_hooks/useSupportMenuItems/useSupportMenuItems";
 
 const SupportLinkSection = () => {
+  const supportMenuItems = useSupportMenuItems();
+
   return (
     <section className="w-full">
-      {SUPPORT_MENU_ITEMS.map((item) => (
+      {supportMenuItems.map((item) => (
         <Link
           key={item.label}
           href={item.href}
