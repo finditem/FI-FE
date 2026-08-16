@@ -549,6 +549,118 @@
     "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
     "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
   },
+  "PublicDataPage": {
+    "postTypeLost": "Lost",
+    "postTypeFound": "Found",
+    "postDescriptionLost": "lost items",
+    "postDescriptionFound": "found items",
+    "searchTitle": "{keyword} search results | Finditem!",
+    "searchDescription": "Looking for {keyword} on Finditem? Search {keyword} lost items posted on the police lost & found center, Lost112!",
+    "listTitle": "Police {postType} items",
+    "listDescription": "Browse {postDescription} data from the police lost & found center, Lost112, more easily."
+  },
+  "PublicDefaultTabs": {
+    "region": "Region",
+    "category": "Category"
+  },
+  "PublicDataFilterBottomSheet": {
+    "filterTitle": "Filter",
+    "tabFilterAriaLabel": "{label} filter",
+    "regionSelectAriaLabel": "Select region",
+    "categorySelectAriaLabel": "Select category",
+    "allLabel": "All",
+    "applyAriaLabel": "Apply filter",
+    "applyButton": "Apply"
+  },
+  "PublicDataFilterSection": {
+    "regionFilterAriaLabel": "Region filter",
+    "categoryFilterAriaLabel": "Category filter",
+    "regionDefaultLabel": "Select region",
+    "categoryDefaultLabel": "Category",
+    "filterAreaAriaLabel": "Filter area"
+  },
+  "PublicDataItemCard": {
+    "policeChipLabel": "Police",
+    "defaultImageAlt": "Post thumbnail image"
+  },
+  "PublicDataList": {
+    "loadFailedToast": "Couldn't load the data.",
+    "listAriaLabel": "List",
+    "errorTitle": "Couldn't load public data right now.",
+    "emptyTitle": "No data found."
+  },
+  "PublicDataTabs": {
+    "lostLabel": "Lost",
+    "foundLabel": "Found"
+  },
+  "PublicClientDetail": {
+    "loadFailedToast": "Failed to load the post",
+    "defaultShareTitle": "Share police data on Finditem",
+    "defaultShareSummary": "Check out this police data"
+  },
+  "PublicCallBottomSheet": {
+    "title": "We'll connect you to the storage location",
+    "askTitle": "Here's a good way to ask",
+    "askDescription": "Hi! I'm looking for a lost item —\nI saw this listed as a found item with the police\nand wanted to reach out.",
+    "idCheckTitle": "You'll need to verify your identity to pick up the item",
+    "idCheckDescription": "Please bring one of the following ID types\nResident registration card, passport, driver's license, youth ID, etc.",
+    "callButton": "Call"
+  },
+  "PublicDetailHeader": {
+    "authorInfoAriaLabel": "Post author info",
+    "policeLabel": "Police",
+    "contactButton": "Check contact info"
+  },
+  "PublicDetailInfo": {
+    "policeChipLabel": "Police"
+  },
+  "PublicDetailSkeleton": {
+    "loadingStatus": "Loading details.",
+    "contactButton": "Check contact info"
+  },
+  "PublicLostItemInfo": {
+    "lostDateLabel": "Date lost",
+    "foundDateLabel": "Date found",
+    "dateInfoAriaLabel": "{dateLabel} info"
+  },
+  "PublicStorageInfo": {
+    "lostInfoTitle": "Lost info",
+    "storageInfoTitle": "Storage info",
+    "policeMarkAlt": "Police emblem",
+    "departmentLabel": "Department",
+    "lostPlaceLabel": "Lost location",
+    "foundPlaceLabel": "Found location",
+    "storagePlaceAriaLabel": "Storage location details"
+  },
+  "PublicDataDetailPage": {
+    "defaultItemName": "Item",
+    "lostLabel": "Lost",
+    "foundLabel": "Found",
+    "defaultPlace": "To be updated",
+    "defaultSummary": "Check out the details.",
+    "metaTitleTemplate": "{title} {postType} | {place} | Finditem! Police Lost & Found",
+    "fallbackTitle": "Item detail | Finditem! Police Lost & Found",
+    "fallbackDescription": "Check out lost item info linked from the police."
+  },
+  "PublicDataSearchPage": {
+    "searchTitle": "{keyword} search results",
+    "searchDescription": "Looking for {keyword} on Finditem? Search {keyword} lost items posted on the police lost & found center, Lost112!"
+  },
+  "PublicDataBeforeSearch": {
+    "emptyText": "No recent searches"
+  },
+  "PublicDataSearchContent": {
+    "searchAreaAriaLabel": "Search police data",
+    "searchPlaceholder": "Enter a search term"
+  },
+  "PublicDataSearchDetailHeader": {
+    "lostTitle": "Search lost items",
+    "foundTitle": "Search found items"
+  },
+  "PublicDataSearchList": {
+    "loadFailedToast": "Couldn't load the data.",
+    "noResultsTitle": "No results found."
+  },
   "ListPage": {
     "postTypeLost": "Lost",
     "postTypeFound": "Found",

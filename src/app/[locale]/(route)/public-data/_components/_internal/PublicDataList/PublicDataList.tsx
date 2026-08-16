@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
+import { useTranslations } from "next-intl";
 import { EmptyState, LoadingState } from "@/components";
 import { useInfiniteScroll } from "@/hooks";
 import { PublicDataItem, PublicDataResponse } from "@/types";
@@ -9,6 +10,7 @@ import { usePublicDataListQuery } from "../../../_hooks/usePublicDataListQuery/u
 import PublicDataItemCard from "../PublicDataItemCard/PublicDataItemCard";
 
 const PublicDataList = () => {
+  const t = useTranslations("PublicDataList");
   const { addToast } = useToast();
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -30,9 +32,9 @@ const PublicDataList = () => {
 
   useEffect(() => {
     if (isError) {
-      addToast("데이터를 불러오지 못했어요.", "error");
+      addToast(t("loadFailedToast"), "error");
     }
-  }, [isError, addToast]);
+  }, [isError, addToast, t]);
 
   if (isLoading) return <LoadingState />;
 
@@ -43,13 +45,13 @@ const PublicDataList = () => {
           iconName: "NoPosts",
           iconSize: 70,
         }}
-        title={isError ? "현재 공공데이터를 불러올 수 없어요." : "조회된 데이터가 없습니다."}
+        title={isError ? t("errorTitle") : t("emptyTitle")}
       />
     );
   }
 
   return (
-    <section aria-label="목록">
+    <section aria-label={t("listAriaLabel")}>
       <ul>
         {items.map((item, index) => (
           <PublicDataItemCard key={`${item.atcId}-${index}`} item={item} />

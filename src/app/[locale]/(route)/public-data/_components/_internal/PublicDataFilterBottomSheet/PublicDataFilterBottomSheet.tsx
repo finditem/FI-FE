@@ -1,12 +1,13 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
+import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button, PopupLayout, FilterTab } from "@/components";
 import { cn } from "@/utils";
 import { PUBLIC_CATEGORY_CODES, PUBLIC_REGION_CODES } from "@/constants";
 import { PublicFilterStateType } from "../../../_types/PublicFilterStateType";
-import { PUBLIC_DEFAULT_TABS } from "../../PUBLIC_DATA_CONST";
+import usePublicDefaultTabs from "../../../_hooks/usePublicDefaultTabs/usePublicDefaultTabs";
 
 interface PublicDataFilterBottomSheetProps {
   isOpen: boolean;
@@ -25,6 +26,8 @@ const PublicDataFilterBottomSheet = ({
   filters,
   setFilters,
 }: PublicDataFilterBottomSheetProps) => {
+  const t = useTranslations("PublicDataFilterBottomSheet");
+  const publicDefaultTabs = usePublicDefaultTabs();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -52,10 +55,10 @@ const PublicDataFilterBottomSheet = ({
       className="flex min-h-[530px] flex-col justify-between gap-5 py-10"
     >
       <div className="w-full gap-6 flex-col-center">
-        <h2 className="text-h2-medium text-layout-header-default">필터</h2>
+        <h2 className="text-h2-medium text-layout-header-default">{t("filterTitle")}</h2>
 
         <section role="tablist" className="w-full flex-center">
-          {PUBLIC_DEFAULT_TABS.map((tab) => {
+          {publicDefaultTabs.map((tab) => {
             const isSelected = selectedTab === tab.value;
 
             return (
@@ -63,7 +66,7 @@ const PublicDataFilterBottomSheet = ({
                 key={tab.value}
                 role="tab"
                 aria-selected={isSelected}
-                aria-label={`${tab.label} 필터`}
+                aria-label={t("tabFilterAriaLabel", { label: tab.label })}
                 className={cn(
                   "min-h-[60px] flex-1 text-[20px] font-semibold",
                   isSelected
@@ -80,9 +83,13 @@ const PublicDataFilterBottomSheet = ({
 
         {/* 지역선택 */}
         {selectedTab === "region" && (
-          <div role="radiogroup" aria-label="지역 선택" className="flex w-full flex-wrap gap-2">
+          <div
+            role="radiogroup"
+            aria-label={t("regionSelectAriaLabel")}
+            className="flex w-full flex-wrap gap-2"
+          >
             <PublicDataChipButton
-              label="전체"
+              label={t("allLabel")}
               value=""
               selected={filters.publicRegion === ""}
               onSelect={() => setFilters((prev) => ({ ...prev, publicRegion: "" }))}
@@ -101,9 +108,13 @@ const PublicDataFilterBottomSheet = ({
 
         {/* 카테고리 선택 */}
         {selectedTab === "category" && (
-          <div role="radiogroup" aria-label="카테고리 선택" className="flex w-full flex-wrap gap-2">
+          <div
+            role="radiogroup"
+            aria-label={t("categorySelectAriaLabel")}
+            className="flex w-full flex-wrap gap-2"
+          >
             <PublicDataChipButton
-              label="전체"
+              label={t("allLabel")}
               value=""
               selected={!filters.publicCategory}
               onSelect={() => setFilters((prev) => ({ ...prev, publicCategory: "" }))}
@@ -121,8 +132,13 @@ const PublicDataFilterBottomSheet = ({
         )}
       </div>
 
-      <Button role="button" ariaLabel="필터 적용" className="w-full" onClick={handleApply}>
-        적용하기
+      <Button
+        role="button"
+        ariaLabel={t("applyAriaLabel")}
+        className="w-full"
+        onClick={handleApply}
+      >
+        {t("applyButton")}
       </Button>
     </PopupLayout>
   );

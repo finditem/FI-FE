@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Chip, ListItemImage } from "@/components";
@@ -13,6 +14,7 @@ interface PublicDataItemCardProps {
 const NO_IMAGE_URL = "https://minwon24.police.go.kr/images/sub/img02_no_img.gif";
 
 const PublicDataItemCard = ({ item }: PublicDataItemCardProps) => {
+  const t = useTranslations("PublicDataItemCard");
   const searchParams = useSearchParams();
   const type = searchParams.get("type") || "lost";
   const postId = item.atcId;
@@ -32,7 +34,7 @@ const PublicDataItemCard = ({ item }: PublicDataItemCardProps) => {
       >
         <div className="min-w-0 flex-1">
           <div className="mb-2 flex gap-2">
-            <Chip label="경찰청" type="brandSubtle" />
+            <Chip label={t("policeChipLabel")} type="brandSubtle" />
             <Chip label={item.prdtClNm} type="neutralStrong" />
           </div>
 
@@ -51,7 +53,7 @@ const PublicDataItemCard = ({ item }: PublicDataItemCardProps) => {
           </div>
         </div>
 
-        <ListItemImage src={imageSrc} alt="게시글 대표 이미지" size={90} />
+        <ListItemImage src={imageSrc} alt={t("defaultImageAlt")} size={90} />
       </Link>
     </li>
   );
