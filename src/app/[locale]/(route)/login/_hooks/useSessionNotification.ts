@@ -1,8 +1,10 @@
 import { useToast } from "@/context/ToastContext";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 
 const useSessionNotification = () => {
+  const t = useTranslations("SessionNotification");
   const { addToast } = useToast();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -14,9 +16,9 @@ const useSessionNotification = () => {
     if (reason === "session-expired" && !isShown.current) {
       isShown.current = true;
 
-      addToast("세션이 만료되었어요. 다시 로그인 해주세요.", "warning");
+      addToast(t("sessionExpired"), "warning");
     }
-  }, [searchParams, addToast, router]);
+  }, [searchParams, addToast, router, t]);
 
   return { reason };
 };

@@ -1,19 +1,6 @@
-export const SEARCH_HEADER_TITLE = {
-  default: "게시글",
-  region: "지역 선택",
-  post: "게시글 검색",
-};
+export const SEARCH_HEADER_TITLE_KEYS = ["default", "region", "post"] as const;
 
-export const TABS = [
-  {
-    key: "lost",
-    label: "분실",
-  },
-  {
-    key: "found",
-    label: "발견",
-  },
-];
+export const TABS = [{ key: "lost" }, { key: "found" }] as const;
 
 export const WRITE_MENU_STYLES = {
   menuButton: "flex items-center gap-2 px-7 py-4",

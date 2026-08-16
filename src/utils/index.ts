@@ -34,3 +34,4 @@ export { registerWebPushServiceWorker } from "./webPush/registerWebPushServiceWo
 export { syncWebPushSubscription } from "./webPush/syncWebPushSubscription/syncWebPushSubscription";
 export { unsubscribeWebPushFromServer } from "./webPush/unsubscribeWebPushFromServer/unsubscribeWebPushFromServer";
 export { trackingEvent } from "./trackingEvent/trackingEvent";
+export { buildErrorMap } from "./buildErrorMap/buildErrorMap";

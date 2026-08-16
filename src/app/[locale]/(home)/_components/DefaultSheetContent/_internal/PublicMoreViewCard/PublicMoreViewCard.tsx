@@ -1,7 +1,10 @@
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import Link from "next/link";
 
 const PublicMoreViewCard = () => {
+  const t = useTranslations("PublicMoreViewCard");
+
   return (
     <Link
       href="/public-data?type=lost"
@@ -11,8 +14,8 @@ const PublicMoreViewCard = () => {
         <Icon name="ArrowRightSmall" size={20} className="text-neutralInversed-strong-default" />
       </div>
       <div className="flex flex-col text-caption1-semibold">
-        <span className="text-layout-header-default">경찰청 분실물</span>
-        <span className="text-brand-strongUseThis-default">더보기</span>
+        <span className="text-layout-header-default">{t("policeLostItemLabel")}</span>
+        <span className="text-brand-strongUseThis-default">{t("moreLabel")}</span>
       </div>
     </Link>
   );

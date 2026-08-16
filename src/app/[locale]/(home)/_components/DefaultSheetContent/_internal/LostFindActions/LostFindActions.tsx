@@ -1,12 +1,16 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { LOST_FIND_ACTION_DATA } from "../../../HOME_CONST";
+import useLostFindActionData from "../../../../_hooks/useLostFindActionData/useLostFindActionData";
 
 const LostFindActions = () => {
+  const t = useTranslations("LostFindActions");
+  const lostFindActionData = useLostFindActionData();
+
   return (
     <div className="flex w-full gap-4">
-      {LOST_FIND_ACTION_DATA.map(
+      {lostFindActionData.map(
         ({ type, title, positionImage, markImage, bagImage, messageImage, bgColor }) => {
           const { src, size } = markImage;
 
@@ -14,7 +18,7 @@ const LostFindActions = () => {
             <Link
               href={`/list?type=${type}`}
               key={type}
-              aria-label={`${title} 목록 페이지로 이동`}
+              aria-label={t(`${type}AriaLabel`)}
               className={cn(
                 "relative h-[106px] w-full min-w-0 flex-1 overflow-hidden rounded-2xl",
                 bgColor

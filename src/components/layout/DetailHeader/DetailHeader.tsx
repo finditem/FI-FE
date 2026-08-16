@@ -2,6 +2,7 @@
 
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 
@@ -48,6 +49,7 @@ const HEADER_HEIGHT = "h-[calc(56px+var(--safe-area-top))]";
  */
 
 const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
+  const t = useTranslations("DetailHeader");
   const router = useRouter();
 
   const handleBack = () => {
@@ -81,14 +83,14 @@ const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
             className="h-[30px] w-[30px]"
             type="button"
             onClick={handleBack}
-            aria-label="뒤로가기"
+            aria-label={t("backAriaLabel")}
           >
             <Icon name="ArrowLeftSmall" size={30} className="text-neutral-strong-default" />
           </button>
           {title && <h2 className="text-xl font-semibold text-layout-header-default">{title}</h2>}
         </div>
         {children && (
-          <div className="flex gap-[23.5px]" aria-label="헤더 액션">
+          <div className="flex gap-[23.5px]" aria-label={t("actionsAriaLabel")}>
             {children}
           </div>
         )}

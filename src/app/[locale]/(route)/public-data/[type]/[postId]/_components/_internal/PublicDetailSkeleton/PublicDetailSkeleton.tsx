@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { Button, Icon, DetailHeader, HeaderShare } from "@/components";
 import { cn } from "@/utils";
 
@@ -6,10 +7,12 @@ interface PublicDetailSkeletonProps {
 }
 
 const PublicDetailSkeleton = ({ isError = false }: PublicDetailSkeletonProps) => {
+  const t = useTranslations("PublicDetailSkeleton");
+
   return (
     <>
       <span className="sr-only" role="status">
-        상세 정보를 불러오는 중입니다.
+        {t("loadingStatus")}
       </span>
       <DetailHeader>
         <HeaderShare />
@@ -52,7 +55,7 @@ const PublicDetailSkeleton = ({ isError = false }: PublicDetailSkeletonProps) =>
             )}
             disabled
           >
-            연락처 확인하기
+            {t("contactButton")}
           </Button>
         </div>
       </section>
