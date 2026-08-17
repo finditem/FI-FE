@@ -917,5 +917,69 @@
   },
   "RegionSearchView": {
     "emptyResult": "검색 결과가 없습니다."
+  },
+  "ChatRoomLayout": {
+    "title": "채팅방 | 찾아줘! 채팅",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "알 수 없는 사용자이거나 탈퇴한 회원이에요",
+    "pageHeading": "채팅 상세 페이지",
+    "inputAriaLabel": "채팅 입력창"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "뒤로 가기 버튼",
+    "postLinkAriaLabel": "게시글 상세 페이지 이동",
+    "withdrawnUser": "탈퇴한 회원이에요",
+    "profileAriaLabel": "상대방 프로필 이동",
+    "thumbnailAlt": "채팅방 게시글 썸네일",
+    "deletedTitle": "삭제됨 {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "채팅방 메뉴 열기 버튼",
+    "reportLabel": "차단, 신고하기",
+    "leaveLabel": "채팅방 나가기"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "네, 나갈래요",
+    "title": "채팅방을 나가시겠어요?",
+    "description": "채팅방을 나가면 채팅 목록 및 대화 내용이 삭제되고\n복구할 수 없어요. 채팅방에서 나가시겠어요?"
+  },
+  "ChatChip": {
+    "findLabel": "발견",
+    "lostLabel": "분실",
+    "foundStatusLabel": "찾았어요"
+  },
+  "ChatImageBox": {
+    "youLabel": "나",
+    "theyLabel": "상대방"
+  },
+  "ChatImageButton": {
+    "imageAlt": "채팅 이미지 {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "숨기기",
+    "showMoreLabel": "더보기"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "빈 채팅 안내 화면",
+    "lostHelpText": "이 분실물을 주우셨나요?\n주인에게 먼저 연락해보세요.",
+    "findHelpText": "내 물건이 맞는지 확인해보세요.\n발견자에게 메시지를 보내세요."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "이미지 첨부",
+    "placeholderWithdrawn": "상대방이 탈퇴한 회원입니다.",
+    "placeholderDefault": "메시지 보내기",
+    "sendAriaLabel": "전송 버튼"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "사진 전송 취소 버튼",
+    "sendAriaLabel": "사진 전송 버튼",
+    "selectLabel": "사진 선택",
+    "sendCountLabel": "사진 {count}개 전송"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "이미지 처리 중 오류가 발생했습니다."
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Image from "next/image";
 
@@ -11,6 +12,8 @@ interface ChatImageButtonProps {
 }
 
 const ChatImageButton = ({ src, width, height, colSpan, index, onClick }: ChatImageButtonProps) => {
+  const t = useTranslations("ChatImageButton");
+
   return (
     <button
       type="button"
@@ -21,7 +24,7 @@ const ChatImageButton = ({ src, width, height, colSpan, index, onClick }: ChatIm
         src={src}
         width={width}
         height={height}
-        alt={`채팅 이미지 ${index + 1}`}
+        alt={t("imageAlt", { index: index + 1 })}
         className="object-cover"
         style={{ width: `${width}px`, height: `${height}px` }}
       />

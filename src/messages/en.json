@@ -917,5 +917,69 @@
   },
   "RegionSearchView": {
     "emptyResult": "No results found."
+  },
+  "ChatRoomLayout": {
+    "title": "Chat Room | Finditem Chat",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "This user is unknown or has been deleted.",
+    "pageHeading": "Chat detail page",
+    "inputAriaLabel": "Chat message input"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "Go back",
+    "postLinkAriaLabel": "View post details",
+    "withdrawnUser": "This user has been deleted.",
+    "profileAriaLabel": "View user profile",
+    "thumbnailAlt": "Post thumbnail",
+    "deletedTitle": "[Deleted] {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "Open chat menu",
+    "reportLabel": "Block or report",
+    "leaveLabel": "Leave chat room"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Yes, leave",
+    "title": "Leave this chat room?",
+    "description": "Leaving will delete the chat and its messages,\nand this can't be undone. Are you sure you want to leave?"
+  },
+  "ChatChip": {
+    "findLabel": "Found",
+    "lostLabel": "Lost",
+    "foundStatusLabel": "Found"
+  },
+  "ChatImageBox": {
+    "youLabel": "You",
+    "theyLabel": "Them"
+  },
+  "ChatImageButton": {
+    "imageAlt": "Chat image {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "Hide",
+    "showMoreLabel": "Show more"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "Empty chat screen",
+    "lostHelpText": "Did you find this lost item?\nReach out to the owner first.",
+    "findHelpText": "Check if this is your item.\nMessage the finder to reach out."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "Attach image",
+    "placeholderWithdrawn": "This user has been deleted.",
+    "placeholderDefault": "Send a message",
+    "sendAriaLabel": "Send message"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "Cancel photo",
+    "sendAriaLabel": "Send photo",
+    "selectLabel": "Select photos",
+    "sendCountLabel": "{count, plural, one {Send # photo} other {Send # photos}}"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "Something went wrong while processing the image."
   }
 }

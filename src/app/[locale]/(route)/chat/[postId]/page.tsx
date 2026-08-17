@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ChatRoomHeader, EmptyChatRoom, ChatRoomMain, InputChat } from "./_components";
 import { FormProvider, useForm } from "react-hook-form";
 import { use, useCallback, useEffect, useState } from "react";
@@ -16,6 +17,7 @@ interface ChatFormValues {
 }
 
 const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
+  const t = useTranslations("ChatRoom");
   const { postId: postIdString } = use(params);
   const { addToast } = useToast();
   const postId = Number(postIdString);
@@ -31,7 +33,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
 
   useEffect(() => {
     if (withdrawn) {
-      addToast("알 수 없는 사용자이거나 탈퇴한 회원이에요", "warning");
+      addToast(t("withdrawnToast"), "warning");
     }
   }, [withdrawn, addToast]);
 
@@ -81,7 +83,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
         currentUserId={currentUserId}
         withdrawn={withdrawn}
       />
-      <h1 className="sr-only">채팅 상세 페이지</h1>
+      <h1 className="sr-only">{t("pageHeading")}</h1>
 
       <div className="flex min-h-0 flex-1 flex-col">
         {chatMessages?.length !== 0 && chatMessages ? (
@@ -102,7 +104,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
           <form onSubmit={methods.handleSubmit(onSubmit)} className="px-4 pb-6 pt-3">
             <InputChat
               name="content"
-              aria-label="채팅 입력창"
+              aria-label={t("inputAriaLabel")}
               roomId={roomId}
               userId={userId}
               onImageSendSuccess={triggerScrollToBottom}
