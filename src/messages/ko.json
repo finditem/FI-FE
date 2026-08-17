@@ -878,5 +878,44 @@
   "LatestList": {
     "searchLabel": "{keyword} 검색",
     "deleteLabel": "최근 검색어 삭제"
+  },
+  "ChatListLayout": {
+    "title": "채팅 목록",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ListView": {
+    "regionSearchLoading": "지역 검색 불러오는 중...",
+    "regionTitle": "지역 선택",
+    "chatTitle": "채팅",
+    "pageHeading": "채팅 목록 페이지"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "지역 선택",
+    "loadingTitle": "채팅 목록 불러오는 중...",
+    "emptyTitle": "아직 채팅 내역이 없어요",
+    "emptyDescription": "채팅이 시작되면 여기에 채팅 목록이 표기돼요."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "전체",
+    "foundLabel": "발견",
+    "lostLabel": "분실",
+    "latestLabel": "최신순",
+    "oldestLabel": "오래된순",
+    "allSelectedLabel": "발견/분실"
+  },
+  "ChatItem": {
+    "withdrawnUser": "탈퇴한 회원",
+    "nicknameFallback": "닉네임을 불러오지 못했습니다.",
+    "addressFallback": "위치 정보를 불러오지 못했습니다.",
+    "timeFallback": "시간 정보가 없습니다.",
+    "imageMessage": "사진",
+    "messageFallback": "메시지를 불러오지 못했습니다.",
+    "unreadSrLabel": "읽지 않은 메시지 "
+  },
+  "ListSearch": {
+    "placeholder": "시/군/구를 입력해 주세요."
+  },
+  "RegionSearchView": {
+    "emptyResult": "검색 결과가 없습니다."
   }
 }

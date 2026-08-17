@@ -1,10 +1,11 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Filter, EmptyState, LoadingState } from "@/components";
 import ChatItem from "../ChatItem/ChatItem";
 import { useSearchParams } from "next/navigation";
 import FilterDropdown from "../FilterDropdown/FilterDropdown";
-import { FilTER_DROPDOWN_OPTIONS } from "../CHATLIST_CONST";
+import useChatFilterOptions from "../../_hooks/useChatFilterOptions/useChatFilterOptions";
 import { useChatList } from "@/api/fetch/chatRoom";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 
@@ -13,9 +14,11 @@ interface DefaultChatListProps {
 }
 
 const DefaultChatList = ({ searchUpdateQuery }: DefaultChatListProps) => {
+  const t = useTranslations("DefaultChatList");
+  const filterOptions = useChatFilterOptions();
   const searchParams = useSearchParams();
   const selectedRegion = searchParams.get("region");
-  const regionDisplayText = selectedRegion || "지역 선택";
+  const regionDisplayText = selectedRegion || t("regionPlaceholder");
   const {
     data: chatList,
     fetchNextPage,
@@ -41,19 +44,19 @@ const DefaultChatList = ({ searchUpdateQuery }: DefaultChatListProps) => {
         >
           {regionDisplayText}
         </Filter>
-        {FilTER_DROPDOWN_OPTIONS.map((option) => (
+        {filterOptions.map((option) => (
           <FilterDropdown key={option.keyName} {...option} searchUpdateQuery={searchUpdateQuery} />
         ))}
       </div>
 
-      {isLoading && <LoadingState title="채팅 목록 불러오는 중..." />}
+      {isLoading && <LoadingState title={t("loadingTitle")} />}
       {chatList?.length !== 0 ? (
         chatList?.map((chatRoom) => <ChatItem key={chatRoom.roomId} chatRoom={chatRoom} />)
       ) : (
         <EmptyState
           icon={{ iconName: "ChatListEmpty", iconSize: 90 }}
-          title="아직 채팅 내역이 없어요"
-          description="채팅이 시작되면 여기에 채팅 목록이 표기돼요."
+          title={t("emptyTitle")}
+          description={t("emptyDescription")}
         />
       )}
 

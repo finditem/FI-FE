@@ -878,5 +878,44 @@
   "LatestList": {
     "searchLabel": "Search {keyword}",
     "deleteLabel": "Delete recent search"
+  },
+  "ChatListLayout": {
+    "title": "Chat List",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ListView": {
+    "regionSearchLoading": "Loading region search...",
+    "regionTitle": "Select region",
+    "chatTitle": "Chat",
+    "pageHeading": "Chat list page"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "Select region",
+    "loadingTitle": "Loading chats...",
+    "emptyTitle": "No chats yet",
+    "emptyDescription": "Once a chat starts, it'll show up here."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "All",
+    "foundLabel": "Found",
+    "lostLabel": "Lost",
+    "latestLabel": "Newest",
+    "oldestLabel": "Oldest",
+    "allSelectedLabel": "Found/Lost"
+  },
+  "ChatItem": {
+    "withdrawnUser": "Deleted user",
+    "nicknameFallback": "Couldn't load nickname.",
+    "addressFallback": "Couldn't load location.",
+    "timeFallback": "No time available.",
+    "imageMessage": "Photo",
+    "messageFallback": "Couldn't load message.",
+    "unreadSrLabel": "Unread messages "
+  },
+  "ListSearch": {
+    "placeholder": "Enter a city, county, or district."
+  },
+  "RegionSearchView": {
+    "emptyResult": "No results found."
   }
 }
