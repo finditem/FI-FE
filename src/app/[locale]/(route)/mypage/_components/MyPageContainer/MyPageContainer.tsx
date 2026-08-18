@@ -6,8 +6,10 @@ import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
 import { useGetUsersMe } from "@/api/fetch/user";
+import { useTranslations } from "next-intl";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
+  const t = useTranslations("MyPageContainer");
   const { data, isFetching, error } = useGetUsersMe(hasToken);
   const { addToast } = useToast();
 
@@ -22,9 +24,9 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
     ) {
       // noop
     } else {
-      addToast("예상치 못한 에러가 발생했어요", "error");
+      addToast(t("unexpectedError"), "error");
     }
-  }, [error, addToast]);
+  }, [error, addToast, t]);
 
   const userData = data?.result
     ? {

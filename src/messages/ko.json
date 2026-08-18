@@ -941,5 +941,43 @@
     "nearbyTitle": "{address} 근처",
     "selectedLocationFallback": "선택한 위치",
     "applyButton": "적용하기"
+  },
+  "MyPageLayout": {
+    "title": "마이페이지",
+    "titleTemplate": "%s | 찾아줘! 마이페이지",
+    "description": "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
+  },
+  "MyPageMenu": {
+    "myActivity": "내 활동",
+    "notification": "알림",
+    "reportInquiry": "신고/문의",
+    "accountManagement": "계정 관리",
+    "servicePolicy": "서비스 정책",
+    "myPosts": "내가 쓴 게시글",
+    "myComments": "내가 쓴 댓글",
+    "favorites": "즐겨찾기 목록",
+    "myActivities": "내 활동 내역",
+    "blockedUsers": "내가 차단한 계정",
+    "notificationSettings": "알림 설정",
+    "myReports": "내 신고 내역",
+    "myInquiries": "내 문의 내역",
+    "faq": "자주 묻는 질문",
+    "accountSettings": "계정 설정",
+    "serviceIntro": "서비스 소개",
+    "privacyPolicy": "개인정보처리방침",
+    "serviceTerms": "서비스 이용 약관",
+    "marketingTerms": "마케팅 수신 약관",
+    "contentPolicy": "콘텐츠 활용 동의서",
+    "notice": "공지사항",
+    "chatList": "채팅목록",
+    "logout": "로그아웃"
+  },
+  "MyPageProfile": {
+    "loginRequired": "로그인 시 이용 가능합니다.",
+    "editProfile": "프로필 수정",
+    "login": "로그인"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
   }
 }

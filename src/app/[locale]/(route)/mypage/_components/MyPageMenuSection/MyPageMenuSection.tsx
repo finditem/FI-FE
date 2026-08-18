@@ -3,9 +3,10 @@
 import React, { Fragment } from "react";
 import { Icon } from "@/components";
 import Link from "next/link";
-import { MYPAGE_MENU_LIST } from "../../_constants/MYPAGE_ROUTE_CONFIG";
 import { cn } from "@/utils";
 import { useLogout } from "@/hooks";
+import { useTranslations } from "next-intl";
+import { useMypageMenuList } from "../../_hooks/useMypageMenuList/useMypageMenuList";
 
 const MyPageMenuSection = ({
   isUserLogin,
@@ -14,8 +15,11 @@ const MyPageMenuSection = ({
   isUserLogin: boolean;
   disabled?: boolean;
 }) => {
-  const visibleMenuList = MYPAGE_MENU_LIST.filter((menu) => {
-    if (!isUserLogin && menu.title === "서비스 정책") {
+  const t = useTranslations("MyPageMenu");
+  const menuList = useMypageMenuList();
+
+  const visibleMenuList = menuList.filter((menu) => {
+    if (!isUserLogin && menu.key === "servicePolicy") {
       return false;
     }
     return true;
@@ -24,12 +28,12 @@ const MyPageMenuSection = ({
   const { handleLogout, isPending } = useLogout();
 
   return visibleMenuList.map((menu, index) => (
-    <Fragment key={menu.title}>
+    <Fragment key={menu.key}>
       <div className="flex w-full flex-col gap-3 px-5 py-6">
         <div className="flex text-body2-regular text-layout-body-default">{menu.title}</div>
 
         {menu.pages.map((item) => (
-          <Fragment key={item.pageName}>
+          <Fragment key={item.key}>
             <Link
               href={item.pageLink}
               className={cn(
@@ -40,13 +44,13 @@ const MyPageMenuSection = ({
               {item.pageName}
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </Link>
-            {isUserLogin && item.pageName === "계정 설정" && (
+            {isUserLogin && item.key === "accountSettings" && (
               <button
                 className="flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
                 onClick={handleLogout}
                 disabled={isPending || disabled}
               >
-                로그아웃
+                {t("logout")}
               </button>
             )}
           </Fragment>

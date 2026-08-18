@@ -941,5 +941,43 @@
     "nearbyTitle": "Near {address}",
     "selectedLocationFallback": "the selected location",
     "applyButton": "Apply"
+  },
+  "MyPageLayout": {
+    "title": "My Page",
+    "titleTemplate": "%s | finditem! My Page",
+    "description": "Manage your lost and found activity, favorites, account settings, and more all in one place on finditem My Page."
+  },
+  "MyPageMenu": {
+    "myActivity": "My Activity",
+    "notification": "Notifications",
+    "reportInquiry": "Reports/Inquiries",
+    "accountManagement": "Account Management",
+    "servicePolicy": "Service Policies",
+    "myPosts": "My Posts",
+    "myComments": "My Comments",
+    "favorites": "Favorites",
+    "myActivities": "My Activity History",
+    "blockedUsers": "Blocked Accounts",
+    "notificationSettings": "Notification Settings",
+    "myReports": "My Reports",
+    "myInquiries": "My Inquiries",
+    "faq": "FAQ",
+    "accountSettings": "Account Settings",
+    "serviceIntro": "About finditem",
+    "privacyPolicy": "Privacy Policy",
+    "serviceTerms": "Terms of Service",
+    "marketingTerms": "Marketing Consent",
+    "contentPolicy": "Content Usage Agreement",
+    "notice": "Notices",
+    "chatList": "Chat",
+    "logout": "Log out"
+  },
+  "MyPageProfile": {
+    "loginRequired": "Log in to use this feature.",
+    "editProfile": "Edit Profile",
+    "login": "Log in"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "Something unexpected went wrong"
   }
 }
