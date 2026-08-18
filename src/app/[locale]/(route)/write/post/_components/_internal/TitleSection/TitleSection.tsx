@@ -1,9 +1,11 @@
 import { cn } from "@/utils";
 import { RequiredText } from "@/components";
 import { Controller, useFormContext } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
 
 const TitleSection = () => {
+  const t = useTranslations("TitleSection");
   const { control } = useFormContext<PostWriteFormValues>();
 
   return (
@@ -16,7 +18,7 @@ const TitleSection = () => {
             <input
               {...field}
               type="text"
-              aria-label="제목을 입력해 주세요."
+              aria-label={t("placeholder")}
               id="title"
               maxLength={50}
               className="bg-transparent peer w-full text-body1-medium text-neutral-normal-default outline-none"
@@ -28,7 +30,7 @@ const TitleSection = () => {
                   "pointer-events-none text-body1-medium text-neutral-normal-placeholder"
                 )}
               >
-                제목을 입력해 주세요. <RequiredText />
+                {t("placeholder")} <RequiredText />
               </span>
             )}
           </div>

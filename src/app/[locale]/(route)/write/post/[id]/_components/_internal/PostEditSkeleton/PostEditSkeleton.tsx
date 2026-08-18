@@ -1,11 +1,14 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { DetailHeader } from "@/components";
 
 const PostEditSkeleton = () => {
+  const t = useTranslations("PostEditSkeleton");
+
   return (
     <div className="flex h-dvh flex-col overflow-hidden" aria-hidden="true">
-      <DetailHeader title="게시글 수정" />
+      <DetailHeader title={t("title")} />
 
       <div className="flex flex-1 flex-col overflow-y-auto">
         {/* WriteImageSection Skeleton */}

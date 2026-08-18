@@ -1,16 +1,19 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { DetailHeader } from "@/components";
 
 export const metadata: Metadata = {
   other: { "page-type": "write-post-location" },
 };
 
-const layout = ({ children }: { children: ReactNode }) => {
+const layout = async ({ children }: { children: ReactNode }) => {
+  const t = await getTranslations("PostWriteLocationLayout");
+
   return (
     <div className="min-h-dvh w-full">
-      <DetailHeader title="위치 등록" />
-      <h1 className="sr-only">위치 등록 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyPageTitle")}</h1>
 
       {children}
     </div>
