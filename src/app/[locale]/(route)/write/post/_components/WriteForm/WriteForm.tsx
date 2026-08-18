@@ -10,6 +10,7 @@ import {
   WriteActionSection,
 } from "@/components";
 import { CategorySection, ContentSection, LocationSection, TitleSection } from "../_internal";
+import { trackWriteAbandon, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const WriteForm = ({ title }: { title: string }) => {
   const t = useTranslations("WriteForm");
@@ -28,7 +29,10 @@ const WriteForm = ({ title }: { title: string }) => {
 
   return (
     <>
-      <DetailHeader title={title} />
+      <DetailHeader
+        title={title}
+        onBeforeBack={() => values.postType && trackWriteAbandon(toItemTypeLabel(values.postType))}
+      />
       <h1 className="sr-only">{t("srOnlyPageTitle", { title })}</h1>
       <form onSubmit={onSubmit} className="flex flex-col h-base">
         <div className="flex min-h-0 flex-1 flex-col">

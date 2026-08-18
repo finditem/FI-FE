@@ -11,6 +11,7 @@ import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
 import { isValidCallbackUrl } from "@/utils";
 import { useApiEmailLogin } from "@/api/fetch/auth";
+import { trackLoginAttempt } from "@/utils/analytics/analytics";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -38,6 +39,8 @@ const useLoginForm = () => {
       addToast(t("invalidEmail"), "warning");
       return;
     }
+
+    trackLoginAttempt("email");
 
     const filterData = {
       email: data.email,

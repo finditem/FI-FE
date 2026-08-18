@@ -3,15 +3,17 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { useWriteStore } from "@/store";
 import { Icon, RequiredText } from "@/components";
+import { trackClickLocation, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const LocationSection = () => {
   const t = useTranslations("LocationSection");
-  const { fullAddress } = useWriteStore();
+  const { fullAddress, postType } = useWriteStore();
   const displayText = fullAddress ?? t("placeholder");
 
   return (
     <Link
       href={"/write/post/location"}
+      onClick={() => postType && trackClickLocation(toItemTypeLabel(postType))}
       className="flex cursor-pointer items-center justify-between border-b border-flatGray-50 px-5 py-6"
     >
       <span

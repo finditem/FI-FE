@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button, ProfileAvatar } from "@/components";
+import { trackClickLoginButton } from "@/utils/analytics/analytics";
 
 interface ProfileProps {
   userData?: {
@@ -48,6 +49,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
         size="small"
         className="!min-w-[56px]"
         loading={loading}
+        onClick={userData ? undefined : () => trackClickLoginButton("mypage")}
       >
         {userData ? "프로필 수정" : "로그인"}
       </Button>
