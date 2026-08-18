@@ -2,7 +2,8 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ListItemImage, ProfileAvatar } from "@/components";
-import { formatCappedNumber, formatDate } from "@/utils";
+import { formatCappedNumber } from "@/utils";
+import { useFormatDate } from "@/hooks";
 
 interface ChatItemProps {
   chatRoom: ChatRoom;
@@ -10,6 +11,7 @@ interface ChatItemProps {
 
 const ChatItem = ({ chatRoom }: ChatItemProps) => {
   const t = useTranslations("ChatItem");
+  const formatDate = useFormatDate();
   const { lastMessageSentAt, lastMessage, unreadCount, messageType } = chatRoom;
   const { postId, address, thumbnailUrl, category } = chatRoom.postInfo;
   const { nickname, profileImageUrl, withdrawn } = chatRoom.contactUser;

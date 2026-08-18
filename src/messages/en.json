@@ -912,6 +912,12 @@
     "messageFallback": "Couldn't load message.",
     "unreadSrLabel": "Unread messages "
   },
+  "useFormatDate": {
+    "now": "Just now",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "yesterday": "Yesterday"
+  },
   "ListSearch": {
     "placeholder": "Enter a city, county, or district."
   },

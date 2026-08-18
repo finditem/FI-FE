@@ -912,6 +912,12 @@
     "messageFallback": "메시지를 불러오지 못했습니다.",
     "unreadSrLabel": "읽지 않은 메시지 "
   },
+  "useFormatDate": {
+    "now": "지금",
+    "minutesAgo": "{count}분 전",
+    "hoursAgo": "{count}시간 전",
+    "yesterday": "어제"
+  },
   "ListSearch": {
     "placeholder": "시/군/구를 입력해 주세요."
   },
