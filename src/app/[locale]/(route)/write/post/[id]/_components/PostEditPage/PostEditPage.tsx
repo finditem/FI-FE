@@ -2,6 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useGetDetailPost } from "@/api/fetch/post";
 import { DetailHeader, WriteImageSection, WriteActionSection } from "@/components";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
@@ -20,6 +21,7 @@ interface PostEditPageProps {
 }
 
 const PostEditPage = ({ postId }: PostEditPageProps) => {
+  const t = useTranslations("PostEditPage");
   const methods = useFormContext<PostWriteFormValues>();
   const values = methods.watch();
 
@@ -30,7 +32,7 @@ const PostEditPage = ({ postId }: PostEditPageProps) => {
   const { onSubmit, isPosting, canSubmit } = usePostEditSubmit({ postId, methods });
   const isSubmitDisabled = !canSubmit(values) || isPosting;
 
-  const title = data?.result?.postType === "LOST" ? "분실했어요 수정" : "발견했어요 수정";
+  const title = data?.result?.postType === "LOST" ? t("lostTitle") : t("foundTitle");
 
   if (isLoading) return <PostEditSkeleton />;
   if (isError || !data?.result) return notFound();
@@ -40,7 +42,7 @@ const PostEditPage = ({ postId }: PostEditPageProps) => {
     <>
       <DetailHeader title={title} />
 
-      <h1 className="sr-only">{`${title} 페이지`}</h1>
+      <h1 className="sr-only">{t("srOnlyPageTitle", { title })}</h1>
 
       <form key={data.result.id} onSubmit={onSubmit} className="flex flex-col h-base">
         <div className="flex min-h-0 flex-1 flex-col">
