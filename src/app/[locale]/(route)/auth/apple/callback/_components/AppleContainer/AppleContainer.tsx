@@ -9,7 +9,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import AppleLoading from "../AppleLoading/AppleLoading";
 import { useAgreeStore } from "@/store";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
-import { isValidCallbackUrl } from "@/utils";
+import { isValidCallbackUrl, verifyOAuthState } from "@/utils";
 
 const AppleContainer = () => {
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
@@ -17,6 +17,7 @@ const AppleContainer = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const state = searchParams.get("state");
   const termName = searchParams.get("termName") ?? "";
 
   const [step, setStep] = useState<"Term" | "Loading" | "NoAction">(() => {
@@ -38,6 +39,12 @@ const AppleContainer = () => {
     if (isRequesting.current) return;
 
     isRequesting.current = true;
+
+    if (!verifyOAuthState(state)) {
+      setStep("NoAction");
+      return;
+    }
+
     if (code) {
       AppleLoginMutate(
         {
@@ -64,7 +71,7 @@ const AppleContainer = () => {
     if (isLoggedIn && !termsAgreed) {
       setStep("Term");
     }
-  }, [code, AppleLoginMutate, router, appEnv, login, step]);
+  }, [code, state, AppleLoginMutate, router, appEnv, login, step]);
 
   const methods = useForm();
   const { setValue } = methods;

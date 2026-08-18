@@ -7,6 +7,7 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
+import { createOAuthState } from "@/utils";
 import {
   trackClickAppleLogin,
   trackClickSignupStart,
@@ -18,11 +19,11 @@ const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-sem
 
 const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const kakaoBaseUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const APPLE_CLIENT_ID = process.env.NEXT_PUBLIC_APPLE_CLIENT_ID;
 const APPLE_REDIRECT_URI = process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI;
-const appleURL = `https://appleid.apple.com/auth/authorize?client_id=${APPLE_CLIENT_ID}&redirect_uri=${APPLE_REDIRECT_URI}&response_type=code`;
+const appleBaseUrl = `https://appleid.apple.com/auth/authorize?client_id=${APPLE_CLIENT_ID}&redirect_uri=${APPLE_REDIRECT_URI}&response_type=code`;
 
 const page = () => {
   const t = useTranslations("Login");
@@ -45,7 +46,9 @@ const page = () => {
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
-    window.location.replace(provider === "kakao" ? kakaoURL : appleURL);
+    const state = createOAuthState();
+    const baseUrl = provider === "kakao" ? kakaoBaseUrl : appleBaseUrl;
+    window.location.replace(`${baseUrl}&state=${state}`);
   };
 
   return (

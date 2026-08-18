@@ -60,12 +60,19 @@ jest.mock("@/components/state", () => ({
 }));
 
 const noCodeParams = { get: (key: string) => (key === "code" ? null : null) };
-const withCodeParams = { get: (key: string) => (key === "code" ? "test-auth-code" : null) };
+const withCodeParams = {
+  get: (key: string) => {
+    if (key === "code") return "test-auth-code";
+    if (key === "state") return "test-state";
+    return null;
+  },
+};
 const withTermNameParams = { get: (key: string) => (key === "termName" ? "privacyPolicy" : null) };
 
 describe("<AppleContainer />", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    sessionStorage.clear();
     mockUseApiAppleLogin.mockReturnValue({ mutate: mockAppleLoginMutate });
     mockUsePatchKakaoTerms.mockReturnValue({ mutate: mockApplePatchMutate, isPending: false });
     mockUseAgreeStore.mockReturnValue({ termsAgreed: false, isLoggedIn: false, login: jest.fn() });
@@ -74,6 +81,7 @@ describe("<AppleContainer />", () => {
 
   describe("code 파라미터 있음 (Loading step)", () => {
     beforeEach(() => {
+      sessionStorage.setItem("oauthState", "test-state");
       mockUseSearchParams.mockReturnValue(withCodeParams);
     });
 
@@ -97,6 +105,7 @@ describe("<AppleContainer />", () => {
 
   describe("onSuccess — termsAgreed=true", () => {
     beforeEach(() => {
+      sessionStorage.setItem("oauthState", "test-state");
       mockUseSearchParams.mockReturnValue(withCodeParams);
       mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
         onSuccess({ result: { termsAgreed: true } });
@@ -126,6 +135,7 @@ describe("<AppleContainer />", () => {
 
   describe("onSuccess — termsAgreed=false", () => {
     beforeEach(() => {
+      sessionStorage.setItem("oauthState", "test-state");
       mockUseSearchParams.mockReturnValue(withCodeParams);
       mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
         onSuccess({ result: { termsAgreed: false } });
@@ -189,6 +199,21 @@ describe("<AppleContainer />", () => {
       mockUseSearchParams.mockReturnValue(noCodeParams);
       render(<AppleContainer />);
       expect(screen.getByTestId("error-view")).toBeInTheDocument();
+    });
+  });
+
+  describe("state 불일치 (CSRF)", () => {
+    beforeEach(() => {
+      sessionStorage.setItem("oauthState", "stored-state");
+      mockUseSearchParams.mockReturnValue(withCodeParams);
+    });
+
+    it("AppleLoginMutate가 호출되지 않고 ErrorView가 렌더된다", async () => {
+      render(<AppleContainer />);
+      await waitFor(() => {
+        expect(screen.getByTestId("error-view")).toBeInTheDocument();
+      });
+      expect(mockAppleLoginMutate).not.toHaveBeenCalled();
     });
   });
 });
