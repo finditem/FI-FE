@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import {
   NotificationListItem,
   useNotificationList,
@@ -26,6 +27,7 @@ const AlertItem = ({
   selectedNotifications,
   setSelectedNotifications,
 }: AlertItemProps) => {
+  const t = useTranslations("AlertList");
   const router = useRouter();
   const {
     notificationId,
@@ -66,9 +68,9 @@ const AlertItem = ({
       aria-label={
         isDeleteMode
           ? isSelected
-            ? "선택된 알림, 탭하면 선택 해제"
-            : "알림 선택"
-          : "알림 확인, 외부 페이지 이동"
+            ? t("selectedAriaLabel")
+            : t("selectAriaLabel")
+          : t("viewAriaLabel")
       }
       className={cn(
         "flex min-h-[86px] w-full items-start gap-3 border-b border-divider-default p-5 text-left transition-colors",
@@ -128,6 +130,7 @@ const AlertList = ({
   selectedNotifications,
   setSelectedNotifications,
 }: AlertListProps) => {
+  const t = useTranslations("AlertList");
   const {
     data: notifications,
     fetchNextPage,
@@ -145,8 +148,8 @@ const AlertList = ({
     return (
       <EmptyState
         icon={{ iconName: "AlertBell", iconSize: 70 }}
-        title="아직 새 소식이 없어요"
-        description={`주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요.`}
+        title={t("emptyTitle")}
+        description={t("emptyDescription")}
       />
     );
   }

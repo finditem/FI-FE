@@ -878,5 +878,39 @@
   "LatestList": {
     "searchLabel": "{keyword} 검색",
     "deleteLabel": "최근 검색어 삭제"
+  },
+  "AlertLayout": {
+    "title": "알림",
+    "description": "찾아줘에서 나에게 온 알림을 확인해보세요."
+  },
+  "AlertDetailHeader": {
+    "title": "알림",
+    "pageHeading": "알림 페이지"
+  },
+  "AlertCategories": {
+    "allLabel": "전체",
+    "categoryLabel": "카테고리 키워드",
+    "chatLabel": "채팅",
+    "commentLabel": "댓글",
+    "noticeLabel": "공지사항",
+    "inquiry_replyLabel": "문의",
+    "report_resultLabel": "신고"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "삭제하기",
+    "title": "정말로 알림을 삭제하시겠어요?",
+    "description": "삭제한 알림은 복구할 수 없습니다."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "전체 삭제",
+    "deleteSelectedLabel": "선택 삭제"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "선택된 알림, 탭하면 선택 해제",
+    "selectAriaLabel": "알림 선택",
+    "viewAriaLabel": "알림 확인, 외부 페이지 이동",
+    "emptyTitle": "아직 새 소식이 없어요",
+    "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
   }
 }

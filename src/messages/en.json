@@ -878,5 +878,39 @@
   "LatestList": {
     "searchLabel": "Search {keyword}",
     "deleteLabel": "Delete recent search"
+  },
+  "AlertLayout": {
+    "title": "Notifications",
+    "description": "Check your notifications on Finditem."
+  },
+  "AlertDetailHeader": {
+    "title": "Notifications",
+    "pageHeading": "Notifications page"
+  },
+  "AlertCategories": {
+    "allLabel": "All",
+    "categoryLabel": "Category keywords",
+    "chatLabel": "Chat",
+    "commentLabel": "Comments",
+    "noticeLabel": "Notices",
+    "inquiry_replyLabel": "Inquiries",
+    "report_resultLabel": "Reports"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Delete",
+    "title": "Delete these notifications?",
+    "description": "Deleted notifications can't be recovered."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "Delete all",
+    "deleteSelectedLabel": "Delete selected"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "Selected notification, tap to deselect",
+    "selectAriaLabel": "Select notification",
+    "viewAriaLabel": "View notification and go to page",
+    "emptyTitle": "No news yet",
+    "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   }
 }
