@@ -911,6 +911,10 @@
     "selectAriaLabel": "Select notification",
     "viewAriaLabel": "View notification and go to page",
     "emptyTitle": "No news yet",
-    "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
+    "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up.",
+    "now": "Just now",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "yesterday": "Yesterday"
   }
 }

@@ -911,6 +911,10 @@
     "selectAriaLabel": "알림 선택",
     "viewAriaLabel": "알림 확인, 외부 페이지 이동",
     "emptyTitle": "아직 새 소식이 없어요",
-    "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
+    "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요.",
+    "now": "지금",
+    "minutesAgo": "{count}분 전",
+    "hoursAgo": "{count}시간 전",
+    "yesterday": "어제"
   }
 }

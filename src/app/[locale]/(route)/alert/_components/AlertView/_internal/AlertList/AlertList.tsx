@@ -108,7 +108,12 @@ const AlertItem = ({
             ))}
           </div>
           <span className="shrink-0 text-caption1-regular text-neutral-normal-placeholder">
-            {formatDate(createdAt)}
+            {formatDate(createdAt, {
+              now: t("now"),
+              minutesAgo: (count) => t("minutesAgo", { count }),
+              hoursAgo: (count) => t("hoursAgo", { count }),
+              yesterday: t("yesterday"),
+            })}
           </span>
         </div>
         <span className="min-w-0 truncate text-body2-regular text-neutral-strong-default">
