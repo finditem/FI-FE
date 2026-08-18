@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ListItemImage, ProfileAvatar } from "@/components";
 import { formatCappedNumber } from "@/utils";
-import { useFormatDate } from "@/hooks";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 
 interface ChatItemProps {
   chatRoom: ChatRoom;
