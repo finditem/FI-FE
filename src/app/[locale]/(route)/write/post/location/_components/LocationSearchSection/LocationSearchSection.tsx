@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { InputSearch } from "@/components";
 import { highlightText } from "@/utils";
 import { useVWorldAddressSearch } from "@/hooks";
@@ -11,6 +12,7 @@ interface LocationSearchSectionProps {
 }
 
 const LocationSearchSection = ({ searchParams }: LocationSearchSectionProps) => {
+  const t = useTranslations("LocationSearchSection");
   const router = useRouter();
 
   const methods = useForm({
@@ -46,17 +48,17 @@ const LocationSearchSection = ({ searchParams }: LocationSearchSectionProps) => 
     <>
       <section className="px-5 py-[10px]">
         <FormProvider {...methods}>
-          <InputSearch placeholder="지역명을 입력해 주세요." name="location" mode="RHF" autoFocus />
+          <InputSearch placeholder={t("searchPlaceholder")} name="location" mode="RHF" autoFocus />
         </FormProvider>
       </section>
 
-      <section aria-label="검색 결과" className="px-0">
+      <section aria-label={t("resultsSectionAriaLabel")} className="px-0">
         <p className="sr-only" aria-live="polite">
           {!locationValue?.trim()
-            ? "읍/면/동/리를 검색해 보세요."
+            ? t("guideTitle")
             : isLoading
-              ? "검색 결과를 불러오는 중입니다"
-              : `검색 결과 ${results.length}개`}
+              ? t("srLoading")
+              : t("srResultsCount", { count: results.length })}
         </p>
 
         <ul>
@@ -96,16 +98,16 @@ interface LocationGuideUIProps {
 }
 
 const LocationGuideUI = ({ variant }: LocationGuideUIProps) => {
+  const t = useTranslations("LocationSearchSection");
+
   return (
     <li className="mt-[6px] px-5 py-[10px]">
       {variant === "empty" && (
-        <p className="text-body1-semibold text-layout-header-default">검색 결과가 없습니다.</p>
+        <p className="text-body1-semibold text-layout-header-default">{t("emptyResultsTitle")}</p>
       )}
 
-      <p className="text-body1-semibold text-brand-normal-default">읍/면/동/리를 검색해 보세요.</p>
-      <span className="text-body2-medium text-layout-body-default">
-        예) 삼일대로 428, 부산시 기장읍
-      </span>
+      <p className="text-body1-semibold text-brand-normal-default">{t("guideTitle")}</p>
+      <span className="text-body2-medium text-layout-body-default">{t("guideExample")}</span>
     </li>
   );
 };
