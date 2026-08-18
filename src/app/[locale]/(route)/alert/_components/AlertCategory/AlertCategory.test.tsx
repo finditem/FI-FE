@@ -2,16 +2,14 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import AlertCategory from "./AlertCategory";
+import { ALERT_CATEGORIES as ALERT_CATEGORY_KEYS } from "../ALERT_CONST";
+import koMessages from "@/messages/ko.json";
 
-const ALERT_CATEGORIES = [
-  { key: "all", label: "전체" },
-  { key: "category", label: "카테고리 키워드" },
-  { key: "chat", label: "채팅" },
-  { key: "comment", label: "댓글" },
-  { key: "notice", label: "공지사항" },
-  { key: "inquiry_reply", label: "문의" },
-  { key: "report_result", label: "신고" },
-];
+const ALERT_CATEGORIES = ALERT_CATEGORY_KEYS.map((category) => ({
+  ...category,
+  label:
+    koMessages.AlertCategories[`${category.key}Label` as keyof typeof koMessages.AlertCategories],
+}));
 
 const mockReplace = jest.fn();
 const mockGet = jest.fn();
