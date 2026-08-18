@@ -981,5 +981,68 @@
   },
   "HandleSendImage": {
     "imageErrorToast": "이미지 처리 중 오류가 발생했습니다."
+  },
+  "PostWritePage": {
+    "defaultTitle": "물건 등록",
+    "defaultDescription": "분실 또는 발견한 물건의 정보를 등록해보세요.",
+    "lostTitle": "분실한 물건 등록",
+    "lostDescription": "분실한 물건의 정보를 등록해보세요.",
+    "foundTitle": "발견한 물건 등록",
+    "foundDescription": "발견한 물건의 정보를 등록해보세요."
+  },
+  "PostWriteHeader": {
+    "lostTitle": "분실했어요 글쓰기",
+    "foundTitle": "발견했어요 글쓰기"
+  },
+  "WriteForm": {
+    "srOnlyPageTitle": "{title} 페이지",
+    "noImageConfirmTitle": "사진을 첨부하지 않고 등록하시겠습니까?",
+    "noImageConfirmDescription": "사진을 첨부하시면 유실물을 더 잘 찾아드릴 수 있어요.",
+    "cancelButton": "아니요",
+    "confirmButton": "이미지 없이 등록"
+  },
+  "TitleSection": {
+    "placeholder": "제목을 입력해 주세요."
+  },
+  "ContentSection": {
+    "placeholder": "내용을 입력해 주세요.",
+    "guideLine1": "분실/발견 날짜, 물건 종류, 물건의 특징 등 유실물 찾기에 도움이 되는 내용을 작성해 주세요.",
+    "guideLine2": "저작권과 관련된 내용은 반드시 출처를 표기해야 하며, 의심스러운 글을 작성할 경우 제재 조치를 받을 수 있습니다."
+  },
+  "CategorySection": {
+    "placeholder": "카테고리를 선택해 주세요.",
+    "ariaLabel": "카테고리 선택"
+  },
+  "LocationSection": {
+    "placeholder": "위치를 등록해 주세요."
+  },
+  "PostEditPage": {
+    "lostTitle": "분실했어요 수정",
+    "foundTitle": "발견했어요 수정",
+    "srOnlyPageTitle": "{title} 페이지"
+  },
+  "PostEditSkeleton": {
+    "title": "게시글 수정"
+  },
+  "PostWriteLocationLayout": {
+    "title": "위치 등록",
+    "srOnlyPageTitle": "위치 등록 페이지"
+  },
+  "LocationSearchSection": {
+    "searchPlaceholder": "지역명을 입력해 주세요.",
+    "resultsSectionAriaLabel": "검색 결과",
+    "guideTitle": "읍/면/동/리를 검색해 보세요.",
+    "guideExample": "예) 삼일대로 428, 부산시 기장읍",
+    "srLoading": "검색 결과를 불러오는 중입니다",
+    "srResultsCount": "검색 결과 {count}개",
+    "emptyResultsTitle": "검색 결과가 없습니다."
+  },
+  "LocationRangeSection": {
+    "addressLoadError": "위치 정보를 불러오는데 실패했어요"
+  },
+  "PostWriteBottomSheet": {
+    "nearbyTitle": "{address} 근처",
+    "selectedLocationFallback": "선택한 위치",
+    "applyButton": "적용하기"
   }
 }

@@ -1,4 +1,5 @@
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components";
 import { useWriteStore } from "@/store";
 import { cn } from "@/utils";
@@ -23,6 +24,7 @@ interface BottomSheetProps {
 }
 
 const BottomSheet = ({ locationInfo, radiusState }: BottomSheetProps) => {
+  const t = useTranslations("PostWriteBottomSheet");
   const { address, fullAddress, lat, lng } = locationInfo;
   const { radius, setRadius } = radiusState;
   const router = useRouter();
@@ -53,7 +55,7 @@ const BottomSheet = ({ locationInfo, radiusState }: BottomSheetProps) => {
       <div className="mb-12 gap-4 flex-col-center">
         <div className="gap-2 flex-center">
           <h2 className="text-h2-medium text-layout-header-default">
-            {address || "선택한 위치"} 근처
+            {t("nearbyTitle", { address: address || t("selectedLocationFallback") })}
           </h2>
           <span className="text-h1-medium text-brand-normal-default">{radius / 1000}km</span>
         </div>
@@ -81,7 +83,7 @@ const BottomSheet = ({ locationInfo, radiusState }: BottomSheetProps) => {
       </div>
 
       <Button className="min-h-11 w-full" onClick={commitLocationRange} disabled={isApplyDisabled}>
-        적용하기
+        {t("applyButton")}
       </Button>
     </section>
   );

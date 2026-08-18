@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { Radius } from "@/types";
 import { BottomSheet, PostWriteKakaoMap } from "../_internal";
 import { getKakaoLocalCoord2Address } from "@/api/fetch/kakao";
@@ -19,6 +20,7 @@ const LocationRangeSection = ({
   initialLat,
   initialLng,
 }: LocationRangeSectionProps) => {
+  const t = useTranslations("LocationRangeSection");
   const { addToast } = useToast();
 
   const [radius, setRadius] = useState<Radius>(3000);
@@ -46,7 +48,7 @@ const LocationRangeSection = ({
         setCurrentAddress(newAddress);
       }
     } catch {
-      addToast("위치 정보를 불러오는데 실패했어요", "error");
+      addToast(t("addressLoadError"), "error");
     }
   };
 
