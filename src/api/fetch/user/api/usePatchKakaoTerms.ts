@@ -2,6 +2,7 @@ import useAppMutation from "@/api/_base/query/useAppMutation";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useAgreeStore } from "@/store";
 import { useRouter } from "next/navigation";
+import { isValidCallbackUrl } from "@/utils";
 
 export interface KakaoTermType {
   privacyPolicyAgreed?: boolean;
@@ -21,7 +22,9 @@ export const usePatchKakaoTerms = () => {
     {
       onSuccess: () => {
         setAgreed();
-        router.replace("/");
+        const rawCallback = sessionStorage.getItem("callbackUrl");
+        sessionStorage.removeItem("callbackUrl");
+        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
       },
     }
   );
