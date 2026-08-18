@@ -979,5 +979,16 @@
   },
   "MyPageContainer": {
     "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "AccountPage": {
+    "title": "계정 설정"
+  },
+  "AccountContainer": {
+    "profileLoadError": "프로필 조회에 실패했어요",
+    "defaultNickname": "사용자 닉네임",
+    "defaultEmail": "사용자 이메일",
+    "changePassword": "비밀번호 변경",
+    "deleteAccount": "회원 탈퇴",
+    "logout": "로그아웃"
   }
 }

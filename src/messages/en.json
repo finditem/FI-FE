@@ -979,5 +979,16 @@
   },
   "MyPageContainer": {
     "unexpectedError": "Something unexpected went wrong"
+  },
+  "AccountPage": {
+    "title": "Account Settings"
+  },
+  "AccountContainer": {
+    "profileLoadError": "Couldn't load your profile.",
+    "defaultNickname": "User nickname",
+    "defaultEmail": "User email",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "logout": "Log out"
   }
 }
