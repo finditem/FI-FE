@@ -990,5 +990,15 @@
     "changePassword": "Change Password",
     "deleteAccount": "Delete Account",
     "logout": "Log out"
+  },
+  "BlockedUsersLayout": {
+    "title": "Blocked Accounts"
+  },
+  "ReportUserList": {
+    "loadError": "Couldn't load your blocked accounts.",
+    "emptyTitle": "No blocked accounts",
+    "emptyDescription": "You haven't blocked anyone yet.\nAccounts you block will appear here.",
+    "unblockAriaLabel": "Unblock {nickname}",
+    "unblockButton": "Unblock"
   }
 }

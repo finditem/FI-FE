@@ -4,9 +4,11 @@ import { BlockUserItem, useDeleteBlockUser, useGetBlockUser } from "@/api/fetch/
 import { Button, ProfileAvatar, EmptyState, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 
 const ReportUserList = () => {
+  const t = useTranslations("ReportUserList");
   const { addToast } = useToast();
   const {
     data: blockUserList,
@@ -19,16 +21,16 @@ const ReportUserList = () => {
   const { ref } = useInfiniteScroll({ hasNextPage, fetchNextPage, isFetchingNextPage });
 
   useEffect(() => {
-    if (isError) addToast("차단된 유저 데이터를 가져오는데 실패했어요", "error");
-  }, [isError, addToast]);
+    if (isError) addToast(t("loadError"), "error");
+  }, [isError, addToast, t]);
 
   return isLoading ? (
     <LoadingState />
   ) : blockUserList?.length === 0 ? (
     <EmptyState
       icon={{ iconName: "NoComments", iconSize: 70 }}
-      title="차단한 유저가 없어요"
-      description={"아직 차단한 유저가 없습니다.\n유저를 차단하면 이곳에 표기됩니다."}
+      title={t("emptyTitle")}
+      description={t("emptyDescription")}
     />
   ) : (
     <ul className="flex flex-col gap-3 py-4">
@@ -43,6 +45,7 @@ const ReportUserList = () => {
 export default ReportUserList;
 
 const ReportUserItem = ({ data }: { data: BlockUserItem }) => {
+  const t = useTranslations("ReportUserList");
   const { profileImage, nickname, userId } = data;
   const { mutateAsync: deleteBlockUser } = useDeleteBlockUser();
 
@@ -59,11 +62,11 @@ const ReportUserItem = ({ data }: { data: BlockUserItem }) => {
 
       <Button
         variant="outlined"
-        ariaLabel={`${nickname} 차단 해제`}
+        ariaLabel={t("unblockAriaLabel", { nickname })}
         className="px-3"
         onClick={handleDeleteBlockUser}
       >
-        차단 해제
+        {t("unblockButton")}
       </Button>
     </li>
   );

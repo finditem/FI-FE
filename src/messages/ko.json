@@ -990,5 +990,15 @@
     "changePassword": "비밀번호 변경",
     "deleteAccount": "회원 탈퇴",
     "logout": "로그아웃"
+  },
+  "BlockedUsersLayout": {
+    "title": "내가 차단한 계정"
+  },
+  "ReportUserList": {
+    "loadError": "차단된 유저 데이터를 가져오는데 실패했어요",
+    "emptyTitle": "차단한 유저가 없어요",
+    "emptyDescription": "아직 차단한 유저가 없습니다.\n유저를 차단하면 이곳에 표기됩니다.",
+    "unblockAriaLabel": "{nickname} 차단 해제",
+    "unblockButton": "차단 해제"
   }
 }
