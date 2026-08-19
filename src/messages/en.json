@@ -1048,5 +1048,40 @@
     "title": "Profile Settings",
     "description": "Manage your finditem profile.",
     "srOnlyTitle": "Edit profile"
+  },
+  "MypageActivitiesPage": {
+    "title": "My Activity",
+    "srOnlyTitle": "My activity page"
+  },
+  "MypageActivitiesLayout": {
+    "title": "My Activity",
+    "description": "View your activity history on finditem."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "Activity filters",
+    "date": "Date",
+    "activityAriaLabel": "Activity type",
+    "activityType": "Type",
+    "bottomSheetTitle": "Filters",
+    "all": "All",
+    "post": "Posts",
+    "comment": "Comments",
+    "favorite": "Favorites",
+    "inquiry": "Inquiries",
+    "report": "Reports"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "Apply"
+  },
+  "ActivityContent": {
+    "loadError": "Couldn't load your activity.",
+    "srOnlyTitle": "My activity history",
+    "postCreated": "You created a post.",
+    "commentCreated": "You posted a comment.",
+    "favoriteAdded": "You added a post to your favorites.",
+    "inquiryCreated": "You submitted an inquiry.",
+    "inquiryAnswered": "Your inquiry received a response.",
+    "reportReceived": "Your report was received.",
+    "reportAnswered": "Your report received a response."
   }
 }

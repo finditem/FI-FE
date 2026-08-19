@@ -1048,5 +1048,40 @@
     "title": "프로필 설정",
     "description": "나의 찾아줘 프로필을 관리해 보세요.",
     "srOnlyTitle": "프로필 수정"
+  },
+  "MypageActivitiesPage": {
+    "title": "내 활동 내역",
+    "srOnlyTitle": "내 활동 내역 페이지"
+  },
+  "MypageActivitiesLayout": {
+    "title": "내 활동 내역",
+    "description": "찾아줘에서 내가 활동한 기록들을 확인해보세요."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "필터 선택 영역",
+    "date": "기간",
+    "activityAriaLabel": "활동 유형",
+    "activityType": "유형",
+    "bottomSheetTitle": "필터",
+    "all": "전체",
+    "post": "게시글",
+    "comment": "댓글",
+    "favorite": "즐겨찾기",
+    "inquiry": "1:1 문의",
+    "report": "신고"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "적용하기"
+  },
+  "ActivityContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 활동 내역 영역",
+    "postCreated": "게시글을 작성했어요.",
+    "commentCreated": "댓글을 작성했어요.",
+    "favoriteAdded": "게시글을 즐겨찾기했어요.",
+    "inquiryCreated": "1:1문의를 작성했어요.",
+    "inquiryAnswered": "1:1 문의에 대한 답변이 등록되었어요.",
+    "reportReceived": "신고가 접수되었어요.",
+    "reportAnswered": "신고에 대한 답변이 등록되었어요."
   }
 }

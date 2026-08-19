@@ -2,18 +2,21 @@
 
 import { Filter, DateRangeBottomSheet } from "@/components";
 import { useState } from "react";
-import { ACTIVITY_OPTIONS } from "../../_constants/ACTIVITY_OPTIONS";
 import {
   filterSelectionState,
   normalizedFilterValues,
 } from "@/utils/deriveFilterParams/deriveFilterParams";
-import { ACTIVITY_LABEL_MAP } from "../../_constants/ACTIVITY_LABEL";
+import { ACTIVITY_LABEL_KEY_MAP } from "../../_constants/ACTIVITY_LABEL";
 import { useActivityFilter } from "../../_hooks/useActivityFilter";
+import { useActivityOptions } from "../../_hooks/useActivityOptions/useActivityOptions";
 import ActivityBottomSheet from "../ActivityBottomSheet/ActivityBottomSheet";
 import { cn } from "@/utils";
 import { getDateRangeLabel } from "@/utils/getDateRangeLabel/getDateRangeLabel";
+import { useTranslations } from "next-intl";
 
 const ActivityFilterSection = () => {
+  const t = useTranslations("ActivityFilterSection");
+  const activityOptions = useActivityOptions();
   const { filters, setFilters, startDate, endDate, activity } = useActivityFilter();
 
   const [isBottomSheet, setIsBottomSheet] = useState<{
@@ -21,16 +24,16 @@ const ActivityFilterSection = () => {
     mode: "Date" | "Activity";
   }>({ isOpen: false, mode: "Date" });
 
-  const dateLabel = getDateRangeLabel(startDate, endDate);
+  const dateLabel = startDate || endDate ? getDateRangeLabel(startDate, endDate) : t("date");
 
   const { normalizedActivity } = normalizedFilterValues({ activity: activity });
   const selectionState = filterSelectionState({ startDate, endDate, activity });
 
   return (
-    <section className="flex w-full gap-2 px-5 py-[14px]" aria-label="필터 선택 영역">
+    <section className="flex w-full gap-2 px-5 py-[14px]" aria-label={t("sectionAriaLabel")}>
       <Filter
         name="date"
-        ariaLabel="기간"
+        ariaLabel={t("date")}
         icon={{
           name: "Calendar",
           size: 16,
@@ -48,7 +51,7 @@ const ActivityFilterSection = () => {
 
       <Filter
         name="activity"
-        ariaLabel="활동 유형"
+        ariaLabel={t("activityAriaLabel")}
         icon={{
           name: "ArrowDown",
           size: 16,
@@ -61,7 +64,7 @@ const ActivityFilterSection = () => {
         onSelected={selectionState.isActivitySelected}
         onClick={() => setIsBottomSheet({ isOpen: true, mode: "Activity" })}
       >
-        {(normalizedActivity && ACTIVITY_LABEL_MAP[normalizedActivity]) ?? "유형"}
+        {normalizedActivity ? t(ACTIVITY_LABEL_KEY_MAP[normalizedActivity]) : t("activityType")}
       </Filter>
 
       {isBottomSheet.isOpen && isBottomSheet.mode === "Date" && (
@@ -77,8 +80,8 @@ const ActivityFilterSection = () => {
         <ActivityBottomSheet
           isOpen={isBottomSheet.isOpen}
           onClose={() => setIsBottomSheet((prev) => ({ ...prev, isOpen: false }))}
-          title="필터"
-          option={ACTIVITY_OPTIONS}
+          title={t("bottomSheetTitle")}
+          option={activityOptions}
           filters={filters}
           setFilters={setFilters}
         />
