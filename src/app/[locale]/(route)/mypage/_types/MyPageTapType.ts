@@ -1,1 +1,3 @@
-export type MyPageTapType = "공지사항" | "고객센터" | "채팅목록";
+import { MYPAGE_TAP_CONFIG } from "../_constants/MYPAGE_ROUTE_CONFIG";
+
+export type MyPageTapType = (typeof MYPAGE_TAP_CONFIG)[number]["key"];

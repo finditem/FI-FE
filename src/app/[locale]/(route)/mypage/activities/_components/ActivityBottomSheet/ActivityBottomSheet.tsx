@@ -5,6 +5,7 @@ import { applyFiltersToUrl } from "@/utils/applyFiltersToUrl/applyFiltersToUrl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
 import { ActivityFilterState, ActivityFilterValue } from "../../_types/ActivityFilterType";
+import { useTranslations } from "next-intl";
 
 interface ActivityBottomSheetProps {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const ActivityBottomSheet = ({
   filters,
   setFilters,
 }: ActivityBottomSheetProps) => {
+  const t = useTranslations("ActivityBottomSheet");
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -59,7 +61,7 @@ const ActivityBottomSheet = ({
       </div>
 
       <Button className="mt-12 w-full" onClick={handleApply}>
-        적용하기
+        {t("applyButton")}
       </Button>
     </PopupLayout>
   );

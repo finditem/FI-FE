@@ -1110,6 +1110,195 @@
     "emptyTitle": "아직 새 소식이 없어요",
     "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
   },
+  "MyPageLayout": {
+    "title": "마이페이지",
+    "titleTemplate": "%s | 찾아줘! 마이페이지",
+    "description": "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
+  },
+  "MyPageMenu": {
+    "myActivity": "내 활동",
+    "notification": "알림",
+    "reportInquiry": "신고/문의",
+    "accountManagement": "계정 관리",
+    "servicePolicy": "서비스 정책",
+    "myPosts": "내가 쓴 게시글",
+    "myComments": "내가 쓴 댓글",
+    "favorites": "즐겨찾기 목록",
+    "myActivities": "내 활동 내역",
+    "blockedUsers": "내가 차단한 계정",
+    "notificationSettings": "알림 설정",
+    "myReports": "내 신고 내역",
+    "myInquiries": "내 문의 내역",
+    "faq": "자주 묻는 질문",
+    "accountSettings": "계정 설정",
+    "serviceIntro": "서비스 소개",
+    "privacyPolicy": "개인정보처리방침",
+    "serviceTerms": "서비스 이용 약관",
+    "marketingTerms": "마케팅 수신 약관",
+    "contentPolicy": "콘텐츠 활용 동의서",
+    "notice": "공지사항",
+    "chatList": "채팅목록",
+    "logout": "로그아웃"
+  },
+  "MyPageProfile": {
+    "loginRequired": "로그인 시 이용 가능합니다.",
+    "editProfile": "프로필 수정",
+    "login": "로그인"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "AccountPage": {
+    "title": "계정 설정"
+  },
+  "AccountContainer": {
+    "profileLoadError": "프로필 조회에 실패했어요",
+    "defaultNickname": "사용자 닉네임",
+    "defaultEmail": "사용자 이메일",
+    "changePassword": "비밀번호 변경",
+    "deleteAccount": "회원 탈퇴",
+    "logout": "로그아웃"
+  },
+  "BlockedUsersLayout": {
+    "title": "내가 차단한 계정"
+  },
+  "ReportUserList": {
+    "loadError": "차단된 유저 데이터를 가져오는데 실패했어요",
+    "emptyTitle": "차단한 유저가 없어요",
+    "emptyDescription": "아직 차단한 유저가 없습니다.\n유저를 차단하면 이곳에 표기됩니다.",
+    "unblockAriaLabel": "{nickname} 차단 해제",
+    "unblockButton": "차단 해제"
+  },
+  "MypageFavoritesPage": {
+    "title": "즐겨찾기 목록",
+    "srOnlyTitle": "즐겨찾기 목록 페이지"
+  },
+  "MypageFavoritesLayout": {
+    "title": "즐겨찾기 목록",
+    "description": "찾아줘에서 내가 즐겨찾기한 분실 및 발견 게시글을 확인해보세요."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 즐겨찾기 목록 영역"
+  },
+  "MypagePostsPage": {
+    "title": "내가 쓴 게시글",
+    "srOnlyTitle": "내가 쓴 게시글 페이지"
+  },
+  "MypagePostsLayout": {
+    "title": "내가 쓴 게시글",
+    "description": "찾아줘에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
+  },
+  "MypagePostsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "게시글 목록 영역"
+  },
+  "MypageCommentsPage": {
+    "title": "내가 쓴 댓글",
+    "srOnlyTitle": "내가 쓴 댓글 페이지"
+  },
+  "MypageCommentsLayout": {
+    "title": "내가 쓴 댓글",
+    "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "필터 영역",
+    "date": "기간",
+    "sortAriaLabel": "정렬 필터",
+    "latest": "최신순",
+    "oldest": "오래된순"
+  },
+  "MypageCommentsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "댓글 목록 영역"
+  },
+  "MypageProfileLayout": {
+    "title": "프로필 설정",
+    "description": "나의 찾아줘 프로필을 관리해 보세요.",
+    "srOnlyTitle": "프로필 수정"
+  },
+  "MypageActivitiesPage": {
+    "title": "내 활동 내역",
+    "srOnlyTitle": "내 활동 내역 페이지"
+  },
+  "MypageActivitiesLayout": {
+    "title": "내 활동 내역",
+    "description": "찾아줘에서 내가 활동한 기록들을 확인해보세요."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "필터 선택 영역",
+    "date": "기간",
+    "activityAriaLabel": "활동 유형",
+    "activityType": "유형",
+    "bottomSheetTitle": "필터",
+    "all": "전체",
+    "post": "게시글",
+    "comment": "댓글",
+    "favorite": "즐겨찾기",
+    "inquiry": "1:1 문의",
+    "report": "신고"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "적용하기"
+  },
+  "ActivityContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 활동 내역 영역",
+    "postCreated": "게시글을 작성했어요.",
+    "commentCreated": "댓글을 작성했어요.",
+    "favoriteAdded": "게시글을 즐겨찾기했어요.",
+    "inquiryCreated": "1:1문의를 작성했어요.",
+    "inquiryAnswered": "1:1 문의에 대한 답변이 등록되었어요.",
+    "reportReceived": "신고가 접수되었어요.",
+    "reportAnswered": "신고에 대한 답변이 등록되었어요."
+  },
+  "DeleteAccountLayout": {
+    "title": "회원 탈퇴",
+    "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
+  },
+  "DeleteAccountPage": {
+    "title": "회원 탈퇴",
+    "srOnlyTitle": "회원탈퇴 페이지",
+    "userNotFound": "존재하지 않는 회원이에요",
+    "deleteFailed": "회원 탈퇴에 실패했어요"
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "탈퇴 선택 영역"
+  },
+  "DeleteAccountReason": {
+    "title": "탈퇴하시려는 이유를 알려주세요.",
+    "selectionLimit": "최대 3개 선택",
+    "notUsing": "잘 사용하지 않아요",
+    "lowTrust": "서비스에 대한 신뢰도가 낮아요",
+    "difficultToUse": "사용이 어려워요",
+    "duplicateAccount": "다른 계정이 있어요",
+    "unpleasantUser": "불쾌감을 주는 사용자를 만났어요",
+    "unfairRestriction": "억울하게 서비스 이용이 제한됐어요",
+    "other": "기타",
+    "otherRequired": "기타 사유를 입력해주세요.",
+    "otherPlaceholder": "서비스를 탈퇴하려는 이유를 작성해 주세요.",
+    "deleteButton": "탈퇴하기",
+    "nextButton": "다음"
+  },
+  "DeleteAccountPassword": {
+    "title": "비밀번호를 입력해 주세요.",
+    "placeholder": "현재 비밀번호를 입력해 주세요.",
+    "passwordMismatchField": "비밀번호가 일치하지 않아요.",
+    "passwordMismatchToast": "비밀번호가 일치하지 않아요",
+    "userNotFoundField": "존재하지 않는 회원이에요.",
+    "userNotFoundToast": "존재하지 않는 회원이에요",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteAccountModal": {
+    "title": "정말로 탈퇴하시겠습니까?",
+    "cancelButton": "취소",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteComplete": {
+    "title": "회원 탈퇴가 완료되었습니다.",
+    "description": "동일한 이메일로 1주일간 재가입이 불가합니다.",
+    "homeButton": "홈 화면으로 이동하기"
+  },
   "HelloPage": {
     "metaTitle": "서비스 소개",
     "metaDescription": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",

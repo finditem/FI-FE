@@ -1,17 +1,23 @@
 import { Icon, IconName } from "@/components";
-import { MyPageTapType } from "../../_types/MyPageTapType";
 import Link from "next/link";
-import { MYPAGE_TAP_CONFIG } from "../../_constants/MYPAGE_ROUTE_CONFIG";
+import { useMypageTapConfig } from "../../_hooks/useMypageTapConfig/useMypageTapConfig";
 import { cn } from "@/utils";
 
 interface MyPageTapItemProps {
-  pageName: MyPageTapType;
+  pageName: string;
   iconName: IconName;
   pageLink: string;
   disabled?: boolean;
+  isLast: boolean;
 }
 
-const MyPageIconNavItem = ({ pageName, iconName, pageLink, disabled }: MyPageTapItemProps) => {
+const MyPageIconNavItem = ({
+  pageName,
+  iconName,
+  pageLink,
+  disabled,
+  isLast,
+}: MyPageTapItemProps) => {
   return (
     <>
       <Link
@@ -23,21 +29,24 @@ const MyPageIconNavItem = ({ pageName, iconName, pageLink, disabled }: MyPageTap
           {pageName}
         </span>
       </Link>
-      {pageName !== "채팅목록" && <hr className="h-[46px] border border-divider-default_3" />}
+      {!isLast && <hr className="h-[46px] border border-divider-default_3" />}
     </>
   );
 };
 
 const MyPageIconNav = ({ disabled }: { disabled?: boolean }) => {
+  const tapConfig = useMypageTapConfig();
+
   return (
     <div className="w-full gap-[26px] px-5 py-[6px] flex-center">
-      {MYPAGE_TAP_CONFIG.map((item, index) => (
+      {tapConfig.map((item, index) => (
         <MyPageIconNavItem
-          key={index}
+          key={item.key}
           pageName={item.pageName}
           iconName={item.iconName}
           pageLink={item.pageLink}
           disabled={disabled}
+          isLast={index === tapConfig.length - 1}
         />
       ))}
     </div>

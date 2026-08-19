@@ -1110,6 +1110,195 @@
     "emptyTitle": "No news yet",
     "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
+  "MyPageLayout": {
+    "title": "My Page",
+    "titleTemplate": "%s | finditem! My Page",
+    "description": "Manage your lost and found activity, favorites, account settings, and more all in one place on finditem My Page."
+  },
+  "MyPageMenu": {
+    "myActivity": "My Activity",
+    "notification": "Notifications",
+    "reportInquiry": "Reports/Inquiries",
+    "accountManagement": "Account Management",
+    "servicePolicy": "Service Policies",
+    "myPosts": "My Posts",
+    "myComments": "My Comments",
+    "favorites": "Favorites",
+    "myActivities": "My Activity History",
+    "blockedUsers": "Blocked Accounts",
+    "notificationSettings": "Notification Settings",
+    "myReports": "My Reports",
+    "myInquiries": "My Inquiries",
+    "faq": "FAQ",
+    "accountSettings": "Account Settings",
+    "serviceIntro": "About finditem",
+    "privacyPolicy": "Privacy Policy",
+    "serviceTerms": "Terms of Service",
+    "marketingTerms": "Marketing Consent",
+    "contentPolicy": "Content Usage Agreement",
+    "notice": "Notices",
+    "chatList": "Chat",
+    "logout": "Log out"
+  },
+  "MyPageProfile": {
+    "loginRequired": "Log in to use this feature.",
+    "editProfile": "Edit Profile",
+    "login": "Log in"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "Something unexpected went wrong"
+  },
+  "AccountPage": {
+    "title": "Account Settings"
+  },
+  "AccountContainer": {
+    "profileLoadError": "Couldn't load your profile.",
+    "defaultNickname": "User nickname",
+    "defaultEmail": "User email",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "logout": "Log out"
+  },
+  "BlockedUsersLayout": {
+    "title": "Blocked Accounts"
+  },
+  "ReportUserList": {
+    "loadError": "Couldn't load your blocked accounts.",
+    "emptyTitle": "No blocked accounts",
+    "emptyDescription": "You haven't blocked anyone yet.\nAccounts you block will appear here.",
+    "unblockAriaLabel": "Unblock {nickname}",
+    "unblockButton": "Unblock"
+  },
+  "MypageFavoritesPage": {
+    "title": "Favorites",
+    "srOnlyTitle": "Favorites page"
+  },
+  "MypageFavoritesLayout": {
+    "title": "Favorites",
+    "description": "View the lost and found posts you've saved on finditem."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "Couldn't load your favorites.",
+    "srOnlyTitle": "My favorites"
+  },
+  "MypagePostsPage": {
+    "title": "My Posts",
+    "srOnlyTitle": "My posts page"
+  },
+  "MypagePostsLayout": {
+    "title": "My Posts",
+    "description": "View the lost and found posts you've created on finditem."
+  },
+  "MypagePostsContent": {
+    "loadError": "Couldn't load your posts.",
+    "srOnlyTitle": "My posts"
+  },
+  "MypageCommentsPage": {
+    "title": "My Comments",
+    "srOnlyTitle": "My comments page"
+  },
+  "MypageCommentsLayout": {
+    "title": "My Comments",
+    "description": "View the comments you've posted on finditem."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "Comment filters",
+    "date": "Date",
+    "sortAriaLabel": "Sort comments",
+    "latest": "Newest",
+    "oldest": "Oldest"
+  },
+  "MypageCommentsContent": {
+    "loadError": "Couldn't load your comments.",
+    "srOnlyTitle": "My comments"
+  },
+  "MypageProfileLayout": {
+    "title": "Profile Settings",
+    "description": "Manage your finditem profile.",
+    "srOnlyTitle": "Edit profile"
+  },
+  "MypageActivitiesPage": {
+    "title": "My Activity",
+    "srOnlyTitle": "My activity page"
+  },
+  "MypageActivitiesLayout": {
+    "title": "My Activity",
+    "description": "View your activity history on finditem."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "Activity filters",
+    "date": "Date",
+    "activityAriaLabel": "Activity type",
+    "activityType": "Type",
+    "bottomSheetTitle": "Filters",
+    "all": "All",
+    "post": "Posts",
+    "comment": "Comments",
+    "favorite": "Favorites",
+    "inquiry": "Inquiries",
+    "report": "Reports"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "Apply"
+  },
+  "ActivityContent": {
+    "loadError": "Couldn't load your activity.",
+    "srOnlyTitle": "My activity history",
+    "postCreated": "You created a post.",
+    "commentCreated": "You posted a comment.",
+    "favoriteAdded": "You added a post to your favorites.",
+    "inquiryCreated": "You submitted an inquiry.",
+    "inquiryAnswered": "Your inquiry received a response.",
+    "reportReceived": "Your report was received.",
+    "reportAnswered": "Your report received a response."
+  },
+  "DeleteAccountLayout": {
+    "title": "Delete Account",
+    "description": "Delete your finditem account and stop using the service."
+  },
+  "DeleteAccountPage": {
+    "title": "Delete Account",
+    "srOnlyTitle": "Delete account page",
+    "userNotFound": "This account doesn't exist.",
+    "deleteFailed": "Couldn't delete your account."
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "Account deletion steps"
+  },
+  "DeleteAccountReason": {
+    "title": "Why are you deleting your account?",
+    "selectionLimit": "Select up to 3",
+    "notUsing": "I don't use the service often",
+    "lowTrust": "I don't trust the service",
+    "difficultToUse": "The service is difficult to use",
+    "duplicateAccount": "I have another account",
+    "unpleasantUser": "I encountered an unpleasant user",
+    "unfairRestriction": "My access was unfairly restricted",
+    "other": "Other",
+    "otherRequired": "Enter another reason.",
+    "otherPlaceholder": "Tell us why you're deleting your account.",
+    "deleteButton": "Delete Account",
+    "nextButton": "Next"
+  },
+  "DeleteAccountPassword": {
+    "title": "Enter your password.",
+    "placeholder": "Enter your current password.",
+    "passwordMismatchField": "The password doesn't match.",
+    "passwordMismatchToast": "The password doesn't match",
+    "userNotFoundField": "This account doesn't exist.",
+    "userNotFoundToast": "This account doesn't exist",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteAccountModal": {
+    "title": "Delete your account?",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteComplete": {
+    "title": "Your account has been deleted.",
+    "description": "You can't sign up again with the same email for one week.",
+    "homeButton": "Go to Home"
+  },
   "HelloPage": {
     "metaTitle": "About Our Service",
     "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
