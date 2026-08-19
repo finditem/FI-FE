@@ -1043,5 +1043,10 @@
   "MypageCommentsContent": {
     "loadError": "목록을 불러오는데 실패했어요",
     "srOnlyTitle": "댓글 목록 영역"
+  },
+  "MypageProfileLayout": {
+    "title": "프로필 설정",
+    "description": "나의 찾아줘 프로필을 관리해 보세요.",
+    "srOnlyTitle": "프로필 수정"
   }
 }

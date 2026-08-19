@@ -1043,5 +1043,10 @@
   "MypageCommentsContent": {
     "loadError": "Couldn't load your comments.",
     "srOnlyTitle": "My comments"
+  },
+  "MypageProfileLayout": {
+    "title": "Profile Settings",
+    "description": "Manage your finditem profile.",
+    "srOnlyTitle": "Edit profile"
   }
 }
