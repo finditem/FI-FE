@@ -1546,5 +1546,13 @@
     "notFoundTitle": "페이지를 찾을 수 없습니다.",
     "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
     "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
+  },
+  "KakaoCallback": {
+    "metaTitle": "카카오 로그인",
+    "metaDescription": "카카오 계정으로 간편하게 로그인하여 분실물을 찾고 습득물을 공유해보세요.",
+    "loading": "로그인 요청 중...",
+    "notFoundTitle": "페이지를 찾을 수 없습니다.",
+    "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
+    "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
   }
 }

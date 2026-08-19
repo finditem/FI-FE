@@ -1546,5 +1546,13 @@
     "notFoundTitle": "Page not found.",
     "notFoundDescriptionLine1": "The address you entered doesn't exist, or",
     "notFoundDescriptionLine2": "the page you requested is unavailable."
+  },
+  "KakaoCallback": {
+    "metaTitle": "Sign in with Kakao",
+    "metaDescription": "Sign in easily with your Kakao account to find lost items and share found items.",
+    "loading": "Signing in...",
+    "notFoundTitle": "Page not found.",
+    "notFoundDescriptionLine1": "The address you entered doesn't exist, or",
+    "notFoundDescriptionLine2": "the page you requested is unavailable."
   }
 }
