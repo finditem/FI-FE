@@ -1110,6 +1110,62 @@
     "emptyTitle": "No news yet",
     "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
+  "MypageReportsDetailPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "Report details page"
+  },
+  "MypageReportsDetail": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "loadError": "Couldn't load the report.",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "Admin",
+    "attachedImageAlt": "Attached image {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "My Reports"
+  },
+  "MypageReportsPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "My reports page"
+  },
+  "MypageReportsFilter": {
+    "all": "All",
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "status": "Status",
+    "srOnlyTitle": "Filter options",
+    "filterAriaLabel": "Filter"
+  },
+  "MypageReportsContent": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "detailAriaLabel": "View report details",
+    "loadError": "Couldn't load your reports.",
+    "srOnlyTitle": "My reports list",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
   "NotificationSettingsLayout": {
     "title": "Notification Settings",
     "description": "Choose and manage the notifications you receive from finditem."

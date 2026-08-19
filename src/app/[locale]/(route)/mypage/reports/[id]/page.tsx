@@ -1,5 +1,6 @@
 import { DetailHeader } from "@/components";
 import { MypageReportsIdContainer } from "./_components";
+import { getTranslations } from "next-intl/server";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -8,11 +9,12 @@ interface PageProps {
 const page = async ({ params }: PageProps) => {
   const { id } = await params;
   const reportId = Number(id);
+  const t = await getTranslations("MypageReportsDetailPage");
 
   return (
     <>
-      <DetailHeader title="내 신고 내역" />
-      <h1 className="sr-only">내 신고 내역 상세 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
       <MypageReportsIdContainer id={reportId} />
     </>
   );
