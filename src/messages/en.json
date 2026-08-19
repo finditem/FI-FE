@@ -1110,6 +1110,14 @@
     "emptyTitle": "No news yet",
     "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
+  "AppleCallback": {
+    "metaTitle": "Sign in with Apple",
+    "metaDescription": "Sign in easily with your Apple account to find lost items and share found items.",
+    "loading": "Signing in...",
+    "notFoundTitle": "Page not found.",
+    "notFoundDescriptionLine1": "The address you entered doesn't exist, or",
+    "notFoundDescriptionLine2": "the page you requested is unavailable."
+  },
   "HelloPage": {
     "metaTitle": "About Our Service",
     "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
