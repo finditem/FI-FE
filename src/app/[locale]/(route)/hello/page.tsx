@@ -10,8 +10,7 @@ const page = async () => {
         title: t("features.intro.title"),
         description: (
           <>
-            {t("features.intro.descriptionLine1")}
-            <br className="hidden tablet:block" />
+            {t("features.intro.descriptionLine1")} <br className="hidden tablet:block" />
             {t("features.intro.descriptionLine2")}
           </>
         ),
