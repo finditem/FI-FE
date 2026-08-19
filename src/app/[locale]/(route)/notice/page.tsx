@@ -7,8 +7,10 @@ import { Suspense } from "react";
 import { useSearchUpdateQueryString } from "@/hooks";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useGetUsersMe } from "@/api/fetch/user";
+import { useTranslations } from "next-intl";
 
 const NoticePageContent = () => {
+  const t = useTranslations("NoticePage");
   const { searchUpdateQuery } = useSearchUpdateQueryString("replace");
 
   return (
@@ -20,8 +22,8 @@ const NoticePageContent = () => {
         fallback={
           <ErrorState
             icon={{ iconName: "NoReports", iconSize: 70 }}
-            title="공지사항을 불러올 수 없어요"
-            description={"네트워크 연결을 확인하거나\n잠시 후 다시 시도해주세요"}
+            title={t("error.title")}
+            description={t("error.description")}
           >
             <NoticeListErrorButtons />
           </ErrorState>
@@ -34,14 +36,15 @@ const NoticePageContent = () => {
 };
 
 const Notice = () => {
+  const t = useTranslations("NoticePage");
   const router = useRouter();
   const { data: userData } = useGetUsersMe();
   const isAdmin = userData?.result?.role === "ADMIN";
 
   return (
     <div className="min-h-dvh">
-      <DetailHeader title="공지사항" />
-      <h1 className="sr-only">공지사항 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("heading")}</h1>
       <Suspense fallback="">
         <NoticePageContent />
       </Suspense>
@@ -50,7 +53,7 @@ const Notice = () => {
         <ScrollToTopButton />
         {isAdmin && (
           <FloatingButton
-            ariaLabel="공지사항 작성 페이지 이동"
+            ariaLabel={t("writeAriaLabel")}
             mode="notice"
             onClick={() => router.push("/admin/notice/write")}
           />

@@ -3,19 +3,21 @@
 import { useGetReportById } from "@/api/fetch/report";
 import { Chip, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
-import { formatDate } from "@/utils";
+import { useFormatDate } from "@/hooks";
 import { useEffect } from "react";
 import { REPORT_STATUS_CHIP } from "../../../_constants/REPORT_STATUS_CHIP";
 import ReportCommentItem from "../ReportCommentItem/ReportCommentItem";
-import { REPORT_TYPE_TITLE } from "@/app/[locale]/(admin)/admin/_constants/REPORT_TYPE_TITLE";
+import { useTranslations } from "next-intl";
 
 const MypageReportsIdContainer = ({ id }: { id: number }) => {
+  const t = useTranslations("MypageReportsDetail");
+  const formatDate = useFormatDate();
   const { data: reportIdData, isError, isLoading } = useGetReportById({ reportId: id });
   const { addToast } = useToast();
 
   useEffect(() => {
-    if (isError) addToast("신고내역을 불러오는데 실패했어요", "error");
-  }, [isError, addToast]);
+    if (isError) addToast(t("loadError"), "error");
+  }, [isError, addToast, t]);
 
   if (isLoading) return <LoadingState />;
 
@@ -23,12 +25,7 @@ const MypageReportsIdContainer = ({ id }: { id: number }) => {
   if (!result) return null;
 
   const {
-    nickname,
-    reportId,
     reportType,
-    targetId,
-    targetType,
-    targetTitle,
     reason,
     status,
     answered,
@@ -38,8 +35,11 @@ const MypageReportsIdContainer = ({ id }: { id: number }) => {
   return (
     <div className="w-full h-base">
       <div className="border-b-flat-gray-50 w-full border-b px-5 py-[30px]">
-        <Chip label={REPORT_STATUS_CHIP[status].label} type={REPORT_STATUS_CHIP[status].chipType} />
-        <h2 className="mt-[14px] text-h2-medium">{REPORT_TYPE_TITLE[reportType]}</h2>
+        <Chip
+          label={t(REPORT_STATUS_CHIP[status].labelKey)}
+          type={REPORT_STATUS_CHIP[status].chipType}
+        />
+        <h2 className="mt-[14px] text-h2-medium">{t(`reportTypes.${reportType}`)}</h2>
         <time dateTime={createdAt} className="mt-1 text-body2-regular text-layout-body-default">
           {formatDate(createdAt)}
         </time>
