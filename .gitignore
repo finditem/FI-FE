@@ -59,3 +59,7 @@ test-results/*
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+# Claude 개인 설정 (커밋하지 않음)
+CLAUDE.local.md
+.claude/settings.local.json

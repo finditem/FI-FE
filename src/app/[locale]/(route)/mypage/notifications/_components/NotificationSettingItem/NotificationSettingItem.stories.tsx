@@ -55,7 +55,7 @@ type Story = StoryObj<typeof NotificationSettingItem>;
 
 export const ToggledOn: Story = {
   args: {
-    item: { label: "댓글", value: "commentEnabled" },
+    item: { labelKey: "comments", value: "commentEnabled" },
     browserNotification: true,
     notificationStatus: MOCK_NOTIFICATION_STATUS,
     isOn: true,
@@ -64,7 +64,7 @@ export const ToggledOn: Story = {
 
 export const ToggledOff: Story = {
   args: {
-    item: { label: "신고", value: "reportResultEnabled" },
+    item: { labelKey: "reports", value: "reportResultEnabled" },
     browserNotification: true,
     notificationStatus: MOCK_NOTIFICATION_STATUS,
     isOn: false,
@@ -73,7 +73,7 @@ export const ToggledOff: Story = {
 
 export const BrowserNotificationDisabled: Story = {
   args: {
-    item: { label: "댓글", value: "commentEnabled" },
+    item: { labelKey: "comments", value: "commentEnabled" },
     browserNotification: false,
     notificationStatus: MOCK_NOTIFICATION_STATUS,
     isOn: true,
@@ -82,7 +82,7 @@ export const BrowserNotificationDisabled: Story = {
 
 export const CategorySelector: Story = {
   args: {
-    item: { label: "카테고리 키워드 선택", value: "enabledCategories" },
+    item: { labelKey: "selectCategoryKeywords", value: "enabledCategories" },
     browserNotification: true,
     notificationStatus: MOCK_NOTIFICATION_STATUS,
     isOn: false,

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, ProfileAvatar } from "@/components";
 import { trackClickLoginButton } from "@/utils/analytics/analytics";
+import { useTranslations } from "next-intl";
 
 interface ProfileProps {
   userData?: {
@@ -12,6 +13,7 @@ interface ProfileProps {
 }
 
 const MyPageProfile = ({ userData, loading }: ProfileProps) => {
+  const t = useTranslations("MyPageProfile");
   const { nickname, email, profileImg } = userData ?? {
     nickname: "",
     email: "",
@@ -36,7 +38,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
             </>
           ) : (
             <p className="text-nowrap text-body1-semibold text-layout-header-default">
-              로그인 시 이용 가능합니다.
+              {t("loginRequired")}
             </p>
           )}
         </div>
@@ -51,7 +53,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
         loading={loading}
         onClick={userData ? undefined : () => trackClickLoginButton("mypage")}
       >
-        {userData ? "프로필 수정" : "로그인"}
+        {userData ? t("editProfile") : t("login")}
       </Button>
     </div>
   );

@@ -1,11 +1,14 @@
 import { DetailHeader, MypageSearch } from "@/components";
+import { getTranslations } from "next-intl/server";
 import { MypageCommentsContent, MypageCommentsFilterSection } from "./_components";
 
-const page = () => {
+const page = async () => {
+  const t = await getTranslations("MypageCommentsPage");
+
   return (
     <>
-      <DetailHeader title="내가 쓴 댓글" />
-      <h1 className="sr-only">내가 쓴 댓글 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
       <div className="w-full h-base">
         <MypageSearch searchMode="comments" />
 

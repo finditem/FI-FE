@@ -7,12 +7,15 @@ export const COMMENT_DEFAULT_FILTERS: CommentFilterState = {
   simpleSort: "LATEST",
 };
 
-export const SIMPLE_SORT_LABEL_MAP: Record<SimpleSortType, string> = {
-  LATEST: "최신순",
-  OLDEST: "오래된순",
-};
+export const SIMPLE_SORT_LABEL_KEY_MAP = {
+  LATEST: "latest",
+  OLDEST: "oldest",
+} as const satisfies Record<SimpleSortType, "latest" | "oldest">;
 
-export const SORT_KEBAB_ITEM: { label: "최신순" | "오래된순"; value: SimpleSortType }[] = [
-  { label: "최신순", value: "LATEST" },
-  { label: "오래된순", value: "OLDEST" },
+export const SORT_KEBAB_ITEM: {
+  labelKey: (typeof SIMPLE_SORT_LABEL_KEY_MAP)[SimpleSortType];
+  value: SimpleSortType;
+}[] = [
+  { labelKey: "latest", value: "LATEST" },
+  { labelKey: "oldest", value: "OLDEST" },
 ];

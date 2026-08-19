@@ -7,12 +7,14 @@ import { useSearchParams } from "next/navigation";
 import { useRef, useState } from "react";
 import { NoticeSortType } from "@/types";
 import { FILTER_OPTIONS } from "../NOTICE_LIST_CONST";
+import { useTranslations } from "next-intl";
 
 interface NoticeFilterProps {
   searchUpdateQuery: (key: string, value?: string) => void;
 }
 
 const NoticeFilter = ({ searchUpdateQuery }: NoticeFilterProps) => {
+  const t = useTranslations("NoticePage.filter");
   const [isOpen, setIsOpen] = useState(false);
   const outerRef = useClickOutside(() => setIsOpen(false));
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -20,7 +22,7 @@ const NoticeFilter = ({ searchUpdateQuery }: NoticeFilterProps) => {
   const selectedSortType = searchParams.get("sortType");
   const sortTypeDisplayText =
     FILTER_OPTIONS.find((option) => option.value.toLowerCase() === selectedSortType?.toLowerCase())
-      ?.label ?? "최신순";
+      ?.labelKey ?? "latest";
 
   const handleOptionClick = (value: NoticeSortType) => {
     const queryValue = value === "LATEST" ? undefined : value.toLowerCase();
@@ -31,13 +33,13 @@ const NoticeFilter = ({ searchUpdateQuery }: NoticeFilterProps) => {
   return (
     <div ref={outerRef} className="relative inline-block px-5 py-[14px]">
       <Filter
-        ariaLabel="공지사항 정렬"
+        ariaLabel={t("ariaLabel")}
         onSelected={!!selectedSortType}
         onClick={() => setIsOpen((prev) => !prev)}
         icon={{ name: "ArrowDown", size: 12 }}
         iconPosition="trailing"
       >
-        {sortTypeDisplayText}
+        {t(sortTypeDisplayText)}
       </Filter>
       {isOpen && (
         <div ref={dropdownRef} className="absolute top-[60px] z-50 flex flex-col">
@@ -51,7 +53,7 @@ const NoticeFilter = ({ searchUpdateQuery }: NoticeFilterProps) => {
                 "first:rounded-t-[20px] last:rounded-b-[20px]"
               )}
             >
-              {option.label}
+              {t(option.labelKey)}
             </button>
           ))}
         </div>

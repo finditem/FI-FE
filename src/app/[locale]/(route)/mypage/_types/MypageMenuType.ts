@@ -1,1 +1,3 @@
-export type MypageMenuType = "내 활동" | "알림" | "신고/문의" | "계정 설정";
+import { MYPAGE_MENU_LIST } from "../_constants/MYPAGE_ROUTE_CONFIG";
+
+export type MypageMenuType = (typeof MYPAGE_MENU_LIST)[number]["key"];

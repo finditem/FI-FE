@@ -1,16 +1,19 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { DetailHeader } from "@/components";
+import { getTranslations } from "next-intl/server";
 
 export const metadata: Metadata = {
   other: { "page-type": "mypage-blocked-users" },
 };
 
-const layout = ({ children }: { children: ReactNode }) => {
+const layout = async ({ children }: { children: ReactNode }) => {
+  const t = await getTranslations("BlockedUsersLayout");
+
   return (
     <>
-      <DetailHeader title="내가 차단한 계정" />
-      <h1 className="sr-only">내가 차단한 계정</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("title")}</h1>
 
       {children}
     </>

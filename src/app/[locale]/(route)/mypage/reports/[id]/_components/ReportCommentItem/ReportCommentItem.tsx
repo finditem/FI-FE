@@ -1,9 +1,15 @@
+"use client";
+
 import { ReportByIdType } from "@/api/fetch/report";
 import { Chip, ProfileAvatar } from "@/components";
-import { cn, formatDate } from "@/utils";
+import { useFormatDate } from "@/hooks";
+import { cn } from "@/utils";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const ReportCommentItem = ({ data }: { data: ReportByIdType }) => {
+  const t = useTranslations("ReportCommentItem");
+  const formatDate = useFormatDate();
   const {
     answered,
     adminAnswer,
@@ -28,7 +34,7 @@ const ReportCommentItem = ({ data }: { data: ReportByIdType }) => {
 
         <span className="flex flex-col gap-[2px]">
           <span className="flex gap-[6px]">
-            {answered && <Chip label="관리자" type="admin" />}
+            {answered && <Chip label={t("admin")} type="admin" />}
             <span className="text-body1-medium text-layout-header-default">{adminNickname}</span>
           </span>
 
@@ -50,7 +56,7 @@ const ReportCommentItem = ({ data }: { data: ReportByIdType }) => {
             >
               <Image
                 src={src}
-                alt={`첨부 이미지 ${index + 1}`}
+                alt={t("attachedImageAlt", { number: index + 1 })}
                 fill
                 className="object-cover"
                 sizes="100px"
