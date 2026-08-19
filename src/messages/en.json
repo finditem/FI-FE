@@ -1298,5 +1298,34 @@
     "title": "Your account has been deleted.",
     "description": "You can't sign up again with the same email for one week.",
     "homeButton": "Go to Home"
+  },
+  "HelloPage": {
+    "metaTitle": "About Our Service",
+    "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
+    "heading": "About finditem",
+    "features": {
+      "intro": {
+        "title": "Find lost items faster and easier",
+        "descriptionLine1": "Not sure where to start when you lose something? finditem! is here for those moments—",
+        "descriptionLine2": "a real-time, location-based platform that helps you find lost items."
+      },
+      "browse": {
+        "title": "Browse reports by location and category",
+        "description": "Filter lost-and-found reports by location and item category to find what you're looking for with ease."
+      },
+      "chat": {
+        "title": "Chat with reporters in real time",
+        "description": "Connect directly with the person who posted a report and recover your item faster through real-time chat."
+      },
+      "alert": {
+        "title": "Get alerts for new posts",
+        "description": "Choose the lost-item categories you care about, and we'll notify you whenever a matching post is added."
+      }
+    },
+    "cta": {
+      "title": "Worry less about lost items with finditem!",
+      "description": "With finditem! by your side, losing something can feel a little less overwhelming.",
+      "button": "Go to the finditem homepage"
+    }
   }
 }
