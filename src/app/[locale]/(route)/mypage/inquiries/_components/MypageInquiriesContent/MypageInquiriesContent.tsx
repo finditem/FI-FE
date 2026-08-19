@@ -3,13 +3,14 @@
 import { InquiryItemType, useGetUserInquiries } from "@/api/fetch/inquiry";
 import { Chip, MypageEmptyUI, LoadingState } from "@/components";
 import { useToast } from "@/context/ToastContext";
-import { useInfiniteScroll } from "@/hooks";
+import { useFormatDate, useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks";
-import { formatDate, highlightText } from "@/utils";
+import { highlightText } from "@/utils";
 import Link from "next/link";
 import { useEffect } from "react";
 import { INQUIRY_STATUS_CHIP } from "../../_constants/INQUIRY_STATUS_CHIP";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface MypageInquiryItemProps {
   inquiries: InquiryItemType;
@@ -17,13 +18,15 @@ interface MypageInquiryItemProps {
 }
 
 const MypageInquiryItem = ({ inquiries, keyword }: MypageInquiryItemProps) => {
+  const t = useTranslations("MypageInquiriesContent");
+  const formatDate = useFormatDate();
   const { inquiryId, title, content, status, createdAt } = inquiries;
 
   return (
     <li className="flex w-full flex-col justify-between border-b border-divider-default px-5 py-[30px]">
-      <Link href={`/mypage/inquiries/${inquiryId}`} aria-label={`${title} 문의 상세 내용 보기`}>
+      <Link href={`/mypage/inquiries/${inquiryId}`} aria-label={t("detailAriaLabel", { title })}>
         <Chip
-          label={INQUIRY_STATUS_CHIP[status].label}
+          label={t(INQUIRY_STATUS_CHIP[status].labelKey)}
           type={INQUIRY_STATUS_CHIP[status].chipType}
         />
 
@@ -45,6 +48,7 @@ const MypageInquiryItem = ({ inquiries, keyword }: MypageInquiryItemProps) => {
 };
 
 const MypageInquiriesContent = () => {
+  const t = useTranslations("MypageInquiriesContent");
   const { inquiryStatus } = useFilterParams();
 
   const searchParams = useSearchParams();
@@ -66,9 +70,9 @@ const MypageInquiriesContent = () => {
 
   useEffect(() => {
     if (isError) {
-      addToast("내 문의 목록을 불러오는데 실패했어요", "error");
+      addToast(t("loadError"), "error");
     }
-  }, [isError, addToast]);
+  }, [isError, addToast, t]);
 
   const { ref } = useInfiniteScroll({
     hasNextPage,
@@ -80,7 +84,7 @@ const MypageInquiriesContent = () => {
 
   return (
     <section>
-      <h2 className="sr-only">내 문의 내역 목록 영역</h2>
+      <h2 className="sr-only">{t("srOnlyTitle")}</h2>
 
       {inquiriesData && inquiriesData.length === 0 ? (
         <MypageEmptyUI pageType="inquiries" />

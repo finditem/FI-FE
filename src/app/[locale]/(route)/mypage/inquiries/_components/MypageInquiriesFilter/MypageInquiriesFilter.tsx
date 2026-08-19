@@ -9,14 +9,16 @@ import {
   InquiryStatusFilterValue,
 } from "../../_types/MypageInquiriesFilterType";
 import { Filter, KebabMenu } from "@/components";
+import { useTranslations } from "next-intl";
 
 const MypageInquiriesFilter = () => {
+  const t = useTranslations("MypageInquiriesFilter");
   const [isKebabMenu, setIsKebabMenu] = useState(false);
 
   const { inquiryStatus } = useFilterParams();
 
   const kebabMenuItems = INQUIRIES_KEBAB_OPTIONS.map((item) => ({
-    text: item.label,
+    text: t(item.labelKey),
     onClick: () => {
       updateFilters({ inquiryStatus: item.value });
       setIsKebabMenu((prev) => !prev);
@@ -36,17 +38,18 @@ const MypageInquiriesFilter = () => {
 
   return (
     <section className="flex w-full gap-2 px-5 py-[14px]">
-      <h2 className="sr-only">필터링 영역</h2>
+      <h2 className="sr-only">{t("srOnlyTitle")}</h2>
 
       <div className="relative">
         <Filter
-          ariaLabel="필터"
+          ariaLabel={t("filterAriaLabel")}
           onSelected={selectionState.isInquiryStatusSelected}
           icon={{ name: "ArrowDown", size: 12 }}
           iconPosition="trailing"
           onClick={() => setIsKebabMenu((prev) => !prev)}
         >
-          {(normalizedInquiryStatus && INQUIRIES_LABEL_MAP[normalizedInquiryStatus]) ?? "상태"}
+          {(normalizedInquiryStatus && t(INQUIRIES_LABEL_MAP[normalizedInquiryStatus])) ??
+            t("status")}
         </Filter>
 
         {isKebabMenu && (

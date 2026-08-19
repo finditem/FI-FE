@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { CategoryType } from "@/types";
 import { CATEGORY_OPTIONS } from "@/constants";
 import { usePutNotificationSetting } from "@/api/fetch/notification";
+import { useTranslations } from "next-intl";
 
 interface NotificationCategoryProps {
   isBottomSheetOpen: boolean;
@@ -17,6 +18,7 @@ const NotificationCategory = ({
   setIsBottomSheetOpen,
   categoryOn,
 }: NotificationCategoryProps) => {
+  const t = useTranslations("NotificationCategory");
   const [selectedCategory, setSelectedCategory] = useState<CategoryType[]>(categoryOn);
   const { mutate: notificationMutate, isPending } = usePutNotificationSetting();
 
@@ -32,14 +34,14 @@ const NotificationCategory = ({
       className="flex px-5 py-10 flex-col-center"
     >
       <div className="mb-8">
-        <h2 className="text-h2-medium text-layout-header-default">카테고리 키워드</h2>
+        <h2 className="text-h2-medium text-layout-header-default">{t("title")}</h2>
       </div>
 
       <div className="mb-12 flex flex-wrap gap-2">
         {CATEGORY_OPTIONS.map((item) => (
           <Filter
             key={item.value}
-            ariaLabel={item.label}
+            ariaLabel={t(`categories.${item.value}`)}
             onSelected={selectedCategory.includes(item.value)}
             onClick={() =>
               setSelectedCategory((prev) =>
@@ -49,13 +51,13 @@ const NotificationCategory = ({
               )
             }
           >
-            {item.label}
+            {t(`categories.${item.value}`)}
           </Filter>
         ))}
       </div>
 
       <Button className="w-full" onClick={() => handleToClick()} disabled={isPending}>
-        적용하기
+        {t("apply")}
       </Button>
     </PopupLayout>
   );
