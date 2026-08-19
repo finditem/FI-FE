@@ -3,8 +3,10 @@
 
 import { useFormContext } from "react-hook-form";
 import { InputText } from "@/components";
+import { useTranslations } from "next-intl";
 
 const PasswordConfirmSection = () => {
+  const t = useTranslations("ChangePassword");
   const {
     watch,
     getValues,
@@ -14,19 +16,19 @@ const PasswordConfirmSection = () => {
   const newPassword = watch("newPassword");
   const error = errors?.newPassword;
 
-  const message = "대문자/소문자/숫자/특수 문자 포함 8자리 이상";
+  const message = t("passwordRule");
   const isSuccess = !!newPassword && !error;
 
   return (
     <>
       <section className="flex min-h-[96px] flex-col gap-2">
         <InputText
-          label="새 비밀번호"
+          label={t("newPasswordLabel")}
           inputOption={{
             name: "newPassword",
             type: "password",
             required: true,
-            placeholder: "새 비밀번호를 입력해주세요.",
+            placeholder: t("newPasswordPlaceholder"),
             minLength: 8,
             maxLength: 16,
             validation: {
@@ -38,8 +40,7 @@ const PasswordConfirmSection = () => {
                 message,
               },
               validate: (value: string) =>
-                value !== getValues("currentPassword") ||
-                "기존 비밀번호와 동일한 비밀번호는 사용할 수 없어요",
+                value !== getValues("currentPassword") || t("sameAsCurrentPassword"),
             },
           }}
           caption={{
@@ -52,17 +53,17 @@ const PasswordConfirmSection = () => {
 
       <section className="flex min-h-[96px] flex-col gap-2">
         <InputText
-          label="새 비밀번호 확인"
+          label={t("newPasswordConfirmLabel")}
           inputOption={{
             name: "newPasswordConfirm",
             type: "password",
-            placeholder: "비밀번호를 한 번 더 입력해 주세요.",
+            placeholder: t("newPasswordConfirmPlaceholder"),
             minLength: 8,
             maxLength: 16,
             validation: {
               required: true,
               validate: (value: string) =>
-                value === getValues("newPassword") || "비밀번호가 일치하지 않습니다.",
+                value === getValues("newPassword") || t("passwordMismatch"),
             },
           }}
         />

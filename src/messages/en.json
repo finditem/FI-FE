@@ -1110,6 +1110,26 @@
     "emptyTitle": "No news yet",
     "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
+  "ChangePassword": {
+    "metaTitle": "Change Password | finditem! My Page",
+    "metaDescription": "Change your finditem account password securely.",
+    "title": "Change Password",
+    "heading": "Change password page",
+    "submit": "Save Changes",
+    "currentPasswordLabel": "Current password",
+    "currentPasswordPlaceholder": "Enter your current password.",
+    "verifyPassword": "Verify Password",
+    "passwordMatch": "Your password matches.",
+    "passwordMismatch": "Passwords do not match.",
+    "forgotPassword": "Forgot your password?",
+    "findPassword": "Reset Password",
+    "passwordRule": "At least 8 characters with uppercase and lowercase letters, a number, and a special character",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "Enter a new password.",
+    "sameAsCurrentPassword": "Your new password must be different from your current password.",
+    "newPasswordConfirmLabel": "Confirm new password",
+    "newPasswordConfirmPlaceholder": "Enter your new password again."
+  },
   "HelloPage": {
     "metaTitle": "About Our Service",
     "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
