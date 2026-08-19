@@ -1012,5 +1012,17 @@
   "MypageFavoritesContent": {
     "loadError": "Couldn't load your favorites.",
     "srOnlyTitle": "My favorites"
+  },
+  "MypagePostsPage": {
+    "title": "My Posts",
+    "srOnlyTitle": "My posts page"
+  },
+  "MypagePostsLayout": {
+    "title": "My Posts",
+    "description": "View the lost and found posts you've created on finditem."
+  },
+  "MypagePostsContent": {
+    "loadError": "Couldn't load your posts.",
+    "srOnlyTitle": "My posts"
   }
 }

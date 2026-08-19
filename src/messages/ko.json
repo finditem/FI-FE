@@ -1012,5 +1012,17 @@
   "MypageFavoritesContent": {
     "loadError": "목록을 불러오는데 실패했어요",
     "srOnlyTitle": "내 즐겨찾기 목록 영역"
+  },
+  "MypagePostsPage": {
+    "title": "내가 쓴 게시글",
+    "srOnlyTitle": "내가 쓴 게시글 페이지"
+  },
+  "MypagePostsLayout": {
+    "title": "내가 쓴 게시글",
+    "description": "찾아줘에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
+  },
+  "MypagePostsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "게시글 목록 영역"
   }
 }

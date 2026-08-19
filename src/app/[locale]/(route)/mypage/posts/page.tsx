@@ -1,13 +1,16 @@
 "use client";
 
 import { DetailHeader, FilterSection, MypageSearch } from "@/components";
+import { useTranslations } from "next-intl";
 import { MypagePostsContent } from "./_components";
 
 const page = () => {
+  const t = useTranslations("MypagePostsPage");
+
   return (
     <>
-      <DetailHeader title="내가 쓴 게시글" />
-      <h1 className="sr-only">내가 쓴 게시글 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
       <div className="w-full h-base">
         <MypageSearch searchMode="posts" />
 
