@@ -1441,6 +1441,26 @@
     "description": "You can't sign up again with the same email for one week.",
     "homeButton": "Go to Home"
   },
+  "ChangePassword": {
+    "metaTitle": "Change Password | finditem! My Page",
+    "metaDescription": "Change your finditem account password securely.",
+    "title": "Change Password",
+    "heading": "Change password page",
+    "submit": "Save Changes",
+    "currentPasswordLabel": "Current password",
+    "currentPasswordPlaceholder": "Enter your current password.",
+    "verifyPassword": "Verify Password",
+    "passwordMatch": "Your password matches.",
+    "passwordMismatch": "Passwords do not match.",
+    "forgotPassword": "Forgot your password?",
+    "findPassword": "Reset Password",
+    "passwordRule": "At least 8 characters with uppercase and lowercase letters, a number, and a special character",
+    "newPasswordLabel": "New password",
+    "newPasswordPlaceholder": "Enter a new password.",
+    "sameAsCurrentPassword": "Your new password must be different from your current password.",
+    "newPasswordConfirmLabel": "Confirm new password",
+    "newPasswordConfirmPlaceholder": "Enter your new password again."
+  },
   "NoticePage": {
     "metaTitle": "Notices",
     "metaTitleTemplate": "%s | finditem! Notices",
