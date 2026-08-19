@@ -2,8 +2,18 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
 import { useSearchParams } from "next/navigation";
+
+const SORT_OPTIONS = [
+  { value: "latest", label: "최신순" },
+  { value: "oldest", label: "오래된순" },
+];
+
+const TYPE_OPTIONS = [
+  { value: "all", label: "전체" },
+  { value: "found", label: "발견" },
+  { value: "lost", label: "분실" },
+];
 
 const mockSearchUpdateQuery = jest.fn();
 

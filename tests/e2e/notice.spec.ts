@@ -82,7 +82,6 @@ test.describe("공지사항 목록", () => {
       test.setTimeout(90_000);
       const noticeLink = page.locator('a[href="/notice/1"]');
       await expect(noticeLink).toBeVisible({ timeout: 30_000 });
-      await noticeLink.scrollIntoViewIfNeeded();
       await noticeLink.click();
 
       await expect(page).toHaveURL(/\/notice\/1\/?$/, { timeout: 35_000 });
