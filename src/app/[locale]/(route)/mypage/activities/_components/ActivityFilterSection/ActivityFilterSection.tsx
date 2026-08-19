@@ -24,7 +24,8 @@ const ActivityFilterSection = () => {
     mode: "Date" | "Activity";
   }>({ isOpen: false, mode: "Date" });
 
-  const dateLabel = startDate || endDate ? getDateRangeLabel(startDate, endDate) : t("date");
+  const dateLabel =
+    startDate || endDate ? getDateRangeLabel(startDate, endDate, t("date")) : t("date");
 
   const { normalizedActivity } = normalizedFilterValues({ activity: activity });
   const selectionState = filterSelectionState({ startDate, endDate, activity });

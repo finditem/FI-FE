@@ -37,7 +37,8 @@ const MypageCommentsFilterSection = () => {
 
   const { normalizedSimpleSort } = normalizedFilterValues({ simpleSort });
   const selectionState = filterSelectionState({ startDate, endDate, simpleSort });
-  const dateLabel = startDate || endDate ? getDateRangeLabel(startDate, endDate) : t("date");
+  const dateLabel =
+    startDate || endDate ? getDateRangeLabel(startDate, endDate, t("date")) : t("date");
 
   const kebabMenuItems = SORT_KEBAB_ITEM.map((item) => ({
     text: t(item.labelKey),
