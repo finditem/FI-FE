@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Icon, ListItemImage } from "@/components";
 import ChatChip from "../ChatChip/ChatChip";
 import ChatRoomHeaderInfoButton from "../ChatRoomHeaderInfoButton/ChatRoomHeaderInfoButton";
@@ -21,6 +22,8 @@ interface ChatRoomHeaderProps {
 }
 
 const LinkWrapper = ({ deleted, children, href }: LinkWrapperProps) => {
+  const t = useTranslations("ChatRoomHeader");
+
   return (
     <>
       {deleted ? (
@@ -28,7 +31,7 @@ const LinkWrapper = ({ deleted, children, href }: LinkWrapperProps) => {
       ) : (
         <Link
           href={href}
-          aria-label="게시글 상세 페이지 이동"
+          aria-label={t("postLinkAriaLabel")}
           className="flex items-center gap-4 px-4"
         >
           {children}
@@ -41,6 +44,7 @@ const LinkWrapper = ({ deleted, children, href }: LinkWrapperProps) => {
 const NICK_NAME_STYLE = "text-body2-semibold text-layout-body-default";
 
 const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoomHeaderProps) => {
+  const t = useTranslations("ChatRoomHeader");
   if (!chatRoom) return null;
   const { address, postType, title, thumbnailUrl, postId, category, postStatus, deleted } =
     chatRoom.postInfo;
@@ -54,17 +58,17 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoom
           replace
           href="/chat"
           className="flex h-10 w-10 items-center"
-          aria-label="뒤로 가기 버튼"
+          aria-label={t("backAriaLabel")}
         >
           <Icon name="ArrowLeftSmall" size={18} className="text-neutral-normal-default" />
         </Link>
 
         {isOwnPostChatRoom || withdrawn ? (
-          <p className={NICK_NAME_STYLE}>{withdrawn ? "탈퇴한 회원이에요" : nickname}</p>
+          <p className={NICK_NAME_STYLE}>{withdrawn ? t("withdrawnUser") : nickname}</p>
         ) : (
           <Link
             href={`/user/${opponentUserId}`}
-            aria-label="상대방 프로필 이동"
+            aria-label={t("profileAriaLabel")}
             className={NICK_NAME_STYLE}
           >
             {nickname}
@@ -77,7 +81,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoom
       <LinkWrapper deleted={deleted} href={`/list/${postId}`}>
         <div className="shrink-0">
           <ListItemImage
-            alt="채팅방 게시글 썸네일"
+            alt={t("thumbnailAlt")}
             size={40}
             src={thumbnailUrl}
             category={category}
@@ -88,7 +92,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoom
           <div className="flex items-center gap-1">
             <ChatChip postMode={postType} postStatus={postStatus} />
             <h2 className="truncate text-body1-semibold text-layout-header-default">
-              {deleted && !withdrawn ? `삭제됨 ${title}` : title}
+              {deleted && !withdrawn ? t("deletedTitle", { title }) : title}
             </h2>
           </div>
           <p className="min-h-4 text-caption1-medium text-layout-body-default">{address}</p>

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { DeleteTarget } from "@/app/[locale]/(route)/alert/_types/DeleteTargetType";
 import { Button } from "@/components";
 
@@ -14,6 +15,7 @@ const AlertDeleteSection = ({
   setIsDeleteModalOpen,
   setDeleteTarget,
 }: AlertDeleteSectionProps) => {
+  const t = useTranslations("AlertDeleteSection");
   const handleDeleteAll = () => {
     setDeleteTarget("all");
     setIsDeleteModalOpen(true);
@@ -30,7 +32,7 @@ const AlertDeleteSection = ({
             className="w-[116px] text-system-warning"
             onClick={handleDeleteAll}
           >
-            전체 삭제
+            {t("deleteAllLabel")}
           </Button>
           <Button
             size="big"
@@ -38,7 +40,7 @@ const AlertDeleteSection = ({
             className="flex-1"
             onClick={() => setIsDeleteModalOpen(true)}
           >
-            선택 삭제
+            {t("deleteSelectedLabel")}
           </Button>
         </div>
       )}

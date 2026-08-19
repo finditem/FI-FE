@@ -293,6 +293,31 @@
     "cancel": "Cancel",
     "confirm": "Block"
   },
+  "UserProfilePage": {
+    "defaultNickname": "Nickname",
+    "profileTitle": "{nickname}'s profile",
+    "profile": "Profile",
+    "profileTabsAriaLabel": "Profile tabs",
+    "tabContentAriaLabel": "Tab content",
+    "loading": "Loading...",
+    "moreMenuAriaLabel": "More options",
+    "report": "Report",
+    "tabs": {
+      "posts": "Posts",
+      "comments": "Comments",
+      "favorites": "Favorites"
+    },
+    "empty": {
+      "postsTitle": "No posts yet",
+      "postsDescription": "This user hasn't written any posts yet.",
+      "commentsTitle": "No comments yet",
+      "commentsDescription": "This user hasn't written any comments yet.",
+      "favoritesTitle": "No saved posts yet",
+      "favoritesDescription": "This user hasn't saved any posts yet."
+    },
+    "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
+    "likes": "{count, plural, one {# like} other {# likes}}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "Admin"
   },
@@ -879,6 +904,115 @@
     "searchLabel": "Search {keyword}",
     "deleteLabel": "Delete recent search"
   },
+  "ChatListLayout": {
+    "title": "Chat List",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ListView": {
+    "regionSearchLoading": "Loading region search...",
+    "regionTitle": "Select region",
+    "chatTitle": "Chat",
+    "pageHeading": "Chat list page"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "Select region",
+    "loadingTitle": "Loading chats...",
+    "emptyTitle": "No chats yet",
+    "emptyDescription": "Once a chat starts, it'll show up here."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "All",
+    "foundLabel": "Found",
+    "lostLabel": "Lost",
+    "latestLabel": "Newest",
+    "oldestLabel": "Oldest",
+    "allSelectedLabel": "Found/Lost"
+  },
+  "ChatItem": {
+    "withdrawnUser": "Deleted user",
+    "nicknameFallback": "Couldn't load nickname.",
+    "addressFallback": "Couldn't load location.",
+    "timeFallback": "No time available.",
+    "imageMessage": "Photo",
+    "messageFallback": "Couldn't load message.",
+    "unreadSrLabel": "Unread messages "
+  },
+  "useFormatDate": {
+    "now": "Just now",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "yesterday": "Yesterday"
+  },
+  "ListSearch": {
+    "placeholder": "Enter a city, county, or district."
+  },
+  "RegionSearchView": {
+    "emptyResult": "No results found."
+  },
+  "ChatRoomLayout": {
+    "title": "Chat Room | Finditem Chat",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "This user is unknown or has been deleted.",
+    "pageHeading": "Chat detail page",
+    "inputAriaLabel": "Chat message input"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "Go back",
+    "postLinkAriaLabel": "View post details",
+    "withdrawnUser": "This user has been deleted.",
+    "profileAriaLabel": "View user profile",
+    "thumbnailAlt": "Post thumbnail",
+    "deletedTitle": "[Deleted] {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "Open chat menu",
+    "reportLabel": "Block or report",
+    "leaveLabel": "Leave chat room"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Yes, leave",
+    "title": "Leave this chat room?",
+    "description": "Leaving will delete the chat and its messages,\nand this can't be undone. Are you sure you want to leave?"
+  },
+  "ChatChip": {
+    "findLabel": "Found",
+    "lostLabel": "Lost",
+    "foundStatusLabel": "Found"
+  },
+  "ChatImageBox": {
+    "youLabel": "You",
+    "theyLabel": "Them"
+  },
+  "ChatImageButton": {
+    "imageAlt": "Chat image {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "Hide",
+    "showMoreLabel": "Show more"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "Empty chat screen",
+    "lostHelpText": "Did you find this lost item?\nReach out to the owner first.",
+    "findHelpText": "Check if this is your item.\nMessage the finder to reach out."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "Attach image",
+    "placeholderWithdrawn": "This user has been deleted.",
+    "placeholderDefault": "Send a message",
+    "sendAriaLabel": "Send message"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "Cancel photo",
+    "sendAriaLabel": "Send photo",
+    "selectLabel": "Select photos",
+    "sendCountLabel": "{count, plural, one {Send # photo} other {Send # photos}}"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "Something went wrong while processing the image."
+  },
   "PostWritePage": {
     "defaultTitle": "Register an item",
     "defaultDescription": "Register details about a lost or found item.",
@@ -941,6 +1075,40 @@
     "nearbyTitle": "Near {address}",
     "selectedLocationFallback": "the selected location",
     "applyButton": "Apply"
+  },
+  "AlertLayout": {
+    "title": "Notifications",
+    "description": "Check your notifications on Finditem."
+  },
+  "AlertDetailHeader": {
+    "title": "Notifications",
+    "pageHeading": "Notifications page"
+  },
+  "AlertCategories": {
+    "allLabel": "All",
+    "categoryLabel": "Category keywords",
+    "chatLabel": "Chat",
+    "commentLabel": "Comments",
+    "noticeLabel": "Notices",
+    "inquiry_replyLabel": "Inquiries",
+    "report_resultLabel": "Reports"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Delete",
+    "title": "Delete these notifications?",
+    "description": "Deleted notifications can't be recovered."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "Delete all",
+    "deleteSelectedLabel": "Delete selected"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "Selected notification, tap to deselect",
+    "selectAriaLabel": "Select notification",
+    "viewAriaLabel": "View notification and go to page",
+    "emptyTitle": "No news yet",
+    "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
   "HelloPage": {
     "metaTitle": "About Our Service",

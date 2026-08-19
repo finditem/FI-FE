@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Icon } from "@/components";
 import { UserCommentsDataType } from "@/api/fetch/user";
-import { formatDate } from "@/utils";
+import { useTranslations } from "next-intl";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 
 interface NormalizedCommentItem {
   postId: number;
@@ -41,6 +42,8 @@ interface UserCommentItemProps {
   data: UserCommentItemType | UserCommentsDataType;
 }
 const UserCommentItem = ({ data }: UserCommentItemProps) => {
+  const t = useTranslations("UserProfilePage");
+  const formatDate = useFormatDate();
   const { postId, comment, date, likes } = normalizeCommentData(data);
 
   return (
@@ -53,11 +56,11 @@ const UserCommentItem = ({ data }: UserCommentItemProps) => {
           {formatDate(date)}
         </time>
         <div
-          aria-label={`좋아요 ${likes}개`}
+          aria-label={t("likesAriaLabel", { count: likes })}
           className="flex items-center gap-1 text-body2-regular text-neutral-strong-placeholder"
         >
           <Icon name="Heart" size={16} className="text-border-divider-default" />
-          <span>좋아요 {likes}</span>
+          <span>{t("likes", { count: likes })}</span>
         </div>
       </Link>
     </li>

@@ -1,17 +1,19 @@
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
-import { EMPTY_MODE_STYLE } from "../CHATROOM_CONST";
+import useEmptyModeStyle from "../../_hooks/useEmptyModeStyle/useEmptyModeStyle";
 
 const EmptyChatRoom = ({ postMode }: { postMode: "find" | "lost" }) => {
+  const t = useTranslations("EmptyChatRoom");
+  const emptyModeStyle = useEmptyModeStyle();
+
   return (
     <section className="flex-1 bg-flatGray-25 flex-center">
-      <h1 className="sr-only">빈 채팅 안내 화면</h1>
+      <h1 className="sr-only">{t("pageHeading")}</h1>
       <div className="gap-2 flex-col-center">
-        <Icon name={EMPTY_MODE_STYLE[postMode].iconName} size={80} />
-        <div className="select-none text-center text-body2-medium text-layout-body-default">
-          {EMPTY_MODE_STYLE[postMode].helpText.map((text, i) => (
-            <p key={i}>{text}</p>
-          ))}
-        </div>
+        <Icon name={emptyModeStyle[postMode].iconName} size={80} />
+        <p className="select-none whitespace-pre-line text-center text-body2-medium text-layout-body-default">
+          {emptyModeStyle[postMode].helpText}
+        </p>
       </div>
     </section>
   );
