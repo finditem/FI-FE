@@ -1024,5 +1024,24 @@
   "MypagePostsContent": {
     "loadError": "Couldn't load your posts.",
     "srOnlyTitle": "My posts"
+  },
+  "MypageCommentsPage": {
+    "title": "My Comments",
+    "srOnlyTitle": "My comments page"
+  },
+  "MypageCommentsLayout": {
+    "title": "My Comments",
+    "description": "View the comments you've posted on finditem."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "Comment filters",
+    "date": "Date",
+    "sortAriaLabel": "Sort comments",
+    "latest": "Newest",
+    "oldest": "Oldest"
+  },
+  "MypageCommentsContent": {
+    "loadError": "Couldn't load your comments.",
+    "srOnlyTitle": "My comments"
   }
 }

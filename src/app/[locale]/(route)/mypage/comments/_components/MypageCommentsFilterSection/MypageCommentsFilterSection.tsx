@@ -11,12 +11,14 @@ import {
 import { CommentFilterState } from "../../_types/commentFilterType";
 import {
   COMMENT_DEFAULT_FILTERS,
-  SIMPLE_SORT_LABEL_MAP,
+  SIMPLE_SORT_LABEL_KEY_MAP,
   SORT_KEBAB_ITEM,
 } from "../../_constants/COMMENT_FILTER";
 import { SimpleSortType } from "@/types";
+import { useTranslations } from "next-intl";
 
 const MypageCommentsFilterSection = () => {
+  const t = useTranslations("MypageCommentsFilterSection");
   const { startDate, endDate, simpleSort } = useFilterParams();
 
   const { filters, setFilters, updateFilters } = useFilterSync<CommentFilterState>({
@@ -35,10 +37,10 @@ const MypageCommentsFilterSection = () => {
 
   const { normalizedSimpleSort } = normalizedFilterValues({ simpleSort });
   const selectionState = filterSelectionState({ startDate, endDate, simpleSort });
-  const dateLabel = getDateRangeLabel(startDate, endDate);
+  const dateLabel = startDate || endDate ? getDateRangeLabel(startDate, endDate) : t("date");
 
   const kebabMenuItems = SORT_KEBAB_ITEM.map((item) => ({
-    text: item.label,
+    text: t(item.labelKey),
     onClick: () => {
       updateFilters({ simpleSort: item.value });
       setIsFilterSheet((prev) => ({ ...prev, isOpen: false }));
@@ -46,10 +48,10 @@ const MypageCommentsFilterSection = () => {
   }));
 
   return (
-    <section className="flex w-full gap-2 px-5 py-[14px]" aria-label="필터 영역">
+    <section className="flex w-full gap-2 px-5 py-[14px]" aria-label={t("sectionAriaLabel")}>
       <Filter
         name="date"
-        ariaLabel="기간"
+        ariaLabel={t("date")}
         icon={{ name: "Calendar", size: 16 }}
         iconPosition="leading"
         onSelected={selectionState.isDateSelected}
@@ -60,13 +62,13 @@ const MypageCommentsFilterSection = () => {
 
       <div className="relative">
         <Filter
-          ariaLabel="정렬 필터"
+          ariaLabel={t("sortAriaLabel")}
           icon={{ name: "ArrowDown", size: 16 }}
           onSelected={selectionState.isSimpleSortSelected}
           onClick={() => setIsFilterSheet({ mode: "Sort", isOpen: true })}
           iconPosition="trailing"
         >
-          {(normalizedSimpleSort && SIMPLE_SORT_LABEL_MAP[normalizedSimpleSort]) ?? "최신순"}
+          {normalizedSimpleSort ? t(SIMPLE_SORT_LABEL_KEY_MAP[normalizedSimpleSort]) : t("latest")}
         </Filter>
 
         {isFilterSheet.mode === "Sort" && isFilterSheet.isOpen && (

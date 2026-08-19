@@ -1024,5 +1024,24 @@
   "MypagePostsContent": {
     "loadError": "목록을 불러오는데 실패했어요",
     "srOnlyTitle": "게시글 목록 영역"
+  },
+  "MypageCommentsPage": {
+    "title": "내가 쓴 댓글",
+    "srOnlyTitle": "내가 쓴 댓글 페이지"
+  },
+  "MypageCommentsLayout": {
+    "title": "내가 쓴 댓글",
+    "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "필터 영역",
+    "date": "기간",
+    "sortAriaLabel": "정렬 필터",
+    "latest": "최신순",
+    "oldest": "오래된순"
+  },
+  "MypageCommentsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "댓글 목록 영역"
   }
 }
