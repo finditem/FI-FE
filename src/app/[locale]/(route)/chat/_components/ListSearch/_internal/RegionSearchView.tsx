@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useVWorldAddressSearch } from "@/hooks";
 import { highlightText } from "@/utils";
 import { VWorldAddressItem } from "@/types";
@@ -10,6 +11,7 @@ interface RegionSearchViewProps {
 }
 
 const RegionSearchView = ({ searchQuery }: RegionSearchViewProps) => {
+  const t = useTranslations("RegionSearchView");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -43,7 +45,7 @@ const RegionSearchView = ({ searchQuery }: RegionSearchViewProps) => {
 
       {isEmptyResult && (
         <p className="px-5 py-[10px] text-body1-medium text-layout-header-default">
-          검색 결과가 없습니다.
+          {t("emptyResult")}
         </p>
       )}
     </section>

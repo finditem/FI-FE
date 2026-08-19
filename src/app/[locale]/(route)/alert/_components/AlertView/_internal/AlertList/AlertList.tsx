@@ -9,8 +9,8 @@ import { alertRouteUrl } from "@/app/[locale]/(route)/alert/_utils/alertRouteUrl
 import { getAlertTitleSegments } from "@/app/[locale]/(route)/alert/_utils/alertTitleSegments";
 import { getAlertIconBackgroundColor } from "@/app/[locale]/(route)/alert/_utils/alertViewMappers";
 import { CheckBox, Icon, IconName, EmptyState } from "@/components";
-import { useInfiniteScroll } from "@/hooks";
-import { cn, formatDate } from "@/utils";
+import { useFormatDate, useInfiniteScroll } from "@/hooks";
+import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -28,6 +28,7 @@ const AlertItem = ({
   setSelectedNotifications,
 }: AlertItemProps) => {
   const t = useTranslations("AlertList");
+  const formatDate = useFormatDate();
   const router = useRouter();
   const {
     notificationId,
@@ -108,12 +109,7 @@ const AlertItem = ({
             ))}
           </div>
           <span className="shrink-0 text-caption1-regular text-neutral-normal-placeholder">
-            {formatDate(createdAt, {
-              now: t("now"),
-              minutesAgo: (count) => t("minutesAgo", { count }),
-              hoursAgo: (count) => t("hoursAgo", { count }),
-              yesterday: t("yesterday"),
-            })}
+            {formatDate(createdAt)}
           </span>
         </div>
         <span className="min-w-0 truncate text-body2-regular text-neutral-strong-default">

@@ -1,25 +1,29 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ListItemImage, ProfileAvatar } from "@/components";
-import { formatCappedNumber, formatDate } from "@/utils";
+import { formatCappedNumber } from "@/utils";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 
 interface ChatItemProps {
   chatRoom: ChatRoom;
 }
 
 const ChatItem = ({ chatRoom }: ChatItemProps) => {
+  const t = useTranslations("ChatItem");
+  const formatDate = useFormatDate();
   const { lastMessageSentAt, lastMessage, unreadCount, messageType } = chatRoom;
   const { postId, address, thumbnailUrl, category } = chatRoom.postInfo;
   const { nickname, profileImageUrl, withdrawn } = chatRoom.contactUser;
   const { roomId } = chatRoom;
 
   const lastMessageIsImage = lastMessageSentAt && messageType === "IMAGE";
-  const displayNickname = withdrawn ? "탈퇴한 회원" : nickname || "닉네임을 불러오지 못했습니다.";
-  const displayAddress = address || "위치 정보를 불러오지 못했습니다.";
-  const displayDate = formatDate(lastMessageSentAt || "시간 정보가 없습니다.");
+  const displayNickname = withdrawn ? t("withdrawnUser") : nickname || t("nicknameFallback");
+  const displayAddress = address || t("addressFallback");
+  const displayDate = formatDate(lastMessageSentAt || t("timeFallback"));
   const displayMessage = lastMessageIsImage
-    ? "사진"
-    : lastMessage || "메시지를 불러오지 못했습니다.";
+    ? t("imageMessage")
+    : lastMessage || t("messageFallback");
 
   return (
     <Link
@@ -45,7 +49,7 @@ const ChatItem = ({ chatRoom }: ChatItemProps) => {
           </span>
           {unreadCount > 0 && (
             <span className="rounded-full bg-flatGreen-500 px-[5.5px] py-[1.5px] text-caption2-semibold text-white flex-center">
-              <span className="sr-only">읽지 않은 메시지 </span>
+              <span className="sr-only">{t("unreadSrLabel")}</span>
               {formatCappedNumber(unreadCount)}
             </span>
           )}
