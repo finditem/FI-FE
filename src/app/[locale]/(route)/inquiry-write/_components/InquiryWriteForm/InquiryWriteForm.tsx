@@ -3,6 +3,7 @@ import { FormProvider, UseFormReturn } from "react-hook-form";
 import { InquiryInput, InquiryCategoryButton, InquiryTextarea } from "./_internal";
 import { WriteImageSection } from "@/components";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface InquiryWriteFormProps {
   methods: UseFormReturn<InquiryWriteFormValues>;
@@ -17,6 +18,8 @@ const InquiryWriteForm = ({
   userEmail,
   isUserSuccess,
 }: InquiryWriteFormProps) => {
+  const t = useTranslations("InquiryWrite");
+
   useEffect(() => {
     if (!isUserSuccess || !userEmail) return;
 
@@ -29,11 +32,11 @@ const InquiryWriteForm = ({
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-1 flex-col gap-3 pt-5">
-        <InquiryInput name="title" placeholder="문의 제목을 입력해 주세요." maxLength={50} />
+        <InquiryInput name="title" placeholder={t("titlePlaceholder")} maxLength={50} />
         <InquiryInput
           name="email"
           type="email"
-          placeholder="이메일을 입력해주세요."
+          placeholder={t("emailPlaceholder")}
           disabled={!!userEmail}
         />
         <InquiryCategoryButton />

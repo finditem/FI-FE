@@ -1,11 +1,16 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "1:1 문의하기",
-  description: "찾아줘 서비스 이용 중 궁금한 점이 있나요? 1:1 문의로 빠르게 접수해보세요.",
-  other: { "page-type": "inquiry-write" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("InquiryWrite");
+
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+    other: { "page-type": "inquiry-write" },
+  };
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return children;

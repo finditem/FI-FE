@@ -3,18 +3,18 @@
 import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { InquiryTargetType } from "@/types";
-import { INQUIRY_WRITE_CATEGORY_OPTIONS } from "@/constants";
 import { Icon, RequiredText, CategoryPopup } from "@/components";
 import { cn } from "@/utils";
+import { useTranslations } from "next-intl";
+import useInquiryCategoryOptions from "../../../../_hooks/useInquiryCategoryOptions/useInquiryCategoryOptions";
 
 interface InquiryWriteFormValues {
   inquiryType?: InquiryTargetType;
 }
 
-const getInquiryCategoryLabel = (category: InquiryTargetType) =>
-  INQUIRY_WRITE_CATEGORY_OPTIONS.find((option) => option.value === category)?.label ?? "";
-
 const InquiryCategoryButton = () => {
+  const t = useTranslations("InquiryWrite");
+  const categoryOptions = useInquiryCategoryOptions();
   const [categoryPopupOpen, setCategoryPopupOpen] = useState(false);
   const { control, setValue } = useFormContext<InquiryWriteFormValues>();
   const category = useWatch({ control, name: "inquiryType" });
@@ -27,7 +27,7 @@ const InquiryCategoryButton = () => {
     setCategoryPopupOpen(false);
   };
 
-  const categoryLabel = category ? getInquiryCategoryLabel(category) : "";
+  const categoryLabel = categoryOptions.find((option) => option.value === category)?.label ?? "";
 
   return (
     <div className="px-5 py-2">
@@ -39,7 +39,7 @@ const InquiryCategoryButton = () => {
         type="button"
         onClick={() => setCategoryPopupOpen(true)}
       >
-        {categoryLabel || "카테고리를 선택해주세요."}
+        {categoryLabel || t("categoryPlaceholder")}
         {!category && <RequiredText />}
         <Icon name="ArrowDown" size={12} className="ml-auto text-neutralInversed-normal-default" />
       </button>
@@ -50,6 +50,7 @@ const InquiryCategoryButton = () => {
         onSelect={(category) => handleSelectCategory(category as InquiryTargetType)}
         mode="inquiry"
         defaultSelected={category}
+        options={categoryOptions}
       />
     </div>
   );
