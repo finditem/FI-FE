@@ -6,8 +6,10 @@ import { ReportModal, DetailHeader, HeaderMenu } from "@/components";
 import { cn } from "@/utils";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { usePopoverOutsideClose } from "@/hooks";
+import { useTranslations } from "next-intl";
 
 const UserProfileDetailHeader = () => {
+  const t = useTranslations("UserProfilePage");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
 
@@ -21,10 +23,13 @@ const UserProfileDetailHeader = () => {
 
   return (
     <div className="relative">
-      <DetailHeader title="프로필">
+      <DetailHeader title={t("profile")}>
         {!isMyProfile && (
           <div className="relative" ref={menuWrapperRef}>
-            <HeaderMenu ariaLabel="더보기 메뉴" onClick={() => setIsMenuOpen((prev) => !prev)} />
+            <HeaderMenu
+              ariaLabel={t("moreMenuAriaLabel")}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+            />
 
             {isMenuOpen && me && (
               <button
@@ -37,7 +42,7 @@ const UserProfileDetailHeader = () => {
                 )}
                 onClick={() => setIsReportOpen(true)}
               >
-                <span className="text-h3-medium text-system-warning">신고하기</span>
+                <span className="text-h3-medium text-system-warning">{t("report")}</span>
               </button>
             )}
           </div>

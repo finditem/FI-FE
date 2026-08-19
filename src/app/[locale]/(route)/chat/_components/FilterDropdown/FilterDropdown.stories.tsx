@@ -1,6 +1,16 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import FilterDropdown from "./FilterDropdown";
-import { SORT_OPTIONS, TYPE_OPTIONS } from "../CHATLIST_CONST";
+
+const SORT_OPTIONS = [
+  { value: "latest", label: "최신순" },
+  { value: "oldest", label: "오래된순" },
+];
+
+const TYPE_OPTIONS = [
+  { value: "all", label: "전체" },
+  { value: "found", label: "발견" },
+  { value: "lost", label: "분실" },
+];
 
 const meta: Meta<typeof FilterDropdown> = {
   title: "페이지/채팅 목록 페이지/FilterDropdown",

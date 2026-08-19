@@ -293,6 +293,31 @@
     "cancel": "취소",
     "confirm": "차단하기"
   },
+  "UserProfilePage": {
+    "defaultNickname": "닉네임",
+    "profileTitle": "{nickname} 프로필",
+    "profile": "프로필",
+    "profileTabsAriaLabel": "프로필 탭",
+    "tabContentAriaLabel": "탭 콘텐츠",
+    "loading": "로딩 중...",
+    "moreMenuAriaLabel": "더보기 메뉴",
+    "report": "신고하기",
+    "tabs": {
+      "posts": "게시글",
+      "comments": "댓글",
+      "favorites": "즐겨찾기"
+    },
+    "empty": {
+      "postsTitle": "아직 작성한 게시글이 없어요",
+      "postsDescription": "해당 유저가 작성한 게시글이 없습니다.",
+      "commentsTitle": "아직 작성한 댓글이 없어요",
+      "commentsDescription": "아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!",
+      "favoritesTitle": "아직 즐겨찾기한 게시글이 없어요",
+      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다."
+    },
+    "likesAriaLabel": "좋아요 {count}개",
+    "likes": "좋아요 {count}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "관리자"
   },
@@ -879,6 +904,115 @@
     "searchLabel": "{keyword} 검색",
     "deleteLabel": "최근 검색어 삭제"
   },
+  "ChatListLayout": {
+    "title": "채팅 목록",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ListView": {
+    "regionSearchLoading": "지역 검색 불러오는 중...",
+    "regionTitle": "지역 선택",
+    "chatTitle": "채팅",
+    "pageHeading": "채팅 목록 페이지"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "지역 선택",
+    "loadingTitle": "채팅 목록 불러오는 중...",
+    "emptyTitle": "아직 채팅 내역이 없어요",
+    "emptyDescription": "채팅이 시작되면 여기에 채팅 목록이 표기돼요."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "전체",
+    "foundLabel": "발견",
+    "lostLabel": "분실",
+    "latestLabel": "최신순",
+    "oldestLabel": "오래된순",
+    "allSelectedLabel": "발견/분실"
+  },
+  "ChatItem": {
+    "withdrawnUser": "탈퇴한 회원",
+    "nicknameFallback": "닉네임을 불러오지 못했습니다.",
+    "addressFallback": "위치 정보를 불러오지 못했습니다.",
+    "timeFallback": "시간 정보가 없습니다.",
+    "imageMessage": "사진",
+    "messageFallback": "메시지를 불러오지 못했습니다.",
+    "unreadSrLabel": "읽지 않은 메시지 "
+  },
+  "useFormatDate": {
+    "now": "지금",
+    "minutesAgo": "{count}분 전",
+    "hoursAgo": "{count}시간 전",
+    "yesterday": "어제"
+  },
+  "ListSearch": {
+    "placeholder": "시/군/구를 입력해 주세요."
+  },
+  "RegionSearchView": {
+    "emptyResult": "검색 결과가 없습니다."
+  },
+  "ChatRoomLayout": {
+    "title": "채팅방 | 찾아줘! 채팅",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "알 수 없는 사용자이거나 탈퇴한 회원이에요",
+    "pageHeading": "채팅 상세 페이지",
+    "inputAriaLabel": "채팅 입력창"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "뒤로 가기 버튼",
+    "postLinkAriaLabel": "게시글 상세 페이지 이동",
+    "withdrawnUser": "탈퇴한 회원이에요",
+    "profileAriaLabel": "상대방 프로필 이동",
+    "thumbnailAlt": "채팅방 게시글 썸네일",
+    "deletedTitle": "삭제됨 {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "채팅방 메뉴 열기 버튼",
+    "reportLabel": "차단, 신고하기",
+    "leaveLabel": "채팅방 나가기"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "네, 나갈래요",
+    "title": "채팅방을 나가시겠어요?",
+    "description": "채팅방을 나가면 채팅 목록 및 대화 내용이 삭제되고\n복구할 수 없어요. 채팅방에서 나가시겠어요?"
+  },
+  "ChatChip": {
+    "findLabel": "발견",
+    "lostLabel": "분실",
+    "foundStatusLabel": "찾았어요"
+  },
+  "ChatImageBox": {
+    "youLabel": "나",
+    "theyLabel": "상대방"
+  },
+  "ChatImageButton": {
+    "imageAlt": "채팅 이미지 {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "숨기기",
+    "showMoreLabel": "더보기"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "빈 채팅 안내 화면",
+    "lostHelpText": "이 분실물을 주우셨나요?\n주인에게 먼저 연락해보세요.",
+    "findHelpText": "내 물건이 맞는지 확인해보세요.\n발견자에게 메시지를 보내세요."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "이미지 첨부",
+    "placeholderWithdrawn": "상대방이 탈퇴한 회원입니다.",
+    "placeholderDefault": "메시지 보내기",
+    "sendAriaLabel": "전송 버튼"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "사진 전송 취소 버튼",
+    "sendAriaLabel": "사진 전송 버튼",
+    "selectLabel": "사진 선택",
+    "sendCountLabel": "사진 {count}개 전송"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "이미지 처리 중 오류가 발생했습니다."
+  },
   "PostWritePage": {
     "defaultTitle": "물건 등록",
     "defaultDescription": "분실 또는 발견한 물건의 정보를 등록해보세요.",
@@ -941,6 +1075,371 @@
     "nearbyTitle": "{address} 근처",
     "selectedLocationFallback": "선택한 위치",
     "applyButton": "적용하기"
+  },
+  "AlertLayout": {
+    "title": "알림",
+    "description": "찾아줘에서 나에게 온 알림을 확인해보세요."
+  },
+  "AlertDetailHeader": {
+    "title": "알림",
+    "pageHeading": "알림 페이지"
+  },
+  "AlertCategories": {
+    "allLabel": "전체",
+    "categoryLabel": "카테고리 키워드",
+    "chatLabel": "채팅",
+    "commentLabel": "댓글",
+    "noticeLabel": "공지사항",
+    "inquiry_replyLabel": "문의",
+    "report_resultLabel": "신고"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "삭제하기",
+    "title": "정말로 알림을 삭제하시겠어요?",
+    "description": "삭제한 알림은 복구할 수 없습니다."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "전체 삭제",
+    "deleteSelectedLabel": "선택 삭제"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "선택된 알림, 탭하면 선택 해제",
+    "selectAriaLabel": "알림 선택",
+    "viewAriaLabel": "알림 확인, 외부 페이지 이동",
+    "emptyTitle": "아직 새 소식이 없어요",
+    "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
+  },
+  "MypageReportsDetailPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 상세 페이지"
+  },
+  "MypageReportsDetail": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "loadError": "신고 내역을 불러오는데 실패했어요",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "내 신고 내역"
+  },
+  "MypageReportsPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 페이지"
+  },
+  "MypageReportsFilter": {
+    "all": "전체",
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageReportsContent": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "detailAriaLabel": "신고 상세 보기",
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 신고 내역 목록 영역",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "NotificationSettingsLayout": {
+    "title": "알림 설정",
+    "description": "찾아줘에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
+  },
+  "NotificationSettingsPage": {
+    "title": "알림 설정",
+    "srOnlyTitle": "알림 설정 페이지"
+  },
+  "NotificationSettingList": {
+    "title": "알림 설정",
+    "allNotificationsAriaLabel": "전체 알림 설정"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "카테고리 키워드",
+    "selectCategoryKeywords": "카테고리 키워드 선택",
+    "chat": "채팅",
+    "comments": "댓글",
+    "favorites": "즐겨찾기",
+    "inquiries": "1:1 문의",
+    "reports": "신고",
+    "notices": "공지사항",
+    "toggleAriaLabel": "{label} 토글",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationCategory": {
+    "title": "카테고리 키워드",
+    "apply": "적용하기",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "permissionDenied": "알림 권한이 거절되었어요",
+    "registrationFailed": "브라우저 알림 등록에 실패했어요"
+  },
+  "MypageInquiriesLayout": {
+    "title": "내 문의 내역"
+  },
+  "MypageInquiriesPage": {
+    "title": "내 문의 내역",
+    "srOnlyTitle": "내 문의 내역 페이지"
+  },
+  "MypageInquiriesFilter": {
+    "all": "전체",
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageInquiriesContent": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "detailAriaLabel": "{title} 문의 상세 내용 보기",
+    "loadError": "내 문의 목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 문의 내역 목록 영역"
+  },
+  "MypageInquiriesDetail": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "loadError": "문의 내역을 불러오는데 실패했어요",
+    "imageAlt": "이미지 {number}",
+    "imageAriaLabel": "{number}번째 이미지 보기"
+  },
+  "InquiryCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
+  "MyPageLayout": {
+    "title": "마이페이지",
+    "titleTemplate": "%s | 찾아줘! 마이페이지",
+    "description": "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
+  },
+  "MyPageMenu": {
+    "myActivity": "내 활동",
+    "notification": "알림",
+    "reportInquiry": "신고/문의",
+    "accountManagement": "계정 관리",
+    "servicePolicy": "서비스 정책",
+    "myPosts": "내가 쓴 게시글",
+    "myComments": "내가 쓴 댓글",
+    "favorites": "즐겨찾기 목록",
+    "myActivities": "내 활동 내역",
+    "blockedUsers": "내가 차단한 계정",
+    "notificationSettings": "알림 설정",
+    "myReports": "내 신고 내역",
+    "myInquiries": "내 문의 내역",
+    "faq": "자주 묻는 질문",
+    "accountSettings": "계정 설정",
+    "serviceIntro": "서비스 소개",
+    "privacyPolicy": "개인정보처리방침",
+    "serviceTerms": "서비스 이용 약관",
+    "marketingTerms": "마케팅 수신 약관",
+    "contentPolicy": "콘텐츠 활용 동의서",
+    "notice": "공지사항",
+    "chatList": "채팅목록",
+    "logout": "로그아웃"
+  },
+  "MyPageProfile": {
+    "loginRequired": "로그인 시 이용 가능합니다.",
+    "editProfile": "프로필 수정",
+    "login": "로그인"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "AccountPage": {
+    "title": "계정 설정"
+  },
+  "AccountContainer": {
+    "profileLoadError": "프로필 조회에 실패했어요",
+    "defaultNickname": "사용자 닉네임",
+    "defaultEmail": "사용자 이메일",
+    "changePassword": "비밀번호 변경",
+    "deleteAccount": "회원 탈퇴",
+    "logout": "로그아웃"
+  },
+  "BlockedUsersLayout": {
+    "title": "내가 차단한 계정"
+  },
+  "ReportUserList": {
+    "loadError": "차단된 유저 데이터를 가져오는데 실패했어요",
+    "emptyTitle": "차단한 유저가 없어요",
+    "emptyDescription": "아직 차단한 유저가 없습니다.\n유저를 차단하면 이곳에 표기됩니다.",
+    "unblockAriaLabel": "{nickname} 차단 해제",
+    "unblockButton": "차단 해제"
+  },
+  "MypageFavoritesPage": {
+    "title": "즐겨찾기 목록",
+    "srOnlyTitle": "즐겨찾기 목록 페이지"
+  },
+  "MypageFavoritesLayout": {
+    "title": "즐겨찾기 목록",
+    "description": "찾아줘에서 내가 즐겨찾기한 분실 및 발견 게시글을 확인해보세요."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 즐겨찾기 목록 영역"
+  },
+  "MypagePostsPage": {
+    "title": "내가 쓴 게시글",
+    "srOnlyTitle": "내가 쓴 게시글 페이지"
+  },
+  "MypagePostsLayout": {
+    "title": "내가 쓴 게시글",
+    "description": "찾아줘에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
+  },
+  "MypagePostsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "게시글 목록 영역"
+  },
+  "MypageCommentsPage": {
+    "title": "내가 쓴 댓글",
+    "srOnlyTitle": "내가 쓴 댓글 페이지"
+  },
+  "MypageCommentsLayout": {
+    "title": "내가 쓴 댓글",
+    "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "필터 영역",
+    "date": "기간",
+    "sortAriaLabel": "정렬 필터",
+    "latest": "최신순",
+    "oldest": "오래된순"
+  },
+  "MypageCommentsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "댓글 목록 영역"
+  },
+  "MypageProfileLayout": {
+    "title": "프로필 설정",
+    "description": "나의 찾아줘 프로필을 관리해 보세요.",
+    "srOnlyTitle": "프로필 수정"
+  },
+  "MypageActivitiesPage": {
+    "title": "내 활동 내역",
+    "srOnlyTitle": "내 활동 내역 페이지"
+  },
+  "MypageActivitiesLayout": {
+    "title": "내 활동 내역",
+    "description": "찾아줘에서 내가 활동한 기록들을 확인해보세요."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "필터 선택 영역",
+    "date": "기간",
+    "activityAriaLabel": "활동 유형",
+    "activityType": "유형",
+    "bottomSheetTitle": "필터",
+    "all": "전체",
+    "post": "게시글",
+    "comment": "댓글",
+    "favorite": "즐겨찾기",
+    "inquiry": "1:1 문의",
+    "report": "신고"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "적용하기"
+  },
+  "ActivityContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 활동 내역 영역",
+    "postCreated": "게시글을 작성했어요.",
+    "commentCreated": "댓글을 작성했어요.",
+    "favoriteAdded": "게시글을 즐겨찾기했어요.",
+    "inquiryCreated": "1:1문의를 작성했어요.",
+    "inquiryAnswered": "1:1 문의에 대한 답변이 등록되었어요.",
+    "reportReceived": "신고가 접수되었어요.",
+    "reportAnswered": "신고에 대한 답변이 등록되었어요."
+  },
+  "DeleteAccountLayout": {
+    "title": "회원 탈퇴",
+    "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
+  },
+  "DeleteAccountPage": {
+    "title": "회원 탈퇴",
+    "srOnlyTitle": "회원탈퇴 페이지",
+    "userNotFound": "존재하지 않는 회원이에요",
+    "deleteFailed": "회원 탈퇴에 실패했어요"
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "탈퇴 선택 영역"
+  },
+  "DeleteAccountReason": {
+    "title": "탈퇴하시려는 이유를 알려주세요.",
+    "selectionLimit": "최대 3개 선택",
+    "notUsing": "잘 사용하지 않아요",
+    "lowTrust": "서비스에 대한 신뢰도가 낮아요",
+    "difficultToUse": "사용이 어려워요",
+    "duplicateAccount": "다른 계정이 있어요",
+    "unpleasantUser": "불쾌감을 주는 사용자를 만났어요",
+    "unfairRestriction": "억울하게 서비스 이용이 제한됐어요",
+    "other": "기타",
+    "otherRequired": "기타 사유를 입력해주세요.",
+    "otherPlaceholder": "서비스를 탈퇴하려는 이유를 작성해 주세요.",
+    "deleteButton": "탈퇴하기",
+    "nextButton": "다음"
+  },
+  "DeleteAccountPassword": {
+    "title": "비밀번호를 입력해 주세요.",
+    "placeholder": "현재 비밀번호를 입력해 주세요.",
+    "passwordMismatchField": "비밀번호가 일치하지 않아요.",
+    "passwordMismatchToast": "비밀번호가 일치하지 않아요",
+    "userNotFoundField": "존재하지 않는 회원이에요.",
+    "userNotFoundToast": "존재하지 않는 회원이에요",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteAccountModal": {
+    "title": "정말로 탈퇴하시겠습니까?",
+    "cancelButton": "취소",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteComplete": {
+    "title": "회원 탈퇴가 완료되었습니다.",
+    "description": "동일한 이메일로 1주일간 재가입이 불가합니다.",
+    "homeButton": "홈 화면으로 이동하기"
   },
   "NoticePage": {
     "metaTitle": "공지사항",

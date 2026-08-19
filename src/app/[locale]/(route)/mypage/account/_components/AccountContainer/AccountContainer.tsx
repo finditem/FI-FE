@@ -5,20 +5,23 @@ import { Icon, ProfileAvatar } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useLogout } from "@/hooks";
 import Link from "next/link";
-import { ACCOUNT_ROUTE } from "../../_constants/ACCOUNT_ROUTE";
+import { useTranslations } from "next-intl";
+import { useAccountRoute } from "../../_hooks/useAccountRoute/useAccountRoute";
 
 const AccountContainer = () => {
+  const t = useTranslations("AccountContainer");
+  const accountRoute = useAccountRoute();
   const { data: profileData, isError } = useGetUsersMe();
   const { addToast } = useToast();
 
   if (isError) {
-    addToast("프로필 조회에 실패했어요", "warning");
+    addToast(t("profileLoadError"), "warning");
   }
 
   const { profileImg, nickname, email } = profileData?.result ?? {
     profileImg: "",
-    nickname: "사용자 닉네임",
-    email: "사용자 이메일",
+    nickname: t("defaultNickname"),
+    email: t("defaultEmail"),
   };
   const { handleLogout, isPending } = useLogout();
 
@@ -40,10 +43,10 @@ const AccountContainer = () => {
       <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-divider-default_3" />
 
       <div className="flex w-full flex-col gap-3 px-5 py-6">
-        {ACCOUNT_ROUTE.map((item) => (
+        {accountRoute.map((item) => (
           <Link
             href={item.pageLink}
-            key={item.pageName}
+            key={item.key}
             className="flex w-full justify-between py-[10px] text-body1-semibold text-neutral-strong-default"
           >
             {item.pageName}
@@ -56,7 +59,7 @@ const AccountContainer = () => {
           onClick={handleLogout}
           disabled={isPending}
         >
-          로그아웃
+          {t("logout")}
         </button>
       </div>
     </div>

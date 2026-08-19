@@ -7,11 +7,11 @@ import { Icon, ToggleButton } from "@/components";
 import NotificationCategory from "../NotificationCategory/NotificationCategory";
 import { NotificationSetting } from "@/api/fetch/notification";
 import { useToggleClick } from "../../_hooks/useToggleClick";
-import { CATEGORY_OPTIONS } from "@/constants";
 import { CategoryType } from "@/types";
+import { useTranslations } from "next-intl";
 
 interface NotificationSettingItem {
-  item: { label: NotificationLabelType; value: NotificationSettingType };
+  item: { labelKey: NotificationLabelType; value: NotificationSettingType };
   browserNotification: boolean;
   notificationStatus: NotificationSetting; // 전체 알림 상태
   isOn: boolean; // 각 알림의 현재 상태
@@ -23,15 +23,17 @@ const NotificationSettingItem = ({
   notificationStatus,
   isOn,
 }: NotificationSettingItem) => {
-  const { label, value } = item;
+  const t = useTranslations("NotificationSettingItem");
+  const { labelKey, value } = item;
+  const label = t(labelKey);
 
-  const toggleAriaLabel = label + "토글";
+  const toggleAriaLabel = t("toggleAriaLabel", { label });
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const { handleToggle } = useToggleClick(notificationStatus);
 
   const getLabelByValue = (value: CategoryType) => {
-    return CATEGORY_OPTIONS.find((option) => option.value === value)?.label;
+    return t(`categories.${value}`);
   };
 
   return (
@@ -56,7 +58,7 @@ const NotificationSettingItem = ({
               >
                 {notificationStatus.enabledCategories
                   .map((item) => getLabelByValue(item))
-                  .join(", ") || "카테고리 키워드 선택"}
+                  .join(", ") || t("selectCategoryKeywords")}
               </span>
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </button>
