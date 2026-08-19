@@ -4,7 +4,7 @@ import { Filter } from "@/components";
 import { useSearchParams } from "next/navigation";
 import { useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { SELECTED_TEXT } from "../CHATLIST_CONST";
+import useSelectedFilterText from "../../_hooks/useSelectedFilterText/useSelectedFilterText";
 import { cn } from "@/utils";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
 
@@ -24,6 +24,7 @@ const FilterDropdown = ({ options, keyName, searchUpdateQuery }: FilterDropdownP
   const containerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const selectedText = useSelectedFilterText();
   usePopoverOutsideClose(isOpen, containerRef, dropdownRef, () => setIsOpen(false));
   usePopoverPosition(isOpen, containerRef, dropdownRef);
 
@@ -34,7 +35,7 @@ const FilterDropdown = ({ options, keyName, searchUpdateQuery }: FilterDropdownP
   const isSelected = !isDefault;
   const effectiveKey = isDefault ? defaultKey : normalized;
   const displayText =
-    SELECTED_TEXT[effectiveKey as keyof typeof SELECTED_TEXT] ?? SELECTED_TEXT[defaultKey];
+    selectedText[effectiveKey as keyof typeof selectedText] ?? selectedText[defaultKey];
 
   const handleOptionClick = (value: string) => {
     searchUpdateQuery(keyName, value);

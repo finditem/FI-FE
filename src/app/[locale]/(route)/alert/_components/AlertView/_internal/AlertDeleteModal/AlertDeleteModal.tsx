@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { ModalLayout } from "@/components";
 
@@ -21,16 +22,17 @@ const AlertDeleteModal = ({
   onConfirm,
   onCancel,
 }: AlertDeleteModalProps) => {
+  const t = useTranslations("AlertDeleteModal");
   const buttons = [
     {
       key: "cancel",
-      label: "아니요",
+      label: t("cancelLabel"),
       onClick: onCancel,
       style: BUTTON_STYLE_CANCEL,
     },
     {
       key: "confirm",
-      label: "삭제하기",
+      label: t("confirmLabel"),
       onClick: onConfirm,
       style: BUTTON_STYLE_CONFIRM,
     },
@@ -40,12 +42,8 @@ const AlertDeleteModal = ({
     <ModalLayout isOpen={isOpen} onClose={onClose} className={cn("gap-6 p-6 flex-col-center")}>
       <div className="gap-4 flex-col-center">
         <div className="gap-1 text-center flex-col-center">
-          <div className="text-h3-semibold text-layout-header-default">
-            정말로 알림을 삭제하시겠어요?
-          </div>
-          <div className="text-body2-regular text-layout-body-default">
-            삭제한 알림은 복구할 수 없습니다.
-          </div>
+          <div className="text-h3-semibold text-layout-header-default">{t("title")}</div>
+          <div className="text-body2-regular text-layout-body-default">{t("description")}</div>
         </div>
       </div>
 
