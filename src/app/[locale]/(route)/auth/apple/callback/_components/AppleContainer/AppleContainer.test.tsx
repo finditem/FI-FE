@@ -1,10 +1,10 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import KakaoContainer from "./KakaoContainer";
+import AppleContainer from "./AppleContainer";
 
-const mockKakaoLoginMutate = jest.fn();
-const mockKakaoPatchMutate = jest.fn();
-const mockUseApiKakaoLogin = jest.fn();
+const mockAppleLoginMutate = jest.fn();
+const mockApplePatchMutate = jest.fn();
+const mockUseApiAppleLogin = jest.fn();
 const mockUsePatchKakaoTerms = jest.fn();
 const mockUseAgreeStore = jest.fn();
 const mockRouterReplace = jest.fn();
@@ -12,7 +12,7 @@ const mockRouterPush = jest.fn();
 const mockUseSearchParams = jest.fn();
 
 jest.mock("@/api/fetch/auth", () => ({
-  useApiKakaoLogin: () => mockUseApiKakaoLogin(),
+  useApiAppleLogin: () => mockUseApiAppleLogin(),
 }));
 
 jest.mock("@/api/fetch/user", () => ({
@@ -28,9 +28,9 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => mockUseSearchParams(),
 }));
 
-jest.mock("../KakaoLoading/KakaoLoading", () => ({
+jest.mock("../AppleLoading/AppleLoading", () => ({
   __esModule: true,
-  default: () => <div data-testid="kakao-loading">로그인 요청 중...</div>,
+  default: () => <div data-testid="apple-loading">로그인 요청 중...</div>,
 }));
 
 jest.mock("@/components/domain", () => ({
@@ -69,12 +69,12 @@ const withCodeParams = {
 };
 const withTermNameParams = { get: (key: string) => (key === "termName" ? "privacyPolicy" : null) };
 
-describe("<KakaoContainer />", () => {
+describe("<AppleContainer />", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     sessionStorage.clear();
-    mockUseApiKakaoLogin.mockReturnValue({ mutate: mockKakaoLoginMutate });
-    mockUsePatchKakaoTerms.mockReturnValue({ mutate: mockKakaoPatchMutate, isPending: false });
+    mockUseApiAppleLogin.mockReturnValue({ mutate: mockAppleLoginMutate });
+    mockUsePatchKakaoTerms.mockReturnValue({ mutate: mockApplePatchMutate, isPending: false });
     mockUseAgreeStore.mockReturnValue({ termsAgreed: false, isLoggedIn: false, login: jest.fn() });
     mockUseSearchParams.mockReturnValue(noCodeParams);
   });
@@ -85,17 +85,17 @@ describe("<KakaoContainer />", () => {
       mockUseSearchParams.mockReturnValue(withCodeParams);
     });
 
-    it("KakaoLoading이 렌더된다", () => {
-      mockKakaoLoginMutate.mockImplementation(() => {});
-      render(<KakaoContainer />);
-      expect(screen.getByTestId("kakao-loading")).toBeInTheDocument();
+    it("AppleLoading이 렌더된다", () => {
+      mockAppleLoginMutate.mockImplementation(() => {});
+      render(<AppleContainer />);
+      expect(screen.getByTestId("apple-loading")).toBeInTheDocument();
     });
 
-    it("마운트 시 KakaoLoginMutate가 code와 함께 호출된다", async () => {
-      mockKakaoLoginMutate.mockImplementation(() => {});
-      render(<KakaoContainer />);
+    it("마운트 시 AppleLoginMutate가 code와 함께 호출된다", async () => {
+      mockAppleLoginMutate.mockImplementation(() => {});
+      render(<AppleContainer />);
       await waitFor(() => {
-        expect(mockKakaoLoginMutate).toHaveBeenCalledWith(
+        expect(mockAppleLoginMutate).toHaveBeenCalledWith(
           expect.objectContaining({ code: "test-auth-code" }),
           expect.any(Object)
         );
@@ -107,7 +107,7 @@ describe("<KakaoContainer />", () => {
     beforeEach(() => {
       sessionStorage.setItem("oauthState", "test-state");
       mockUseSearchParams.mockReturnValue(withCodeParams);
-      mockKakaoLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
+      mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
         onSuccess({ result: { termsAgreed: true } });
       });
     });
@@ -119,14 +119,14 @@ describe("<KakaoContainer />", () => {
         isLoggedIn: false,
         login: mockLogin,
       });
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       await waitFor(() => {
         expect(mockLogin).toHaveBeenCalledWith(true);
       });
     });
 
     it("router.replace('/')가 호출된다", async () => {
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       await waitFor(() => {
         expect(mockRouterReplace).toHaveBeenCalledWith("/");
       });
@@ -137,7 +137,7 @@ describe("<KakaoContainer />", () => {
     beforeEach(() => {
       sessionStorage.setItem("oauthState", "test-state");
       mockUseSearchParams.mockReturnValue(withCodeParams);
-      mockKakaoLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
+      mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
         onSuccess({ result: { termsAgreed: false } });
       });
     });
@@ -149,14 +149,14 @@ describe("<KakaoContainer />", () => {
         isLoggedIn: false,
         login: mockLogin,
       });
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       await waitFor(() => {
         expect(mockLogin).toHaveBeenCalledWith(false);
       });
     });
 
     it("step이 Term으로 변경되어 TermsAgreement가 렌더된다", async () => {
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       await waitFor(() => {
         expect(screen.getByTestId("terms-agreement")).toBeInTheDocument();
       });
@@ -167,7 +167,7 @@ describe("<KakaoContainer />", () => {
     it("TermsAgreement가 렌더된다", () => {
       mockUseAgreeStore.mockReturnValue({ termsAgreed: false, isLoggedIn: true, login: jest.fn() });
       mockUseSearchParams.mockReturnValue(noCodeParams);
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       expect(screen.getByTestId("terms-agreement")).toBeInTheDocument();
     });
   });
@@ -178,14 +178,14 @@ describe("<KakaoContainer />", () => {
     });
 
     it("Terms가 렌더된다", () => {
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       expect(screen.getByTestId("terms")).toBeInTheDocument();
     });
 
-    it("onAgree 클릭 시 router.push('/auth/kakao/callback')이 호출된다", () => {
-      render(<KakaoContainer />);
+    it("onAgree 클릭 시 router.push('/auth/apple/callback')이 호출된다", () => {
+      render(<AppleContainer />);
       fireEvent.click(screen.getByRole("button", { name: "동의" }));
-      expect(mockRouterPush).toHaveBeenCalledWith("/auth/kakao/callback");
+      expect(mockRouterPush).toHaveBeenCalledWith("/auth/apple/callback");
     });
   });
 
@@ -197,7 +197,7 @@ describe("<KakaoContainer />", () => {
         login: jest.fn(),
       });
       mockUseSearchParams.mockReturnValue(noCodeParams);
-      render(<KakaoContainer />);
+      render(<AppleContainer />);
       expect(screen.getByTestId("error-view")).toBeInTheDocument();
     });
   });
@@ -208,12 +208,12 @@ describe("<KakaoContainer />", () => {
       mockUseSearchParams.mockReturnValue(withCodeParams);
     });
 
-    it("KakaoLoginMutate가 호출되지 않고 ErrorView가 렌더된다", async () => {
-      render(<KakaoContainer />);
+    it("AppleLoginMutate가 호출되지 않고 ErrorView가 렌더된다", async () => {
+      render(<AppleContainer />);
       await waitFor(() => {
         expect(screen.getByTestId("error-view")).toBeInTheDocument();
       });
-      expect(mockKakaoLoginMutate).not.toHaveBeenCalled();
+      expect(mockAppleLoginMutate).not.toHaveBeenCalled();
     });
   });
 });

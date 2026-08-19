@@ -1,12 +1,34 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
+import { TERM_CONTENTS } from "@/components/domain/Terms/_constants/TERM_CONTENTS";
 
-export const metadata: Metadata = {
-  title: "이용 약관",
-  description: "찾아줘 서비스에 액세스하거나 서비스를 이용할 때 적용되는 약관을 확인해 보세요.",
-  other: { "page-type": "terms" },
+interface LayoutProps {
+  children: ReactNode;
+  params: Promise<{ termName: string }>;
+}
+
+const TERM_HEADER_BY_ROUTE_PARAM: Record<string, string> = {
+  privacy: TERM_CONTENTS.privacyPolicyAgreed.termHeader,
+  service: TERM_CONTENTS.termsOfServiceAgreed.termHeader,
+  marketing: TERM_CONTENTS.marketingConsent.termHeader,
+  contentPolicy: TERM_CONTENTS.contentPolicyAgreed.termHeader,
 };
 
-export default function Layout({ children }: { children: ReactNode }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: LayoutProps["params"];
+}): Promise<Metadata> {
+  const { termName } = await params;
+  const termHeader = TERM_HEADER_BY_ROUTE_PARAM[termName] ?? "이용 약관";
+
+  return {
+    title: termHeader,
+    description: `찾아줘 서비스의 ${termHeader} 내용을 확인해 보세요.`,
+    other: { "page-type": "terms" },
+  };
+}
+
+export default function Layout({ children }: LayoutProps) {
   return <>{children}</>;
 }

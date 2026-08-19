@@ -2,6 +2,7 @@ export * from "./types/ApiFindPwType";
 export * from "./types/CheckCodeResponseType";
 export * from "./types/ApiSingUpType";
 export * from "./types/KakaoLoginResponseType";
+export * from "./types/AppleLoginResponseType";
 
 export { useApiCheckCode } from "./api/useApiCheckCode";
 export { useApiCheckNickname } from "./api/useApiCheckNickname";
@@ -9,6 +10,7 @@ export { useApiFindPw } from "./api/useApiFindPw";
 export { useApiSendEmail } from "./api/useApiSendEmail";
 export { useApiSignUp } from "./api/useApiSignUp";
 export { useApiKakaoLogin } from "./api/useApiKakaoLogin";
+export { useApiAppleLogin } from "./api/useApiAppleLogin";
 export { useApiRefreshToken } from "./api/useApiRefreshToken";
 export { useApiLogout } from "./api/useApiLogout";
 export { useApiEmailLogin } from "./api/useApiEmailLogin";

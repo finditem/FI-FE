@@ -1,4 +1,5 @@
 import { ProfileAvatar } from "@/components";
+import { useTranslations } from "next-intl";
 
 interface UserHeaderProps {
   data?: {
@@ -8,6 +9,7 @@ interface UserHeaderProps {
 }
 
 const UserHeader = ({ data }: UserHeaderProps) => {
+  const t = useTranslations("UserProfilePage");
   const { nickname, profileImg } = data || {};
 
   return (
@@ -16,7 +18,7 @@ const UserHeader = ({ data }: UserHeaderProps) => {
 
       <div className="flex flex-col items-start gap-1">
         <h2 className="text-body1-semibold text-layout-header-default">
-          {nickname || "로딩 중..."}
+          {nickname || t("loading")}
         </h2>
       </div>
     </section>

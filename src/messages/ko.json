@@ -293,6 +293,31 @@
     "cancel": "취소",
     "confirm": "차단하기"
   },
+  "UserProfilePage": {
+    "defaultNickname": "닉네임",
+    "profileTitle": "{nickname} 프로필",
+    "profile": "프로필",
+    "profileTabsAriaLabel": "프로필 탭",
+    "tabContentAriaLabel": "탭 콘텐츠",
+    "loading": "로딩 중...",
+    "moreMenuAriaLabel": "더보기 메뉴",
+    "report": "신고하기",
+    "tabs": {
+      "posts": "게시글",
+      "comments": "댓글",
+      "favorites": "즐겨찾기"
+    },
+    "empty": {
+      "postsTitle": "아직 작성한 게시글이 없어요",
+      "postsDescription": "해당 유저가 작성한 게시글이 없습니다.",
+      "commentsTitle": "아직 작성한 댓글이 없어요",
+      "commentsDescription": "아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!",
+      "favoritesTitle": "아직 즐겨찾기한 게시글이 없어요",
+      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다."
+    },
+    "likesAriaLabel": "좋아요 {count}개",
+    "likes": "좋아요 {count}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "관리자"
   },
@@ -1273,5 +1298,34 @@
     "title": "회원 탈퇴가 완료되었습니다.",
     "description": "동일한 이메일로 1주일간 재가입이 불가합니다.",
     "homeButton": "홈 화면으로 이동하기"
+  },
+  "HelloPage": {
+    "metaTitle": "서비스 소개",
+    "metaDescription": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",
+    "heading": "서비스 소개 페이지",
+    "features": {
+      "intro": {
+        "title": "분실물 찾기, 더 쉽고 빠르게",
+        "descriptionLine1": "물건을 잃어버렸을 때, 어떻게 찾아야 할지 막막할 때가 있죠. '찾아줘!'는 그런 순간에",
+        "descriptionLine2": "함께하는 실시간 위치 기반 분실물 찾기 플랫폼입니다."
+      },
+      "browse": {
+        "title": "지역, 카테고리별 분실물 제보 확인",
+        "description": "분실 지역, 물건 카테고리별로 분실물 제보를 확인하고 편리하게 유실물을 찾아보세요."
+      },
+      "chat": {
+        "title": "제보자와 실시간 채팅",
+        "description": "실시간 채팅으로 제보자와 바로 대화하며 잃어버린 물건을 더 빠르고 쉽게 되찾을 수 있어요."
+      },
+      "alert": {
+        "title": "카테고리 알림으로 신규 게시글 확인",
+        "description": "알림을 받고 싶은 분실물 카테고리 키워드를 등록하면, 해당 게시글이 등록됐을 때 알림을 전송해요."
+      }
+    },
+    "cta": {
+      "title": "분실의 걱정을 가볍게, 찾아줘!",
+      "description": "'찾아줘!'와 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.",
+      "button": "찾아줘 홈으로 이동"
+    }
   }
 }
