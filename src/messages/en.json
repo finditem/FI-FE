@@ -1110,6 +1110,148 @@
     "emptyTitle": "No news yet",
     "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
   },
+  "MypageReportsDetailPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "Report details page"
+  },
+  "MypageReportsDetail": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "loadError": "Couldn't load the report.",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "Admin",
+    "attachedImageAlt": "Attached image {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "My Reports"
+  },
+  "MypageReportsPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "My reports page"
+  },
+  "MypageReportsFilter": {
+    "all": "All",
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "status": "Status",
+    "srOnlyTitle": "Filter options",
+    "filterAriaLabel": "Filter"
+  },
+  "MypageReportsContent": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "detailAriaLabel": "View report details",
+    "loadError": "Couldn't load your reports.",
+    "srOnlyTitle": "My reports list",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
+  "NotificationSettingsLayout": {
+    "title": "Notification Settings",
+    "description": "Choose and manage the notifications you receive from finditem."
+  },
+  "NotificationSettingsPage": {
+    "title": "Notification Settings",
+    "srOnlyTitle": "Notification settings page"
+  },
+  "NotificationSettingList": {
+    "title": "Notifications",
+    "allNotificationsAriaLabel": "All notification settings"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "Category Keywords",
+    "selectCategoryKeywords": "Select Category Keywords",
+    "chat": "Chat",
+    "comments": "Comments",
+    "favorites": "Favorites",
+    "inquiries": "Inquiries",
+    "reports": "Reports",
+    "notices": "Notices",
+    "toggleAriaLabel": "Toggle {label}",
+    "categories": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallets",
+      "ID_CARD": "ID Cards",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bags",
+      "CARD": "Cards",
+      "ETC": "Other"
+    }
+  },
+  "NotificationCategory": {
+    "title": "Category Keywords",
+    "apply": "Apply",
+    "categories": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallets",
+      "ID_CARD": "ID Cards",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bags",
+      "CARD": "Cards",
+      "ETC": "Other"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "This browser doesn't support notifications.",
+    "permissionDenied": "Notification permission was denied.",
+    "registrationFailed": "Couldn't enable browser notifications."
+  },
+  "MypageInquiriesLayout": {
+    "title": "My Inquiries"
+  },
+  "MypageInquiriesPage": {
+    "title": "My Inquiries",
+    "srOnlyTitle": "My inquiries page"
+  },
+  "MypageInquiriesFilter": {
+    "all": "All",
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "status": "Status",
+    "srOnlyTitle": "Filter options",
+    "filterAriaLabel": "Filter"
+  },
+  "MypageInquiriesContent": {
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "detailAriaLabel": "View details for {title}",
+    "loadError": "Couldn't load your inquiries.",
+    "srOnlyTitle": "My inquiries list"
+  },
+  "MypageInquiriesDetail": {
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "loadError": "Couldn't load the inquiry.",
+    "imageAlt": "Image {number}",
+    "imageAriaLabel": "View image {number}"
+  },
+  "InquiryCommentItem": {
+    "admin": "Admin",
+    "attachedImageAlt": "Attached image {number}"
+  },
   "MyPageLayout": {
     "title": "My Page",
     "titleTemplate": "%s | finditem! My Page",

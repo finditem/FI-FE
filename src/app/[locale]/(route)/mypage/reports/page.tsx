@@ -1,11 +1,14 @@
 import { DetailHeader, MypageSearch } from "@/components";
 import { MypageReportsContent, MypageReportsFilter } from "./_components";
+import { getTranslations } from "next-intl/server";
 
-const page = () => {
+const page = async () => {
+  const t = await getTranslations("MypageReportsPage");
+
   return (
     <>
-      <DetailHeader title="내 신고 내역" />
-      <h1 className="sr-only">내 신고 내역 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
       <div className="w-full h-base">
         <MypageSearch searchMode="reports" />
 

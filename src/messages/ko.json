@@ -1110,6 +1110,148 @@
     "emptyTitle": "아직 새 소식이 없어요",
     "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
   },
+  "MypageReportsDetailPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 상세 페이지"
+  },
+  "MypageReportsDetail": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "loadError": "신고 내역을 불러오는데 실패했어요",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "내 신고 내역"
+  },
+  "MypageReportsPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 페이지"
+  },
+  "MypageReportsFilter": {
+    "all": "전체",
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageReportsContent": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "detailAriaLabel": "신고 상세 보기",
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 신고 내역 목록 영역",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "NotificationSettingsLayout": {
+    "title": "알림 설정",
+    "description": "찾아줘에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
+  },
+  "NotificationSettingsPage": {
+    "title": "알림 설정",
+    "srOnlyTitle": "알림 설정 페이지"
+  },
+  "NotificationSettingList": {
+    "title": "알림 설정",
+    "allNotificationsAriaLabel": "전체 알림 설정"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "카테고리 키워드",
+    "selectCategoryKeywords": "카테고리 키워드 선택",
+    "chat": "채팅",
+    "comments": "댓글",
+    "favorites": "즐겨찾기",
+    "inquiries": "1:1 문의",
+    "reports": "신고",
+    "notices": "공지사항",
+    "toggleAriaLabel": "{label} 토글",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationCategory": {
+    "title": "카테고리 키워드",
+    "apply": "적용하기",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "permissionDenied": "알림 권한이 거절되었어요",
+    "registrationFailed": "브라우저 알림 등록에 실패했어요"
+  },
+  "MypageInquiriesLayout": {
+    "title": "내 문의 내역"
+  },
+  "MypageInquiriesPage": {
+    "title": "내 문의 내역",
+    "srOnlyTitle": "내 문의 내역 페이지"
+  },
+  "MypageInquiriesFilter": {
+    "all": "전체",
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageInquiriesContent": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "detailAriaLabel": "{title} 문의 상세 내용 보기",
+    "loadError": "내 문의 목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 문의 내역 목록 영역"
+  },
+  "MypageInquiriesDetail": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "loadError": "문의 내역을 불러오는데 실패했어요",
+    "imageAlt": "이미지 {number}",
+    "imageAriaLabel": "{number}번째 이미지 보기"
+  },
+  "InquiryCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
   "MyPageLayout": {
     "title": "마이페이지",
     "titleTemplate": "%s | 찾아줘! 마이페이지",
