@@ -20,13 +20,7 @@ interface MypageReportsItemProps {
 const MypageReportsItem = ({ reports, keyword }: MypageReportsItemProps) => {
   const t = useTranslations("MypageReportsContent");
   const formatDate = useFormatDate();
-  const {
-    reportId,
-    reportType,
-    reason,
-    status,
-    createdAt,
-  } = reports;
+  const { reportId, reportType, reason, status, createdAt } = reports;
   const reportTitle = t(`reportTypes.${reportType}`);
 
   return (

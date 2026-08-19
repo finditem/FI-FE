@@ -4,8 +4,10 @@
 import { FooterButton } from "@/components";
 import { PasswordConfirmSection, VerifyPasswordSection } from "../_internal";
 import { usePasswordSubmit } from "../../_hooks/usePasswordSubmit";
+import { useTranslations } from "next-intl";
 
 const ChangePasswordForm = () => {
+  const t = useTranslations("ChangePassword");
   const { handlePasswordChange, buttonDisabled } = usePasswordSubmit();
 
   return (
@@ -17,7 +19,7 @@ const ChangePasswordForm = () => {
       </div>
 
       <FooterButton type="submit" disabled={buttonDisabled}>
-        변경 완료
+        {t("submit")}
       </FooterButton>
     </form>
   );
