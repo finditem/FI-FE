@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Icon } from "@/components";
 import { UserCommentsDataType } from "@/api/fetch/user";
-import { formatDate } from "@/utils";
 import { useTranslations } from "next-intl";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 
 interface NormalizedCommentItem {
   postId: number;
@@ -43,6 +43,7 @@ interface UserCommentItemProps {
 }
 const UserCommentItem = ({ data }: UserCommentItemProps) => {
   const t = useTranslations("UserProfilePage");
+  const formatDate = useFormatDate();
   const { postId, comment, date, likes } = normalizeCommentData(data);
 
   return (
