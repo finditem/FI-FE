@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { getImageLayout, getSpecialLayoutGroups } from "@/utils/getImageLayout/getImageLayout";
 import ChatImageButton from "../ChatImageButton/ChatImageButton";
@@ -17,6 +18,7 @@ const ChatImageBox = ({
   bubbleOrder: string;
   opponentNickname?: string;
 }) => {
+  const t = useTranslations("ChatImageBox");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
@@ -30,7 +32,7 @@ const ChatImageBox = ({
     setIsModalOpen(true);
   };
 
-  const uploader = bubbleOrder === "order-1" ? opponentNickname || "상대방" : "나";
+  const uploader = bubbleOrder === "order-1" ? opponentNickname || t("theyLabel") : t("youLabel");
 
   return (
     <>

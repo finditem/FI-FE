@@ -3,11 +3,12 @@
 import { Icon, ReportModal } from "@/components";
 import { cn } from "@/utils";
 import { useState } from "react";
-import { INFO_OPTIONS } from "../CHATROOM_CONST";
 import { InfoButtonOptionValue } from "../../_types/InfoButtonOptionValue";
 import useLeaveChatRoom from "@/api/fetch/chatRoom/api/useLeaveChatRoom";
 import { useClickOutside } from "@/hooks";
 import ChatLeaveModal from "./_internal/ChatLeaveModal";
+import useInfoOptions from "../../_hooks/useInfoOptions/useInfoOptions";
+import { useTranslations } from "next-intl";
 
 const MenuItem = ({
   chatMenuOpen,
@@ -16,11 +17,12 @@ const MenuItem = ({
   chatMenuOpen: boolean;
   onOptionClick: (value: InfoButtonOptionValue) => void;
 }) => {
+  const infoOptions = useInfoOptions();
   if (!chatMenuOpen) return null;
 
   return (
     <ul className="absolute right-0 top-10 z-10 m-0 list-none p-0" role="menu">
-      {INFO_OPTIONS.map(({ value, label, textColor, position }) => {
+      {infoOptions.map(({ value, label, textColor, position }) => {
         return (
           <li key={value} role="menuitem">
             <button
@@ -43,6 +45,7 @@ const MenuItem = ({
 };
 
 const ChatRoomHeaderInfoButton = ({ roomId }: { roomId: number }) => {
+  const t = useTranslations("ChatRoomHeaderInfoButton");
   const [chatMenuOpen, setChatMenuOpen] = useState(false);
   const [leaveChatRoomModalOpen, setLeaveChatRoomModalOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
@@ -62,7 +65,7 @@ const ChatRoomHeaderInfoButton = ({ roomId }: { roomId: number }) => {
       <div ref={containerRef} className="relative">
         <button
           className="flex h-10 w-10 items-center justify-end"
-          aria-label="채팅방 메뉴 열기 버튼"
+          aria-label={t("menuAriaLabel")}
           type="button"
           onClick={() => setChatMenuOpen((prev) => !prev)}
         >
