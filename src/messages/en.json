@@ -1226,5 +1226,52 @@
     "inquiryAnswered": "Your inquiry received a response.",
     "reportReceived": "Your report was received.",
     "reportAnswered": "Your report received a response."
+  },
+  "DeleteAccountLayout": {
+    "title": "Delete Account",
+    "description": "Delete your finditem account and stop using the service."
+  },
+  "DeleteAccountPage": {
+    "title": "Delete Account",
+    "srOnlyTitle": "Delete account page",
+    "userNotFound": "This account doesn't exist.",
+    "deleteFailed": "Couldn't delete your account."
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "Account deletion steps"
+  },
+  "DeleteAccountReason": {
+    "title": "Why are you deleting your account?",
+    "selectionLimit": "Select up to 3",
+    "notUsing": "I don't use the service often",
+    "lowTrust": "I don't trust the service",
+    "difficultToUse": "The service is difficult to use",
+    "duplicateAccount": "I have another account",
+    "unpleasantUser": "I encountered an unpleasant user",
+    "unfairRestriction": "My access was unfairly restricted",
+    "other": "Other",
+    "otherRequired": "Enter another reason.",
+    "otherPlaceholder": "Tell us why you're deleting your account.",
+    "deleteButton": "Delete Account",
+    "nextButton": "Next"
+  },
+  "DeleteAccountPassword": {
+    "title": "Enter your password.",
+    "placeholder": "Enter your current password.",
+    "passwordMismatchField": "The password doesn't match.",
+    "passwordMismatchToast": "The password doesn't match",
+    "userNotFoundField": "This account doesn't exist.",
+    "userNotFoundToast": "This account doesn't exist",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteAccountModal": {
+    "title": "Delete your account?",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteComplete": {
+    "title": "Your account has been deleted.",
+    "description": "You can't sign up again with the same email for one week.",
+    "homeButton": "Go to Home"
   }
 }
