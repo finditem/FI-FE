@@ -1505,7 +1505,9 @@
       "ACCOUNT_LOGIN": "Account",
       "USAGE": "Using finditem",
       "ETC": "Other"
-    }
+    },
+    "submitSuccess": "Your inquiry has been submitted.",
+    "submitError": "Couldn't submit your inquiry."
   },
   "HelloPage": {
     "metaTitle": "About Our Service",

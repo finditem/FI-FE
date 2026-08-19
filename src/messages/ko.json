@@ -1505,7 +1505,9 @@
       "ACCOUNT_LOGIN": "계정",
       "USAGE": "이용방법",
       "ETC": "기타"
-    }
+    },
+    "submitSuccess": "1:1 문의를 등록했어요",
+    "submitError": "1:1 문의 등록에 실패했어요"
   },
   "HelloPage": {
     "metaTitle": "서비스 소개",
