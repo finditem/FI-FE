@@ -24,13 +24,7 @@ const MypageReportsIdContainer = ({ id }: { id: number }) => {
   const result = reportIdData?.result;
   if (!result) return null;
 
-  const {
-    reportType,
-    reason,
-    status,
-    answered,
-    createdAt,
-  } = result;
+  const { reportType, reason, status, answered, createdAt } = result;
 
   return (
     <div className="w-full h-base">

@@ -3,6 +3,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { DetailHeader } from "@/components";
 import { ChangePasswordForm } from "./_components";
+import { useTranslations } from "next-intl";
 
 interface ChangePasswordFormType {
   currentPassword: string;
@@ -11,6 +12,7 @@ interface ChangePasswordFormType {
 }
 
 const page = () => {
+  const t = useTranslations("ChangePassword");
   const methods = useForm<ChangePasswordFormType>({
     mode: "onChange",
     reValidateMode: "onChange",
@@ -18,8 +20,8 @@ const page = () => {
 
   return (
     <>
-      <DetailHeader title="비밀번호 변경" />
-      <h1 className="sr-only">비밀번호 변경 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("heading")}</h1>
 
       <section className="flex flex-col h-base">
         <FormProvider {...methods}>

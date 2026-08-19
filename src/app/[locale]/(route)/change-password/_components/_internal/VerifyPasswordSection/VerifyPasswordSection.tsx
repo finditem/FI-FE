@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { useFormContext } from "react-hook-form";
 import { usePostVerifyPassword } from "@/api/fetch/user";
 import { InputText, SnackBar } from "@/components";
+import { useTranslations } from "next-intl";
 
 const VerifyPasswordSection = () => {
+  const t = useTranslations("ChangePassword");
   const router = useRouter();
 
   const { getValues, setError, clearErrors } = useFormContext();
@@ -30,7 +32,7 @@ const VerifyPasswordSection = () => {
 
       setError("currentPassword", {
         type: "manual",
-        message: "비밀번호가 일치하지 않습니다.",
+        message: t("passwordMismatch"),
       });
     }
   };
@@ -41,12 +43,12 @@ const VerifyPasswordSection = () => {
     <>
       <section className="flex min-h-[92px] flex-col gap-2">
         <InputText
-          label="현재 비밀번호"
+          label={t("currentPasswordLabel")}
           inputOption={{
             name: "currentPassword",
             type: "password",
             autoFocus: true,
-            placeholder: "현재 비밀번호를 입력해주세요.",
+            placeholder: t("currentPasswordPlaceholder"),
             minLength: 8,
             maxLength: 16,
             disabled: isVerifySuccess,
@@ -55,21 +57,21 @@ const VerifyPasswordSection = () => {
             },
           }}
           btnOption={{
-            btnLabel: "비밀번호 확인",
+            btnLabel: t("verifyPassword"),
             btnOnClick: handleToVerifyPassword,
             disabled: buttonDisabled,
           }}
           caption={{
             isSuccess: isVerifySuccess,
-            successMessage: "비밀번호가 일치합니다.",
+            successMessage: t("passwordMatch"),
           }}
         />
       </section>
 
       {showSnackBar && (
         <SnackBar
-          message="비밀번호를 잊어버리셨나요?"
-          actionLabel="비밀번호 찾기"
+          message={t("forgotPassword")}
+          actionLabel={t("findPassword")}
           actionHandler={() => router.push("/find-pw")}
         />
       )}
