@@ -9,8 +9,10 @@ import { useBrowserNotificationPermission } from "../../_hooks/useBrowserNotific
 import { DEFAULT_NOTIFICATION_SETTING } from "../../_constants/DEFAULT_NOTIFICATION_SETTING";
 import { isBrowserNotificationEffectivelyEnabled } from "../../_utils/isBrowserNotificationEffectivelyEnabled";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const NotificationSettingList = () => {
+  const t = useTranslations("NotificationSettingList");
   const { data: notificationData, isLoading } = useGetNotificationSetting({ enabled: true });
 
   const { handleToggle } = useToggleClick(notificationData?.result);
@@ -34,9 +36,9 @@ const NotificationSettingList = () => {
     <ul className="w-full py-4">
       <li className="w-full px-5 py-2">
         <div className="flex h-11 w-full items-center justify-between">
-          <h3 className="text-h3-semibold text-neutral-normal-default">알림 설정</h3>
+          <h3 className="text-h3-semibold text-neutral-normal-default">{t("title")}</h3>
           <ToggleButton
-            ariaLabel="전체 알림 설정"
+            ariaLabel={t("allNotificationsAriaLabel")}
             toggleState={isBrowserNotificationOn}
             onClick={() => handleToggle("browserNotificationEnabled")}
           />

@@ -1110,6 +1110,92 @@
     "emptyTitle": "아직 새 소식이 없어요",
     "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
   },
+  "NotificationSettingsLayout": {
+    "title": "알림 설정",
+    "description": "찾아줘에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
+  },
+  "NotificationSettingsPage": {
+    "title": "알림 설정",
+    "srOnlyTitle": "알림 설정 페이지"
+  },
+  "NotificationSettingList": {
+    "title": "알림 설정",
+    "allNotificationsAriaLabel": "전체 알림 설정"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "카테고리 키워드",
+    "selectCategoryKeywords": "카테고리 키워드 선택",
+    "chat": "채팅",
+    "comments": "댓글",
+    "favorites": "즐겨찾기",
+    "inquiries": "1:1 문의",
+    "reports": "신고",
+    "notices": "공지사항",
+    "toggleAriaLabel": "{label} 토글",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationCategory": {
+    "title": "카테고리 키워드",
+    "apply": "적용하기",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "permissionDenied": "알림 권한이 거절되었어요",
+    "registrationFailed": "브라우저 알림 등록에 실패했어요"
+  },
+  "MypageInquiriesLayout": {
+    "title": "내 문의 내역"
+  },
+  "MypageInquiriesPage": {
+    "title": "내 문의 내역",
+    "srOnlyTitle": "내 문의 내역 페이지"
+  },
+  "MypageInquiriesFilter": {
+    "all": "전체",
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageInquiriesContent": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "detailAriaLabel": "{title} 문의 상세 내용 보기",
+    "loadError": "내 문의 목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 문의 내역 목록 영역"
+  },
+  "MypageInquiriesDetail": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "loadError": "문의 내역을 불러오는데 실패했어요",
+    "imageAlt": "이미지 {number}",
+    "imageAriaLabel": "{number}번째 이미지 보기"
+  },
+  "InquiryCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
   "DeleteAccountLayout": {
     "title": "회원 탈퇴",
     "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
