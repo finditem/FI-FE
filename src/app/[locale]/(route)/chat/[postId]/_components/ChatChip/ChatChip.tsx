@@ -1,6 +1,7 @@
 import { cn } from "@/utils";
-import { CHAT_CHIP_MODE, ChatChipMode } from "../CHATROOM_CONST";
+import { ChatChipMode } from "../CHATROOM_CONST";
 import { ItemStatus, PostType } from "@/types";
+import useChatChipMode from "../../_hooks/useChatChipMode/useChatChipMode";
 
 const CHIP_BASE_CLASS = "shrink-0 rounded text-caption2-semibold flex-center";
 
@@ -10,9 +11,10 @@ interface ChatChipProps {
 }
 
 const ChatChip = ({ postMode, postStatus }: ChatChipProps) => {
+  const chatChipMode = useChatChipMode();
   const chipMode: ChatChipMode = postMode === "FOUND" ? "FIND" : "LOST";
-  const typeChipConfig = CHAT_CHIP_MODE[chipMode];
-  const foundStatusConfig = CHAT_CHIP_MODE.FOUND_STATUS;
+  const typeChipConfig = chatChipMode[chipMode];
+  const foundStatusConfig = chatChipMode.FOUND_STATUS;
 
   return (
     <>

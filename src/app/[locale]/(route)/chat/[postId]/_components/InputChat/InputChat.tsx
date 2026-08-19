@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, TextareaHTMLAttributes, useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn, textareaAutoResize, fileInputHandler, textareaSubmitKeyHandler } from "@/utils";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import { Icon } from "@/components";
@@ -27,6 +28,7 @@ const InputChat = ({
   withdrawn,
   ...props
 }: InputChatProps) => {
+  const t = useTranslations("InputChat");
   const { control, watch } = useFormContext();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [images, setImages] = useState<File[]>([]);
@@ -68,7 +70,7 @@ const InputChat = ({
                   "relative h-11 w-11 shrink-0 rounded-full bg-fill-neutral-strong-default",
                   withdrawn && "cursor-default"
                 )}
-                aria-label="이미지 첨부"
+                aria-label={t("imageAttachAriaLabel")}
                 role="button"
                 aria-disabled={withdrawn}
               >
@@ -106,7 +108,7 @@ const InputChat = ({
                   "max-h-[120px] min-h-11 min-w-0 flex-1 resize-none overflow-y-hidden rounded-[24px] px-4 py-[10px] text-body1-medium text-neutral-normal-placeholder bg-fill-neutral-strong-default focus:text-black disabled:text-neutral-strong-disabled",
                   field.value && "text-neutral-strong-focused"
                 )}
-                placeholder={withdrawn ? "상대방이 탈퇴한 회원입니다." : "메시지 보내기"}
+                placeholder={withdrawn ? t("placeholderWithdrawn") : t("placeholderDefault")}
                 disabled={disabled || withdrawn}
                 maxLength={255}
               />
@@ -115,7 +117,7 @@ const InputChat = ({
               <button
                 type="submit"
                 className="relative h-11 w-11 shrink-0 rounded-full transition-colors bg-fill-brand-normal-default hover:bg-fill-brand-normal-disabled active:bg-fill-brand-normal-default disabled:bg-fill-brand-normal-disabled"
-                aria-label="전송 버튼"
+                aria-label={t("sendAriaLabel")}
                 disabled={disabled || !field.value?.trim()}
               >
                 <Icon
