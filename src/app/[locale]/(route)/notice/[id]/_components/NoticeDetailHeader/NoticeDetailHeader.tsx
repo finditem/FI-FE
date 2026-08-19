@@ -7,8 +7,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import NoticeDeleteModal from "./_internal/NoticeDeleteModal";
 import { useGetNoticeDetail } from "@/api/fetch/notice";
+import { useTranslations } from "next-intl";
 
 const NoticeDetailHeader = ({ id }: { id: number }) => {
+  const t = useTranslations("NoticePage.detail");
   const [isKebabMenuOpen, setIsKebabMenuOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [openShareModal, setOpenShareModal] = useState(false);
@@ -21,8 +23,8 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
     noticeData?.result || {};
 
   const metaData = {
-    title: title || "찾아줘 공지사항 공유",
-    summary: content || "공지사항을 확인해보세요",
+    title: title || t("shareTitle"),
+    summary: content || t("shareSummary"),
     thumbnailUrl,
     likeCount: likeCount || 0,
     commentCount: commentCount || 0,
@@ -33,10 +35,10 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
   return (
     <div className="relative" ref={kebabMenuRef}>
       <DetailHeader>
-        <HeaderShare onClick={() => setOpenShareModal(true)} ariaLabel="공지사항 공유" />
+        <HeaderShare onClick={() => setOpenShareModal(true)} ariaLabel={t("shareAriaLabel")} />
         {isAdmin && (
           <HeaderMenu
-            ariaLabel="공지 관리 메뉴"
+            ariaLabel={t("adminMenuAriaLabel")}
             onClick={() => setIsKebabMenuOpen((prev) => !prev)}
           />
         )}
@@ -47,14 +49,14 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
           <KebabMenu
             items={[
               {
-                text: "게시글 수정하기",
+                text: t("edit"),
                 icon: { name: "Edit" },
                 onClick: () => {
                   router.push(`/admin/notice/write/${id}`);
                 },
               },
               {
-                text: "게시글 삭제하기",
+                text: t("delete"),
                 icon: { name: "Trash" },
                 textColor: "text-system-warning",
                 onClick: () => setIsDeleteModalOpen(true),

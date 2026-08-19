@@ -16,8 +16,10 @@ import {
 import { DeleteCommentVariables } from "@/api/fetch/comment";
 import { useHandleNoticeReplySubmit } from "../../_hooks/useHandleNoticeReplySubmit/useHandleNoticeReplySubmit";
 import { useToggleNoticeCommentLike } from "../../_hooks/useToggleNoticeCommentLike/useToggleNoticeCommentLike";
+import { useTranslations } from "next-intl";
 
 const NoticeDetailView = ({ id }: { id: number }) => {
+  const t = useTranslations("NoticePage.detail");
   const { data: noticeDetail, isLoading, isError } = useGetNoticeDetail({ id });
   const { addToast } = useToast();
   const router = useRouter();
@@ -34,10 +36,10 @@ const NoticeDetailView = ({ id }: { id: number }) => {
 
   useEffect(() => {
     if (isError) {
-      addToast("공지사항 불러오기에 실패했어요", "error");
+      addToast(t("loadError"), "error");
       router.replace("/notice");
     }
-  }, [isError]);
+  }, [isError, addToast, router, t]);
 
   const handleDeleteComment = ({ commentId, queryKey }: DeleteCommentVariables) => {
     const firstKey = Array.isArray(queryKey) ? queryKey[0] : undefined;
