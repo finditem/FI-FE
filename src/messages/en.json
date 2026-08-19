@@ -1000,5 +1000,17 @@
     "emptyDescription": "You haven't blocked anyone yet.\nAccounts you block will appear here.",
     "unblockAriaLabel": "Unblock {nickname}",
     "unblockButton": "Unblock"
+  },
+  "MypageFavoritesPage": {
+    "title": "Favorites",
+    "srOnlyTitle": "Favorites page"
+  },
+  "MypageFavoritesLayout": {
+    "title": "Favorites",
+    "description": "View the lost and found posts you've saved on finditem."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "Couldn't load your favorites.",
+    "srOnlyTitle": "My favorites"
   }
 }
