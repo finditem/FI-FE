@@ -1,8 +1,15 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { ALERT_CATEGORIES } from "../ALERT_CONST";
 import AlertCategory from "./AlertCategory";
+import { ALERT_CATEGORIES as ALERT_CATEGORY_KEYS } from "../ALERT_CONST";
+import koMessages from "@/messages/ko.json";
+
+const ALERT_CATEGORIES = ALERT_CATEGORY_KEYS.map((category) => ({
+  ...category,
+  label:
+    koMessages.AlertCategories[`${category.key}Label` as keyof typeof koMessages.AlertCategories],
+}));
 
 const mockReplace = jest.fn();
 const mockGet = jest.fn();
