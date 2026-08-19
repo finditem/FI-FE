@@ -7,8 +7,10 @@ import { DeleteAccountType, useDeleteAccount } from "@/api/fetch/user";
 import { FormProvider, useForm } from "react-hook-form";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 const page = () => {
+  const t = useTranslations("DeleteAccountPage");
   const methods = useForm<DeleteAccountType>({ mode: "onChange", reValidateMode: "onChange" });
   const { addToast } = useToast();
 
@@ -33,8 +35,8 @@ const page = () => {
         queryClient.clear();
       },
       onError: (error) => {
-        if (error.code === "USER404-NOT_FOUND") addToast("존재하지 않는 회원이에요", "warning");
-        else if (error.code === "FILE500-DELETE_IO") addToast("회원 탈퇴에 실패했어요", "warning");
+        if (error.code === "USER404-NOT_FOUND") addToast(t("userNotFound"), "warning");
+        else if (error.code === "FILE500-DELETE_IO") addToast(t("deleteFailed"), "warning");
       },
     });
   };
@@ -45,8 +47,8 @@ const page = () => {
 
   return (
     <>
-      <DetailHeader title="회원 탈퇴" />
-      <h1 className="sr-only">회원탈퇴 페이지</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
 
       <FormProvider {...methods}>
         <form

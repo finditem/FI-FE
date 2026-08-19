@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useId } from "react";
 import { cn } from "@/utils";
 
 interface FeatureSectionContent {
@@ -14,10 +14,11 @@ interface FeatureSectionProps {
 
 const FeatureSection = ({ content, variant = "default", imageSlot }: FeatureSectionProps) => {
   const { title, description } = content;
+  const titleId = useId();
 
   return (
     <section
-      aria-labelledby={`service-introduce-${title}`}
+      aria-labelledby={titleId}
       className={cn(
         "w-full px-10 py-[60px] flex-col-center",
         variant === "highlight" && "bg-layoutBrand"
@@ -25,7 +26,9 @@ const FeatureSection = ({ content, variant = "default", imageSlot }: FeatureSect
     >
       {imageSlot}
       <div className="mt-10 gap-5 text-center flex-col-center">
-        <h2 className="text-h1-bold text-layout-header-default">{title}</h2>
+        <h2 id={titleId} className="text-h1-bold text-layout-header-default">
+          {title}
+        </h2>
         <p className="text-body1-regular text-layout-body-default">{description}</p>
       </div>
     </section>

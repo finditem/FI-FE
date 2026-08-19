@@ -3,8 +3,10 @@ import Link from "next/link";
 import { NoticeItem } from "@/api/fetch/notice";
 import { formatDate, highlightText } from "@/utils";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {
+  const t = useTranslations("NoticePage.list");
   const { noticeId, title, createdAt, likeCount, viewCount, thumbnailUrl, isNew, isHot } = notice;
   const keyword = useSearchParams()?.get("keyword") || "";
 
@@ -40,7 +42,7 @@ const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {
 
         {thumbnailUrl && (
           <div className="flex-shrink-0">
-            <ListItemImage src={thumbnailUrl} alt="공지사항 게시글 썸네일" size={90} />
+            <ListItemImage src={thumbnailUrl} alt={t("thumbnailAlt")} size={90} />
           </div>
         )}
       </Link>
@@ -49,12 +51,13 @@ const NoticeListItem = ({ notice }: { notice: NoticeItem }) => {
 };
 
 const NoticeList = ({ notices }: { notices: NoticeItem[] }) => {
+  const t = useTranslations("NoticePage.list");
   if (notices.length === 0)
     return (
       <EmptyState
         icon={{ iconName: "NoInquiries", iconSize: 70 }}
-        title="등록된 공지사항이 없어요"
-        description={"새로운 공지사항이 등록되면\n이곳에 표기됩니다."}
+        title={t("emptyTitle")}
+        description={t("emptyDescription")}
       />
     );
 

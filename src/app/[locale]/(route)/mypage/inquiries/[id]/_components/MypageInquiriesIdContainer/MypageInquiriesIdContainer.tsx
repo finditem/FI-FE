@@ -5,16 +5,19 @@ import { LoadingState, Chip, ImageViewerModal } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useEffect, useState } from "react";
 import { INQUIRY_STATUS_CHIP } from "../../../_constants/INQUIRY_STATUS_CHIP";
-import { formatDate } from "@/utils";
 import Image from "next/image";
 import InquiryCommentItem from "../InquiryCommentItem/InquiryCommentItem";
 import InquiryInputComment from "../InquiryInputComment/InquiryInputComment";
+import { useFormatDate } from "@/hooks";
+import { useTranslations } from "next-intl";
 
 interface MypageInquiriesIdContainerProps {
   id: number;
 }
 
 const MypageInquiriesIdContainer = ({ id }: MypageInquiriesIdContainerProps) => {
+  const t = useTranslations("MypageInquiriesDetail");
+  const formatDate = useFormatDate();
   const { data: reportIdData, isError, isLoading } = useGetUserInquiryById({ inquiryId: id });
   const { addToast } = useToast();
 
@@ -24,8 +27,8 @@ const MypageInquiriesIdContainer = ({ id }: MypageInquiriesIdContainerProps) => 
   }>({ isOpen: false, initialIndex: 0 });
 
   useEffect(() => {
-    if (isError) addToast("문의 내역을 불러오는데 실패했어요", "error");
-  }, [isError, addToast]);
+    if (isError) addToast(t("loadError"), "error");
+  }, [isError, addToast, t]);
 
   const result = reportIdData?.result;
 
@@ -39,7 +42,7 @@ const MypageInquiriesIdContainer = ({ id }: MypageInquiriesIdContainerProps) => 
             <div className="border-b-flat-gray-50 flex w-full flex-col gap-[14px] border-b px-5 py-[30px]">
               <div>
                 <Chip
-                  label={INQUIRY_STATUS_CHIP[result.status].label}
+                  label={t(INQUIRY_STATUS_CHIP[result.status].labelKey)}
                   type={INQUIRY_STATUS_CHIP[result.status].chipType}
                 />
               </div>
@@ -65,14 +68,14 @@ const MypageInquiriesIdContainer = ({ id }: MypageInquiriesIdContainerProps) => 
                     result.imageUrls.map((imageUrl, index) => (
                       <Image
                         key={index}
-                        alt={`이미지 ${index + 1}`}
+                        alt={t("imageAlt", { number: index + 1 })}
                         src={imageUrl}
                         width={0}
                         height={0}
                         sizes="100vw"
                         style={{ width: "100%", height: "auto", borderRadius: "10px" }}
                         className="cursor-pointer"
-                        aria-label={`${index + 1}번째 이미지 보기`}
+                        aria-label={t("imageAriaLabel", { number: index + 1 })}
                         onClick={() => setImageViewerState({ isOpen: true, initialIndex: index })}
                       />
                     ))}
@@ -87,7 +90,6 @@ const MypageInquiriesIdContainer = ({ id }: MypageInquiriesIdContainerProps) => 
               />
             </div>
 
-            {/* 댓글 목록 */}
             {result.comments && (
               <ul className="flex flex-col">
                 {result.comments.map((item) => (

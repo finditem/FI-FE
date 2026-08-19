@@ -1,6 +1,7 @@
 import { Button, ModalLayout } from "@/components";
 import { Dispatch, SetStateAction } from "react";
 import { useFormContext } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
 interface DeleteAccountModalProps {
   modalOpen: boolean;
@@ -9,6 +10,7 @@ interface DeleteAccountModalProps {
 }
 
 const DeleteAccountModal = ({ modalOpen, setModalOpen, onBack }: DeleteAccountModalProps) => {
+  const t = useTranslations("DeleteAccountModal");
   const {
     handleSubmit,
     formState: { isSubmitting },
@@ -20,7 +22,7 @@ const DeleteAccountModal = ({ modalOpen, setModalOpen, onBack }: DeleteAccountMo
       isOpen={modalOpen}
       onClose={() => setModalOpen(false)}
     >
-      <h3 className="text-h3-semibold text-layout-header-default">정말로 탈퇴하시겠습니까?</h3>
+      <h3 className="text-h3-semibold text-layout-header-default">{t("title")}</h3>
 
       <div className="flex w-full gap-2">
         <Button
@@ -32,7 +34,7 @@ const DeleteAccountModal = ({ modalOpen, setModalOpen, onBack }: DeleteAccountMo
             onBack();
           }}
         >
-          취소
+          {t("cancelButton")}
         </Button>
         <Button
           size="big"
@@ -45,7 +47,7 @@ const DeleteAccountModal = ({ modalOpen, setModalOpen, onBack }: DeleteAccountMo
           loading={isSubmitting}
           className="w-full !bg-system-warning"
         >
-          탈퇴하기
+          {t("deleteButton")}
         </Button>
       </div>
     </ModalLayout>

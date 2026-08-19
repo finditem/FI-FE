@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { DetailHeader } from "@/components/layout";
 import { FooterButton } from "@/components/domain";
 import { CheckBox } from "@/components/common";
+import { cn } from "@/utils";
 import { TERM_CONTENTS } from "./_constants/TERM_CONTENTS";
 import { useGetNotificationSetting, usePutNotificationSetting } from "@/api/fetch/notification";
 import { DEFAULT_NOTIFICATION_SETTING } from "@/app/[locale]/(route)/mypage/notifications/_constants/DEFAULT_NOTIFICATION_SETTING";
@@ -51,7 +52,12 @@ const Terms = ({ termName, onAgree, showButton = false, pageType = "TERM" }: Ter
   return (
     <>
       <DetailHeader title={pageType === "TERM" ? termHeader : title} />
-      <div className="whitespace-pre-wrap px-4 pb-[calc(88px+24px)] pt-6 text-body2-regular text-layout-body-default h-hfb-base">
+      <div
+        className={cn(
+          "whitespace-pre-wrap px-4 pt-6 text-body2-regular text-layout-body-default",
+          showButton ? "pb-[calc(88px+24px)] h-hfb-base" : "pb-6 h-base"
+        )}
+      >
         {pageType === "TERM" && isOptionalTerm && (
           <>
             <div className="flex h-11 w-full items-center">

@@ -9,7 +9,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import KakaoLoading from "../KakaoLoading/KakaoLoading";
 import { useAgreeStore } from "@/store";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
-import { isValidCallbackUrl } from "@/utils";
+import { isValidCallbackUrl, verifyOAuthState } from "@/utils";
 
 const KakaoContainer = () => {
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
@@ -17,6 +17,7 @@ const KakaoContainer = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const state = searchParams.get("state");
   const termName = searchParams.get("termName") ?? "";
 
   const [step, setStep] = useState<"Term" | "Loading" | "NoAction">(() => {
@@ -38,6 +39,12 @@ const KakaoContainer = () => {
     if (isRequesting.current) return;
 
     isRequesting.current = true;
+
+    if (!verifyOAuthState(state)) {
+      setStep("NoAction");
+      return;
+    }
+
     if (code) {
       KakaoLoginMutate(
         {
@@ -64,7 +71,7 @@ const KakaoContainer = () => {
     if (isLoggedIn && !termsAgreed) {
       setStep("Term");
     }
-  }, [code, KakaoLoginMutate, router, appEnv, login, step]);
+  }, [code, state, KakaoLoginMutate, router, appEnv, login, step]);
 
   const methods = useForm();
   const { setValue } = methods;
