@@ -7,8 +7,10 @@ import { useToast } from "@/context/ToastContext";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import DeleteAccountModal from "../DeleteAccountModal/DeleteAccountModal";
+import { useTranslations } from "next-intl";
 
 const DeleteAccountPassword = ({ onBack }: { onBack: () => void }) => {
+  const t = useTranslations("DeleteAccountPassword");
   const [modalOpen, setModalOpen] = useState(false);
   const { addToast } = useToast();
   const { getValues, watch, setError } = useFormContext();
@@ -40,14 +42,14 @@ const DeleteAccountPassword = ({ onBack }: { onBack: () => void }) => {
 
           if (errorCode === "USER400-PASSWORD_INCORRECT") {
             setError("passwordConfirm", {
-              message: "비밀번호가 일치하지 않아요.",
+              message: t("passwordMismatchField"),
             });
-            addToast("비밀번호가 일치하지 않아요", "warning");
+            addToast(t("passwordMismatchToast"), "warning");
           } else if (errorCode === "USER404-NOT_FOUND") {
             setError("passwordConfirm", {
-              message: "존재하지 않는 회원이에요.",
+              message: t("userNotFoundField"),
             });
-            addToast("존재하지 않는 회원이에요", "warning");
+            addToast(t("userNotFoundToast"), "warning");
           }
         },
       }
@@ -59,13 +61,13 @@ const DeleteAccountPassword = ({ onBack }: { onBack: () => void }) => {
   return (
     <>
       <div className="flex w-full flex-col gap-[18px] px-5 py-[30px] h-hf-base tablet:px-[80px]">
-        <h3 className="text-h3-semibold text-[#171717]">비밀번호를 입력해 주세요.</h3>
+        <h3 className="text-h3-semibold text-[#171717]">{t("title")}</h3>
 
         <InputText
           inputOption={{
             name: "passwordConfirm",
             type: "password",
-            placeholder: "현재 비밀번호를 입력해 주세요.",
+            placeholder: t("placeholder"),
             onKeyDown: (e) => {
               if (e.key === " ") e.preventDefault();
             },
@@ -74,7 +76,7 @@ const DeleteAccountPassword = ({ onBack }: { onBack: () => void }) => {
       </div>
 
       <FooterButton onClick={handleToClick} disabled={passwordValue.length === 0 || isPending}>
-        탈퇴하기
+        {t("deleteButton")}
       </FooterButton>
 
       {modalOpen && (

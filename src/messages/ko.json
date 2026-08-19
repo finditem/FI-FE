@@ -1109,5 +1109,52 @@
     "viewAriaLabel": "알림 확인, 외부 페이지 이동",
     "emptyTitle": "아직 새 소식이 없어요",
     "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
+  },
+  "DeleteAccountLayout": {
+    "title": "회원 탈퇴",
+    "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
+  },
+  "DeleteAccountPage": {
+    "title": "회원 탈퇴",
+    "srOnlyTitle": "회원탈퇴 페이지",
+    "userNotFound": "존재하지 않는 회원이에요",
+    "deleteFailed": "회원 탈퇴에 실패했어요"
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "탈퇴 선택 영역"
+  },
+  "DeleteAccountReason": {
+    "title": "탈퇴하시려는 이유를 알려주세요.",
+    "selectionLimit": "최대 3개 선택",
+    "notUsing": "잘 사용하지 않아요",
+    "lowTrust": "서비스에 대한 신뢰도가 낮아요",
+    "difficultToUse": "사용이 어려워요",
+    "duplicateAccount": "다른 계정이 있어요",
+    "unpleasantUser": "불쾌감을 주는 사용자를 만났어요",
+    "unfairRestriction": "억울하게 서비스 이용이 제한됐어요",
+    "other": "기타",
+    "otherRequired": "기타 사유를 입력해주세요.",
+    "otherPlaceholder": "서비스를 탈퇴하려는 이유를 작성해 주세요.",
+    "deleteButton": "탈퇴하기",
+    "nextButton": "다음"
+  },
+  "DeleteAccountPassword": {
+    "title": "비밀번호를 입력해 주세요.",
+    "placeholder": "현재 비밀번호를 입력해 주세요.",
+    "passwordMismatchField": "비밀번호가 일치하지 않아요.",
+    "passwordMismatchToast": "비밀번호가 일치하지 않아요",
+    "userNotFoundField": "존재하지 않는 회원이에요.",
+    "userNotFoundToast": "존재하지 않는 회원이에요",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteAccountModal": {
+    "title": "정말로 탈퇴하시겠습니까?",
+    "cancelButton": "취소",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteComplete": {
+    "title": "회원 탈퇴가 완료되었습니다.",
+    "description": "동일한 이메일로 1주일간 재가입이 불가합니다.",
+    "homeButton": "홈 화면으로 이동하기"
   }
 }

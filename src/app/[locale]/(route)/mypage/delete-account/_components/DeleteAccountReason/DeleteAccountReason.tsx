@@ -3,9 +3,10 @@
 
 import { Fragment, useState } from "react";
 import { FooterButton, CheckBox, InputField } from "@/components";
-import { CheckBoxConfig } from "../../_constants/CheckBoxConfig";
 import { useFormContext } from "react-hook-form";
 import DeleteAccountModal from "../DeleteAccountModal/DeleteAccountModal";
+import { useTranslations } from "next-intl";
+import { useDeleteAccountReasons } from "../../_hooks/useDeleteAccountReasons/useDeleteAccountReasons";
 
 interface DeleteAccountReasonProps {
   onNext: () => void;
@@ -13,6 +14,8 @@ interface DeleteAccountReasonProps {
 }
 
 const DeleteAccountReason = ({ onNext, socialUser = false }: DeleteAccountReasonProps) => {
+  const t = useTranslations("DeleteAccountReason");
+  const reasonOptions = useDeleteAccountReasons();
   const {
     setValue,
     watch,
@@ -48,11 +51,11 @@ const DeleteAccountReason = ({ onNext, socialUser = false }: DeleteAccountReason
     <>
       <div className="flex w-full flex-col gap-7 px-5 py-[30px] h-hf-base tablet:px-20">
         <div className="flex flex-col gap-[6px]">
-          <h3 className="text-h3-semibold">탈퇴하시려는 이유를 알려주세요.</h3>
-          <p className="text-body2-regular text-layout-body-default">최대 3개 선택</p>
+          <h3 className="text-h3-semibold">{t("title")}</h3>
+          <p className="text-body2-regular text-layout-body-default">{t("selectionLimit")}</p>
         </div>
         <div className="flex flex-col gap-[18px]">
-          {CheckBoxConfig.map((item) => {
+          {reasonOptions.map((item) => {
             const isChecked = selectedValues.includes(item.value);
             return (
               <Fragment key={item.label}>
@@ -69,11 +72,9 @@ const DeleteAccountReason = ({ onNext, socialUser = false }: DeleteAccountReason
                     name="otherReason"
                     validation={{
                       maxLength: 300,
-                      required: selectedValues.includes("OTHER")
-                        ? "기타 사유를 입력해주세요."
-                        : false,
+                      required: selectedValues.includes("OTHER") ? t("otherRequired") : false,
                     }}
-                    placeholder="서비스를 탈퇴하려는 이유를 작성해 주세요."
+                    placeholder={t("otherPlaceholder")}
                   />
                 )}
               </Fragment>
@@ -83,7 +84,7 @@ const DeleteAccountReason = ({ onNext, socialUser = false }: DeleteAccountReason
       </div>
 
       <FooterButton onClick={handleSubmitStep} disabled={selectedValues.length === 0 || !isValid}>
-        {socialUser ? "탈퇴하기" : "다음"}
+        {socialUser ? t("deleteButton") : t("nextButton")}
       </FooterButton>
 
       {modalOpen && (
