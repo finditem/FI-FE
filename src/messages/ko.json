@@ -942,6 +942,55 @@
     "selectedLocationFallback": "선택한 위치",
     "applyButton": "적용하기"
   },
+  "NoticePage": {
+    "metaTitle": "공지사항",
+    "metaTitleTemplate": "%s | 찾아줘! 공지사항",
+    "metaDescription": "찾아줘에 등록된 공지사항을 확인해 보세요.",
+    "title": "공지사항",
+    "heading": "공지사항 페이지",
+    "writeAriaLabel": "공지사항 작성 페이지 이동",
+    "search": { "placeholder": "제목, 내용을 입력해 주세요." },
+    "filter": {
+      "ariaLabel": "공지사항 정렬",
+      "latest": "최신순",
+      "oldest": "오래된 순",
+      "mostViewed": "조회 많은 순"
+    },
+    "list": {
+      "thumbnailAlt": "공지사항 게시글 썸네일",
+      "emptyTitle": "등록된 공지사항이 없어요",
+      "emptyDescription": "새로운 공지사항이 등록되면\n이곳에 표기됩니다."
+    },
+    "error": {
+      "title": "공지사항을 불러올 수 없어요",
+      "description": "네트워크 연결을 확인하거나\n잠시 후 다시 시도해주세요",
+      "refresh": "새로고침",
+      "inquiry": "고객센터 문의"
+    },
+    "detail": {
+      "metaFallbackTitle": "공지 상세",
+      "metaFallbackDescription": "공지 상세 내용",
+      "shareTitle": "찾아줘 공지사항 공유",
+      "shareSummary": "공지사항을 확인해보세요",
+      "shareAriaLabel": "공지사항 공유",
+      "adminMenuAriaLabel": "공지 관리 메뉴",
+      "edit": "게시글 수정하기",
+      "delete": "게시글 삭제하기",
+      "loadError": "공지사항 불러오기에 실패했어요",
+      "viewImageAriaLabel": "공지사항 상세 이미지 {index} 보기",
+      "imageAlt": "공지사항 상세 이미지",
+      "likeAriaLabel": "좋아요",
+      "unlikeAriaLabel": "좋아요 취소",
+      "recommendCount": "추천 {count}",
+      "viewCount": "조회 {count}"
+    },
+    "deleteModal": {
+      "title": "정말로 삭제하시겠습니까?",
+      "description": "게시글 삭제 후에는 취소가 불가능합니다.",
+      "cancel": "취소",
+      "confirm": "삭제하기"
+    }
+  },
   "HelloPage": {
     "metaTitle": "서비스 소개",
     "metaDescription": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",

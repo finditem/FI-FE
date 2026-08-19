@@ -942,6 +942,55 @@
     "selectedLocationFallback": "the selected location",
     "applyButton": "Apply"
   },
+  "NoticePage": {
+    "metaTitle": "Notices",
+    "metaTitleTemplate": "%s | finditem! Notices",
+    "metaDescription": "Check the latest notices from finditem!.",
+    "title": "Notices",
+    "heading": "Notices page",
+    "writeAriaLabel": "Go to the create notice page",
+    "search": { "placeholder": "Search by title or content." },
+    "filter": {
+      "ariaLabel": "Sort notices",
+      "latest": "Newest",
+      "oldest": "Oldest",
+      "mostViewed": "Most viewed"
+    },
+    "list": {
+      "thumbnailAlt": "Notice thumbnail",
+      "emptyTitle": "No notices yet",
+      "emptyDescription": "New notices will appear here."
+    },
+    "error": {
+      "title": "Couldn't load notices",
+      "description": "Check your network connection\nor try again later.",
+      "refresh": "Refresh",
+      "inquiry": "Contact support"
+    },
+    "detail": {
+      "metaFallbackTitle": "Notice details",
+      "metaFallbackDescription": "View the notice details.",
+      "shareTitle": "Share a finditem! notice",
+      "shareSummary": "Check out this notice.",
+      "shareAriaLabel": "Share notice",
+      "adminMenuAriaLabel": "Notice management menu",
+      "edit": "Edit notice",
+      "delete": "Delete notice",
+      "loadError": "Couldn't load the notice.",
+      "viewImageAriaLabel": "View notice image {index}",
+      "imageAlt": "Notice image",
+      "likeAriaLabel": "Like",
+      "unlikeAriaLabel": "Unlike",
+      "recommendCount": "Likes {count}",
+      "viewCount": "Views {count}"
+    },
+    "deleteModal": {
+      "title": "Delete this notice?",
+      "description": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
   "HelloPage": {
     "metaTitle": "About Our Service",
     "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
