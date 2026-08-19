@@ -26,10 +26,11 @@ describe("EmptyChatRoom", () => {
   });
 
   it("postMode가 find일 때 올바른 도움말 텍스트가 렌더링됩니다", () => {
-    render(<EmptyChatRoom postMode="find" />);
+    const { container } = render(<EmptyChatRoom postMode="find" />);
 
-    expect(screen.getByText("내 물건이 맞는지 확인해보세요.")).toBeInTheDocument();
-    expect(screen.getByText("발견자에게 메시지를 보내세요.")).toBeInTheDocument();
+    const helpText = container.querySelector("p");
+    expect(helpText).toHaveTextContent("내 물건이 맞는지 확인해보세요.");
+    expect(helpText).toHaveTextContent("발견자에게 메시지를 보내세요.");
   });
 
   it("postMode가 lost일 때 ChatLost 아이콘이 렌더링됩니다", () => {
@@ -41,14 +42,15 @@ describe("EmptyChatRoom", () => {
   });
 
   it("postMode가 lost일 때 올바른 도움말 텍스트가 렌더링됩니다", () => {
-    render(<EmptyChatRoom postMode="lost" />);
+    const { container } = render(<EmptyChatRoom postMode="lost" />);
 
-    expect(screen.getByText("이 분실물을 주우셨나요?")).toBeInTheDocument();
-    expect(screen.getByText("주인에게 먼저 연락해보세요.")).toBeInTheDocument();
+    const helpText = container.querySelector("p");
+    expect(helpText).toHaveTextContent("이 분실물을 주우셨나요?");
+    expect(helpText).toHaveTextContent("주인에게 먼저 연락해보세요.");
   });
 
   it("find 모드일 때 모든 요소가 올바르게 렌더링됩니다", () => {
-    render(<EmptyChatRoom postMode="find" />);
+    const { container } = render(<EmptyChatRoom postMode="find" />);
 
     // 스크린 리더용 제목
     expect(screen.getByRole("heading", { name: "빈 채팅 안내 화면" })).toBeInTheDocument();
@@ -57,12 +59,13 @@ describe("EmptyChatRoom", () => {
     expect(screen.getByTestId("icon-ChatFind")).toBeInTheDocument();
 
     // 도움말 텍스트
-    expect(screen.getByText("내 물건이 맞는지 확인해보세요.")).toBeInTheDocument();
-    expect(screen.getByText("발견자에게 메시지를 보내세요.")).toBeInTheDocument();
+    const helpText = container.querySelector("p");
+    expect(helpText).toHaveTextContent("내 물건이 맞는지 확인해보세요.");
+    expect(helpText).toHaveTextContent("발견자에게 메시지를 보내세요.");
   });
 
   it("lost 모드일 때 모든 요소가 올바르게 렌더링됩니다", () => {
-    render(<EmptyChatRoom postMode="lost" />);
+    const { container } = render(<EmptyChatRoom postMode="lost" />);
 
     // 스크린 리더용 제목
     expect(screen.getByRole("heading", { name: "빈 채팅 안내 화면" })).toBeInTheDocument();
@@ -71,19 +74,18 @@ describe("EmptyChatRoom", () => {
     expect(screen.getByTestId("icon-ChatLost")).toBeInTheDocument();
 
     // 도움말 텍스트
-    expect(screen.getByText("이 분실물을 주우셨나요?")).toBeInTheDocument();
-    expect(screen.getByText("주인에게 먼저 연락해보세요.")).toBeInTheDocument();
+    const helpText = container.querySelector("p");
+    expect(helpText).toHaveTextContent("이 분실물을 주우셨나요?");
+    expect(helpText).toHaveTextContent("주인에게 먼저 연락해보세요.");
   });
 
-  it("도움말 텍스트가 여러 줄로 렌더링됩니다", () => {
-    render(<EmptyChatRoom postMode="find" />);
+  it("도움말 텍스트가 줄바꿈으로 렌더링됩니다", () => {
+    const { container } = render(<EmptyChatRoom postMode="find" />);
 
-    const helpTexts = screen.getAllByText(/./);
-    const findTexts = helpTexts.filter(
-      (text) =>
-        text.textContent === "내 물건이 맞는지 확인해보세요." ||
-        text.textContent === "발견자에게 메시지를 보내세요."
+    const helpText = container.querySelector("p");
+    expect(helpText).toHaveClass("whitespace-pre-line");
+    expect(helpText?.textContent).toBe(
+      "내 물건이 맞는지 확인해보세요.\n발견자에게 메시지를 보내세요."
     );
-    expect(findTexts.length).toBeGreaterThanOrEqual(2);
   });
 });

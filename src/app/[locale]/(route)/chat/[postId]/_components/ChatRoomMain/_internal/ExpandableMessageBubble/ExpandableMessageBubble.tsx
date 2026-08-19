@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,6 +15,7 @@ const ExpandableMessageBubble = ({
   bubbleColor,
   bubbleOrder,
 }: ExpandableMessageBubbleProps) => {
+  const t = useTranslations("ExpandableMessageBubble");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
   const contentRef = useRef<HTMLParagraphElement>(null);
@@ -56,7 +58,7 @@ const ExpandableMessageBubble = ({
           className="text-caption1-medium text-layout-body-default underline"
           onClick={() => setIsExpanded((prev) => !prev)}
         >
-          {isExpanded ? "숨기기" : "더보기"}
+          {isExpanded ? t("hideLabel") : t("showMoreLabel")}
         </button>
       ) : null}
     </div>
