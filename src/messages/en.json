@@ -293,6 +293,31 @@
     "cancel": "Cancel",
     "confirm": "Block"
   },
+  "UserProfilePage": {
+    "defaultNickname": "Nickname",
+    "profileTitle": "{nickname}'s profile",
+    "profile": "Profile",
+    "profileTabsAriaLabel": "Profile tabs",
+    "tabContentAriaLabel": "Tab content",
+    "loading": "Loading...",
+    "moreMenuAriaLabel": "More options",
+    "report": "Report",
+    "tabs": {
+      "posts": "Posts",
+      "comments": "Comments",
+      "favorites": "Favorites"
+    },
+    "empty": {
+      "postsTitle": "No posts yet",
+      "postsDescription": "This user hasn't written any posts yet.",
+      "commentsTitle": "No comments yet",
+      "commentsDescription": "This user hasn't written any comments yet.",
+      "favoritesTitle": "No saved posts yet",
+      "favoritesDescription": "This user hasn't saved any posts yet."
+    },
+    "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
+    "likes": "{count, plural, one {# like} other {# likes}}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "Admin"
   },

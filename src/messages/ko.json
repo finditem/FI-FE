@@ -293,6 +293,31 @@
     "cancel": "취소",
     "confirm": "차단하기"
   },
+  "UserProfilePage": {
+    "defaultNickname": "닉네임",
+    "profileTitle": "{nickname} 프로필",
+    "profile": "프로필",
+    "profileTabsAriaLabel": "프로필 탭",
+    "tabContentAriaLabel": "탭 콘텐츠",
+    "loading": "로딩 중...",
+    "moreMenuAriaLabel": "더보기 메뉴",
+    "report": "신고하기",
+    "tabs": {
+      "posts": "게시글",
+      "comments": "댓글",
+      "favorites": "즐겨찾기"
+    },
+    "empty": {
+      "postsTitle": "아직 작성한 게시글이 없어요",
+      "postsDescription": "해당 유저가 작성한 게시글이 없습니다.",
+      "commentsTitle": "아직 작성한 댓글이 없어요",
+      "commentsDescription": "아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!",
+      "favoritesTitle": "아직 즐겨찾기한 게시글이 없어요",
+      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다."
+    },
+    "likesAriaLabel": "좋아요 {count}개",
+    "likes": "좋아요 {count}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "관리자"
   },
