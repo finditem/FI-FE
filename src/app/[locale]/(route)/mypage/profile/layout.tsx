@@ -1,18 +1,25 @@
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 import { DetailHeader } from "@/components";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "프로필 설정",
-  description: "나의 찾아줘 프로필을 관리해 보세요.",
-  other: { "page-type": "mypage-profile" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("MypageProfileLayout");
 
-const layout = ({ children }: { children: ReactNode }) => {
+  return {
+    title: t("title"),
+    description: t("description"),
+    other: { "page-type": "mypage-profile" },
+  };
+}
+
+const layout = async ({ children }: { children: ReactNode }) => {
+  const t = await getTranslations("MypageProfileLayout");
+
   return (
     <>
-      <DetailHeader title="프로필 설정" />
-      <h1 className="sr-only">프로필 수정</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("srOnlyTitle")}</h1>
 
       {children}
     </>

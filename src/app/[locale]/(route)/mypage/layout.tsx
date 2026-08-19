@@ -1,15 +1,19 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: {
-    default: "마이페이지",
-    template: "%s | 찾아줘! 마이페이지",
-  },
-  description:
-    "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요.",
-  other: { "page-type": "mypage" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("MyPageLayout");
+
+  return {
+    title: {
+      default: t("title"),
+      template: t("titleTemplate"),
+    },
+    description: t("description"),
+    other: { "page-type": "mypage" },
+  };
+}
 
 export default function layout({ children }: { children: ReactNode }) {
   return children;
