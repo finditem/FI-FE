@@ -7,9 +7,8 @@ jest.mock("next/image", () => ({
   default: (props: any) => <img {...props} />,
 }));
 
-jest.mock("next/link", () => ({
-  __esModule: true,
-  default: ({ href, children, ...rest }: any) => (
+jest.mock("@/i18n/navigation", () => ({
+  Link: ({ href, children, ...rest }: any) => (
     <a href={href} {...rest}>
       {children}
     </a>

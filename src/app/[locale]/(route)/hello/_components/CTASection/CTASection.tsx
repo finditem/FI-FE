@@ -1,9 +1,12 @@
-import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Button } from "@/components";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils";
 
 const CTASection = () => {
+  const t = useTranslations("HelloPage.cta");
+
   return (
     <section
       aria-labelledby="service-introduce-cta-title"
@@ -17,10 +20,8 @@ const CTASection = () => {
         draggable={false}
         className="select-none"
       />
-      <h3 className="text-h1-bold text-layout-header-default">분실의 걱정을 가볍게, 찾아줘!</h3>
-      <p className="text-body1-regular text-layout-body-default">
-        '찾아줘!'와 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.
-      </p>
+      <h3 className="text-h1-bold text-layout-header-default">{t("title")}</h3>
+      <p className="text-body1-regular text-layout-body-default">{t("description")}</p>
       <Button
         as={Link}
         href="/"
@@ -29,7 +30,7 @@ const CTASection = () => {
           "tablet:max-w-[696px]"
         )}
       >
-        찾아줘 홈으로 이동
+        {t("button")}
       </Button>
     </section>
   );
