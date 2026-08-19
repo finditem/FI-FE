@@ -14,7 +14,7 @@ export const TermsProvider = ({ children }: { children: ReactNode }) => {
     if (!isAuthInitialized) return;
 
     if (isLoggedIn && !termsAgreed) {
-      if (!pathname.startsWith("/auth/kakao")) {
+      if (!pathname.startsWith("/auth/kakao") && !pathname.startsWith("/auth/apple")) {
         router.replace("/auth/kakao/callback");
       }
     }

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { ModalLayout } from "@/components";
 
@@ -14,16 +15,17 @@ const BUTTON_STYLE_CANCEL =
 const BUTTON_STYLE_CONFIRM = "bg-fill-brand-strong-default text-white";
 
 const ChatLeaveModal = ({ isOpen, onClose, onConfirm, onCancel }: ChatLeaveModalProps) => {
+  const t = useTranslations("ChatLeaveModal");
   const buttons = [
     {
       key: "cancel",
-      label: "아니요",
+      label: t("cancelLabel"),
       onClick: onCancel,
       style: BUTTON_STYLE_CANCEL,
     },
     {
       key: "confirm",
-      label: "네, 나갈래요",
+      label: t("confirmLabel"),
       onClick: onConfirm,
       style: BUTTON_STYLE_CONFIRM,
     },
@@ -38,9 +40,9 @@ const ChatLeaveModal = ({ isOpen, onClose, onConfirm, onCancel }: ChatLeaveModal
     >
       <div className="gap-4 flex-col-center">
         <div className="gap-1 text-center flex-col-center">
-          <p className="text-h3-semibold text-layout-header-default">채팅방을 나가시겠어요?</p>
+          <p className="text-h3-semibold text-layout-header-default">{t("title")}</p>
           <p className="whitespace-pre-line text-body2-regular text-layout-body-default">
-            {`채팅방을 나가면 채팅 목록 및 대화 내용이 삭제되고\n복구할 수 없어요. 채팅방에서 나가시겠어요?`}
+            {t("description")}
           </p>
         </div>
       </div>

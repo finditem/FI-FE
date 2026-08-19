@@ -5,12 +5,16 @@ import { Chip, ProfileAvatar, ImageViewerModal } from "@/components";
 import { cn, formatDate } from "@/utils";
 import Image from "next/image";
 import { useState } from "react";
+import { useFormatDate } from "@/hooks";
+import { useTranslations } from "next-intl";
 
 interface InquiryCommentItemProps {
   data: InquiriesCommentType;
 }
 
 const InquiryCommentItem = ({ data }: InquiryCommentItemProps) => {
+  const t = useTranslations("InquiryCommentItem");
+  const formatDate = useFormatDate();
   const { content, authorName, createdAt, profileImg, imageList, admin } = data;
 
   const [imageViewerState, setImageViewerState] = useState<{
@@ -30,7 +34,7 @@ const InquiryCommentItem = ({ data }: InquiryCommentItemProps) => {
 
         <span className="flex flex-col gap-[2px]">
           <span className="flex gap-[6px]">
-            {admin && <Chip label="관리자" type="admin" />}
+            {admin && <Chip label={t("admin")} type="admin" />}
             <span className="text-body1-medium text-layout-header-default">{authorName}</span>
           </span>
 
@@ -51,7 +55,7 @@ const InquiryCommentItem = ({ data }: InquiryCommentItemProps) => {
             >
               <Image
                 src={src}
-                alt={`첨부 이미지 ${index + 1}`}
+                alt={t("attachedImageAlt", { number: index + 1 })}
                 fill
                 className="cursor-pointer object-cover"
                 sizes="100px"

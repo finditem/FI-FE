@@ -6,16 +6,22 @@ import { Tab } from "@/components";
 import { useGetUserProfileById, UserTabType, UserUpperTabType } from "@/api/fetch/user";
 import UserHeader from "../UserHeader/UserHeader";
 import TabContents from "../TabContents/TabContents";
-import { USER_TABS } from "../../_types/UserProfileTabType";
 import { useUserProfileTabQuery } from "../../_hooks/useUserProfileTabQuery/useUserProfileTabQuery";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
+import { useTranslations } from "next-intl";
 
 const upperCase = (tab: UserTabType): UserUpperTabType => {
   return tab.toUpperCase() as UserUpperTabType;
 };
 
 const UserProfileView = () => {
+  const t = useTranslations("UserProfilePage");
   const { userId } = useParams<{ userId: string }>();
+  const tabs = [
+    { key: "posts", label: t("tabs.posts") },
+    { key: "comments", label: t("tabs.comments") },
+    { key: "favorites", label: t("tabs.favorites") },
+  ] as const;
 
   const { tab, updateTabQuery } = useUserProfileTabQuery();
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
@@ -32,11 +38,18 @@ const UserProfileView = () => {
 
   return (
     <div className="h-base">
-      <h1 className="sr-only">{profileData ? `${profileData.nickname} 프로필` : "프로필"}</h1>
+      <h1 className="sr-only">
+        {profileData ? t("profileTitle", { nickname: profileData.nickname }) : t("profile")}
+      </h1>
 
       <UserHeader data={profileData} />
 
-      <Tab tabs={USER_TABS} selected={tab} onValueChange={updateTabQuery} aria-label="프로필 탭" />
+      <Tab
+        tabs={tabs}
+        selected={tab}
+        onValueChange={updateTabQuery}
+        aria-label={t("profileTabsAriaLabel")}
+      />
 
       <TabContents selectedTab={tab} data={listData} isLoading={isLoading} />
 

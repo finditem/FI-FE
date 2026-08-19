@@ -4,6 +4,7 @@ import { PostListItem, EmptyState, LoadingState } from "@/components";
 import { UserCommentsDataType, UserPostsDataType, UserProfileItem } from "@/api/fetch/user";
 import { UserProfileTabKey } from "../../_types/UserProfileTabType";
 import { UserCommentItem } from "../_internal";
+import { useTranslations } from "next-intl";
 
 interface TabContentsProps {
   selectedTab: UserProfileTabKey;
@@ -12,19 +13,21 @@ interface TabContentsProps {
 }
 
 const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
+  const t = useTranslations("UserProfilePage");
+
   if (isLoading) return <LoadingState />;
   if (!data) return null;
 
   return (
-    <section aria-label="탭 콘텐츠">
+    <section aria-label={t("tabContentAriaLabel")}>
       <ul>
         {selectedTab === "posts" &&
           (data.length === 0 ? (
             <li>
               <EmptyState
                 icon={{ iconName: "NoPosts", iconSize: 70 }}
-                title="아직 작성한 게시글이 없어요"
-                description={"해당 유저가 작성한 게시글이 없습니다."}
+                title={t("empty.postsTitle")}
+                description={t("empty.postsDescription")}
               />
             </li>
           ) : (
@@ -42,8 +45,8 @@ const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
               <li>
                 <EmptyState
                   icon={{ iconName: "NoComments", iconSize: 70 }}
-                  title="아직 작성한 댓글이 없어요"
-                  description={"아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!"}
+                  title={t("empty.commentsTitle")}
+                  description={t("empty.commentsDescription")}
                 />
               </li>
             ) : (
@@ -59,8 +62,8 @@ const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
             <li>
               <EmptyState
                 icon={{ iconName: "EmptyFavorite", iconSize: 70 }}
-                title="아직 즐겨찾기한 게시글이 없어요"
-                description={"해당 유저가 즐겨찾기한 게시글이 없습니다."}
+                title={t("empty.favoritesTitle")}
+                description={t("empty.favoritesDescription")}
               />
             </li>
           ) : (

@@ -293,6 +293,31 @@
     "cancel": "Cancel",
     "confirm": "Block"
   },
+  "UserProfilePage": {
+    "defaultNickname": "Nickname",
+    "profileTitle": "{nickname}'s profile",
+    "profile": "Profile",
+    "profileTabsAriaLabel": "Profile tabs",
+    "tabContentAriaLabel": "Tab content",
+    "loading": "Loading...",
+    "moreMenuAriaLabel": "More options",
+    "report": "Report",
+    "tabs": {
+      "posts": "Posts",
+      "comments": "Comments",
+      "favorites": "Favorites"
+    },
+    "empty": {
+      "postsTitle": "No posts yet",
+      "postsDescription": "This user hasn't written any posts yet.",
+      "commentsTitle": "No comments yet",
+      "commentsDescription": "This user hasn't written any comments yet.",
+      "favoritesTitle": "No saved posts yet",
+      "favoritesDescription": "This user hasn't saved any posts yet."
+    },
+    "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
+    "likes": "{count, plural, one {# like} other {# likes}}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "Admin"
   },
@@ -879,6 +904,115 @@
     "searchLabel": "Search {keyword}",
     "deleteLabel": "Delete recent search"
   },
+  "ChatListLayout": {
+    "title": "Chat List",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ListView": {
+    "regionSearchLoading": "Loading region search...",
+    "regionTitle": "Select region",
+    "chatTitle": "Chat",
+    "pageHeading": "Chat list page"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "Select region",
+    "loadingTitle": "Loading chats...",
+    "emptyTitle": "No chats yet",
+    "emptyDescription": "Once a chat starts, it'll show up here."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "All",
+    "foundLabel": "Found",
+    "lostLabel": "Lost",
+    "latestLabel": "Newest",
+    "oldestLabel": "Oldest",
+    "allSelectedLabel": "Found/Lost"
+  },
+  "ChatItem": {
+    "withdrawnUser": "Deleted user",
+    "nicknameFallback": "Couldn't load nickname.",
+    "addressFallback": "Couldn't load location.",
+    "timeFallback": "No time available.",
+    "imageMessage": "Photo",
+    "messageFallback": "Couldn't load message.",
+    "unreadSrLabel": "Unread messages "
+  },
+  "useFormatDate": {
+    "now": "Just now",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "yesterday": "Yesterday"
+  },
+  "ListSearch": {
+    "placeholder": "Enter a city, county, or district."
+  },
+  "RegionSearchView": {
+    "emptyResult": "No results found."
+  },
+  "ChatRoomLayout": {
+    "title": "Chat Room | Finditem Chat",
+    "description": "Check your ongoing chats on Finditem."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "This user is unknown or has been deleted.",
+    "pageHeading": "Chat detail page",
+    "inputAriaLabel": "Chat message input"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "Go back",
+    "postLinkAriaLabel": "View post details",
+    "withdrawnUser": "This user has been deleted.",
+    "profileAriaLabel": "View user profile",
+    "thumbnailAlt": "Post thumbnail",
+    "deletedTitle": "[Deleted] {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "Open chat menu",
+    "reportLabel": "Block or report",
+    "leaveLabel": "Leave chat room"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Yes, leave",
+    "title": "Leave this chat room?",
+    "description": "Leaving will delete the chat and its messages,\nand this can't be undone. Are you sure you want to leave?"
+  },
+  "ChatChip": {
+    "findLabel": "Found",
+    "lostLabel": "Lost",
+    "foundStatusLabel": "Found"
+  },
+  "ChatImageBox": {
+    "youLabel": "You",
+    "theyLabel": "Them"
+  },
+  "ChatImageButton": {
+    "imageAlt": "Chat image {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "Hide",
+    "showMoreLabel": "Show more"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "Empty chat screen",
+    "lostHelpText": "Did you find this lost item?\nReach out to the owner first.",
+    "findHelpText": "Check if this is your item.\nMessage the finder to reach out."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "Attach image",
+    "placeholderWithdrawn": "This user has been deleted.",
+    "placeholderDefault": "Send a message",
+    "sendAriaLabel": "Send message"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "Cancel photo",
+    "sendAriaLabel": "Send photo",
+    "selectLabel": "Select photos",
+    "sendCountLabel": "{count, plural, one {Send # photo} other {Send # photos}}"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "Something went wrong while processing the image."
+  },
   "PostWritePage": {
     "defaultTitle": "Register an item",
     "defaultDescription": "Register details about a lost or found item.",
@@ -941,6 +1075,451 @@
     "nearbyTitle": "Near {address}",
     "selectedLocationFallback": "the selected location",
     "applyButton": "Apply"
+  },
+  "AlertLayout": {
+    "title": "Notifications",
+    "description": "Check your notifications on Finditem."
+  },
+  "AlertDetailHeader": {
+    "title": "Notifications",
+    "pageHeading": "Notifications page"
+  },
+  "AlertCategories": {
+    "allLabel": "All",
+    "categoryLabel": "Category keywords",
+    "chatLabel": "Chat",
+    "commentLabel": "Comments",
+    "noticeLabel": "Notices",
+    "inquiry_replyLabel": "Inquiries",
+    "report_resultLabel": "Reports"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "No",
+    "confirmLabel": "Delete",
+    "title": "Delete these notifications?",
+    "description": "Deleted notifications can't be recovered."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "Delete all",
+    "deleteSelectedLabel": "Delete selected"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "Selected notification, tap to deselect",
+    "selectAriaLabel": "Select notification",
+    "viewAriaLabel": "View notification and go to page",
+    "emptyTitle": "No news yet",
+    "emptyDescription": "We're keeping an eye out nearby.\nWe'll let you know as soon as something comes up."
+  },
+  "MypageReportsDetailPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "Report details page"
+  },
+  "MypageReportsDetail": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "loadError": "Couldn't load the report.",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "Admin",
+    "attachedImageAlt": "Attached image {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "My Reports"
+  },
+  "MypageReportsPage": {
+    "title": "My Reports",
+    "srOnlyTitle": "My reports page"
+  },
+  "MypageReportsFilter": {
+    "all": "All",
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "status": "Status",
+    "srOnlyTitle": "Filter options",
+    "filterAriaLabel": "Filter"
+  },
+  "MypageReportsContent": {
+    "pending": "Received",
+    "reviewed": "In Progress",
+    "resolved": "Resolved",
+    "detailAriaLabel": "View report details",
+    "loadError": "Couldn't load your reports.",
+    "srOnlyTitle": "My reports list",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "This isn't about an item that was actually lost or found.",
+      "DUPLICATE": "The same content was posted multiple times.",
+      "SPAM": "This is promotional content unrelated to lost items.",
+      "OFFENSIVE_LANGUAGE": "The chat or comment contains offensive language.",
+      "EXTORTION": "Someone requested money in exchange for returning an item.",
+      "FALSE_CLAIM": "Someone who isn't the owner claimed the item.",
+      "ETC": "This report is about another issue."
+    }
+  },
+  "NotificationSettingsLayout": {
+    "title": "Notification Settings",
+    "description": "Choose and manage the notifications you receive from finditem."
+  },
+  "NotificationSettingsPage": {
+    "title": "Notification Settings",
+    "srOnlyTitle": "Notification settings page"
+  },
+  "NotificationSettingList": {
+    "title": "Notifications",
+    "allNotificationsAriaLabel": "All notification settings"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "Category Keywords",
+    "selectCategoryKeywords": "Select Category Keywords",
+    "chat": "Chat",
+    "comments": "Comments",
+    "favorites": "Favorites",
+    "inquiries": "Inquiries",
+    "reports": "Reports",
+    "notices": "Notices",
+    "toggleAriaLabel": "Toggle {label}",
+    "categories": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallets",
+      "ID_CARD": "ID Cards",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bags",
+      "CARD": "Cards",
+      "ETC": "Other"
+    }
+  },
+  "NotificationCategory": {
+    "title": "Category Keywords",
+    "apply": "Apply",
+    "categories": {
+      "ELECTRONICS": "Electronics",
+      "WALLET": "Wallets",
+      "ID_CARD": "ID Cards",
+      "JEWELRY": "Jewelry",
+      "BAG": "Bags",
+      "CARD": "Cards",
+      "ETC": "Other"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "This browser doesn't support notifications.",
+    "permissionDenied": "Notification permission was denied.",
+    "registrationFailed": "Couldn't enable browser notifications."
+  },
+  "MypageInquiriesLayout": {
+    "title": "My Inquiries"
+  },
+  "MypageInquiriesPage": {
+    "title": "My Inquiries",
+    "srOnlyTitle": "My inquiries page"
+  },
+  "MypageInquiriesFilter": {
+    "all": "All",
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "status": "Status",
+    "srOnlyTitle": "Filter options",
+    "filterAriaLabel": "Filter"
+  },
+  "MypageInquiriesContent": {
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "detailAriaLabel": "View details for {title}",
+    "loadError": "Couldn't load your inquiries.",
+    "srOnlyTitle": "My inquiries list"
+  },
+  "MypageInquiriesDetail": {
+    "received": "Received",
+    "pending": "Under Review",
+    "answered": "Answered",
+    "loadError": "Couldn't load the inquiry.",
+    "imageAlt": "Image {number}",
+    "imageAriaLabel": "View image {number}"
+  },
+  "InquiryCommentItem": {
+    "admin": "Admin",
+    "attachedImageAlt": "Attached image {number}"
+  },
+  "MyPageLayout": {
+    "title": "My Page",
+    "titleTemplate": "%s | finditem! My Page",
+    "description": "Manage your lost and found activity, favorites, account settings, and more all in one place on finditem My Page."
+  },
+  "MyPageMenu": {
+    "myActivity": "My Activity",
+    "notification": "Notifications",
+    "reportInquiry": "Reports/Inquiries",
+    "accountManagement": "Account Management",
+    "servicePolicy": "Service Policies",
+    "myPosts": "My Posts",
+    "myComments": "My Comments",
+    "favorites": "Favorites",
+    "myActivities": "My Activity History",
+    "blockedUsers": "Blocked Accounts",
+    "notificationSettings": "Notification Settings",
+    "myReports": "My Reports",
+    "myInquiries": "My Inquiries",
+    "faq": "FAQ",
+    "accountSettings": "Account Settings",
+    "serviceIntro": "About finditem",
+    "privacyPolicy": "Privacy Policy",
+    "serviceTerms": "Terms of Service",
+    "marketingTerms": "Marketing Consent",
+    "contentPolicy": "Content Usage Agreement",
+    "notice": "Notices",
+    "chatList": "Chat",
+    "logout": "Log out"
+  },
+  "MyPageProfile": {
+    "loginRequired": "Log in to use this feature.",
+    "editProfile": "Edit Profile",
+    "login": "Log in"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "Something unexpected went wrong"
+  },
+  "AccountPage": {
+    "title": "Account Settings"
+  },
+  "AccountContainer": {
+    "profileLoadError": "Couldn't load your profile.",
+    "defaultNickname": "User nickname",
+    "defaultEmail": "User email",
+    "changePassword": "Change Password",
+    "deleteAccount": "Delete Account",
+    "logout": "Log out"
+  },
+  "BlockedUsersLayout": {
+    "title": "Blocked Accounts"
+  },
+  "ReportUserList": {
+    "loadError": "Couldn't load your blocked accounts.",
+    "emptyTitle": "No blocked accounts",
+    "emptyDescription": "You haven't blocked anyone yet.\nAccounts you block will appear here.",
+    "unblockAriaLabel": "Unblock {nickname}",
+    "unblockButton": "Unblock"
+  },
+  "MypageFavoritesPage": {
+    "title": "Favorites",
+    "srOnlyTitle": "Favorites page"
+  },
+  "MypageFavoritesLayout": {
+    "title": "Favorites",
+    "description": "View the lost and found posts you've saved on finditem."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "Couldn't load your favorites.",
+    "srOnlyTitle": "My favorites"
+  },
+  "MypagePostsPage": {
+    "title": "My Posts",
+    "srOnlyTitle": "My posts page"
+  },
+  "MypagePostsLayout": {
+    "title": "My Posts",
+    "description": "View the lost and found posts you've created on finditem."
+  },
+  "MypagePostsContent": {
+    "loadError": "Couldn't load your posts.",
+    "srOnlyTitle": "My posts"
+  },
+  "MypageCommentsPage": {
+    "title": "My Comments",
+    "srOnlyTitle": "My comments page"
+  },
+  "MypageCommentsLayout": {
+    "title": "My Comments",
+    "description": "View the comments you've posted on finditem."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "Comment filters",
+    "date": "Date",
+    "sortAriaLabel": "Sort comments",
+    "latest": "Newest",
+    "oldest": "Oldest"
+  },
+  "MypageCommentsContent": {
+    "loadError": "Couldn't load your comments.",
+    "srOnlyTitle": "My comments"
+  },
+  "MypageProfileLayout": {
+    "title": "Profile Settings",
+    "description": "Manage your finditem profile.",
+    "srOnlyTitle": "Edit profile"
+  },
+  "MypageActivitiesPage": {
+    "title": "My Activity",
+    "srOnlyTitle": "My activity page"
+  },
+  "MypageActivitiesLayout": {
+    "title": "My Activity",
+    "description": "View your activity history on finditem."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "Activity filters",
+    "date": "Date",
+    "activityAriaLabel": "Activity type",
+    "activityType": "Type",
+    "bottomSheetTitle": "Filters",
+    "all": "All",
+    "post": "Posts",
+    "comment": "Comments",
+    "favorite": "Favorites",
+    "inquiry": "Inquiries",
+    "report": "Reports"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "Apply"
+  },
+  "ActivityContent": {
+    "loadError": "Couldn't load your activity.",
+    "srOnlyTitle": "My activity history",
+    "postCreated": "You created a post.",
+    "commentCreated": "You posted a comment.",
+    "favoriteAdded": "You added a post to your favorites.",
+    "inquiryCreated": "You submitted an inquiry.",
+    "inquiryAnswered": "Your inquiry received a response.",
+    "reportReceived": "Your report was received.",
+    "reportAnswered": "Your report received a response."
+  },
+  "DeleteAccountLayout": {
+    "title": "Delete Account",
+    "description": "Delete your finditem account and stop using the service."
+  },
+  "DeleteAccountPage": {
+    "title": "Delete Account",
+    "srOnlyTitle": "Delete account page",
+    "userNotFound": "This account doesn't exist.",
+    "deleteFailed": "Couldn't delete your account."
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "Account deletion steps"
+  },
+  "DeleteAccountReason": {
+    "title": "Why are you deleting your account?",
+    "selectionLimit": "Select up to 3",
+    "notUsing": "I don't use the service often",
+    "lowTrust": "I don't trust the service",
+    "difficultToUse": "The service is difficult to use",
+    "duplicateAccount": "I have another account",
+    "unpleasantUser": "I encountered an unpleasant user",
+    "unfairRestriction": "My access was unfairly restricted",
+    "other": "Other",
+    "otherRequired": "Enter another reason.",
+    "otherPlaceholder": "Tell us why you're deleting your account.",
+    "deleteButton": "Delete Account",
+    "nextButton": "Next"
+  },
+  "DeleteAccountPassword": {
+    "title": "Enter your password.",
+    "placeholder": "Enter your current password.",
+    "passwordMismatchField": "The password doesn't match.",
+    "passwordMismatchToast": "The password doesn't match",
+    "userNotFoundField": "This account doesn't exist.",
+    "userNotFoundToast": "This account doesn't exist",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteAccountModal": {
+    "title": "Delete your account?",
+    "cancelButton": "Cancel",
+    "deleteButton": "Delete Account"
+  },
+  "DeleteComplete": {
+    "title": "Your account has been deleted.",
+    "description": "You can't sign up again with the same email for one week.",
+    "homeButton": "Go to Home"
+  },
+  "NoticePage": {
+    "metaTitle": "Notices",
+    "metaTitleTemplate": "%s | finditem! Notices",
+    "metaDescription": "Check the latest notices from finditem!.",
+    "title": "Notices",
+    "heading": "Notices page",
+    "writeAriaLabel": "Go to the create notice page",
+    "search": {
+      "placeholder": "Search by title or content."
+    },
+    "filter": {
+      "ariaLabel": "Sort notices",
+      "latest": "Newest",
+      "oldest": "Oldest",
+      "mostViewed": "Most viewed"
+    },
+    "list": {
+      "thumbnailAlt": "Notice thumbnail",
+      "emptyTitle": "No notices yet",
+      "emptyDescription": "New notices will appear here."
+    },
+    "error": {
+      "title": "Couldn't load notices",
+      "description": "Check your network connection\nor try again later.",
+      "refresh": "Refresh",
+      "inquiry": "Contact support"
+    },
+    "detail": {
+      "metaFallbackTitle": "Notice details",
+      "metaFallbackDescription": "View the notice details.",
+      "shareTitle": "Share a finditem! notice",
+      "shareSummary": "Check out this notice.",
+      "shareAriaLabel": "Share notice",
+      "adminMenuAriaLabel": "Notice management menu",
+      "edit": "Edit notice",
+      "delete": "Delete notice",
+      "loadError": "Couldn't load the notice.",
+      "viewImageAriaLabel": "View notice image {index}",
+      "imageAlt": "Notice image",
+      "likeAriaLabel": "Like",
+      "unlikeAriaLabel": "Unlike",
+      "recommendCount": "Likes {count}",
+      "viewCount": "Views {count}"
+    },
+    "deleteModal": {
+      "title": "Delete this notice?",
+      "description": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "confirm": "Delete"
+    }
+  },
+  "HelloPage": {
+    "metaTitle": "About Our Service",
+    "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
+    "heading": "About finditem",
+    "features": {
+      "intro": {
+        "title": "Find lost items faster and easier",
+        "descriptionLine1": "Not sure where to start when you lose something? finditem! is here for those moments—",
+        "descriptionLine2": "a real-time, location-based platform that helps you find lost items."
+      },
+      "browse": {
+        "title": "Browse reports by location and category",
+        "description": "Filter lost-and-found reports by location and item category to find what you're looking for with ease."
+      },
+      "chat": {
+        "title": "Chat with reporters in real time",
+        "description": "Connect directly with the person who posted a report and recover your item faster through real-time chat."
+      },
+      "alert": {
+        "title": "Get alerts for new posts",
+        "description": "Choose the lost-item categories you care about, and we'll notify you whenever a matching post is added."
+      }
+    },
+    "cta": {
+      "title": "Worry less about lost items with finditem!",
+      "description": "With finditem! by your side, losing something can feel a little less overwhelming.",
+      "button": "Go to the finditem homepage"
+    }
   },
   "SupportLayout": {
     "title": "FAQ",

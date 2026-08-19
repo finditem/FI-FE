@@ -46,12 +46,14 @@ describe("FeatureSection", () => {
     expect(section).toHaveClass("bg-layoutBrand");
   });
 
-  it("aria-labelledby 값이 title 기반으로 설정된다", () => {
+  it("aria-labelledby가 제목 요소를 참조한다", () => {
     const { container } = render(
       <FeatureSection content={content} imageSlot={<div data-testid="image-slot" />} />
     );
 
     const section = container.querySelector("section");
-    expect(section).toHaveAttribute("aria-labelledby", `service-introduce-${content.title}`);
+    const heading = screen.getByRole("heading", { name: content.title });
+    expect(heading).toHaveAttribute("id");
+    expect(section).toHaveAttribute("aria-labelledby", heading.id);
   });
 });

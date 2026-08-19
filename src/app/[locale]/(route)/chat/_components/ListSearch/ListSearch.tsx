@@ -1,11 +1,13 @@
 "use client";
 
 import { FieldValues, FormProvider, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import RegionSearchView from "./_internal/RegionSearchView";
 import { InputSearch } from "@/components";
 import { useRouter } from "next/navigation";
 
 const ListSearch = () => {
+  const t = useTranslations("ListSearch");
   const router = useRouter();
   const methods = useForm({
     mode: "onChange",
@@ -23,12 +25,7 @@ const ListSearch = () => {
     <>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="px-5 py-[10px]">
-          <InputSearch
-            mode="RHF"
-            name="regionSearch"
-            placeholder="시/군/구를 입력해 주세요."
-            autoFocus
-          />
+          <InputSearch mode="RHF" name="regionSearch" placeholder={t("placeholder")} autoFocus />
         </form>
       </FormProvider>
 

@@ -4,8 +4,10 @@ import { useFilterParams } from "@/hooks";
 import { useToast } from "@/context/ToastContext";
 import { useInfiniteScroll } from "@/hooks";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const MypageFavoritesContent = () => {
+  const t = useTranslations("MypageFavoritesContent");
   const { addToast } = useToast();
   const { region, status, category, sort } = useFilterParams();
 
@@ -34,11 +36,11 @@ const MypageFavoritesContent = () => {
   });
 
   if (isLoading) return <LoadingState />;
-  if (isError) addToast("목록을 불러오는데 실패했어요", "error");
+  if (isError) addToast(t("loadError"), "error");
 
   return (
     <section>
-      <h2 className="sr-only">내 즐겨찾기 목록 영역</h2>
+      <h2 className="sr-only">{t("srOnlyTitle")}</h2>
       {favoritesData && favoritesData.length === 0 ? (
         <MypageEmptyUI pageType="favorites" />
       ) : (
