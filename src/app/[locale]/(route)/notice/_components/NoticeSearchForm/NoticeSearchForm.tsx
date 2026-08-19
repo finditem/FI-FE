@@ -5,8 +5,10 @@ import { InputSearch } from "@/components";
 import { useSearchUpdateQueryString } from "@/hooks";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 
 const NoticeSearchForm = () => {
+  const t = useTranslations("NoticePage.search");
   const { searchUpdateQuery } = useSearchUpdateQueryString();
   const searchParams = useSearchParams();
   const keywordFromUrl = searchParams.get("keyword") ?? "";
@@ -31,7 +33,7 @@ const NoticeSearchForm = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSearchSubmit)} className="px-5 py-[10px]">
-        <InputSearch name="noticeSearch" mode="RHF" placeholder="제목, 내용을 입력해 주세요." />
+        <InputSearch name="noticeSearch" mode="RHF" placeholder={t("placeholder")} />
       </form>
     </FormProvider>
   );
