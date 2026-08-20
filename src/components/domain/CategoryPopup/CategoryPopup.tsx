@@ -38,6 +38,7 @@ interface CategoryPopupProps<T extends CategoryPopupMode = "post"> {
   onClose: () => void;
   onSelect: (category: CategoryValueByMode[T]) => void;
   defaultSelected?: CategoryValueByMode[T];
+  options?: readonly CategoryOption<CategoryValueByMode[T]>[];
 }
 
 const CategoryPopup = <T extends CategoryPopupMode = "post">({
@@ -46,10 +47,11 @@ const CategoryPopup = <T extends CategoryPopupMode = "post">({
   onClose,
   onSelect,
   defaultSelected,
+  options,
 }: CategoryPopupProps<T>) => {
   const t = useTranslations("CategoryPopup");
   const [selected, setSelected] = useState<CategoryValueByMode[T]>();
-  const categoryOptions = CATEGORY_OPTIONS_BY_MODE[mode];
+  const categoryOptions = options ?? CATEGORY_OPTIONS_BY_MODE[mode];
 
   useEffect(() => {
     if (!isOpen) return;

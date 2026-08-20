@@ -1468,7 +1468,9 @@
     "title": "Notices",
     "heading": "Notices page",
     "writeAriaLabel": "Go to the create notice page",
-    "search": { "placeholder": "Search by title or content." },
+    "search": {
+      "placeholder": "Search by title or content."
+    },
     "filter": {
       "ariaLabel": "Sort notices",
       "latest": "Newest",
@@ -1509,6 +1511,25 @@
       "cancel": "Cancel",
       "confirm": "Delete"
     }
+  },
+  "InquiryWrite": {
+    "metaTitle": "Contact Us",
+    "metaDescription": "Have a question about finditem? Send us a message and we'll get back to you as soon as possible.",
+    "headerTitle": "How can we help?",
+    "submitAriaLabel": "Submit inquiry",
+    "heading": "Contact us form",
+    "titlePlaceholder": "Enter a subject.",
+    "emailPlaceholder": "Enter your email address.",
+    "emailAutoCompleteAriaLabel": "Complete email address with {domain}",
+    "contentPlaceholder": "Tell us about any issues or suggestions you have. You can find our response in your email or under Support > My Inquiries. Please do not include personal information, such as your resident registration number, in your message or images.",
+    "categoryPlaceholder": "Select a category.",
+    "categories": {
+      "ACCOUNT_LOGIN": "Account",
+      "USAGE": "Using finditem",
+      "ETC": "Other"
+    },
+    "submitSuccess": "Your inquiry has been submitted.",
+    "submitError": "Couldn't submit your inquiry."
   },
   "HelloPage": {
     "metaTitle": "About Our Service",
@@ -1619,5 +1640,86 @@
     "descLine2": "lost items in our guide.",
     "primaryBtn": "View the guide",
     "secondaryBtn": "Maybe later"
+  },
+  "SupportLayout": {
+    "title": "FAQ",
+    "description": "Curious about finditem? Find answers to common questions about finding lost items, posting, and more, all in one place."
+  },
+  "SupportTab": {
+    "all": "All",
+    "account": "Account",
+    "usage": "How to Use",
+    "etc": "Other"
+  },
+  "SupportFaqAccordion": {
+    "toggleAriaLabel": "Expand or collapse FAQ question",
+    "question1": "What kind of platform is finditem?",
+    "answer1": "finditem is a lost-and-found matching platform that quickly connects lost items with found ones.\nYou can register a lost item or a found item to share information with other users, and use posts to find an item's owner or reach out directly to whoever found it.",
+    "question2": "How can I find a lost item?",
+    "answer2": "On the [Post List], you can browse posts using filters for region, category, sorting, and found status.\nYou can also check posts near you using the map on the main page to see if anything found nearby matches what you lost.",
+    "linkText2": "Go to Post List",
+    "question3": "Is the service free to use?",
+    "answer3": "finditem is completely free to use.\nPosting, searching, chatting, and every other feature are available at no cost.",
+    "question4": "Can anyone write a post?",
+    "answer4": "You need to sign up and log in to use the service.\nOnce logged in, you can write a post about a lost item or a found item.",
+    "question5": "How long do posts stay up?",
+    "answer5": "A post stays on the service until you delete it or change its status yourself.\nIf you've found the item, you can change the post's status or delete it.",
+    "question6": "What should I do if I run into a problem while using the service?",
+    "answer6": "If you run into an error or need help while using the service, you can reach out through 1:1 Inquiry.\nWe'll get back to you with guidance as soon as we can.",
+    "question7": "How do I sign up?",
+    "answer7": "On the [Sign Up page], you can join using your email or a Kakao account.\nOnce you enter the required information and complete sign-up, you can start using the service.",
+    "linkText7": "Go to Sign Up",
+    "question8": "I can't log in.",
+    "answer8": "First, make sure you entered your email and password correctly.\nIf the problem continues, try resetting your password or contact us through 1:1 Inquiry.",
+    "question9": "I forgot my password.",
+    "answer9": "On the [Log In page], you can set a new password using the password reset feature.\nEnter the email address you signed up with to receive password reset instructions.",
+    "linkText9": "Go to Log In",
+    "question10": "How do I log in with Kakao?",
+    "answer10": "On the [Log In page], select the Kakao Login button to log in easily using your Kakao account.",
+    "linkText10": "Go to Log In",
+    "question11": "How do I delete my account?",
+    "answer11": "You can delete your account from My Page.\nAfter deletion, you can't sign up again for 7 days, and your account information is permanently deleted once those 7 days pass.",
+    "question12": "Can I recover my account after deleting it?",
+    "answer12": "Once your account is deleted, your account information is removed and can't be recovered.\nYou'll need to sign up again to use the service.",
+    "question13": "Where can I edit my info?",
+    "answer13": "You can edit your profile image and nickname on the profile settings page in My Page.",
+    "question14": "How do I post that I lost something?",
+    "answer14": "On the [Report Lost Item page], you can register information about your lost item.\nAdding where you lost it, the item's features, and photos helps other users find it.",
+    "linkText14": "Go to Report Lost Item",
+    "question15": "How do I post that I found something?",
+    "answer15": "On the Report Found Item page, you can register information about the item you found.\nAdding where you found it, the item's features, and photos helps the owner confirm it's theirs.",
+    "question16": "How do I edit a post?",
+    "answer16": "You can edit a post you wrote from its detail page.",
+    "question17": "How do I delete a post?",
+    "answer17": "You can delete a post you wrote from its detail page.",
+    "question18": "How do I contact the other person?",
+    "answer18": "You can reach out to the other person using the chat feature on the post's detail page.",
+    "question19": "How do I start a chat?",
+    "answer19": "You can reach out to the other person using the chat feature on the post's detail page.",
+    "question20": "What do I do once I've found my item?",
+    "answer20": "If you've found your item, you can handle it by changing the post's status or deleting the post.",
+    "question21": "How many photos can I add to a post?",
+    "answer21": "You can add up to 5 photos to a post.\nAdding photos helps convey the item's features more accurately.",
+    "question22": "How do I set the location?",
+    "answer22": "When writing a post, you can set the location by selecting it on the map.\nSetting an accurate location helps your post reach more users nearby.",
+    "question23": "How do I report an inappropriate post?",
+    "answer23": "You can report an inappropriate post using the report feature on its detail page.\nReported posts are reviewed by our team and handled according to our service policy.",
+    "question24": "What happens after I submit a report?",
+    "answer24": "Once a report is submitted, our team reviews the content.\nIf a policy violation is confirmed, actions such as post deletion or usage restrictions may follow.",
+    "question25": "How is my personal information protected?",
+    "answer25": "finditem protects your personal information in accordance with relevant laws and our privacy policy.\nWe collect only the minimum information necessary to provide the service and manage it securely.",
+    "question26": "Where can I ask questions while using the service?",
+    "answer26": "If you run into a problem or need help while using the service, you can reach out through Inquiry.\nWe'll review your inquiry and get back to you.",
+    "question27": "Can my use of the service be restricted?",
+    "answer27": "If a violation of our service policy is confirmed, your use of the service may be restricted.\nSee our Terms of Service and operating policy for more details.",
+    "question28": "Where can I check notices?",
+    "answer28": "You can check them on the [Notices page].",
+    "linkText28": "Go to Notices",
+    "question29": "What happens when I block a user?",
+    "answer29": "Once you block a user, their posts and chats no longer appear to you.\nYou can check users you've blocked on the [Blocked Users page] in My Page, and change their block status there.",
+    "linkText29": "Go to Blocked Users"
+  },
+  "FloatingInquiryButton": {
+    "label": "1:1 Inquiry"
   }
 }

@@ -1,14 +1,15 @@
 "use client";
 
 import { cn } from "@/utils";
-import { useSupportTabQuery, SUPPORT_TABS } from "./_internal";
+import { useSupportTabQuery, useSupportTabs } from "./_internal";
 
 const SupportTab = () => {
   const { tab, updateTabQuery } = useSupportTabQuery();
+  const tabs = useSupportTabs();
 
   return (
     <div className="flex w-full border-b border-divider-default px-5">
-      {SUPPORT_TABS.map((item) => (
+      {tabs.map((item) => (
         <button
           key={item.key}
           type="button"
