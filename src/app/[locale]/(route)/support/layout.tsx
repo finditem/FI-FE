@@ -2,19 +2,26 @@ import { DetailHeader } from "@/components";
 import { ReactNode } from "react";
 import { FloatingInquiryButton } from "./_components";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
-export const metadata: Metadata = {
-  title: "자주 묻는 질문",
-  description:
-    "찾아줘 서비스가 궁금하신가요? 분실물 찾는 방법, 게시글 작성 등 자주 묻는 질문을 한 곳에서 확인할 수 있어요.",
-  other: { "page-type": "support" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("SupportLayout");
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    other: { "page-type": "support" },
+  };
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
+  const t = useTranslations("SupportLayout");
+
   return (
     <>
-      <DetailHeader title="자주 묻는 질문" />
-      <h1 className="sr-only">자주 묻는 질문</h1>
+      <DetailHeader title={t("title")} />
+      <h1 className="sr-only">{t("title")}</h1>
       {children}
       <FloatingInquiryButton />
     </>
