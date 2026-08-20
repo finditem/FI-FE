@@ -9,14 +9,16 @@ import {
   ReportStatusFilterValue,
 } from "../../_types/MypageReportsFilterType";
 import { REPORTS_KEBAB_OPTIONS, REPORTS_LABEL_MAP } from "../../_constants/REPORT_LABEL";
+import { useTranslations } from "next-intl";
 
 const MypageReportsFilter = () => {
+  const t = useTranslations("MypageReportsFilter");
   const [isKebabMenu, setIsKebabMenu] = useState(false);
 
   const { reportStatus } = useFilterParams();
 
   const kebabMenuItems = REPORTS_KEBAB_OPTIONS.map((item) => ({
-    text: item.label,
+    text: t(item.labelKey),
     onClick: () => {
       updateFilters({ reportStatus: item.value });
       setIsKebabMenu((prev) => !prev);
@@ -35,17 +37,17 @@ const MypageReportsFilter = () => {
 
   return (
     <section className="flex w-full gap-2 px-5 py-[14px]">
-      <h2 className="sr-only">필터링 영역</h2>
+      <h2 className="sr-only">{t("srOnlyTitle")}</h2>
 
       <div className="relative">
         <Filter
-          ariaLabel="필터"
+          ariaLabel={t("filterAriaLabel")}
           onSelected={selectionState.isReportStatusSelected}
           icon={{ name: "ArrowDown", size: 12 }}
           iconPosition="trailing"
           onClick={() => setIsKebabMenu((prev) => !prev)}
         >
-          {(normalizedReportStatus && REPORTS_LABEL_MAP[normalizedReportStatus]) ?? "상태"}
+          {(normalizedReportStatus && t(REPORTS_LABEL_MAP[normalizedReportStatus])) ?? t("status")}
         </Filter>
 
         {isKebabMenu && (

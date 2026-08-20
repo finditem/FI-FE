@@ -21,21 +21,22 @@ jest.mock("@/utils", () => ({
   cn: (...args: any[]) => args.filter(Boolean).join(" "),
 }));
 
-jest.mock("../MANUAL_CONST", () => ({
-  MANUAL_DATA: {
-    lost: [
-      {
-        title: "신용카드를 분실하셨나요?",
-        content: "카드사에 분실신고가 필요해요.",
-      },
-      {
-        title: "경찰청 신고 내역을 확인했나요?",
-        content: "lost112에서 확인해 보세요.",
-        href: "https://www.lost112.go.kr/",
-        btnText: "경찰청 바로가기",
-      },
-    ],
-  },
+jest.mock("../../_hooks/useManualData/useManualData", () => ({
+  __esModule: true,
+  default: () => [
+    {
+      id: "creditCard",
+      title: "신용카드를 분실하셨나요?",
+      content: "카드사에 분실신고가 필요해요.",
+    },
+    {
+      id: "policeRecord",
+      title: "경찰청 신고 내역을 확인했나요?",
+      content: "lost112에서 확인해 보세요.",
+      href: "https://www.lost112.go.kr/",
+      btnText: "경찰청 바로가기",
+    },
+  ],
 }));
 
 describe("ManualList", () => {
@@ -45,9 +46,7 @@ describe("ManualList", () => {
     const Wrapper = () => {
       const [openIndex, setOpenIndex] = useState<number | null>(initialOpenIndex);
 
-      return (
-        <ManualList openIndex={openIndex} setOpenIndex={setOpenIndex} selected={"lost" as any} />
-      );
+      return <ManualList openIndex={openIndex} setOpenIndex={setOpenIndex} selected="LOST" />;
     };
 
     render(<Wrapper />);

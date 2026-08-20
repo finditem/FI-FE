@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export type ManualItemType = {
+  id: string;
   title: string;
   content: ReactNode;
   href?: string;

@@ -8,6 +8,7 @@ import { LoginFormType } from "../../_types/LoginFormType";
 import { Button, CheckBox, InputText } from "@/components";
 import { LogoLink } from "../../../_components";
 import Link from "next/link";
+import { trackClickSignupStart } from "@/utils/analytics/analytics";
 
 const EmailLoginForm = () => {
   const t = useTranslations("EmailLoginForm");
@@ -71,7 +72,11 @@ const EmailLoginForm = () => {
             </div>
 
             <div className="flex justify-start py-[6px]">
-              <Link href="/sign-up" className="px-3 py-2 text-brand-normal-default">
+              <Link
+                href="/sign-up"
+                className="px-3 py-2 text-brand-normal-default"
+                onClick={trackClickSignupStart}
+              >
                 {t("signUp")}
               </Link>
             </div>

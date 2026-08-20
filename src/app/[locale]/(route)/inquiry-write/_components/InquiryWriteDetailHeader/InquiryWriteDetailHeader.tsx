@@ -1,4 +1,5 @@
 import { DetailHeader, HeaderPost } from "@/components";
+import { useTranslations } from "next-intl";
 
 interface InquiryWriteDetailHeaderProps {
   isDisabled: boolean;
@@ -6,12 +7,14 @@ interface InquiryWriteDetailHeaderProps {
 }
 
 const InquiryWriteDetailHeader = ({ isDisabled, onSubmit }: InquiryWriteDetailHeaderProps) => {
+  const t = useTranslations("InquiryWrite");
+
   return (
     <div className="sticky top-0 z-30 border-b border-labelsVibrant-quaternary bg-white">
-      <DetailHeader title="무엇을 도와드릴까요?">
-        <HeaderPost aria-label="문의 등록" disabled={isDisabled} onClick={onSubmit} />
+      <DetailHeader title={t("headerTitle")}>
+        <HeaderPost aria-label={t("submitAriaLabel")} disabled={isDisabled} onClick={onSubmit} />
       </DetailHeader>
-      <h1 className="sr-only">1:1 문의하기 작성</h1>
+      <h1 className="sr-only">{t("heading")}</h1>
     </div>
   );
 };

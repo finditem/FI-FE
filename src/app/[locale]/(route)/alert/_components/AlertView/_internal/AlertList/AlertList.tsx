@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import {
   NotificationListItem,
   useNotificationList,
@@ -8,8 +9,8 @@ import { alertRouteUrl } from "@/app/[locale]/(route)/alert/_utils/alertRouteUrl
 import { getAlertTitleSegments } from "@/app/[locale]/(route)/alert/_utils/alertTitleSegments";
 import { getAlertIconBackgroundColor } from "@/app/[locale]/(route)/alert/_utils/alertViewMappers";
 import { CheckBox, Icon, IconName, EmptyState } from "@/components";
-import { useInfiniteScroll } from "@/hooks";
-import { cn, formatDate } from "@/utils";
+import { useFormatDate, useInfiniteScroll } from "@/hooks";
+import { cn } from "@/utils";
 import { useRouter } from "next/navigation";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -26,6 +27,8 @@ const AlertItem = ({
   selectedNotifications,
   setSelectedNotifications,
 }: AlertItemProps) => {
+  const t = useTranslations("AlertList");
+  const formatDate = useFormatDate();
   const router = useRouter();
   const {
     notificationId,
@@ -66,9 +69,9 @@ const AlertItem = ({
       aria-label={
         isDeleteMode
           ? isSelected
-            ? "선택된 알림, 탭하면 선택 해제"
-            : "알림 선택"
-          : "알림 확인, 외부 페이지 이동"
+            ? t("selectedAriaLabel")
+            : t("selectAriaLabel")
+          : t("viewAriaLabel")
       }
       className={cn(
         "flex min-h-[86px] w-full items-start gap-3 border-b border-divider-default p-5 text-left transition-colors",
@@ -128,6 +131,7 @@ const AlertList = ({
   selectedNotifications,
   setSelectedNotifications,
 }: AlertListProps) => {
+  const t = useTranslations("AlertList");
   const {
     data: notifications,
     fetchNextPage,
@@ -145,8 +149,8 @@ const AlertList = ({
     return (
       <EmptyState
         icon={{ iconName: "AlertBell", iconSize: 70 }}
-        title="아직 새 소식이 없어요"
-        description={`주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요.`}
+        title={t("emptyTitle")}
+        description={t("emptyDescription")}
       />
     );
   }

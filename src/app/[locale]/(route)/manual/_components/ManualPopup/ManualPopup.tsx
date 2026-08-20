@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Button, Icon, PopupLayout } from "@/components";
 import Link from "next/link";
 
@@ -9,6 +10,8 @@ interface ManualPopupProps {
 }
 
 const ManualPopup = ({ isOpen, onClose }: ManualPopupProps) => {
+  const t = useTranslations("ManualPopup");
+
   return (
     <PopupLayout isOpen={isOpen} onClose={onClose}>
       <div className="mx-auto mb-6 mt-[71px] h-[74px] w-[74px] rounded-full">
@@ -17,11 +20,11 @@ const ManualPopup = ({ isOpen, onClose }: ManualPopupProps) => {
 
       <div className="text-center">
         <h1 className="mb-4 text-h3-semibold text-[#171717]">
-          분실물이 있나요? <br />
-          매뉴얼을 보면 더 도움이 돼요!
+          {t("titleLine1")} <br />
+          {t("titleLine2")}
         </h1>
         <p className="text-body2-medium text-[#7D7D7D]">
-          분실물 발생 시 도움이 되는 정보를 <br /> 매뉴얼에서 확인해 보세요.
+          {t("descLine1")} <br /> {t("descLine2")}
         </p>
       </div>
 
@@ -31,14 +34,14 @@ const ManualPopup = ({ isOpen, onClose }: ManualPopupProps) => {
           as={Link}
           href="/manual"
         >
-          매뉴얼 보러가기
+          {t("primaryBtn")}
         </Button>
         <Button
           variant="outlined"
           className="h-[64px] w-full border-none text-neutralInversed-strong-default"
           onClick={onClose}
         >
-          다음에 볼게요
+          {t("secondaryBtn")}
         </Button>
       </div>
     </PopupLayout>

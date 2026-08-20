@@ -7,6 +7,7 @@ import MainCardList from "../MainCardList/MainCardList";
 import usePoliceItems from "../../../../_hooks/usePoliceItems/usePoliceItems";
 import { usePublicRecentFound } from "@/api/fetch/publicData/api/usePublicRecentFound";
 import { PublicDataItem } from "@/types";
+import { trackClick112LostItem } from "@/utils/analytics/analytics";
 
 const NO_IMAGE_URL = "https://minwon24.police.go.kr/images/sub/img02_no_img.gif";
 
@@ -41,6 +42,7 @@ const PoliceSection = () => {
             <Link
               key={href}
               href={href}
+              onClick={() => trackClick112LostItem("home")}
               className="group box-border h-[60px] w-[60px] shrink-0 rounded-[10px] border border-brand-normal-disabled/90 bg-white px-[14px] py-3 flex-col-center tablet:h-14 tablet:min-h-14 tablet:w-auto tablet:min-w-0 tablet:flex-1"
             >
               <div className="flex flex-col items-center text-center text-caption1-medium transition-colors">

@@ -7,12 +7,23 @@ import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
 import { LogoLink } from "./_components";
 import { useSearchParams } from "next/navigation";
+import { createOAuthState } from "@/utils";
+import {
+  trackClickAppleLogin,
+  trackClickSignupStart,
+  trackClickKakaoLogin,
+  trackClickLoginButton,
+} from "@/utils/analytics/analytics";
 
 const ButtonStyle = "w-full h-11 flex-center gap-1 rounded-[10px] text-body1-semibold ";
 
 const REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
 const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
-const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+const kakaoBaseUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+const APPLE_CLIENT_ID = process.env.NEXT_PUBLIC_APPLE_CLIENT_ID;
+const APPLE_REDIRECT_URI = process.env.NEXT_PUBLIC_APPLE_REDIRECT_URI;
+const appleBaseUrl = `https://appleid.apple.com/auth/authorize?client_id=${APPLE_CLIENT_ID}&redirect_uri=${APPLE_REDIRECT_URI}&response_type=code`;
 
 const page = () => {
   const t = useTranslations("Login");
@@ -28,11 +39,16 @@ const page = () => {
     return query ? `/login/email?${query}` : "/login/email";
   })();
 
-  const handleKakaoLogin = () => {
+  const handleSocialLogin = (provider: "kakao" | "apple") => {
+    if (provider === "kakao") trackClickKakaoLogin();
+    else trackClickAppleLogin();
+
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
 
-    window.location.replace(kakaoURL);
+    const state = createOAuthState();
+    const baseUrl = provider === "kakao" ? kakaoBaseUrl : appleBaseUrl;
+    window.location.replace(`${baseUrl}&state=${state}`);
   };
 
   return (
@@ -45,7 +61,7 @@ const page = () => {
           type="submit"
           ignoreBase
           ariaLabel={t("kakaoAriaLabel")}
-          onClick={handleKakaoLogin}
+          onClick={() => handleSocialLogin("kakao")}
           className={cn(
             ButtonStyle,
             "gap-1 text-flatGray-900 bg-fill-accent-kakao hover:bg-fill-accent-kakao"
@@ -58,7 +74,7 @@ const page = () => {
           type="submit"
           ignoreBase
           ariaLabel={t("appleAriaLabel")}
-          onClick={() => alert("애플 로그인은 현재 지원하지 않습니다.")}
+          onClick={() => handleSocialLogin("apple")}
           className={cn(
             ButtonStyle,
             "gap-1 bg-labelsVibrant-primary text-white hover:bg-labelsVibrant-primary"
@@ -82,6 +98,7 @@ const page = () => {
           href={emailLoginHref}
           replace
           aria-label={t("emailAriaLabel")}
+          onClick={() => trackClickLoginButton("login_email_select")}
           className="min-w-[128px] p-3 text-right text-caption1-semibold text-neutral-normal-default"
         >
           {t("emailButton")}
@@ -91,6 +108,7 @@ const page = () => {
 
         <Link
           href="/sign-up"
+          onClick={trackClickSignupStart}
           className={cn("min-w-[128px] p-3 text-caption1-semibold text-brand-normal-default")}
         >
           {t("createAccount")}

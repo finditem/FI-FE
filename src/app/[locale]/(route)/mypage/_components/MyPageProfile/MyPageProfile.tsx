@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { Button, ProfileAvatar } from "@/components";
+import { trackClickLoginButton } from "@/utils/analytics/analytics";
+import { useTranslations } from "next-intl";
 
 interface ProfileProps {
   userData?: {
@@ -11,6 +13,7 @@ interface ProfileProps {
 }
 
 const MyPageProfile = ({ userData, loading }: ProfileProps) => {
+  const t = useTranslations("MyPageProfile");
   const { nickname, email, profileImg } = userData ?? {
     nickname: "",
     email: "",
@@ -18,7 +21,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
   };
 
   return (
-    <div className="flex w-full items-center justify-between px-5 py-[30px]">
+    <div className="flex w-full items-center justify-between px-5 pb-[30px] pt-[calc(30px+var(--safe-area-top))]">
       <div className="flex w-[188px] items-center gap-6">
         <ProfileAvatar
           size={60}
@@ -35,7 +38,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
             </>
           ) : (
             <p className="text-nowrap text-body1-semibold text-layout-header-default">
-              로그인 시 이용 가능합니다.
+              {t("loginRequired")}
             </p>
           )}
         </div>
@@ -48,8 +51,9 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
         size="small"
         className="!min-w-[56px]"
         loading={loading}
+        onClick={userData ? undefined : () => trackClickLoginButton("mypage")}
       >
-        {userData ? "프로필 수정" : "로그인"}
+        {userData ? t("editProfile") : t("login")}
       </Button>
     </div>
   );

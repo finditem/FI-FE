@@ -293,6 +293,31 @@
     "cancel": "취소",
     "confirm": "차단하기"
   },
+  "UserProfilePage": {
+    "defaultNickname": "닉네임",
+    "profileTitle": "{nickname} 프로필",
+    "profile": "프로필",
+    "profileTabsAriaLabel": "프로필 탭",
+    "tabContentAriaLabel": "탭 콘텐츠",
+    "loading": "로딩 중...",
+    "moreMenuAriaLabel": "더보기 메뉴",
+    "report": "신고하기",
+    "tabs": {
+      "posts": "게시글",
+      "comments": "댓글",
+      "favorites": "즐겨찾기"
+    },
+    "empty": {
+      "postsTitle": "아직 작성한 게시글이 없어요",
+      "postsDescription": "해당 유저가 작성한 게시글이 없습니다.",
+      "commentsTitle": "아직 작성한 댓글이 없어요",
+      "commentsDescription": "아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!",
+      "favoritesTitle": "아직 즐겨찾기한 게시글이 없어요",
+      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다."
+    },
+    "likesAriaLabel": "좋아요 {count}개",
+    "likes": "좋아요 {count}"
+  },
   "ReadOnlyCommentItem": {
     "admin": "관리자"
   },
@@ -878,5 +903,839 @@
   "LatestList": {
     "searchLabel": "{keyword} 검색",
     "deleteLabel": "최근 검색어 삭제"
+  },
+  "ChatListLayout": {
+    "title": "채팅 목록",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ListView": {
+    "regionSearchLoading": "지역 검색 불러오는 중...",
+    "regionTitle": "지역 선택",
+    "chatTitle": "채팅",
+    "pageHeading": "채팅 목록 페이지"
+  },
+  "DefaultChatList": {
+    "regionPlaceholder": "지역 선택",
+    "loadingTitle": "채팅 목록 불러오는 중...",
+    "emptyTitle": "아직 채팅 내역이 없어요",
+    "emptyDescription": "채팅이 시작되면 여기에 채팅 목록이 표기돼요."
+  },
+  "ChatFilterOptions": {
+    "allLabel": "전체",
+    "foundLabel": "발견",
+    "lostLabel": "분실",
+    "latestLabel": "최신순",
+    "oldestLabel": "오래된순",
+    "allSelectedLabel": "발견/분실"
+  },
+  "ChatItem": {
+    "withdrawnUser": "탈퇴한 회원",
+    "nicknameFallback": "닉네임을 불러오지 못했습니다.",
+    "addressFallback": "위치 정보를 불러오지 못했습니다.",
+    "timeFallback": "시간 정보가 없습니다.",
+    "imageMessage": "사진",
+    "messageFallback": "메시지를 불러오지 못했습니다.",
+    "unreadSrLabel": "읽지 않은 메시지 "
+  },
+  "useFormatDate": {
+    "now": "지금",
+    "minutesAgo": "{count}분 전",
+    "hoursAgo": "{count}시간 전",
+    "yesterday": "어제"
+  },
+  "ListSearch": {
+    "placeholder": "시/군/구를 입력해 주세요."
+  },
+  "RegionSearchView": {
+    "emptyResult": "검색 결과가 없습니다."
+  },
+  "ChatRoomLayout": {
+    "title": "채팅방 | 찾아줘! 채팅",
+    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+  },
+  "ChatRoom": {
+    "withdrawnToast": "알 수 없는 사용자이거나 탈퇴한 회원이에요",
+    "pageHeading": "채팅 상세 페이지",
+    "inputAriaLabel": "채팅 입력창"
+  },
+  "ChatRoomHeader": {
+    "backAriaLabel": "뒤로 가기 버튼",
+    "postLinkAriaLabel": "게시글 상세 페이지 이동",
+    "withdrawnUser": "탈퇴한 회원이에요",
+    "profileAriaLabel": "상대방 프로필 이동",
+    "thumbnailAlt": "채팅방 게시글 썸네일",
+    "deletedTitle": "삭제됨 {title}"
+  },
+  "ChatRoomHeaderInfoButton": {
+    "menuAriaLabel": "채팅방 메뉴 열기 버튼",
+    "reportLabel": "차단, 신고하기",
+    "leaveLabel": "채팅방 나가기"
+  },
+  "ChatLeaveModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "네, 나갈래요",
+    "title": "채팅방을 나가시겠어요?",
+    "description": "채팅방을 나가면 채팅 목록 및 대화 내용이 삭제되고\n복구할 수 없어요. 채팅방에서 나가시겠어요?"
+  },
+  "ChatChip": {
+    "findLabel": "발견",
+    "lostLabel": "분실",
+    "foundStatusLabel": "찾았어요"
+  },
+  "ChatImageBox": {
+    "youLabel": "나",
+    "theyLabel": "상대방"
+  },
+  "ChatImageButton": {
+    "imageAlt": "채팅 이미지 {index}"
+  },
+  "ExpandableMessageBubble": {
+    "hideLabel": "숨기기",
+    "showMoreLabel": "더보기"
+  },
+  "EmptyChatRoom": {
+    "pageHeading": "빈 채팅 안내 화면",
+    "lostHelpText": "이 분실물을 주우셨나요?\n주인에게 먼저 연락해보세요.",
+    "findHelpText": "내 물건이 맞는지 확인해보세요.\n발견자에게 메시지를 보내세요."
+  },
+  "InputChat": {
+    "imageAttachAriaLabel": "이미지 첨부",
+    "placeholderWithdrawn": "상대방이 탈퇴한 회원입니다.",
+    "placeholderDefault": "메시지 보내기",
+    "sendAriaLabel": "전송 버튼"
+  },
+  "InputChatImageSection": {
+    "cancelAriaLabel": "사진 전송 취소 버튼",
+    "sendAriaLabel": "사진 전송 버튼",
+    "selectLabel": "사진 선택",
+    "sendCountLabel": "사진 {count}개 전송"
+  },
+  "HandleSendImage": {
+    "imageErrorToast": "이미지 처리 중 오류가 발생했습니다."
+  },
+  "PostWritePage": {
+    "defaultTitle": "물건 등록",
+    "defaultDescription": "분실 또는 발견한 물건의 정보를 등록해보세요.",
+    "lostTitle": "분실한 물건 등록",
+    "lostDescription": "분실한 물건의 정보를 등록해보세요.",
+    "foundTitle": "발견한 물건 등록",
+    "foundDescription": "발견한 물건의 정보를 등록해보세요."
+  },
+  "PostWriteHeader": {
+    "lostTitle": "분실했어요 글쓰기",
+    "foundTitle": "발견했어요 글쓰기"
+  },
+  "WriteForm": {
+    "srOnlyPageTitle": "{title} 페이지",
+    "noImageConfirmTitle": "사진을 첨부하지 않고 등록하시겠습니까?",
+    "noImageConfirmDescription": "사진을 첨부하시면 유실물을 더 잘 찾아드릴 수 있어요.",
+    "cancelButton": "아니요",
+    "confirmButton": "이미지 없이 등록"
+  },
+  "TitleSection": {
+    "placeholder": "제목을 입력해 주세요."
+  },
+  "ContentSection": {
+    "placeholder": "내용을 입력해 주세요.",
+    "guideLine1": "분실/발견 날짜, 물건 종류, 물건의 특징 등 유실물 찾기에 도움이 되는 내용을 작성해 주세요.",
+    "guideLine2": "저작권과 관련된 내용은 반드시 출처를 표기해야 하며, 의심스러운 글을 작성할 경우 제재 조치를 받을 수 있습니다."
+  },
+  "CategorySection": {
+    "placeholder": "카테고리를 선택해 주세요.",
+    "ariaLabel": "카테고리 선택"
+  },
+  "LocationSection": {
+    "placeholder": "위치를 등록해 주세요."
+  },
+  "PostEditPage": {
+    "lostTitle": "분실했어요 수정",
+    "foundTitle": "발견했어요 수정",
+    "srOnlyPageTitle": "{title} 페이지"
+  },
+  "PostEditSkeleton": {
+    "title": "게시글 수정"
+  },
+  "PostWriteLocationLayout": {
+    "title": "위치 등록",
+    "srOnlyPageTitle": "위치 등록 페이지"
+  },
+  "LocationSearchSection": {
+    "searchPlaceholder": "지역명을 입력해 주세요.",
+    "resultsSectionAriaLabel": "검색 결과",
+    "guideTitle": "읍/면/동/리를 검색해 보세요.",
+    "guideExample": "예) 삼일대로 428, 부산시 기장읍",
+    "srLoading": "검색 결과를 불러오는 중입니다",
+    "srResultsCount": "검색 결과 {count}개",
+    "emptyResultsTitle": "검색 결과가 없습니다."
+  },
+  "LocationRangeSection": {
+    "addressLoadError": "위치 정보를 불러오는데 실패했어요"
+  },
+  "PostWriteBottomSheet": {
+    "nearbyTitle": "{address} 근처",
+    "selectedLocationFallback": "선택한 위치",
+    "applyButton": "적용하기"
+  },
+  "AlertLayout": {
+    "title": "알림",
+    "description": "찾아줘에서 나에게 온 알림을 확인해보세요."
+  },
+  "AlertDetailHeader": {
+    "title": "알림",
+    "pageHeading": "알림 페이지"
+  },
+  "AlertCategories": {
+    "allLabel": "전체",
+    "categoryLabel": "카테고리 키워드",
+    "chatLabel": "채팅",
+    "commentLabel": "댓글",
+    "noticeLabel": "공지사항",
+    "inquiry_replyLabel": "문의",
+    "report_resultLabel": "신고"
+  },
+  "AlertDeleteModal": {
+    "cancelLabel": "아니요",
+    "confirmLabel": "삭제하기",
+    "title": "정말로 알림을 삭제하시겠어요?",
+    "description": "삭제한 알림은 복구할 수 없습니다."
+  },
+  "AlertDeleteSection": {
+    "deleteAllLabel": "전체 삭제",
+    "deleteSelectedLabel": "선택 삭제"
+  },
+  "AlertList": {
+    "selectedAriaLabel": "선택된 알림, 탭하면 선택 해제",
+    "selectAriaLabel": "알림 선택",
+    "viewAriaLabel": "알림 확인, 외부 페이지 이동",
+    "emptyTitle": "아직 새 소식이 없어요",
+    "emptyDescription": "주변을 계속 살펴보고 있어요.\n새로운 알림이 생기면 바로 알려드릴게요."
+  },
+  "MypageReportsDetailPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 상세 페이지"
+  },
+  "MypageReportsDetail": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "loadError": "신고 내역을 불러오는데 실패했어요",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "ReportCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
+  "MypageReportsLayout": {
+    "title": "내 신고 내역"
+  },
+  "MypageReportsPage": {
+    "title": "내 신고 내역",
+    "srOnlyTitle": "내 신고 내역 페이지"
+  },
+  "MypageReportsFilter": {
+    "all": "전체",
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageReportsContent": {
+    "pending": "접수",
+    "reviewed": "처리 중",
+    "resolved": "처리 완료",
+    "detailAriaLabel": "신고 상세 보기",
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 신고 내역 목록 영역",
+    "reportTypes": {
+      "IRRELEVANT_CONTENT": "실제 분실/발견한 물건이 아닌 내용이에요.",
+      "DUPLICATE": "동일한 내용이 여러 번 올라왔어요.",
+      "SPAM": "분실물과 무관한 홍보성 게시글이에요.",
+      "OFFENSIVE_LANGUAGE": "채팅 또는 댓글에 모욕적 표현이 있어요.",
+      "EXTORTION": "물건 반환을 빌미로 금전 요구가 있어요.",
+      "FALSE_CLAIM": "실제 주인이 아닌 사람이 소유를 주장해요.",
+      "ETC": "위 항목 외의 다른 문제를 신고해요."
+    }
+  },
+  "NotificationSettingsLayout": {
+    "title": "알림 설정",
+    "description": "찾아줘에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
+  },
+  "NotificationSettingsPage": {
+    "title": "알림 설정",
+    "srOnlyTitle": "알림 설정 페이지"
+  },
+  "NotificationSettingList": {
+    "title": "알림 설정",
+    "allNotificationsAriaLabel": "전체 알림 설정"
+  },
+  "NotificationSettingItem": {
+    "categoryKeywords": "카테고리 키워드",
+    "selectCategoryKeywords": "카테고리 키워드 선택",
+    "chat": "채팅",
+    "comments": "댓글",
+    "favorites": "즐겨찾기",
+    "inquiries": "1:1 문의",
+    "reports": "신고",
+    "notices": "공지사항",
+    "toggleAriaLabel": "{label} 토글",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationCategory": {
+    "title": "카테고리 키워드",
+    "apply": "적용하기",
+    "categories": {
+      "ELECTRONICS": "전자기기",
+      "WALLET": "지갑",
+      "ID_CARD": "신분증",
+      "JEWELRY": "귀금속",
+      "BAG": "가방",
+      "CARD": "카드",
+      "ETC": "기타"
+    }
+  },
+  "NotificationToggle": {
+    "unsupportedBrowser": "이 브라우저는 알림 기능을 지원하지 않아요",
+    "permissionDenied": "알림 권한이 거절되었어요",
+    "registrationFailed": "브라우저 알림 등록에 실패했어요"
+  },
+  "MypageInquiriesLayout": {
+    "title": "내 문의 내역"
+  },
+  "MypageInquiriesPage": {
+    "title": "내 문의 내역",
+    "srOnlyTitle": "내 문의 내역 페이지"
+  },
+  "MypageInquiriesFilter": {
+    "all": "전체",
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "status": "상태",
+    "srOnlyTitle": "필터링 영역",
+    "filterAriaLabel": "필터"
+  },
+  "MypageInquiriesContent": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "detailAriaLabel": "{title} 문의 상세 내용 보기",
+    "loadError": "내 문의 목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 문의 내역 목록 영역"
+  },
+  "MypageInquiriesDetail": {
+    "received": "접수",
+    "pending": "검토 중",
+    "answered": "답변 완료",
+    "loadError": "문의 내역을 불러오는데 실패했어요",
+    "imageAlt": "이미지 {number}",
+    "imageAriaLabel": "{number}번째 이미지 보기"
+  },
+  "InquiryCommentItem": {
+    "admin": "관리자",
+    "attachedImageAlt": "첨부 이미지 {number}"
+  },
+  "MyPageLayout": {
+    "title": "마이페이지",
+    "titleTemplate": "%s | 찾아줘! 마이페이지",
+    "description": "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
+  },
+  "MyPageMenu": {
+    "myActivity": "내 활동",
+    "notification": "알림",
+    "reportInquiry": "신고/문의",
+    "accountManagement": "계정 관리",
+    "servicePolicy": "서비스 정책",
+    "myPosts": "내가 쓴 게시글",
+    "myComments": "내가 쓴 댓글",
+    "favorites": "즐겨찾기 목록",
+    "myActivities": "내 활동 내역",
+    "blockedUsers": "내가 차단한 계정",
+    "notificationSettings": "알림 설정",
+    "myReports": "내 신고 내역",
+    "myInquiries": "내 문의 내역",
+    "faq": "자주 묻는 질문",
+    "accountSettings": "계정 설정",
+    "serviceIntro": "서비스 소개",
+    "privacyPolicy": "개인정보처리방침",
+    "serviceTerms": "서비스 이용 약관",
+    "marketingTerms": "마케팅 수신 약관",
+    "contentPolicy": "콘텐츠 활용 동의서",
+    "notice": "공지사항",
+    "chatList": "채팅목록",
+    "logout": "로그아웃"
+  },
+  "MyPageProfile": {
+    "loginRequired": "로그인 시 이용 가능합니다.",
+    "editProfile": "프로필 수정",
+    "login": "로그인"
+  },
+  "MyPageContainer": {
+    "unexpectedError": "예상치 못한 에러가 발생했어요"
+  },
+  "AccountPage": {
+    "title": "계정 설정"
+  },
+  "AccountContainer": {
+    "profileLoadError": "프로필 조회에 실패했어요",
+    "defaultNickname": "사용자 닉네임",
+    "defaultEmail": "사용자 이메일",
+    "changePassword": "비밀번호 변경",
+    "deleteAccount": "회원 탈퇴",
+    "logout": "로그아웃"
+  },
+  "BlockedUsersLayout": {
+    "title": "내가 차단한 계정"
+  },
+  "ReportUserList": {
+    "loadError": "차단된 유저 데이터를 가져오는데 실패했어요",
+    "emptyTitle": "차단한 유저가 없어요",
+    "emptyDescription": "아직 차단한 유저가 없습니다.\n유저를 차단하면 이곳에 표기됩니다.",
+    "unblockAriaLabel": "{nickname} 차단 해제",
+    "unblockButton": "차단 해제"
+  },
+  "MypageFavoritesPage": {
+    "title": "즐겨찾기 목록",
+    "srOnlyTitle": "즐겨찾기 목록 페이지"
+  },
+  "MypageFavoritesLayout": {
+    "title": "즐겨찾기 목록",
+    "description": "찾아줘에서 내가 즐겨찾기한 분실 및 발견 게시글을 확인해보세요."
+  },
+  "MypageFavoritesContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 즐겨찾기 목록 영역"
+  },
+  "MypagePostsPage": {
+    "title": "내가 쓴 게시글",
+    "srOnlyTitle": "내가 쓴 게시글 페이지"
+  },
+  "MypagePostsLayout": {
+    "title": "내가 쓴 게시글",
+    "description": "찾아줘에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
+  },
+  "MypagePostsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "게시글 목록 영역"
+  },
+  "MypageCommentsPage": {
+    "title": "내가 쓴 댓글",
+    "srOnlyTitle": "내가 쓴 댓글 페이지"
+  },
+  "MypageCommentsLayout": {
+    "title": "내가 쓴 댓글",
+    "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
+  },
+  "MypageCommentsFilterSection": {
+    "sectionAriaLabel": "필터 영역",
+    "date": "기간",
+    "sortAriaLabel": "정렬 필터",
+    "latest": "최신순",
+    "oldest": "오래된순"
+  },
+  "MypageCommentsContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "댓글 목록 영역"
+  },
+  "MypageProfileLayout": {
+    "title": "프로필 설정",
+    "description": "나의 찾아줘 프로필을 관리해 보세요.",
+    "srOnlyTitle": "프로필 수정"
+  },
+  "MypageActivitiesPage": {
+    "title": "내 활동 내역",
+    "srOnlyTitle": "내 활동 내역 페이지"
+  },
+  "MypageActivitiesLayout": {
+    "title": "내 활동 내역",
+    "description": "찾아줘에서 내가 활동한 기록들을 확인해보세요."
+  },
+  "ActivityFilterSection": {
+    "sectionAriaLabel": "필터 선택 영역",
+    "date": "기간",
+    "activityAriaLabel": "활동 유형",
+    "activityType": "유형",
+    "bottomSheetTitle": "필터",
+    "all": "전체",
+    "post": "게시글",
+    "comment": "댓글",
+    "favorite": "즐겨찾기",
+    "inquiry": "1:1 문의",
+    "report": "신고"
+  },
+  "ActivityBottomSheet": {
+    "applyButton": "적용하기"
+  },
+  "ActivityContent": {
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 활동 내역 영역",
+    "postCreated": "게시글을 작성했어요.",
+    "commentCreated": "댓글을 작성했어요.",
+    "favoriteAdded": "게시글을 즐겨찾기했어요.",
+    "inquiryCreated": "1:1문의를 작성했어요.",
+    "inquiryAnswered": "1:1 문의에 대한 답변이 등록되었어요.",
+    "reportReceived": "신고가 접수되었어요.",
+    "reportAnswered": "신고에 대한 답변이 등록되었어요."
+  },
+  "DeleteAccountLayout": {
+    "title": "회원 탈퇴",
+    "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
+  },
+  "DeleteAccountPage": {
+    "title": "회원 탈퇴",
+    "srOnlyTitle": "회원탈퇴 페이지",
+    "userNotFound": "존재하지 않는 회원이에요",
+    "deleteFailed": "회원 탈퇴에 실패했어요"
+  },
+  "DeleteAccountContainer": {
+    "srOnlyTitle": "탈퇴 선택 영역"
+  },
+  "DeleteAccountReason": {
+    "title": "탈퇴하시려는 이유를 알려주세요.",
+    "selectionLimit": "최대 3개 선택",
+    "notUsing": "잘 사용하지 않아요",
+    "lowTrust": "서비스에 대한 신뢰도가 낮아요",
+    "difficultToUse": "사용이 어려워요",
+    "duplicateAccount": "다른 계정이 있어요",
+    "unpleasantUser": "불쾌감을 주는 사용자를 만났어요",
+    "unfairRestriction": "억울하게 서비스 이용이 제한됐어요",
+    "other": "기타",
+    "otherRequired": "기타 사유를 입력해주세요.",
+    "otherPlaceholder": "서비스를 탈퇴하려는 이유를 작성해 주세요.",
+    "deleteButton": "탈퇴하기",
+    "nextButton": "다음"
+  },
+  "DeleteAccountPassword": {
+    "title": "비밀번호를 입력해 주세요.",
+    "placeholder": "현재 비밀번호를 입력해 주세요.",
+    "passwordMismatchField": "비밀번호가 일치하지 않아요.",
+    "passwordMismatchToast": "비밀번호가 일치하지 않아요",
+    "userNotFoundField": "존재하지 않는 회원이에요.",
+    "userNotFoundToast": "존재하지 않는 회원이에요",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteAccountModal": {
+    "title": "정말로 탈퇴하시겠습니까?",
+    "cancelButton": "취소",
+    "deleteButton": "탈퇴하기"
+  },
+  "DeleteComplete": {
+    "title": "회원 탈퇴가 완료되었습니다.",
+    "description": "동일한 이메일로 1주일간 재가입이 불가합니다.",
+    "homeButton": "홈 화면으로 이동하기"
+  },
+  "ChangePassword": {
+    "metaTitle": "비밀번호 변경 | 찾아줘! 마이페이지",
+    "metaDescription": "찾아줘 계정의 비밀번호를 안전하게 변경해 보세요.",
+    "title": "비밀번호 변경",
+    "heading": "비밀번호 변경 페이지",
+    "submit": "변경 완료",
+    "currentPasswordLabel": "현재 비밀번호",
+    "currentPasswordPlaceholder": "현재 비밀번호를 입력해주세요.",
+    "verifyPassword": "비밀번호 확인",
+    "passwordMatch": "비밀번호가 일치합니다.",
+    "passwordMismatch": "비밀번호가 일치하지 않습니다.",
+    "forgotPassword": "비밀번호를 잊어버리셨나요?",
+    "findPassword": "비밀번호 찾기",
+    "passwordRule": "대문자/소문자/숫자/특수 문자 포함 8자리 이상",
+    "newPasswordLabel": "새 비밀번호",
+    "newPasswordPlaceholder": "새 비밀번호를 입력해주세요.",
+    "sameAsCurrentPassword": "기존 비밀번호와 동일한 비밀번호는 사용할 수 없어요",
+    "newPasswordConfirmLabel": "새 비밀번호 확인",
+    "newPasswordConfirmPlaceholder": "비밀번호를 한 번 더 입력해 주세요."
+  },
+  "NoticePage": {
+    "metaTitle": "공지사항",
+    "metaTitleTemplate": "%s | 찾아줘! 공지사항",
+    "metaDescription": "찾아줘에 등록된 공지사항을 확인해 보세요.",
+    "title": "공지사항",
+    "heading": "공지사항 페이지",
+    "writeAriaLabel": "공지사항 작성 페이지 이동",
+    "search": {
+      "placeholder": "제목, 내용을 입력해 주세요."
+    },
+    "filter": {
+      "ariaLabel": "공지사항 정렬",
+      "latest": "최신순",
+      "oldest": "오래된 순",
+      "mostViewed": "조회 많은 순"
+    },
+    "list": {
+      "thumbnailAlt": "공지사항 게시글 썸네일",
+      "emptyTitle": "등록된 공지사항이 없어요",
+      "emptyDescription": "새로운 공지사항이 등록되면\n이곳에 표기됩니다."
+    },
+    "error": {
+      "title": "공지사항을 불러올 수 없어요",
+      "description": "네트워크 연결을 확인하거나\n잠시 후 다시 시도해주세요",
+      "refresh": "새로고침",
+      "inquiry": "고객센터 문의"
+    },
+    "detail": {
+      "metaFallbackTitle": "공지 상세",
+      "metaFallbackDescription": "공지 상세 내용",
+      "shareTitle": "찾아줘 공지사항 공유",
+      "shareSummary": "공지사항을 확인해보세요",
+      "shareAriaLabel": "공지사항 공유",
+      "adminMenuAriaLabel": "공지 관리 메뉴",
+      "edit": "게시글 수정하기",
+      "delete": "게시글 삭제하기",
+      "loadError": "공지사항 불러오기에 실패했어요",
+      "viewImageAriaLabel": "공지사항 상세 이미지 {index} 보기",
+      "imageAlt": "공지사항 상세 이미지",
+      "likeAriaLabel": "좋아요",
+      "unlikeAriaLabel": "좋아요 취소",
+      "recommendCount": "추천 {count}",
+      "viewCount": "조회 {count}"
+    },
+    "deleteModal": {
+      "title": "정말로 삭제하시겠습니까?",
+      "description": "게시글 삭제 후에는 취소가 불가능합니다.",
+      "cancel": "취소",
+      "confirm": "삭제하기"
+    }
+  },
+  "InquiryWrite": {
+    "metaTitle": "1:1 문의하기",
+    "metaDescription": "찾아줘 서비스 이용 중 궁금한 점이 있나요? 1:1 문의로 빠르게 접수해보세요.",
+    "headerTitle": "무엇을 도와드릴까요?",
+    "submitAriaLabel": "문의 등록",
+    "heading": "1:1 문의하기 작성",
+    "titlePlaceholder": "문의 제목을 입력해 주세요.",
+    "emailPlaceholder": "이메일을 입력해주세요.",
+    "emailAutoCompleteAriaLabel": "{domain} 이메일 자동완성",
+    "contentPlaceholder": "이용하며 느끼신 불편한 점이나 바라는 점을 알려주세요. 문의 답변은 이메일 또는 고객센터>문의 내역에서 확인 가능합니다. 내용 본문과 이미지에 고객님에 개인 정보 (주민번호 등)가 포함되지 않도록 주의해주세요.",
+    "categoryPlaceholder": "카테고리를 선택해주세요.",
+    "categories": {
+      "ACCOUNT_LOGIN": "계정",
+      "USAGE": "이용방법",
+      "ETC": "기타"
+    },
+    "submitSuccess": "1:1 문의를 등록했어요",
+    "submitError": "1:1 문의 등록에 실패했어요"
+  },
+  "HelloPage": {
+    "metaTitle": "서비스 소개",
+    "metaDescription": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",
+    "heading": "서비스 소개 페이지",
+    "features": {
+      "intro": {
+        "title": "분실물 찾기, 더 쉽고 빠르게",
+        "descriptionLine1": "물건을 잃어버렸을 때, 어떻게 찾아야 할지 막막할 때가 있죠. '찾아줘!'는 그런 순간에",
+        "descriptionLine2": "함께하는 실시간 위치 기반 분실물 찾기 플랫폼입니다."
+      },
+      "browse": {
+        "title": "지역, 카테고리별 분실물 제보 확인",
+        "description": "분실 지역, 물건 카테고리별로 분실물 제보를 확인하고 편리하게 유실물을 찾아보세요."
+      },
+      "chat": {
+        "title": "제보자와 실시간 채팅",
+        "description": "실시간 채팅으로 제보자와 바로 대화하며 잃어버린 물건을 더 빠르고 쉽게 되찾을 수 있어요."
+      },
+      "alert": {
+        "title": "카테고리 알림으로 신규 게시글 확인",
+        "description": "알림을 받고 싶은 분실물 카테고리 키워드를 등록하면, 해당 게시글이 등록됐을 때 알림을 전송해요."
+      }
+    },
+    "cta": {
+      "title": "분실의 걱정을 가볍게, 찾아줘!",
+      "description": "'찾아줘!'와 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.",
+      "button": "찾아줘 홈으로 이동"
+    }
+  },
+  "AppleCallback": {
+    "metaTitle": "애플 로그인",
+    "metaDescription": "애플 계정으로 간편하게 로그인하여 분실물을 찾고 습득물을 공유해보세요.",
+    "loading": "로그인 요청 중...",
+    "notFoundTitle": "페이지를 찾을 수 없습니다.",
+    "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
+    "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
+  },
+  "KakaoCallback": {
+    "metaTitle": "카카오 로그인",
+    "metaDescription": "카카오 계정으로 간편하게 로그인하여 분실물을 찾고 습득물을 공유해보세요.",
+    "loading": "로그인 요청 중...",
+    "notFoundTitle": "페이지를 찾을 수 없습니다.",
+    "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
+    "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
+  },
+  "ManualLayout": {
+    "metaTitle": "분실물/습득물/도난 매뉴얼",
+    "metaDescription": "분실, 습득, 도난 상황에서 해결법을 찾으시나요? 유형별 신고 절차와 센터까지 정리했으니, 차분하게 대처해보세요!",
+    "headerTitle": "유실물 발생 시 매뉴얼",
+    "srHeading": "매뉴얼 페이지"
+  },
+  "ManualTabs": {
+    "LOST": "분실",
+    "FOUND": "발견",
+    "STOLEN": "도난"
+  },
+  "ManualData": {
+    "LOST": {
+      "policeRecord": {
+        "title": "경찰청 신고 내역을 확인했나요?",
+        "content": "경찰청 유실물 종합 포털(https://www.lost112.go.kr/)을 통해 경찰청에서 보관 중인 유실물을 확인해 보세요.",
+        "btnText": "경찰청 바로가기"
+      },
+      "lostPost": {
+        "title": "분실 게시글을 써보셨나요?",
+        "content": "'찾아줘'에 분실 게시물을 작성하면 물건을 습득한 분이 게시글을 통해 연락할 수 있어요.",
+        "btnText": "분실 게시글 쓰러가기"
+      },
+      "policeFoundList": {
+        "title": "경찰청 습득물 목록을 확인했나요?",
+        "content": "경찰청 유실물 종합 포털(https://www.lost112.go.kr/)을 통해 경찰청에서 보관 중인 유실물을 확인해 보세요.",
+        "btnText": "경찰청 바로가기"
+      },
+      "creditCard": {
+        "title": "신용카드를 분실하셨나요?",
+        "content": "신용카드는 분실 시에는 해당 카드사에 분실신고를 해야해요. <br></br> 여러장의 신용카드를 분실 했을 경우, 신용카드 분실 일괄신고 서비스를 이용해 분실할 신용카드사 중 한 곳의 고객센터에 신고하여 타사 카드까지 분실 등록이 가능해요. <br></br><br></br> 법인카드는 개인 명의로 발급되어 있다 해도 일괄 신고를 할 수 없어 별도로 분실신고를 해야 해요."
+      },
+      "idCard": {
+        "title": "신분증을 분실하셨나요?",
+        "content": "주민등록증의 경우 가까운 주민센터 직접 방문하거나, 민원24(www.minwon.go.kr)에 접속해 온라인으로 분실 신고를 할 수 있어요. <br></br><br></br> 운전 면허증 분실 시에는 가까운 경찰서나 운전면허시험장에 방문해 분실 신고와 재발급 신청을 할 수 있어요.",
+        "btnText": "민원 24 바로가기"
+      },
+      "phone": {
+        "title": "핸드폰을 분실하셨나요?",
+        "content": "핸드폰 분실 시 통신사 고객센터(114)나 직영대리점, 통신사 홈페이지를 통해 분실신고와 발신정지를 해야 해요. <br></br><br></br> 또한 핸드폰 찾기 콜센터(https://www.handphone.or.kr)에서 핸드폰 습득물을 조회할 수 있어요.",
+        "btnText": "핸드폰 습득물 보러가기"
+      }
+    },
+    "FOUND": {
+      "policeRecord": {
+        "title": "경찰청 신고 내역을 확인했나요?",
+        "content": "경찰청 유실물 종합 포털(https://www.lost112.go.kr)에서 분실 신고가 접수된 유실물 목록을 확인해 보세요.",
+        "btnText": "경찰청 바로가기"
+      },
+      "foundPost": {
+        "title": "발견 게시글을 써보셨나요?",
+        "content": "‘찾아줘'에 발견 게시물을 작성하면 물건을 분실한 분이 게시글을 통해 연락할 수 있어 분실물을 찾는 데에 도움이 돼요.",
+        "btnText": "발견 게시물 쓰러가기"
+      },
+      "foundReport": {
+        "title": "습득물 신고를 하셨나요?",
+        "content": "물건을 습득한 경우 경찰청 유실물 종합 포털(https://www.lost112.go.kr)이나 가까운 경찰서에 방문하여 습득 신고를 할 수 있어요.",
+        "btnText": "습득 신고 하러가기"
+      }
+    },
+    "STOLEN": {
+      "policeItems": {
+        "title": "경찰청 습득물 목록을 확인했나요?",
+        "content": "먼저 경찰청 유실물 종합 포털(https://www.lost112.go.kr)을 통해 경찰청에서 보관 중인 유실물을 확인해 보세요.",
+        "btnText": "경찰청 바로가기"
+      },
+      "cctv": {
+        "title": "CCTV를 확인하고 싶으신가요?",
+        "content": "가까운 경찰서에 방문하여 분실 신고를 한 뒤, 분실 해당 장소 관리 주체에 직접 CCTV 열람 요청을 해야 해요. <br></br><br></br> 공공 장소의 CCTV 열람이 필요한 경우 정보 공개 포털(https://www.open.go.kr)을 통해 정보 공개 청구를 하여 CCTV 열람을 요청할 수 있어요.",
+        "btnText": "정보 공개 포털 보러가기"
+      }
+    }
+  },
+  "ManualPopup": {
+    "titleLine1": "분실물이 있나요?",
+    "titleLine2": "매뉴얼을 보면 더 도움이 돼요!",
+    "descLine1": "분실물 발생 시 도움이 되는 정보를",
+    "descLine2": "매뉴얼에서 확인해 보세요.",
+    "primaryBtn": "매뉴얼 보러가기",
+    "secondaryBtn": "다음에 볼게요"
+  },
+  "SupportLayout": {
+    "title": "자주 묻는 질문",
+    "description": "찾아줘 서비스가 궁금하신가요? 분실물 찾는 방법, 게시글 작성 등 자주 묻는 질문을 한 곳에서 확인할 수 있어요."
+  },
+  "SupportTab": {
+    "all": "전체",
+    "account": "계정",
+    "usage": "이용 방법",
+    "etc": "기타"
+  },
+  "SupportFaqAccordion": {
+    "toggleAriaLabel": "FAQ 질문 접기/펼치기",
+    "question1": "찾아줘 서비스는 어떤 플랫폼인가요?",
+    "answer1": "찾아줘는 분실물과 습득물을 빠르게 연결해 주는 분실물 매칭 플랫폼이에요\n사용자는 분실한 물건을 등록하거나 발견한 물건을 등록하여 서로 정보를 공유할 수 있으며, 게시글을 통해 물건의 주인을 찾거나 분실물을 발견한 사람과 직접 소통할 수 있어요",
+    "question2": "분실물은 어떻게 찾을 수 있나요?",
+    "answer2": "[게시글 목록]에서 지역, 카테고리, 정렬, 찾음 여부 필터를 통해 등록된 게시글을 확인할 수 있어요\n또한 메인 페이지의 지도 기능을 통해 주변에 등록된 게시글을 확인하여, 분실한 위치 근처에서 발견된 물건이 있는지 확인할 수 있어요",
+    "linkText2": "게시글 목록 바로가기",
+    "question3": "서비스 이용은 무료인가요?",
+    "answer3": "찾아줘 서비스는 무료로 이용할 수 있어요\n게시글 작성, 검색, 채팅 등 모든 기능을 비용 없이 이용할 수 있어요",
+    "question4": "게시글은 누구나 작성할 수 있나요?",
+    "answer4": "서비스 이용을 위해서는 회원가입 후 로그인해야 해요\n로그인한 사용자는 분실 또는 제보 게시글을 작성할 수 있어요",
+    "question5": "게시글은 얼마나 오래 유지되나요?",
+    "answer5": "게시글은 사용자가 직접 삭제하거나 상태를 변경하지 않는 한 계속 서비스에 유지돼요\n물건을 찾은 경우 게시글 상태를 변경하거나 삭제하여 처리할 수 있어요",
+    "question6": "서비스 이용 중 문제가 발생하면 어떻게 하나요?",
+    "answer6": "서비스 이용 중 오류가 발생하거나 도움이 필요한 경우 1:1 문의하기를 통해 문의하실 수 있어요\n확인 후 가능한 빠르게 안내해 드릴게요",
+    "question7": "회원가입은 어떻게 하나요?",
+    "answer7": "[회원가입 페이지]에서 이메일 또는 카카오 계정을 통해 가입할 수 있어요\n필요한 정보를 입력하고 가입을 완료하면 서비스를 이용할 수 있어요",
+    "linkText7": "회원가입 바로가기",
+    "question8": "로그인이 되지 않습니다.",
+    "answer8": "이메일과 비밀번호를 정확하게 입력했는지 먼저 확인해 주세요\n문제가 계속 발생하는 경우 비밀번호 재설정을 진행하거나 1:1 문의하기를 통해 문의해 주세요",
+    "question9": "비밀번호를 잊어버렸습니다.",
+    "answer9": "[로그인 페이지]에서 비밀번호 재설정 기능을 통해 새로운 비밀번호로 변경할 수 있어요\n가입 시 사용한 이메일 주소를 입력하면 비밀번호 재설정 안내를 받을 수 있어요",
+    "linkText9": "로그인 바로가기",
+    "question10": "카카오 로그인은 어떻게 이용하나요?",
+    "answer10": "[로그인 페이지]에서 카카오 로그인 버튼을 선택하면 카카오 계정을 통해 간편하게 로그인할 수 있어요",
+    "linkText10": "로그인 바로가기",
+    "question11": "회원 탈퇴는 어떻게 하나요?",
+    "answer11": "마이페이지에서 회원 탈퇴 기능을 통해 탈퇴할 수 있어요\n탈퇴 후 7일 동안은 재가입이 제한되며, 7일이 지나면 계정 정보가 삭제돼요",
+    "question12": "탈퇴 후 계정 복구가 가능한가요?",
+    "answer12": "회원 탈퇴가 완료되면 계정 정보는 삭제되며 복구할 수 없어요\n서비스를 다시 이용하려면 새로 회원가입을 해야 해요",
+    "question13": "내 정보는 어디서 수정할 수 있나요?",
+    "answer13": "마이페이지 프로필 설정 페이지에서 프로필 이미지와 닉네임을 수정할 수 있어요",
+    "question14": "분실했어요 게시글은 어떻게 등록하나요?",
+    "answer14": "[분실했어요 글쓰기 페이지]에서 분실물 정보를 등록할 수 있어요\n분실한 장소, 물건의 특징, 사진 등을 함께 등록하면 다른 사용자가 물건을 찾는 데 도움이 돼요",
+    "linkText14": "분실했어요 글쓰기 바로가기",
+    "question15": "발견했어요 게시글은 어떻게 등록하나요?",
+    "answer15": "발견했어요 글쓰기 페이지에서 발견한 물건 정보를 등록할 수 있어요\n발견한 장소, 물건의 특징, 사진 등을 함께 등록하면 분실자가 자신의 물건인지 확인하는 데 도움이 돼요",
+    "question16": "게시글 수정은 어떻게 하나요?",
+    "answer16": "본인이 작성한 게시글은 게시글 상세 페이지에서 수정할 수 있어요",
+    "question17": "게시글 삭제는 어떻게 하나요?",
+    "answer17": "본인이 작성한 게시글은 게시글 상세 페이지에서 삭제할 수 있어요",
+    "question18": "상대방에게 연락은 어떻게 하나요?",
+    "answer18": "게시글 상세 페이지에서 채팅 기능을 통해 상대방에게 연락할 수 있어요",
+    "question19": "채팅은 어떻게 시작하나요?",
+    "answer19": "게시글 상세 페이지에서 채팅 기능을 통해 상대방에게 연락할 수 있어요",
+    "question20": "이미 찾은 물건은 어떻게 처리하나요?",
+    "answer20": "물건을 찾은 경우 게시글 상태를 변경하거나 게시글을 삭제하여 처리할 수 있어요",
+    "question21": "게시글에 사진은 몇 장까지 등록할 수 있나요?",
+    "answer21": "게시글 작성 시 최대 5장의 사진을 함께 등록할 수 있어요\n사진을 등록하면 물건의 특징을 더 정확하게 전달할 수 있어요",
+    "question22": "위치는 어떻게 설정하나요?",
+    "answer22": "게시글 작성 시 지도에서 위치를 선택하여 설정할 수 있어요\n정확한 위치를 설정하면 주변 사용자에게 게시글이 더 잘 노출될 수 있어요",
+    "question23": "부적절한 게시글은 어떻게 신고하나요?",
+    "answer23": "게시글 상세 페이지에서 신고 기능을 통해 부적절한 게시글을 신고할 수 있어요\n신고된 게시글은 운영자가 확인한 뒤 서비스 정책에 따라 처리돼요",
+    "question24": "신고 후 처리 과정은 어떻게 되나요?",
+    "answer24": "신고가 접수되면 운영자가 내용을 확인해요\n서비스 정책 위반이 확인될 경우 게시글 삭제, 이용 제한 등의 조치가 이루어질 수 있어요",
+    "question25": "개인정보는 어떻게 보호되나요?",
+    "answer25": "찾아줘는 관련 법령과 개인정보 처리방침에 따라 사용자의 개인정보를 보호하고 있어요\n서비스 이용에 필요한 최소한의 정보만 수집하며 안전하게 관리하고 있어요",
+    "question26": "서비스 이용 중 문의는 어디로 해야 하나요?",
+    "answer26": "서비스 이용 중 문제가 발생하거나 도움이 필요한 경우 문의하기를 통해 문의할 수 있어요\n문의 내용은 확인 후 안내해 드려요",
+    "question27": "서비스 이용 제한이 발생할 수 있나요?",
+    "answer27": "서비스 정책을 위반하는 행위가 확인될 경우 서비스 이용이 제한될 수 있어요\n자세한 내용은 서비스 이용약관 및 운영 정책을 참고해 주세요",
+    "question28": "공지사항은 어디서 확인할 수 있나요?",
+    "answer28": "[공지사항 페이지]에서 확인할 수 있어요",
+    "linkText28": "공지사항 바로가기",
+    "question29": "사용자를 차단하면 어떻게 되나요?",
+    "answer29": "사용자를 차단하면 해당 사용자의 게시글과 채팅이 더 이상 표시되지 않아요\n차단한 사용자는 마이페이지의 [차단된 사용자 페이지]에서 확인할 수 있으며, 차단 상태를 변경할 수 있어요",
+    "linkText29": "차단된 사용자 바로가기"
+  },
+  "FloatingInquiryButton": {
+    "label": "1:1 문의하기"
   }
 }

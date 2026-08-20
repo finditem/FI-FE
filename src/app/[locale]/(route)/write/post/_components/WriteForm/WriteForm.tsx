@@ -1,4 +1,5 @@
 import { useFormContext } from "react-hook-form";
+import { useTranslations } from "next-intl";
 import { PostWriteFormValues } from "../../_types/PostWriteType";
 import usePostWriteSubmit from "../../_hooks/usePostWriteSubmit/usePostWriteSubmit";
 import {
@@ -9,8 +10,10 @@ import {
   WriteActionSection,
 } from "@/components";
 import { CategorySection, ContentSection, LocationSection, TitleSection } from "../_internal";
+import { trackWriteAbandon, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const WriteForm = ({ title }: { title: string }) => {
+  const t = useTranslations("WriteForm");
   const methods = useFormContext<PostWriteFormValues>();
   const values = methods.watch();
   const {
@@ -26,8 +29,11 @@ const WriteForm = ({ title }: { title: string }) => {
 
   return (
     <>
-      <DetailHeader title={title} />
-      <h1 className="sr-only">{`${title} 페이지`}</h1>
+      <DetailHeader
+        title={title}
+        onBeforeBack={() => values.postType && trackWriteAbandon(toItemTypeLabel(values.postType))}
+      />
+      <h1 className="sr-only">{t("srOnlyPageTitle", { title })}</h1>
       <form onSubmit={onSubmit} className="flex flex-col h-base">
         <div className="flex min-h-0 flex-1 flex-col">
           <WriteImageSection />
@@ -43,18 +49,18 @@ const WriteForm = ({ title }: { title: string }) => {
         <ModalLayout isOpen={isConfirmModalOpen} onClose={onCancelSubmit} className="space-y-6 p-6">
           <div className="space-y-1 text-center">
             <h2 className="text-h3-semibold text-layout-header-default">
-              사진을 첨부하지 않고 등록하시겠습니까?
+              {t("noImageConfirmTitle")}
             </h2>
             <p className="text-body2-regular text-layout-body-default">
-              사진을 첨부하시면 유실물을 더 잘 찾아드릴 수 있어요.
+              {t("noImageConfirmDescription")}
             </p>
           </div>
           <div className="w-full gap-2 flex-center">
             <Button variant="outlined" onClick={onCancelSubmit} className="min-h-11 flex-1">
-              아니요
+              {t("cancelButton")}
             </Button>
             <Button onClick={onConfirmNoImageSubmit} className="min-h-11 flex-1">
-              이미지 없이 등록
+              {t("confirmButton")}
             </Button>
           </div>
         </ModalLayout>
