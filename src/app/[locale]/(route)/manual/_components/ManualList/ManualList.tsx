@@ -3,16 +3,18 @@
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils";
 import { Icon } from "@/components";
-import { MANUAL_DATA } from "../MANUAL_CONST";
-import type { ManualItemType } from "../../_types/ManualType";
+import useManualData from "../../_hooks/useManualData/useManualData";
+import type { ManualItemType, ManualKey } from "../../_types/ManualType";
 
 interface ManualListProps {
   openIndex: number | null;
   setOpenIndex: (index: number | null) => void;
-  selected: keyof typeof MANUAL_DATA;
+  selected: ManualKey;
 }
 
 const ManualList = ({ openIndex, setOpenIndex, selected }: ManualListProps) => {
+  const manualData = useManualData(selected);
+
   const handleToggle = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
@@ -20,9 +22,9 @@ const ManualList = ({ openIndex, setOpenIndex, selected }: ManualListProps) => {
   return (
     <section className="w-full">
       <ul>
-        {MANUAL_DATA[selected].map((item: ManualItemType, index: number) => (
+        {manualData.map((item: ManualItemType, index: number) => (
           <ManualItem
-            key={item.title}
+            key={item.id}
             item={item}
             isOpen={openIndex === index}
             onToggle={() => handleToggle(index)}

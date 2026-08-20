@@ -1560,6 +1560,87 @@
       "button": "Go to the finditem homepage"
     }
   },
+  "ManualLayout": {
+    "metaTitle": "Lost, Found & Stolen Item Guide",
+    "metaDescription": "Looking for a way to handle a lost, found, or stolen item? We've organized the reporting steps and contacts by type so you can stay calm and act with confidence.",
+    "headerTitle": "Guide for Lost Items",
+    "srHeading": "Manual page"
+  },
+  "ManualTabs": {
+    "LOST": "Lost",
+    "FOUND": "Found",
+    "STOLEN": "Stolen"
+  },
+  "ManualData": {
+    "LOST": {
+      "policeRecord": {
+        "title": "Have you checked the police lost-item records?",
+        "content": "Check the National Police Agency's Lost112 portal (https://www.lost112.go.kr/) for lost items currently held by the police.",
+        "btnText": "Go to Lost112"
+      },
+      "lostPost": {
+        "title": "Have you posted a lost item listing?",
+        "content": "Post a lost item on Finditem so whoever found it can reach out to you through your listing.",
+        "btnText": "Write a lost item post"
+      },
+      "policeFoundList": {
+        "title": "Have you checked the police found-item list?",
+        "content": "Check the National Police Agency's Lost112 portal (https://www.lost112.go.kr/) for lost items currently held by the police.",
+        "btnText": "Go to Lost112"
+      },
+      "creditCard": {
+        "title": "Did you lose a credit card?",
+        "content": "If you lose a credit card, report it to the card issuer right away. <br></br> If you've lost multiple cards, you can use the integrated card-loss reporting service — reporting to just one issuer's customer center will register the loss with the other issuers too. <br></br><br></br> Corporate cards can't be reported through the integrated service even if issued under an individual's name, so they must be reported separately."
+      },
+      "idCard": {
+        "title": "Did you lose your ID?",
+        "content": "For a resident registration card, visit your nearest community center in person, or file an online report at Minwon24 (www.minwon.go.kr). <br></br><br></br> If you lost your driver's license, visit a nearby police station or driver's license test center to report the loss and apply for reissue.",
+        "btnText": "Go to Minwon24"
+      },
+      "phone": {
+        "title": "Did you lose your phone?",
+        "content": "Report the loss and suspend the line through your carrier's customer center (114), an authorized store, or the carrier's website. <br></br><br></br> You can also search for found phones through the Phone Finder Call Center (https://www.handphone.or.kr).",
+        "btnText": "Go to Phone Finder"
+      }
+    },
+    "FOUND": {
+      "policeRecord": {
+        "title": "Have you checked the police lost-item records?",
+        "content": "Check the National Police Agency's Lost112 portal (https://www.lost112.go.kr) for items reported as lost.",
+        "btnText": "Go to Lost112"
+      },
+      "foundPost": {
+        "title": "Have you posted a found item listing?",
+        "content": "Post a found item on Finditem so whoever lost it can reach out to you through your listing and reclaim it.",
+        "btnText": "Write a found item post"
+      },
+      "foundReport": {
+        "title": "Have you reported the found item?",
+        "content": "If you've found an item, you can report it through the National Police Agency's Lost112 portal (https://www.lost112.go.kr) or at your nearest police station.",
+        "btnText": "Report a found item"
+      }
+    },
+    "STOLEN": {
+      "policeItems": {
+        "title": "Have you checked the police found-item list?",
+        "content": "Start by checking the National Police Agency's Lost112 portal (https://www.lost112.go.kr) for items currently held by the police.",
+        "btnText": "Go to Lost112"
+      },
+      "cctv": {
+        "title": "Want to check CCTV footage?",
+        "content": "Visit your nearest police station to file a theft report, then request CCTV access directly from whoever manages the location where the theft occurred. <br></br><br></br> For CCTV in public spaces, you can request access by filing an information disclosure request through the Information Disclosure Portal (https://www.open.go.kr).",
+        "btnText": "Go to the Information Disclosure Portal"
+      }
+    }
+  },
+  "ManualPopup": {
+    "titleLine1": "Have a lost item?",
+    "titleLine2": "Our guide can help.",
+    "descLine1": "Find helpful information for",
+    "descLine2": "lost items in our guide.",
+    "primaryBtn": "View the guide",
+    "secondaryBtn": "Maybe later"
+  },
   "SupportLayout": {
     "title": "FAQ",
     "description": "Curious about finditem? Find answers to common questions about finding lost items, posting, and more, all in one place."
