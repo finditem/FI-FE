@@ -1560,6 +1560,22 @@
       "button": "찾아줘 홈으로 이동"
     }
   },
+  "AppleCallback": {
+    "metaTitle": "애플 로그인",
+    "metaDescription": "애플 계정으로 간편하게 로그인하여 분실물을 찾고 습득물을 공유해보세요.",
+    "loading": "로그인 요청 중...",
+    "notFoundTitle": "페이지를 찾을 수 없습니다.",
+    "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
+    "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
+  },
+  "KakaoCallback": {
+    "metaTitle": "카카오 로그인",
+    "metaDescription": "카카오 계정으로 간편하게 로그인하여 분실물을 찾고 습득물을 공유해보세요.",
+    "loading": "로그인 요청 중...",
+    "notFoundTitle": "페이지를 찾을 수 없습니다.",
+    "notFoundDescriptionLine1": "존재하지 않는 주소를 입력했거나",
+    "notFoundDescriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
+  },
   "ManualLayout": {
     "metaTitle": "분실물/습득물/도난 매뉴얼",
     "metaDescription": "분실, 습득, 도난 상황에서 해결법을 찾으시나요? 유형별 신고 절차와 센터까지 정리했으니, 차분하게 대처해보세요!",

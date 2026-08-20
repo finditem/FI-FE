@@ -1560,6 +1560,22 @@
       "button": "Go to the finditem homepage"
     }
   },
+  "AppleCallback": {
+    "metaTitle": "Sign in with Apple",
+    "metaDescription": "Sign in easily with your Apple account to find lost items and share found items.",
+    "loading": "Signing in...",
+    "notFoundTitle": "Page not found.",
+    "notFoundDescriptionLine1": "The address you entered doesn't exist, or",
+    "notFoundDescriptionLine2": "the page you requested is unavailable."
+  },
+  "KakaoCallback": {
+    "metaTitle": "Sign in with Kakao",
+    "metaDescription": "Sign in easily with your Kakao account to find lost items and share found items.",
+    "loading": "Signing in...",
+    "notFoundTitle": "Page not found.",
+    "notFoundDescriptionLine1": "The address you entered doesn't exist, or",
+    "notFoundDescriptionLine2": "the page you requested is unavailable."
+  },
   "ManualLayout": {
     "metaTitle": "Lost, Found & Stolen Item Guide",
     "metaDescription": "Looking for a way to handle a lost, found, or stolen item? We've organized the reporting steps and contacts by type so you can stay calm and act with confidence.",
