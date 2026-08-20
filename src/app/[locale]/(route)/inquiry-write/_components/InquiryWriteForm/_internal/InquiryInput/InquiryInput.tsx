@@ -4,6 +4,7 @@ import { cn } from "@/utils";
 import { InputHTMLAttributes } from "react";
 import { FieldValues, useFormContext, UseFormSetValue, useWatch } from "react-hook-form";
 import { EMAIL_AUTO_COMPLETE_LIST } from "../../../INQUIRY_WRITE_CONST";
+import { useTranslations } from "next-intl";
 
 interface InquiryInputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
@@ -17,6 +18,7 @@ const EmailAutoComplete = ({
   email: string;
   setValue: UseFormSetValue<FieldValues>;
 }) => {
+  const t = useTranslations("InquiryWrite");
   const { ref: scrollRef, onMouseDown } = useHorizontalDragScroll();
 
   return (
@@ -32,7 +34,7 @@ const EmailAutoComplete = ({
           <button
             type="button"
             key={item}
-            aria-label={`${item} 이메일 자동완성`}
+            aria-label={t("emailAutoCompleteAriaLabel", { domain: item })}
             className="shrink-0 select-none rounded-full px-[6px] py-1 text-caption2-regular text-layout-header-default bg-fill-neutral-strong-default"
             onClick={() => setValue("email", completedEmail)}
           >
