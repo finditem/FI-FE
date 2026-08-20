@@ -1510,6 +1510,25 @@
       "confirm": "Delete"
     }
   },
+  "InquiryWrite": {
+    "metaTitle": "Contact Us",
+    "metaDescription": "Have a question about finditem? Send us a message and we'll get back to you as soon as possible.",
+    "headerTitle": "How can we help?",
+    "submitAriaLabel": "Submit inquiry",
+    "heading": "Contact us form",
+    "titlePlaceholder": "Enter a subject.",
+    "emailPlaceholder": "Enter your email address.",
+    "emailAutoCompleteAriaLabel": "Complete email address with {domain}",
+    "contentPlaceholder": "Tell us about any issues or suggestions you have. You can find our response in your email or under Support > My Inquiries. Please do not include personal information, such as your resident registration number, in your message or images.",
+    "categoryPlaceholder": "Select a category.",
+    "categories": {
+      "ACCOUNT_LOGIN": "Account",
+      "USAGE": "Using finditem",
+      "ETC": "Other"
+    },
+    "submitSuccess": "Your inquiry has been submitted.",
+    "submitError": "Couldn't submit your inquiry."
+  },
   "HelloPage": {
     "metaTitle": "About Our Service",
     "metaDescription": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
