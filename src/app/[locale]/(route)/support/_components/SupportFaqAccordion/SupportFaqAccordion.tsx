@@ -3,8 +3,8 @@
 import { Button, Chip, Icon } from "@/components";
 import { cn } from "@/utils";
 import {
-  FAQ_ITEMS,
-  FaqItem,
+  FaqItemView,
+  useFaqItems,
   useSupportFaqAccordion,
   getFaqAnchorId,
   filterFaqItemsByTab,
@@ -12,14 +12,21 @@ import {
 import { useSupportTabQuery } from "../SupportTab/_internal/useSupportTabQuery";
 import { MouseEvent } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 interface SupportFaqAccordionItemProps {
-  item: FaqItem;
+  item: FaqItemView;
   isExpanded: boolean;
   onToggle: () => void;
+  toggleAriaLabel: string;
 }
 
-const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccordionItemProps) => {
+const SupportFaqAccordionItem = ({
+  item,
+  isExpanded,
+  onToggle,
+  toggleAriaLabel,
+}: SupportFaqAccordionItemProps) => {
   const id = getFaqAnchorId(item.id);
 
   const onAnchorClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -36,7 +43,7 @@ const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccor
       <div className="flex scroll-mt-14 flex-col border-b border-neutral-normal-default">
         <a
           href={`#${id}`}
-          aria-label="FAQ 질문 접기/펼치기"
+          aria-label={toggleAriaLabel}
           aria-expanded={isExpanded}
           onClick={onAnchorClick}
           className="flex items-center justify-between px-5 py-[26px]"
@@ -66,7 +73,7 @@ const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccor
         <div className="overflow-hidden">
           <div className="flex flex-col gap-4 border-b border-neutral-normal-default px-5 py-6 bg-fill-neutral-subtle-default">
             <div className="inline-block">
-              <Chip label={item.category} type="brandSubtleDefault" />
+              <Chip label={item.categoryLabel} type="brandSubtleDefault" />
             </div>
 
             <div className="flex flex-col gap-[26px] text-body2-regular text-layout-body-default">
@@ -91,9 +98,12 @@ const SupportFaqAccordionItem = ({ item, isExpanded, onToggle }: SupportFaqAccor
 };
 
 const SupportFaqAccordion = () => {
+  const t = useTranslations("SupportFaqAccordion");
+  const toggleAriaLabel = t("toggleAriaLabel");
   const { tab } = useSupportTabQuery();
   const { expandedId, handleToggle } = useSupportFaqAccordion();
-  const filteredItems = filterFaqItemsByTab(FAQ_ITEMS, tab);
+  const faqItems = useFaqItems();
+  const filteredItems = filterFaqItemsByTab(faqItems, tab);
 
   return (
     <ul>
@@ -103,6 +113,7 @@ const SupportFaqAccordion = () => {
           item={item}
           isExpanded={expandedId === item.id}
           onToggle={() => handleToggle(item.id)}
+          toggleAriaLabel={toggleAriaLabel}
         />
       ))}
     </ul>
