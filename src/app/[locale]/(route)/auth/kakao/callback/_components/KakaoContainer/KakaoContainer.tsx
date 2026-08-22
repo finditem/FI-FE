@@ -10,8 +10,10 @@ import KakaoLoading from "../KakaoLoading/KakaoLoading";
 import { useAgreeStore } from "@/store";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
 import { isValidCallbackUrl, verifyOAuthState } from "@/utils";
+import { useTranslations } from "next-intl";
 
 const KakaoContainer = () => {
+  const t = useTranslations("KakaoCallback");
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
 
   const router = useRouter();
@@ -115,11 +117,11 @@ const KakaoContainer = () => {
         <ErrorView
           iconName="NotFound"
           code="404"
-          title="페이지를 찾을 수 없습니다."
+          title={t("notFoundTitle")}
           description={
             <>
-              존재하지 않는 주소를 입력했거나 <br />
-              요청하신 페이지를 사용할 수 없습니다.
+              {t("notFoundDescriptionLine1")} <br />
+              {t("notFoundDescriptionLine2")}
             </>
           }
         />

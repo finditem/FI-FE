@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { NoticeDetailHeader, NoticeDetailView } from "./_components";
+import { getTranslations } from "next-intl/server";
 
 interface NoticeDetailProps {
   params: Promise<{ id: string }>;
@@ -7,14 +8,15 @@ interface NoticeDetailProps {
 
 export async function generateMetadata({ params }: NoticeDetailProps): Promise<Metadata> {
   const { id } = await params;
+  const t = await getTranslations("NoticePage.detail");
 
   const notice = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notices/${id}/meta`, {
     next: { revalidate: 60 },
   }).then((res) => res.json());
 
   const {
-    title = "공지 상세",
-    description = "공지 상세 내용",
+    title = t("metaFallbackTitle"),
+    description = t("metaFallbackDescription"),
     thumbnailUrl = "https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png",
   } = notice?.result ?? {};
 

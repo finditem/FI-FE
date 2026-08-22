@@ -3,19 +3,21 @@
 import { useState } from "react";
 import { Tab } from "@/components";
 import { ManualList } from "./_components";
-import { MANUAL_DATA, MANUAL_LIST } from "./_components/MANUAL_CONST";
+import useManualTabs from "./_hooks/useManualTabs/useManualTabs";
+import type { ManualKey } from "./_types/ManualType";
 
 const page = () => {
-  const [selected, setSelected] = useState<keyof typeof MANUAL_DATA>("LOST");
+  const manualTabs = useManualTabs();
+  const [selected, setSelected] = useState<ManualKey>("LOST");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <>
       <Tab
-        tabs={MANUAL_LIST}
+        tabs={manualTabs}
         selected={selected}
         onValueChange={(key) => {
-          setSelected(key as keyof typeof MANUAL_DATA);
+          setSelected(key as ManualKey);
           setOpenIndex(null);
         }}
       />
