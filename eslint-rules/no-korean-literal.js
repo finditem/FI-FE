@@ -43,10 +43,18 @@ function isInsideDevOnlyCall(sourceCode, node) {
   return false;
 }
 
+// as/satisfies/non-null/instantiation은 런타임 값을 감싸는 TS 표현식일 뿐 타입 위치가 아니므로 제외한다.
+const RUNTIME_VALUE_WRAPPER_TYPES = new Set([
+  "TSAsExpression",
+  "TSSatisfiesExpression",
+  "TSNonNullExpression",
+  "TSInstantiationExpression",
+]);
+
 function isTypeContext(node) {
   let current = node.parent;
   while (current) {
-    if (current.type.startsWith("TS") && current.type !== "TSAsExpression") return true;
+    if (current.type.startsWith("TS") && !RUNTIME_VALUE_WRAPPER_TYPES.has(current.type)) return true;
     current = current.parent;
   }
   return false;
