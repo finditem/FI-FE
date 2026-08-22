@@ -2,12 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { Chip, Icon } from "@/components";
-import { useHorizontalDragScroll } from "@/hooks";
+import { useFormatDate, useHorizontalDragScroll } from "@/hooks";
 import Link from "next/link";
 import PublicMoreViewCard from "../PublicMoreViewCard/PublicMoreViewCard";
 import Image from "next/image";
 import RecentFoundItemSkeleton from "../RecentFoundItemSkeleton/RecentFoundItemSkeleton";
-import { formatDate } from "@/utils";
 
 interface CardListData {
   postId: string;
@@ -24,6 +23,7 @@ interface MainCardItemProps {
 
 const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
   const t = useTranslations("MainCardList");
+  const formatDate = useFormatDate();
   const { postId, title, thumbnailImageUrl, createdAt } = cardItemData;
 
   const href = mode === "public" ? `/public-data/found/${postId}` : `/list/${postId}`;

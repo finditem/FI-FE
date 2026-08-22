@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: ListDetailProps): Promise<Met
   }).then((res) => res.json());
 
   const postTypeLabel = post?.result?.postType === "LOST" ? t("postTypeLost") : t("postTypeFound");
-  const address = formatMetadataAddress(post?.result?.address);
+  const address = formatMetadataAddress(post?.result?.address, t("defaultAddress"));
 
   const title = t("titleTemplate", {
     title: post?.result?.title ?? t("defaultItemName"),

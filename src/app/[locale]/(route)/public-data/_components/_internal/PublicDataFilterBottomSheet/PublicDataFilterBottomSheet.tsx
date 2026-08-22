@@ -27,6 +27,7 @@ const PublicDataFilterBottomSheet = ({
   setFilters,
 }: PublicDataFilterBottomSheetProps) => {
   const t = useTranslations("PublicDataFilterBottomSheet");
+  const tCodes = useTranslations("PublicDataCodes");
   const publicDefaultTabs = usePublicDefaultTabs();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -97,7 +98,7 @@ const PublicDataFilterBottomSheet = ({
             {PUBLIC_REGION_CODES.map((regionCode) => (
               <PublicDataChipButton
                 key={regionCode.value}
-                label={regionCode.label}
+                label={tCodes(`region.${regionCode.value}`)}
                 value={regionCode.value}
                 selected={filters.publicRegion === regionCode.value}
                 onSelect={() => setFilters((prev) => ({ ...prev, publicRegion: regionCode.value }))}
@@ -122,7 +123,7 @@ const PublicDataFilterBottomSheet = ({
             {PUBLIC_CATEGORY_CODES.map((cat) => (
               <PublicDataChipButton
                 key={cat.value}
-                label={cat.label}
+                label={tCodes(`category.${cat.value}`)}
                 value={cat.value}
                 selected={filters.publicCategory === cat.value}
                 onSelect={() => setFilters((prev) => ({ ...prev, publicCategory: cat.value }))}

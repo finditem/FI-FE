@@ -2,7 +2,8 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
-import { cn, formatDate, highlightText } from "@/utils";
+import { cn, highlightText } from "@/utils";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 import { trackClickItemCard, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
@@ -35,6 +36,7 @@ interface PostListItemProps {
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
   const t = useTranslations("PostListItem");
   const tFilterOptions = useTranslations("FilterOptions");
+  const formatDate = useFormatDate();
   const { id, postStatus, postType, category, createdAt, isNew, isHot, imageCount } = post;
   const isFound = postStatus === "FOUND";
 

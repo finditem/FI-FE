@@ -6,7 +6,7 @@ import { Icon, ImageViewerModal } from "@/components";
 import { cn, formatDate, formatViewCount } from "@/utils";
 import Image from "next/image";
 import { useToggleLike } from "../../../../_hooks/useToggleLike/useToggleLike";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 const BADGE_DEFAULT_STYLE = "inline-block rounded-full px-2 py-1 text-caption2-medium text-white";
 
@@ -23,6 +23,8 @@ const NoticeDetailBadges = ({ isNew, isHot }: { isNew: boolean; isHot: boolean }
 
 const NoticeDetailContent = ({ noticeDetail }: { noticeDetail: NoticeDetail }) => {
   const t = useTranslations("NoticePage.detail");
+  const locale = useLocale();
+  const isKo = locale === "ko";
   const [imageViewerState, setImageViewerState] = useState<{
     isOpen: boolean;
     initialIndex: number;
@@ -100,11 +102,13 @@ const NoticeDetailContent = ({ noticeDetail }: { noticeDetail: NoticeDetail }) =
                 likeStatus && "text-system-favorite"
               )}
             />
-            <span>{t("recommendCount", { count: formatViewCount(likeCount) })}</span>
+            <span>
+              {t("recommendCount", { count: isKo ? formatViewCount(likeCount) : likeCount })}
+            </span>
           </button>
           <div className="flex items-center gap-1">
             <Icon name="Eye" size={16} className="text-border-divider-default" />
-            <span>{t("viewCount", { count: formatViewCount(viewCount) })}</span>
+            <span>{t("viewCount", { count: isKo ? formatViewCount(viewCount) : viewCount })}</span>
           </div>
         </div>
       </div>

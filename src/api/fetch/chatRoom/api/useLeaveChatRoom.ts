@@ -2,11 +2,13 @@ import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const useLeaveChatRoom = (roomId: number) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { addToast } = useToast();
+  const t = useTranslations("useLeaveChatRoom");
 
   if (!roomId) return { mutate: () => {} };
   return useAppMutation("auth", `/chats/${roomId}/leave`, "post", {
@@ -19,7 +21,7 @@ const useLeaveChatRoom = (roomId: number) => {
       router.replace(`/chat`);
     },
     onError: () => {
-      addToast("채팅방 나가기에 실패했어요", "error");
+      addToast(t("leaveError"), "error");
     },
   });
 };

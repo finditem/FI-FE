@@ -14,6 +14,7 @@ const getSelectedPostFilterFromQuery = (postType: string | null): PostFilterChip
 
 const useHomeFilterQuery = () => {
   const t = useTranslations("FilterItems");
+  const tFilterOptions = useTranslations("FilterOptions");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -24,7 +25,9 @@ const useHomeFilterQuery = () => {
   const selectedPostFilter = getSelectedPostFilterFromQuery(postTypeParam);
   const selectedCategoryOption = CATEGORY_OPTIONS.find((option) => option.value === categoryParam);
   const isCategorySelected = !!selectedCategoryOption;
-  const categoryFilterLabel = selectedCategoryOption?.label ?? t("category");
+  const categoryFilterLabel = selectedCategoryOption
+    ? tFilterOptions(`category.${selectedCategoryOption.value}`)
+    : t("category");
 
   const replaceQuery = (updater: (params: URLSearchParams) => void) => {
     const params = new URLSearchParams(searchParams.toString());

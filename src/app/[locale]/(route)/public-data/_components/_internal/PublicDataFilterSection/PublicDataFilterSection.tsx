@@ -11,6 +11,7 @@ import { PUBLIC_DEFAULT_FILTERS } from "../../PUBLIC_DATA_CONST";
 
 const PublicDataFilterSection = () => {
   const t = useTranslations("PublicDataFilterSection");
+  const tCodes = useTranslations("PublicDataCodes");
   const { region, category } = useFilterParams();
   const [filters, setFilters] = useState<PublicFilterStateType>(PUBLIC_DEFAULT_FILTERS);
   const [selectedTab, setSelectedTab] = useState<FilterTab>("region");
@@ -32,7 +33,9 @@ const PublicDataFilterSection = () => {
       onSelected: !!region,
       icon: { name: "Location" as const, size: 16 },
       label: region
-        ? (PUBLIC_REGION_CODES.find((r) => r.value === region)?.label ?? region)
+        ? (PUBLIC_REGION_CODES.some((r) => r.value === region)
+            ? tCodes(`region.${region}`)
+            : region)
         : t("regionDefaultLabel"),
       iconPosition: "leading" as const,
     },
@@ -40,9 +43,9 @@ const PublicDataFilterSection = () => {
       ariaLabel: t("categoryFilterAriaLabel"),
       onSelected: !!category,
       icon: { name: "ArrowDown" as const, size: 12 },
-      label:
-        PUBLIC_CATEGORY_CODES.find((c) => c.value === (category as string))?.label ??
-        t("categoryDefaultLabel"),
+      label: PUBLIC_CATEGORY_CODES.some((c) => c.value === (category as string))
+        ? tCodes(`category.${category}`)
+        : t("categoryDefaultLabel"),
       iconPosition: "trailing" as const,
     },
   };

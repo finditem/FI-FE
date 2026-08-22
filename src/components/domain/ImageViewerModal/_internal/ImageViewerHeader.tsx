@@ -25,6 +25,7 @@ const ImageViewerHeader = ({
   imageInfo,
 }: ImageViewerHeaderProps) => {
   const t = useTranslations("ImageViewerModal");
+  const weekdays = useTranslations("useFormatKoreanDate").raw("weekdays") as string[];
   const getCurrentImage = () => {
     const currentIndex = swiperRef.current?.realIndex ?? initialIndex;
     return images[currentIndex];
@@ -45,7 +46,7 @@ const ImageViewerHeader = ({
             {imageInfo.uploader}
           </span>
           <time className="text-caption1-medium text-layout-body-default">
-            {formatDateWithTime(imageInfo.createdAt)}
+            {formatDateWithTime(imageInfo.createdAt, weekdays)}
           </time>
         </div>
       )}

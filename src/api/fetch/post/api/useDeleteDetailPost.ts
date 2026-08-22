@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/context/ToastContext";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   PostDeleteDetailRequestBody,
   PostDeleteDetailResponse,
@@ -13,6 +14,7 @@ export const useDeleteDetailPost = (id: number) => {
   const { addToast } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("useDeleteDetailPost");
 
   return useAppMutation<PostDeleteDetailRequestBody, PostDeleteDetailResponse>(
     "auth",
@@ -24,11 +26,11 @@ export const useDeleteDetailPost = (id: number) => {
           queryClient.invalidateQueries({ queryKey: ["posts"] }),
           queryClient.invalidateQueries({ queryKey: ["/users/me/posts"] }),
         ]);
-        addToast("게시글 삭제가 완료되었어요", "success");
+        addToast(t("deleteSuccess"), "success");
         router.replace("/list");
       },
       onError: () => {
-        addToast("게시글 삭제에 실패했어요", "error");
+        addToast(t("deleteError"), "error");
       },
     },
     { sendDeleteBody: true }
