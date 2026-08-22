@@ -3,8 +3,6 @@ export { formatCappedNumber } from "./formatCappedNumber/formatCappedNumber";
 export { default as formatDate } from "./formatDate/formatDate/formatDate";
 export { default as formatChatTime } from "./formatDate/formatChatTime/formatChatTime";
 export { formatKoreanDate, getDateKey } from "./formatDate/formatKoreanDate/formatKoreanDate";
-export { getItemStatusLabel } from "./getItemStatusLabel/getItemStatusLabel";
-export { getItemCategoryLabel } from "./getItemCategoryLabel/getItemCategoryLabel";
 export { executeShare } from "./executeShare/executeShare";
 export { getMapLevelByRadius } from "./getMapLevelByRadius/getMapLevelByRadius";
 export { normalizeEnumValue } from "./normalizeEnumValue/normalizeEnumValue";

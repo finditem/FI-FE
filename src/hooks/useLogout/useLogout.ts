@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notificationSSEClient";
 import { useToast } from "@/context/ToastContext";
 import { useAgreeStore, useNotificationStore } from "@/store";
@@ -10,6 +11,7 @@ import { useApiLogout } from "@/api/fetch/auth";
 const useLogout = () => {
   const { mutate: logoutMutate, isPending } = useApiLogout();
   const { addToast } = useToast();
+  const t = useTranslations("useLogout");
   const resetUnreadNotificationState = useNotificationStore(
     (state) => state.resetUnreadNotificationState
   );
@@ -42,11 +44,11 @@ const useLogout = () => {
           resetUnreadNotificationState();
           queryClient.clear();
           logout();
-          addToast("로그아웃 되었어요.", "success");
+          addToast(t("logoutSuccess"), "success");
           router.push("/");
         },
         onError: () => {
-          addToast("로그아웃에 실패했어요. 다시 시도해주세요.", "error");
+          addToast(t("logoutError"), "error");
         },
       });
     })();

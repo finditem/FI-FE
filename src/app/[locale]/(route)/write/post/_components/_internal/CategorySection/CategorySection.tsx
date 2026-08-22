@@ -4,12 +4,13 @@ import { useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { CategoryType, NoticeCategory } from "@/types";
-import { getItemCategoryLabel } from "@/utils";
 import { Icon, RequiredText, CategoryPopup } from "@/components";
+import { CATEGORY_OPTIONS } from "@/constants";
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
 
 const CategorySection = () => {
   const t = useTranslations("CategorySection");
+  const tFilterOptions = useTranslations("FilterOptions");
   const [categoryPopupOpen, setCategoryPopupOpen] = useState(false);
 
   const { control, setValue } = useFormContext<PostWriteFormValues>();
@@ -23,7 +24,11 @@ const CategorySection = () => {
     setCategoryPopupOpen(false);
   };
 
-  const categoryLabel = category ? getItemCategoryLabel(category) : "";
+  const categoryLabel = category ? tFilterOptions(`category.${category}`) : "";
+  const categoryOptions = CATEGORY_OPTIONS.map((option) => ({
+    value: option.value,
+    label: tFilterOptions(`category.${option.value}`),
+  }));
 
   return (
     <>
@@ -44,6 +49,7 @@ const CategorySection = () => {
         onClose={() => setCategoryPopupOpen(false)}
         onSelect={(category) => onSelectCategory(category as CategoryType)}
         defaultSelected={category || undefined}
+        options={categoryOptions}
       />
     </>
   );

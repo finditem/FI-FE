@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { SimilarDataItem } from "@/api/fetch/post";
-import { formatDate } from "@/utils";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 import { Icon } from "@/components";
 
 const SimilarItemsList = ({ data }: { data: SimilarDataItem[] }) => {
@@ -24,6 +24,7 @@ interface SimilarItemProps {
 }
 
 const SimilarItem = ({ data }: SimilarItemProps) => {
+  const formatDate = useFormatDate();
   const { title, thumbnailImageUrl, createdAt, postId } = data;
 
   return (

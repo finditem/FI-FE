@@ -1,10 +1,12 @@
-import { formatKoreanDate } from "@/utils";
+import useFormatKoreanDate from "@/hooks/useFormatKoreanDate/useFormatKoreanDate";
 
 interface ChatDateDividerProps {
   createdAt: string;
 }
 
 const ChatDateDivider = ({ createdAt }: ChatDateDividerProps) => {
+  const formatKoreanDate = useFormatKoreanDate();
+
   return (
     <div className="my-4 flex w-full justify-center">
       <span className="rounded-3xl bg-toast px-2 py-1 text-caption2-semibold text-white">

@@ -39,7 +39,13 @@ const getLocalDateInfo = (isoString: string) => {
  * ```
  */
 
-export const formatKoreanDate = (isoString: string) => {
+const DEFAULT_WEEKDAYS = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+
+/**
+ * `weekdays`를 넘기지 않으면 기존 한국어 요일을 그대로 사용합니다. 다국어가 필요한 화면은
+ * `useFormatKoreanDate` 훅을 사용하세요.
+ */
+export const formatKoreanDate = (isoString: string, weekdays: string[] = DEFAULT_WEEKDAYS) => {
   const dateInfo = getLocalDateInfo(isoString);
   if (!dateInfo) return "";
   const { year, month, date, day } = dateInfo;
@@ -47,7 +53,6 @@ export const formatKoreanDate = (isoString: string) => {
   const monthStr = String(month + 1).padStart(2, "0");
   const dateStr = String(date).padStart(2, "0");
 
-  const weekdays = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
   const weekday = weekdays[day];
 
   return `${year}.${monthStr}.${dateStr} ${weekday}`;

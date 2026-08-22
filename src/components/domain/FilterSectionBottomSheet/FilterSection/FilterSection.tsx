@@ -103,7 +103,7 @@ const FilterSection = ({ pageType = "LIST" }: FilterSectionProps) => {
     setIsFilterOpen(true);
   };
 
-  const dateLabel = getDateRangeLabel(startDate, endDate);
+  const dateLabel = getDateRangeLabel(startDate, endDate, t("dateDefaultLabel"));
 
   const filterConfigs: Record<FilterTab, any> = {
     date: {

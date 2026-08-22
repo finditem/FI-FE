@@ -3,6 +3,7 @@
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { debounce } from "es-toolkit/compat";
 import {
   NotificationEventData,
@@ -46,6 +47,7 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
   const queryClient = useQueryClient();
   const { showSnackBar } = useSnackBar();
+  const t = useTranslations("NotificationSSEProvider");
   const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
   const hasUnreadNotification = useNotificationStore((state) => state.hasUnreadNotification);
   const setHasUnreadNotification = useNotificationStore((state) => state.setHasUnreadNotification);
@@ -73,11 +75,13 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
         queryClient.invalidateQueries({ queryKey: ["notificationList"] });
 
         const title =
-          buffered.length === 1 ? buffered[0].title : `새 알림 ${buffered.length}건이 도착했어요`;
+          buffered.length === 1
+            ? buffered[0].title
+            : t("newNotifications", { count: buffered.length });
 
-        showSnackBar(title, "알림 페이지로 이동", () => router.push("/alert"));
+        showSnackBar(title, t("goToAlertPage"), () => router.push("/alert"));
       }, NOTIFICATION_BATCH_DEBOUNCE_MS),
-    [queryClient, router, showSnackBar]
+    [queryClient, router, showSnackBar, t]
   );
 
   useEffect(() => {
