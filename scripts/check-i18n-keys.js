@@ -5,6 +5,14 @@ const ROOT = path.join(__dirname, "..");
 const MESSAGES_DIR = path.join(ROOT, "src/messages");
 const LOCALES = ["ko", "en"];
 
+// 로케일마다 표현 방식이 달라 의도적으로 키가 대칭이지 않은 항목.
+// key: "네임스페이스.키", value: 해당 키가 없어도 되는 로케일 목록.
+const ALLOWED_MISMATCHES = {
+  // 한국어는 고정 라벨 + 별도 카운트 포맷, 영어는 ICU plural로 처리 (PostDetailBody.tsx의 isKo 분기 참고)
+  "PostDetailBody.favoriteLabel": ["en"],
+  "PostDetailBody.favoriteCountLabel": ["ko"],
+};
+
 function flattenKeys(obj, prefix = "") {
   return Object.entries(obj).reduce((keys, [key, value]) => {
     const fullKey = prefix ? `${prefix}.${key}` : key;
@@ -32,7 +40,11 @@ function main() {
 
       const base = keysByLocale[i];
       const other = keysByLocale[j];
-      const missing = [...base.keys].filter((key) => !other.keys.has(key));
+      const missing = [...base.keys].filter((key) => {
+        if (other.keys.has(key)) return false;
+        const allowedLocales = ALLOWED_MISMATCHES[key];
+        return !allowedLocales || !allowedLocales.includes(other.locale);
+      });
 
       if (missing.length > 0) {
         hasMismatch = true;
