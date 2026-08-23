@@ -24,6 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check i18n key parity (ko/en)
+        run: npm run check:i18n-keys
+
+      - name: Check i18n hardcoded literals (report only)
+        continue-on-error: true
+        run: npm run lint:i18n-literal
+
       - name: Run tests
         run: npm test -- --reporters=jest-junit
 
