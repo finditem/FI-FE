@@ -104,6 +104,22 @@ async function fillLocation(page: Page) {
   await applyButton.click();
 }
 
+function todayYmd() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${now.getFullYear()}-${month}-${day}`;
+}
+
+async function selectToday(page: Page) {
+  await page.locator("#date-value").click();
+  await page.getByRole("button", { name: "오늘" }).click();
+  // 값이 없을 때도 오늘 날짜를 안내로 보여주므로 텍스트만으로는 선택 여부를 가릴 수 없다.
+  // 값이 들어오면 span이 time으로 바뀌는 것으로 확인한다.
+  await expect(page.locator("time#date-value")).toHaveText(todayYmd());
+}
+
 test.describe("게시글 생성 페이지", () => {
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
@@ -132,6 +148,8 @@ test.describe("게시글 생성 페이지", () => {
 
     await page.locator("#content").fill("테스트 내용입니다. 분실물에 대한 상세 내용입니다.");
 
+    await selectToday(page);
+
     await fillLocation(page);
 
     await page.waitForURL("**/write/post?type=lost");
@@ -159,12 +177,80 @@ test.describe("게시글 생성 페이지", () => {
     await page.locator("#title").fill("테스트 발견물 제목");
     await page.locator("#content").fill("테스트 내용입니다.");
 
+    await selectToday(page);
+
     await fillLocation(page);
 
     await page.waitForURL("**/write/post?type=find");
     await page.getByRole("button", { name: "작성 완료" }).click();
     await page.getByRole("button", { name: "이미지 없이 등록" }).click();
     await page.waitForURL("**/list/999");
+  });
+
+  test("날짜를 고르기 전에는 작성 완료 버튼이 비활성화된다", async ({ page }) => {
+    await setupCommonMocks(page);
+
+    await page.goto("/write/post?type=lost");
+
+    await page.getByRole("button", { name: "카테고리 선택" }).click();
+    await page.getByText("전자기기").click();
+    await page.getByRole("button", { name: "적용하기" }).click();
+
+    await page.locator("#title").fill("날짜 없는 제목");
+    await page.locator("#content").fill("날짜를 고르지 않은 내용입니다.");
+
+    await fillLocation(page);
+    await page.waitForURL("**/write/post?type=lost");
+
+    const submitButton = page.getByRole("button", { name: "작성 완료" });
+    await expect(submitButton).toBeDisabled();
+
+    await selectToday(page);
+    await expect(submitButton).not.toBeDisabled();
+  });
+
+  test("POST 요청에 선택한 날짜가 담겨 전송된다", async ({ page }) => {
+    await setupCommonMocks(page);
+
+    let capturedBody: string | null = null;
+    await page.route("**/api/posts", async (route) => {
+      if (route.request().method() === "POST") {
+        capturedBody = route.request().postData();
+        return route.fulfill({
+          status: 200,
+          contentType: "application/json",
+          body: JSON.stringify(MOCK_POST_RESPONSE),
+        });
+      }
+      return route.fallback();
+    });
+
+    await page.goto("/write/post?type=lost");
+
+    await page.getByRole("button", { name: "카테고리 선택" }).click();
+    await page.getByText("전자기기").click();
+    await page.getByRole("button", { name: "적용하기" }).click();
+
+    await page.locator("#title").fill("날짜 검증 제목");
+    await page.locator("#content").fill("날짜가 요청에 담기는지 확인하는 내용입니다.");
+
+    await selectToday(page);
+
+    await fillLocation(page);
+    await page.waitForURL("**/write/post?type=lost");
+
+    await page.getByRole("button", { name: "작성 완료" }).click();
+    await page.getByRole("button", { name: "이미지 없이 등록" }).click();
+    await page.waitForURL("**/list/999");
+
+    expect(capturedBody).not.toBeNull();
+
+    const jsonStringMatch = capturedBody!.match(/\{[\s\S]*"title"[\s\S]*\}/);
+    expect(jsonStringMatch).not.toBeNull();
+
+    const requestData = JSON.parse(jsonStringMatch![0]);
+    // 타임존 표기가 없는 로컬 날짜·시간이어야 한다. 시·분·초는 제출 시각에서 온다.
+    expect(requestData.date).toMatch(new RegExp(`^${todayYmd()}T\\d{2}:\\d{2}:\\d{2}$`));
   });
 
   test("유효하지 않은 type 파라미터로 진입 시 404 페이지를 보여준다", async ({ page }) => {

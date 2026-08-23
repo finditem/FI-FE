@@ -43,6 +43,7 @@ export const postWriteSubmitSchema = postWriteFormSchema.extend({
     .trim()
     .min(1, "제목을 입력해 주세요.")
     .max(50, "제목은 50자 이내로 입력해 주세요."),
+  date: z.string().trim().min(1, "날짜를 선택해 주세요."),
   address: z.string().trim().min(1, "위치를 선택해 주세요."),
   latitude: z.number(),
   longitude: z.number(),
