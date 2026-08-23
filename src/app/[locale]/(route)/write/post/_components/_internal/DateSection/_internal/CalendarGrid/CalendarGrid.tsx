@@ -8,7 +8,7 @@ import { buildCalendarWeeks } from "../../../../../_utils/buildCalendarWeeks/bui
  * 한 달치 날짜를 7열 그리드로 그리는 컴포넌트입니다.
  *
  * @remarks
- * - 앞뒤 달의 날짜와 `maxDate` 이후의 날짜는 흐리게 표시하고 클릭을 막습니다.
+ * - 앞뒤 달의 날짜와 `maxDate` 이후의 날짜는 흐리게 표시하고 `disabled`로 클릭을 막습니다.
  * - 칸 크기와 색은 Figma의 `popup_cal`(13385:134201) 값을 따릅니다.
  *
  * @author jikwon
@@ -55,9 +55,10 @@ const CalendarGrid = ({ year, month, selectedDate, maxDate, onSelectDate }: Cale
         <div role="row" key={week[0].toISOString()} className="flex items-center gap-1">
           {week.map((date) => {
             const isOutsideMonth = date.getMonth() !== month - 1;
-            const isDisabled = date > maxDate;
+            // 앞뒤 달 날짜는 흐리게 보이기만 하는 것이 아니라 실제로도 누르지 못하게 막습니다.
+            // 막지 않으면 2025년 1월 달력의 2024년 12월 칸을 눌러 하한을 넘길 수 있습니다.
+            const isDisabled = isOutsideMonth || date > maxDate;
             const isSelected = selectedDate !== null && isSameDay(date, selectedDate);
-            const isMuted = isOutsideMonth || isDisabled;
 
             return (
               <span role="gridcell" key={date.toISOString()}>
@@ -78,7 +79,7 @@ const CalendarGrid = ({ year, month, selectedDate, maxDate, onSelectDate }: Cale
                       ? "text-body2-semibold text-brand-strongUseThis-default bg-fill-brand-subtle-default"
                       : cn(
                           "text-body2-medium",
-                          isMuted ? "text-labelsVibrant-secondary" : "text-layout-header-default"
+                          isDisabled ? "text-labelsVibrant-secondary" : "text-layout-header-default"
                         )
                   )}
                 >
