@@ -427,7 +427,9 @@
     "emailButton": "이메일 로그인",
     "divider": "또는",
     "notMemberYet": "아직 회원이 아니신가요?",
-    "createAccount": "회원가입"
+    "createAccount": "회원가입",
+    "languageLabel": "Language",
+    "languageAriaLabel": "언어 선택"
   },
   "LoginLayout": {
     "title": "로그인",
