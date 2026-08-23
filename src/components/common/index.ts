@@ -24,6 +24,7 @@ export { default as RequiredText } from "./RequiredText/RequiredText";
 export { default as ProfileAvatar } from "./ProfileAvatar/ProfileAvatar";
 export { default as ListItemImage } from "./ListItemImage/ListItemImage";
 export { default as RadioOptionItem } from "./RadioOptionItem/RadioOptionItem";
+export { default as DateWheel } from "./DateWheel/DateWheel";
 export { default as InputComment } from "./Input/InputComment/InputComment";
 export { default as SnackBar } from "./SnackBar/SnackBar";
 export { default as InputCommentField } from "./Input/InputComment/InputComment";

@@ -1931,5 +1931,36 @@
   },
   "LoginRequiredNotice": {
     "message": "Log in to use this feature."
+  },
+  "DateSection": {
+    "label": "Please select a date.",
+    "placeholder": "Please select a date."
+  },
+  "DatePickerModal": {
+    "monthTitle": "{month} {year}",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "gridLabel": "Date picker calendar",
+    "dayLabel": "{month}/{day}/{year}",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "today": "Today",
+    "yearUnit": "",
+    "monthUnit": "",
+    "yearWheelLabel": "Select year",
+    "monthWheelLabel": "Select month"
   }
 }

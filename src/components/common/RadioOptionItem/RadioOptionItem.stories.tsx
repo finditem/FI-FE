@@ -1,6 +1,8 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import RadioOptionItem from "./RadioOptionItem";
+import Icon from "../Icon/Icon";
+import { CATEGORY_SELECT_ICON_MAP } from "@/constants";
 
 const meta: Meta<typeof RadioOptionItem> = {
   title: "공통 컴포넌트/RadioOptionItem",
@@ -47,6 +49,37 @@ export const Default: Story = {
             selected={selected}
             onChange={(value) => setSelected(value)}
             inputName="category"
+          />
+        ))}
+      </>
+    );
+  },
+};
+
+export const WithTrailingIcon: Story = {
+  render: (args) => {
+    const [selected, setSelected] = useState<string>(MOCK_OPTIONS[0].value);
+
+    return (
+      <>
+        {MOCK_OPTIONS.map((option) => (
+          <RadioOptionItem
+            key={option.value}
+            option={option}
+            selected={selected}
+            onChange={(value) => setSelected(value)}
+            inputName="category-with-icon"
+            trailing={
+              <Icon
+                name={CATEGORY_SELECT_ICON_MAP[option.value]}
+                size={24}
+                className={
+                  selected === option.value
+                    ? "text-brand-strongUseThis-default"
+                    : "text-labelsVibrant-tertiary"
+                }
+              />
+            }
           />
         ))}
       </>
