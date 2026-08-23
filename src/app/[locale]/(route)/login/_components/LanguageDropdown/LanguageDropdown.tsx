@@ -39,7 +39,9 @@ const LanguageDropdown = () => {
       <div ref={anchorRef}>
         <button
           type="button"
-          aria-label={t("languageAriaLabel")}
+          aria-label={`${t("languageAriaLabel")}: ${locale === routing.defaultLocale ? t("languageLabel") : tLanguage(locale)}`}
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
           onClick={toggleDropdown}
           className="h-10 w-full gap-1.5 rounded-[10px] border border-neutral-normal-default bg-white px-3.5 text-body2-semibold text-neutral-normal-default flex-center"
         >
@@ -51,11 +53,15 @@ const LanguageDropdown = () => {
         createPortal(
           <div
             ref={dropdownRef}
+            role="listbox"
+            aria-label={t("languageAriaLabel")}
             className="glass-card fixed z-50 flex flex-col overflow-hidden rounded-[20px] border border-white bg-flatGray-25/70"
           >
             {routing.locales.map((option) => (
               <button
                 key={option}
+                role="option"
+                aria-selected={option === locale}
                 onClick={() => handleSelect(option)}
                 className={cn(
                   "h-10 w-full px-7 py-4 text-body2-semibold flex-center",

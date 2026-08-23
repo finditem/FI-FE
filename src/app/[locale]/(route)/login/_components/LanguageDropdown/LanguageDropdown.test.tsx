@@ -49,7 +49,7 @@ describe("LanguageDropdown", () => {
   it("기본 로케일(한국어)일 때 트리거 버튼에 Language가 표시됩니다", () => {
     render(<LanguageDropdown />);
 
-    expect(screen.getByRole("button", { name: "언어 선택" })).toHaveTextContent("Language");
+    expect(screen.getByRole("button", { name: /^언어 선택/ })).toHaveTextContent("Language");
   });
 
   it("영어 로케일일 때 트리거 버튼에 English가 표시됩니다", () => {
@@ -57,14 +57,14 @@ describe("LanguageDropdown", () => {
 
     render(<LanguageDropdown />);
 
-    expect(screen.getByRole("button", { name: "언어 선택" })).toHaveTextContent("English");
+    expect(screen.getByRole("button", { name: /^언어 선택/ })).toHaveTextContent("English");
   });
 
   it("트리거 클릭 시 옵션 리스트가 표시됩니다", async () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
-    await user.click(screen.getByRole("button", { name: "언어 선택" }));
+    await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
 
     expect(screen.getByText("한국어")).toBeInTheDocument();
     expect(screen.getByText("English")).toBeInTheDocument();
@@ -74,7 +74,7 @@ describe("LanguageDropdown", () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
-    await user.click(screen.getByRole("button", { name: "언어 선택" }));
+    await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("한국어"));
 
     expect(mockReplace).not.toHaveBeenCalled();
@@ -85,7 +85,7 @@ describe("LanguageDropdown", () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
-    await user.click(screen.getByRole("button", { name: "언어 선택" }));
+    await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("English"));
 
     expect(mockReplace).toHaveBeenCalledWith("/login", { locale: "en" });
@@ -100,7 +100,7 @@ describe("LanguageDropdown", () => {
     );
     render(<LanguageDropdown />);
 
-    await user.click(screen.getByRole("button", { name: "언어 선택" }));
+    await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("English"));
 
     expect(mockReplace).toHaveBeenCalledWith(
@@ -115,7 +115,7 @@ describe("LanguageDropdown", () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
-    await user.click(screen.getByRole("button", { name: "언어 선택" }));
+    await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     expect(screen.getByText("English")).toBeInTheDocument();
 
     fireEvent.mouseDown(document.body);
@@ -127,7 +127,7 @@ describe("LanguageDropdown", () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
-    const trigger = screen.getByRole("button", { name: "언어 선택" });
+    const trigger = screen.getByRole("button", { name: /^언어 선택/ });
     await user.click(trigger);
     expect(screen.getByText("English")).toBeInTheDocument();
 
