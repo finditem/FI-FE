@@ -31,6 +31,19 @@ description: src/app 하위 특정 라우트(page.tsx가 있는 디렉토리) �
 
 3. **응답을 마치기 전**: plan.md의 상태가 실제 완료 여부와 일치하는지 다시 확인하고 저장한다. 이번 요청 범위에서 착수하지 못한 항목은 `- [ ]`로 남겨 다음 세션이 이어갈 수 있게 한다.
 
+## 번역(i18n) 체크리스트
+
+새 페이지에 정적 텍스트가 들어가면, 절차 1번에서 plan.md 체크리스트를 작성할 때 아래 항목도 함께 넣는다. `(admin)` 라우트 그룹처럼 i18n 대상에서 제외된 라우트(`eslint.config.mjs`의 ignore 목록 참고)는 생략한다.
+
+- [ ] 네임스페이스 이름 정하기 (컴포넌트/페이지명 PascalCase, `src/messages/ko.json` 기준 — 구현 전에 먼저 정해서 하드코딩 없이 바로 `t()`로 작성)
+- [ ] 하드코딩 대신 `t()`/`useTranslations`(클라이언트), `getTranslations`(서버)로 구현
+- [ ] `src/messages/ko.json`, `en.json`에 키를 동시에 추가 (한쪽만 채우고 나중으로 미루지 않기)
+- [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys` 로컬 실행해 통과 확인
+
+`check:i18n-keys`는 CI(`jest.yml`)에서도 자동으로 실행되어 ko/en 키 불일치 시 PR을 막지만(차단형), `lint:i18n-literal`은 기존 하드코딩 잔여분 때문에 CI에서는 참고용(비차단)으로만 연결되어 있다. 새로 작성한 코드에 하드코딩이 남아 있는지는 로컬에서 직접 확인해야 한다.
+
+로케일마다 표현 방식이 달라 ko/en 키가 의도적으로 비대칭인 경우(예: 복수형 처리 차이)는 `scripts/check-i18n-keys.js`의 `ALLOWED_MISMATCHES` 목록에 추가하면 된다.
+
 ## 주의
 
 - plan.md는 문서일 뿐이다. 코드 변경 없이 plan.md만 갱신하고 끝내지 않는다.
