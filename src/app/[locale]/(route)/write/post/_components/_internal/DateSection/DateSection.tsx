@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { Icon, RequiredText } from "@/components";
@@ -17,6 +17,7 @@ import DatePickerModal from "./_internal/DatePickerModal/DatePickerModal";
  * - 폼의 `date` 필드를 `YYYY-MM-DD`로 저장합니다.
  * - 수정 화면은 `date`가 ISO 문자열로 들어오므로 두 형식을 모두 읽습니다.
  * - 값이 없을 때는 오늘 날짜를 안내로 보여줍니다. 폼 값은 여전히 비어 있어 `postWriteSubmitSchema`가 제출을 막습니다.
+ * - 안내용 오늘 날짜는 마운트 뒤 브라우저에서 계산합니다. 서버(UTC)와 브라우저(로컬)의 달력 날짜가 다른 시간대에 하이드레이션 불일치가 나는 것을 막기 위해서입니다.
  *
  * @author jikwon
  */
@@ -35,11 +36,16 @@ const DateSection = () => {
   const date = useWatch({ control, name: "date" });
 
   const [isPickerOpen, setIsPickerOpen] = useState(false);
+  // 고른 값이 아니라 안내이므로 time이 아닌 span으로 두고 placeholder 색을 유지합니다.
+  // 서버 렌더에서는 비워 두고 마운트 뒤 브라우저 날짜로 채웁니다. 버튼 높이가 고정이라 레이아웃은 흔들리지 않습니다.
+  const [placeholderValue, setPlaceholderValue] = useState("");
+
+  useEffect(() => {
+    setPlaceholderValue(formatDateToYmd(new Date()));
+  }, []);
 
   const selectedDate = date ? toDate(date) : null;
   const displayValue = selectedDate ? formatDateToYmd(selectedDate) : "";
-  // 고른 값이 아니라 안내이므로 time이 아닌 span으로 두고 placeholder 색을 유지합니다.
-  const placeholderValue = formatDateToYmd(new Date());
 
   const handleSelectDate = (nextDate: Date) => {
     setValue("date", formatDateToYmd(nextDate), { shouldDirty: true, shouldValidate: true });
