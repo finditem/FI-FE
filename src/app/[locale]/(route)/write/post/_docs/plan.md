@@ -94,8 +94,8 @@
 
 - [x] 필드: 높이 44px, `bg-fill-neutral-strong-enteredSelected` #f5f5f5, `radius 10px`, `px 8px`, 아이콘과 글자 `gap 4px`
 - [x] 선택된 날짜: `Body 1/Medium` 16px, `Labels-Vibrant/Primary` #333
-- [x] 달력 아이콘: 20px, 글자와 같은 #333. 스프라이트가 `currentColor`라 부모 글자색만 주면 함께 진해진다.
-- [x] 값이 없을 때는 `[Fg]/Neutral/Normal/Placeholder` #787878을 유지한다
+- [x] 달력 아이콘: 20px, 글자와 같은 #333. 스프라이트가 `currentColor`라 부모 글자색만 주면 함께 진해진다. (배치는 이후 사용자 요청으로 시안과 달리 오른쪽 끝으로 옮겼다.)
+- [x] 값이 없을 때는 `[Fg]/Neutral/Normal/Placeholder` #787878을 유지한다. 문구는 이후 사용자 요청으로 오늘 날짜를 넣기로 정했다. 앞서 보류였던 "값이 없을 때 무엇을 보여줄지"는 이걸로 닫혔다.
 
 Figma는 필드 안에서 달력 아이콘만 따로 `<button>`으로 감싸지만, 중첩 버튼은 유효하지 않은 마크업이라
 필드 전체를 버튼 하나로 두는 기존 구조를 유지했다.
@@ -109,5 +109,53 @@ Figma는 필드 안에서 달력 아이콘만 따로 `<button>`으로 감싸지�
 
 ### 보류
 
-- [ ] `usePostWriteSubmit.ts:85`·`usePostEditSubmit.ts:58`이 `date`를 `new Date().toISOString()`으로 덮어쓰는 문제. 고쳐야 선택한 날짜가 서버로 가지만 기존 동작을 바꾸는 것이라 기획 확인이 필요하다.
-- [ ] `date`를 필수 입력으로 할지. 필수라면 `postWriteSubmitSchema`의 `date` 재정의와 `canSubmit` 의존성 배열 추가가 함께 필요하다.
+- [x] `usePostWriteSubmit.ts:85`·`usePostEditSubmit.ts:58`이 `date`를 `new Date().toISOString()`으로 덮어쓰는 문제. 커밋 5에서 처리했다.
+- [x] `date`를 필수 입력으로 할지. 필수로 확정했고 커밋 5에서 처리했다.
+
+## 커밋 5 — 선택한 날짜 서버 전송
+
+모달에서 고른 날짜를 `POST /posts`와 `PUT /posts/{id}`의 JSON request 파트에 실어 보낸다.
+
+### 정한 것
+
+- 서버가 요구하는 형식은 타임존 표기가 없는 ISO 8601 로컬 날짜·시간 `YYYY-MM-DDTHH:mm:ss`다. 기존 `new Date().toISOString()`은 `Z`가 붙은 UTC라 형식부터 어긋나 있었다.
+- 날짜만 고르는 UI라 시·분·초는 제출 시점의 로컬 시각으로 채운다. 같은 날 올라온 글끼리 정렬 순서가 생긴다.
+- `date`는 필수다. `RequiredText`로 이미 필수 표시를 하고 있었으므로 스키마를 표시에 맞춘다.
+
+### 작업 항목
+
+- [x] `_utils/buildPostDateTime`로 폼의 `YYYY-MM-DD`와 제출 시각을 합쳐 `YYYY-MM-DDTHH:mm:ss`를 만드는 유틸 추가
+- [x] `postWriteSubmitSchema`에 `date` 재정의를 넣어 빈 값이 통과하지 못하게 막기
+- [x] `usePostWriteSubmit`의 `date: new Date().toISOString()`을 `buildPostDateTime(values.date)`로 교체
+- [x] `usePostWriteSubmit`의 `canSubmit` 의존성 배열에 `watchedValues.date` 추가
+- [x] `usePostEditSubmit`의 `date: new Date().toISOString()`을 `buildPostDateTime(values.date)`로 교체
+- [x] `buildPostDateTime.test.ts` 추가
+- [x] `tests/e2e/post-write.spec.ts`에 날짜 선택 단계 추가. 날짜가 필수가 되면서 기존 두 테스트의 `작성 완료` 버튼이 비활성 상태가 되어 그대로 두면 깨진다.
+- [x] `tests/e2e/post-write.spec.ts`에 날짜 미선택 시 버튼 비활성 테스트와 POST 요청 `date` 형식 검증 테스트 추가
+- [x] `tests/e2e/post-edit.spec.ts`의 PUT 검증 테스트에 `date` 형식 단언 추가
+- [x] jest 253스위트 1434테스트 통과, `tsc` 14개로 develop 기준선과 동일
+- [x] `PostEditPage`에 `DateSection` 추가. 수정 화면은 `WriteForm`과 별개로 섹션을 나열하는데 `DateSection`이 빠져 있어서, 전송 로직만 고쳤을 때는 날짜를 보거나 고칠 방법이 없었다. 순서는 작성 화면과 같게 `ContentSection`과 `LocationSection` 사이에 뒀다.
+- [x] `DateSection`의 날짜 필드에서 달력 아이콘 제거. 사용자 요청이었다가 곧이어 위치를 바꿔 되살리기로 정해져 아래 항목으로 이어졌다.
+- [x] 달력 아이콘을 오른쪽 끝으로 되살리고 `justify-between`으로 텍스트와 갈라 놓기. 자식이 텍스트와 아이콘 둘뿐이라 별도 묶음 없이 양 끝으로 벌어진다.
+- [x] 값이 없을 때 플레이스홀더로 오늘 날짜 표시. 고른 값이 아니므로 `time`이 아닌 `span`으로 두고 placeholder 색을 유지한다. 쓰이지 않게 된 `DateSection.placeholder` 키를 `ko.json`·`en.json`에서 제거했다.
+- [x] `Date`를 `YYYY-MM-DD`로 만드는 자리가 네 곳으로 늘어 `_utils/formatDateToYmd`로 분리. `DateSection`과 `buildPostDateTime`이 함께 쓴다.
+- [x] `post-write.spec.ts`의 `selectToday`가 `time#date-value`를 보도록 강화. 플레이스홀더도 오늘 날짜라 텍스트만으로는 선택 여부를 가릴 수 없어졌다.
+- [x] 디자이너가 준 새 달력 아이콘을 `src/assets/write-calendar.svg`로 넣고 매니페스트에 `WriteCalendar`로 등록. `Calendar`가 이미 있어 덮지 않고 글쓰기 전용 이름으로 갈랐다. 원본의 `fill="#787878"`은 생성기의 자동 치환 대상이 아니라 직접 `currentColor`로 바꿔야 부모 글자색을 따라간다. 스프라이트는 97개로 재생성했다.
+- [ ] e2e 실행. 프로덕션 빌드가 선행되어야 해서 아직 돌리지 않았다.
+
+### 알아둘 것
+
+- 새 `WriteCalendar`는 viewBox 24×24에 여백이 있어 글리프가 박스의 약 62%만 채운다. 기존 `Calendar`는 16×16에 약 79%였다. 같은 `size`를 주면 새 아이콘이 작아 보이므로 에셋이 저작된 크기 그대로 `size={24}`를 줬다. Figma 필드 시안의 20px는 기존 아이콘 기준 값이라 그대로 쓰면 눈에 띄게 작다. 눈으로 확인이 필요하다.
+- 기존 `Calendar`(`src/assets/calendar.svg`)는 지금 쓰는 곳이 없다. `DateSection`이 유일한 사용처였는데 `WriteCalendar`로 옮겨갔다. 다른 화면에서 쓸 계획이 없으면 정리 대상이다.
+
+- 플레이스홀더가 오늘 날짜라서, 날짜를 고르지 않아도 필드가 값이 있는 것처럼 보인다. 그런데 `date`는 필수라 고르기 전에는 `작성 완료`가 비활성이다. 사용자가 "왜 눌리지 않는지" 모를 수 있다. 정말로 오늘 날짜를 기본값으로 넣을지(그러면 필수 검증을 통과하고 버튼이 바로 활성화된다) 기획 확인이 필요하다.
+
+- `DatePickerModal`의 하한 `MIN_YEAR`(2025)는 이전 달 화살표(`isFirstMonth`)와 `MonthWheel`의 목록 시작점에만 걸려 있고 `CalendarGrid`에는 `minDate`가 없다. 수정 화면은 `usePostEditInit`이 `data.createdAt`으로 초기값을 채우므로, 2025년 이전에 작성된 글이 있다면 그 달로 열려 하한 아래 날짜를 고를 수 있다. 서비스 오픈이 2025년이라 실제 API 응답으로는 도달하지 않지만 `post-edit.spec.ts`의 목업은 `createdAt: "2024-01-15T12:00:00Z"`라 그 상태가 된다. 막으려면 `CalendarGrid`에 `maxDate`와 짝이 되는 `minDate`를 추가한다.
+
+### 스코프 제외
+
+- `useTempPostActions.saveTempPost`의 `date: values.date`. `useTempPostActions`와 `useTempPostModal`은 어디서도 import되지 않는 죽은 코드라 이번 범위에서 건드리지 않는다.
+
+### 확인 필요 (백엔드)
+
+- `GET /posts/{id}` 응답(`PostDetailData`)에 `date` 필드가 없다. 그래서 `usePostEditInit`이 `date: data.createdAt`으로 채우고 있고, 수정 화면을 열면 사용자가 골랐던 분실·습득 날짜가 아니라 글 작성 시각이 보인다. 사용자가 날짜를 다시 고르지 않고 저장하면 `createdAt`의 날짜가 `date`로 다시 저장된다. 응답에 `date`가 추가돼야 왕복이 맞는다.
