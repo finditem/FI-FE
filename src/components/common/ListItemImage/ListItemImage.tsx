@@ -2,7 +2,8 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { CategoryType } from "@/types";
-import Icon, { IconName } from "../Icon/Icon";
+import { CATEGORY_TILE_ICON_MAP } from "@/constants";
+import Icon from "../Icon/Icon";
 
 /**
  * 리스트 아이템 이미지 컴포넌트입니다.
@@ -40,16 +41,6 @@ interface ListItemImageProps {
  * ```
  */
 
-const CATEGORY_ICON_MAP: Record<CategoryType, IconName> = {
-  ELECTRONICS: "Electronics",
-  WALLET: "Wallet",
-  ID_CARD: "IdCard",
-  JEWELRY: "Jewelry",
-  BAG: "Bag",
-  CARD: "Card",
-  ETC: "Etc",
-};
-
 const ListItemImage = ({
   src,
   alt,
@@ -83,7 +74,7 @@ const ListItemImage = ({
           aria-label={t("categoryFallbackAlt", { category: t(`category.${category ?? "ETC"}`) })}
         >
           <Icon
-            name={CATEGORY_ICON_MAP[category!]}
+            name={CATEGORY_TILE_ICON_MAP[category!]}
             size={size}
             className="text-labelsVibrant-quaternary"
           />

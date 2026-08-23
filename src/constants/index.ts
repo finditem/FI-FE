@@ -1,6 +1,7 @@
 export * from "./FIND_PW_ERROR";
 export * from "./PUBLIC_DATA_CODES";
 export * from "./CATEGORY_OPTIONS";
+export * from "./CATEGORY_ICON_MAP";
 export * from "./DEFAULT_MAP_DATA";
 export * from "./GEO_SESSION";
 export * from "./AUTH_EVENTS";

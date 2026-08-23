@@ -87,5 +87,12 @@
   "SendArrow": "send-arrow",
   "DetailImageFail": "detail-image-fail",
   "CompleteCheck": "complete-check",
-  "InquiryAnswered": "inquiry_answered"
+  "InquiryAnswered": "inquiry_answered",
+  "CategoryElectronics": "category-electronics",
+  "CategoryWallet": "category-wallet",
+  "CategoryIdCard": "category-id-card",
+  "CategoryJewelry": "category-jewelry",
+  "CategoryBag": "category-bag",
+  "CategoryCard": "category-card",
+  "CategoryEtc": "category-etc"
 }
