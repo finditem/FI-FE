@@ -12,7 +12,7 @@
 
 - [x] `mypage/language/layout.tsx` 작성 — `generateMetadata`로 title/description 설정 (`notifications/layout.tsx` 패턴 참고)
 - [x] `mypage/language/page.tsx` 작성 — `DetailHeader` + `h1 sr-only` + 컨테이너 컴포넌트 (`notifications/page.tsx` 패턴 참고)
-- [x] Figma 플래그 아이콘 에셋 다운로드 후 커밋 — `public/mypage/language/flag-kr.png`, `flag-us.png`. `src/assets`(svgr 대상)와 jest png 트랜스폼 미설정 문제를 피하려 `public/` 경로 문자열로 참조 (`ProfileAvatar`의 `/user/default-profile.svg` 패턴과 동일)
+- [x] Figma 플래그 아이콘 에셋 다운로드 후 커밋 — `public/mypage/language/flag-kr.svg`, `flag-us.svg`(최초 png로 받았다가 svg로 교체). `src/assets`(svgr 대상)와 jest png 트랜스폼 미설정 문제를 피하려 `public/` 경로 문자열로 참조 (`ProfileAvatar`의 `/user/default-profile.svg` 패턴과 동일). `next/image`가 로컬 svg 최적화를 기본 차단하므로 `unoptimized` 지정
 - [x] `_components/LanguageSettingsContainer/_internal/LanguageOption` 작성 — `routing.locales`(`@/i18n/routing`) 기반 라디오 옵션, 플래그 아이콘 + 라벨(`useTranslations("LanguageSwitcher")` 재사용) + 우측 라디오, 선택 행 배경 강조. 기존 `RadioOptionItem`(`src/components/common/RadioOptionItem`)은 아이콘 슬롯이 없고 라디오가 좌측이라 레이아웃이 달라 그대로 재사용하지 않음. 별도 리스트 컴포넌트로 분리하지 않고 `LanguageSettingsContainer`에서 직접 map
 - [x] `_components/LanguageSettingsContainer` 작성 — 로컬 선택 상태 관리, 현재 `useLocale()` 값과 같으면 하단 `FooterButton`(`@/components`) disabled 처리, 다른 값 선택 후 클릭 시 `useRouter`(`@/i18n/navigation`)로 `router.replace("/mypage", { locale: selected })` 후 `router.refresh()` (`LanguageDropdown`의 로케일 전환 로직 참고, 단 전환 후 이동 대상은 언어 설정 페이지가 아니라 마이페이지 메인으로 지정 — 사용자 피드백 반영)
 - [x] `FooterButton`(`sticky bottom-0`)이 리스트를 따라 내려가던 버그 수정 — 옵션이 2개뿐이라 콘텐츠가 뷰포트보다 짧을 때 sticky만으로는 하단에 고정되지 않음. `page.tsx`의 래퍼를 `h-base`(헤더만) 유지한 채 `flex flex-col` 추가, `LanguageSettingsContainer`의 리스트 div에 `flex-1` 추가해 리스트가 남는 공간을 채우고 `FooterButton`이 실제 하단에 붙도록 함 (`change-password` 라우트의 `flex flex-col h-base` + `flex-1` 패턴 참고)

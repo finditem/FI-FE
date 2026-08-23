@@ -18,7 +18,14 @@ const LanguageOption = ({ locale, flagSrc, label, selected, onSelect }: Language
       )}
     >
       <span className="flex items-center gap-3">
-        <Image src={flagSrc} alt="" width={36} height={36} className="shrink-0 rounded-full" />
+        <Image
+          src={flagSrc}
+          alt=""
+          width={36}
+          height={36}
+          unoptimized
+          className="shrink-0 rounded-full"
+        />
         <span className="text-body1-medium text-layout-header-default">{label}</span>
       </span>
       <input

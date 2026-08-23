@@ -10,8 +10,8 @@ import LanguageOption from "./_internal/LanguageOption/LanguageOption";
 type AppLocale = (typeof routing.locales)[number];
 
 const FLAG_SRC: Record<AppLocale, string> = {
-  ko: "/mypage/language/flag-kr.png",
-  en: "/mypage/language/flag-us.png",
+  ko: "/mypage/language/flag-kr.svg",
+  en: "/mypage/language/flag-us.svg",
 };
 
 const LanguageSettingsContainer = () => {
