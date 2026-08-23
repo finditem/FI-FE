@@ -427,7 +427,9 @@
     "emailButton": "Log in with email",
     "divider": "Or",
     "notMemberYet": "Don't have an account?",
-    "createAccount": "Create account"
+    "createAccount": "Create account",
+    "languageLabel": "Language",
+    "languageAriaLabel": "Select language"
   },
   "LoginLayout": {
     "title": "Log In",
@@ -1192,6 +1194,15 @@
     "title": "Notification Settings",
     "srOnlyTitle": "Notification settings page"
   },
+  "LanguageSettingsLayout": {
+    "title": "Language Settings",
+    "description": "Choose the language you want to use in finditem."
+  },
+  "LanguageSettingsPage": {
+    "title": "Language Settings",
+    "srOnlyTitle": "Language settings page",
+    "changeButton": "Change"
+  },
   "NotificationSettingList": {
     "title": "Notifications",
     "allNotificationsAriaLabel": "All notification settings"
@@ -1290,6 +1301,7 @@
     "myReports": "My Reports",
     "myInquiries": "My Inquiries",
     "faq": "FAQ",
+    "languageSettings": "Language Settings",
     "accountSettings": "Account Settings",
     "serviceIntro": "About finditem",
     "privacyPolicy": "Privacy Policy",
