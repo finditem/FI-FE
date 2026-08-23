@@ -23,7 +23,10 @@ export const MYPAGE_MENU_LIST = [
   },
   {
     key: "accountManagement",
-    pages: [{ key: "accountSettings", pageLink: "/mypage/account" }],
+    pages: [
+      { key: "languageSettings", pageLink: "/mypage/language" },
+      { key: "accountSettings", pageLink: "/mypage/account" },
+    ],
   },
   {
     key: "servicePolicy",

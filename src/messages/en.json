@@ -1192,6 +1192,15 @@
     "title": "Notification Settings",
     "srOnlyTitle": "Notification settings page"
   },
+  "LanguageSettingsLayout": {
+    "title": "Language Settings",
+    "description": "Choose the language you want to use in finditem."
+  },
+  "LanguageSettingsPage": {
+    "title": "Language Settings",
+    "srOnlyTitle": "Language settings page",
+    "changeButton": "Change"
+  },
   "NotificationSettingList": {
     "title": "Notifications",
     "allNotificationsAriaLabel": "All notification settings"
@@ -1290,6 +1299,7 @@
     "myReports": "My Reports",
     "myInquiries": "My Inquiries",
     "faq": "FAQ",
+    "languageSettings": "Language Settings",
     "accountSettings": "Account Settings",
     "serviceIntro": "About finditem",
     "privacyPolicy": "Privacy Policy",
@@ -1872,15 +1882,7 @@
     "goToAlertPage": "Go to notifications"
   },
   "useFormatKoreanDate": {
-    "weekdays": [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ]
+    "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   },
   "PublicDataCodes": {
     "category": {
