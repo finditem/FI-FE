@@ -15,6 +15,7 @@ export { textareaSubmitKeyHandler } from "./textareaSubmitKeyHandler/textareaSub
 export { highlightText } from "./highlightText/highlightText";
 export { formatYmdLabel } from "./formatYmdLabel/formatYmdLabel";
 export { parseYmd } from "./parseYmd/parseYmd";
+export { formatYmd } from "./formatYmd/formatYmd";
 export { getDateRangeLabel } from "./getDateRangeLabel/getDateRangeLabel";
 export { applyFiltersToUrl } from "./applyFiltersToUrl/applyFiltersToUrl";
 export { parseNumber } from "./parseNumber/parseNumber";
