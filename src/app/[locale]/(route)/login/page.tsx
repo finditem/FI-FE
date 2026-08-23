@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
-import { LogoLink } from "./_components";
+import { LogoLink, LanguageDropdown } from "./_components";
 import { useSearchParams } from "next/navigation";
 import { createOAuthState } from "@/utils";
 import {
@@ -113,6 +113,10 @@ const page = () => {
         >
           {t("createAccount")}
         </Link>
+      </div>
+
+      <div className="w-[116px]">
+        <LanguageDropdown />
       </div>
     </div>
   );

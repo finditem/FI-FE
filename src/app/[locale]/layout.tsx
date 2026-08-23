@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import { Footer, LanguageSwitcher } from "@/components";
+import { Footer } from "@/components";
 import "../globals.css";
 import AppProviders from "@/providers/AppProviders";
 import { cookies } from "next/headers";
@@ -145,7 +145,6 @@ export default async function RootLayout({
             <MSWProvider />
             <AuthBootstrap />
             <main className="w-full flex-1">{children}</main>
-            <LanguageSwitcher />
             <Footer hasToken={hasToken} />
             <Script
               src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.7/kakao.min.js"

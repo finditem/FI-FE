@@ -427,7 +427,9 @@
     "emailButton": "이메일 로그인",
     "divider": "또는",
     "notMemberYet": "아직 회원이 아니신가요?",
-    "createAccount": "회원가입"
+    "createAccount": "회원가입",
+    "languageLabel": "Language",
+    "languageAriaLabel": "언어 선택"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -1872,15 +1874,7 @@
     "goToAlertPage": "알림 페이지로 이동"
   },
   "useFormatKoreanDate": {
-    "weekdays": [
-      "일요일",
-      "월요일",
-      "화요일",
-      "수요일",
-      "목요일",
-      "금요일",
-      "토요일"
-    ]
+    "weekdays": ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
   },
   "PublicDataCodes": {
     "category": {
