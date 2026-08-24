@@ -1933,8 +1933,7 @@
     "message": "Log in to use this feature."
   },
   "DateSection": {
-    "label": "Please select a date.",
-    "placeholder": "Please select a date."
+    "label": "Please select a date."
   },
   "DatePickerModal": {
     "monthTitle": "{month} {year}",

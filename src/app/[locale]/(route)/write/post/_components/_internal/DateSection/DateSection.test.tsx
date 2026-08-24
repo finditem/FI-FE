@@ -28,23 +28,35 @@ jest.mock("./_internal/DatePickerModal/DatePickerModal", () => ({
     ) : null,
 }));
 
+const todayYmd = () => {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${now.getFullYear()}-${month}-${day}`;
+};
+
 describe("DateSection", () => {
   beforeEach(() => {
     watchedDate = "";
     setValueMock.mockClear();
   });
 
-  it("값이 없으면 플레이스홀더와 RequiredText가 보인다", () => {
-    render(<DateSection />);
+  it("값이 없으면 오늘 날짜를 플레이스홀더로 보여준다", () => {
+    const { container } = render(<DateSection />);
 
-    expect(screen.getAllByText("날짜를 선택해주세요.").length).toBeGreaterThan(0);
+    expect(screen.getByText(todayYmd())).toBeInTheDocument();
+    // 고른 값이 아니라 안내이므로 time으로 마크업하지 않는다.
+    expect(container.querySelector("time")).toBeNull();
     expect(screen.getByTestId("required-text")).toBeInTheDocument();
   });
 
-  it("달력 아이콘이 표시된다", () => {
+  it("달력 아이콘이 텍스트 뒤 오른쪽 끝에 온다", () => {
     render(<DateSection />);
 
-    expect(screen.getByTestId("icon-Calendar")).toBeInTheDocument();
+    const button = screen.getByRole("button");
+    expect(button.lastElementChild).toBe(screen.getByTestId("icon-WriteCalendar"));
+    expect(button).toHaveClass("justify-between");
   });
 
   it("폼에 값이 있으면 time 태그로 날짜를 보여준다", () => {

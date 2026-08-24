@@ -1933,8 +1933,7 @@
     "message": "로그인 후 이용하실 수 있어요"
   },
   "DateSection": {
-    "label": "날짜를 선택해주세요.",
-    "placeholder": "날짜를 선택해주세요."
+    "label": "날짜를 선택해주세요."
   },
   "DatePickerModal": {
     "monthTitle": "{year}년 {month}",

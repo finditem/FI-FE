@@ -11,6 +11,7 @@ import usePostEditInit from "../../../_hooks/usePostEditInit/usePostEditInit";
 import {
   CategorySection,
   ContentSection,
+  DateSection,
   LocationSection,
   TitleSection,
 } from "../../../_components/_internal";
@@ -50,6 +51,7 @@ const PostEditPage = ({ postId }: PostEditPageProps) => {
           <CategorySection />
           <TitleSection />
           <ContentSection />
+          <DateSection />
           <LocationSection />
         </div>
 
