@@ -1,6 +1,6 @@
+import { useTranslations } from "next-intl";
 import { Chip } from "@/components";
 import { CategoryType, ItemStatus } from "@/types";
-import { getItemCategoryLabel, getItemStatusLabel } from "@/utils";
 
 interface PostChipSectionProps {
   chipData: {
@@ -10,15 +10,16 @@ interface PostChipSectionProps {
 }
 
 const PostChipSection = ({ chipData }: PostChipSectionProps) => {
+  const t = useTranslations("FilterOptions");
   const { postStatus, category } = chipData;
 
   return (
     <div className="flex gap-2">
       <Chip
         type={postStatus === "FOUND" ? "toast" : "brandSubtle"}
-        label={getItemStatusLabel(postStatus)}
+        label={t(`findStatus.${postStatus}`)}
       />
-      <Chip type="neutralStrong" label={getItemCategoryLabel(category)} />
+      <Chip type="neutralStrong" label={t(`category.${category}`)} />
     </div>
   );
 };

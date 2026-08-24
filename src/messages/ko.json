@@ -218,11 +218,18 @@
     "sortAriaLabel": "정렬 필터",
     "findStatusAriaLabel": "찾음 여부 필터",
     "statusAriaLabel": "분류 필터",
-    "sectionAriaLabel": "필터 영역"
+    "sectionAriaLabel": "필터 영역",
+    "dateDefaultLabel": "기간"
   },
   "ContentShareModal": {
     "title": "게시글 공유하기",
-    "close": "닫기"
+    "close": "닫기",
+    "copySuccess": "링크를 클립보드에 복사했어요",
+    "copyError": "클립보드 복사에 실패했어요",
+    "kakaoWebViewButton": "웹으로 보기",
+    "kakaoLabel": "카카오톡",
+    "nativeLabel": "공유하기",
+    "copyLabel": "링크 복사"
   },
   "DateRangeBottomSheet": {
     "invalidRange": "종료일은 시작일보다 이전일 수 없어요",
@@ -420,7 +427,9 @@
     "emailButton": "이메일 로그인",
     "divider": "또는",
     "notMemberYet": "아직 회원이 아니신가요?",
-    "createAccount": "회원가입"
+    "createAccount": "회원가입",
+    "languageLabel": "Language",
+    "languageAriaLabel": "언어 선택"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -437,7 +446,16 @@
   },
   "DetailHeader": {
     "backAriaLabel": "뒤로가기",
-    "actionsAriaLabel": "헤더 액션"
+    "actionsAriaLabel": "헤더 액션",
+    "deleteEnterAriaLabel": "삭제 화면 진입",
+    "deleteCancelAriaLabel": "삭제 화면 취소",
+    "cancelLabel": "취소",
+    "saveAriaLabel": "게시글 저장",
+    "tempSaveLabel": "임시 저장",
+    "postLabel": "등록",
+    "shareAriaLabel": "공유",
+    "settingAriaLabel": "알림 설정",
+    "searchAriaLabel": "검색"
   },
   "ErrorToast": {
     "unexpectedError": "예상치 못한 에러가 발생했어요"
@@ -669,7 +687,8 @@
   },
   "PublicDataSearchPage": {
     "searchTitle": "{keyword} 검색결과",
-    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!"
+    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
+    "defaultKeyword": "물건"
   },
   "PublicDataBeforeSearch": {
     "emptyText": "최근 검색한 기록이 없어요."
@@ -802,7 +821,8 @@
     "postTypeFound": "발견",
     "defaultItemName": "물품",
     "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
-    "defaultDescription": "리스트 상세"
+    "defaultDescription": "리스트 상세",
+    "defaultAddress": "주소"
   },
   "HomeLayout": {
     "title": "우리 동네 분실물 찾기, 찾아줘!",
@@ -1174,6 +1194,15 @@
     "title": "알림 설정",
     "srOnlyTitle": "알림 설정 페이지"
   },
+  "LanguageSettingsLayout": {
+    "title": "언어 설정",
+    "description": "찾아줘에서 사용할 언어를 선택하세요."
+  },
+  "LanguageSettingsPage": {
+    "title": "언어 설정",
+    "srOnlyTitle": "언어 설정 페이지",
+    "changeButton": "변경하기"
+  },
   "NotificationSettingList": {
     "title": "알림 설정",
     "allNotificationsAriaLabel": "전체 알림 설정"
@@ -1272,6 +1301,7 @@
     "myReports": "내 신고 내역",
     "myInquiries": "내 문의 내역",
     "faq": "자주 묻는 질문",
+    "languageSettings": "언어 설정",
     "accountSettings": "계정 설정",
     "serviceIntro": "서비스 소개",
     "privacyPolicy": "개인정보처리방침",
@@ -1737,5 +1767,199 @@
   },
   "FloatingInquiryButton": {
     "label": "1:1 문의하기"
+  },
+  "usePostInquiryComments": {
+    "commentRegistered": "댓글이 등록되었습니다."
+  },
+  "useApiSocialLogin": {
+    "kakaoCodeInvalid": "카카오 인증코드가 유효하지 않거나 이미 사용되었어요",
+    "kakaoUserInfoFailed": "카카오 사용자 정보 조회에 실패했어요",
+    "kakaoRecentlyDeleted": "탈퇴한 사용자에요",
+    "appleCodeInvalid": "애플 인증코드가 유효하지 않거나 이미 사용되었어요",
+    "appleTokenInvalid": "애플 인증 정보를 확인할 수 없어요",
+    "retry": "잠시 후 다시 시도해 주세요"
+  },
+  "useChatList": {
+    "loadError": "채팅 목록을 불러오지 못했어요"
+  },
+  "useLeaveChatRoom": {
+    "leaveError": "채팅방 나가기에 실패했어요"
+  },
+  "useDeleteComment": {
+    "deleteSuccess": "댓글 삭제가 완료되었어요"
+  },
+  "usePostPostsComments": {
+    "commentSuccess": "댓글이 등록되었어요",
+    "commentError": "댓글 등록에 실패했어요"
+  },
+  "usePostUserInquiry": {
+    "commentSuccess": "문의 댓글 작성에 성공했어요",
+    "commentError": "문의 댓글 작성에 실패했어요"
+  },
+  "useDeleteNoticeLike": {
+    "likeDeleteSuccess": "공지사항 좋아요를 삭제했어요",
+    "likeDeleteError": "좋아요 삭제에 실패했어요"
+  },
+  "usePostNoticeLike": {
+    "likeSuccess": "공지사항 좋아요를 등록했어요",
+    "likeError": "좋아요 등록에 실패했어요"
+  },
+  "useDeleteNoticeComment": {
+    "deleteSuccess": "댓글 삭제가 완료되었어요"
+  },
+  "useDeleteNoticeCommentLike": {
+    "likeDeleteError": "댓글 좋아요 삭제에 실패했어요"
+  },
+  "usePostNoticeComment": {
+    "commentSuccess": "댓글이 등록되었어요",
+    "commentError": "댓글 등록에 실패했어요"
+  },
+  "usePostNoticeCommentLike": {
+    "likeError": "댓글 좋아요 등록에 실패했어요"
+  },
+  "useNotificationRead": {
+    "readError": "알림을 읽지 못했어요"
+  },
+  "usePutNotificationSetting": {
+    "updateError": "알림 설정 변경에 실패했어요"
+  },
+  "useDeleteDetailPost": {
+    "deleteSuccess": "게시글 삭제가 완료되었어요",
+    "deleteError": "게시글 삭제에 실패했어요"
+  },
+  "usePostPosts": {
+    "postSuccess": "게시글이 등록되었습니다.",
+    "postError": "게시글 등록에 실패했습니다."
+  },
+  "usePostTempPost": {
+    "saveSuccess": "임시 게시글이 저장되었어요",
+    "saveError": "임시 게시글 저장에 실패했어요"
+  },
+  "usePutPost": {
+    "updateSuccess": "게시글이 수정되었어요",
+    "updateError": "게시글 수정에 실패했어요"
+  },
+  "usePutPostStatus": {
+    "changeToSearchingSuccess": "게시글을 찾아요 상태로 변경했어요",
+    "changeToFoundSuccess": "게시글을 찾았어요 상태로 변경했어요",
+    "changeToSearchingError": "게시글을 찾아요 상태로 변경하지 못했어요",
+    "changeToFoundError": "게시글을 찾았어요 상태로 변경하지 못했어요"
+  },
+  "usePostFavorites": {
+    "addSuccess": "즐겨찾기가 등록되었어요.",
+    "addError": "즐겨찾기 등록에 실패했어요."
+  },
+  "useDeletePostFavorites": {
+    "removeSuccess": "즐겨찾기가 삭제되었어요.",
+    "removeError": "즐겨찾기 삭제에 실패했어요."
+  },
+  "useBlock": {
+    "blockSuccess": "유저를 차단했어요",
+    "moveToBlockList": "차단 목록으로 이동",
+    "blockError": "작성자 차단에 실패했어요",
+    "selfBlock": "본인은 차단할 수 없어요",
+    "notFound": "존재하지 않는 회원이에요",
+    "alreadyBlocked": "이미 차단한 사용자예요"
+  },
+  "useReport": {
+    "reportSuccess": "신고가 접수되었어요",
+    "alreadyReported": "이미 접수된 신고입니다.",
+    "reportError": "신고에 실패했습니다."
+  },
+  "usePatchProfile": {
+    "updateSuccess": "프로필을 변경했어요",
+    "notMember": "회원이 아니에요. 로그인을 해주세요",
+    "nicknameDuplicated": "이미 사용 중인 닉네임이에요. 다른 닉네임으로 다시 시도해 주세요"
+  },
+  "usePostChangePassword": {
+    "changeSuccess": "비밀번호 변경이 완료되었어요",
+    "changeError": "비밀번호 변경에 실패했어요"
+  },
+  "useLogout": {
+    "logoutSuccess": "로그아웃 되었어요.",
+    "logoutError": "로그아웃에 실패했어요. 다시 시도해주세요."
+  },
+  "NotificationSSEProvider": {
+    "newNotifications": "새 알림 {count}건이 도착했어요",
+    "goToAlertPage": "알림 페이지로 이동"
+  },
+  "useFormatKoreanDate": {
+    "weekdays": ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]
+  },
+  "PublicDataCodes": {
+    "category": {
+      "PRA000": "가방",
+      "PRO000": "귀금속",
+      "PRB000": "도서용품",
+      "PRC000": "서류",
+      "PRD000": "산업용품",
+      "PRQ000": "쇼핑백",
+      "PRE000": "스포츠용품",
+      "PRR000": "악기",
+      "PRM000": "유가증권",
+      "PRK000": "의류",
+      "PRF000": "자동차",
+      "PRG000": "전자기기",
+      "PRH000": "지갑",
+      "PRN000": "증명서",
+      "PRI000": "컴퓨터",
+      "PRP000": "카드",
+      "PRL000": "현금",
+      "PRJ000": "휴대폰",
+      "PRZ000": "기타물품"
+    },
+    "region": {
+      "LCA000": "서울특별시",
+      "LCB000": "부산광역시",
+      "LCC000": "대구광역시",
+      "LCD000": "인천광역시",
+      "LCE000": "광주광역시",
+      "LCF000": "대전광역시",
+      "LCG000": "울산광역시",
+      "LCH000": "경기도",
+      "LCI000": "강원도",
+      "LCJ000": "충청북도",
+      "LCK000": "충청남도",
+      "LCL000": "전라북도",
+      "LCM000": "전라남도",
+      "LCN000": "경상북도",
+      "LCO000": "경상남도",
+      "LCP000": "제주특별자치도",
+      "LCQ000": "세종특별자치시",
+      "LCW000": "기타"
+    }
+  },
+  "LoginRequiredNotice": {
+    "message": "로그인 후 이용하실 수 있어요"
+  },
+  "DateSection": {
+    "label": "날짜를 선택해주세요."
+  },
+  "DatePickerModal": {
+    "monthTitle": "{year}년 {month}",
+    "months": [
+      "1월",
+      "2월",
+      "3월",
+      "4월",
+      "5월",
+      "6월",
+      "7월",
+      "8월",
+      "9월",
+      "10월",
+      "11월",
+      "12월"
+    ],
+    "weekdaysShort": ["일", "월", "화", "수", "목", "금", "토"],
+    "gridLabel": "날짜 선택 달력",
+    "dayLabel": "{year}년 {month}월 {day}일",
+    "prevMonth": "이전 달",
+    "nextMonth": "다음 달",
+    "today": "오늘",
+    "yearUnit": "년",
+    "monthUnit": "월",
+    "yearWheelLabel": "연도 선택",
+    "monthWheelLabel": "월 선택"
   }
 }

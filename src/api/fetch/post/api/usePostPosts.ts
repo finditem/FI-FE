@@ -6,12 +6,14 @@ import { useWriteFlowStore } from "@/store";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 export const usePostPosts = () => {
   const { addToast } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
   const { setShowManualPopup } = useWriteFlowStore();
+  const t = useTranslations("usePostPosts");
 
   return useAppMutation<FormData, PostPostsWriteResponse>("auth", "/posts", "post", {
     onSuccess: async (data, variables) => {
@@ -25,7 +27,7 @@ export const usePostPosts = () => {
         queryClient.invalidateQueries({ queryKey: ["similar"] }),
       ]);
 
-      addToast("게시글이 등록되었습니다.", "success");
+      addToast(t("postSuccess"), "success");
       if (typeof window !== "undefined") {
         sessionStorage.setItem("showManualPopup", "true");
       }
@@ -33,7 +35,7 @@ export const usePostPosts = () => {
       router.replace(`/list/${data.result.id}`);
     },
     onError: () => {
-      addToast("게시글 등록에 실패했습니다.", "error");
+      addToast(t("postError"), "error");
     },
   });
 };

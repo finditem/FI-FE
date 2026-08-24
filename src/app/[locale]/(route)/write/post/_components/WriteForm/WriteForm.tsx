@@ -9,7 +9,13 @@ import {
   WriteImageSection,
   WriteActionSection,
 } from "@/components";
-import { CategorySection, ContentSection, LocationSection, TitleSection } from "../_internal";
+import {
+  CategorySection,
+  ContentSection,
+  DateSection,
+  LocationSection,
+  TitleSection,
+} from "../_internal";
 import { trackWriteAbandon, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 const WriteForm = ({ title }: { title: string }) => {
@@ -40,6 +46,7 @@ const WriteForm = ({ title }: { title: string }) => {
           <CategorySection />
           <TitleSection />
           <ContentSection />
+          <DateSection />
           <LocationSection />
         </div>
         <WriteActionSection disabled={isSubmitDisabled} />

@@ -3,8 +3,6 @@ export { formatCappedNumber } from "./formatCappedNumber/formatCappedNumber";
 export { default as formatDate } from "./formatDate/formatDate/formatDate";
 export { default as formatChatTime } from "./formatDate/formatChatTime/formatChatTime";
 export { formatKoreanDate, getDateKey } from "./formatDate/formatKoreanDate/formatKoreanDate";
-export { getItemStatusLabel } from "./getItemStatusLabel/getItemStatusLabel";
-export { getItemCategoryLabel } from "./getItemCategoryLabel/getItemCategoryLabel";
 export { executeShare } from "./executeShare/executeShare";
 export { getMapLevelByRadius } from "./getMapLevelByRadius/getMapLevelByRadius";
 export { normalizeEnumValue } from "./normalizeEnumValue/normalizeEnumValue";
@@ -17,6 +15,7 @@ export { textareaSubmitKeyHandler } from "./textareaSubmitKeyHandler/textareaSub
 export { highlightText } from "./highlightText/highlightText";
 export { formatYmdLabel } from "./formatYmdLabel/formatYmdLabel";
 export { parseYmd } from "./parseYmd/parseYmd";
+export { formatYmd } from "./formatYmd/formatYmd";
 export { getDateRangeLabel } from "./getDateRangeLabel/getDateRangeLabel";
 export { applyFiltersToUrl } from "./applyFiltersToUrl/applyFiltersToUrl";
 export { parseNumber } from "./parseNumber/parseNumber";

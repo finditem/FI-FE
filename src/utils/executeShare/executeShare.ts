@@ -23,6 +23,10 @@ interface ExecuteShareProps {
   objectType: ObjectType;
   /** 공유 결과 피드백을 위한 토스트 메시지 핸들러 */
   addToast: (message: string, type: ToastType) => void;
+  /** 클립보드 복사 결과 토스트 문구 (미지정 시 한국어 기본값) */
+  copyMessages?: { success: string; error: string };
+  /** 카카오 공유 카드의 '웹으로 보기' 버튼 문구 (미지정 시 한국어 기본값) */
+  kakaoWebViewButtonLabel?: string;
 }
 
 /**
@@ -37,10 +41,17 @@ interface ExecuteShareProps {
  * ```
  */
 
-export const executeShare = ({ id, metaData, objectType, addToast }: ExecuteShareProps) => {
+export const executeShare = ({
+  id,
+  metaData,
+  objectType,
+  addToast,
+  copyMessages,
+  kakaoWebViewButtonLabel,
+}: ExecuteShareProps) => {
   switch (id) {
     case "kakao":
-      shareWithKakao(metaData, objectType);
+      shareWithKakao(metaData, objectType, kakaoWebViewButtonLabel);
       break;
     case "native":
       shareWithNative({
@@ -48,7 +59,7 @@ export const executeShare = ({ id, metaData, objectType, addToast }: ExecuteShar
       });
       break;
     case "copy":
-      shareWithCopyUrl(metaData.link, addToast);
+      shareWithCopyUrl(metaData.link, addToast, copyMessages);
       break;
     default:
       break;

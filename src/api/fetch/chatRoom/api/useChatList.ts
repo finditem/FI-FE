@@ -3,6 +3,7 @@ import useAppInfiniteQuery from "@/api/_base/query/useAppInfiniteQuery";
 import { ChatListType, ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import QUERY_PARAMS from "./QUERY_PARAMS";
 
@@ -14,6 +15,7 @@ interface useChatListOptions {
 const useChatList = (options: useChatListOptions = {}) => {
   const searchParams = useSearchParams();
   const { addToast } = useToast();
+  const t = useTranslations("useChatList");
   const { size = 10, enabled = true } = options;
 
   const type = QUERY_PARAMS.type.transform(searchParams.get(QUERY_PARAMS.type.key));
@@ -33,9 +35,9 @@ const useChatList = (options: useChatListOptions = {}) => {
 
   useEffect(() => {
     if (result.isError) {
-      addToast("채팅 목록을 불러오지 못했어요", "error");
+      addToast(t("loadError"), "error");
     }
-  }, [result.isError, addToast]);
+  }, [result.isError, addToast, t]);
 
   return result;
 };

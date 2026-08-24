@@ -218,11 +218,18 @@
     "sortAriaLabel": "Sort filter",
     "findStatusAriaLabel": "Status filter",
     "statusAriaLabel": "Type filter",
-    "sectionAriaLabel": "Filters"
+    "sectionAriaLabel": "Filters",
+    "dateDefaultLabel": "Date"
   },
   "ContentShareModal": {
     "title": "Share this post",
-    "close": "Close"
+    "close": "Close",
+    "copySuccess": "Link copied to clipboard.",
+    "copyError": "Failed to copy the link.",
+    "kakaoWebViewButton": "View on web",
+    "kakaoLabel": "KakaoTalk",
+    "nativeLabel": "Share",
+    "copyLabel": "Copy link"
   },
   "DateRangeBottomSheet": {
     "invalidRange": "End date can't be before the start date",
@@ -420,7 +427,9 @@
     "emailButton": "Log in with email",
     "divider": "Or",
     "notMemberYet": "Don't have an account?",
-    "createAccount": "Create account"
+    "createAccount": "Create account",
+    "languageLabel": "Language",
+    "languageAriaLabel": "Select language"
   },
   "LoginLayout": {
     "title": "Log In",
@@ -437,7 +446,16 @@
   },
   "DetailHeader": {
     "backAriaLabel": "Go back",
-    "actionsAriaLabel": "Header actions"
+    "actionsAriaLabel": "Header actions",
+    "deleteEnterAriaLabel": "Enter delete mode",
+    "deleteCancelAriaLabel": "Cancel delete mode",
+    "cancelLabel": "Cancel",
+    "saveAriaLabel": "Save post",
+    "tempSaveLabel": "Save draft",
+    "postLabel": "Post",
+    "shareAriaLabel": "Share",
+    "settingAriaLabel": "Notification Settings",
+    "searchAriaLabel": "Search"
   },
   "ErrorToast": {
     "unexpectedError": "Something unexpected went wrong"
@@ -669,7 +687,8 @@
   },
   "PublicDataSearchPage": {
     "searchTitle": "{keyword} search results",
-    "searchDescription": "Looking for {keyword} on Finditem? Search {keyword} lost items posted on the police lost & found center, Lost112!"
+    "searchDescription": "Looking for {keyword} on Finditem? Search {keyword} lost items posted on the police lost & found center, Lost112!",
+    "defaultKeyword": "item"
   },
   "PublicDataBeforeSearch": {
     "emptyText": "No recent searches"
@@ -802,7 +821,8 @@
     "postTypeFound": "Found",
     "defaultItemName": "Item",
     "titleTemplate": "{title} | {address} | Finditem {postType}",
-    "defaultDescription": "List detail"
+    "defaultDescription": "List detail",
+    "defaultAddress": "Address"
   },
   "HomeLayout": {
     "title": "Find lost items near you | Finditem",
@@ -1174,6 +1194,15 @@
     "title": "Notification Settings",
     "srOnlyTitle": "Notification settings page"
   },
+  "LanguageSettingsLayout": {
+    "title": "Language Settings",
+    "description": "Choose the language you want to use in finditem."
+  },
+  "LanguageSettingsPage": {
+    "title": "Language Settings",
+    "srOnlyTitle": "Language settings page",
+    "changeButton": "Change"
+  },
   "NotificationSettingList": {
     "title": "Notifications",
     "allNotificationsAriaLabel": "All notification settings"
@@ -1272,6 +1301,7 @@
     "myReports": "My Reports",
     "myInquiries": "My Inquiries",
     "faq": "FAQ",
+    "languageSettings": "Language Settings",
     "accountSettings": "Account Settings",
     "serviceIntro": "About finditem",
     "privacyPolicy": "Privacy Policy",
@@ -1737,5 +1767,199 @@
   },
   "FloatingInquiryButton": {
     "label": "1:1 Inquiry"
+  },
+  "usePostInquiryComments": {
+    "commentRegistered": "Your comment has been posted."
+  },
+  "useApiSocialLogin": {
+    "kakaoCodeInvalid": "Your Kakao authorization code is invalid or has already been used.",
+    "kakaoUserInfoFailed": "Failed to retrieve your Kakao account information.",
+    "kakaoRecentlyDeleted": "This account has been withdrawn.",
+    "appleCodeInvalid": "Your Apple authorization code is invalid or has already been used.",
+    "appleTokenInvalid": "We couldn't verify your Apple sign-in information.",
+    "retry": "Please try again in a moment."
+  },
+  "useChatList": {
+    "loadError": "Couldn't load your chat list."
+  },
+  "useLeaveChatRoom": {
+    "leaveError": "Failed to leave the chat room."
+  },
+  "useDeleteComment": {
+    "deleteSuccess": "Your comment has been deleted."
+  },
+  "usePostPostsComments": {
+    "commentSuccess": "Your comment has been posted.",
+    "commentError": "Failed to post your comment."
+  },
+  "usePostUserInquiry": {
+    "commentSuccess": "Your reply has been posted.",
+    "commentError": "Failed to post your reply."
+  },
+  "useDeleteNoticeLike": {
+    "likeDeleteSuccess": "You've removed your like from this notice.",
+    "likeDeleteError": "Failed to remove your like."
+  },
+  "usePostNoticeLike": {
+    "likeSuccess": "You've liked this notice.",
+    "likeError": "Failed to like this notice."
+  },
+  "useDeleteNoticeComment": {
+    "deleteSuccess": "Your comment has been deleted."
+  },
+  "useDeleteNoticeCommentLike": {
+    "likeDeleteError": "Failed to remove your like from this comment."
+  },
+  "usePostNoticeComment": {
+    "commentSuccess": "Your comment has been posted.",
+    "commentError": "Failed to post your comment."
+  },
+  "usePostNoticeCommentLike": {
+    "likeError": "Failed to like this comment."
+  },
+  "useNotificationRead": {
+    "readError": "Couldn't mark notifications as read."
+  },
+  "usePutNotificationSetting": {
+    "updateError": "Failed to update your notification settings."
+  },
+  "useDeleteDetailPost": {
+    "deleteSuccess": "Your post has been deleted.",
+    "deleteError": "Failed to delete your post."
+  },
+  "usePostPosts": {
+    "postSuccess": "Your post has been published.",
+    "postError": "Failed to publish your post."
+  },
+  "usePostTempPost": {
+    "saveSuccess": "Your draft has been saved.",
+    "saveError": "Failed to save your draft."
+  },
+  "usePutPost": {
+    "updateSuccess": "Your post has been updated.",
+    "updateError": "Failed to update your post."
+  },
+  "usePutPostStatus": {
+    "changeToSearchingSuccess": "Changed the post's status to Searching.",
+    "changeToFoundSuccess": "Changed the post's status to Found.",
+    "changeToSearchingError": "Couldn't change the post's status to Searching.",
+    "changeToFoundError": "Couldn't change the post's status to Found."
+  },
+  "usePostFavorites": {
+    "addSuccess": "Added to your favorites.",
+    "addError": "Failed to add to your favorites."
+  },
+  "useDeletePostFavorites": {
+    "removeSuccess": "Removed from your favorites.",
+    "removeError": "Failed to remove from your favorites."
+  },
+  "useBlock": {
+    "blockSuccess": "You've blocked this user.",
+    "moveToBlockList": "Go to blocked list",
+    "blockError": "Failed to block this user.",
+    "selfBlock": "You can't block yourself.",
+    "notFound": "This user doesn't exist.",
+    "alreadyBlocked": "You've already blocked this user."
+  },
+  "useReport": {
+    "reportSuccess": "Your report has been submitted.",
+    "alreadyReported": "You've already submitted a report for this.",
+    "reportError": "Failed to submit your report."
+  },
+  "usePatchProfile": {
+    "updateSuccess": "Your profile has been updated.",
+    "notMember": "You're not a member. Please log in.",
+    "nicknameDuplicated": "This nickname is already in use. Please try a different one."
+  },
+  "usePostChangePassword": {
+    "changeSuccess": "Your password has been changed.",
+    "changeError": "Failed to change your password."
+  },
+  "useLogout": {
+    "logoutSuccess": "You've been logged out.",
+    "logoutError": "Failed to log out. Please try again."
+  },
+  "NotificationSSEProvider": {
+    "newNotifications": "You have {count} new notifications",
+    "goToAlertPage": "Go to notifications"
+  },
+  "useFormatKoreanDate": {
+    "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  },
+  "PublicDataCodes": {
+    "category": {
+      "PRA000": "Bag",
+      "PRO000": "Jewelry",
+      "PRB000": "Books & Stationery",
+      "PRC000": "Documents",
+      "PRD000": "Industrial Goods",
+      "PRQ000": "Shopping Bag",
+      "PRE000": "Sports Equipment",
+      "PRR000": "Musical Instrument",
+      "PRM000": "Securities",
+      "PRK000": "Clothing",
+      "PRF000": "Car",
+      "PRG000": "Electronics",
+      "PRH000": "Wallet",
+      "PRN000": "Certificate",
+      "PRI000": "Computer",
+      "PRP000": "Card",
+      "PRL000": "Cash",
+      "PRJ000": "Mobile Phone",
+      "PRZ000": "Other Items"
+    },
+    "region": {
+      "LCA000": "Seoul",
+      "LCB000": "Busan",
+      "LCC000": "Daegu",
+      "LCD000": "Incheon",
+      "LCE000": "Gwangju",
+      "LCF000": "Daejeon",
+      "LCG000": "Ulsan",
+      "LCH000": "Gyeonggi-do",
+      "LCI000": "Gangwon-do",
+      "LCJ000": "Chungcheongbuk-do",
+      "LCK000": "Chungcheongnam-do",
+      "LCL000": "Jeollabuk-do",
+      "LCM000": "Jeollanam-do",
+      "LCN000": "Gyeongsangbuk-do",
+      "LCO000": "Gyeongsangnam-do",
+      "LCP000": "Jeju-do",
+      "LCQ000": "Sejong",
+      "LCW000": "Other"
+    }
+  },
+  "LoginRequiredNotice": {
+    "message": "Log in to use this feature."
+  },
+  "DateSection": {
+    "label": "Please select a date."
+  },
+  "DatePickerModal": {
+    "monthTitle": "{month} {year}",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "gridLabel": "Date picker calendar",
+    "dayLabel": "{month}/{day}/{year}",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "today": "Today",
+    "yearUnit": "",
+    "monthUnit": "",
+    "yearWheelLabel": "Select year",
+    "monthWheelLabel": "Select month"
   }
 }

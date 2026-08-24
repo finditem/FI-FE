@@ -17,6 +17,12 @@ interface ContentShareModalProps {
   objectType: ObjectType;
 }
 
+const SHARE_LABEL_KEY: Record<ShareId, string> = {
+  kakao: "kakaoLabel",
+  native: "nativeLabel",
+  copy: "copyLabel",
+};
+
 const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentShareModalProps) => {
   const t = useTranslations("ContentShareModal");
   const { addToast } = useToast();
@@ -27,6 +33,8 @@ const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentSha
       metaData,
       objectType,
       addToast,
+      copyMessages: { success: t("copySuccess"), error: t("copyError") },
+      kakaoWebViewButtonLabel: t("kakaoWebViewButton"),
     });
 
   return (
@@ -36,9 +44,9 @@ const ContentShareModal = ({ isOpen, onClose, metaData, objectType }: ContentSha
         <div className="w-full gap-[18px] flex-center">
           {SHARE.map((item) => (
             <ShareOptionButton
-              key={item.name}
+              key={item.id}
               src={item.src}
-              name={item.name}
+              name={t(SHARE_LABEL_KEY[item.id])}
               onClick={() => handleOption(item.id)}
             />
           ))}

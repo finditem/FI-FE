@@ -10,8 +10,8 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const { keyword } = await searchParams;
-  const displayKeyword = formatMetadataKeyword(keyword);
   const t = await getTranslations("PublicDataSearchPage");
+  const displayKeyword = formatMetadataKeyword(keyword, t("defaultKeyword"));
 
   return {
     title: t("searchTitle", { keyword: displayKeyword }),

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 
 interface HeaderDeleteProps {
@@ -9,10 +10,12 @@ interface HeaderDeleteProps {
 }
 
 const HeaderDelete = ({ isDeleteMode, setIsDeleteMode, disabled = false }: HeaderDeleteProps) => {
+  const t = useTranslations("DetailHeader");
+
   return (
     <button
       type="button"
-      aria-label={isDeleteMode ? "삭제 화면 취소" : "삭제 화면 진입"}
+      aria-label={isDeleteMode ? t("deleteCancelAriaLabel") : t("deleteEnterAriaLabel")}
       onClick={() => setIsDeleteMode(!isDeleteMode)}
       disabled={disabled}
       className="disabled:cursor-not-allowed disabled:opacity-40"
@@ -20,7 +23,7 @@ const HeaderDelete = ({ isDeleteMode, setIsDeleteMode, disabled = false }: Heade
       {!isDeleteMode ? (
         <Icon name="Trash" size={24} className="text-neutral-normal-default" />
       ) : (
-        <span className="text-h3-medium text-layout-header-default">취소</span>
+        <span className="text-h3-medium text-layout-header-default">{t("cancelLabel")}</span>
       )}
     </button>
   );

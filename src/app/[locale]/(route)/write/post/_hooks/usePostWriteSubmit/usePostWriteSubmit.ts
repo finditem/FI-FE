@@ -7,6 +7,7 @@ import {
   postWriteSubmitSchema,
 } from "../../_types/PostWriteType";
 import { PostWriteRequest, usePostPosts } from "@/api/fetch/post";
+import { buildPostDateTime } from "../../_utils/buildPostDateTime/buildPostDateTime";
 import {
   trackPostComplete,
   trackSubmitItem,
@@ -60,6 +61,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
     watchedValues.category,
     watchedValues.title,
     watchedValues.content,
+    watchedValues.date,
     postType,
     fullAddress,
     lat,
@@ -82,7 +84,7 @@ const usePostWriteSubmit = ({ methods }: UsePostWriteSubmitProps) => {
       latitude: values.latitude,
       longitude: values.longitude,
       radius: values.radius,
-      date: new Date().toISOString(),
+      date: buildPostDateTime(values.date),
     };
 
     const formData = new FormData();

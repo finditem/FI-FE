@@ -2,7 +2,6 @@ import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import PostListItem from "./PostListItem";
 import { MOCK_POST_ITEM } from "@/mock/data";
-import { getItemCategoryLabel, getItemStatusLabel } from "@/utils";
 
 jest.mock("next/image", () => (props: any) => {
   return <img {...props} />;
@@ -29,8 +28,8 @@ describe("PostListItem", () => {
     expect(screen.getByText(MOCK_POST_ITEM.title)).toBeInTheDocument();
     expect(screen.getByText(MOCK_POST_ITEM.summary)).toBeInTheDocument();
 
-    expect(screen.getByText(getItemStatusLabel(MOCK_POST_ITEM.postStatus))).toBeInTheDocument();
-    expect(screen.getByText(getItemCategoryLabel(MOCK_POST_ITEM.category))).toBeInTheDocument();
+    expect(screen.getByText("찾아요")).toBeInTheDocument();
+    expect(screen.getByText("전자기기")).toBeInTheDocument();
 
     const starIcon = screen.getByTestId("icon-Star");
     expect(starIcon.parentElement).toHaveTextContent(String(MOCK_POST_ITEM.favoriteCount));

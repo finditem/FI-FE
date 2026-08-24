@@ -2,8 +2,9 @@
 
 import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { useTranslations } from "next-intl";
 import { Filter } from "@/components";
-import { MAP_CATEGORY_FILTER_OPTIONS } from "@/constants";
+import { CATEGORY_OPTIONS } from "@/constants";
 import { CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX } from "../../../HOME_CONST";
 import { cn } from "@/utils";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
@@ -23,9 +24,18 @@ const CategoryFilter = ({
   selectedValue,
   onSelect,
 }: CategoryFilterProps) => {
+  const t = useTranslations("FilterOptions");
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const categoryFilterOptions = [
+    { value: "", label: t("all") },
+    ...CATEGORY_OPTIONS.map((option) => ({
+      value: option.value as string,
+      label: t(`category.${option.value}`),
+    })),
+  ];
 
   usePopoverOutsideClose(isOpen, triggerRef, dropdownRef, () => setIsOpen(false));
   usePopoverPosition(
@@ -61,7 +71,7 @@ const CategoryFilter = ({
             ref={dropdownRef}
             className="fixed z-50 flex max-h-[200px] min-h-0 flex-col overflow-y-auto overscroll-y-contain rounded-[20px] no-scrollbar"
           >
-            {MAP_CATEGORY_FILTER_OPTIONS.map((option) => (
+            {categoryFilterOptions.map((option) => (
               <button
                 key={option.value === "" ? "all" : option.value}
                 type="button"

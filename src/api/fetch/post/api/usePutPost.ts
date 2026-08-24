@@ -5,11 +5,13 @@ import { PostPostsWriteResponse } from "../types/PostWriteType";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 export const usePutPost = (postId: number) => {
   const { addToast } = useToast();
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("usePutPost");
 
   return useAppMutation<FormData, PostPostsWriteResponse>("auth", `/posts/${postId}`, "put", {
     onSuccess: async (data) => {
@@ -18,11 +20,11 @@ export const usePutPost = (postId: number) => {
         queryClient.invalidateQueries({ queryKey: ["posts"] }),
         queryClient.invalidateQueries({ queryKey: ["/users/me/posts"] }),
       ]);
-      addToast("게시글이 수정되었어요", "success");
+      addToast(t("updateSuccess"), "success");
       router.replace(`/list/${data.result.id}`);
     },
     onError: () => {
-      addToast("게시글 수정에 실패했어요", "error");
+      addToast(t("updateError"), "error");
     },
   });
 };

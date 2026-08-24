@@ -2,16 +2,18 @@
 
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
+import { useTranslations } from "next-intl";
 
 export const usePostTempPost = () => {
   const { addToast } = useToast();
+  const t = useTranslations("usePostTempPost");
 
   return useAppMutation<FormData>("auth", "/posts/temp", "post", {
     onSuccess: () => {
-      addToast("임시 게시글이 저장되었어요", "success");
+      addToast(t("saveSuccess"), "success");
     },
     onError: () => {
-      addToast("임시 게시글 저장에 실패했어요", "error");
+      addToast(t("saveError"), "error");
     },
   });
 };

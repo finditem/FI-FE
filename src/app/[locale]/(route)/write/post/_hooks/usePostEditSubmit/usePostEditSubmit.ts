@@ -9,6 +9,7 @@ import {
 import { usePutPost } from "@/api/fetch/post";
 import { PutPostEditRequest } from "@/api/fetch/post/types/PutPostEditType";
 import { resizeImage } from "@/utils";
+import { buildPostDateTime } from "../../_utils/buildPostDateTime/buildPostDateTime";
 
 interface UsePostEditSubmitProps {
   postId: number;
@@ -55,7 +56,7 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
       latitude: values.latitude,
       longitude: values.longitude,
       radius: values.radius,
-      date: new Date().toISOString(),
+      date: buildPostDateTime(values.date),
       keepImageIdList: values.images.filter((img) => img.id).map((img) => Number(img.id)),
       thumbnailImageId,
       postStatus: values.postStatus || "SEARCHING",

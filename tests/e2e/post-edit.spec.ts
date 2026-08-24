@@ -281,6 +281,8 @@ test.describe("게시글 수정 페이지", () => {
 
     const requestData = JSON.parse(jsonStringMatch![0]);
     expect(requestData.title).toBe("PUT 요청 검증 제목");
+    // 타임존 표기가 없는 로컬 날짜·시간이어야 한다.
+    expect(requestData.date).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/);
   });
 
   test("발견 게시글 수정 페이지는 올바른 타이틀을 표시한다", async ({ page }) => {
