@@ -1009,6 +1009,10 @@
   "ChatImageButton": {
     "imageAlt": "Chat image {index}"
   },
+  "ChatBox": {
+    "translateAriaLabel": "Translate",
+    "showOriginalAriaLabel": "Show original"
+  },
   "ExpandableMessageBubble": {
     "hideLabel": "Hide",
     "showMoreLabel": "Show more"

@@ -1009,6 +1009,10 @@
   "ChatImageButton": {
     "imageAlt": "채팅 이미지 {index}"
   },
+  "ChatBox": {
+    "translateAriaLabel": "번역",
+    "showOriginalAriaLabel": "원문 보기"
+  },
   "ExpandableMessageBubble": {
     "hideLabel": "숨기기",
     "showMoreLabel": "더보기"
