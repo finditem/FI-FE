@@ -833,9 +833,9 @@
   },
   "LostFindActions": {
     "lostEmphasis": "Lost",
-    "lostRest": " something",
+    "lostRest": " item",
     "foundEmphasis": "Found",
-    "foundRest": " something",
+    "foundRest": " item",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },
@@ -902,7 +902,7 @@
     "emptyText": "No lost items found yet"
   },
   "RecentFoundItemSection": {
-    "ownerWanted": "These items are <em>looking for their owners</em>!",
+    "ownerWanted": "These items are <em>seeking their owners</em>!",
     "sectionTitle": "Recently found items"
   },
   "PublicMoreViewCard": {
