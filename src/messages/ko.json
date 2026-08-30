@@ -844,15 +844,9 @@
     "policeChipLabel": "경찰청"
   },
   "PoliceSection": {
-    "noTitle": "제목 없음",
-    "banner": "경찰청 분실물도\n찾아줘!에서 확인해요",
+    "bannerTitle": "경찰청 분실물도 확인해요",
+    "bannerSubtitle": "<em>찾길</em> 에서 한번에 모아봤어요",
     "logoAlt": "경찰민원24로고"
-  },
-  "PoliceItems": {
-    "lostHeadLabel": "분실",
-    "lostLabel": "했어요",
-    "foundHeadLabel": "발견",
-    "foundLabel": "했어요"
   },
   "SupportMenuItems": {
     "notificationSettingLabel": "키워드 알람 설정하기",

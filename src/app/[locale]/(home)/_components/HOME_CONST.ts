@@ -19,16 +19,9 @@ export const LOST_FIND_ACTION_DATA = [
   },
 ] as const;
 
-export const POLICE_ITEMS = [
-  {
-    type: "lost",
-    href: "/public-data?type=lost",
-  },
-  {
-    type: "found",
-    href: "/public-data?type=found",
-  },
-] as const;
+export const POLICE_BANNER = {
+  href: "/public-data?type=lost",
+} as const;
 
 export const SUPPORT_MENU_ITEMS = [
   {

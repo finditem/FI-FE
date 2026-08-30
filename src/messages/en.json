@@ -844,15 +844,9 @@
     "policeChipLabel": "Police"
   },
   "PoliceSection": {
-    "noTitle": "No title",
-    "banner": "Check lost items reported to\nthe police on Finditem too",
+    "bannerTitle": "Police lost & found, too",
+    "bannerSubtitle": "All gathered on <em>Finditem</em>",
     "logoAlt": "Korean National Police Agency Lost & Found logo"
-  },
-  "PoliceItems": {
-    "lostHeadLabel": "Lost",
-    "lostLabel": "Items",
-    "foundHeadLabel": "Found",
-    "foundLabel": "Items"
   },
   "SupportMenuItems": {
     "notificationSettingLabel": "Set up keyword alerts",
