@@ -895,6 +895,13 @@
     "backLabel": "뒤로가기",
     "searchLabel": "위치 검색"
   },
+  "MainSearchChipList": {
+    "lost": "분실물",
+    "found": "발견물",
+    "popup": "팝업",
+    "cafe": "카페",
+    "food": "맛집"
+  },
   "RecentSearchEmpty": {
     "emptyText": "최근 검색한 기록이 없어요."
   },

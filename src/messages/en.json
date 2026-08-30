@@ -895,6 +895,13 @@
     "backLabel": "Back",
     "searchLabel": "Search location"
   },
+  "MainSearchChipList": {
+    "lost": "Lost",
+    "found": "Found",
+    "popup": "Popup",
+    "cafe": "Cafe",
+    "food": "Food"
+  },
   "RecentSearchEmpty": {
     "emptyText": "No recent searches"
   },

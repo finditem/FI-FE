@@ -71,6 +71,17 @@ export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
 
 export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;
 
+/** 검색바 아래 필터칩. 클릭 시 해당 타입 핀만 지도에 렌더링 (기능 미구현, UI 전용) */
+export const MAIN_SEARCH_CHIPS = [
+  { type: "lost", icon: "/main/MainSearchChip/lost.svg" },
+  { type: "found", icon: "/main/MainSearchChip/found.svg" },
+  { type: "popup", icon: "/main/MainSearchChip/popup.svg" },
+  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg" },
+  { type: "food", icon: "/main/MainSearchChip/food.svg" },
+] as const;
+
+export type MainSearchChipType = (typeof MAIN_SEARCH_CHIPS)[number]["type"];
+
 export const BOTTOM_OFFSET_PX = 86.67;
 export const HEADER_HEIGHT_PX = 85;
 export const MIN_HEIGHT_PX = 27;
