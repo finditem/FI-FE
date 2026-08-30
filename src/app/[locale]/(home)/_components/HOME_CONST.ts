@@ -3,31 +3,19 @@ import { PostFilterChipValue } from "../_types/PostFilterChipValue";
 export const LOST_FIND_ACTION_DATA = [
   {
     type: "lost",
-    positionImage: "/main/LostFindActions/lost-position.svg",
-    markImage: {
-      src: "/main/LostFindActions/question.svg",
-      size: {
-        width: 21.39,
-        height: 33.41,
-      },
-    },
-    bagImage: "/main/LostFindActions/lost-bag.svg",
-    messageImage: "/main/LostFindActions/lost-message.svg",
-    bgColor: "bg-fill-accent-lostItem2",
+    symbolImage: "/main/LostFindActions/home-lost-icon.svg",
+    symbolSize: { width: 70, height: 47 },
+    bgColor: "bg-fill-accent-lostItem",
+    emphasisClass: "text-[#332C29]",
+    restClass: "text-[#786863]",
   },
   {
     type: "found",
-    positionImage: "/main/LostFindActions/found-position.svg",
-    markImage: {
-      src: "/main/LostFindActions/exclamation.svg",
-      size: {
-        width: 16,
-        height: 64,
-      },
-    },
-    bagImage: "/main/LostFindActions/found-bag.svg",
-    messageImage: "/main/LostFindActions/found-message.svg",
-    bgColor: "bg-fill-brand-subtle-hover",
+    symbolImage: "/main/LostFindActions/home-found-icon.svg",
+    symbolSize: { width: 62, height: 47 },
+    bgColor: "bg-[#C2F1D4]/45",
+    emphasisClass: "text-[#29322D]",
+    restClass: "text-[#81998A]",
   },
 ] as const;
 
