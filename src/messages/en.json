@@ -831,11 +831,11 @@
   "BottomSheet": {
     "heightAdjustLabel": "Adjust bottom sheet height"
   },
-  "LostFindActionData": {
-    "lost": "Report lost item",
-    "found": "Report found item"
-  },
   "LostFindActions": {
+    "lostEmphasis": "Lost",
+    "lostRest": " something",
+    "foundEmphasis": "Found",
+    "foundRest": " something",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },

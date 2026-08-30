@@ -831,11 +831,11 @@
   "BottomSheet": {
     "heightAdjustLabel": "바텀시트 높이 조절"
   },
-  "LostFindActionData": {
-    "lost": "분실 신고",
-    "found": "발견 신고"
-  },
   "LostFindActions": {
+    "lostEmphasis": "분실",
+    "lostRest": "했어요",
+    "foundEmphasis": "발견",
+    "foundRest": "했어요",
     "lostAriaLabel": "분실 신고 목록 페이지로 이동",
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
