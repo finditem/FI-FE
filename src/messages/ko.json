@@ -908,6 +908,7 @@
     "emptyText": "아직 발견된 분실물이 없어요"
   },
   "RecentFoundItemSection": {
+    "ownerWanted": "이 물건들, <em>주인</em> 찾습니다!",
     "sectionTitle": "최근 발견된 분실물"
   },
   "PublicMoreViewCard": {
