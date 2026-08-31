@@ -345,8 +345,10 @@
     "changePhotoAriaLabel": "프로필 이미지 변경 버튼",
     "chooseFromAlbum": "내 앨범에서 선택",
     "deletePhoto": "프로필 이미지 삭제",
+    "deleteImageConfirm": "이미지 삭제 후에는 취소가 불가능합니다.",
     "noSpacesError": "공백은 포함할 수 없어요.",
     "nickname": "닉네임",
+    "currentNicknameNotice": "기존 닉네임이 표기됩니다",
     "checkDuplicate": "중복 확인",
     "nicknameRule": "2~10자, 특수문자/금칙어 제한",
     "nicknameAvailable": "사용할 수 있는 닉네임이에요",
@@ -375,6 +377,7 @@
   },
   "ReportModal": {
     "title": "신고하기",
+    "participantPlaceholder": "채팅 참여자를 입력해 주세요.",
     "detailsLabel": "신고 내용 (선택)",
     "detailsPlaceholder": "신고 사유를 입력해주세요. (최대 300자)",
     "submit": "차단 및 신고하기"
@@ -590,6 +593,7 @@
     "COMMON400": "잘못된 요청이에요",
     "USER404-NOT_FOUND": "등록되지 않은 이메일이에요",
     "AUTH400-SOCIAL_ACCOUNT": "해당 이메일은 소셜 로그인 계정이에요",
+    "AUTH403-RESTRICTED_ACCOUNT": "사용이 제한된 계정이에요",
     "AUTH500-EMAIL_SEND_FAILED": "이메일 발송에 실패했어요. 잠시 후 다시 시도해 주세요"
   },
   "PublicDataPage": {
@@ -755,6 +759,9 @@
   },
   "ClientDetail": {
     "loadFailedToast": "게시글 불러오기에 실패했어요",
+    "postUnavailable": "상태가 변경되었거나 삭제된 게시글이에요",
+    "loginRequiredTitle": "로그인이 필요한 서비스입니다.",
+    "loginRequiredDescription": "해당 서비스는 로그인 후 이용해 주세요.",
     "defaultTitle": "게시글",
     "detailPageTitle": "{title} 상세 페이지",
     "similarReportTitle": "비슷한 제보글",
@@ -1699,6 +1706,8 @@
   },
   "SupportFaqAccordion": {
     "toggleAriaLabel": "FAQ 질문 접기/펼치기",
+    "imageUploadSuccess": "이미지를 등록했어요",
+    "imageUploadError": "이미지 등록에 실패했어요",
     "question1": "찾아줘 서비스는 어떤 플랫폼인가요?",
     "answer1": "찾아줘는 분실물과 습득물을 빠르게 연결해 주는 분실물 매칭 플랫폼이에요\n사용자는 분실한 물건을 등록하거나 발견한 물건을 등록하여 서로 정보를 공유할 수 있으며, 게시글을 통해 물건의 주인을 찾거나 분실물을 발견한 사람과 직접 소통할 수 있어요",
     "question2": "분실물은 어떻게 찾을 수 있나요?",
@@ -1786,7 +1795,8 @@
     "leaveError": "채팅방 나가기에 실패했어요"
   },
   "useDeleteComment": {
-    "deleteSuccess": "댓글 삭제가 완료되었어요"
+    "deleteSuccess": "댓글 삭제가 완료되었어요",
+    "deleteError": "댓글 삭제에 실패했어요"
   },
   "usePostPostsComments": {
     "commentSuccess": "댓글이 등록되었어요",
@@ -1960,6 +1970,7 @@
     "yearUnit": "년",
     "monthUnit": "월",
     "yearWheelLabel": "연도 선택",
-    "monthWheelLabel": "월 선택"
+    "monthWheelLabel": "월 선택",
+    "confirm": "선택완료"
   }
 }
