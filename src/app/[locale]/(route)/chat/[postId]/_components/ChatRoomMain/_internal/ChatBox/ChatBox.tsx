@@ -38,8 +38,8 @@ const ChatBox = ({ chat, nextSender, lastChat, opponentNickname }: ChatBoxProps)
             onClick={toggleTranslate}
             className="flex h-9 w-full items-end justify-center disabled:opacity-50"
           >
-            <span className="flex size-6 items-center justify-center rounded-[10px] bg-[#e4e4e4]">
-              <Icon name="TranslateLanguage" size={14} />
+            <span className="size-6 rounded-[10px] bg-[#e4e4e4] flex-center">
+              <Icon name="MessageTranslate" size={14} />
             </span>
           </button>
         )}
