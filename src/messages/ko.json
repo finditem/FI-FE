@@ -1011,7 +1011,8 @@
   },
   "ChatBox": {
     "translateAriaLabel": "번역",
-    "showOriginalAriaLabel": "원문 보기"
+    "showOriginalAriaLabel": "원문 보기",
+    "translatedPrefix": "[번역됨]"
   },
   "ExpandableMessageBubble": {
     "hideLabel": "숨기기",

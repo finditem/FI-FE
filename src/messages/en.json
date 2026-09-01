@@ -1011,7 +1011,8 @@
   },
   "ChatBox": {
     "translateAriaLabel": "Translate",
-    "showOriginalAriaLabel": "Show original"
+    "showOriginalAriaLabel": "Show original",
+    "translatedPrefix": "[Translated]"
   },
   "ExpandableMessageBubble": {
     "hideLabel": "Hide",

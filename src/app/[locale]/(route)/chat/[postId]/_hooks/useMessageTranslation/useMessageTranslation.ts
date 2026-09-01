@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import mockTranslateMessage from "../../_utils/mockTranslateMessage/mockTranslateMessage";
 
 const useMessageTranslation = (originalContent: string) => {
+  const t = useTranslations("ChatBox");
   const [isTranslated, setIsTranslated] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
@@ -18,7 +20,7 @@ const useMessageTranslation = (originalContent: string) => {
     }
 
     setIsTranslating(true);
-    const result = await mockTranslateMessage(originalContent);
+    const result = await mockTranslateMessage(originalContent, t("translatedPrefix"));
     setTranslatedContent(result);
     setIsTranslating(false);
     setIsTranslated(true);
