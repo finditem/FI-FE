@@ -592,7 +592,7 @@
   "FindPwErrorMessage": {
     "COMMON400": "Something went wrong",
     "USER404-NOT_FOUND": "Email not registered",
-    "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
+    "AUTH400-SOCIAL_ACCOUNT": "linked to a social login account",
     "AUTH403-RESTRICTED_ACCOUNT": "Account restricted",
     "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
   },
