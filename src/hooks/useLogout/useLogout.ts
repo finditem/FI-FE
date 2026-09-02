@@ -10,7 +10,7 @@ import { unsubscribeWebPushFromServer } from "@/utils";
 import { useApiLogout } from "@/api/fetch/auth";
 
 const useLogout = () => {
-  const { mutate: logoutMutate, isPending } = useApiLogout();
+  const { mutateAsync: logoutMutateAsync, isPending } = useApiLogout();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const { addToast } = useToast();
@@ -42,22 +42,21 @@ const useLogout = () => {
         // ignore
       }
 
-      setIsLoggingOut(false);
+      try {
+        await logoutMutateAsync();
 
-      logoutMutate(undefined, {
-        onSuccess: () => {
-          setIsRedirecting(true);
-          disconnectNotificationSSE();
-          resetUnreadNotificationState();
-          queryClient.clear();
-          logout();
-          addToast(t("logoutSuccess"), "success");
-          router.push("/");
-        },
-        onError: () => {
-          addToast(t("logoutError"), "error");
-        },
-      });
+        setIsRedirecting(true);
+        disconnectNotificationSSE();
+        resetUnreadNotificationState();
+        queryClient.clear();
+        logout();
+        addToast(t("logoutSuccess"), "success");
+        router.push("/");
+      } catch {
+        addToast(t("logoutError"), "error");
+      } finally {
+        setIsLoggingOut(false);
+      }
     })();
   };
 

@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState, type BaseSyntheticEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
+import { AxiosError } from "axios";
 import { useEmailLoginErrorMessage } from "./useEmailLoginErrorMessage/useEmailLoginErrorMessage";
 import { useToast } from "@/context/ToastContext";
 import { LoginFormType } from "../_types/LoginFormType";
@@ -11,6 +12,7 @@ import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { useQueryClient } from "@tanstack/react-query";
 import { isValidCallbackUrl } from "@/utils";
 import { useApiEmailLogin } from "@/api/fetch/auth";
+import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { trackLoginAttempt } from "@/utils/analytics/analytics";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -22,7 +24,7 @@ const useLoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const cookie = getCookie("email");
-  const { mutate: EmailLoginMutate, isPending } = useApiEmailLogin();
+  const { mutateAsync: emailLoginMutateAsync, isPending } = useApiEmailLogin();
   const { addToast } = useToast();
   const { handlerApiError } = useErrorToast();
   const queryClient = useQueryClient();
@@ -36,7 +38,7 @@ const useLoginForm = () => {
     }
   }, []);
 
-  const submitLogin = handleSubmit((data) => {
+  const submitLogin = handleSubmit(async (data) => {
     if (!EMAIL_REGEX.test(data.email)) {
       addToast(t("invalidEmail"), "warning");
       return;
@@ -49,36 +51,35 @@ const useLoginForm = () => {
       password: data.password,
     };
 
-    EmailLoginMutate(filterData, {
-      onSuccess: () => {
-        setIsRedirecting(true);
+    try {
+      await emailLoginMutateAsync(filterData);
 
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
-        }
+      setIsRedirecting(true);
 
-        queryClient.clear();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
+      }
 
-        const rawCallback = searchParams.get("callbackUrl");
-        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      queryClient.clear();
 
-        if (data.rememberId) {
-          setCookie("email", data.email, {
-            path: "/",
-            maxAge: 60 * 60 * 24 * 30,
-            secure: process.env.NODE_ENV === "production",
-          });
-        } else {
-          deleteCookie("email");
-        }
-      },
-      onError: (error) => {
-        const errorCode = error.response?.data.code;
-        if (errorCode) {
-          handlerApiError(emailLoginErrorMessage, errorCode);
-        }
-      },
-    });
+      const rawCallback = searchParams.get("callbackUrl");
+      router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+
+      if (data.rememberId) {
+        setCookie("email", data.email, {
+          path: "/",
+          maxAge: 60 * 60 * 24 * 30,
+          secure: process.env.NODE_ENV === "production",
+        });
+      } else {
+        deleteCookie("email");
+      }
+    } catch (error) {
+      const errorCode = (error as AxiosError<ApiBaseResponseType<null>>).response?.data.code;
+      if (errorCode) {
+        handlerApiError(emailLoginErrorMessage, errorCode);
+      }
+    }
   });
 
   const onSubmitLogin = (event?: BaseSyntheticEvent) => {

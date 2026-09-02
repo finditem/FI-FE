@@ -1,10 +1,12 @@
 import { renderHook, act } from "@testing-library/react";
 import useLoginForm from "./useLoginForm";
 
+const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
+
 const mockRouterReplace = jest.fn();
 const mockAddToast = jest.fn();
 const mockHandlerApiError = jest.fn();
-const mockEmailLoginMutate = jest.fn();
+const mockEmailLoginMutateAsync = jest.fn();
 const mockQueryClientClear = jest.fn();
 const mockHandleSubmit = jest.fn();
 const mockSetValue = jest.fn();
@@ -51,7 +53,10 @@ jest.mock("react-hook-form", () => ({
 describe("useLoginForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseApiEmailLogin.mockReturnValue({ mutate: mockEmailLoginMutate, isPending: false });
+    mockUseApiEmailLogin.mockReturnValue({
+      mutateAsync: mockEmailLoginMutateAsync,
+      isPending: false,
+    });
     mockHandleSubmit.mockImplementation((fn: Function) => (e?: any) => {
       e?.preventDefault?.();
       return Promise.resolve(fn);
@@ -59,34 +64,39 @@ describe("useLoginForm", () => {
   });
 
   it("isPending 값을 반환한다", () => {
-    mockUseApiEmailLogin.mockReturnValue({ mutate: mockEmailLoginMutate, isPending: true });
+    mockUseApiEmailLogin.mockReturnValue({
+      mutateAsync: mockEmailLoginMutateAsync,
+      isPending: true,
+    });
     const { result } = renderHook(() => useLoginForm());
     expect(result.current.isPending).toBe(true);
   });
 
   describe("이메일 유효성 검사", () => {
-    it("이메일 형식이 올바르지 않으면 경고 토스트가 표시된다", () => {
+    it("이메일 형식이 올바르지 않으면 경고 토스트가 표시된다", async () => {
       mockHandleSubmit.mockImplementation(
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "invalid-email", password: "pw", rememberId: false }))
       );
       const { result } = renderHook(() => useLoginForm());
-      act(() => {
+      await act(async () => {
         result.current.onSubmitLogin();
+        await flushPromises();
       });
       expect(mockAddToast).toHaveBeenCalledWith("아이디에 이메일을 입력해주세요.", "warning");
     });
 
-    it("이메일 형식이 올바르지 않으면 API가 호출되지 않는다", () => {
+    it("이메일 형식이 올바르지 않으면 API가 호출되지 않는다", async () => {
       mockHandleSubmit.mockImplementation(
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "not-email", password: "pw", rememberId: false }))
       );
       const { result } = renderHook(() => useLoginForm());
-      act(() => {
+      await act(async () => {
         result.current.onSubmitLogin();
+        await flushPromises();
       });
-      expect(mockEmailLoginMutate).not.toHaveBeenCalled();
+      expect(mockEmailLoginMutateAsync).not.toHaveBeenCalled();
     });
   });
 
@@ -96,37 +106,40 @@ describe("useLoginForm", () => {
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
-      mockEmailLoginMutate.mockImplementation((_data: any, { onSuccess }: any) => onSuccess());
+      mockEmailLoginMutateAsync.mockResolvedValue(undefined);
     });
 
-    it("성공 시 queryClient.clear가 호출된다", () => {
+    it("성공 시 queryClient.clear가 호출된다", async () => {
       const { result } = renderHook(() => useLoginForm());
-      act(() => {
+      await act(async () => {
         result.current.onSubmitLogin();
+        await flushPromises();
       });
       expect(mockQueryClientClear).toHaveBeenCalled();
     });
 
-    it("성공 시 router.replace('/')가 호출된다", () => {
+    it("성공 시 router.replace('/')가 호출된다", async () => {
       const { result } = renderHook(() => useLoginForm());
-      act(() => {
+      await act(async () => {
         result.current.onSubmitLogin();
+        await flushPromises();
       });
       expect(mockRouterReplace).toHaveBeenCalledWith("/");
     });
   });
 
   describe("로그인 실패", () => {
-    it("에러 코드가 있으면 handlerApiError가 호출된다", () => {
+    it("에러 코드가 있으면 handlerApiError가 호출된다", async () => {
       mockHandleSubmit.mockImplementation(
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
       const error = { response: { data: { code: "AUTH401-INVALID_CREDENTIALS" } } };
-      mockEmailLoginMutate.mockImplementation((_data: any, { onError }: any) => onError(error));
+      mockEmailLoginMutateAsync.mockRejectedValue(error);
       const { result } = renderHook(() => useLoginForm());
-      act(() => {
+      await act(async () => {
         result.current.onSubmitLogin();
+        await flushPromises();
       });
       expect(mockHandlerApiError).toHaveBeenCalled();
     });
