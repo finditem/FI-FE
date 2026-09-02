@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notificationSSEClient";
 import { useToast } from "@/context/ToastContext";
@@ -10,6 +11,8 @@ import { useApiLogout } from "@/api/fetch/auth";
 
 const useLogout = () => {
   const { mutate: logoutMutate, isPending } = useApiLogout();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const { addToast } = useToast();
   const t = useTranslations("useLogout");
   const resetUnreadNotificationState = useNotificationStore(
@@ -21,7 +24,8 @@ const useLogout = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    if (isPending) return;
+    if (isLoggingOut || isPending || isRedirecting) return;
+    setIsLoggingOut(true);
 
     void (async () => {
       try {
@@ -38,8 +42,11 @@ const useLogout = () => {
         // ignore
       }
 
+      setIsLoggingOut(false);
+
       logoutMutate(undefined, {
         onSuccess: () => {
+          setIsRedirecting(true);
           disconnectNotificationSSE();
           resetUnreadNotificationState();
           queryClient.clear();
@@ -54,7 +61,7 @@ const useLogout = () => {
     })();
   };
 
-  return { handleLogout, isPending };
+  return { handleLogout, isPending: isPending || isLoggingOut || isRedirecting };
 };
 
 export default useLogout;

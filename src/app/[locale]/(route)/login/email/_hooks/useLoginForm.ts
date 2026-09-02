@@ -1,6 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useRef, useState, type BaseSyntheticEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { useEmailLoginErrorMessage } from "./useEmailLoginErrorMessage/useEmailLoginErrorMessage";
@@ -26,6 +26,8 @@ const useLoginForm = () => {
   const { addToast } = useToast();
   const { handlerApiError } = useErrorToast();
   const queryClient = useQueryClient();
+  const isSubmittingRef = useRef(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
     if (typeof cookie === "string") {
@@ -34,7 +36,7 @@ const useLoginForm = () => {
     }
   }, []);
 
-  const onSubmitLogin = handleSubmit((data) => {
+  const submitLogin = handleSubmit((data) => {
     if (!EMAIL_REGEX.test(data.email)) {
       addToast(t("invalidEmail"), "warning");
       return;
@@ -49,6 +51,8 @@ const useLoginForm = () => {
 
     EmailLoginMutate(filterData, {
       onSuccess: () => {
+        setIsRedirecting(true);
+
         if (typeof window !== "undefined") {
           window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
         }
@@ -77,7 +81,20 @@ const useLoginForm = () => {
     });
   });
 
-  return { onSubmitLogin, isPending };
+  const onSubmitLogin = (event?: BaseSyntheticEvent) => {
+    if (isSubmittingRef.current || isPending || isRedirecting) {
+      event?.preventDefault();
+      return;
+    }
+
+    isSubmittingRef.current = true;
+
+    void submitLogin(event).finally(() => {
+      isSubmittingRef.current = false;
+    });
+  };
+
+  return { onSubmitLogin, isPending: isPending || isRedirecting };
 };
 
 export default useLoginForm;

@@ -54,7 +54,7 @@ describe("useLoginForm", () => {
     mockUseApiEmailLogin.mockReturnValue({ mutate: mockEmailLoginMutate, isPending: false });
     mockHandleSubmit.mockImplementation((fn: Function) => (e?: any) => {
       e?.preventDefault?.();
-      return fn;
+      return Promise.resolve(fn);
     });
   });
 
@@ -67,7 +67,8 @@ describe("useLoginForm", () => {
   describe("이메일 유효성 검사", () => {
     it("이메일 형식이 올바르지 않으면 경고 토스트가 표시된다", () => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () => fn({ email: "invalid-email", password: "pw", rememberId: false })
+        (fn: Function) => () =>
+          Promise.resolve(fn({ email: "invalid-email", password: "pw", rememberId: false }))
       );
       const { result } = renderHook(() => useLoginForm());
       act(() => {
@@ -78,7 +79,8 @@ describe("useLoginForm", () => {
 
     it("이메일 형식이 올바르지 않으면 API가 호출되지 않는다", () => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () => fn({ email: "not-email", password: "pw", rememberId: false })
+        (fn: Function) => () =>
+          Promise.resolve(fn({ email: "not-email", password: "pw", rememberId: false }))
       );
       const { result } = renderHook(() => useLoginForm());
       act(() => {
@@ -92,7 +94,7 @@ describe("useLoginForm", () => {
     beforeEach(() => {
       mockHandleSubmit.mockImplementation(
         (fn: Function) => () =>
-          fn({ email: "test@test.com", password: "Password1!", rememberId: false })
+          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
       mockEmailLoginMutate.mockImplementation((_data: any, { onSuccess }: any) => onSuccess());
     });
@@ -118,7 +120,7 @@ describe("useLoginForm", () => {
     it("에러 코드가 있으면 handlerApiError가 호출된다", () => {
       mockHandleSubmit.mockImplementation(
         (fn: Function) => () =>
-          fn({ email: "test@test.com", password: "Password1!", rememberId: false })
+          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
       const error = { response: { data: { code: "AUTH401-INVALID_CREDENTIALS" } } };
       mockEmailLoginMutate.mockImplementation((_data: any, { onError }: any) => onError(error));
