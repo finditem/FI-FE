@@ -120,3 +120,23 @@ export const MARKER_ID = "marker-id" as const;
 
 export const POST_TYPE = "post-type" as const;
 export const CATEGORY = "category" as const;
+
+/**
+ * 검색바 아래 분실물/발견물 칩으로 여는 게시글 피드 시트의 열림 표시 파라미터.
+ * 타입 필터는 `POST_TYPE`(`?post-type`)이 담당하고, 이 값은 시트가 열려 있음을 나타낸다.
+ * "모두보기"로 `?post-type`이 지워져도 이 값이 남아 있으면 시트는 전체 피드로 유지된다.
+ */
+export const FEED_PARAM = "feed" as const;
+export const FEED_PARAM_VALUE = "post" as const;
+
+/** 검색바 아래 칩으로 여는 장소 필터 시트의 URL 파라미터 */
+export const PLACE_FILTER_PARAM = "place" as const;
+export const PLACE_FILTER_VALUES = ["popup", "cafe", "restaurant"] as const;
+export type PlaceFilterValue = (typeof PLACE_FILTER_VALUES)[number];
+
+/** 장소 필터 값 <-> NeighborhoodPlace 카테고리 매핑 */
+export const PLACE_FILTER_TO_CATEGORY = {
+  popup: "POPUP",
+  cafe: "CAFE",
+  restaurant: "RESTAURANT",
+} as const;

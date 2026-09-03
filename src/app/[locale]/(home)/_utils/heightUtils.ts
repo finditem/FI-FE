@@ -61,12 +61,20 @@ export const getSnapHeights = (
     searchValue: string | null;
     contentHeights?: DefaultSheetContentHeights | null;
     markerId?: string | null;
+    placeParam?: string | null;
+    feedParam?: string | null;
   }
 ): number[] => {
   if (options?.searchValue) {
     return getSnapHeightsByDevice(max);
   }
   if (options?.markerId) {
+    return getSnapHeightsByDevice(max);
+  }
+  if (options?.placeParam) {
+    return getSnapHeightsByDevice(max);
+  }
+  if (options?.feedParam) {
     return getSnapHeightsByDevice(max);
   }
   if (options?.contentHeights) {
