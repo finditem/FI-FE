@@ -8,6 +8,7 @@ const useLostFindActionData = () => {
     ...item,
     emphasis: t(`${item.type}Emphasis`),
     rest: t(`${item.type}Rest`),
+    subtitle: t(`${item.type}Subtitle`),
   }));
 };
 

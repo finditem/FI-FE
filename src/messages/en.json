@@ -836,6 +836,8 @@
     "lostRest": " item",
     "foundEmphasis": "Found",
     "foundRest": " item",
+    "lostSubtitle": "Register your lost item and start searching",
+    "foundSubtitle": "Register the item and help find its owner",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },
