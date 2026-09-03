@@ -843,6 +843,8 @@
     "lostRest": "했어요",
     "foundEmphasis": "발견",
     "foundRest": "했어요",
+    "lostSubtitle": "물건을 등록하고 찾아보세요",
+    "foundSubtitle": "물건을 등록하고 주인을 찾아주세요",
     "lostAriaLabel": "분실 신고 목록 페이지로 이동",
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },

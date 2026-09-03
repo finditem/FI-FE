@@ -4,18 +4,21 @@ export const LOST_FIND_ACTION_DATA = [
   {
     type: "lost",
     symbolImage: "/main/LostFindActions/home-lost-icon.svg",
-    symbolSize: { width: 70, height: 47 },
+    // 태블릿 기준 크기. 모바일에서는 컴포넌트에서 CSS로 축소한다.
+    symbolSize: { width: 83, height: 56 },
     bgColor: "bg-fill-accent-lostItem",
     emphasisClass: "text-[#332C29]",
-    restClass: "text-[#786863]",
+    restClass: "text-[#786863] tablet:text-[#675a56]",
+    subtitleClass: "text-[#907b74]",
   },
   {
     type: "found",
     symbolImage: "/main/LostFindActions/home-found-icon.svg",
-    symbolSize: { width: 62, height: 47 },
+    symbolSize: { width: 74, height: 56 },
     bgColor: "bg-[#C2F1D4]/45",
     emphasisClass: "text-[#29322D]",
-    restClass: "text-[#81998A]",
+    restClass: "text-[#81998A] tablet:text-[#4f5d54]",
+    subtitleClass: "text-[#54695c]",
   },
 ] as const;
 
