@@ -7,8 +7,8 @@ import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
-import { NeighborhoodPlace } from "../../../../../../_types/NeighborhoodPlace";
-import PlaceStatusBadge from "../PlaceStatusBadge/PlaceStatusBadge";
+import { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
+import PlaceStatusBadge from "./_internal/PlaceStatusBadge/PlaceStatusBadge";
 
 interface NeighborhoodPlaceCardProps {
   place: NeighborhoodPlace;

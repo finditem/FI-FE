@@ -6,8 +6,8 @@ import { Filter, Icon } from "@/components";
 import { useHorizontalDragScroll } from "@/hooks";
 import useNeighborhoodPlaces from "../../../../_hooks/useNeighborhoodPlaces/useNeighborhoodPlaces";
 import { NeighborhoodPlaceFilter } from "../../../../_types/NeighborhoodPlace";
-import NeighborhoodPlaceCard from "./_internal/NeighborhoodPlaceCard/NeighborhoodPlaceCard";
-import NeighborhoodPlaceCardSkeleton from "./_internal/NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
+import NeighborhoodPlaceCard from "../../../NeighborhoodPlaceCard/NeighborhoodPlaceCard";
+import NeighborhoodPlaceCardSkeleton from "../../../NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
 
 const FILTERS: { value: NeighborhoodPlaceFilter; labelKey: string }[] = [
   { value: "ALL", labelKey: "filterAll" },

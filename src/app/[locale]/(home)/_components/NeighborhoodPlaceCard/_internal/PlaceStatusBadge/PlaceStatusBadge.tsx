@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
-import { NeighborhoodPlaceStatus } from "../../../../../../_types/NeighborhoodPlace";
+import { NeighborhoodPlaceStatus } from "../../../../_types/NeighborhoodPlace";
 
 interface PlaceStatusBadgeProps {
   status: NeighborhoodPlaceStatus;
