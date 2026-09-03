@@ -857,6 +857,19 @@
     "bannerSubtitle": "<em>찾길</em> 에서 한번에 모아봤어요",
     "logoAlt": "경찰민원24로고"
   },
+  "NeighborhoodSection": {
+    "title": "찾는 동안 동네 구경하실래요?",
+    "filterAll": "모두보기",
+    "filterPopup": "팝업",
+    "filterCafe": "카페",
+    "filterRestaurant": "맛집",
+    "moreButton": "더 보기",
+    "statusOpen": "운영중",
+    "statusUpcoming": "오픈 예정",
+    "favoriteAriaLabel": "{name} 즐겨찾기",
+    "loadError": "장소를 불러오지 못했어요.",
+    "empty": "표시할 장소가 없어요."
+  },
   "SupportMenuItems": {
     "notificationSettingLabel": "키워드 알람 설정하기",
     "noticeLabel": "공지사항"
