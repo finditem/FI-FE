@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
-import { MOCK_NEIGHBORHOOD_PLACES } from "../../../../../../_hooks/useNeighborhoodPlaces/neighborhoodPlaces.mock";
+import { MOCK_NEIGHBORHOOD_PLACES } from "../../_hooks/useNeighborhoodPlaces/neighborhoodPlaces.mock";
 import NeighborhoodPlaceCard from "./NeighborhoodPlaceCard";
 
 const meta: Meta<typeof NeighborhoodPlaceCard> = {
