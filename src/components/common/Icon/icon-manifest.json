@@ -96,5 +96,10 @@
   "CategoryCard": "category-card",
   "CategoryEtc": "category-etc",
   "WriteCalendar": "write-calendar",
-  "MessageTranslate": "message-translate"
+  "MessageTranslate": "message-translate",
+  "PlaceMarker": "place-info",
+  "PlaceCalendar": "place-calendar",
+  "PlaceClock": "place-clock",
+  "PlaceHeart": "place-heart",
+  "PlaceHeartActive": "place-heart-active"
 }
