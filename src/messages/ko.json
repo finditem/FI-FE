@@ -863,6 +863,21 @@
     "loadError": "장소를 불러오지 못했어요.",
     "empty": "표시할 장소가 없어요."
   },
+  "PlaceFilterSheet": {
+    "popupTitle": "팝업 스토어",
+    "popupCount": "총 {count}개의 팝업스토어가 진행중입니다.",
+    "cafeTitle": "카페",
+    "cafeCount": "현재 {count}개 지점의 카페가 영업 중에 있습니다.",
+    "restaurantTitle": "맛집",
+    "restaurantCount": "현재 {count}개 지점의 맛집이 영업 중에 있습니다.",
+    "mapButton": "지도",
+    "loadError": "장소를 불러오지 못했어요.",
+    "empty": "표시할 장소가 없어요."
+  },
+  "PostTypeSheet": {
+    "loadError": "게시글을 불러오지 못했어요.",
+    "empty": "표시할 게시글이 없어요."
+  },
   "SupportMenuItems": {
     "notificationSettingLabel": "키워드 알람 설정하기",
     "noticeLabel": "공지사항"
@@ -877,8 +892,8 @@
   },
   "FilterItems": {
     "all": "모두보기",
-    "lost": "분실물만",
-    "find": "발견물만",
+    "lost": "분실물",
+    "find": "발견물",
     "category": "카테고리"
   },
   "PermissionItem": {

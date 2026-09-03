@@ -863,6 +863,21 @@
     "loadError": "Could not load places.",
     "empty": "No places to show."
   },
+  "PlaceFilterSheet": {
+    "popupTitle": "Pop-up stores",
+    "popupCount": "{count} pop-up stores are running now.",
+    "cafeTitle": "Cafes",
+    "cafeCount": "{count} cafe locations are open right now.",
+    "restaurantTitle": "Restaurants",
+    "restaurantCount": "{count} restaurant locations are open right now.",
+    "mapButton": "Map",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PostTypeSheet": {
+    "loadError": "Could not load posts.",
+    "empty": "No posts to show."
+  },
   "SupportMenuItems": {
     "notificationSettingLabel": "Set up keyword alerts",
     "noticeLabel": "Notices"
@@ -877,8 +892,8 @@
   },
   "FilterItems": {
     "all": "All",
-    "lost": "Lost only",
-    "find": "Found only",
+    "lost": "Lost",
+    "find": "Found",
     "category": "Category"
   },
   "PermissionItem": {
