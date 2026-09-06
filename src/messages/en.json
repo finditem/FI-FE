@@ -150,7 +150,7 @@
   },
   "EmptyCommentUI": {
     "guideGuest": "Log in and be the first to comment!",
-    "guideMember": "Be the first to leave a comment!",
+    "guideMember": "Write a comment",
     "message": "No comments yet.\n{guide}"
   },
   "ReplyForm": {
@@ -189,7 +189,7 @@
       "MOST_VIEWED": "Most viewed"
     },
     "findStatus": {
-      "SEARCHING": "Still searching",
+      "SEARCHING": "Searching",
       "FOUND": "Found"
     },
     "status": {
@@ -225,7 +225,7 @@
     "title": "Share this post",
     "close": "Close",
     "copySuccess": "Link copied to clipboard.",
-    "copyError": "Failed to copy the link.",
+    "copyError": "Couldn't copy the link.",
     "kakaoWebViewButton": "View on web",
     "kakaoLabel": "KakaoTalk",
     "nativeLabel": "Share",
@@ -345,10 +345,12 @@
     "changePhotoAriaLabel": "Change profile photo",
     "chooseFromAlbum": "Choose from album",
     "deletePhoto": "Delete profile photo",
+    "deleteImageConfirm": "This action cannot be undone after deleting the image.",
     "noSpacesError": "Spaces aren't allowed.",
     "nickname": "Nickname",
-    "checkDuplicate": "Check availability",
-    "nicknameRule": "2-10 characters, no special characters or banned words",
+    "currentNicknameNotice": "Current nickname",
+    "checkDuplicate": "Check",
+    "nicknameRule": "2-10 characters, no special/banned words",
     "nicknameAvailable": "This nickname is available",
     "submit": "Save"
   },
@@ -357,11 +359,11 @@
   },
   "ReportReasons": {
     "IRRELEVANT_CONTENT": "This isn't actually a lost or found item.",
-    "DUPLICATE": "This has already been posted multiple times.",
-    "SPAM": "This is promotional content unrelated to lost items.",
-    "OFFENSIVE_LANGUAGE": "There's offensive language in the chat or comments.",
-    "EXTORTION": "Someone is demanding money in exchange for returning the item.",
-    "FALSE_CLAIM": "Someone who isn't the real owner is claiming this item.",
+    "DUPLICATE": "This was posted multiple times.",
+    "SPAM": "This is unrelated promotional content.",
+    "OFFENSIVE_LANGUAGE": "This contains offensive language.",
+    "EXTORTION": "Someone is demanding money for the item's return.",
+    "FALSE_CLAIM": "Someone other than the owner is claiming this item.",
     "ETC": "Something else is wrong."
   },
   "ReportReasonModal": {
@@ -375,6 +377,7 @@
   },
   "ReportModal": {
     "title": "Report",
+    "participantPlaceholder": "Enter a participant's name.",
     "detailsLabel": "Details (optional)",
     "detailsPlaceholder": "Tell us more (up to 300 characters)",
     "submit": "Block and report"
@@ -517,7 +520,7 @@
     "emailAuthLabel": "Email Verification",
     "passwordPlaceholder": "Enter your password",
     "passwordRule": "8-16 characters, with uppercase, lowercase, a number, and a special character",
-    "passwordSuccessMessage": "8-16 characters, with uppercase, lowercase, a number, and a special character",
+    "passwordSuccessMessage": "8-16 chars with uppercase, lowercase, numbers, and symbols",
     "passwordLabel": "Password",
     "passwordConfirmPlaceholder": "Re-enter your password",
     "passwordConfirmSuccessMessage": "Passwords match.",
@@ -560,8 +563,8 @@
     "lengthErrorMessage": "Nicknames must be 2-10 characters.",
     "lengthErrorToast": "Nicknames must be 2-10 characters",
     "verifiedToast": "This nickname is available.",
-    "invalidWordMessage": "This nickname contains a restricted word.",
-    "invalidWordToast": "This nickname contains a restricted word",
+    "invalidWordMessage": "This nickname has a restricted word.",
+    "invalidWordToast": "This nickname has a restricted word",
     "duplicateMessage": "This nickname is already taken.",
     "duplicateToast": "This nickname is already taken",
     "unexpectedError": "Something unexpected went wrong"
@@ -588,8 +591,9 @@
   },
   "FindPwErrorMessage": {
     "COMMON400": "Something went wrong",
-    "USER404-NOT_FOUND": "We couldn't find an account with that email",
-    "AUTH400-SOCIAL_ACCOUNT": "This email is linked to a social login account",
+    "USER404-NOT_FOUND": "Email not registered",
+    "AUTH400-SOCIAL_ACCOUNT": "linked to a social login account",
+    "AUTH403-RESTRICTED_ACCOUNT": "Account restricted",
     "AUTH500-EMAIL_SEND_FAILED": "We couldn't send the email. Please try again in a moment."
   },
   "PublicDataPage": {
@@ -755,6 +759,9 @@
   },
   "ClientDetail": {
     "loadFailedToast": "Failed to load the post",
+    "postUnavailable": "This post was updated or deleted.",
+    "loginRequiredTitle": "Sign in to continue.",
+    "loginRequiredDescription": "Please log in to use this service.",
     "defaultTitle": "Post",
     "detailPageTitle": "{title} detail page",
     "similarReportTitle": "Similar reports",
@@ -1008,6 +1015,11 @@
   },
   "ChatImageButton": {
     "imageAlt": "Chat image {index}"
+  },
+  "ChatBox": {
+    "translateAriaLabel": "Translate",
+    "showOriginalAriaLabel": "Show original",
+    "translatedPrefix": "[Translated]"
   },
   "ExpandableMessageBubble": {
     "hideLabel": "Hide",
@@ -1420,9 +1432,9 @@
     "commentCreated": "You posted a comment.",
     "favoriteAdded": "You added a post to your favorites.",
     "inquiryCreated": "You submitted an inquiry.",
-    "inquiryAnswered": "Your inquiry received a response.",
+    "inquiryAnswered": "Reply to your inquiry posted.",
     "reportReceived": "Your report was received.",
-    "reportAnswered": "Your report received a response."
+    "reportAnswered": "Reply to your report posted."
   },
   "DeleteAccountLayout": {
     "title": "Delete Account",
@@ -1484,10 +1496,10 @@
     "passwordMismatch": "Passwords do not match.",
     "forgotPassword": "Forgot your password?",
     "findPassword": "Reset Password",
-    "passwordRule": "At least 8 characters with uppercase and lowercase letters, a number, and a special character",
+    "passwordRule": "8+ chars with uppercase, lowercase, numbers, and symbols",
     "newPasswordLabel": "New password",
     "newPasswordPlaceholder": "Enter a new password.",
-    "sameAsCurrentPassword": "Your new password must be different from your current password.",
+    "sameAsCurrentPassword": "New password cannot match your current one",
     "newPasswordConfirmLabel": "Confirm new password",
     "newPasswordConfirmPlaceholder": "Enter your new password again."
   },
@@ -1630,7 +1642,7 @@
         "btnText": "Write a lost item post"
       },
       "policeFoundList": {
-        "title": "Have you checked the police found-item list?",
+        "title": "Checked the police found-item list?",
         "content": "Check the National Police Agency's Lost112 portal (https://www.lost112.go.kr/) for lost items currently held by the police.",
         "btnText": "Go to Lost112"
       },
@@ -1668,14 +1680,14 @@
     },
     "STOLEN": {
       "policeItems": {
-        "title": "Have you checked the police found-item list?",
+        "title": "Checked the police found-item list?",
         "content": "Start by checking the National Police Agency's Lost112 portal (https://www.lost112.go.kr) for items currently held by the police.",
         "btnText": "Go to Lost112"
       },
       "cctv": {
         "title": "Want to check CCTV footage?",
         "content": "Visit your nearest police station to file a theft report, then request CCTV access directly from whoever manages the location where the theft occurred. <br></br><br></br> For CCTV in public spaces, you can request access by filing an information disclosure request through the Information Disclosure Portal (https://www.open.go.kr).",
-        "btnText": "Go to the Information Disclosure Portal"
+        "btnText": "Go to the Disclosure Portal"
       }
     }
   },
@@ -1694,11 +1706,13 @@
   "SupportTab": {
     "all": "All",
     "account": "Account",
-    "usage": "How to Use",
+    "usage": "Usage",
     "etc": "Other"
   },
   "SupportFaqAccordion": {
     "toggleAriaLabel": "Expand or collapse FAQ question",
+    "imageUploadSuccess": "Image uploaded",
+    "imageUploadError": "Couldn't upload the image",
     "question1": "What kind of platform is finditem?",
     "answer1": "finditem is a lost-and-found matching platform that quickly connects lost items with found ones.\nYou can register a lost item or a found item to share information with other users, and use posts to find an item's owner or reach out directly to whoever found it.",
     "question2": "How can I find a lost item?",
@@ -1780,13 +1794,14 @@
     "retry": "Please try again in a moment."
   },
   "useChatList": {
-    "loadError": "Couldn't load your chat list."
+    "loadError": "Couldn't load chats"
   },
   "useLeaveChatRoom": {
     "leaveError": "Failed to leave the chat room."
   },
   "useDeleteComment": {
-    "deleteSuccess": "Your comment has been deleted."
+    "deleteSuccess": "Comment deleted.",
+    "deleteError": "Couldn't delete the comment."
   },
   "usePostPostsComments": {
     "commentSuccess": "Your comment has been posted.",
@@ -1824,8 +1839,8 @@
     "updateError": "Failed to update your notification settings."
   },
   "useDeleteDetailPost": {
-    "deleteSuccess": "Your post has been deleted.",
-    "deleteError": "Failed to delete your post."
+    "deleteSuccess": "Post deleted.",
+    "deleteError": "Couldn't delete the post."
   },
   "usePostPosts": {
     "postSuccess": "Your post has been published.",
@@ -1836,27 +1851,27 @@
     "saveError": "Failed to save your draft."
   },
   "usePutPost": {
-    "updateSuccess": "Your post has been updated.",
-    "updateError": "Failed to update your post."
+    "updateSuccess": "Post updated.",
+    "updateError": "Couldn't update the post."
   },
   "usePutPostStatus": {
-    "changeToSearchingSuccess": "Changed the post's status to Searching.",
+    "changeToSearchingSuccess": "Marked as searching.",
     "changeToFoundSuccess": "Changed the post's status to Found.",
     "changeToSearchingError": "Couldn't change the post's status to Searching.",
     "changeToFoundError": "Couldn't change the post's status to Found."
   },
   "usePostFavorites": {
     "addSuccess": "Added to your favorites.",
-    "addError": "Failed to add to your favorites."
+    "addError": "Couldn't save to favorites."
   },
   "useDeletePostFavorites": {
     "removeSuccess": "Removed from your favorites.",
     "removeError": "Failed to remove from your favorites."
   },
   "useBlock": {
-    "blockSuccess": "You've blocked this user.",
+    "blockSuccess": "Blocked this user.",
     "moveToBlockList": "Go to blocked list",
-    "blockError": "Failed to block this user.",
+    "blockError": "Couldn't block this user.",
     "selfBlock": "You can't block yourself.",
     "notFound": "This user doesn't exist.",
     "alreadyBlocked": "You've already blocked this user."
@@ -1872,8 +1887,8 @@
     "nicknameDuplicated": "This nickname is already in use. Please try a different one."
   },
   "usePostChangePassword": {
-    "changeSuccess": "Your password has been changed.",
-    "changeError": "Failed to change your password."
+    "changeSuccess": "Password changed",
+    "changeError": "Password change failed"
   },
   "useLogout": {
     "logoutSuccess": "You've been logged out.",
@@ -1933,7 +1948,7 @@
     "message": "Log in to use this feature."
   },
   "DateSection": {
-    "label": "Please select a date."
+    "label": "Select a date."
   },
   "DatePickerModal": {
     "monthTitle": "{month} {year}",
@@ -1951,7 +1966,7 @@
       "November",
       "December"
     ],
-    "weekdaysShort": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "weekdaysShort": ["S", "M", "T", "W", "T", "F", "S"],
     "gridLabel": "Date picker calendar",
     "dayLabel": "{month}/{day}/{year}",
     "prevMonth": "Previous month",
@@ -1960,6 +1975,7 @@
     "yearUnit": "",
     "monthUnit": "",
     "yearWheelLabel": "Select year",
-    "monthWheelLabel": "Select month"
+    "monthWheelLabel": "Select month",
+    "confirm": "Done"
   }
 }
