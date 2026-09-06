@@ -78,11 +78,12 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }
 
   const { isMine, postUserInformation } = data.result;
-  const postDetailData = translationData
+  const translatedPost = translationData?.result;
+  const postDetailData = translatedPost
     ? {
         ...data.result,
-        title: translationData.translatedTitle,
-        content: translationData.translatedContent,
+        title: translatedPost.translatedTitle || data.result.title,
+        content: translatedPost.translatedContent || data.result.content,
       }
     : data.result;
   const similarTitle =
