@@ -1,3 +1,8 @@
+// TODO(준열): 타이틀과 서브타이틀의 타이포그래피를 임의값에서 디자인 토큰으로 교체한다.
+// 현재 타이틀은 `tablet:text-[24px] tablet:leading-[1.5]`, 서브타이틀은 `text-[12px] leading-[1.33]`로
+// 하드코딩되어 있다. 서브타이틀은 `text-caption1-regular`로 대체 가능하고, 타이틀은 크기가 `h1-bold`와
+// 같지만 줄 높이가 토큰(110%)과 달라 `tablet:text-h1-bold tablet:leading-[1.5]` 형태의 정리만 가능하다.
+// customFonts.ts의 타이포 토큰 체계와 맞추는 작업으로 별도 진행한다.
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Image from "next/image";
