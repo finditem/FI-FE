@@ -100,5 +100,6 @@
   "PlaceCalendar": "place-calendar",
   "PlaceClock": "place-clock",
   "PlaceHeart": "place-heart",
-  "PlaceHeartActive": "place-heart-active"
+  "PlaceHeartActive": "place-heart-active",
+  "MessageTranslate": "message-translate"
 }
