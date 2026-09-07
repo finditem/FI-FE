@@ -37,33 +37,22 @@ const ExpandableMessageBubble = ({
         bubbleOrder
       )}
     >
-      <div className="relative">
-        <p
-          ref={contentRef}
-          className={cn(
-            "max-w-[272px] whitespace-pre-wrap break-words rounded-[24px] px-4 py-3",
-            bubbleColor,
-            !isExpanded && isOverflowing && "overflow-hidden"
-          )}
-          style={
-            !isExpanded && isOverflowing
-              ? { maxHeight: `${MAX_MESSAGE_BUBBLE_HEIGHT_PX}px` }
-              : undefined
-          }
-        >
-          {content}
-        </p>
-
-        {isTranslating && (
-          <div
-            aria-hidden="true"
-            className={cn(
-              "absolute inset-0 rounded-[24px] backdrop-blur-md !bg-fill-neutral-subtle-default",
-              bubbleColor
-            )}
-          />
+      <p
+        ref={contentRef}
+        className={cn(
+          "max-w-[272px] whitespace-pre-wrap break-words rounded-[24px] px-4 py-3",
+          bubbleColor,
+          !isExpanded && isOverflowing && "overflow-hidden",
+          isTranslating && "select-none blur-sm"
         )}
-      </div>
+        style={
+          !isExpanded && isOverflowing
+            ? { maxHeight: `${MAX_MESSAGE_BUBBLE_HEIGHT_PX}px` }
+            : undefined
+        }
+      >
+        {content}
+      </p>
 
       {isOverflowing ? (
         <button
