@@ -840,9 +840,8 @@
   },
   "LostFindActions": {
     "lostEmphasis": "Lost",
-    "lostRest": " something",
     "foundEmphasis": "Found",
-    "foundRest": " something",
+    "rest": " something",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },

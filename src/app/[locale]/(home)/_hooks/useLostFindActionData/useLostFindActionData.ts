@@ -7,7 +7,7 @@ const useLostFindActionData = () => {
   return LOST_FIND_ACTION_DATA.map((item) => ({
     ...item,
     emphasis: t(`${item.type}Emphasis`),
-    rest: t(`${item.type}Rest`),
+    rest: t("rest"),
   }));
 };
 
