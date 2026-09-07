@@ -842,6 +842,8 @@
     "lostEmphasis": "분실",
     "foundEmphasis": "발견",
     "rest": "했어요",
+    "lostSubtitle": "물건을 등록하고 찾아보세요",
+    "foundSubtitle": "물건을 등록하고 주인을 찾아주세요",
     "lostAriaLabel": "분실 신고 목록 페이지로 이동",
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
@@ -900,6 +902,13 @@
     "placeholder": "장소, 주소를 입력해 주세요.",
     "backLabel": "뒤로가기",
     "searchLabel": "위치 검색"
+  },
+  "MainSearchChipList": {
+    "lost": "분실물",
+    "found": "발견물",
+    "popup": "팝업",
+    "cafe": "카페",
+    "food": "맛집"
   },
   "RecentSearchEmpty": {
     "emptyText": "최근 검색한 기록이 없어요."

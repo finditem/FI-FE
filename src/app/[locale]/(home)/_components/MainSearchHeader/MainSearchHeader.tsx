@@ -8,6 +8,7 @@ import { cn } from "@/utils";
 import type { KeyboardEvent as ReactKeyboardEvent, RefObject } from "react";
 import { Suspense, useEffect, useRef, useState } from "react";
 import SearchFocusDropdown from "../SearchFocusDropdown/SearchFocusDropdown";
+import MainSearchChipList from "../MainSearchChipList/MainSearchChipList";
 import { focusSearchDropdownBoundary } from "../../_utils/searchDropdownListKeyboard";
 import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
 import { DEFAULT_ADDRESS } from "@/constants";
@@ -169,6 +170,7 @@ const HeaderContent = ({
 }) => {
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
+  const isDropdownOpen = Boolean(searchValue) || focused;
 
   return (
     <header
@@ -185,6 +187,11 @@ const HeaderContent = ({
         dropdownRootRef={dropdownRootRef}
         searchInputRef={searchInputRef}
       />
+      {!isDropdownOpen && (
+        <div className="mt-2">
+          <MainSearchChipList />
+        </div>
+      )}
     </header>
   );
 };

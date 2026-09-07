@@ -842,6 +842,8 @@
     "lostEmphasis": "Lost",
     "foundEmphasis": "Found",
     "rest": " something",
+    "lostSubtitle": "Register your lost item and start searching",
+    "foundSubtitle": "Register the item and help find its owner",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },
@@ -900,6 +902,13 @@
     "placeholder": "Enter a place or address",
     "backLabel": "Back",
     "searchLabel": "Search location"
+  },
+  "MainSearchChipList": {
+    "lost": "Lost",
+    "found": "Found",
+    "popup": "Popup",
+    "cafe": "Cafe",
+    "food": "Food"
   },
   "RecentSearchEmpty": {
     "emptyText": "No recent searches"
