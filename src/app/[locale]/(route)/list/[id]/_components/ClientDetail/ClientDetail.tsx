@@ -8,6 +8,7 @@ import { useWriteFlowStore } from "@/store";
 import { CommentList, AddToHomeScreenPWA } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useGetDetailPost, useGetPostTranslation } from "@/api/fetch/post";
+import { useGetPreferredLanguage } from "@/api/fetch/user";
 import {
   useDeleteComment,
   useGetPostsComments,
@@ -35,7 +36,10 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   const { showManualPopup, setShowManualPopup } = useWriteFlowStore();
 
   const { data, isLoading, isError } = useGetDetailPost({ id });
-  const shouldTranslate = locale === "en";
+  const { data: preferredLanguageData, isLoading: isPreferredLanguageLoading } =
+    useGetPreferredLanguage(isLoggedIn);
+  const shouldTranslate =
+    locale === "en" && preferredLanguageData?.result.preferredLanguage === "EN";
   const { data: translationData, isLoading: isTranslationLoading } = useGetPostTranslation({
     postId: id,
     enabled: shouldTranslate,
@@ -65,7 +69,11 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }, [setShowManualPopup]);
 
   const shouldShowSkeleton =
-    isLoading || isError || !data?.result || (shouldTranslate && isTranslationLoading);
+    isLoading ||
+    isError ||
+    !data?.result ||
+    (locale === "en" && isLoggedIn && isPreferredLanguageLoading) ||
+    (shouldTranslate && isTranslationLoading);
   const isErrorState = !isLoading && (isError || !data?.result);
 
   if (shouldShowSkeleton) {
