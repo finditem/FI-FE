@@ -1026,6 +1026,9 @@
     "hideLabel": "Hide",
     "showMoreLabel": "Show more"
   },
+  "TranslationUsageBadge": {
+    "usageLabel": "{usedCount}/{limit} translations used today"
+  },
   "EmptyChatRoom": {
     "pageHeading": "Empty chat screen",
     "lostHelpText": "Did you find this lost item?\nReach out to the owner first.",

@@ -1026,6 +1026,9 @@
     "hideLabel": "숨기기",
     "showMoreLabel": "더보기"
   },
+  "TranslationUsageBadge": {
+    "usageLabel": "오늘 번역 {usedCount}/{limit} 사용"
+  },
   "EmptyChatRoom": {
     "pageHeading": "빈 채팅 안내 화면",
     "lostHelpText": "이 분실물을 주우셨나요?\n주인에게 먼저 연락해보세요.",
