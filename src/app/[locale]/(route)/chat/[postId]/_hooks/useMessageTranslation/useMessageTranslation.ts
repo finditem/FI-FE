@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useToast } from "@/context/ToastContext";
 import mockTranslateMessage from "../../_utils/mockTranslateMessage/mockTranslateMessage";
 
 const useMessageTranslation = (originalContent: string) => {
   const t = useTranslations("ChatBox");
+  const { addToast } = useToast();
   const [isTranslated, setIsTranslated] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
@@ -20,10 +22,15 @@ const useMessageTranslation = (originalContent: string) => {
     }
 
     setIsTranslating(true);
-    const result = await mockTranslateMessage(originalContent, t("translatedPrefix"));
-    setTranslatedContent(result);
-    setIsTranslating(false);
-    setIsTranslated(true);
+    try {
+      const result = await mockTranslateMessage(originalContent, t("translatedPrefix"));
+      setTranslatedContent(result);
+      setIsTranslated(true);
+    } catch {
+      addToast(t("translateError"), "error");
+    } finally {
+      setIsTranslating(false);
+    }
   };
 
   return {

@@ -17,8 +17,8 @@
 
 ## 채팅 번역 스펙 반영 (spec.md, 미착수)
 
-- [ ] 번역 실패 케이스 처리: `useMessageTranslation`/`mockTranslateMessage`에 실패 분기 추가, 실패 시 원문 유지 + 번역 아이콘으로 재시도 가능하게 유지
-- [ ] 실패 토스트: "번역에 실패했어요. 다시 시도해주세요" 3초 노출 (i18n 키 신규 추가)
+- [x] 번역 실패 케이스 처리: `mockTranslateMessage`에 실패(reject) 분기 추가, `useMessageTranslation`에 try/catch/finally로 실패 시 원문 유지 + `isTranslating` 정상 해제 + 번역 아이콘으로 재시도 가능하게 유지
+- [x] 실패 토스트: 기존 `useToast`(`addToast(message, "error")`) 재사용, `ChatBox.translateError` i18n 키 추가 (ko/en, 3초 노출은 ToastProvider에 이미 고정 구현됨)
 - [ ] 번역 횟수 표시 UI: "오늘 번역 N/20 사용" 배지 (피그마 node-id=14407-155678 하단에 위치 확인됨) 컴포넌트 구현
 - [ ] 번역 횟수 차감/조회 실제 API 연동 (현재 목업엔 카운트 로직 자체가 없음)
 - [ ] 횟수 제한 도달 토스트(5-1): 상단 "번역 횟수를 모두 사용했어요.", 하단 "{N}시간 후 다시 사용할 수 있어요. 번역한 메시지는 계속 볼 수 있어요." (N 계산 로직 포함)
