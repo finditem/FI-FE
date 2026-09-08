@@ -38,9 +38,16 @@ const ChatBox = ({ chat, nextSender, lastChat, opponentNickname }: ChatBoxProps)
             onClick={toggleTranslate}
             className="flex h-9 w-full items-end justify-center disabled:opacity-50"
           >
-            <span className="size-6 rounded-[10px] bg-[#e4e4e4] flex-center">
+            <span
+              className={cn(
+                "size-6 rounded-[10px] flex-center",
+                isTranslated ? "bg-fill-brand-strong-disabled" : "bg-[#e4e4e4]"
+              )}
+            >
               {isTranslating ? (
                 <Icon name="Loading" className="animate-spin" size={14} />
+              ) : isTranslated ? (
+                <Icon name="MessageTranslateActive" size={14} />
               ) : (
                 <Icon name="MessageTranslate" size={14} />
               )}

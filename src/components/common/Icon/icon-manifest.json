@@ -96,5 +96,6 @@
   "CategoryCard": "category-card",
   "CategoryEtc": "category-etc",
   "WriteCalendar": "write-calendar",
-  "MessageTranslate": "message-translate"
+  "MessageTranslate": "message-translate",
+  "MessageTranslateActive": "message-translate-active"
 }
