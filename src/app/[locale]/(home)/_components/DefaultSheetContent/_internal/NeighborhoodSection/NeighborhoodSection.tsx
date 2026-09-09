@@ -1,3 +1,4 @@
+// TODO(준열) : 현재 목업 데이터로 작동 중 기능 구현시 목업데이터 삭제
 "use client";
 
 import { useState } from "react";
@@ -19,13 +20,6 @@ const FILTERS: { value: NeighborhoodPlaceFilter; labelKey: string }[] = [
 const COLLAPSED_COUNT = 3;
 const LIST_STYLE = "divide-y divide-divider-default";
 
-/**
- * "찾는 동안 동네 구경하실래요?" 섹션. 카테고리 필터 + 주변 장소 카드 목록을 보여줍니다.
- *
- * @remarks
- * 백엔드 API가 없어 목업 데이터를 사용합니다({@link useNeighborhoodPlaces}). "더 보기"는
- * 라우팅 없이 현재 목록을 그 자리에서 펼칩니다.
- */
 const NeighborhoodSection = () => {
   const t = useTranslations("NeighborhoodSection");
   const { ref, onMouseDown } = useHorizontalDragScroll();
