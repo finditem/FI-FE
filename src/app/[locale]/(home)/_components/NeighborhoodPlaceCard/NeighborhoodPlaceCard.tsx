@@ -14,18 +14,11 @@ interface NeighborhoodPlaceCardProps {
   place: NeighborhoodPlace;
 }
 
-/**
- * 동네 구경 섹션의 장소 한 건을 보여주는 카드입니다.
- *
- * @remarks
- * 즐겨찾기(하트)는 클릭 시 활성/비활성만 토글합니다. 서버 저장은 아직 연결하지 않았습니다.
- */
 const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   const t = useTranslations("NeighborhoodSection");
   const { name, imageUrl, address, stationName, distanceM, category, status, schedule } = place;
   const [isFavorite, setIsFavorite] = useState(false);
 
-  // 팝업은 운영 기간(날짜), 카페·맛집은 영업시간을 보여주므로 앞 아이콘이 다르다.
   const scheduleIcon = category === "POPUP" ? "PlaceCalendar" : "PlaceClock";
 
   return (
