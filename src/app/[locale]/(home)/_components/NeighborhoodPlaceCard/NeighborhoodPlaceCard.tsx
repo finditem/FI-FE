@@ -22,7 +22,7 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   const scheduleIcon = category === "POPUP" ? "PlaceCalendar" : "PlaceClock";
 
   return (
-    <article className="flex items-center gap-3 py-4">
+    <article aria-label={name} className="flex items-center gap-3 py-4">
       <Image
         src={imageUrl}
         alt=""
