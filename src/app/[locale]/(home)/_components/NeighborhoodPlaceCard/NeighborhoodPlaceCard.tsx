@@ -22,7 +22,7 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   const scheduleIcon = category === "POPUP" ? "PlaceCalendar" : "PlaceClock";
 
   return (
-    <article aria-label={name} className="flex items-center gap-3 py-4">
+    <li aria-label={name} className="flex items-center gap-3 py-4">
       <Image
         src={imageUrl}
         alt=""
@@ -63,7 +63,7 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
       >
         <Icon name={isFavorite ? "PlaceHeartActive" : "PlaceHeart"} size={24} />
       </button>
-    </article>
+    </li>
   );
 };
 
