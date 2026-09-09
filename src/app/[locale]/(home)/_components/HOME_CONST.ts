@@ -3,44 +3,28 @@ import { PostFilterChipValue } from "../_types/PostFilterChipValue";
 export const LOST_FIND_ACTION_DATA = [
   {
     type: "lost",
-    positionImage: "/main/LostFindActions/lost-position.svg",
-    markImage: {
-      src: "/main/LostFindActions/question.svg",
-      size: {
-        width: 21.39,
-        height: 33.41,
-      },
-    },
-    bagImage: "/main/LostFindActions/lost-bag.svg",
-    messageImage: "/main/LostFindActions/lost-message.svg",
-    bgColor: "bg-fill-accent-lostItem2",
+    symbolImage: "/main/LostFindActions/home-lost-icon.svg",
+    // 태블릿 기준 크기. 모바일에서는 컴포넌트에서 CSS로 축소한다.
+    symbolSize: { width: 83, height: 56 },
+    bgColor: "bg-fill-accent-lostItem",
+    emphasisClass: "text-[#332C29]",
+    restClass: "text-[#786863] tablet:text-[#675a56]",
+    subtitleClass: "text-[#907b74]",
   },
   {
     type: "found",
-    positionImage: "/main/LostFindActions/found-position.svg",
-    markImage: {
-      src: "/main/LostFindActions/exclamation.svg",
-      size: {
-        width: 16,
-        height: 64,
-      },
-    },
-    bagImage: "/main/LostFindActions/found-bag.svg",
-    messageImage: "/main/LostFindActions/found-message.svg",
-    bgColor: "bg-fill-brand-subtle-hover",
+    symbolImage: "/main/LostFindActions/home-found-icon.svg",
+    symbolSize: { width: 74, height: 56 },
+    bgColor: "bg-[#C2F1D4]/45",
+    emphasisClass: "text-[#29322D]",
+    restClass: "text-[#81998A] tablet:text-[#4f5d54]",
+    subtitleClass: "text-[#54695c]",
   },
 ] as const;
 
-export const POLICE_ITEMS = [
-  {
-    type: "lost",
-    href: "/public-data?type=lost",
-  },
-  {
-    type: "found",
-    href: "/public-data?type=found",
-  },
-] as const;
+export const POLICE_BANNER = {
+  href: "/public-data?type=lost",
+} as const;
 
 export const SUPPORT_MENU_ITEMS = [
   {
@@ -89,6 +73,17 @@ export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
 ) ?? { value: "category" as FilterItemValue };
 
 export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;
+
+/** 검색바 아래 필터칩. 클릭 시 해당 타입 핀만 지도에 렌더링 (기능 미구현, UI 전용) */
+export const MAIN_SEARCH_CHIPS = [
+  { type: "lost", icon: "/main/MainSearchChip/lost.svg" },
+  { type: "found", icon: "/main/MainSearchChip/found.svg" },
+  { type: "popup", icon: "/main/MainSearchChip/popup.svg" },
+  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg" },
+  { type: "food", icon: "/main/MainSearchChip/food.svg" },
+] as const;
+
+export type MainSearchChipType = (typeof MAIN_SEARCH_CHIPS)[number]["type"];
 
 export const BOTTOM_OFFSET_PX = 86.67;
 export const HEADER_HEIGHT_PX = 85;

@@ -10,3 +10,4 @@ export { default as MapPostSummarySheetContent } from "./MapPostSummarySheetCont
 export { default as MainSearchEmpty } from "./MainSearchEmpty/MainSearchEmpty";
 export { default as SearchLoading } from "./SearchLoading/SearchLoading";
 export { default as HomeFilterSection } from "./HomeFilterSection/HomeFilterSection";
+export { default as MainSearchChipList } from "./MainSearchChipList/MainSearchChipList";
