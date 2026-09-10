@@ -47,16 +47,27 @@
 - [ ] **사용자 위치 마커**: 지도에 현재 사용자 위치를 나타내는 마커 표시. GPS 좌표는
       `useMainKakaoMapStore.userGpsLatLng`. `BaseKakaoMap`의 `showCenterMarker`는 지도 중심용이므로
       사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
-- [ ] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
-      카테고리 장소 마커들이 지도에 등장. 현재 이 칩들은 `?place=`만 세팅해 `PlaceFilterSheetContent`를
-      열 뿐 지도 마커는 안 나옴(`HOME_CONST`에 "기능 미구현, UI 전용" 명시). API는 아래 "API 참고"의
-      `GET /main/places/search-location` 사용 (마커 + 카드 목록 한 번에). 디자인 TBD
+- [ ] **장소 카테고리 마커 표시** (코드 완료, 런타임 확인 대기): 헤더 칩(`MainSearchChipList`)의
+      팝업/카페/맛집 클릭 시 해당 카테고리 장소 마커만 지도에 표시. 칩 없으면 장소 마커 없음. 장소
+      칩 활성 동안 게시글 마커는 숨김. 카드/바텀시트/반경 원/선택 상태는 별도 기능으로 분리.
+  - [x] `types/SearchLocationPlacesType.ts` — `PlaceMarker`, `PlaceSummary`, `PlaceTimeRange`,
+        `SearchLocationPlacesResponse`
+  - [x] `api/useSearchLocationPlaces.ts` — `GET /main/places/search-location`, `type` 인자
+        (`null`이면 `enabled:false`), `level = min(mapLevel, 8)`, `useRecentFound`와 동일한 500ms
+        좌표 디바운스, `keepPreviousData`. `index.ts`에 export
+  - [x] `BaseKakaoMap`에 `placeMarkerData` prop 추가 → `CustomOverlayMap`으로 40px 원형 사진 마커
+        (흰 테두리 3px, `shadow 0 3px 4px rgba(0,0,0,.17)`, `#D9D9D9` 배경, `object-cover`).
+        렌더 테스트 1건 추가
+  - [x] `MainKakaoMap` — `?place=` → `PLACE_FILTER_TO_CATEGORY`로 `type` 도출 → 훅 호출,
+        `placeMarkerData` 전달, 장소 모드일 때 `markerData`(게시글)·`showPostMarkers` 숨김
+  - [ ] `npm run dev`에서 칩 클릭 → `/main/places/search-location` 응답 확인. 200이면 마커 렌더
+        확인, 실패(미배포 등)면 `useSearchLocationPlaces`를 목업 `queryFn`으로 임시 전환
 - [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
       형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
       단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
 - [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
       데이터는 `GET /main/places/{placeId}/summary`(장소 정보) + `GET
-  /main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
+/main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
 - [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
       `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
       `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —

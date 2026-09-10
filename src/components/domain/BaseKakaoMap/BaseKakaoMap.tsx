@@ -1,9 +1,9 @@
 "use client";
 
 import { CSSProperties, ReactNode, useEffect, useState } from "react";
-import { Map, MapMarker, Circle, useKakaoLoader } from "react-kakao-maps-sdk";
+import { Map, MapMarker, Circle, CustomOverlayMap, useKakaoLoader } from "react-kakao-maps-sdk";
 import { MapErrorState, MapLoadingState } from "@/components/domain/BaseKakaoMap/_internal";
-import { GetMarkerData } from "@/api/fetch/mapController";
+import { GetMarkerData, PlaceMarker } from "@/api/fetch/mapController";
 import { MAP_MARKER_ICON } from "./MAP_MARKER_ICON";
 
 /**
@@ -38,6 +38,8 @@ interface BaseKakaoMapProps {
   markerOffset?: { x: number; y: number };
   /** 지도에 표시할 마커 데이터 목록 */
   markerData?: GetMarkerData[];
+  /** 지도에 표시할 장소(팝업/카페/맛집) 마커 목록. 원형 썸네일로 렌더링됩니다. */
+  placeMarkerData?: PlaceMarker[];
   /** 원(Circle)의 반경 값. `showCircle`이 true일 때만 사용됩니다. */
   radius?: number;
   /** 중심 좌표 기준으로 반경 원(Circle)을 표시할지 여부 */
@@ -80,6 +82,7 @@ const BaseKakaoMap = ({
   markerSize = { width: 26, height: 37 },
   markerOffset = { x: 13, y: 20 },
   markerData,
+  placeMarkerData,
 
   radius,
   showCircle = false,
@@ -149,6 +152,15 @@ const BaseKakaoMap = ({
               }
             />
           ))}
+
+        {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
+          <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }}>
+            <div className="h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]">
+              {/* 지도 오버레이용 40px 썸네일이라 next/image 대신 img를 쓴다. */}
+              <img src={thumbnailUrl} alt="" className="h-full w-full object-cover" />
+            </div>
+          </CustomOverlayMap>
+        ))}
 
         {showCenterMarker && !markerData && (
           <MapMarker
