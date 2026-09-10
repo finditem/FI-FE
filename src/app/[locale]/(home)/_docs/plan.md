@@ -60,8 +60,11 @@
         렌더 테스트 1건 추가
   - [x] `MainKakaoMap` — `?place=` → `PLACE_FILTER_TO_CATEGORY`로 `type` 도출 → 훅 호출,
         `placeMarkerData` 전달, 장소 모드일 때 `markerData`(게시글)·`showPostMarkers` 숨김
-  - [ ] `npm run dev`에서 칩 클릭 → `/main/places/search-location` 응답 확인. 200이면 마커 렌더
-        확인, 실패(미배포 등)면 `useSearchLocationPlaces`를 목업 `queryFn`으로 임시 전환
+  - [x] `/main/places/search-location`은 200을 주지만 성수동 장소 데이터가 아직 비어 있음
+        (`placeMarkers: []`, `totalCount: 0`). dev 환경에서만 응답이 비면 `placeMarkers.mock.ts`로
+        대체하도록 `MainKakaoMap`에 목업 분기 추가 (`process.env.NODE_ENV !== "production"` 가드,
+        `ponytail:` 주석). 백엔드 데이터 들어오면 목업 파일 + 분기 삭제
+  - [ ] `npm run dev`에서 팝업/카페/맛집 칩 클릭 → 지도에 원형 마커 렌더 눈으로 확인
 - [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
       형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
       단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD

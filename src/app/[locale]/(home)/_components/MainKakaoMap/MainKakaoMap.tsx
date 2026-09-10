@@ -17,6 +17,7 @@ import {
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
 import { useMainKakaoMapStore } from "@/store";
+import { MOCK_PLACE_MARKERS } from "./placeMarkers.mock";
 
 const MainKakaoMap = () => {
   const router = useRouter();
@@ -36,6 +37,13 @@ const MainKakaoMap = () => {
   const { data: placesData } = useSearchLocationPlaces(placeType);
   const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapLevel);
 
+  // ponytail: 백엔드 장소 데이터가 아직 비어 있어 dev에서만 목업으로 대체. 데이터 들어오면 이 줄 삭제.
+  const placeMarkers = placesData?.result?.placeMarkers ?? [];
+  const resolvedPlaceMarkers =
+    process.env.NODE_ENV !== "production" && placeType && placeMarkers.length === 0
+      ? MOCK_PLACE_MARKERS.filter((marker) => marker.type === placeType)
+      : placeMarkers;
+
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
     triggerLevelReset();
     setLatLng(position);
@@ -54,7 +62,7 @@ const MainKakaoMap = () => {
       onLevelChange={(nextLevel) => setMapLevel(nextLevel)}
       onDragEnd={(nextCenter) => setLatLng(nextCenter)}
       markerData={showPostMarkers ? markerData?.result : undefined}
-      placeMarkerData={isPlaceMode ? placesData?.result?.placeMarkers : undefined}
+      placeMarkerData={isPlaceMode ? resolvedPlaceMarkers : undefined}
       onMarkerClick={handleMarkerClick}
     />
   );
