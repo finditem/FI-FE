@@ -18,14 +18,22 @@
       영향 없음. `HOME_CONST`·`MainSearchChipList` 주석 갱신, 테스트 3건 추가.
       (`PlaceFilterSheetContent`는 헤더 칩 재클릭으로 정상적으로 닫혀 동일 이슈 아님. "지도" 버튼은
       시트 높이만 접는 의도된 동작.)
+- [x] 지도 기본 좌표를 서울시청 → 성수역으로 교체 (`src/constants/DEFAULT_MAP_DATA.ts`의
+      `DEFAULT_LAT_LNG`·`DEFAULT_ADDRESS`). 위치 권한이 없거나 거부/미확인인 사용자도 빈 지도 대신
+      실제 서비스 데이터가 있는 성수동 일대를 보게 된다. 권한 허용 사용자는 기존대로 실제 GPS로
+      센터 이동. 상수를 import로 참조하는 관련 테스트(`useMainKakaoMap`, `useMainKakaoMapStore`)는
+      리터럴을 하드코딩하지 않아 그대로 통과
 
 ## 미완료 항목
 
-- [ ] **성수동 범위 지역 필터링**: `RecentFoundItem` DTO에 좌표가 없어 프론트에서 아이템 단위 필터
-      불가. `/main/posts/recent-found`가 `latitude/longitude/level`로 이미 서버 반경 필터링 중이므로,
-      실제로 필요한 건 위치 권한 없을 때의 기본 좌표 `DEFAULT_LAT_LNG`(현재 서울시청,
-      `src/constants/DEFAULT_MAP_DATA.ts`)와 `DEFAULT_ADDRESS`를 성수동으로 교체하는 것. 전역 상수라
-      라우트 범위 밖 + 서비스 지역 확정 필요
+- [ ] **서비스 지역(성수동) 밖 사용자 안내 토스트**: 지도 기본값이 성수역이 됐으므로, 권한을 허용한
+      사용자가 성수동 밖에 있을 때 GPS로 센터를 옮기지 않고 성수역에 머무르게 한 뒤 "지금은 성수동만
+      서비스해요" 토스트를 세션당 1회 노출한다. 필요한 것: (1) 서비스 지역 경계 상수 `SERVICE_AREA`
+      = `{ lat, lng, radiusM }`(폴리곤 말고 중심+반경 원 하나) + 두 점 거리 판정 한 줄, (2)
+      `useMainKakaoMap`의 `applyGpsToMap` 호출 전 "GPS가 지역 안인가" 체크 → 밖이면 `setLatLng`
+      생략 + 토스트, (3) `sessionStorage` 플래그로 세션당 1회. 지도 드래그로 벗어나는 경우 토스트는
+      후순위. `RecentFoundItem` DTO에 좌표가 없어 아이템 단위 프론트 필터는 불가하고, 서버가
+      `latitude/longitude/level`로 이미 반경 필터링 중이라 별도 필터는 불필요
 - [ ] **경찰청 습득물 리스트 제거 잔재 정리**: `9abd9297`에서 `PoliceSection`이 단일 배너로 바뀌며
       리스트 UI가 빠졌으나 죽은 코드가 남음 — `MainCardList`의 `mode`/`isPublicMode` 분기와
       `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트, `PublicMoreViewCard` i18n
