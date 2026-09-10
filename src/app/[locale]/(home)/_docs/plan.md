@@ -18,11 +18,13 @@
       영향 없음. `HOME_CONST`·`MainSearchChipList` 주석 갱신, 테스트 3건 추가.
       (`PlaceFilterSheetContent`는 헤더 칩 재클릭으로 정상적으로 닫혀 동일 이슈 아님. "지도" 버튼은
       시트 높이만 접는 의도된 동작.)
-- [x] 지도 기본 좌표를 서울시청 → 성수역으로 교체 (`src/constants/DEFAULT_MAP_DATA.ts`의
-      `DEFAULT_LAT_LNG`·`DEFAULT_ADDRESS`). 위치 권한이 없거나 거부/미확인인 사용자도 빈 지도 대신
-      실제 서비스 데이터가 있는 성수동 일대를 보게 된다. 권한 허용 사용자는 기존대로 실제 GPS로
-      센터 이동. 상수를 import로 참조하는 관련 테스트(`useMainKakaoMap`, `useMainKakaoMapStore`)는
-      리터럴을 하드코딩하지 않아 그대로 통과
+- [x] 지도 기본 좌표를 서울시청 → 성수역(위키백과 값 `37.544583, 127.055972`)으로 교체하고
+      기본 줌 레벨을 6 → 3(카카오 축척 약 50m, 건물 단위)으로 조정. `src/constants/DEFAULT_MAP_DATA.ts`의
+      `DEFAULT_LAT_LNG`·`DEFAULT_ADDRESS` 교체 + `DEFAULT_MAP_LEVEL = 3` 신설, `useMainKakaoMapStore`의
+      초기값·`clearLatLng` 리셋값이 이 상수를 참조하도록 변경. 위치 권한이 없거나 거부/미확인인
+      사용자도 빈 지도 대신 실제 서비스 데이터가 있는 성수동 일대를 보게 된다. 권한 허용 사용자는
+      기존대로 실제 GPS로 센터 이동. 참고: `useMainKakaoMap`의 "내 위치" 리셋은 여전히
+      `Math.min(현재레벨, 6)`으로 상한만 걸어 기본 레벨로 되돌리지는 않음 — 필요하면 후속 조정
 
 ## 미완료 항목
 
