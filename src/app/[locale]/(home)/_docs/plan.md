@@ -56,7 +56,7 @@
       단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
 - [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
       데이터는 `GET /main/places/{placeId}/summary`(장소 정보) + `GET
-    /main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
+  /main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
 - [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
       `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
       `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —
@@ -92,14 +92,21 @@ startTime`, 시작==종료면 24시간 운영
 
 ### 엔드포인트
 
-| 용도                           | Method / Path                                    | 요청                                                                       | 응답 `result`                                                                                       |
-| ------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| 홈 동네 구경 (카테고리 미선택) | `GET /places`                                    | 쿼리 명세 미확인(카테고리 optional 추정)                                   | `PlaceSummary[]` 최대 5개, 접기/펼치기는 클라                                                       |
-| 지도 카테고리 마커             | `GET /main/places/search-location`               | `latitude`·`longitude`(필수), `level`(1~8, 기본 6), `type`(**필수**, `CAFE | RESTAURANT                                                                                          | POPUP`) | `{ placeMarkers: PlaceMarker[], places: PlaceSummary[], totalCount }` 각 최대 10, 지도중심 거리순 |
-| 장소 동네 정보                 | `GET /main/places/{placeId}/summary`             | path `placeId`                                                             | `PlaceSummary` 1건                                                                                  |
-| 주변 게시글 목록               | `GET /main/places/{placeId}/nearby-posts`        | 무한스크롤 커서 `nextDistance`+`nextPostId`, `hasNext`                     | `NearbyPostSummary[]` (postId·title·summary·thumbnailImageUrl·address·postStatus·postType·category) |
-| 주변 게시글 마커               | `GET /main/places/{placeId}/nearby-post-markers` | path `placeId`                                                             | 마커[] (postId·latitude·longitude·postType·postStatus·category)                                     |
-| 가보고 싶은 장소 추가/취소     | `POST` / `DELETE /places/{placeId}/favorites`    | 로그인 필수                                                                | `{ placeId, isFavorite }`                                                                           |
+- **홈 동네 구경 (카테고리 미선택)** — `GET /places`
+  - 요청: 쿼리 명세 미확인 (카테고리 optional 추정)
+  - 응답: `PlaceSummary[]` 최대 5개, 접기/펼치기는 클라
+- **지도 카테고리 마커** — `GET /main/places/search-location`
+  - 요청: `latitude`·`longitude` (필수), `level` (1~8, 기본 6), `type` (필수, CAFE/RESTAURANT/POPUP)
+  - 응답: `{ placeMarkers: PlaceMarker[], places: PlaceSummary[], totalCount }` — 각 최대 10, 지도중심 거리순
+- **장소 동네 정보** — `GET /main/places/{placeId}/summary`
+  - 요청: path `placeId` / 응답: `PlaceSummary` 1건
+- **주변 게시글 목록** — `GET /main/places/{placeId}/nearby-posts`
+  - 요청: 무한스크롤 커서 `nextDistance`+`nextPostId`, 응답에 `hasNext`
+  - 응답: `NearbyPostSummary[]` (postId·title·summary·thumbnailImageUrl·address·postStatus·postType·category)
+- **주변 게시글 마커** — `GET /main/places/{placeId}/nearby-post-markers`
+  - 요청: path `placeId` / 응답: 마커[] (postId·latitude·longitude·postType·postStatus·category)
+- **가보고 싶은 장소 추가/취소** — `POST` / `DELETE /places/{placeId}/favorites` (로그인 필수)
+  - 응답: `{ placeId, isFavorite }`
 
 ### 유의점 (문서 "클라이언트 연동 참고")
 
