@@ -31,3 +31,30 @@
       `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트, `PublicMoreViewCard` i18n
       네임스페이스(`policeLostItemLabel`/`moreLabel`), `usePublicRecentFound` 훅(`(home)` 밖).
       `policeChipLabel` 키 자체는 `public-data` 라우트에서 쓰이므로 유지
+
+### 지도 장소 필터 기능
+
+- [ ] **사용자 위치 마커**: 지도에 현재 사용자 위치를 나타내는 마커 표시. GPS 좌표는
+      `useMainKakaoMapStore.userGpsLatLng`. `BaseKakaoMap`의 `showCenterMarker`는 지도 중심용이므로
+      사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
+- [ ] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
+      카테고리 장소 마커들이 지도에 등장. 현재 이 칩들은 `?place=`만 세팅해 `PlaceFilterSheetContent`를
+      열 뿐 지도 마커는 안 나옴(`HOME_CONST`에 "기능 미구현, UI 전용" 명시). 마커 데이터 소스(장소
+      API) 필요. 디자인 TBD
+- [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
+      형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
+      단일 원이라 이중 원 지원 필요. 디자인 TBD
+- [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
+      시트 내부 섹션 데이터와 레이아웃은 TBD
+- [ ] **장소 운영 상태에 "브레이크타임" 추가**: 현재 `NeighborhoodPlaceStatus`는 `OPEN`(운영중) /
+      `UPCOMING`(오픈 예정) 2가지. 브레이크타임 상태가 추가될 예정. 영향 범위 —
+      `_types/NeighborhoodPlace.ts` 타입, `PlaceStatusBadge`의 `STATUS_STYLE` 레코드와 라벨 분기
+      (현재 `OPEN`/그 외 삼항이라 3-way로), `PlaceStatusBadge` i18n 키(`statusOpen`/`statusUpcoming` + 신규 키 ko/en 동시), 목업 데이터. 상태값 이름과 디자인 TBD
+
+### 실 API 연동
+
+- [ ] **목업 데이터 실 API 연동 및 재테스트**: 목업으로 작성한 부분을 실제 API로 교체한 뒤 테스트
+      진행 — `usePostTypeFeed`(`homeFeedPosts.mock.ts`), `useNeighborhoodPlaces`
+      (`neighborhoodPlaces.mock.ts`), 그리고 위 지도 장소 마커/반경/바텀시트 기능에서 새로 만들
+      목업. 각 훅의 `queryFn`을 `useAppQuery` 등 실제 호출로 바꾸고 목업 파일 제거, 관련 테스트가
+      실제 응답 형태 기준으로 통과하는지 확인
