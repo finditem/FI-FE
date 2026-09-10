@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CATEGORY_OPTIONS } from "@/constants";
-import { CATEGORY, POST_TYPE } from "../../_components/HOME_CONST";
+import { CATEGORY, FEED_PARAM, FEED_PARAM_VALUE, POST_TYPE } from "../../_components/HOME_CONST";
 import { PostFilterChipValue } from "../../_types/PostFilterChipValue";
 
 const getSelectedPostFilterFromQuery = (postType: string | null): PostFilterChipValue => {
@@ -37,15 +37,28 @@ const useHomeFilterQuery = () => {
   };
 
   const setFilterQuery = (key: typeof POST_TYPE | typeof CATEGORY, value?: string) => {
+    // "모두보기"(POST_TYPE=all)를 타입 필터가 이미 없는 상태에서 다시 누른 경우.
+    // 첫 클릭은 타입 필터만 해제해 통합 피드로 두고, 이 재클릭에서 feed 파라미터까지 지워
+    // 피드 시트를 닫고 메인 시트로 돌아간다. 카테고리 필터가 남아 있으면 시트를 유지한다.
+    const isRepeatedPostTypeReset =
+      key === POST_TYPE && (!value || value === "all") && !postTypeParam;
+
     replaceQuery((params) => {
       const shouldDelete = !value || (key === POST_TYPE && value === "all");
+
       if (shouldDelete) {
         params.delete(key);
-        return;
+      } else {
+        params.set(key, key === CATEGORY ? value.toLowerCase() : value);
       }
 
-      const normalizedValue = key === CATEGORY ? value.toLowerCase() : value;
-      params.set(key, normalizedValue);
+      if (
+        isRepeatedPostTypeReset &&
+        params.get(FEED_PARAM) === FEED_PARAM_VALUE &&
+        !params.get(CATEGORY)
+      ) {
+        params.delete(FEED_PARAM);
+      }
     });
   };
 
