@@ -24,3 +24,10 @@
 - [ ] 횟수 제한 도달 토스트(5-1): 상단 "번역 횟수를 모두 사용했어요.", 하단 "{N}시간 후 다시 사용할 수 있어요. 번역한 메시지는 계속 볼 수 있어요." (N 계산 로직 포함)
 - [ ] 채팅방 재진입 시 번역 상태가 원문으로 초기화되는지 검증 (현재 `useMessageTranslation`이 컴포넌트 로컬 state라 자연히 초기화될 가능성이 높으나 실제 확인 필요)
 - [ ] 실제 백엔드 번역 API 연동 — `mockTranslateMessage` 호출부를 `useAppMutation` 기반 훅으로 교체, 사용자 설정 언어(`useGetPreferredLanguage`) 반영
+
+## 번역 텍스트 "[번역됨]" 접두어 제거 (사용자 요청)
+
+- [x] `mockTranslateMessage.ts`: `translatedPrefix` 파라미터 및 접두어 붙이는 로직 제거
+- [x] `useMessageTranslation.ts`: `mockTranslateMessage` 호출부에서 `t("translatedPrefix")` 인자 제거
+- [x] `ChatBox` 네임스페이스의 `translatedPrefix` 키를 ko.json/en.json에서 제거
+- [x] `npm run test`, `npm run build` 통과 확인

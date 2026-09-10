@@ -25,7 +25,7 @@ const useMessageTranslation = (originalContent: string) => {
 
     setIsTranslating(true);
     try {
-      const result = await mockTranslateMessage(originalContent, t("translatedPrefix"));
+      const result = await mockTranslateMessage(originalContent);
       setTranslatedContent(result);
       setIsTranslated(true);
       incrementUsedCount();

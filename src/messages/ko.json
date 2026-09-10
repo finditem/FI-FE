@@ -1022,7 +1022,6 @@
   "ChatBox": {
     "translateAriaLabel": "번역",
     "showOriginalAriaLabel": "원문 보기",
-    "translatedPrefix": "[번역됨]",
     "translateError": "번역에 실패했어요. 다시 시도해주세요"
   },
   "ExpandableMessageBubble": {

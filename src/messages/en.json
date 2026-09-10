@@ -1022,7 +1022,6 @@
   "ChatBox": {
     "translateAriaLabel": "Translate",
     "showOriginalAriaLabel": "Show original",
-    "translatedPrefix": "[Translated]",
     "translateError": "Translation failed. Please try again."
   },
   "ExpandableMessageBubble": {
