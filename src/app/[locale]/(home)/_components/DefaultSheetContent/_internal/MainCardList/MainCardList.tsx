@@ -31,7 +31,8 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
   return (
     <Link href={href} className="relative rounded-2xl shadow-[0px_1px_1px_rgba(0,0,0,0.08)]">
       <div className="h-[142px] w-[136px] rounded-2xl bg-fill-neutralInversed-normal-pressed">
-        <div className="relative flex h-full w-full justify-center">
+        {/* pb는 하단 캡션 오버레이가 덮는 높이. fallback 아이콘을 보이는 사진 영역 중앙에 둔다. */}
+        <div className="relative h-full w-full pb-[44px] flex-center">
           {thumbnailImageUrl ? (
             <Image
               src={thumbnailImageUrl}
