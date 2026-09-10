@@ -47,9 +47,9 @@
 - [ ] **사용자 위치 마커**: 지도에 현재 사용자 위치를 나타내는 마커 표시. GPS 좌표는
       `useMainKakaoMapStore.userGpsLatLng`. `BaseKakaoMap`의 `showCenterMarker`는 지도 중심용이므로
       사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
-- [ ] **장소 카테고리 마커 표시** (코드 완료, 런타임 확인 대기): 헤더 칩(`MainSearchChipList`)의
-      팝업/카페/맛집 클릭 시 해당 카테고리 장소 마커만 지도에 표시. 칩 없으면 장소 마커 없음. 장소
-      칩 활성 동안 게시글 마커는 숨김. 카드/바텀시트/반경 원/선택 상태는 별도 기능으로 분리.
+- [x] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
+      카테고리 장소 마커만 지도에 표시. 칩 없으면 장소 마커 없음. 장소 칩 활성 동안 게시글 마커는
+      숨김. 카드/바텀시트/반경 원/선택 상태는 별도 기능으로 분리.
   - [x] `types/SearchLocationPlacesType.ts` — `PlaceMarker`, `PlaceSummary`, `PlaceTimeRange`,
         `SearchLocationPlacesResponse`
   - [x] `api/useSearchLocationPlaces.ts` — `GET /main/places/search-location`, `type` 인자
@@ -60,11 +60,9 @@
         렌더 테스트 1건 추가
   - [x] `MainKakaoMap` — `?place=` → `PLACE_FILTER_TO_CATEGORY`로 `type` 도출 → 훅 호출,
         `placeMarkerData` 전달, 장소 모드일 때 `markerData`(게시글)·`showPostMarkers` 숨김
-  - [x] `/main/places/search-location`은 200을 주지만 성수동 장소 데이터가 아직 비어 있음
-        (`placeMarkers: []`, `totalCount: 0`). dev 환경에서만 응답이 비면 `placeMarkers.mock.ts`로
-        대체하도록 `MainKakaoMap`에 목업 분기 추가 (`process.env.NODE_ENV !== "production"` 가드,
-        `ponytail:` 주석). 백엔드 데이터 들어오면 목업 파일 + 분기 삭제
-  - [ ] `npm run dev`에서 팝업/카페/맛집 칩 클릭 → 지도에 원형 마커 렌더 눈으로 확인
+  - [x] 임시 dev 목업으로 원형 마커 렌더가 디자인대로 나오는 것 확인 후 목업 제거. **DB에 `place`
+        /`placeMarker` 데이터가 생성되면 `/main/places/search-location` 응답으로 마커가 렌더된다.**
+        (현재 엔드포인트는 200이지만 성수동 장소 데이터가 없어 `placeMarkers: []`)
 - [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
       형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
       단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
