@@ -49,22 +49,65 @@
       사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
 - [ ] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
       카테고리 장소 마커들이 지도에 등장. 현재 이 칩들은 `?place=`만 세팅해 `PlaceFilterSheetContent`를
-      열 뿐 지도 마커는 안 나옴(`HOME_CONST`에 "기능 미구현, UI 전용" 명시). 마커 데이터 소스(장소
-      API) 필요. 디자인 TBD
+      열 뿐 지도 마커는 안 나옴(`HOME_CONST`에 "기능 미구현, UI 전용" 명시). API는 아래 "API 참고"의
+      `GET /main/places/search-location` 사용 (마커 + 카드 목록 한 번에). 디자인 TBD
 - [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
       형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
-      단일 원이라 이중 원 지원 필요. 디자인 TBD
+      단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
 - [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
-      시트 내부 섹션 데이터와 레이아웃은 TBD
-- [ ] **장소 운영 상태에 "브레이크타임" 추가**: 현재 `NeighborhoodPlaceStatus`는 `OPEN`(운영중) /
-      `UPCOMING`(오픈 예정) 2가지. 브레이크타임 상태가 추가될 예정. 영향 범위 —
-      `_types/NeighborhoodPlace.ts` 타입, `PlaceStatusBadge`의 `STATUS_STYLE` 레코드와 라벨 분기
-      (현재 `OPEN`/그 외 삼항이라 3-way로), `PlaceStatusBadge` i18n 키(`statusOpen`/`statusUpcoming` + 신규 키 ko/en 동시), 목업 데이터. 상태값 이름과 디자인 TBD
+      데이터는 `GET /main/places/{placeId}/summary`(장소 정보) + `GET
+    /main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
+- [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
+      `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
+      `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —
+      `_types/NeighborhoodPlace.ts`(필드명 `status`→`operationStatus`, 값 4개, `distanceM`→
+      `stationDistanceMeters`, `PlaceSummary`의 `placeId`/`todayBusinessHours`/`operationPeriod`/
+      `isFavorite` 추가 검토), `PlaceStatusBadge`의 `STATUS_STYLE`·라벨 분기를 4-way로,
+      `PlaceStatusBadge` i18n 키(`statusOpen`/`statusUpcoming` + `BREAK_TIME`/`CLOSED` 키 ko/en
+      동시 추가), 목업 데이터. 디자인(뱃지 색/문구) TBD
 
 ### 실 API 연동
 
 - [ ] **목업 데이터 실 API 연동 및 재테스트**: 목업으로 작성한 부분을 실제 API로 교체한 뒤 테스트
       진행 — `usePostTypeFeed`(`homeFeedPosts.mock.ts`), `useNeighborhoodPlaces`
-      (`neighborhoodPlaces.mock.ts`), 그리고 위 지도 장소 마커/반경/바텀시트 기능에서 새로 만들
-      목업. 각 훅의 `queryFn`을 `useAppQuery` 등 실제 호출로 바꾸고 목업 파일 제거, 관련 테스트가
-      실제 응답 형태 기준으로 통과하는지 확인
+      (`neighborhoodPlaces.mock.ts` → `GET /places`), 그리고 위 지도 장소 마커/반경/바텀시트 기능에서
+      새로 만들 목업. 각 훅의 `queryFn`을 `useAppQuery` 등 실제 호출로 바꾸고 목업 파일 제거, 관련
+      테스트가 실제 응답 형태 기준으로 통과하는지 확인
+
+## API 참고 (성수 콘텐츠, 2차 MVP)
+
+출처: Confluence "성수 콘텐츠 API 스펙"(finditem.atlassian.net, `pages/145784836`). **경로/구조는 Swagger가
+최종 기준** — 차이 나면 Swagger 우선. 응답은 공통 `ApiResponse<T>`(`isSuccess`/`code`/`message`/`result`).
+전부 "선택 인증"(비로그인 가능, 로그인 시 `isFavorite` 반영).
+
+### 공통 모델
+
+- **`PlaceSummary`** (홈 목록·지도 목록·가보고 싶은 목록 공용): `placeId`(Long), `name`, `address`,
+  `latitude`, `longitude`, `station`, `stationDistanceMeters`(Integer, m), `type`(`CAFE|RESTAURANT|POPUP`),
+  `thumbnailUrl`, `operationStatus`(`OPEN|BREAK_TIME|UPCOMING|CLOSED`), `operationPeriod`(`{startDate,
+endDate}`, `type=POPUP`만), `todayBusinessHours`(`TimeRange[]`, 정기휴무일이면 `null`), `isFavorite`(Boolean)
+- **`PlaceMarker`**: `placeId`, `latitude`, `longitude`, `type`, `thumbnailUrl`
+- **`TimeRange`**: `type`(`BUSINESS|BREAK_TIME`), `startTime`, `endTime`(`HH:mm`). 자정 넘김은 `endTime <
+startTime`, 시작==종료면 24시간 운영
+
+### 엔드포인트
+
+| 용도                           | Method / Path                                    | 요청                                                                       | 응답 `result`                                                                                       |
+| ------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| 홈 동네 구경 (카테고리 미선택) | `GET /places`                                    | 쿼리 명세 미확인(카테고리 optional 추정)                                   | `PlaceSummary[]` 최대 5개, 접기/펼치기는 클라                                                       |
+| 지도 카테고리 마커             | `GET /main/places/search-location`               | `latitude`·`longitude`(필수), `level`(1~8, 기본 6), `type`(**필수**, `CAFE | RESTAURANT                                                                                          | POPUP`) | `{ placeMarkers: PlaceMarker[], places: PlaceSummary[], totalCount }` 각 최대 10, 지도중심 거리순 |
+| 장소 동네 정보                 | `GET /main/places/{placeId}/summary`             | path `placeId`                                                             | `PlaceSummary` 1건                                                                                  |
+| 주변 게시글 목록               | `GET /main/places/{placeId}/nearby-posts`        | 무한스크롤 커서 `nextDistance`+`nextPostId`, `hasNext`                     | `NearbyPostSummary[]` (postId·title·summary·thumbnailImageUrl·address·postStatus·postType·category) |
+| 주변 게시글 마커               | `GET /main/places/{placeId}/nearby-post-markers` | path `placeId`                                                             | 마커[] (postId·latitude·longitude·postType·postStatus·category)                                     |
+| 가보고 싶은 장소 추가/취소     | `POST` / `DELETE /places/{placeId}/favorites`    | 로그인 필수                                                                | `{ placeId, isFavorite }`                                                                           |
+
+### 유의점 (문서 "클라이언트 연동 참고")
+
+- `search-location`은 `type` **필수** → 카테고리 칩 미선택이면 호출 안 함. "전체 카테고리 마커" 모드
+  없음. 현재 `?place=` 단일선택 구조와 일치.
+- `level`은 **1~8** (벗어나면 `MAP400-LEVEL_INVALID`). 우리 지도 기본 레벨 3은 OK. 게시글 마커
+  `useGetMarker`는 11 캡이므로 장소 마커용은 별도로 8 캡 필요.
+- 지도 조작 종료 후 **500ms 디바운스**. 지도 범위·카테고리 바뀌면 목록·커서 초기화.
+- **경합 처리**: 나중에 시작한 요청의 응답만 화면에 반영.
+- 장소 마커 클릭 → `summary`와 `nearby-post-markers`를 각각 조회 (반경 원/바텀시트 항목).
+- 반경 원(250m/500m)은 API가 규정하지 않음 — 순수 UI. 디자인 대기.
