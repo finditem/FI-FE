@@ -86,7 +86,7 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }
 
   const { isMine, postUserInformation } = data.result;
-  const translatedPost = translationData?.result;
+  const translatedPost = shouldTranslate ? translationData?.result : undefined;
   const postDetailData = translatedPost
     ? {
         ...data.result,
