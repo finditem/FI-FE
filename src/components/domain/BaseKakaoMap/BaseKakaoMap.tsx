@@ -1,6 +1,7 @@
 "use client";
 
 import { CSSProperties, ReactNode, useEffect, useState } from "react";
+import Image from "next/image";
 import { Map, MapMarker, Circle, CustomOverlayMap, useKakaoLoader } from "react-kakao-maps-sdk";
 import { MapErrorState, MapLoadingState } from "@/components/domain/BaseKakaoMap/_internal";
 import { GetMarkerData, PlaceMarker } from "@/api/fetch/mapController";
@@ -156,8 +157,13 @@ const BaseKakaoMap = ({
         {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
           <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }}>
             <div className="h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]">
-              {/* 지도 오버레이용 40px 썸네일이라 next/image 대신 img를 쓴다. */}
-              <img src={thumbnailUrl} alt="" className="h-full w-full object-cover" />
+              <Image
+                src={thumbnailUrl}
+                alt=""
+                width={40}
+                height={40}
+                className="h-full w-full object-cover"
+              />
             </div>
           </CustomOverlayMap>
         ))}
