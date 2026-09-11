@@ -865,6 +865,8 @@
     "moreButton": "더 보기",
     "statusOpen": "운영중",
     "statusUpcoming": "오픈 예정",
+    "statusBreakTime": "브레이크타임",
+    "statusClosed": "영업 종료",
     "favoriteAriaLabel": "{name} 즐겨찾기",
     "loadError": "장소를 불러오지 못했어요.",
     "empty": "표시할 장소가 없어요."
@@ -879,6 +881,14 @@
     "mapButton": "지도",
     "loadError": "장소를 불러오지 못했어요.",
     "empty": "표시할 장소가 없어요."
+  },
+  "PlaceDetailSheet": {
+    "placeTab": "동네 정보",
+    "postTab": "근처 분실물",
+    "emptyPlace": "주변에 표시할 장소가 없어요.",
+    "emptyPost": "주변에 등록된 게시글이 없어요.",
+    "loadError": "정보를 불러오지 못했어요.",
+    "moreButton": "더 보기"
   },
   "PostTypeSheet": {
     "loadError": "게시글을 불러오지 못했어요.",

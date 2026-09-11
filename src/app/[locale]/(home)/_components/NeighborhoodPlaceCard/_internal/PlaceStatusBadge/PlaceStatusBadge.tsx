@@ -1,17 +1,26 @@
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
-import { NeighborhoodPlaceStatus } from "../../../../_types/NeighborhoodPlace";
+import type { PlaceOperationStatus } from "@/api/fetch/mapController";
 
 interface PlaceStatusBadgeProps {
-  status: NeighborhoodPlaceStatus;
+  status: PlaceOperationStatus;
 }
 
-const STATUS_STYLE: Record<NeighborhoodPlaceStatus, string> = {
+const STATUS_STYLE: Record<PlaceOperationStatus, string> = {
   OPEN: "bg-[#d0ffee] text-brand-normal-default",
+  BREAK_TIME: "bg-[#d0ffee] text-brand-normal-default",
   UPCOMING: "bg-layout_2depth text-labelsVibrant-secondary",
+  CLOSED: "bg-layout_2depth text-labelsVibrant-secondary",
 };
 
-/** 동네 구경 장소 카드의 운영 상태 뱃지 (운영중 / 오픈 예정) */
+const STATUS_LABEL_KEY: Record<PlaceOperationStatus, string> = {
+  OPEN: "statusOpen",
+  BREAK_TIME: "statusBreakTime",
+  UPCOMING: "statusUpcoming",
+  CLOSED: "statusClosed",
+};
+
+/** 장소 카드의 운영 상태 뱃지 (운영중 / 브레이크타임 / 오픈 예정 / 영업 종료) */
 const PlaceStatusBadge = ({ status }: PlaceStatusBadgeProps) => {
   const t = useTranslations("NeighborhoodSection");
 
@@ -22,7 +31,7 @@ const PlaceStatusBadge = ({ status }: PlaceStatusBadgeProps) => {
         STATUS_STYLE[status]
       )}
     >
-      {t(status === "OPEN" ? "statusOpen" : "statusUpcoming")}
+      {t(STATUS_LABEL_KEY[status])}
     </span>
   );
 };

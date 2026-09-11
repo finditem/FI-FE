@@ -32,7 +32,7 @@ const NeighborhoodPlaceList = ({ filter, collapsedCount }: NeighborhoodPlaceList
     <>
       <ul className={LIST_STYLE}>
         {visiblePlaces.map((place) => (
-          <NeighborhoodPlaceCard key={place.id} place={place} />
+          <NeighborhoodPlaceCard key={place.placeId} place={place} />
         ))}
       </ul>
       {canExpand && (
