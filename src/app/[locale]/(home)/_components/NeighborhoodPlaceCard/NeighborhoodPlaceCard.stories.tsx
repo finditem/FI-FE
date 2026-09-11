@@ -53,14 +53,37 @@ export const Cafe: Story = {
   },
 };
 
-/** 브레이크타임 */
+/** 브레이크 타임 — 영업시간이 아니라 브레이크 시간을 보여준다 */
 export const BreakTime: Story = {
-  args: { place: { ...BASE_PLACE, placeId: 3, type: "CAFE", operationStatus: "BREAK_TIME" } },
+  args: {
+    place: {
+      ...BASE_PLACE,
+      placeId: 3,
+      name: "대림창고",
+      type: "CAFE",
+      operationStatus: "BREAK_TIME",
+      operationPeriod: null,
+      todayBusinessHours: [
+        { type: "BUSINESS", startTime: "11:00:00", endTime: "21:00:00" },
+        { type: "BREAK_TIME", startTime: "15:00:00", endTime: "17:00:00" },
+      ],
+    },
+  },
 };
 
-/** 오픈 예정 */
+/** 오픈 예정 — 시작 시각만 "11:00 오픈" 형태로 보여준다 */
 export const Upcoming: Story = {
-  args: { place: { ...BASE_PLACE, placeId: 4, operationStatus: "UPCOMING" } },
+  args: {
+    place: {
+      ...BASE_PLACE,
+      placeId: 4,
+      name: "텅플래닛",
+      type: "CAFE",
+      operationStatus: "UPCOMING",
+      operationPeriod: null,
+      todayBusinessHours: [{ type: "BUSINESS", startTime: "11:00:00", endTime: "20:00:00" }],
+    },
+  },
 };
 
 /** 영업 종료 */

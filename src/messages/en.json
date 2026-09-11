@@ -867,6 +867,7 @@
     "statusUpcoming": "Opening soon",
     "statusBreakTime": "On break",
     "statusClosed": "Closed",
+    "openAt": "Opens at {time}",
     "favoriteAriaLabel": "Add {name} to favorites",
     "loadError": "Could not load places.",
     "empty": "No places to show."

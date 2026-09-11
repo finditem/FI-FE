@@ -119,6 +119,12 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
 - [ ] **비로그인 즐겨찾기 동작 실기기 확인**: 로컬 dev 환경 문제로 브라우저 검증을 못 했다.
       `POST /places/{id}/favorites` 401 → `/auth/refresh` 401 → `/login?callbackUrl=` 이동까지 확인 필요
 
+- [ ] **`CLOSED`(영업 종료) 뱃지·문구 시안 없음**: 시안([카페 목록](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15218-29410))에
+      운영중·브레이크 타임·오픈 예정 세 가지만 있다. 현재는 오픈 예정과 같은 회색 뱃지에 영업시간을
+      그대로 쓰고 있으니 디자이너 확인 필요
+- [ ] **운영 문구 아이콘**: 시안은 `icon/stopwatch-05`인데 프로젝트에 없어 기존 `PlaceClock`을 쓰고
+      있다. 에셋을 받을지 현행 유지할지 확인 필요
+
 ### 실 API 연동
 
 - [x] `useNeighborhoodPlaces`를 `GET /places`로 교체하고 `neighborhoodPlaces.mock.ts` 제거

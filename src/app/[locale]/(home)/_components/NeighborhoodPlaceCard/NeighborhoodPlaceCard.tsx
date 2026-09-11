@@ -27,7 +27,9 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   } = place;
   const { toggleFavorite, isPending } = usePlaceFavorite(placeId);
 
-  const schedule = formatPlaceSchedule(place);
+  const time = formatPlaceSchedule(place);
+  // 오픈 예정만 "11:00 오픈"처럼 시각 뒤에 문구가 붙는다.
+  const schedule = time && operationStatus === "UPCOMING" ? t("openAt", { time }) : time;
   const scheduleIcon = type === "POPUP" ? "PlaceCalendar" : "PlaceClock";
 
   return (

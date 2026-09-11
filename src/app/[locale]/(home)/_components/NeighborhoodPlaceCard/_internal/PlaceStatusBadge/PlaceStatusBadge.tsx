@@ -8,7 +8,7 @@ interface PlaceStatusBadgeProps {
 
 const STATUS_STYLE: Record<PlaceOperationStatus, string> = {
   OPEN: "bg-[#d0ffee] text-brand-normal-default",
-  BREAK_TIME: "bg-[#d0ffee] text-brand-normal-default",
+  BREAK_TIME: "bg-fill-accent-lostItem text-accent-lostItem",
   UPCOMING: "bg-layout_2depth text-labelsVibrant-secondary",
   CLOSED: "bg-layout_2depth text-labelsVibrant-secondary",
 };
