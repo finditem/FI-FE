@@ -14,9 +14,9 @@ export interface PlaceMarker {
 
 export interface PlaceTimeRange {
   type: "BUSINESS" | "BREAK_TIME";
-  /** HH:mm */
+  /** HH:mm:ss */
   startTime: string;
-  /** HH:mm */
+  /** HH:mm:ss */
   endTime: string;
 }
 
@@ -31,7 +31,7 @@ export interface PlaceSummary {
   type: PlaceType;
   thumbnailUrl: string;
   operationStatus: PlaceOperationStatus;
-  /** `type=POPUP`일 때만. 그 외 null */
+  /** `type=POPUP`일 때만. 그 외 null. 날짜는 YYYY-MM-DD */
   operationPeriod: { startDate: string; endDate: string } | null;
   /** 조회일의 운영시간. 정기 휴무일이면 null */
   todayBusinessHours: PlaceTimeRange[] | null;
