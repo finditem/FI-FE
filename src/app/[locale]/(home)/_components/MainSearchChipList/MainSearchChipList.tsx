@@ -81,7 +81,7 @@ const MainSearchChipList = () => {
 
   return (
     <div ref={ref} onMouseDown={onMouseDown} className="flex gap-1 overflow-x-auto no-scrollbar">
-      {MAIN_SEARCH_CHIPS.map(({ type, icon }) => {
+      {MAIN_SEARCH_CHIPS.map(({ type, icon, width, height }) => {
         const isSelected = isChipSelected(
           CHIP_TO_MODE[type],
           new URLSearchParams(searchParams.toString())
@@ -102,7 +102,7 @@ const MainSearchChipList = () => {
                 : "border-transparent bg-white"
             )}
           >
-            <Image src={icon} alt="" width={16} height={16} draggable={false} />
+            <Image src={icon} alt="" width={width} height={height} draggable={false} />
             {t(type)}
           </button>
         );

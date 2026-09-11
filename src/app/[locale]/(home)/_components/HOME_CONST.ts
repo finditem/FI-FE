@@ -75,12 +75,16 @@ export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
 export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;
 
 /** 검색바 아래 필터칩. 클릭 시 해당 타입 핀만 지도에 렌더링 (기능 미구현, UI 전용) */
+/**
+ * 검색바 아래 칩 목록. `width`/`height`는 각 SVG의 실제 크기다 — 분실물·발견물 아이콘만
+ * 16x18이라 일괄 16x16으로 넘기면 next/image가 비율 불일치를 경고한다.
+ */
 export const MAIN_SEARCH_CHIPS = [
-  { type: "lost", icon: "/main/MainSearchChip/lost.svg" },
-  { type: "found", icon: "/main/MainSearchChip/found.svg" },
-  { type: "popup", icon: "/main/MainSearchChip/popup.svg" },
-  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg" },
-  { type: "food", icon: "/main/MainSearchChip/food.svg" },
+  { type: "lost", icon: "/main/MainSearchChip/lost.svg", width: 16, height: 18 },
+  { type: "found", icon: "/main/MainSearchChip/found.svg", width: 16, height: 18 },
+  { type: "popup", icon: "/main/MainSearchChip/popup.svg", width: 16, height: 16 },
+  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg", width: 16, height: 16 },
+  { type: "food", icon: "/main/MainSearchChip/food.svg", width: 16, height: 16 },
 ] as const;
 
 export type MainSearchChipType = (typeof MAIN_SEARCH_CHIPS)[number]["type"];
