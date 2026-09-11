@@ -131,6 +131,19 @@ export const CATEGORY = "category" as const;
 export const FEED_PARAM = "feed" as const;
 export const FEED_PARAM_VALUE = "post" as const;
 
+/**
+ * 지도에서 장소 마커를 클릭했을 때 선택된 장소의 `placeId`를 담는 파라미터.
+ * `PLACE_FILTER_PARAM`(어떤 카테고리를 보고 있는지)과 함께 쓰이며, 이 값이 있으면
+ * 지도에 반경 원이 그려지고 바텀시트가 장소 상세로 바뀐다.
+ */
+export const PLACE_ID_PARAM = "place-id" as const;
+
+/**
+ * 장소 마커 선택 시 지도에 그리는 반경. 바깥 원은 `nearby-posts`/`nearby-post-markers`가
+ * 서버에서 자르는 500m와 같은 값이고, 안쪽 원은 데이터와 무관한 장식이다.
+ */
+export const PLACE_RADIUS_M = { outer: 500, inner: 250 } as const;
+
 /** 검색바 아래 칩으로 여는 장소 필터 시트의 URL 파라미터 */
 export const PLACE_FILTER_PARAM = "place" as const;
 export const PLACE_FILTER_VALUES = ["popup", "cafe", "restaurant"] as const;

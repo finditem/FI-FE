@@ -6,7 +6,13 @@ jest.mock("react-kakao-maps-sdk", () => ({
   useKakaoLoader: jest.fn(),
   Map: ({ children }: any) => <div data-testid="kakao-map">{children}</div>,
   MapMarker: () => <div data-testid="map-marker" />,
-  Circle: ({ radius }: any) => <div data-testid="map-circle" data-radius={radius} />,
+  Circle: ({ radius, center }: any) => (
+    <div
+      data-testid="map-circle"
+      data-radius={radius}
+      data-center={`${center.lat},${center.lng}`}
+    />
+  ),
   CustomOverlayMap: ({ children }: any) => <div data-testid="place-marker">{children}</div>,
 }));
 
@@ -51,6 +57,22 @@ describe("<BaseKakaoMap />", () => {
     useKakaoLoader.mockReturnValue([false, null]);
     render(<BaseKakaoMap center={center} showCircle radius={500} />);
     expect(screen.getByTestId("map-circle")).toBeInTheDocument();
+  });
+
+  it("innerRadius를 주면 바깥 원과 안쪽 원을 함께 렌더링합니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    render(<BaseKakaoMap center={center} showCircle radius={500} innerRadius={250} />);
+
+    const radii = screen.getAllByTestId("map-circle").map((el) => el.dataset.radius);
+    expect(radii).toEqual(["500", "250"]);
+  });
+
+  it("circleCenter를 주면 지도 중심 대신 그 좌표에 원을 그립니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const circleCenter = { lat: 37.544583, lng: 127.055972 };
+    render(<BaseKakaoMap center={center} showCircle radius={500} circleCenter={circleCenter} />);
+
+    expect(screen.getByTestId("map-circle")).toHaveAttribute("data-center", "37.544583,127.055972");
   });
 
   it("showCircle이 true여도 radius가 없으면 Circle을 렌더링하지 않습니다.", () => {

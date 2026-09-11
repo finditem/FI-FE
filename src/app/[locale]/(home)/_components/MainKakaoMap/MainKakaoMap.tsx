@@ -6,6 +6,7 @@ import {
   useGetMarker,
   isMarkerFetchDisabledByZoom,
   useSearchLocationPlaces,
+  useNearbyPostMarkers,
 } from "@/api/fetch/mapController";
 import type { PlaceType } from "@/api/fetch/mapController";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -14,6 +15,8 @@ import {
   PLACE_FILTER_PARAM,
   PLACE_FILTER_TO_CATEGORY,
   PLACE_FILTER_VALUES,
+  PLACE_ID_PARAM,
+  PLACE_RADIUS_M,
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
 import { useMainKakaoMapStore } from "@/store";
@@ -32,8 +35,15 @@ const MainKakaoMap = () => {
       : null;
   const isPlaceMode = placeType !== null;
 
+  const placeIdParam = Number(searchParams.get(PLACE_ID_PARAM));
+  const selectedPlaceId = isPlaceMode && placeIdParam > 0 ? placeIdParam : null;
+
   const { data: markerData } = useGetMarker();
   const { data: placesData } = useSearchLocationPlaces(placeType);
+  const { data: nearbyMarkerData } = useNearbyPostMarkers(selectedPlaceId, {});
+
+  const placeMarkers = placesData?.result?.placeMarkers;
+  const selectedPlace = placeMarkers?.find(({ placeId }) => placeId === selectedPlaceId);
   const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapLevel);
 
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
@@ -46,6 +56,14 @@ const MainKakaoMap = () => {
     triggerMarkerSheetSnap();
   };
 
+  const handlePlaceMarkerClick = (placeId: number, position: { lat: number; lng: number }) => {
+    setLatLng(position);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(PLACE_ID_PARAM, String(placeId));
+    router.replace(`/?${params.toString()}`, { scroll: false });
+    triggerMarkerSheetSnap();
+  };
+
   return (
     <BaseKakaoMap
       center={mapCenter}
@@ -53,8 +71,18 @@ const MainKakaoMap = () => {
       draggable
       onLevelChange={(nextLevel) => setMapLevel(nextLevel)}
       onDragEnd={(nextCenter) => setLatLng(nextCenter)}
-      markerData={showPostMarkers ? markerData?.result : undefined}
-      placeMarkerData={isPlaceMode ? placesData?.result?.placeMarkers : undefined}
+      markerData={
+        selectedPlace ? nearbyMarkerData?.result : showPostMarkers ? markerData?.result : undefined
+      }
+      placeMarkerData={isPlaceMode ? placeMarkers : undefined}
+      selectedPlaceId={selectedPlaceId}
+      onPlaceMarkerClick={handlePlaceMarkerClick}
+      showCircle={!!selectedPlace}
+      circleCenter={
+        selectedPlace ? { lat: selectedPlace.latitude, lng: selectedPlace.longitude } : undefined
+      }
+      radius={PLACE_RADIUS_M.outer}
+      innerRadius={PLACE_RADIUS_M.inner}
       onMarkerClick={handleMarkerClick}
     />
   );

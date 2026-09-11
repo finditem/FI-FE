@@ -73,7 +73,7 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
 500m"로 서버가 자른다. 즉 화면 고정 크기가 아니라 지리적 반경이므로 줌에 따라 원 크기가 변해야 한다.
 안쪽 250m 원은 데이터와 무관한 장식이다.
 
-- [ ] `HOME_CONST`에 선택 장소 파라미터(`?place-id`) 추가. 기존 `MARKER_ID`(게시글 마커)와 별개이며,
+- [x] `HOME_CONST`에 선택 장소 파라미터(`?place-id`) 추가. 기존 `MARKER_ID`(게시글 마커)와 별개이며,
       `BottomSheet`의 콘텐츠 분기에 한 갈래를 더한다
 - [x] `mapController`에 API 훅 3개와 타입 추가
   - [x] `usePlaceSummary` — `GET /main/places/{placeId}/summary`, `PlaceSummary` 1건
@@ -81,10 +81,10 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
         ·`category` 필터와 `lastDistance`+`lastPostId` 커서를 받으므로 클라 필터링은 하지 않는다.
         무한스크롤은 `useAppInfiniteQuery` 사용
   - [x] `useNearbyPostMarkers` — `GET /main/places/{placeId}/nearby-post-markers`, 최대 10개
-- [ ] `BaseKakaoMap` 반경 원 확장: 현재 `Circle`이 `center={mapCenter}` 하드코딩이고 색상도
+- [x] `BaseKakaoMap` 반경 원 확장: 현재 `Circle`이 `center={mapCenter}` 하드코딩이고 색상도
       `#1EB87B` 고정이라 그대로 못 쓴다. 중심 좌표를 받는 prop을 추가하고 250m/500m 이중 원을
       지원한다. 기존 호출부 두 곳(`PostWriteKakaoMap`, `PostDetailKakaoMap`)의 동작은 유지할 것
-- [ ] `MainKakaoMap`: 장소 마커 클릭 → `?place-id` 설정, 반경 원과 `nearby-post-markers` 렌더.
+- [x] `MainKakaoMap`: 장소 마커 클릭 → `?place-id` 설정, 반경 원과 `nearby-post-markers` 렌더.
       장소 선택 상태에서는 기존 게시글 마커(`useGetMarker`)를 계속 숨긴다
 - [ ] `PlaceDetailSheetContent` 신규 — 동네 정보 / 근처 분실물 탭 컨테이너
 - [ ] 동네 정보 탭: 클릭한 장소 **하나가 아니라 반경 안의 같은 카테고리 장소 목록**을 보여준다.
