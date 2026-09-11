@@ -7,6 +7,7 @@ import {
   isMarkerFetchDisabledByZoom,
   useSearchLocationPlaces,
   useNearbyPostMarkers,
+  usePlaceSummary,
 } from "@/api/fetch/mapController";
 import type { PlaceType } from "@/api/fetch/mapController";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -41,9 +42,12 @@ const MainKakaoMap = () => {
   const { data: markerData } = useGetMarker();
   const { data: placesData } = useSearchLocationPlaces(placeType);
   const { data: nearbyMarkerData } = useNearbyPostMarkers(selectedPlaceId, {});
+  // 반경 원의 중심은 마커 목록이 아니라 summary에서 받는다. 마커 클릭으로 지도가 이동하면
+  // 목록이 새 중심 기준으로 다시 조회되어, 선택한 장소가 목록에서 빠질 수 있기 때문이다.
+  const { data: selectedPlaceData } = usePlaceSummary(selectedPlaceId);
 
   const placeMarkers = placesData?.result?.placeMarkers;
-  const selectedPlace = placeMarkers?.find(({ placeId }) => placeId === selectedPlaceId);
+  const selectedPlace = selectedPlaceData?.result;
   const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapLevel);
 
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
