@@ -115,9 +115,9 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
 ### 실 API 연동
 
 - [x] `useNeighborhoodPlaces`를 `GET /places`로 교체하고 `neighborhoodPlaces.mock.ts` 제거
-- [ ] **남은 목업 실 API 연동 및 재테스트**: `usePostTypeFeed`(`homeFeedPosts.mock.ts`)가 아직
-      목업이다. `queryFn`을 실제 호출로 바꾸고 목업 파일 제거, 관련 테스트가 실제 응답 형태
-      기준으로 통과하는지 확인
+- [x] `usePostTypeFeed`(`homeFeedPosts.mock.ts`) 제거 — 피드 시트를 `useSearchLocation`
+      (`/main/posts/search-location`)으로 교체했다. 검색 시트(`PostSheetContent`)가 쓰던 훅과 같아
+      새로 만들 API 코드가 없었다. 이로써 `(home)` 라우트의 목업은 모두 사라졌다
 
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
