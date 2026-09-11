@@ -848,8 +848,7 @@
     "foundAriaLabel": "Go to found items list"
   },
   "MainCardList": {
-    "altText": "Image of recently found item: {title}",
-    "policeChipLabel": "Police"
+    "altText": "Image of recently found item: {title}"
   },
   "PoliceSection": {
     "bannerTitle": "Police lost & found, too",
@@ -957,10 +956,6 @@
   },
   "RecentFoundItemSection": {
     "ownerWanted": "These items are <em>looking for their owners</em>!"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "Police lost items",
-    "moreLabel": "View more"
   },
   "MyLocationButton": {
     "myLocationLabel": "Move to my location"

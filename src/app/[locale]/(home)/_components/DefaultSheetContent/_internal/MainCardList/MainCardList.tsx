@@ -1,10 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Chip, Icon } from "@/components";
+import { Icon } from "@/components";
 import { useFormatDate, useHorizontalDragScroll } from "@/hooks";
 import Link from "next/link";
-import PublicMoreViewCard from "../PublicMoreViewCard/PublicMoreViewCard";
 import Image from "next/image";
 import RecentFoundItemSkeleton from "../RecentFoundItemSkeleton/RecentFoundItemSkeleton";
 
@@ -16,20 +15,19 @@ interface CardListData {
 }
 
 interface MainCardItemProps {
-  showChip: boolean;
   cardItemData: CardListData;
-  mode: "recent" | "public";
 }
 
-const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
+const MainCardItem = ({ cardItemData }: MainCardItemProps) => {
   const t = useTranslations("MainCardList");
   const formatDate = useFormatDate();
   const { postId, title, thumbnailImageUrl, createdAt } = cardItemData;
 
-  const href = mode === "public" ? `/public-data/found/${postId}` : `/list/${postId}`;
-
   return (
-    <Link href={href} className="relative rounded-2xl shadow-[0px_1px_1px_rgba(0,0,0,0.08)]">
+    <Link
+      href={`/list/${postId}`}
+      className="relative rounded-2xl shadow-[0px_1px_1px_rgba(0,0,0,0.08)]"
+    >
       <div className="h-[142px] w-[136px] rounded-2xl bg-fill-neutralInversed-normal-pressed">
         {/* pb는 하단 캡션 오버레이가 덮는 높이. fallback 아이콘을 보이는 사진 영역 중앙에 둔다. */}
         <div className="relative h-full w-full pb-[44px] flex-center">
@@ -42,11 +40,6 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
             />
           ) : (
             <Icon name="LogoCharacter" size={65} />
-          )}
-          {showChip && (
-            <div className="absolute left-2 top-2">
-              <Chip label={t("policeChipLabel")} className="!px-2" />
-            </div>
           )}
         </div>
       </div>
@@ -64,30 +57,20 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
 };
 
 interface MainCardListProps {
-  mode?: "recent" | "public";
   isLoading: boolean;
   cardListData: CardListData[] | undefined;
 }
 
-const MainCardList = ({
-  mode = "recent",
-  isLoading = false,
-  cardListData = [],
-}: MainCardListProps) => {
+const MainCardList = ({ isLoading = false, cardListData = [] }: MainCardListProps) => {
   const { ref: scrollRef, onMouseDown } = useHorizontalDragScroll();
-
-  const isPublicMode = mode === "public";
 
   return (
     <div ref={scrollRef} onMouseDown={onMouseDown} className="-mx-5 flex gap-4 px-5 no-scrollbar">
       {isLoading ? (
         <RecentFoundItemSkeleton />
       ) : (
-        cardListData.map((item) => (
-          <MainCardItem key={item.postId} showChip={isPublicMode} cardItemData={item} mode={mode} />
-        ))
+        cardListData.map((item) => <MainCardItem key={item.postId} cardItemData={item} />)
       )}
-      {isPublicMode && <PublicMoreViewCard />}
     </div>
   );
 };

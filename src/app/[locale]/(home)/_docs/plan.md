@@ -26,6 +26,11 @@
       기존대로 실제 GPS로 센터 이동. 참고: `useMainKakaoMap`의 "내 위치" 리셋은 여전히
       `Math.min(현재레벨, 6)`으로 상한만 걸어 기본 레벨로 되돌리지는 않음 — 필요하면 후속 조정
 
+- [x] 경찰청 습득물 리스트 제거 잔재 정리 — `MainCardList`의 `mode`/`isPublicMode` 분기와
+      `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트와 i18n 네임스페이스,
+      `usePublicRecentFound` 훅을 제거했다. `policeChipLabel` 키는 `PublicDetailInfo`,
+      `PublicDataItemCard` 네임스페이스에 각각 따로 있어 그쪽은 그대로 둔다
+
 ## 미완료 항목
 
 - [ ] **서비스 지역(성수동) 밖 사용자 안내 토스트**: 지도 기본값이 성수역이 됐으므로, 권한을 허용한
@@ -36,11 +41,6 @@
       생략 + 토스트, (3) `sessionStorage` 플래그로 세션당 1회. 지도 드래그로 벗어나는 경우 토스트는
       후순위. `RecentFoundItem` DTO에 좌표가 없어 아이템 단위 프론트 필터는 불가하고, 서버가
       `latitude/longitude/level`로 이미 반경 필터링 중이라 별도 필터는 불필요
-- [ ] **경찰청 습득물 리스트 제거 잔재 정리**: `9abd9297`에서 `PoliceSection`이 단일 배너로 바뀌며
-      리스트 UI가 빠졌으나 죽은 코드가 남음 — `MainCardList`의 `mode`/`isPublicMode` 분기와
-      `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트, `PublicMoreViewCard` i18n
-      네임스페이스(`policeLostItemLabel`/`moreLabel`), `usePublicRecentFound` 훅(`(home)` 밖).
-      `policeChipLabel` 키 자체는 `public-data` 라우트에서 쓰이므로 유지
 
 ### 지도 장소 필터 기능
 
@@ -112,18 +112,6 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       `isFavorite` 추가 검토), `PlaceStatusBadge`의 `STATUS_STYLE`·라벨 분기를 4-way로,
       `PlaceStatusBadge` i18n 키(`statusOpen`/`statusUpcoming` + `BREAK_TIME`/`CLOSED` 키 ko/en
       동시 추가), 목업 데이터. 디자인(뱃지 색/문구) TBD
-
-- [ ] **게시글 즐겨찾기도 같은 로그인 유도가 필요하다**: `usePostFavorites`/`useDeleteFavorites`는
-      비로그인에서 토스트만 띄우고 끝난다. `getLoginRedirectPath`를 그대로 쓰면 되지만 홈 외
-      화면들에 영향이 있어 이번 범위에서는 건드리지 않았다
-- [ ] **비로그인 즐겨찾기 동작 실기기 확인**: 로컬 dev 환경 문제로 브라우저 검증을 못 했다.
-      `POST /places/{id}/favorites` 401 → `/auth/refresh` 401 → `/login?callbackUrl=` 이동까지 확인 필요
-
-- [ ] **`CLOSED`(영업 종료) 뱃지·문구 시안 없음**: 시안([카페 목록](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15218-29410))에
-      운영중·브레이크 타임·오픈 예정 세 가지만 있다. 현재는 오픈 예정과 같은 회색 뱃지에 영업시간을
-      그대로 쓰고 있으니 디자이너 확인 필요
-- [ ] **운영 문구 아이콘**: 시안은 `icon/stopwatch-05`인데 프로젝트에 없어 기존 `PlaceClock`을 쓰고
-      있다. 에셋을 받을지 현행 유지할지 확인 필요
 
 ### 실 API 연동
 

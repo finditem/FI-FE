@@ -848,8 +848,7 @@
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
   "MainCardList": {
-    "altText": "최근 발견된 분실물 {title} 이미지",
-    "policeChipLabel": "경찰청"
+    "altText": "최근 발견된 분실물 {title} 이미지"
   },
   "PoliceSection": {
     "bannerTitle": "경찰청 분실물도 확인해요",
@@ -957,10 +956,6 @@
   },
   "RecentFoundItemSection": {
     "ownerWanted": "이 물건들, <em>주인</em> 찾습니다!"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "경찰청 분실물",
-    "moreLabel": "더보기"
   },
   "MyLocationButton": {
     "myLocationLabel": "내 위치로 이동"
