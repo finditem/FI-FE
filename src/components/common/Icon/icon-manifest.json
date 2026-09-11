@@ -95,5 +95,11 @@
   "CategoryBag": "category-bag",
   "CategoryCard": "category-card",
   "CategoryEtc": "category-etc",
-  "WriteCalendar": "write-calendar"
+  "WriteCalendar": "write-calendar",
+  "PlaceMarker": "place-info",
+  "PlaceCalendar": "place-calendar",
+  "PlaceClock": "place-clock",
+  "PlaceHeart": "place-heart",
+  "PlaceHeartActive": "place-heart-active",
+  "MessageTranslate": "message-translate"
 }
