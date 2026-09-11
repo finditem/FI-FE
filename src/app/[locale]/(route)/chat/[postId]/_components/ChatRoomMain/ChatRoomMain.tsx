@@ -1,6 +1,11 @@
 "use client";
 
-import { ChatBox, ChatDateDivider, TranslationUsageBadge } from "./_internal";
+import {
+  ChatBox,
+  ChatDateDivider,
+  TranslationLimitToast,
+  TranslationUsageBadge,
+} from "./_internal";
 import { useRef } from "react";
 import { cn } from "@/utils";
 import { useGetUsersMe } from "@/api/fetch/user";
@@ -72,6 +77,7 @@ const ChatRoomMain = ({
         </div>
       ))}
       <TranslationUsageBadge />
+      <TranslationLimitToast />
     </div>
   );
 };

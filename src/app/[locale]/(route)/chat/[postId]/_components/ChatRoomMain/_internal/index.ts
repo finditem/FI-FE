@@ -3,3 +3,4 @@ export { default as ChatImageBox } from "./ChatImageBox/ChatImageBox";
 export { default as ChatImageButton } from "./ChatImageButton/ChatImageButton";
 export { default as ChatDateDivider } from "./ChatDateDivider/ChatDateDivider";
 export { default as TranslationUsageBadge } from "./TranslationUsageBadge/TranslationUsageBadge";
+export { default as TranslationLimitToast } from "./TranslationLimitToast/TranslationLimitToast";

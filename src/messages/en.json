@@ -1031,6 +1031,10 @@
   "TranslationUsageBadge": {
     "usageLabel": "{usedCount}/{limit} translations used today"
   },
+  "TranslationLimitToast": {
+    "title": "You've used all your translations for today.",
+    "description": "You can translate again in {hours, plural, one {# hour} other {# hours}}. Translated messages remain visible."
+  },
   "EmptyChatRoom": {
     "pageHeading": "Empty chat screen",
     "lostHelpText": "Did you find this lost item?\nReach out to the owner first.",
