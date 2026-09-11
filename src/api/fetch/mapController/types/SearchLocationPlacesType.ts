@@ -20,16 +20,13 @@ export interface PlaceTimeRange {
   endTime: string;
 }
 
-/** 홈 목록·지도 목록·가보고 싶은 목록 공용 요약 모델. */
 export interface PlaceSummary {
   placeId: number;
   name: string;
   address: string;
   latitude: number;
   longitude: number;
-  /** 가장 가까운 역 이름 */
   station: string;
-  /** 역과의 거리(m) */
   stationDistanceMeters: number;
   type: PlaceType;
   thumbnailUrl: string;
@@ -42,9 +39,8 @@ export interface PlaceSummary {
 }
 
 export interface SearchLocationPlacesResult {
-  /** 지도에 표시할 마커, 최대 10개 */
   placeMarkers: PlaceMarker[];
-  /** 마커와 같은 장소의 카드 목록, 같은 순서, 최대 10개 */
+  /** `placeMarkers`와 같은 장소를 같은 순서로 담는다 */
   places: PlaceSummary[];
   totalCount: number;
 }
