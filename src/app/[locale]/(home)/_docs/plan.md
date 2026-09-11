@@ -63,12 +63,45 @@
   - [x] 임시 dev 목업으로 원형 마커 렌더가 디자인대로 나오는 것 확인 후 목업 제거. **DB에 `place`
         /`placeMarker` 데이터가 생성되면 `/main/places/search-location` 응답으로 마커가 렌더된다.**
         (현재 엔드포인트는 200이지만 성수동 장소 데이터가 없어 `placeMarkers: []`)
-- [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
-      형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
-      단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
-- [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
-      데이터는 `GET /main/places/{placeId}/summary`(장소 정보) + `GET
-/main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
+
+### 장소 마커 클릭 (반경 원 + 탭 바텀시트)
+
+Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=12752-98789),
+[근처 분실물 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=12720-121960)
+
+반경은 **500m로 확정**. Swagger 설명문 근거 — `nearby-posts`/`nearby-post-markers` 둘 다 "장소 반경
+500m"로 서버가 자른다. 즉 화면 고정 크기가 아니라 지리적 반경이므로 줌에 따라 원 크기가 변해야 한다.
+안쪽 250m 원은 데이터와 무관한 장식이다.
+
+- [ ] `HOME_CONST`에 선택 장소 파라미터(`?place-id`) 추가. 기존 `MARKER_ID`(게시글 마커)와 별개이며,
+      `BottomSheet`의 콘텐츠 분기에 한 갈래를 더한다
+- [x] `mapController`에 API 훅 3개와 타입 추가
+  - [x] `usePlaceSummary` — `GET /main/places/{placeId}/summary`, `PlaceSummary` 1건
+  - [x] `useNearbyPosts` — `GET /main/places/{placeId}/nearby-posts`. 서버가 `postType`·`postStatus`
+        ·`category` 필터와 `lastDistance`+`lastPostId` 커서를 받으므로 클라 필터링은 하지 않는다.
+        무한스크롤은 `useAppInfiniteQuery` 사용
+  - [x] `useNearbyPostMarkers` — `GET /main/places/{placeId}/nearby-post-markers`, 최대 10개
+- [ ] `BaseKakaoMap` 반경 원 확장: 현재 `Circle`이 `center={mapCenter}` 하드코딩이고 색상도
+      `#1EB87B` 고정이라 그대로 못 쓴다. 중심 좌표를 받는 prop을 추가하고 250m/500m 이중 원을
+      지원한다. 기존 호출부 두 곳(`PostWriteKakaoMap`, `PostDetailKakaoMap`)의 동작은 유지할 것
+- [ ] `MainKakaoMap`: 장소 마커 클릭 → `?place-id` 설정, 반경 원과 `nearby-post-markers` 렌더.
+      장소 선택 상태에서는 기존 게시글 마커(`useGetMarker`)를 계속 숨긴다
+- [ ] `PlaceDetailSheetContent` 신규 — 동네 정보 / 근처 분실물 탭 컨테이너
+- [ ] 동네 정보 탭: 클릭한 장소 **하나가 아니라 반경 안의 같은 카테고리 장소 목록**을 보여준다.
+      전용 엔드포인트가 없으므로(장소에는 `nearby-posts`에 대응하는 `nearby-places`가 없음)
+      `search-location`을 클릭한 장소 좌표를 중심으로 재호출하고 500m 넘는 항목은 클라에서 잘라낸다.
+      목록 UI는 `NeighborhoodPlaceList`/`NeighborhoodPlaceCard` 재사용.
+      **한계**: `search-location`은 최대 10개라 반경 안에 그보다 많으면 누락된다. 어색하면 백엔드에
+      `nearby-places` 신설을 요청한다 (좌표만 바꿔 넘기는 구조라 교체 비용은 작다)
+- [ ] 근처 분실물 탭: 필터 칩(모두보기/분실물/발견물/카테고리) + `NearbyPostSummary` 목록.
+      칩 상태는 헤더 칩과 공유하는 `?post-type`/`?category`가 아니라 **탭 로컬 상태**로 둔다.
+      공유하면 시트를 닫은 뒤에도 헤더 칩 선택이 남는다. 목록 행은 `PostListItem` 재사용 검토 —
+      `NearbyPostSummary`는 `postId`·`title`·`summary`·`thumbnailImageUrl`·`address`·`postStatus`
+      ·`postType`·`category`·`favoriteCount`로 `PostItem`과 필드가 달라 매핑이 필요하다
+- [ ] 즐겨찾기 하트: `POST`/`DELETE /places/{placeId}/favorites`(로그인 필수) 연동.
+      `NeighborhoodPlaceCard`의 `useState` 토글 TODO를 여기서 해소한다
+- [ ] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
+      `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인
 - [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
       `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
       `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —
@@ -99,7 +132,8 @@
   `thumbnailUrl`, `operationStatus`(`OPEN|BREAK_TIME|UPCOMING|CLOSED`), `operationPeriod`(`{startDate,
 endDate}`, `type=POPUP`만), `todayBusinessHours`(`TimeRange[]`, 정기휴무일이면 `null`), `isFavorite`(Boolean)
 - **`PlaceMarker`**: `placeId`, `latitude`, `longitude`, `type`, `thumbnailUrl`
-- **`TimeRange`**: `type`(`BUSINESS|BREAK_TIME`), `startTime`, `endTime`(`HH:mm`). 자정 넘김은 `endTime <
+- **`TimeRange`**: `type`(`BUSINESS|BREAK_TIME`), `startTime`, `endTime`(문서는 `HH:mm`이지만 dev
+  실제 응답은 `HH:mm:ss`). 자정 넘김은 `endTime <
 startTime`, 시작==종료면 24시간 운영
 
 ### 엔드포인트
@@ -129,4 +163,5 @@ startTime`, 시작==종료면 24시간 운영
 - 지도 조작 종료 후 **500ms 디바운스**. 지도 범위·카테고리 바뀌면 목록·커서 초기화.
 - **경합 처리**: 나중에 시작한 요청의 응답만 화면에 반영.
 - 장소 마커 클릭 → `summary`와 `nearby-post-markers`를 각각 조회 (반경 원/바텀시트 항목).
-- 반경 원(250m/500m)은 API가 규정하지 않음 — 순수 UI. 디자인 대기.
+- 반경 원: 바깥 500m는 Swagger의 `nearby-posts`/`nearby-post-markers` 설명문("장소 반경 500m")
+  기준이고, 안쪽 250m는 데이터와 무관한 장식이다.
