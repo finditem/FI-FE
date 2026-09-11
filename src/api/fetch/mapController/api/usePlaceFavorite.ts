@@ -1,10 +1,12 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useTranslations } from "next-intl";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useToast } from "@/context/ToastContext";
+import { getLoginRedirectPath } from "@/utils";
 import type { PlaceSummary } from "../types/SearchLocationPlacesType";
 
 /** `result.places` 배열을 가진 장소 목록 캐시들의 쿼리 키 접두사 */
@@ -77,9 +79,21 @@ const usePlaceFavorite = (placeId: number) => {
       return { previousIsFavorite: !nextIsFavorite };
     },
     onSuccess: () => addToast(t(successKey), "success" as const),
-    onError: (_error: unknown, _variables: unknown, context: unknown) => {
+    onError: (error: unknown, _variables: unknown, context: unknown) => {
       const typedContext = context as FavoriteContext | undefined;
       if (typedContext) patchCaches(typedContext.previousIsFavorite);
+
+      // 로그인이 필요한 동작이므로 인증 실패는 오류가 아니라 로그인 유도로 처리한다.
+      // 홈은 보호 경로가 아니어서 authApi 인터셉터가 리다이렉트해 주지 않는다.
+      // 인증 실패 후에는 클라이언트 인증 상태가 어긋나 있으므로, 인터셉터·authBootStrap과
+      // 동일하게 라우터가 아닌 하드 내비게이션으로 넘긴다.
+      if (isAxiosError(error) && error.response?.status === 401) {
+        window.location.assign(
+          getLoginRedirectPath(window.location.pathname + window.location.search)
+        );
+        return;
+      }
+
       addToast(t(errorKey), "error" as const);
     },
     onSettled: invalidatePlaceQueries,

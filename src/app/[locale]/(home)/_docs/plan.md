@@ -100,8 +100,8 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       ·`postType`·`category`·`favoriteCount`로 `PostItem`과 필드가 달라 매핑이 필요하다
 - [x] 즐겨찾기 하트: `usePlaceFavorite`로 `POST`/`DELETE /places/{placeId}/favorites` 연동.
       같은 장소의 `isFavorite`가 `place-summary`·`search-location-places`·`neighborhood-places`
-      캐시에 흩어져 있어 낙관적 업데이트에서 세 곳을 함께 뒤집는다. 비로그인 시 요청이 실패하고
-      토스트로 안내되며, 이는 기존 게시글 즐겨찾기(`usePostFavorites`)와 같은 방식이다
+      캐시에 흩어져 있어 낙관적 업데이트에서 세 곳을 함께 뒤집는다. 비로그인(401)이면 토스트 대신
+      `/login?callbackUrl=`로 보낸다
 - [x] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
       `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인
 - [x] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
@@ -112,6 +112,12 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       `isFavorite` 추가 검토), `PlaceStatusBadge`의 `STATUS_STYLE`·라벨 분기를 4-way로,
       `PlaceStatusBadge` i18n 키(`statusOpen`/`statusUpcoming` + `BREAK_TIME`/`CLOSED` 키 ko/en
       동시 추가), 목업 데이터. 디자인(뱃지 색/문구) TBD
+
+- [ ] **게시글 즐겨찾기도 같은 로그인 유도가 필요하다**: `usePostFavorites`/`useDeleteFavorites`는
+      비로그인에서 토스트만 띄우고 끝난다. `getLoginRedirectPath`를 그대로 쓰면 되지만 홈 외
+      화면들에 영향이 있어 이번 범위에서는 건드리지 않았다
+- [ ] **비로그인 즐겨찾기 동작 실기기 확인**: 로컬 dev 환경 문제로 브라우저 검증을 못 했다.
+      `POST /places/{id}/favorites` 401 → `/auth/refresh` 401 → `/login?callbackUrl=` 이동까지 확인 필요
 
 ### 실 API 연동
 
