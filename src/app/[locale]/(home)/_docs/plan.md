@@ -139,8 +139,11 @@ startTime`, 시작==종료면 24시간 운영
 ### 엔드포인트
 
 - **홈 동네 구경 (카테고리 미선택)** — `GET /places`
-  - 요청: 쿼리 명세 미확인 (카테고리 optional 추정)
-  - 응답: `PlaceSummary[]` 최대 5개, 접기/펼치기는 클라
+  - 요청: `type` optional (`CAFE|RESTAURANT|POPUP`), 없으면 전체
+  - 응답: `{ places: PlaceSummary[] }` 최대 5개, 접기/펼치기는 클라.
+    **`result`가 배열이 아니라 `places`를 감싼 객체다** — 문서에 배열로 적혀 있어 한 번 틀렸다.
+    다른 장소 엔드포인트는 `summary`가 객체 1건, `nearby-post-markers`가 배열,
+    `nearby-posts`/`search-location`이 감싼 객체로 제각각이라 연동 전 실제 응답 확인이 필요하다
 - **지도 카테고리 마커** — `GET /main/places/search-location`
   - 요청: `latitude`·`longitude` (필수), `level` (1~8, 기본 6), `type` (필수, CAFE/RESTAURANT/POPUP)
   - 응답: `{ placeMarkers: PlaceMarker[], places: PlaceSummary[], totalCount }` — 각 최대 10, 지도중심 거리순

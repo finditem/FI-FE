@@ -11,14 +11,14 @@ import { NeighborhoodPlace, NeighborhoodPlaceFilter } from "../../_types/Neighbo
 const useNeighborhoodPlaces = (filter: NeighborhoodPlaceFilter) => {
   const query = filter === "ALL" ? "" : `?type=${filter}`;
 
-  const { data } = useAppQuery<ApiBaseResponseType<NeighborhoodPlace[]>>(
+  const { data } = useAppQuery<ApiBaseResponseType<{ places: NeighborhoodPlace[] }>>(
     "public",
     ["neighborhood-places", filter],
     `/places${query}`,
     { staleTime: 1000 * 60, suspense: true }
   );
 
-  return { data: data?.result ?? [] };
+  return { data: data?.result?.places ?? [] };
 };
 
 export default useNeighborhoodPlaces;
