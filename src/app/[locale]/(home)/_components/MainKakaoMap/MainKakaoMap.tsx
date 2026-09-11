@@ -11,6 +11,7 @@ import {
 } from "@/api/fetch/mapController";
 import type { PlaceType } from "@/api/fetch/mapController";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 import {
   MARKER_ID,
   PLACE_FILTER_PARAM,
@@ -18,6 +19,7 @@ import {
   PLACE_FILTER_VALUES,
   PLACE_ID_PARAM,
   PLACE_RADIUS_M,
+  PLACE_SELECTED_MAP_LEVEL,
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
 import { useMainKakaoMapStore } from "@/store";
@@ -49,6 +51,15 @@ const MainKakaoMap = () => {
   const placeMarkers = placesData?.result?.placeMarkers;
   const selectedPlace = selectedPlaceData?.result;
   const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapLevel);
+
+  // 줌은 클릭 핸들러가 아니라 선택 상태에 맞춘다. 클릭에만 두면 URL로 바로 들어오거나
+  // 뒤로가기로 선택이 복원될 때 줌이 빠져 500m 원이 화면을 덮는다.
+  const prevSelectedPlaceIdRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (prevSelectedPlaceIdRef.current === selectedPlaceId) return;
+    prevSelectedPlaceIdRef.current = selectedPlaceId;
+    if (selectedPlaceId !== null) setMapLevel(PLACE_SELECTED_MAP_LEVEL);
+  }, [selectedPlaceId, setMapLevel]);
 
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
     triggerLevelReset();

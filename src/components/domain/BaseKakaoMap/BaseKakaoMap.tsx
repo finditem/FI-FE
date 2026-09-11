@@ -168,7 +168,7 @@ const BaseKakaoMap = ({
           ))}
 
         {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
-          <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }}>
+          <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }} clickable>
             <button
               type="button"
               aria-pressed={selectedPlaceId === placeId}
