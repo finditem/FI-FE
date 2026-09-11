@@ -1904,6 +1904,12 @@
     "addSuccess": "Added to your favorites.",
     "addError": "Couldn't save to favorites."
   },
+  "usePlaceFavorite": {
+    "addSuccess": "Saved to places you want to visit.",
+    "addError": "Couldn't save this place.",
+    "removeSuccess": "Removed from places you want to visit.",
+    "removeError": "Couldn't remove this place."
+  },
   "useDeletePostFavorites": {
     "removeSuccess": "Removed from your favorites.",
     "removeError": "Failed to remove from your favorites."

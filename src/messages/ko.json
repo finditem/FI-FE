@@ -1904,6 +1904,12 @@
     "addSuccess": "즐겨찾기가 등록되었어요.",
     "addError": "즐겨찾기 등록에 실패했어요."
   },
+  "usePlaceFavorite": {
+    "addSuccess": "가보고 싶은 장소에 저장했어요.",
+    "addError": "장소 저장에 실패했어요.",
+    "removeSuccess": "가보고 싶은 장소에서 뺐어요.",
+    "removeError": "장소 저장 취소에 실패했어요."
+  },
   "useDeletePostFavorites": {
     "removeSuccess": "즐겨찾기가 삭제되었어요.",
     "removeError": "즐겨찾기 삭제에 실패했어요."

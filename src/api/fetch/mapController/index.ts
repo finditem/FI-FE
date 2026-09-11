@@ -12,3 +12,4 @@ export { default as useSearchLocationPlaces } from "./api/useSearchLocationPlace
 export { default as usePlaceSummary } from "./api/usePlaceSummary";
 export { default as useNearbyPosts } from "./api/useNearbyPosts";
 export { default as useNearbyPostMarkers } from "./api/useNearbyPostMarkers";
+export { default as usePlaceFavorite } from "./api/usePlaceFavorite";

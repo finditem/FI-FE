@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
+import { usePlaceFavorite } from "@/api/fetch/mapController";
 import { formatPlaceSchedule } from "@/utils";
 import { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
 import PlaceStatusBadge from "./_internal/PlaceStatusBadge/PlaceStatusBadge";
@@ -14,11 +14,18 @@ interface NeighborhoodPlaceCardProps {
 
 const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   const t = useTranslations("NeighborhoodSection");
-  const { name, thumbnailUrl, address, station, stationDistanceMeters, type, operationStatus } =
-    place;
-  // TODO(준열): 즐겨찾기 API(POST/DELETE /places/{placeId}/favorites) 연동 시 useMutation +
-  //             onMutate 낙관적 업데이트로 교체한다.
-  const [isFavorite, setIsFavorite] = useState(place.isFavorite);
+  const {
+    placeId,
+    name,
+    thumbnailUrl,
+    address,
+    station,
+    stationDistanceMeters,
+    type,
+    operationStatus,
+    isFavorite,
+  } = place;
+  const { toggleFavorite, isPending } = usePlaceFavorite(placeId);
 
   const schedule = formatPlaceSchedule(place);
   const scheduleIcon = type === "POPUP" ? "PlaceCalendar" : "PlaceClock";
@@ -62,8 +69,9 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
         type="button"
         aria-pressed={isFavorite}
         aria-label={t("favoriteAriaLabel", { name })}
-        onClick={() => setIsFavorite((prev) => !prev)}
-        className="flex size-9 shrink-0 items-center justify-center"
+        disabled={isPending}
+        onClick={() => toggleFavorite(isFavorite)}
+        className="flex size-9 shrink-0 items-center justify-center disabled:opacity-50"
       >
         <Icon name={isFavorite ? "PlaceHeartActive" : "PlaceHeart"} size={24} />
       </button>

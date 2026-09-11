@@ -98,9 +98,10 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       공유하면 시트를 닫은 뒤에도 헤더 칩 선택이 남는다. 목록 행은 `PostListItem` 재사용 검토 —
       `NearbyPostSummary`는 `postId`·`title`·`summary`·`thumbnailImageUrl`·`address`·`postStatus`
       ·`postType`·`category`·`favoriteCount`로 `PostItem`과 필드가 달라 매핑이 필요하다
-- [ ] 즐겨찾기 하트: `POST`/`DELETE /places/{placeId}/favorites`(로그인 필수) 연동.
-      `NeighborhoodPlaceCard`는 지금 서버의 `isFavorite`를 초기값으로 받아 `useState`로만 토글하므로
-      새로고침하면 되돌아간다. `useMutation` + `onMutate` 낙관적 업데이트로 교체할 것
+- [x] 즐겨찾기 하트: `usePlaceFavorite`로 `POST`/`DELETE /places/{placeId}/favorites` 연동.
+      같은 장소의 `isFavorite`가 `place-summary`·`search-location-places`·`neighborhood-places`
+      캐시에 흩어져 있어 낙관적 업데이트에서 세 곳을 함께 뒤집는다. 비로그인 시 요청이 실패하고
+      토스트로 안내되며, 이는 기존 게시글 즐겨찾기(`usePostFavorites`)와 같은 방식이다
 - [x] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
       `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인
 - [x] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
