@@ -10,7 +10,9 @@ import {
   FEED_PARAM_VALUE,
   MARKER_ID,
   PLACE_FILTER_PARAM,
+  PLACE_FILTER_TO_CATEGORY,
   PLACE_FILTER_VALUES,
+  PLACE_ID_PARAM,
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
 import useBottomSheetHeight from "../../_hooks/useBottomSheetHeight/useBottomSheetHeight";
@@ -19,6 +21,7 @@ import DefaultSheetContent from "../DefaultSheetContent/DefaultSheetContent";
 import PostSheetContent from "../PostSheetContent/PostSheetContent";
 import MapPostSummarySheetContent from "../MapPostSummarySheetContent/MapPostSummarySheetContent";
 import PlaceFilterSheetContent from "../PlaceFilterSheetContent/PlaceFilterSheetContent";
+import PlaceDetailSheetContent from "../PlaceDetailSheetContent/PlaceDetailSheetContent";
 import PostTypeSheetContent from "../PostTypeSheetContent/PostTypeSheetContent";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
 import PermissionSheet from "../PermissionBottomSheet/PermissionBottomSheet";
@@ -34,6 +37,8 @@ const BottomSheetContent = () => {
   const placeValue = (PLACE_FILTER_VALUES as readonly string[]).includes(placeParamRaw ?? "")
     ? (placeParamRaw as PlaceFilterValue)
     : null;
+  const placeIdParam = Number(searchParams.get(PLACE_ID_PARAM));
+  const selectedPlaceId = placeValue && placeIdParam > 0 ? placeIdParam : null;
   const isFeedMode =
     !searchValue && !markerId && !placeValue && searchParams.get(FEED_PARAM) === FEED_PARAM_VALUE;
   const [contentHeights, setContentHeights] = useState<DefaultSheetContentHeights | null>(null);
@@ -77,6 +82,11 @@ const BottomSheetContent = () => {
             <PostSheetContent />
           ) : markerId ? (
             <MapPostSummarySheetContent />
+          ) : placeValue && selectedPlaceId ? (
+            <PlaceDetailSheetContent
+              placeId={selectedPlaceId}
+              placeType={PLACE_FILTER_TO_CATEGORY[placeValue]}
+            />
           ) : placeValue ? (
             <PlaceFilterSheetContent placeValue={placeValue} />
           ) : isFeedMode ? (

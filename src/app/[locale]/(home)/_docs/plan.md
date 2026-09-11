@@ -86,23 +86,24 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       지원한다. 기존 호출부 두 곳(`PostWriteKakaoMap`, `PostDetailKakaoMap`)의 동작은 유지할 것
 - [x] `MainKakaoMap`: 장소 마커 클릭 → `?place-id` 설정, 반경 원과 `nearby-post-markers` 렌더.
       장소 선택 상태에서는 기존 게시글 마커(`useGetMarker`)를 계속 숨긴다
-- [ ] `PlaceDetailSheetContent` 신규 — 동네 정보 / 근처 분실물 탭 컨테이너
-- [ ] 동네 정보 탭: 클릭한 장소 **하나가 아니라 반경 안의 같은 카테고리 장소 목록**을 보여준다.
+- [x] `PlaceDetailSheetContent` 신규 — 동네 정보 / 근처 분실물 탭 컨테이너
+- [x] 동네 정보 탭: 클릭한 장소 **하나가 아니라 반경 안의 같은 카테고리 장소 목록**을 보여준다.
       전용 엔드포인트가 없으므로(장소에는 `nearby-posts`에 대응하는 `nearby-places`가 없음)
       `search-location`을 클릭한 장소 좌표를 중심으로 재호출하고 500m 넘는 항목은 클라에서 잘라낸다.
       목록 UI는 `NeighborhoodPlaceList`/`NeighborhoodPlaceCard` 재사용.
       **한계**: `search-location`은 최대 10개라 반경 안에 그보다 많으면 누락된다. 어색하면 백엔드에
       `nearby-places` 신설을 요청한다 (좌표만 바꿔 넘기는 구조라 교체 비용은 작다)
-- [ ] 근처 분실물 탭: 필터 칩(모두보기/분실물/발견물/카테고리) + `NearbyPostSummary` 목록.
+- [x] 근처 분실물 탭: 필터 칩(모두보기/분실물/발견물/카테고리) + `NearbyPostSummary` 목록.
       칩 상태는 헤더 칩과 공유하는 `?post-type`/`?category`가 아니라 **탭 로컬 상태**로 둔다.
       공유하면 시트를 닫은 뒤에도 헤더 칩 선택이 남는다. 목록 행은 `PostListItem` 재사용 검토 —
       `NearbyPostSummary`는 `postId`·`title`·`summary`·`thumbnailImageUrl`·`address`·`postStatus`
       ·`postType`·`category`·`favoriteCount`로 `PostItem`과 필드가 달라 매핑이 필요하다
 - [ ] 즐겨찾기 하트: `POST`/`DELETE /places/{placeId}/favorites`(로그인 필수) 연동.
-      `NeighborhoodPlaceCard`의 `useState` 토글 TODO를 여기서 해소한다
-- [ ] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
+      `NeighborhoodPlaceCard`는 지금 서버의 `isFavorite`를 초기값으로 받아 `useState`로만 토글하므로
+      새로고침하면 되돌아간다. `useMutation` + `onMutate` 낙관적 업데이트로 교체할 것
+- [x] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
       `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인
-- [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
+- [x] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
       `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
       `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —
       `_types/NeighborhoodPlace.ts`(필드명 `status`→`operationStatus`, 값 4개, `distanceM`→
@@ -113,11 +114,10 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
 
 ### 실 API 연동
 
-- [ ] **목업 데이터 실 API 연동 및 재테스트**: 목업으로 작성한 부분을 실제 API로 교체한 뒤 테스트
-      진행 — `usePostTypeFeed`(`homeFeedPosts.mock.ts`), `useNeighborhoodPlaces`
-      (`neighborhoodPlaces.mock.ts` → `GET /places`), 그리고 위 지도 장소 마커/반경/바텀시트 기능에서
-      새로 만들 목업. 각 훅의 `queryFn`을 `useAppQuery` 등 실제 호출로 바꾸고 목업 파일 제거, 관련
-      테스트가 실제 응답 형태 기준으로 통과하는지 확인
+- [x] `useNeighborhoodPlaces`를 `GET /places`로 교체하고 `neighborhoodPlaces.mock.ts` 제거
+- [ ] **남은 목업 실 API 연동 및 재테스트**: `usePostTypeFeed`(`homeFeedPosts.mock.ts`)가 아직
+      목업이다. `queryFn`을 실제 호출로 바꾸고 목업 파일 제거, 관련 테스트가 실제 응답 형태
+      기준으로 통과하는지 확인
 
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
