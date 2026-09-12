@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import { useAddToHomeScreen } from "@/hooks";
 import { useWriteFlowStore } from "@/store";
 import { CommentList, AddToHomeScreenPWA } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { useGetDetailPost } from "@/api/fetch/post";
+import { useGetDetailPost, useGetPostTranslation } from "@/api/fetch/post";
+import { useGetPreferredLanguage } from "@/api/fetch/user";
 import {
   useDeleteComment,
   useGetPostsComments,
@@ -29,11 +30,20 @@ interface ClientDetailProps {
 
 const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   const t = useTranslations("ClientDetail");
+  const locale = useLocale();
   const { addToast } = useToast();
   const { showPrompt, incrementViewCount, closePrompt } = useAddToHomeScreen();
   const { showManualPopup, setShowManualPopup } = useWriteFlowStore();
 
   const { data, isLoading, isError } = useGetDetailPost({ id });
+  const { data: preferredLanguageData, isLoading: isPreferredLanguageLoading } =
+    useGetPreferredLanguage(isLoggedIn);
+  const shouldTranslate =
+    locale === "en" && preferredLanguageData?.result.preferredLanguage === "EN";
+  const { data: translationData, isLoading: isTranslationLoading } = useGetPostTranslation({
+    postId: id,
+    enabled: shouldTranslate,
+  });
   const { data: commentsData, fetchNextPage } = useGetPostsComments({ postId: id });
   const { handleReplySubmit, isPending } = useHandleReplySubmit(id);
   const { mutate: deleteComment } = useDeleteComment();
@@ -58,7 +68,12 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
     }
   }, [setShowManualPopup]);
 
-  const shouldShowSkeleton = isLoading || isError || !data?.result;
+  const shouldShowSkeleton =
+    isLoading ||
+    isError ||
+    !data?.result ||
+    (locale === "en" && isLoggedIn && isPreferredLanguageLoading) ||
+    (shouldTranslate && isTranslationLoading);
   const isErrorState = !isLoading && (isError || !data?.result);
 
   if (shouldShowSkeleton) {
@@ -71,6 +86,14 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   }
 
   const { isMine, postUserInformation } = data.result;
+  const translatedPost = shouldTranslate ? translationData?.result : undefined;
+  const postDetailData = translatedPost
+    ? {
+        ...data.result,
+        title: translatedPost.translatedTitle || data.result.title,
+        content: translatedPost.translatedContent || data.result.content,
+      }
+    : data.result;
   const similarTitle =
     data.result.postType === "LOST" ? t("similarReportTitle") : t("similarLostTitle");
 
@@ -88,11 +111,11 @@ const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
       />
 
       <h1 className="sr-only">
-        {t("detailPageTitle", { title: data?.result?.title || t("defaultTitle") })}
+        {t("detailPageTitle", { title: postDetailData.title || t("defaultTitle") })}
       </h1>
 
       <article className="flex flex-col h-base">
-        <PostDetail data={data.result} />
+        <PostDetail data={postDetailData} />
 
         <CommentList
           postId={id}

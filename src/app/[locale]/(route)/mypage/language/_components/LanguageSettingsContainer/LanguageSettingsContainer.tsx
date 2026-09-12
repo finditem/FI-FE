@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { FooterButton } from "@/components";
+import { useGetPreferredLanguage, usePatchPreferredLanguage } from "@/api/fetch/user";
 import LanguageOption from "./_internal/LanguageOption/LanguageOption";
 
 type AppLocale = (typeof routing.locales)[number];
@@ -19,13 +20,38 @@ const LanguageSettingsContainer = () => {
   const tLanguage = useTranslations("LanguageSwitcher");
   const t = useTranslations("LanguageSettingsPage");
   const router = useRouter();
+  const { data: preferredLanguageData, isLoading: isPreferredLanguageLoading } =
+    useGetPreferredLanguage();
+  const { mutate: patchPreferredLanguage, isPending } = usePatchPreferredLanguage();
+  const preferredLanguage = preferredLanguageData?.result.preferredLanguage.toLowerCase();
 
   const [selected, setSelected] = useState<AppLocale>(locale);
 
+  useEffect(() => {
+    if (preferredLanguage) {
+      setSelected(preferredLanguage as AppLocale);
+    }
+  }, [preferredLanguage]);
+
   const handleConfirm = () => {
-    if (selected === locale) return;
-    router.replace("/mypage", { locale: selected });
-    router.refresh();
+    if (isPending || isPreferredLanguageLoading) return;
+
+    const moveToSelectedLocale = () => {
+      router.replace("/mypage", { locale: selected });
+      router.refresh();
+    };
+
+    if (selected === preferredLanguage) {
+      if (selected !== locale) moveToSelectedLocale();
+      return;
+    }
+
+    patchPreferredLanguage(
+      { preferredLanguage: selected.toUpperCase() as "KO" | "EN" },
+      {
+        onSuccess: moveToSelectedLocale,
+      }
+    );
   };
 
   return (
@@ -43,7 +69,14 @@ const LanguageSettingsContainer = () => {
         ))}
       </div>
 
-      <FooterButton onClick={handleConfirm} disabled={selected === locale}>
+      <FooterButton
+        onClick={handleConfirm}
+        disabled={
+          (selected === preferredLanguage && selected === locale) ||
+          isPending ||
+          isPreferredLanguageLoading
+        }
+      >
         {t("changeButton")}
       </FooterButton>
     </>
