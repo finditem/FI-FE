@@ -838,28 +838,61 @@
   "BottomSheet": {
     "heightAdjustLabel": "바텀시트 높이 조절"
   },
-  "LostFindActionData": {
-    "lost": "분실 신고",
-    "found": "발견 신고"
-  },
   "LostFindActions": {
+    "lostEmphasis": "분실",
+    "foundEmphasis": "발견",
+    "rest": "했어요",
+    "lostSubtitle": "물건을 등록하고 찾아보세요",
+    "foundSubtitle": "물건을 등록하고 주인을 찾아주세요",
     "lostAriaLabel": "분실 신고 목록 페이지로 이동",
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
   "MainCardList": {
-    "altText": "최근 발견된 분실물 {title} 이미지",
-    "policeChipLabel": "경찰청"
+    "altText": "최근 발견된 분실물 {title} 이미지"
   },
   "PoliceSection": {
-    "noTitle": "제목 없음",
-    "banner": "경찰청 분실물도\n찾아줘!에서 확인해요",
+    "bannerTitle": "경찰청 분실물도 확인해요",
+    "bannerSubtitle": "<em>찾길</em> 에서 한번에 모아봤어요",
     "logoAlt": "경찰민원24로고"
   },
-  "PoliceItems": {
-    "lostHeadLabel": "분실",
-    "lostLabel": "했어요",
-    "foundHeadLabel": "발견",
-    "foundLabel": "했어요"
+  "NeighborhoodSection": {
+    "title": "찾는 동안 동네 구경하실래요?",
+    "filterAll": "모두보기",
+    "filterPopup": "팝업",
+    "filterCafe": "카페",
+    "filterRestaurant": "맛집",
+    "moreButton": "더 보기",
+    "statusOpen": "운영중",
+    "statusUpcoming": "오픈 예정",
+    "statusBreakTime": "브레이크 타임",
+    "statusClosed": "영업 종료",
+    "openAt": "{time} 오픈",
+    "favoriteAriaLabel": "{name} 즐겨찾기",
+    "loadError": "장소를 불러오지 못했어요.",
+    "empty": "표시할 장소가 없어요."
+  },
+  "PlaceFilterSheet": {
+    "popupTitle": "팝업 스토어",
+    "popupCount": "총 {count}개의 팝업스토어가 진행중입니다.",
+    "cafeTitle": "카페",
+    "cafeCount": "현재 {count}개 지점의 카페가 영업 중에 있습니다.",
+    "restaurantTitle": "맛집",
+    "restaurantCount": "현재 {count}개 지점의 맛집이 영업 중에 있습니다.",
+    "mapButton": "지도",
+    "loadError": "장소를 불러오지 못했어요.",
+    "empty": "표시할 장소가 없어요."
+  },
+  "PlaceDetailSheet": {
+    "placeTab": "동네 정보",
+    "postTab": "근처 분실물",
+    "emptyPlace": "주변에 표시할 장소가 없어요.",
+    "emptyPost": "주변에 등록된 게시글이 없어요.",
+    "loadError": "정보를 불러오지 못했어요.",
+    "moreButton": "더 보기"
+  },
+  "PostTypeSheet": {
+    "loadError": "게시글을 불러오지 못했어요.",
+    "empty": "표시할 게시글이 없어요."
   },
   "SupportMenuItems": {
     "notificationSettingLabel": "키워드 알람 설정하기",
@@ -875,8 +908,8 @@
   },
   "FilterItems": {
     "all": "모두보기",
-    "lost": "분실물만",
-    "find": "발견물만",
+    "lost": "분실물",
+    "find": "발견물",
     "category": "카테고리"
   },
   "PermissionItem": {
@@ -908,6 +941,13 @@
     "backLabel": "뒤로가기",
     "searchLabel": "위치 검색"
   },
+  "MainSearchChipList": {
+    "lost": "분실물",
+    "found": "발견물",
+    "popup": "팝업",
+    "cafe": "카페",
+    "food": "맛집"
+  },
   "RecentSearchEmpty": {
     "emptyText": "최근 검색한 기록이 없어요."
   },
@@ -915,11 +955,7 @@
     "emptyText": "아직 발견된 분실물이 없어요"
   },
   "RecentFoundItemSection": {
-    "sectionTitle": "최근 발견된 분실물"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "경찰청 분실물",
-    "moreLabel": "더보기"
+    "ownerWanted": "이 물건들, <em>주인</em> 찾습니다!"
   },
   "MyLocationButton": {
     "myLocationLabel": "내 위치로 이동"
@@ -1863,6 +1899,12 @@
   "usePostFavorites": {
     "addSuccess": "즐겨찾기가 등록되었어요.",
     "addError": "즐겨찾기 등록에 실패했어요."
+  },
+  "usePlaceFavorite": {
+    "addSuccess": "가보고 싶은 장소에 저장했어요.",
+    "addError": "장소 저장에 실패했어요.",
+    "removeSuccess": "가보고 싶은 장소에서 뺐어요.",
+    "removeError": "장소 저장 취소에 실패했어요."
   },
   "useDeletePostFavorites": {
     "removeSuccess": "즐겨찾기가 삭제되었어요.",

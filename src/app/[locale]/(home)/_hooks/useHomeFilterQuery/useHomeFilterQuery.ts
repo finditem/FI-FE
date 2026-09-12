@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { CATEGORY_OPTIONS } from "@/constants";
-import { CATEGORY, POST_TYPE } from "../../_components/HOME_CONST";
+import { CATEGORY, FEED_PARAM, FEED_PARAM_VALUE, POST_TYPE } from "../../_components/HOME_CONST";
 import { PostFilterChipValue } from "../../_types/PostFilterChipValue";
 
 const getSelectedPostFilterFromQuery = (postType: string | null): PostFilterChipValue => {
@@ -37,15 +37,25 @@ const useHomeFilterQuery = () => {
   };
 
   const setFilterQuery = (key: typeof POST_TYPE | typeof CATEGORY, value?: string) => {
+    const isRepeatedPostTypeReset =
+      key === POST_TYPE && (!value || value === "all") && !postTypeParam;
+
     replaceQuery((params) => {
       const shouldDelete = !value || (key === POST_TYPE && value === "all");
+
       if (shouldDelete) {
         params.delete(key);
-        return;
+      } else {
+        params.set(key, key === CATEGORY ? value.toLowerCase() : value);
       }
 
-      const normalizedValue = key === CATEGORY ? value.toLowerCase() : value;
-      params.set(key, normalizedValue);
+      if (
+        isRepeatedPostTypeReset &&
+        params.get(FEED_PARAM) === FEED_PARAM_VALUE &&
+        !params.get(CATEGORY)
+      ) {
+        params.delete(FEED_PARAM);
+      }
     });
   };
 

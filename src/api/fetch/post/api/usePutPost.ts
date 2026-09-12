@@ -17,6 +17,7 @@ export const usePutPost = (postId: number) => {
     onSuccess: async (data) => {
       Promise.all([
         queryClient.invalidateQueries({ queryKey: ["post-detail", postId] }),
+        queryClient.invalidateQueries({ queryKey: ["post-translation", postId] }),
         queryClient.invalidateQueries({ queryKey: ["posts"] }),
         queryClient.invalidateQueries({ queryKey: ["/users/me/posts"] }),
       ]);

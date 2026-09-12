@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CATEGORY, POST_TYPE } from "../../_components/HOME_CONST";
+import { CATEGORY, FEED_PARAM, FEED_PARAM_VALUE, POST_TYPE } from "../../_components/HOME_CONST";
 import useHomeFilterQuery from "./useHomeFilterQuery";
 
 jest.mock("next/navigation", () => ({
@@ -106,5 +106,49 @@ describe("useHomeFilterQuery", () => {
     });
 
     expect(mockReplace.mock.calls[0][0]).toBe("/");
+  });
+
+  it("피드 시트에서 '모두보기' 첫 클릭은 post-type만 지우고 통합 피드로 유지한다", () => {
+    mockUseSearchParams.mockReturnValue(
+      new URLSearchParams(`${FEED_PARAM}=${FEED_PARAM_VALUE}&${POST_TYPE}=find`)
+    );
+
+    const { result } = renderHook(() => useHomeFilterQuery());
+
+    act(() => {
+      result.current.setFilterQuery(POST_TYPE, "all");
+    });
+
+    const params = parseQueryPath(mockReplace.mock.calls[0][0]);
+    expect(params.get(FEED_PARAM)).toBe(FEED_PARAM_VALUE);
+    expect(params.has(POST_TYPE)).toBe(false);
+  });
+
+  it("통합 피드에서 '모두보기'를 다시 누르면 feed도 지워 메인 시트로 돌아간다", () => {
+    mockUseSearchParams.mockReturnValue(new URLSearchParams(`${FEED_PARAM}=${FEED_PARAM_VALUE}`));
+
+    const { result } = renderHook(() => useHomeFilterQuery());
+
+    act(() => {
+      result.current.setFilterQuery(POST_TYPE, "all");
+    });
+
+    expect(mockReplace.mock.calls[0][0]).toBe("/");
+  });
+
+  it("통합 피드에 카테고리가 남아 있으면 '모두보기' 재클릭에도 feed를 유지한다", () => {
+    mockUseSearchParams.mockReturnValue(
+      new URLSearchParams(`${FEED_PARAM}=${FEED_PARAM_VALUE}&${CATEGORY}=wallet`)
+    );
+
+    const { result } = renderHook(() => useHomeFilterQuery());
+
+    act(() => {
+      result.current.setFilterQuery(POST_TYPE, "all");
+    });
+
+    const params = parseQueryPath(mockReplace.mock.calls[0][0]);
+    expect(params.get(FEED_PARAM)).toBe(FEED_PARAM_VALUE);
+    expect(params.get(CATEGORY)).toBe("wallet");
   });
 });

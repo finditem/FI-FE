@@ -838,28 +838,61 @@
   "BottomSheet": {
     "heightAdjustLabel": "Adjust bottom sheet height"
   },
-  "LostFindActionData": {
-    "lost": "Report lost item",
-    "found": "Report found item"
-  },
   "LostFindActions": {
+    "lostEmphasis": "Lost",
+    "foundEmphasis": "Found",
+    "rest": " something",
+    "lostSubtitle": "Register your lost item and start searching",
+    "foundSubtitle": "Register the item and help find its owner",
     "lostAriaLabel": "Go to lost items list",
     "foundAriaLabel": "Go to found items list"
   },
   "MainCardList": {
-    "altText": "Image of recently found item: {title}",
-    "policeChipLabel": "Police"
+    "altText": "Image of recently found item: {title}"
   },
   "PoliceSection": {
-    "noTitle": "No title",
-    "banner": "Check lost items reported to\nthe police on Finditem too",
+    "bannerTitle": "Police lost & found, too",
+    "bannerSubtitle": "All gathered on <em>Finditem</em>",
     "logoAlt": "Korean National Police Agency Lost & Found logo"
   },
-  "PoliceItems": {
-    "lostHeadLabel": "Lost",
-    "lostLabel": "Items",
-    "foundHeadLabel": "Found",
-    "foundLabel": "Items"
+  "NeighborhoodSection": {
+    "title": "Explore the neighborhood while you wait?",
+    "filterAll": "All",
+    "filterPopup": "Pop-up",
+    "filterCafe": "Cafe",
+    "filterRestaurant": "Restaurant",
+    "moreButton": "See more",
+    "statusOpen": "Open now",
+    "statusUpcoming": "Opening soon",
+    "statusBreakTime": "On break",
+    "statusClosed": "Closed",
+    "openAt": "Opens at {time}",
+    "favoriteAriaLabel": "Add {name} to favorites",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceFilterSheet": {
+    "popupTitle": "Pop-up stores",
+    "popupCount": "{count} pop-up stores are running now.",
+    "cafeTitle": "Cafes",
+    "cafeCount": "{count} cafe locations are open right now.",
+    "restaurantTitle": "Restaurants",
+    "restaurantCount": "{count} restaurant locations are open right now.",
+    "mapButton": "Map",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceDetailSheet": {
+    "placeTab": "Nearby places",
+    "postTab": "Nearby items",
+    "emptyPlace": "No places nearby.",
+    "emptyPost": "No posts nearby.",
+    "loadError": "Could not load information.",
+    "moreButton": "See more"
+  },
+  "PostTypeSheet": {
+    "loadError": "Could not load posts.",
+    "empty": "No posts to show."
   },
   "SupportMenuItems": {
     "notificationSettingLabel": "Set up keyword alerts",
@@ -875,8 +908,8 @@
   },
   "FilterItems": {
     "all": "All",
-    "lost": "Lost only",
-    "find": "Found only",
+    "lost": "Lost",
+    "find": "Found",
     "category": "Category"
   },
   "PermissionItem": {
@@ -908,6 +941,13 @@
     "backLabel": "Back",
     "searchLabel": "Search location"
   },
+  "MainSearchChipList": {
+    "lost": "Lost",
+    "found": "Found",
+    "popup": "Popup",
+    "cafe": "Cafe",
+    "food": "Food"
+  },
   "RecentSearchEmpty": {
     "emptyText": "No recent searches"
   },
@@ -915,11 +955,7 @@
     "emptyText": "No lost items found yet"
   },
   "RecentFoundItemSection": {
-    "sectionTitle": "Recently found items"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "Police lost items",
-    "moreLabel": "View more"
+    "ownerWanted": "These items are <em>looking for their owners</em>!"
   },
   "MyLocationButton": {
     "myLocationLabel": "Move to my location"
@@ -1863,6 +1899,12 @@
   "usePostFavorites": {
     "addSuccess": "Added to your favorites.",
     "addError": "Couldn't save to favorites."
+  },
+  "usePlaceFavorite": {
+    "addSuccess": "Saved to places you want to visit.",
+    "addError": "Couldn't save this place.",
+    "removeSuccess": "Removed from places you want to visit.",
+    "removeError": "Couldn't remove this place."
   },
   "useDeletePostFavorites": {
     "removeSuccess": "Removed from your favorites.",
