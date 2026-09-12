@@ -29,9 +29,10 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
   const href = mode === "public" ? `/public-data/found/${postId}` : `/list/${postId}`;
 
   return (
-    <Link href={href} className="relative rounded-2xl border-[0.7px] border-divider-default">
-      <div className="h-[120px] w-[123px] rounded-2xl bg-fill-neutralInversed-normal-pressed">
-        <div className="relative flex h-full w-full justify-center">
+    <Link href={href} className="relative rounded-2xl shadow-[0px_1px_1px_rgba(0,0,0,0.08)]">
+      <div className="h-[142px] w-[136px] rounded-2xl bg-fill-neutralInversed-normal-pressed">
+        {/* pb는 하단 캡션 오버레이가 덮는 높이. fallback 아이콘을 보이는 사진 영역 중앙에 둔다. */}
+        <div className="relative h-full w-full pb-[44px] flex-center">
           {thumbnailImageUrl ? (
             <Image
               src={thumbnailImageUrl}
@@ -49,11 +50,14 @@ const MainCardItem = ({ showChip, cardItemData, mode }: MainCardItemProps) => {
           )}
         </div>
       </div>
-      <div className="absolute bottom-0 right-0 flex w-full flex-col gap-1 rounded-b-2xl bg-white px-3 py-[6px]">
+      <div className="absolute bottom-0 right-0 flex w-full flex-col gap-1.5 rounded-b-2xl bg-white px-3 py-[6px]">
         <span className="truncate text-caption1-semibold text-layout-header-default">{title}</span>
-        <time dateTime={createdAt} className="text-caption2-regular text-layout-body-default">
-          {formatDate(createdAt)}
-        </time>
+        <div className="flex items-center gap-1">
+          <Icon name="PlaceCalendar" size={12} />
+          <time dateTime={createdAt} className="text-caption2-regular text-layout-body-default">
+            {formatDate(createdAt)}
+          </time>
+        </div>
       </div>
     </Link>
   );

@@ -945,8 +945,7 @@
     "emptyText": "No lost items found yet"
   },
   "RecentFoundItemSection": {
-    "ownerWanted": "These items are <em>looking for their owners</em>!",
-    "sectionTitle": "Recently found items"
+    "ownerWanted": "These items are <em>looking for their owners</em>!"
   },
   "PublicMoreViewCard": {
     "policeLostItemLabel": "Police lost items",

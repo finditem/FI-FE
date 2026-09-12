@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS } from "@/constants";
+import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS, DEFAULT_MAP_LEVEL } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
 import { debounce } from "es-toolkit/compat";
 
@@ -111,7 +111,7 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         address: DEFAULT_ADDRESS,
         userGpsLatLng: null,
         userGpsAddress: "",
-        mapLevel: 6,
+        mapLevel: DEFAULT_MAP_LEVEL,
         levelResetSignal: 0,
         markerSheetSnapSignal: 0,
         placeSheetCollapseSignal: 0,
@@ -144,7 +144,7 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
             address: DEFAULT_ADDRESS,
             userGpsLatLng: null,
             userGpsAddress: "",
-            mapLevel: 6,
+            mapLevel: DEFAULT_MAP_LEVEL,
           });
         },
         setMapLevel: (level: number) => {

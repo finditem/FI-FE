@@ -7,6 +7,7 @@ jest.mock("react-kakao-maps-sdk", () => ({
   Map: ({ children }: any) => <div data-testid="kakao-map">{children}</div>,
   MapMarker: () => <div data-testid="map-marker" />,
   Circle: ({ radius }: any) => <div data-testid="map-circle" data-radius={radius} />,
+  CustomOverlayMap: ({ children }: any) => <div data-testid="place-marker">{children}</div>,
 }));
 
 jest.mock("@/components/domain/BaseKakaoMap/_internal", () => ({
@@ -79,6 +80,16 @@ describe("<BaseKakaoMap />", () => {
     const markerData = [{ postId: 1, latitude: 37.5, longitude: 126.9, postType: "LOST" }] as any;
     render(<BaseKakaoMap center={center} showCenterMarker markerData={markerData} />);
     expect(screen.getAllByTestId("map-marker")).toHaveLength(1);
+  });
+
+  it("placeMarkerData가 있으면 장소 마커를 개수만큼 렌더링합니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const placeMarkerData = [
+      { placeId: 1, latitude: 37.5, longitude: 127.0, type: "POPUP", thumbnailUrl: "/a.jpg" },
+      { placeId: 2, latitude: 37.6, longitude: 127.1, type: "CAFE", thumbnailUrl: "/b.jpg" },
+    ] as any;
+    render(<BaseKakaoMap center={center} placeMarkerData={placeMarkerData} />);
+    expect(screen.getAllByTestId("place-marker")).toHaveLength(2);
   });
 
   it("children이 지도 위에 렌더링됩니다.", () => {

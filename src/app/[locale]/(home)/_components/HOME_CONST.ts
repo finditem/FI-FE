@@ -125,6 +125,8 @@ export const CATEGORY = "category" as const;
  * 검색바 아래 분실물/발견물 칩으로 여는 게시글 피드 시트의 열림 표시 파라미터.
  * 타입 필터는 `POST_TYPE`(`?post-type`)이 담당하고, 이 값은 시트가 열려 있음을 나타낸다.
  * "모두보기"로 `?post-type`이 지워져도 이 값이 남아 있으면 시트는 전체 피드로 유지된다.
+ * 전체 피드 상태에서 "모두보기"를 다시 누르면(`?post-type`·`?category` 모두 없음)
+ * `useHomeFilterQuery`가 이 값도 지워 시트가 닫히고 메인 시트로 돌아간다.
  */
 export const FEED_PARAM = "feed" as const;
 export const FEED_PARAM_VALUE = "post" as const;
