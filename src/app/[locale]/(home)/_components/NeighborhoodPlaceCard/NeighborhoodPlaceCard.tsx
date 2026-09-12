@@ -1,12 +1,10 @@
-// TODO(준열): 백엔드 즐겨찾기 API 연동 시 useState 토글을 useMutation + onMutate 낙관적 업데이트로 교체.
-//             NeighborhoodPlace에 isFavorite 필드 추가하고 ["neighborhood-places", filter] 캐시를 패치.
-
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
+import { usePlaceFavorite } from "@/api/fetch/mapController";
+import { formatPlaceSchedule } from "@/utils";
 import { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
 import PlaceStatusBadge from "./_internal/PlaceStatusBadge/PlaceStatusBadge";
 
@@ -16,15 +14,28 @@ interface NeighborhoodPlaceCardProps {
 
 const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   const t = useTranslations("NeighborhoodSection");
-  const { name, imageUrl, address, stationName, distanceM, category, status, schedule } = place;
-  const [isFavorite, setIsFavorite] = useState(false);
+  const {
+    placeId,
+    name,
+    thumbnailUrl,
+    address,
+    station,
+    stationDistanceMeters,
+    type,
+    operationStatus,
+    isFavorite,
+  } = place;
+  const { toggleFavorite, isPending } = usePlaceFavorite(placeId);
 
-  const scheduleIcon = category === "POPUP" ? "PlaceCalendar" : "PlaceClock";
+  const time = formatPlaceSchedule(place);
+  // 오픈 예정만 "11:00 오픈"처럼 시각 뒤에 문구가 붙는다.
+  const schedule = time && operationStatus === "UPCOMING" ? t("openAt", { time }) : time;
+  const scheduleIcon = type === "POPUP" ? "PlaceCalendar" : "PlaceClock";
 
   return (
     <li aria-label={name} className="flex items-center gap-3 py-4">
       <Image
-        src={imageUrl}
+        src={thumbnailUrl}
         alt=""
         width={100}
         height={100}
@@ -38,19 +49,21 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
           <div className="flex min-w-0 items-center gap-1">
             <Icon name="PlaceMarker" size={16} className="shrink-0" />
             <p className="truncate text-caption1-regular text-layout-header-default">
-              {stationName} · {distanceM}m
+              {station} · {stationDistanceMeters}m
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-1.5">
-          <PlaceStatusBadge status={status} />
-          <div className="flex items-center gap-1">
-            <Icon name={scheduleIcon} size={16} className="shrink-0" />
-            <p className="whitespace-nowrap text-caption1-medium text-labelsVibrant-primary">
-              {schedule}
-            </p>
-          </div>
+          <PlaceStatusBadge status={operationStatus} />
+          {schedule && (
+            <div className="flex items-center gap-1">
+              <Icon name={scheduleIcon} size={16} className="shrink-0" />
+              <p className="whitespace-nowrap text-caption1-medium text-labelsVibrant-primary">
+                {schedule}
+              </p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -58,8 +71,9 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
         type="button"
         aria-pressed={isFavorite}
         aria-label={t("favoriteAriaLabel", { name })}
-        onClick={() => setIsFavorite((prev) => !prev)}
-        className="flex size-9 shrink-0 items-center justify-center"
+        disabled={isPending}
+        onClick={() => toggleFavorite(isFavorite)}
+        className="flex size-9 shrink-0 items-center justify-center disabled:opacity-50"
       >
         <Icon name={isFavorite ? "PlaceHeartActive" : "PlaceHeart"} size={24} />
       </button>

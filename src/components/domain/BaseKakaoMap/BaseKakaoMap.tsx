@@ -6,6 +6,7 @@ import { Map, MapMarker, Circle, CustomOverlayMap, useKakaoLoader } from "react-
 import { MapErrorState, MapLoadingState } from "@/components/domain/BaseKakaoMap/_internal";
 import { GetMarkerData, PlaceMarker } from "@/api/fetch/mapController";
 import { MAP_MARKER_ICON } from "./MAP_MARKER_ICON";
+import { cn } from "@/utils";
 
 /**
  * 카카오 지도를 사용하는 모든 화면의 기반이 되는 Base 컴포넌트입니다.
@@ -41,10 +42,18 @@ interface BaseKakaoMapProps {
   markerData?: GetMarkerData[];
   /** 지도에 표시할 장소(팝업/카페/맛집) 마커 목록. 원형 썸네일로 렌더링됩니다. */
   placeMarkerData?: PlaceMarker[];
+  /** 장소 마커 클릭 핸들러 */
+  onPlaceMarkerClick?: (placeId: number, position: { lat: number; lng: number }) => void;
+  /** 선택되어 강조할 장소의 `placeId` */
+  selectedPlaceId?: number | null;
   /** 원(Circle)의 반경 값. `showCircle`이 true일 때만 사용됩니다. */
   radius?: number;
   /** 중심 좌표 기준으로 반경 원(Circle)을 표시할지 여부 */
   showCircle?: boolean;
+  /** 반경 원의 중심. 생략하면 지도 중심(`center`)에 그립니다. */
+  circleCenter?: { lat: number; lng: number };
+  /** 함께 그릴 안쪽 원의 반경. 생략하면 바깥 원만 그립니다. */
+  innerRadius?: number;
   /** 지도 드래그 종료 시 호출되는 콜백. 변경된 중심 좌표를 전달합니다. */
   onDragEnd?: (center: LatLng) => void;
   /** 지도 줌 레벨 변경 시 호출되는 콜백 */
@@ -84,9 +93,13 @@ const BaseKakaoMap = ({
   markerOffset = { x: 13, y: 20 },
   markerData,
   placeMarkerData,
+  onPlaceMarkerClick,
+  selectedPlaceId,
 
   radius,
   showCircle = false,
+  circleCenter,
+  innerRadius,
 
   onDragEnd,
   onLevelChange,
@@ -155,16 +168,24 @@ const BaseKakaoMap = ({
           ))}
 
         {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
-          <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }}>
-            <div className="h-10 w-10 overflow-hidden rounded-full border-[3px] border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]">
+          <CustomOverlayMap key={placeId} position={{ lat: latitude, lng: longitude }} clickable>
+            <button
+              type="button"
+              aria-pressed={selectedPlaceId === placeId}
+              onClick={() => onPlaceMarkerClick?.(placeId, { lat: latitude, lng: longitude })}
+              className={cn(
+                "block overflow-hidden rounded-full border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]",
+                selectedPlaceId === placeId ? "h-12 w-12 border-4" : "h-10 w-10 border-[3px]"
+              )}
+            >
               <Image
                 src={thumbnailUrl}
                 alt=""
-                width={40}
-                height={40}
+                width={48}
+                height={48}
                 className="h-full w-full object-cover"
               />
-            </div>
+            </button>
           </CustomOverlayMap>
         ))}
 
@@ -180,14 +201,26 @@ const BaseKakaoMap = ({
         )}
 
         {showCircle && radius && (
-          <Circle
-            center={mapCenter}
-            radius={radius}
-            strokeColor="#1EB87B"
-            strokeWeight={1}
-            fillColor="#1EB87B"
-            fillOpacity={0.15}
-          />
+          <>
+            <Circle
+              center={circleCenter ?? mapCenter}
+              radius={radius}
+              strokeColor="#1EB87B"
+              strokeWeight={1}
+              fillColor="#1EB87B"
+              fillOpacity={0.15}
+            />
+            {innerRadius && (
+              <Circle
+                center={circleCenter ?? mapCenter}
+                radius={innerRadius}
+                strokeColor="#1EB87B"
+                strokeWeight={1}
+                fillColor="#1EB87B"
+                fillOpacity={0.15}
+              />
+            )}
+          </>
         )}
       </Map>
 

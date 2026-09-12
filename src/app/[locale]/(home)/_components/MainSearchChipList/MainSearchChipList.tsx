@@ -12,6 +12,7 @@ import {
   MAIN_SEARCH_CHIPS,
   MainSearchChipType,
   PLACE_FILTER_PARAM,
+  PLACE_ID_PARAM,
   POST_TYPE,
 } from "../HOME_CONST";
 
@@ -29,7 +30,7 @@ const CHIP_TO_MODE: Record<MainSearchChipType, { feed: string } | { place: strin
 };
 
 /** 칩이 여는 바텀시트 모드를 결정하는 파라미터들. 칩 전환 시 함께 비운다. */
-const MODE_KEYS = [FEED_PARAM, POST_TYPE, PLACE_FILTER_PARAM, CATEGORY];
+const MODE_KEYS = [FEED_PARAM, POST_TYPE, PLACE_FILTER_PARAM, PLACE_ID_PARAM, CATEGORY];
 
 const isChipSelected = (
   mode: (typeof CHIP_TO_MODE)[MainSearchChipType],
@@ -80,7 +81,7 @@ const MainSearchChipList = () => {
 
   return (
     <div ref={ref} onMouseDown={onMouseDown} className="flex gap-1 overflow-x-auto no-scrollbar">
-      {MAIN_SEARCH_CHIPS.map(({ type, icon }) => {
+      {MAIN_SEARCH_CHIPS.map(({ type, icon, width, height }) => {
         const isSelected = isChipSelected(
           CHIP_TO_MODE[type],
           new URLSearchParams(searchParams.toString())
@@ -101,7 +102,7 @@ const MainSearchChipList = () => {
                 : "border-transparent bg-white"
             )}
           >
-            <Image src={icon} alt="" width={16} height={16} draggable={false} />
+            <Image src={icon} alt="" width={width} height={height} draggable={false} />
             {t(type)}
           </button>
         );

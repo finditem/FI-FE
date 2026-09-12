@@ -848,8 +848,7 @@
     "foundAriaLabel": "발견 신고 목록 페이지로 이동"
   },
   "MainCardList": {
-    "altText": "최근 발견된 분실물 {title} 이미지",
-    "policeChipLabel": "경찰청"
+    "altText": "최근 발견된 분실물 {title} 이미지"
   },
   "PoliceSection": {
     "bannerTitle": "경찰청 분실물도 확인해요",
@@ -865,6 +864,9 @@
     "moreButton": "더 보기",
     "statusOpen": "운영중",
     "statusUpcoming": "오픈 예정",
+    "statusBreakTime": "브레이크 타임",
+    "statusClosed": "영업 종료",
+    "openAt": "{time} 오픈",
     "favoriteAriaLabel": "{name} 즐겨찾기",
     "loadError": "장소를 불러오지 못했어요.",
     "empty": "표시할 장소가 없어요."
@@ -879,6 +881,14 @@
     "mapButton": "지도",
     "loadError": "장소를 불러오지 못했어요.",
     "empty": "표시할 장소가 없어요."
+  },
+  "PlaceDetailSheet": {
+    "placeTab": "동네 정보",
+    "postTab": "근처 분실물",
+    "emptyPlace": "주변에 표시할 장소가 없어요.",
+    "emptyPost": "주변에 등록된 게시글이 없어요.",
+    "loadError": "정보를 불러오지 못했어요.",
+    "moreButton": "더 보기"
   },
   "PostTypeSheet": {
     "loadError": "게시글을 불러오지 못했어요.",
@@ -946,10 +956,6 @@
   },
   "RecentFoundItemSection": {
     "ownerWanted": "이 물건들, <em>주인</em> 찾습니다!"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "경찰청 분실물",
-    "moreLabel": "더보기"
   },
   "MyLocationButton": {
     "myLocationLabel": "내 위치로 이동"
@@ -1893,6 +1899,12 @@
   "usePostFavorites": {
     "addSuccess": "즐겨찾기가 등록되었어요.",
     "addError": "즐겨찾기 등록에 실패했어요."
+  },
+  "usePlaceFavorite": {
+    "addSuccess": "가보고 싶은 장소에 저장했어요.",
+    "addError": "장소 저장에 실패했어요.",
+    "removeSuccess": "가보고 싶은 장소에서 뺐어요.",
+    "removeError": "장소 저장 취소에 실패했어요."
   },
   "useDeletePostFavorites": {
     "removeSuccess": "즐겨찾기가 삭제되었어요.",

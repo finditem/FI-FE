@@ -75,12 +75,16 @@ export const CATEGORY_FILTER_ITEM = FILTER_ITEMS.find(
 export const CATEGORY_FILTER_DROPDOWN_MIN_WIDTH_PX = 107;
 
 /** 검색바 아래 필터칩. 클릭 시 해당 타입 핀만 지도에 렌더링 (기능 미구현, UI 전용) */
+/**
+ * 검색바 아래 칩 목록. `width`/`height`는 각 SVG의 실제 크기다 — 분실물·발견물 아이콘만
+ * 16x18이라 일괄 16x16으로 넘기면 next/image가 비율 불일치를 경고한다.
+ */
 export const MAIN_SEARCH_CHIPS = [
-  { type: "lost", icon: "/main/MainSearchChip/lost.svg" },
-  { type: "found", icon: "/main/MainSearchChip/found.svg" },
-  { type: "popup", icon: "/main/MainSearchChip/popup.svg" },
-  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg" },
-  { type: "food", icon: "/main/MainSearchChip/food.svg" },
+  { type: "lost", icon: "/main/MainSearchChip/lost.svg", width: 16, height: 18 },
+  { type: "found", icon: "/main/MainSearchChip/found.svg", width: 16, height: 18 },
+  { type: "popup", icon: "/main/MainSearchChip/popup.svg", width: 16, height: 16 },
+  { type: "cafe", icon: "/main/MainSearchChip/cafe.svg", width: 16, height: 16 },
+  { type: "food", icon: "/main/MainSearchChip/food.svg", width: 16, height: 16 },
 ] as const;
 
 export type MainSearchChipType = (typeof MAIN_SEARCH_CHIPS)[number]["type"];
@@ -130,6 +134,27 @@ export const CATEGORY = "category" as const;
  */
 export const FEED_PARAM = "feed" as const;
 export const FEED_PARAM_VALUE = "post" as const;
+
+/**
+ * 지도에서 장소 마커를 클릭했을 때 선택된 장소의 `placeId`를 담는 파라미터.
+ * `PLACE_FILTER_PARAM`(어떤 카테고리를 보고 있는지)과 함께 쓰이며, 이 값이 있으면
+ * 지도에 반경 원이 그려지고 바텀시트가 장소 상세로 바뀐다.
+ */
+export const PLACE_ID_PARAM = "place-id" as const;
+
+/**
+ * 장소 마커 선택 시 지도에 그리는 반경. 바깥 원은 `nearby-posts`/`nearby-post-markers`가
+ * 서버에서 자르는 500m와 같은 값이고, 안쪽 원은 데이터와 무관한 장식이다.
+ */
+export const PLACE_RADIUS_M = { outer: 500, inner: 250 } as const;
+
+/**
+ * 장소 마커를 선택했을 때 맞추는 지도 줌 레벨.
+ * 카카오 레벨 5는 4m/px라 500m 반경 원의 지름이 250px이 되어 390px 폭 화면에 들어온다.
+ * `DEFAULT_MAP_LEVEL`과 같은 값이라 기본 상태에서 장소를 선택하면 줌이 바뀌지 않는다.
+ * 사용자가 확대해 둔 상태에서 선택했을 때만 이 레벨로 되돌린다.
+ */
+export const PLACE_SELECTED_MAP_LEVEL = 5;
 
 /** 검색바 아래 칩으로 여는 장소 필터 시트의 URL 파라미터 */
 export const PLACE_FILTER_PARAM = "place" as const;

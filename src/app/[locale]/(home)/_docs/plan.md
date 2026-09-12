@@ -26,6 +26,11 @@
       기존대로 실제 GPS로 센터 이동. 참고: `useMainKakaoMap`의 "내 위치" 리셋은 여전히
       `Math.min(현재레벨, 6)`으로 상한만 걸어 기본 레벨로 되돌리지는 않음 — 필요하면 후속 조정
 
+- [x] 경찰청 습득물 리스트 제거 잔재 정리 — `MainCardList`의 `mode`/`isPublicMode` 분기와
+      `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트와 i18n 네임스페이스,
+      `usePublicRecentFound` 훅을 제거했다. `policeChipLabel` 키는 `PublicDetailInfo`,
+      `PublicDataItemCard` 네임스페이스에 각각 따로 있어 그쪽은 그대로 둔다
+
 ## 미완료 항목
 
 - [ ] **서비스 지역(성수동) 밖 사용자 안내 토스트**: 지도 기본값이 성수역이 됐으므로, 권한을 허용한
@@ -36,11 +41,6 @@
       생략 + 토스트, (3) `sessionStorage` 플래그로 세션당 1회. 지도 드래그로 벗어나는 경우 토스트는
       후순위. `RecentFoundItem` DTO에 좌표가 없어 아이템 단위 프론트 필터는 불가하고, 서버가
       `latitude/longitude/level`로 이미 반경 필터링 중이라 별도 필터는 불필요
-- [ ] **경찰청 습득물 리스트 제거 잔재 정리**: `9abd9297`에서 `PoliceSection`이 단일 배너로 바뀌며
-      리스트 UI가 빠졌으나 죽은 코드가 남음 — `MainCardList`의 `mode`/`isPublicMode` 분기와
-      `policeChipLabel` 칩, `PublicMoreViewCard` 컴포넌트, `PublicMoreViewCard` i18n
-      네임스페이스(`policeLostItemLabel`/`moreLabel`), `usePublicRecentFound` 훅(`(home)` 밖).
-      `policeChipLabel` 키 자체는 `public-data` 라우트에서 쓰이므로 유지
 
 ### 지도 장소 필터 기능
 
@@ -63,13 +63,48 @@
   - [x] 임시 dev 목업으로 원형 마커 렌더가 디자인대로 나오는 것 확인 후 목업 제거. **DB에 `place`
         /`placeMarker` 데이터가 생성되면 `/main/places/search-location` 응답으로 마커가 렌더된다.**
         (현재 엔드포인트는 200이지만 성수동 장소 데이터가 없어 `placeMarkers: []`)
-- [ ] **장소 마커 클릭 시 반경 원 UI**: 팝업/카페/맛집 마커 클릭 시 500m·250m 두 개의 원이 겹친
-      형태로 표시되고 두 원의 색상이 다름. `BaseKakaoMap`에 `Circle`/`radius`/`showCircle`이 있으나
-      단일 원이라 이중 원 지원 필요. 반경 값은 순수 UI(API 무관). 디자인 TBD
-- [ ] **장소 마커 클릭 시 바텀시트**: 위 반경 원과 동시에 해당 장소의 바텀시트가 아래에서 올라옴.
-      데이터는 `GET /main/places/{placeId}/summary`(장소 정보) + `GET
-/main/places/{placeId}/nearby-posts`(주변 게시글 목록, 무한스크롤). 시트 내부 섹션/레이아웃 TBD
-- [ ] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
+
+### 장소 마커 클릭 (반경 원 + 탭 바텀시트)
+
+Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=12752-98789),
+[근처 분실물 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=12720-121960)
+
+반경은 **500m로 확정**. Swagger 설명문 근거 — `nearby-posts`/`nearby-post-markers` 둘 다 "장소 반경
+500m"로 서버가 자른다. 즉 화면 고정 크기가 아니라 지리적 반경이므로 줌에 따라 원 크기가 변해야 한다.
+안쪽 250m 원은 데이터와 무관한 장식이다.
+
+- [x] `HOME_CONST`에 선택 장소 파라미터(`?place-id`) 추가. 기존 `MARKER_ID`(게시글 마커)와 별개이며,
+      `BottomSheet`의 콘텐츠 분기에 한 갈래를 더한다
+- [x] `mapController`에 API 훅 3개와 타입 추가
+  - [x] `usePlaceSummary` — `GET /main/places/{placeId}/summary`, `PlaceSummary` 1건
+  - [x] `useNearbyPosts` — `GET /main/places/{placeId}/nearby-posts`. 서버가 `postType`·`postStatus`
+        ·`category` 필터와 `lastDistance`+`lastPostId` 커서를 받으므로 클라 필터링은 하지 않는다.
+        무한스크롤은 `useAppInfiniteQuery` 사용
+  - [x] `useNearbyPostMarkers` — `GET /main/places/{placeId}/nearby-post-markers`, 최대 10개
+- [x] `BaseKakaoMap` 반경 원 확장: 현재 `Circle`이 `center={mapCenter}` 하드코딩이고 색상도
+      `#1EB87B` 고정이라 그대로 못 쓴다. 중심 좌표를 받는 prop을 추가하고 250m/500m 이중 원을
+      지원한다. 기존 호출부 두 곳(`PostWriteKakaoMap`, `PostDetailKakaoMap`)의 동작은 유지할 것
+- [x] `MainKakaoMap`: 장소 마커 클릭 → `?place-id` 설정, 반경 원과 `nearby-post-markers` 렌더.
+      장소 선택 상태에서는 기존 게시글 마커(`useGetMarker`)를 계속 숨긴다
+- [x] `PlaceDetailSheetContent` 신규 — 동네 정보 / 근처 분실물 탭 컨테이너
+- [x] 동네 정보 탭: 클릭한 장소 **하나가 아니라 반경 안의 같은 카테고리 장소 목록**을 보여준다.
+      전용 엔드포인트가 없으므로(장소에는 `nearby-posts`에 대응하는 `nearby-places`가 없음)
+      `search-location`을 클릭한 장소 좌표를 중심으로 재호출하고 500m 넘는 항목은 클라에서 잘라낸다.
+      목록 UI는 `NeighborhoodPlaceList`/`NeighborhoodPlaceCard` 재사용.
+      **한계**: `search-location`은 최대 10개라 반경 안에 그보다 많으면 누락된다. 어색하면 백엔드에
+      `nearby-places` 신설을 요청한다 (좌표만 바꿔 넘기는 구조라 교체 비용은 작다)
+- [x] 근처 분실물 탭: 필터 칩(모두보기/분실물/발견물/카테고리) + `NearbyPostSummary` 목록.
+      칩 상태는 헤더 칩과 공유하는 `?post-type`/`?category`가 아니라 **탭 로컬 상태**로 둔다.
+      공유하면 시트를 닫은 뒤에도 헤더 칩 선택이 남는다. 목록 행은 `PostListItem` 재사용 검토 —
+      `NearbyPostSummary`는 `postId`·`title`·`summary`·`thumbnailImageUrl`·`address`·`postStatus`
+      ·`postType`·`category`·`favoriteCount`로 `PostItem`과 필드가 달라 매핑이 필요하다
+- [x] 즐겨찾기 하트: `usePlaceFavorite`로 `POST`/`DELETE /places/{placeId}/favorites` 연동.
+      같은 장소의 `isFavorite`가 `place-summary`·`search-location-places`·`neighborhood-places`
+      캐시에 흩어져 있어 낙관적 업데이트에서 세 곳을 함께 뒤집는다. 비로그인(401)이면 토스트 대신
+      `/login?callbackUrl=`로 보낸다
+- [x] i18n: 새 네임스페이스(`PlaceDetailSheet`) 키를 `ko.json`/`en.json`에 동시 추가하고
+      `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인
+- [x] **`NeighborhoodPlace` 타입을 API `PlaceSummary`에 맞춰 재정의**: 운영 상태가 API에선
       `operationStatus` enum `OPEN | BREAK_TIME | UPCOMING | CLOSED` 4가지 (지금 우리
       `NeighborhoodPlaceStatus`는 `status: OPEN | UPCOMING` 2가지). 반영 범위 —
       `_types/NeighborhoodPlace.ts`(필드명 `status`→`operationStatus`, 값 4개, `distanceM`→
@@ -80,11 +115,10 @@
 
 ### 실 API 연동
 
-- [ ] **목업 데이터 실 API 연동 및 재테스트**: 목업으로 작성한 부분을 실제 API로 교체한 뒤 테스트
-      진행 — `usePostTypeFeed`(`homeFeedPosts.mock.ts`), `useNeighborhoodPlaces`
-      (`neighborhoodPlaces.mock.ts` → `GET /places`), 그리고 위 지도 장소 마커/반경/바텀시트 기능에서
-      새로 만들 목업. 각 훅의 `queryFn`을 `useAppQuery` 등 실제 호출로 바꾸고 목업 파일 제거, 관련
-      테스트가 실제 응답 형태 기준으로 통과하는지 확인
+- [x] `useNeighborhoodPlaces`를 `GET /places`로 교체하고 `neighborhoodPlaces.mock.ts` 제거
+- [x] `usePostTypeFeed`(`homeFeedPosts.mock.ts`) 제거 — 피드 시트를 `useSearchLocation`
+      (`/main/posts/search-location`)으로 교체했다. 검색 시트(`PostSheetContent`)가 쓰던 훅과 같아
+      새로 만들 API 코드가 없었다. 이로써 `(home)` 라우트의 목업은 모두 사라졌다
 
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
@@ -99,14 +133,18 @@
   `thumbnailUrl`, `operationStatus`(`OPEN|BREAK_TIME|UPCOMING|CLOSED`), `operationPeriod`(`{startDate,
 endDate}`, `type=POPUP`만), `todayBusinessHours`(`TimeRange[]`, 정기휴무일이면 `null`), `isFavorite`(Boolean)
 - **`PlaceMarker`**: `placeId`, `latitude`, `longitude`, `type`, `thumbnailUrl`
-- **`TimeRange`**: `type`(`BUSINESS|BREAK_TIME`), `startTime`, `endTime`(`HH:mm`). 자정 넘김은 `endTime <
+- **`TimeRange`**: `type`(`BUSINESS|BREAK_TIME`), `startTime`, `endTime`(문서는 `HH:mm`이지만 dev
+  실제 응답은 `HH:mm:ss`). 자정 넘김은 `endTime <
 startTime`, 시작==종료면 24시간 운영
 
 ### 엔드포인트
 
 - **홈 동네 구경 (카테고리 미선택)** — `GET /places`
-  - 요청: 쿼리 명세 미확인 (카테고리 optional 추정)
-  - 응답: `PlaceSummary[]` 최대 5개, 접기/펼치기는 클라
+  - 요청: `type` optional (`CAFE|RESTAURANT|POPUP`), 없으면 전체
+  - 응답: `{ places: PlaceSummary[] }` 최대 5개, 접기/펼치기는 클라.
+    **`result`가 배열이 아니라 `places`를 감싼 객체다** — 문서에 배열로 적혀 있어 한 번 틀렸다.
+    다른 장소 엔드포인트는 `summary`가 객체 1건, `nearby-post-markers`가 배열,
+    `nearby-posts`/`search-location`이 감싼 객체로 제각각이라 연동 전 실제 응답 확인이 필요하다
 - **지도 카테고리 마커** — `GET /main/places/search-location`
   - 요청: `latitude`·`longitude` (필수), `level` (1~8, 기본 6), `type` (필수, CAFE/RESTAURANT/POPUP)
   - 응답: `{ placeMarkers: PlaceMarker[], places: PlaceSummary[], totalCount }` — 각 최대 10, 지도중심 거리순
@@ -129,4 +167,5 @@ startTime`, 시작==종료면 24시간 운영
 - 지도 조작 종료 후 **500ms 디바운스**. 지도 범위·카테고리 바뀌면 목록·커서 초기화.
 - **경합 처리**: 나중에 시작한 요청의 응답만 화면에 반영.
 - 장소 마커 클릭 → `summary`와 `nearby-post-markers`를 각각 조회 (반경 원/바텀시트 항목).
-- 반경 원(250m/500m)은 API가 규정하지 않음 — 순수 UI. 디자인 대기.
+- 반경 원: 바깥 500m는 Swagger의 `nearby-posts`/`nearby-post-markers` 설명문("장소 반경 500m")
+  기준이고, 안쪽 250m는 데이터와 무관한 장식이다.

@@ -848,8 +848,7 @@
     "foundAriaLabel": "Go to found items list"
   },
   "MainCardList": {
-    "altText": "Image of recently found item: {title}",
-    "policeChipLabel": "Police"
+    "altText": "Image of recently found item: {title}"
   },
   "PoliceSection": {
     "bannerTitle": "Police lost & found, too",
@@ -865,6 +864,9 @@
     "moreButton": "See more",
     "statusOpen": "Open now",
     "statusUpcoming": "Opening soon",
+    "statusBreakTime": "On break",
+    "statusClosed": "Closed",
+    "openAt": "Opens at {time}",
     "favoriteAriaLabel": "Add {name} to favorites",
     "loadError": "Could not load places.",
     "empty": "No places to show."
@@ -879,6 +881,14 @@
     "mapButton": "Map",
     "loadError": "Could not load places.",
     "empty": "No places to show."
+  },
+  "PlaceDetailSheet": {
+    "placeTab": "Nearby places",
+    "postTab": "Nearby items",
+    "emptyPlace": "No places nearby.",
+    "emptyPost": "No posts nearby.",
+    "loadError": "Could not load information.",
+    "moreButton": "See more"
   },
   "PostTypeSheet": {
     "loadError": "Could not load posts.",
@@ -946,10 +956,6 @@
   },
   "RecentFoundItemSection": {
     "ownerWanted": "These items are <em>looking for their owners</em>!"
-  },
-  "PublicMoreViewCard": {
-    "policeLostItemLabel": "Police lost items",
-    "moreLabel": "View more"
   },
   "MyLocationButton": {
     "myLocationLabel": "Move to my location"
@@ -1893,6 +1899,12 @@
   "usePostFavorites": {
     "addSuccess": "Added to your favorites.",
     "addError": "Couldn't save to favorites."
+  },
+  "usePlaceFavorite": {
+    "addSuccess": "Saved to places you want to visit.",
+    "addError": "Couldn't save this place.",
+    "removeSuccess": "Removed from places you want to visit.",
+    "removeError": "Couldn't remove this place."
   },
   "useDeletePostFavorites": {
     "removeSuccess": "Removed from your favorites.",

@@ -1,20 +1,24 @@
-// TODO(준열) : TODO: 백엔드 연동 시 queryFn을 axios 호출로 교체하고(useAppQuery 등) 목업 파일을 제거한다.
+"use client";
 
-import { useSuspenseQuery } from "@tanstack/react-query";
+import useAppQuery from "@/api/_base/query/useAppQuery";
+import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { NeighborhoodPlace, NeighborhoodPlaceFilter } from "../../_types/NeighborhoodPlace";
-import { MOCK_NEIGHBORHOOD_PLACES } from "./neighborhoodPlaces.mock";
 
+/**
+ * 홈 동네 구경 목록을 가져옵니다. `GET /places`는 노출 가능한 최신 장소를 최대 5개 반환하며,
+ * `ALL`이면 카테고리 없이 전체를 조회합니다.
+ */
 const useNeighborhoodPlaces = (filter: NeighborhoodPlaceFilter) => {
-  return useSuspenseQuery<NeighborhoodPlace[]>({
-    queryKey: ["neighborhood-places", filter],
-    queryFn: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 400));
-      return filter === "ALL"
-        ? MOCK_NEIGHBORHOOD_PLACES
-        : MOCK_NEIGHBORHOOD_PLACES.filter((place) => place.category === filter);
-    },
-    staleTime: 1000 * 60,
-  });
+  const query = filter === "ALL" ? "" : `?type=${filter}`;
+
+  const { data } = useAppQuery<ApiBaseResponseType<{ places: NeighborhoodPlace[] }>>(
+    "public",
+    ["neighborhood-places", filter],
+    `/places${query}`,
+    { staleTime: 1000 * 60, suspense: true }
+  );
+
+  return { data: data?.result?.places ?? [] };
 };
 
 export default useNeighborhoodPlaces;

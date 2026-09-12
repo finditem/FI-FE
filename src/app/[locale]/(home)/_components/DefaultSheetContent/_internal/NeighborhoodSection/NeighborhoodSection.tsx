@@ -1,5 +1,3 @@
-// TODO(준열) : 현재 목업 데이터로 작동 중 기능 구현시 목업데이터 삭제
-
 "use client";
 
 import { Suspense, useState } from "react";
