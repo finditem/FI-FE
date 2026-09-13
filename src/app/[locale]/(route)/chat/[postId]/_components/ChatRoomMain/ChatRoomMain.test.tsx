@@ -72,6 +72,8 @@ const renderWithMessages = (
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}
       scrollToBottomSignal={0}
+      roomId={1}
+      roomVisitId="test-room-visit-id"
     />
   );
 };

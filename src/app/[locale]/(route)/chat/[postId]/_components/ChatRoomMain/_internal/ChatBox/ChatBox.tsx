@@ -13,14 +13,27 @@ interface ChatBoxProps {
   nextSender?: "me" | "other";
   lastChat?: boolean;
   opponentNickname?: string;
+  roomId: number;
+  roomVisitId: string;
 }
 
-const ChatBox = ({ chat, nextSender, lastChat, opponentNickname }: ChatBoxProps) => {
+const ChatBox = ({
+  chat,
+  nextSender,
+  lastChat,
+  opponentNickname,
+  roomId,
+  roomVisitId,
+}: ChatBoxProps) => {
   const t = useTranslations("ChatBox");
-  const { content, createdAt, imageUrls, messageType, senderId } = chat;
+  const { content, createdAt, imageUrls, messageType, senderId, messageId } = chat;
   const { data: userInfo } = useGetUsersMe();
-  const { displayContent, isTranslated, isTranslating, toggleTranslate } =
-    useMessageTranslation(content);
+  const { displayContent, isTranslated, isTranslating, toggleTranslate } = useMessageTranslation({
+    roomId,
+    messageId,
+    roomVisitId,
+    originalContent: content,
+  });
 
   const sender = Number(userInfo?.result?.userId) === senderId ? "me" : "other";
   const marginBottom = lastChat ? "mb-0" : nextSender === sender ? "mb-2" : "mb-4";

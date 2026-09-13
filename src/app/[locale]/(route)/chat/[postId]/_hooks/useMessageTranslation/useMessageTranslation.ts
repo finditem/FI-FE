@@ -1,21 +1,43 @@
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useQueryClient } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 import { useToast } from "@/context/ToastContext";
-import mockTranslateMessage from "../../_utils/mockTranslateMessage/mockTranslateMessage";
-import useChatTranslationUsage, {
-  DAILY_TRANSLATION_LIMIT,
-} from "../useChatTranslationUsage/useChatTranslationUsage";
+import usePostMessageTranslation from "@/api/fetch/chatMessage/api/usePostMessageTranslation";
+import useGetChatTranslationUsage from "@/api/fetch/chatMessage/api/useGetChatTranslationUsage";
+import { TranslationTargetLanguage } from "@/api/fetch/chatMessage/types/MessageTranslationRequest";
 import useTranslationLimitToast from "../useTranslationLimitToast/useTranslationLimitToast";
 
-const useMessageTranslation = (originalContent: string) => {
+interface UseMessageTranslationParams {
+  roomId: number;
+  messageId: number;
+  roomVisitId: string;
+  originalContent: string;
+}
+
+const TRANSLATION_LIMIT_STATUS = 429;
+
+const toTargetLanguage = (locale: string): TranslationTargetLanguage =>
+  locale === "en" ? "EN" : "KO";
+
+const useMessageTranslation = ({
+  roomId,
+  messageId,
+  roomVisitId,
+  originalContent,
+}: UseMessageTranslationParams) => {
   const t = useTranslations("ChatBox");
+  const locale = useLocale();
   const { addToast } = useToast();
-  const usedCount = useChatTranslationUsage((state) => state.usedCount);
-  const incrementUsedCount = useChatTranslationUsage((state) => state.incrementUsedCount);
+  const queryClient = useQueryClient();
   const openLimitToast = useTranslationLimitToast((state) => state.open);
+  const { data: usage } = useGetChatTranslationUsage();
+  const { mutateAsync, isPending } = usePostMessageTranslation(roomId, messageId);
+
   const [isTranslated, setIsTranslated] = useState(false);
-  const [isTranslating, setIsTranslating] = useState(false);
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
+
+  const isLimitReached = usage != null && usage.usedCount >= usage.limit;
 
   const toggleTranslate = async () => {
     if (isTranslated) {
@@ -28,28 +50,35 @@ const useMessageTranslation = (originalContent: string) => {
       return;
     }
 
-    if (usedCount >= DAILY_TRANSLATION_LIMIT) {
+    if (isLimitReached) {
       openLimitToast();
       return;
     }
 
-    setIsTranslating(true);
     try {
-      const result = await mockTranslateMessage(originalContent);
-      setTranslatedContent(result);
+      const response = await mutateAsync({
+        requestId: crypto.randomUUID(),
+        roomVisitId,
+        targetLanguage: toTargetLanguage(locale),
+      });
+      setTranslatedContent(response.result.translatedText);
       setIsTranslated(true);
-      incrementUsedCount();
-    } catch {
-      addToast(t("translateError"), "error");
-    } finally {
-      setIsTranslating(false);
+      queryClient.invalidateQueries({ queryKey: ["chatTranslationUsage"] });
+    } catch (error) {
+      // 서버가 횟수 초과(429)로 거절하면 제한 토스트, 그 외에는 실패 토스트로 재시도를 유도합니다.
+      if (isAxiosError(error) && error.response?.status === TRANSLATION_LIMIT_STATUS) {
+        openLimitToast();
+        queryClient.invalidateQueries({ queryKey: ["chatTranslationUsage"] });
+      } else {
+        addToast(t("translateError"), "error");
+      }
     }
   };
 
   return {
     displayContent: isTranslated && translatedContent ? translatedContent : originalContent,
     isTranslated,
-    isTranslating,
+    isTranslating: isPending,
     toggleTranslate,
   };
 };

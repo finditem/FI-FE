@@ -23,6 +23,8 @@ interface ChatRoomMainProps {
   isFetchingNextPage: boolean;
   opponentNickname?: string;
   scrollToBottomSignal: number;
+  roomId: number;
+  roomVisitId: string;
 }
 
 const ChatRoomMain = ({
@@ -32,6 +34,8 @@ const ChatRoomMain = ({
   isFetchingNextPage,
   opponentNickname,
   scrollToBottomSignal,
+  roomId,
+  roomVisitId,
 }: ChatRoomMainProps) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollHeightRef = useRef<number>(0);
@@ -73,6 +77,8 @@ const ChatRoomMain = ({
             nextSender={nextSender}
             lastChat={lastChat}
             opponentNickname={opponentNickname}
+            roomId={roomId}
+            roomVisitId={roomVisitId}
           />
         </div>
       ))}
