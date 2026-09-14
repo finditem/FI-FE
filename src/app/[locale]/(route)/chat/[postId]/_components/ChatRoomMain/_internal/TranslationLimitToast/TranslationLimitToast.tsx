@@ -10,6 +10,8 @@ import useTranslationLimitToast from "../../../../_hooks/useTranslationLimitToas
 import getTranslationResetHours from "../../../../_utils/getTranslationResetHours/getTranslationResetHours";
 
 const TOAST_DURATION_MS = 3000;
+// ToastProviders.tsx의 전역 토스트와 동일한 z-index를 사용해 겹칠 때도 항상 위에 노출되도록 맞춘다.
+const TOAST_Z_INDEX = "z-[10000]";
 
 /**
  * 번역 횟수 제한(5-1) 도달 시 화면 하단에 노출하는 토스트입니다.
@@ -36,7 +38,7 @@ const TranslationLimitToast = () => {
   if (!mounted) return null;
 
   return createPortal(
-    <div className="pointer-events-none fixed inset-x-0 bottom-6 z-[10000] flex w-full justify-center px-4">
+    <div className={cn("pointer-events-none fixed inset-x-0 bottom-6 flex w-full justify-center px-4", TOAST_Z_INDEX)}>
       <AnimatePresence>
         {isOpen && (
           <motion.div

@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS } from "@/constants";
+import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS, DEFAULT_MAP_LEVEL } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
 import { debounce } from "es-toolkit/compat";
 
@@ -53,6 +53,10 @@ interface MainKakaoMapStore {
   markerSheetSnapSignal: number;
   /** `markerSheetSnapSignal`을 1 증가 */
   triggerMarkerSheetSnap: () => void;
+  /** 장소 필터 시트의 "지도" 버튼 등으로 바텀시트를 최소 높이로 접을 때 쓰는 단조 증가 신호 */
+  placeSheetCollapseSignal: number;
+  /** `placeSheetCollapseSignal`을 1 증가 */
+  triggerPlaceSheetCollapse: () => void;
 }
 
 /**
@@ -107,9 +111,10 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         address: DEFAULT_ADDRESS,
         userGpsLatLng: null,
         userGpsAddress: "",
-        mapLevel: 6,
+        mapLevel: DEFAULT_MAP_LEVEL,
         levelResetSignal: 0,
         markerSheetSnapSignal: 0,
+        placeSheetCollapseSignal: 0,
         setLatLng: (latLng) => {
           set({ latLng });
         },
@@ -139,7 +144,7 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
             address: DEFAULT_ADDRESS,
             userGpsLatLng: null,
             userGpsAddress: "",
-            mapLevel: 6,
+            mapLevel: DEFAULT_MAP_LEVEL,
           });
         },
         setMapLevel: (level: number) => {
@@ -152,6 +157,10 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         triggerMarkerSheetSnap: () =>
           set((state) => ({
             markerSheetSnapSignal: state.markerSheetSnapSignal + 1,
+          })),
+        triggerPlaceSheetCollapse: () =>
+          set((state) => ({
+            placeSheetCollapseSignal: state.placeSheetCollapseSignal + 1,
           })),
       };
     },

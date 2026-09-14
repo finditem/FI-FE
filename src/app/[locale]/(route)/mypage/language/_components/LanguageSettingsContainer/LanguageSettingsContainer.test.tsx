@@ -6,14 +6,29 @@ import LanguageSettingsContainer from "./LanguageSettingsContainer";
 
 const mockReplace = jest.fn();
 const mockRefresh = jest.fn();
+const mockPatchPreferredLanguage = jest.fn();
 
 jest.mock("@/i18n/navigation", () => ({
   useRouter: jest.fn(),
 }));
 
+jest.mock("@/api/fetch/user", () => ({
+  useGetPreferredLanguage: () => ({
+    data: { result: { preferredLanguage: "KO" } },
+    isLoading: false,
+  }),
+  usePatchPreferredLanguage: () => ({
+    mutate: mockPatchPreferredLanguage,
+    isPending: false,
+  }),
+}));
+
 describe("LanguageSettingsContainer", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    mockPatchPreferredLanguage.mockImplementation(
+      (_variables: unknown, options?: { onSuccess?: () => void }) => options?.onSuccess?.()
+    );
     (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace, refresh: mockRefresh });
   });
 
@@ -42,6 +57,10 @@ describe("LanguageSettingsContainer", () => {
     await user.click(screen.getByRole("radio", { name: "English" }));
     await user.click(screen.getByRole("button", { name: "변경하기" }));
 
+    expect(mockPatchPreferredLanguage).toHaveBeenCalledWith(
+      { preferredLanguage: "EN" },
+      expect.objectContaining({ onSuccess: expect.any(Function) })
+    );
     expect(mockReplace).toHaveBeenCalledWith("/mypage", { locale: "en" });
     expect(mockRefresh).toHaveBeenCalled();
   });
@@ -53,6 +72,7 @@ describe("LanguageSettingsContainer", () => {
     await user.click(screen.getByRole("radio", { name: "한국어" }));
     await user.click(screen.getByRole("button", { name: "변경하기" }));
 
+    expect(mockPatchPreferredLanguage).not.toHaveBeenCalled();
     expect(mockReplace).not.toHaveBeenCalled();
   });
 });

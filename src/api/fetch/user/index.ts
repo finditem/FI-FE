@@ -4,6 +4,7 @@ export * from "./types/MypagePostsResponseType";
 export * from "./types/MypageActivityResponse";
 export * from "./types/MypageCommentsResponseType";
 export * from "./types/DeleteAccountType";
+export * from "./types/PreferredLanguageType";
 
 export { useGetUserProfileById } from "./api/useGetUserProfileById";
 export { useGetUsersMe } from "./api/useGetUsersMe";
@@ -16,3 +17,5 @@ export { useGetUserActivity } from "./api/useGetUserActivity";
 export { useGetUserComments } from "./api/useGetUserComments";
 export { useDeleteAccount } from "./api/useDeleteAccount";
 export { usePatchKakaoTerms } from "./api/usePatchKakaoTerms";
+export { useGetPreferredLanguage } from "./api/useGetPreferredLanguage";
+export { usePatchPreferredLanguage } from "./api/usePatchPreferredLanguage";

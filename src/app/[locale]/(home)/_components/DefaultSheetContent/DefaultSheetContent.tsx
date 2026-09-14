@@ -2,6 +2,7 @@
 
 import {
   LostFindActions,
+  NeighborhoodSection,
   PoliceSection,
   RecentFoundItemSection,
   SupportLinkSection,
@@ -33,6 +34,8 @@ const DefaultSheetContent = ({ onSectionHeights }: DefaultSheetContentProps) => 
       <div ref={refs.policeRef}>
         <PoliceSection />
       </div>
+
+      <NeighborhoodSection />
 
       <hr className={DIVIDER_STYLE} />
       <SupportLinkSection />

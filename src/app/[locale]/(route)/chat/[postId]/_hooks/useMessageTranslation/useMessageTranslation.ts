@@ -2,16 +2,14 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useToast } from "@/context/ToastContext";
 import mockTranslateMessage from "../../_utils/mockTranslateMessage/mockTranslateMessage";
-import useChatTranslationUsage, {
-  DAILY_TRANSLATION_LIMIT,
-} from "../useChatTranslationUsage/useChatTranslationUsage";
+import useChatTranslationUsage from "../useChatTranslationUsage/useChatTranslationUsage";
 import useTranslationLimitToast from "../useTranslationLimitToast/useTranslationLimitToast";
 
 const useMessageTranslation = (originalContent: string) => {
   const t = useTranslations("ChatBox");
   const { addToast } = useToast();
-  const usedCount = useChatTranslationUsage((state) => state.usedCount);
-  const incrementUsedCount = useChatTranslationUsage((state) => state.incrementUsedCount);
+  const reserveTranslation = useChatTranslationUsage((state) => state.reserveTranslation);
+  const releaseTranslation = useChatTranslationUsage((state) => state.releaseTranslation);
   const openLimitToast = useTranslationLimitToast((state) => state.open);
   const [isTranslated, setIsTranslated] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
@@ -28,7 +26,7 @@ const useMessageTranslation = (originalContent: string) => {
       return;
     }
 
-    if (usedCount >= DAILY_TRANSLATION_LIMIT) {
+    if (!reserveTranslation()) {
       openLimitToast();
       return;
     }
@@ -38,8 +36,8 @@ const useMessageTranslation = (originalContent: string) => {
       const result = await mockTranslateMessage(originalContent);
       setTranslatedContent(result);
       setIsTranslated(true);
-      incrementUsedCount();
     } catch {
+      releaseTranslation();
       addToast(t("translateError"), "error");
     } finally {
       setIsTranslating(false);

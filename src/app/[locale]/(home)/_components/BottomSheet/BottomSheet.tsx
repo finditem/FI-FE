@@ -4,12 +4,25 @@ import { motion } from "framer-motion";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
-import { BOTTOM_OFFSET_PX, MARKER_ID } from "../HOME_CONST";
+import {
+  BOTTOM_OFFSET_PX,
+  FEED_PARAM,
+  FEED_PARAM_VALUE,
+  MARKER_ID,
+  PLACE_FILTER_PARAM,
+  PLACE_FILTER_TO_CATEGORY,
+  PLACE_FILTER_VALUES,
+  PLACE_ID_PARAM,
+} from "../HOME_CONST";
+import type { PlaceFilterValue } from "../HOME_CONST";
 import useBottomSheetHeight from "../../_hooks/useBottomSheetHeight/useBottomSheetHeight";
 import MyLocationButton from "../MyLocationButton/MyLocationButton";
 import DefaultSheetContent from "../DefaultSheetContent/DefaultSheetContent";
 import PostSheetContent from "../PostSheetContent/PostSheetContent";
 import MapPostSummarySheetContent from "../MapPostSummarySheetContent/MapPostSummarySheetContent";
+import PlaceFilterSheetContent from "../PlaceFilterSheetContent/PlaceFilterSheetContent";
+import PlaceDetailSheetContent from "../PlaceDetailSheetContent/PlaceDetailSheetContent";
+import PostTypeSheetContent from "../PostTypeSheetContent/PostTypeSheetContent";
 import { DefaultSheetContentHeights } from "../../_utils/heightUtils";
 import PermissionSheet from "../PermissionBottomSheet/PermissionBottomSheet";
 import { usePermissionStore } from "@/store";
@@ -20,10 +33,18 @@ const BottomSheetContent = () => {
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
   const markerId = searchParams.get(MARKER_ID);
+  const placeParamRaw = searchParams.get(PLACE_FILTER_PARAM);
+  const placeValue = (PLACE_FILTER_VALUES as readonly string[]).includes(placeParamRaw ?? "")
+    ? (placeParamRaw as PlaceFilterValue)
+    : null;
+  const placeIdParam = Number(searchParams.get(PLACE_ID_PARAM));
+  const selectedPlaceId = placeValue && placeIdParam > 0 ? placeIdParam : null;
+  const isFeedMode =
+    !searchValue && !markerId && !placeValue && searchParams.get(FEED_PARAM) === FEED_PARAM_VALUE;
   const [contentHeights, setContentHeights] = useState<DefaultSheetContentHeights | null>(null);
   const { height, isFullyExpanded, isInitialized, handlePointerDown, handlePointerUp } =
     useBottomSheetHeight(contentHeights);
-  const isDefaultMode = !searchValue && !markerId;
+  const isDefaultMode = !searchValue && !markerId && !placeValue && !isFeedMode;
   const isBottomSheetReady = isInitialized && (!isDefaultMode || contentHeights !== null);
 
   const handleSectionHeights = useCallback((heights: DefaultSheetContentHeights) => {
@@ -61,6 +82,15 @@ const BottomSheetContent = () => {
             <PostSheetContent />
           ) : markerId ? (
             <MapPostSummarySheetContent />
+          ) : placeValue && selectedPlaceId ? (
+            <PlaceDetailSheetContent
+              placeId={selectedPlaceId}
+              placeType={PLACE_FILTER_TO_CATEGORY[placeValue]}
+            />
+          ) : placeValue ? (
+            <PlaceFilterSheetContent placeValue={placeValue} />
+          ) : isFeedMode ? (
+            <PostTypeSheetContent />
           ) : (
             <DefaultSheetContent onSectionHeights={handleSectionHeights} />
           )}
