@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
@@ -38,6 +38,21 @@ const useMessageTranslation = ({
   const [translatedContent, setTranslatedContent] = useState<string | null>(null);
 
   const isLimitReached = usage != null && usage.usedCount >= usage.limit;
+
+  useEffect(() => {
+    if (!isLimitReached || !usage) return;
+
+    const delay = new Date(usage.nextAvailableAt).getTime() - Date.now();
+    if (delay <= 0) {
+      queryClient.invalidateQueries({ queryKey: ["chatTranslationUsage"] });
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      queryClient.invalidateQueries({ queryKey: ["chatTranslationUsage"] });
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [isLimitReached, usage, queryClient]);
 
   const toggleTranslate = async () => {
     if (isTranslated) {
