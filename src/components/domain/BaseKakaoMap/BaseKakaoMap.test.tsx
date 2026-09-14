@@ -6,7 +6,14 @@ jest.mock("react-kakao-maps-sdk", () => ({
   useKakaoLoader: jest.fn(),
   Map: ({ children }: any) => <div data-testid="kakao-map">{children}</div>,
   MapMarker: () => <div data-testid="map-marker" />,
-  Circle: ({ radius }: any) => <div data-testid="map-circle" data-radius={radius} />,
+  Circle: ({ radius, center }: any) => (
+    <div
+      data-testid="map-circle"
+      data-radius={radius}
+      data-center={`${center.lat},${center.lng}`}
+    />
+  ),
+  CustomOverlayMap: ({ children }: any) => <div data-testid="place-marker">{children}</div>,
 }));
 
 jest.mock("@/components/domain/BaseKakaoMap/_internal", () => ({
@@ -52,6 +59,22 @@ describe("<BaseKakaoMap />", () => {
     expect(screen.getByTestId("map-circle")).toBeInTheDocument();
   });
 
+  it("innerRadius를 주면 바깥 원과 안쪽 원을 함께 렌더링합니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    render(<BaseKakaoMap center={center} showCircle radius={500} innerRadius={250} />);
+
+    const radii = screen.getAllByTestId("map-circle").map((el) => el.dataset.radius);
+    expect(radii).toEqual(["500", "250"]);
+  });
+
+  it("circleCenter를 주면 지도 중심 대신 그 좌표에 원을 그립니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const circleCenter = { lat: 37.544583, lng: 127.055972 };
+    render(<BaseKakaoMap center={center} showCircle radius={500} circleCenter={circleCenter} />);
+
+    expect(screen.getByTestId("map-circle")).toHaveAttribute("data-center", "37.544583,127.055972");
+  });
+
   it("showCircle이 true여도 radius가 없으면 Circle을 렌더링하지 않습니다.", () => {
     useKakaoLoader.mockReturnValue([false, null]);
     render(<BaseKakaoMap center={center} showCircle />);
@@ -79,6 +102,16 @@ describe("<BaseKakaoMap />", () => {
     const markerData = [{ postId: 1, latitude: 37.5, longitude: 126.9, postType: "LOST" }] as any;
     render(<BaseKakaoMap center={center} showCenterMarker markerData={markerData} />);
     expect(screen.getAllByTestId("map-marker")).toHaveLength(1);
+  });
+
+  it("placeMarkerData가 있으면 장소 마커를 개수만큼 렌더링합니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const placeMarkerData = [
+      { placeId: 1, latitude: 37.5, longitude: 127.0, type: "POPUP", thumbnailUrl: "/a.jpg" },
+      { placeId: 2, latitude: 37.6, longitude: 127.1, type: "CAFE", thumbnailUrl: "/b.jpg" },
+    ] as any;
+    render(<BaseKakaoMap center={center} placeMarkerData={placeMarkerData} />);
+    expect(screen.getAllByTestId("place-marker")).toHaveLength(2);
   });
 
   it("children이 지도 위에 렌더링됩니다.", () => {

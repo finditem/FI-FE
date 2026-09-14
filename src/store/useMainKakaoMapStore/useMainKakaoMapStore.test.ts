@@ -1,4 +1,4 @@
-import { DEFAULT_ADDRESS, DEFAULT_LAT_LNG } from "@/constants";
+import { DEFAULT_ADDRESS, DEFAULT_LAT_LNG, DEFAULT_MAP_LEVEL } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
 import { useMainKakaoMapStore } from "./useMainKakaoMapStore";
 
@@ -62,7 +62,7 @@ describe("useMainKakaoMapStore", () => {
     useMainKakaoMapStore.getState().clearLatLng();
     expect(useMainKakaoMapStore.getState().latLng).toEqual(DEFAULT_LAT_LNG);
     expect(useMainKakaoMapStore.getState().address).toBe(DEFAULT_ADDRESS);
-    expect(useMainKakaoMapStore.getState().mapLevel).toBe(6);
+    expect(useMainKakaoMapStore.getState().mapLevel).toBe(DEFAULT_MAP_LEVEL);
   });
 
   it("triggerLevelReset과 triggerMarkerSheetSnap은 각 시그널을 1씩 올립니다", () => {

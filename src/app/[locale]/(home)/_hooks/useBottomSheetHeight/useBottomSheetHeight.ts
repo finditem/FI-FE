@@ -3,7 +3,13 @@
 import { animate, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { INITIAL_HEIGHT_PX, MIN_HEIGHT_PX, MARKER_ID } from "../../_components/HOME_CONST";
+import {
+  INITIAL_HEIGHT_PX,
+  MIN_HEIGHT_PX,
+  MARKER_ID,
+  PLACE_FILTER_PARAM,
+  FEED_PARAM,
+} from "../../_components/HOME_CONST";
 import {
   getMaxHeightPx,
   getSnapHeights,
@@ -23,16 +29,28 @@ interface PointerHandlerEvent {
 const getTargetHeight = ({
   searchValue,
   markerId,
+  placeParam,
+  feedParam,
   contentHeights,
 }: {
   searchValue: string | null;
   markerId: string | null;
+  placeParam: string | null;
+  feedParam: string | null;
   contentHeights: DefaultSheetContentHeights | null;
 }) => {
   const max = getMaxHeightPx();
-  const points = getSnapHeights(max, { searchValue, contentHeights, markerId });
+  const points = getSnapHeights(max, {
+    searchValue,
+    contentHeights,
+    markerId,
+    placeParam,
+    feedParam,
+  });
 
   if (searchValue) return max;
+  if (placeParam) return points[1];
+  if (feedParam) return points[1];
   if (contentHeights && !markerId) return points[1];
   return points[2];
 };
@@ -45,7 +63,10 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
   const markerId = searchParams.get(MARKER_ID);
+  const placeParam = searchParams.get(PLACE_FILTER_PARAM);
+  const feedParam = searchParams.get(FEED_PARAM);
   const markerSheetSnapSignal = useMainKakaoMapStore((s) => s.markerSheetSnapSignal);
+  const placeSheetCollapseSignal = useMainKakaoMapStore((s) => s.placeSheetCollapseSignal);
   const height = useMotionValue(INITIAL_HEIGHT_PX);
 
   useMotionValueEvent(height, "change", (latest: number) => {
@@ -56,21 +77,35 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
 
   useEffect(() => {
     const max = getMaxHeightPx();
-    const points = getSnapHeights(max, { searchValue, contentHeights, markerId });
+    const points = getSnapHeights(max, {
+      searchValue,
+      contentHeights,
+      markerId,
+      placeParam,
+      feedParam,
+    });
     setSnapHeights(points);
-    height.set(getTargetHeight({ searchValue, markerId, contentHeights }));
+    height.set(getTargetHeight({ searchValue, markerId, placeParam, feedParam, contentHeights }));
     setIsInitialized(true);
-  }, [searchValue, markerId, contentHeights, markerSheetSnapSignal]);
+  }, [searchValue, markerId, placeParam, feedParam, contentHeights, markerSheetSnapSignal]);
+
+  // 장소 필터 시트의 "지도" 버튼: 시트를 최소 높이로 접는다.
+  useEffect(() => {
+    if (placeSheetCollapseSignal === 0) return;
+    animate(height, MIN_HEIGHT_PX, { type: "spring", stiffness: 300, damping: 35 });
+  }, [placeSheetCollapseSignal, height]);
 
   useEffect(() => {
     const onResize = () => {
       const max = getMaxHeightPx();
-      setSnapHeights(getSnapHeights(max, { searchValue, contentHeights, markerId }));
+      setSnapHeights(
+        getSnapHeights(max, { searchValue, contentHeights, markerId, placeParam, feedParam })
+      );
       height.set(Math.min(height.get(), max));
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [height, searchValue, markerId, contentHeights]);
+  }, [height, searchValue, markerId, placeParam, feedParam, contentHeights]);
 
   const snapToClosestHeight = (currentHeight: number) => {
     if (!snapHeights.length) return;

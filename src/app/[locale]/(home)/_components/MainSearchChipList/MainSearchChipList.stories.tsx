@@ -5,6 +5,12 @@ const meta: Meta<typeof MainSearchChipList> = {
   title: "페이지/메인 페이지/MainSearchChipList",
   component: MainSearchChipList,
   tags: ["autodocs"],
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: { pathname: "/", searchParams: {} },
+    },
+  },
   decorators: [
     (Story) => (
       <div className="w-full max-w-[430px] bg-flatGray-50 px-5 py-4">
@@ -19,8 +25,10 @@ type Story = StoryObj<typeof MainSearchChipList>;
 
 export const Default: Story = {};
 
-export const Selected: Story = {
-  args: {
-    defaultSelectedType: "lost",
+export const PopupSelected: Story = {
+  parameters: {
+    nextjs: {
+      navigation: { pathname: "/", searchParams: { place: "popup" } },
+    },
   },
 };

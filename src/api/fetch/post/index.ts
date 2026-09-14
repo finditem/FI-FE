@@ -8,6 +8,7 @@ export * from "./types/MypagePostListType";
 export * from "./types/SimilarType";
 export * from "./types/TempPostType";
 export * from "./types/PutPostStatusType";
+export * from "./types/PostTranslationType";
 
 export { useGetPosts } from "./api/useGetPosts";
 export { useGetMetaData } from "./api/useGetMetaData";
@@ -22,3 +23,4 @@ export { useGetTempPost } from "./api/useGetTempPost";
 export { usePostTempPost } from "./api/usePostTempPost";
 export { usePutPostStatus } from "./api/usePutPostStatus";
 export { usePutPost } from "./api/usePutPost";
+export { useGetPostTranslation } from "./api/useGetPostTranslation";
