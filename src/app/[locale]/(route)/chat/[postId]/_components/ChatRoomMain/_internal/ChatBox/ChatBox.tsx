@@ -56,7 +56,7 @@ const ChatBox = ({
             <span
               className={cn(
                 "size-6 rounded-[10px] flex-center",
-                isTranslated ? "bg-fill-brand-strong-disabled" : "bg-fill-neutral-normal-disabled"
+                isTranslated ? "bg-fill-brand-strong-disabled" : "bg-layout_3depth"
               )}
             >
               {isTranslating ? (
