@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { cn } from "@/utils";
+import useGetChatTranslationUsage from "@/api/fetch/chatMessage/api/useGetChatTranslationUsage";
 import useTranslationLimitToast from "../../../../_hooks/useTranslationLimitToast/useTranslationLimitToast";
 import getTranslationResetHours from "../../../../_utils/getTranslationResetHours/getTranslationResetHours";
 
@@ -18,11 +19,12 @@ const TOAST_Z_INDEX = "z-[10000]";
  *
  * @remarks
  * - `useTranslationLimitToast` 스토어의 `isOpen`을 구독해 표시되며 3초 후 자동으로 닫힙니다.
- * - 남은 시간은 `getTranslationResetHours`로 계산한 임시 값이며, 백엔드 이용 이력 연동 시 교체합니다.
+ * - 남은 시간은 서버 사용량의 `nextAvailableAt`을 기준으로 계산하며, 없으면 로컬 자정으로 폴백합니다.
  */
 const TranslationLimitToast = () => {
   const t = useTranslations("TranslationLimitToast");
   const { isOpen, nonce, close } = useTranslationLimitToast();
+  const { data: usage } = useGetChatTranslationUsage();
   const [resetHours, setResetHours] = useState(0);
 
   const [mounted, setMounted] = useState(false);
@@ -30,15 +32,20 @@ const TranslationLimitToast = () => {
 
   useEffect(() => {
     if (!isOpen) return;
-    setResetHours(getTranslationResetHours());
+    setResetHours(getTranslationResetHours(usage?.nextAvailableAt));
     const timer = setTimeout(close, TOAST_DURATION_MS);
     return () => clearTimeout(timer);
-  }, [isOpen, nonce, close]);
+  }, [isOpen, nonce, close, usage?.nextAvailableAt]);
 
   if (!mounted) return null;
 
   return createPortal(
-    <div className={cn("pointer-events-none fixed inset-x-0 bottom-6 flex w-full justify-center px-4", TOAST_Z_INDEX)}>
+    <div
+      className={cn(
+        "pointer-events-none fixed inset-x-0 bottom-6 flex w-full justify-center px-4",
+        TOAST_Z_INDEX
+      )}
+    >
       <AnimatePresence>
         {isOpen && (
           <motion.div

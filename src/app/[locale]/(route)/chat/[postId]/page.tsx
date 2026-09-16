@@ -24,6 +24,9 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
 
   const { roomId, chatRoomData, userInfo, postMode, unreadCount, withdrawn } =
     useChatRoomData(postId);
+  // 채팅방 입장(마운트)마다 새로 발급하는 방문 식별자. 재진입 시 리마운트되어 새 값이 생성되며,
+  // 서버는 이 값으로 재진입 후의 재번역을 신규 요청으로 구분합니다.
+  const [roomVisitId] = useState(() => crypto.randomUUID());
   const userId = Number(userInfo?.result?.userId);
   const currentUserId = userId != null ? userId : undefined;
   const [scrollToBottomSignal, setScrollToBottomSignal] = useState(0);
@@ -94,6 +97,8 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
             isFetchingNextPage={isFetchingNextPage}
             opponentNickname={chatRoomData?.opponentUser.nickname}
             scrollToBottomSignal={scrollToBottomSignal}
+            roomId={roomId}
+            roomVisitId={roomVisitId}
           />
         ) : (
           <EmptyChatRoom postMode={postMode} />
