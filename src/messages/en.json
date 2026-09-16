@@ -1055,11 +1055,18 @@
   "ChatBox": {
     "translateAriaLabel": "Translate",
     "showOriginalAriaLabel": "Show original",
-    "translatedPrefix": "[Translated]"
+    "translateError": "Translation failed. Please try again."
   },
   "ExpandableMessageBubble": {
     "hideLabel": "Hide",
     "showMoreLabel": "Show more"
+  },
+  "TranslationUsageBadge": {
+    "usageLabel": "{usedCount}/{limit} translations used today"
+  },
+  "TranslationLimitToast": {
+    "title": "You've used all your translations for today.",
+    "description": "You can translate again in {hours, plural, one {# hour} other {# hours}}. Translated messages remain visible."
   },
   "EmptyChatRoom": {
     "pageHeading": "Empty chat screen",

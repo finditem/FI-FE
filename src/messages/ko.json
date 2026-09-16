@@ -1055,11 +1055,18 @@
   "ChatBox": {
     "translateAriaLabel": "번역",
     "showOriginalAriaLabel": "원문 보기",
-    "translatedPrefix": "[번역됨]"
+    "translateError": "번역에 실패했어요. 다시 시도해주세요"
   },
   "ExpandableMessageBubble": {
     "hideLabel": "숨기기",
     "showMoreLabel": "더보기"
+  },
+  "TranslationUsageBadge": {
+    "usageLabel": "오늘 번역 {usedCount}/{limit} 사용"
+  },
+  "TranslationLimitToast": {
+    "title": "오늘 번역 횟수를 다 썼어요.",
+    "description": "{hours}시간 후 다시 사용할 수 있어요. 번역한 메시지는 계속 볼 수 있어요."
   },
   "EmptyChatRoom": {
     "pageHeading": "빈 채팅 안내 화면",

@@ -101,5 +101,6 @@
   "PlaceClock": "place-clock",
   "PlaceHeart": "place-heart",
   "PlaceHeartActive": "place-heart-active",
-  "MessageTranslate": "message-translate"
+  "MessageTranslate": "message-translate",
+  "MessageTranslateActive": "message-translate-active"
 }

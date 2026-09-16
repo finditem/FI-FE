@@ -54,6 +54,8 @@ jest.mock("./_internal", () => ({
   ChatDateDivider: ({ createdAt }: { createdAt: string }) => (
     <div data-testid="chat-date-divider">{createdAt}</div>
   ),
+  TranslationUsageBadge: () => <div data-testid="translation-usage-badge" />,
+  TranslationLimitToast: () => <div data-testid="translation-limit-toast" />,
 }));
 
 const noop = () => {};

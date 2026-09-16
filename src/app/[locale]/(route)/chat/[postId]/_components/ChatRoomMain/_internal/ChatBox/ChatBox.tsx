@@ -38,8 +38,19 @@ const ChatBox = ({ chat, nextSender, lastChat, opponentNickname }: ChatBoxProps)
             onClick={toggleTranslate}
             className="flex h-9 w-full items-end justify-center disabled:opacity-50"
           >
-            <span className="size-6 rounded-[10px] bg-[#e4e4e4] flex-center">
-              <Icon name="MessageTranslate" size={14} />
+            <span
+              className={cn(
+                "size-6 rounded-[10px] flex-center",
+                isTranslated ? "bg-fill-brand-strong-disabled" : "bg-layout_3depth"
+              )}
+            >
+              {isTranslating ? (
+                <Icon name="Loading" className="animate-spin" size={14} />
+              ) : isTranslated ? (
+                <Icon name="MessageTranslateActive" size={14} />
+              ) : (
+                <Icon name="MessageTranslate" size={14} />
+              )}
             </span>
           </button>
         )}
@@ -52,6 +63,7 @@ const ChatBox = ({ chat, nextSender, lastChat, opponentNickname }: ChatBoxProps)
           content={displayContent}
           bubbleColor={style.bubbleColor}
           bubbleOrder={style.bubbleOrder}
+          isTranslating={isTranslating}
         />
       )}
       {messageType === "IMAGE" && (
