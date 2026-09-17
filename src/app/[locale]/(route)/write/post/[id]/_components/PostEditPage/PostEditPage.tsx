@@ -8,6 +8,7 @@ import { DetailHeader, WriteImageSection, WriteActionSection } from "@/component
 import { PostWriteFormValues } from "../../../_types/PostWriteType";
 import usePostEditSubmit from "../../../_hooks/usePostEditSubmit/usePostEditSubmit";
 import usePostEditInit from "../../../_hooks/usePostEditInit/usePostEditInit";
+import usePostEditRateLimit from "../../_hooks/usePostEditRateLimit/usePostEditRateLimit";
 import {
   CategorySection,
   ContentSection,
@@ -30,8 +31,16 @@ const PostEditPage = ({ postId }: PostEditPageProps) => {
 
   usePostEditInit({ data: data?.result ?? null, methods });
 
-  const { onSubmit, isPosting, canSubmit } = usePostEditSubmit({ postId, methods });
-  const isSubmitDisabled = !canSubmit(values) || isPosting;
+  const { isRateLimited, submitLabel, activateLimit } = usePostEditRateLimit(
+    postId,
+    data?.result?.editRestriction
+  );
+  const { onSubmit, isPosting, canSubmit } = usePostEditSubmit({
+    postId,
+    methods,
+    onEditLimitExceeded: activateLimit,
+  });
+  const isSubmitDisabled = !canSubmit(values) || isPosting || isRateLimited;
 
   const title = data?.result?.postType === "LOST" ? t("lostTitle") : t("foundTitle");
 
@@ -55,7 +64,11 @@ const PostEditPage = ({ postId }: PostEditPageProps) => {
           <LocationSection />
         </div>
 
-        <WriteActionSection disabled={isSubmitDisabled} />
+        <WriteActionSection
+          disabled={isSubmitDisabled}
+          label={submitLabel}
+          isRateLimited={isRateLimited}
+        />
       </form>
     </>
   );
