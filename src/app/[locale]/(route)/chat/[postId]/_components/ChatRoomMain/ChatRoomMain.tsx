@@ -1,6 +1,11 @@
 "use client";
 
-import { ChatBox, ChatDateDivider } from "./_internal";
+import {
+  ChatBox,
+  ChatDateDivider,
+  TranslationLimitToast,
+  TranslationUsageBadge,
+} from "./_internal";
 import { useRef } from "react";
 import { cn } from "@/utils";
 import { useGetUsersMe } from "@/api/fetch/user";
@@ -18,6 +23,8 @@ interface ChatRoomMainProps {
   isFetchingNextPage: boolean;
   opponentNickname?: string;
   scrollToBottomSignal: number;
+  roomId: number;
+  roomVisitId: string;
 }
 
 const ChatRoomMain = ({
@@ -27,6 +34,8 @@ const ChatRoomMain = ({
   isFetchingNextPage,
   opponentNickname,
   scrollToBottomSignal,
+  roomId,
+  roomVisitId,
 }: ChatRoomMainProps) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollHeightRef = useRef<number>(0);
@@ -68,9 +77,13 @@ const ChatRoomMain = ({
             nextSender={nextSender}
             lastChat={lastChat}
             opponentNickname={opponentNickname}
+            roomId={roomId}
+            roomVisitId={roomVisitId}
           />
         </div>
       ))}
+      <TranslationUsageBadge />
+      <TranslationLimitToast />
     </div>
   );
 };
