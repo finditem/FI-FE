@@ -54,6 +54,8 @@ jest.mock("./_internal", () => ({
   ChatDateDivider: ({ createdAt }: { createdAt: string }) => (
     <div data-testid="chat-date-divider">{createdAt}</div>
   ),
+  TranslationUsageBadge: () => <div data-testid="translation-usage-badge" />,
+  TranslationLimitToast: () => <div data-testid="translation-limit-toast" />,
 }));
 
 const noop = () => {};
@@ -70,6 +72,8 @@ const renderWithMessages = (
       hasNextPage={hasNextPage}
       isFetchingNextPage={isFetchingNextPage}
       scrollToBottomSignal={0}
+      roomId={1}
+      roomVisitId="test-room-visit-id"
     />
   );
 };

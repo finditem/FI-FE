@@ -8,12 +8,14 @@ interface ExpandableMessageBubbleProps {
   content: string;
   bubbleColor: string;
   bubbleOrder: string;
+  isTranslating?: boolean;
 }
 
 const ExpandableMessageBubble = ({
   content,
   bubbleColor,
   bubbleOrder,
+  isTranslating,
 }: ExpandableMessageBubbleProps) => {
   const t = useTranslations("ExpandableMessageBubble");
   const [isExpanded, setIsExpanded] = useState(false);
@@ -40,7 +42,8 @@ const ExpandableMessageBubble = ({
         className={cn(
           "max-w-[272px] whitespace-pre-wrap break-words rounded-[24px] px-4 py-3",
           bubbleColor,
-          !isExpanded && isOverflowing && "overflow-hidden"
+          !isExpanded && isOverflowing && "overflow-hidden",
+          isTranslating && "select-none blur-sm"
         )}
         style={
           !isExpanded && isOverflowing

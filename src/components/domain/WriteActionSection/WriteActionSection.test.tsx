@@ -47,4 +47,26 @@ describe("WriteActionSection", () => {
     const props = ButtonMock.mock.calls[0][0];
     expect(props.disabled).toBe(true);
   });
+
+  it("label을 전달하면 기본 텍스트 대신 label이 표시되어야 합니다", () => {
+    render(<WriteActionSection disabled={true} label="180초 후 다시 시도" />);
+
+    expect(screen.getByRole("button", { name: "180초 후 다시 시도" })).toBeInTheDocument();
+    expect(screen.queryByText("작성 완료")).not.toBeInTheDocument();
+  });
+
+  it("isRateLimited가 true이면 버튼에 회색 disabled 톤 클래스가 추가되어야 합니다", () => {
+    render(<WriteActionSection disabled={true} isRateLimited={true} />);
+
+    const button = screen.getByTestId("submit-button");
+    expect(button.className).toContain("disabled:!bg-fill-neutralInversed-normal-disabled");
+    expect(button.className).toContain("disabled:!text-neutralInversed-strong-disabled");
+  });
+
+  it("isRateLimited가 없으면 회색 disabled 톤 클래스가 추가되지 않아야 합니다", () => {
+    render(<WriteActionSection disabled={true} />);
+
+    const button = screen.getByTestId("submit-button");
+    expect(button.className).not.toContain("neutralInversed");
+  });
 });
