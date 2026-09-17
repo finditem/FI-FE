@@ -1888,7 +1888,11 @@
   },
   "usePutPost": {
     "updateSuccess": "Post updated.",
-    "updateError": "Couldn't update the post."
+    "updateError": "Couldn't update the post.",
+    "limitExceededToast": "You've exceeded the edit limit ({count} times) within a minute."
+  },
+  "usePostEditRateLimit": {
+    "submitCountdown": "Retry in {seconds}s"
   },
   "usePutPostStatus": {
     "changeToSearchingSuccess": "Marked as searching.",

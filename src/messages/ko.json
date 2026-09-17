@@ -1888,7 +1888,11 @@
   },
   "usePutPost": {
     "updateSuccess": "게시글이 수정되었어요",
-    "updateError": "게시글 수정에 실패했어요"
+    "updateError": "게시글 수정에 실패했어요",
+    "limitExceededToast": "1분 내 수정 가능 횟수({count}회)를 초과했어요."
+  },
+  "usePostEditRateLimit": {
+    "submitCountdown": "{seconds}초 후 다시 시도"
   },
   "usePutPostStatus": {
     "changeToSearchingSuccess": "게시글을 찾아요 상태로 변경했어요",
