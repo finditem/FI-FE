@@ -38,3 +38,4 @@ export { syncWebPushSubscription } from "./webPush/syncWebPushSubscription/syncW
 export { unsubscribeWebPushFromServer } from "./webPush/unsubscribeWebPushFromServer/unsubscribeWebPushFromServer";
 export { trackingEvent } from "./trackingEvent/trackingEvent";
 export { buildErrorMap } from "./buildErrorMap/buildErrorMap";
+export { getAdminUrl } from "./getAdminUrl/getAdminUrl";
