@@ -1,5 +1,6 @@
-import { renderHook, waitFor } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import { useSearchParams } from "next/navigation";
+import { MARKER_ID } from "../../_components/HOME_CONST";
 import * as heightUtils from "../../_utils/heightUtils";
 import useBottomSheetHeight from "./useBottomSheetHeight";
 
@@ -118,5 +119,70 @@ describe("useBottomSheetHeight", () => {
     });
 
     expect(result.current.isFullyExpanded).toBe(false);
+  });
+
+  describe("콘텐츠 높이 재측정", () => {
+    const CONTENT_HEIGHTS: heightUtils.DefaultSheetContentHeights = {
+      upToLostFindActions: 200,
+      upToRecentFoundItemSection: 400,
+      upToPoliceSection: 600,
+      totalContentHeight: 1200,
+    };
+
+    const renderWithContentHeights = () =>
+      renderHook(
+        ({ contentHeights }: { contentHeights: heightUtils.DefaultSheetContentHeights }) =>
+          useBottomSheetHeight(contentHeights),
+        { initialProps: { contentHeights: { ...CONTENT_HEIGHTS } } }
+      );
+
+    it("확장 상태에서 contentHeights가 재측정돼도 높이를 유지한다", async () => {
+      const { result, rerender } = renderWithContentHeights();
+
+      await waitFor(() => {
+        expect(result.current.isInitialized).toBe(true);
+      });
+
+      act(() => {
+        result.current.height.set(800);
+      });
+
+      rerender({ contentHeights: { ...CONTENT_HEIGHTS, totalContentHeight: 1600 } });
+
+      expect(result.current.height.get()).toBe(800);
+    });
+
+    it("확장 상태에서 값이 같은 새 contentHeights가 들어와도 높이를 유지한다", async () => {
+      const { result, rerender } = renderWithContentHeights();
+
+      await waitFor(() => {
+        expect(result.current.isInitialized).toBe(true);
+      });
+
+      act(() => {
+        result.current.height.set(800);
+      });
+
+      rerender({ contentHeights: { ...CONTENT_HEIGHTS } });
+
+      expect(result.current.height.get()).toBe(800);
+    });
+
+    it("시트 모드가 바뀌면 높이를 다시 맞춘다", async () => {
+      const { result, rerender } = renderWithContentHeights();
+
+      await waitFor(() => {
+        expect(result.current.isInitialized).toBe(true);
+      });
+
+      act(() => {
+        result.current.height.set(800);
+      });
+      mockUseSearchParams.mockReturnValue(new URLSearchParams(`${MARKER_ID}=1`));
+
+      rerender({ contentHeights: { ...CONTENT_HEIGHTS } });
+
+      expect(result.current.height.get()).toBe(700);
+    });
   });
 });

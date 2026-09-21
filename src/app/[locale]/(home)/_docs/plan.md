@@ -120,6 +120,28 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
       (`/main/posts/search-location`)으로 교체했다. 검색 시트(`PostSheetContent`)가 쓰던 훅과 같아
       새로 만들 API 코드가 없었다. 이로써 `(home)` 라우트의 목업은 모두 사라졌다
 
+### 바텀시트 높이 강제 축소 버그
+
+시트를 끝까지 확장한 상태에서 "찾는 동안 동네 구경하실래요?" 섹션의 필터나 "더 보기"를 누르면 시트
+높이가 스냅 포인트로 강제 축소된다. 로컬과 release(`release.finditem.kr`) 양쪽에서 재현 확인했다
+(727px -> 301px). 트리거는 버튼 클릭 자체가 아니라 시트 콘텐츠 높이 변화다. 결과 개수와 카드 높이가
+같아 콘텐츠 높이가 그대로면 축소되지 않는다.
+
+원인: `useBottomSheetHeight`의 effect 하나가 스냅 포인트 재계산과 높이 리셋을 함께 처리하는데,
+deps에 `contentHeights`가 들어 있다. 이 값은 `useSectionHeights`의 ResizeObserver가 측정할 때마다
+새 객체로 전달되므로, 콘텐츠 높이가 변하는 모든 순간에 사용자가 끌어 올린 높이가 덮어써진다.
+
+- [x] `useBottomSheetHeight`의 effect를 스냅 포인트 재계산과 높이 리셋으로 분리하고, 높이 리셋
+      effect의 deps를 `contentHeights` 대신 `isContentMeasured`(최초 측정 여부)로 교체
+- [x] 같은 파일의 effect 4개를 기명 함수 표현식으로 전환하고, 이름이 대신하는 주석은 제거
+      (`useEffect(function recalculateSnapHeights() {...})` 형태. 이번 수정으로 건드리는 파일에만
+      적용하고 저장소 전체 전환은 별건으로 둔다)
+- [x] `useBottomSheetHeight.test.tsx`에 회귀 테스트 추가 — 확장 상태에서 `contentHeights`가
+      재측정돼도 높이를 유지하는지, 쿼리 파라미터(모드)가 바뀌면 리셋되는지
+- [x] `npm run test`(260 suites, 1477 tests), `npm run build` 통과 확인
+- [x] 브라우저에서 필터/더 보기 클릭으로 재확인 완료. 참고: `npm run build`는 실행 중인
+      `npm run dev`와 `.next` 디렉토리를 공유하므로, 개발 서버가 떠 있는 동안에는 돌리지 않는다
+
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
 출처: Confluence "성수 콘텐츠 API 스펙"(finditem.atlassian.net, `pages/145784836`). **경로/구조는 Swagger가
