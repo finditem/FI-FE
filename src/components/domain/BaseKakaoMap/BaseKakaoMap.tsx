@@ -23,10 +23,7 @@ import { cn } from "@/utils";
 
 type LatLng = { lat: number; lng: number };
 
-/**
- * 사용자 위치 마커 SVG(48x48 viewBox)의 기준값입니다. 점 중심이 정중앙이 아니라
- * `(23.625, 16.625)`에 있고, 화살표는 북서쪽 311.6도를 향해 그려져 있습니다.
- */
+/** 사용자 위치 마커 SVG(48x48 viewBox)의 기준값입니다. */
 const USER_LOCATION_MARKER = {
   src: "/kakao-map/user-location.svg",
   size: 48,
