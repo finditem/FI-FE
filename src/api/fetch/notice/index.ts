@@ -7,3 +7,4 @@ export { useGetNoticeDetail } from "./api/useGetNoticeDetail";
 export { useGetNoticeMetaData } from "./api/useGetNoticeMetaData";
 export { usePostNoticeLike } from "./api/usePostNoticeLike";
 export { useDeleteNoticeLike } from "./api/useDeleteNoticeLike";
+export { useDeleteNotice } from "./api/useDeleteNotice";

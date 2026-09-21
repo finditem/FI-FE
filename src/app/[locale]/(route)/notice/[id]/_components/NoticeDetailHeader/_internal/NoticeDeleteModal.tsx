@@ -1,4 +1,4 @@
-import { useDeleteNotice } from "@/api/fetch/admin";
+import { useDeleteNotice } from "@/api/fetch/notice";
 import { Button, ModalLayout } from "@/components";
 import { useTranslations } from "next-intl";
 
