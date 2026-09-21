@@ -44,9 +44,33 @@
 
 ### 지도 장소 필터 기능
 
-- [ ] **사용자 위치 마커**: 지도에 현재 사용자 위치를 나타내는 마커 표시. GPS 좌표는
-      `useMainKakaoMapStore.userGpsLatLng`. `BaseKakaoMap`의 `showCenterMarker`는 지도 중심용이므로
-      사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
+- [ ] **사용자 위치 마커**: 권한이 허용된 사용자의 현재 위치를 지도에 표시하고, 이동하면 마커도
+      따라 움직인다. 화살표는 진행 방향(`coords.heading`)을 가리킨다. 성수 서비스 범위 밖 처리와
+      토스트는 이 작업에 넣지 않는다.
+      Figma: [Home_30 성수동 서비스 범위 밖](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15410-282808),
+      [Map_Pin_my](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15410-282912)
+  - [x] `public/kakao-map/user-location.svg` — 후광을 뺀 핀(링·점·화살표)만 담긴 48x48 에셋.
+        후광은 브랜드 그린 35% 원이라 SVG에 하드코딩하지 않고 CSS로 그린다. viewBox 48x48에서 점
+        중심이 `(23.625, 16.625)`로 정중앙이 아니므로 정렬 보정이 필요하다
+  - [x] `useMainKakaoMapStore`에 `setUserGpsLatLng` 추가 — 좌표만 쓰고 역지오코딩은 하지 않는다.
+        기존 `setUserGpsFromDevice`는 좌표를 쓸 때마다 주소를 다시 조회하는데, `watchPosition`으로
+        초 단위 갱신이 들어오면 그 호출이 계속 나간다
+  - [x] `_hooks/useWatchUserLocation` 신설 — 권한 허용 동안 `watchPosition` 구독, 첫 좌표는 주소까지
+        갱신하고 이후에는 좌표만 갱신, 10m 미만 이동은 무시, 언마운트 시 `clearWatch`.
+        `coords.heading`은 정지 상태에서 `null`이라 마지막 값을 유지한다
+  - [x] `BaseKakaoMap`에 `userLocation`·`userHeading` prop 추가 — CSS 후광 원 위에 핀 SVG를 얹고,
+        점 중심을 축으로 `heading - 311.6deg`만큼 회전시킨다 (화살표가 북서 311.6도로 그려져 있음)
+  - [x] `MainKakaoMap`에서 훅 호출 후 prop 전달
+  - [x] `MainSearchHeader`의 GPS 수집 `useEffect` 제거 — 새 훅이 대신한다
+  - [x] 테스트: 훅(권한 없으면 watch 안 검, 10m 미만 무시, 언마운트 정리), 스토어 새 액션,
+        `BaseKakaoMap` 렌더
+  - [x] 후광 펄스 애니메이션 — `globals.css`에 `user-location-pulse` 키프레임 추가. 고정 후광 위에
+        같은 원을 한 겹 더 얹어 1.6배까지 퍼지며 사라지게 한다. `prefers-reduced-motion: reduce`에서는
+        애니메이션을 끈다
+  - [x] 브라우저 확인 — 권한 허용 상태에서 지도에 마커 1개가 렌더되는 것과 후광·펄스를 확인했다.
+        화살표 회전은 heading 0/90/180을 주입한 하네스로 검증했다
+  - [ ] 실기기 확인 — 데스크톱은 `coords.heading`이 항상 `null`이라 실제 이동 중 회전과 10m 임계값은
+        모바일에서 확인해야 한다
 - [x] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
       카테고리 장소 마커만 지도에 표시. 칩 없으면 장소 마커 없음. 장소 칩 활성 동안 게시글 마커는
       숨김. 카드/바텀시트/반경 원/선택 상태는 별도 기능으로 분리.

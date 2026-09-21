@@ -42,28 +42,12 @@ const HeaderSearchForm = ({
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
   const userGpsAddress = useMainKakaoMapStore((s) => s.userGpsAddress);
-  const userGpsLatLng = useMainKakaoMapStore((s) => s.userGpsLatLng);
-  const setUserGpsFromDevice = useMainKakaoMapStore((s) => s.setUserGpsFromDevice);
   const geoGranted = useGeolocationPermissionGranted();
   const isResolvedGpsAddress =
     userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
   const locationPlaceholder =
     geoGranted && isResolvedGpsAddress ? userGpsAddress : t("placeholder");
 
-  useEffect(() => {
-    if (!geoGranted || userGpsLatLng) return;
-    if (typeof navigator === "undefined" || !navigator.geolocation) return;
-
-    navigator.geolocation.getCurrentPosition(
-      ({ coords }) => {
-        setUserGpsFromDevice({
-          lat: coords.latitude,
-          lng: coords.longitude,
-        });
-      },
-      () => {}
-    );
-  }, [geoGranted, userGpsLatLng, setUserGpsFromDevice]);
   const { register, handleSubmit, setValue } = useForm<LocationFormValues>({
     defaultValues: { search: searchValue ?? "" },
   });
