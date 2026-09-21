@@ -18,7 +18,6 @@ export const FOOTER_LINK = [
   {
     labelKey: "mypage",
     href: "/mypage",
-    adminHref: "/admin",
     icon: "UserProfileHome",
     requiresLogin: false,
   },

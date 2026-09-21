@@ -41,12 +41,6 @@ describe("useHiddenPath - Footer가 노출되어야 하는 페이지", () => {
     const { result } = renderHook(() => useHiddenPath());
     expect(result.current).toBe(false);
   });
-
-  it("관리자 메인('/admin')에서는 Footer가 보여야 하므로 false를 반환한다", () => {
-    mockPathname.mockReturnValue("/admin");
-    const { result } = renderHook(() => useHiddenPath());
-    expect(result.current).toBe(false);
-  });
 });
 
 describe("useHiddenPath - 나머지 모든 페이지에서는 Footer가 숨겨져야 한다", () => {
@@ -68,12 +62,6 @@ describe("useHiddenPath - 나머지 모든 페이지에서는 Footer가 숨겨�
 
   it("pathname이 undefined이면 빈 문자열로 처리되며 허용 목록에 없으므로 true를 반환한다", () => {
     mockPathname.mockReturnValue(undefined);
-    const { result } = renderHook(() => useHiddenPath());
-    expect(result.current).toBe(true);
-  });
-
-  it("관리자 하위 경로('/admin/users')에서는 Footer를 숨기므로 true를 반환한다", () => {
-    mockPathname.mockReturnValue("/admin/users");
     const { result } = renderHook(() => useHiddenPath());
     expect(result.current).toBe(true);
   });
