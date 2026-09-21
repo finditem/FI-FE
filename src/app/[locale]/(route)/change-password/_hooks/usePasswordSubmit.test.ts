@@ -93,7 +93,7 @@ describe("usePasswordSubmit", () => {
       await act(async () => {
         await result.current.handlePasswordChange({ preventDefault: jest.fn() } as any);
       });
-      expect(mockRouterPush).toHaveBeenCalledWith("https://admin.finditem.kr/admin");
+      expect(mockRouterPush).toHaveBeenCalledWith("https://a.finditem.kr/admin");
     });
 
     it("role이 USER이면 /mypage로 이동한다", async () => {

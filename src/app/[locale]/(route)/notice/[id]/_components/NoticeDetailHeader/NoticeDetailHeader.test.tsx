@@ -94,7 +94,7 @@ describe("NoticeDetailHeader ([id])", () => {
 
     await user.click(screen.getByRole("button", { name: "게시글 수정하기" }));
 
-    expect(mockPush).toHaveBeenCalledWith("https://admin.finditem.kr/admin/notice/write/42");
+    expect(mockPush).toHaveBeenCalledWith("https://a.finditem.kr/admin/notice/write/42");
   });
 
   it("관리자일 때 메뉴에서 삭제 클릭 시 삭제 모달을 엽니다", async () => {

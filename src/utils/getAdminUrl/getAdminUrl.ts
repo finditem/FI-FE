@@ -1,4 +1,4 @@
-const DEFAULT_ADMIN_URL = "https://admin.finditem.kr";
+const DEFAULT_ADMIN_URL = "https://a.finditem.kr";
 
 /**
  * 관리자 앱(finditem/admin)의 절대 URL을 만듭니다.
@@ -10,7 +10,7 @@ const DEFAULT_ADMIN_URL = "https://admin.finditem.kr";
  *
  * @example
  * ```ts
- * getAdminUrl("/admin/notice/write"); // "https://admin.finditem.kr/admin/notice/write"
+ * getAdminUrl("/admin/notice/write"); // "https://a.finditem.kr/admin/notice/write"
  * ```
  */
 
