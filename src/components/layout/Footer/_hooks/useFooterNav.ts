@@ -30,20 +30,11 @@ const useFooterNav = (hasToken: boolean) => {
 
   const { data: userData, isError } = useGetUsersMe(hasToken);
   const isLoggedIn = !!userData && !isError;
-  const isUserRole = userData?.result?.role ?? "USER";
 
   const { loginNoticeFor, setLoginNoticeFor } = useLoginNoticeTimer();
 
   const getActiveClassName = (href: FooterLinkHref) =>
     pathname === href ? "text-neutral-strong-focused" : undefined;
-
-  const getTargetHref = (link: FooterLinkItem): FooterLinkHref => {
-    const isMypage = link.href === "/mypage";
-    const canUseAdminHref =
-      isMypage && isUserRole === "ADMIN" && "adminHref" in link && !!link.adminHref;
-
-    return canUseAdminHref ? (link.adminHref as FooterLinkHref) : link.href;
-  };
 
   const handleItemClick = (e: MouseEvent<HTMLAnchorElement>, link: FooterLinkItem) => {
     if (!link.requiresLogin) return;
@@ -55,7 +46,7 @@ const useFooterNav = (hasToken: boolean) => {
   };
 
   const items: FooterNavItem[] = FOOTER_LINK.map((link) => {
-    const href = getTargetHref(link);
+    const { href } = link;
     const isLoginRequiredDisabled = link.requiresLogin && !isLoggedIn;
 
     return {

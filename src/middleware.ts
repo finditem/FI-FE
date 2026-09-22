@@ -1,11 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { jwtDecode } from "jwt-decode";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
-
-interface JwtPayload {
-  role?: string;
-}
+import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
@@ -35,6 +31,11 @@ export function middleware(request: NextRequest) {
 
   const { locale, pathname: currentPath } = stripLocalePrefix(request.nextUrl.pathname);
 
+  // 관리자 화면은 별도 앱으로 분리되었으므로 예전 주소로 들어오면 관리자 앱으로 보낸다.
+  if (currentPath === "/admin" || currentPath.startsWith("/admin/")) {
+    return NextResponse.redirect(getAdminUrl(currentPath + request.nextUrl.search));
+  }
+
   const buildRedirectUrl = (targetPath: string) =>
     new URL(withLocalePrefix(locale, targetPath), request.url);
 
@@ -45,10 +46,7 @@ export function middleware(request: NextRequest) {
     currentPath.startsWith("/write") ||
     currentPath.startsWith("/chat") ||
     currentPath.startsWith("/change-password") ||
-    currentPath.startsWith("/alert") ||
-    currentPath.startsWith("/admin");
-
-  const isAdminPath = currentPath.startsWith("/admin");
+    currentPath.startsWith("/alert");
 
   const isSessionExpired = request.nextUrl.searchParams.get("reason") === "session-expired";
 
@@ -71,23 +69,6 @@ export function middleware(request: NextRequest) {
     loginUrl.searchParams.set("callbackUrl", currentPath + request.nextUrl.search);
 
     return NextResponse.redirect(loginUrl);
-  }
-
-  // 관리자 페이지 접근하려고 할 때
-  if (isAdminPath) {
-    if (!accessToken) {
-      return NextResponse.redirect(buildRedirectUrl("/login"));
-    }
-
-    try {
-      const payload = jwtDecode<JwtPayload>(accessToken);
-
-      if (payload.role !== "ADMIN") {
-        return NextResponse.redirect(buildRedirectUrl("/"));
-      }
-    } catch {
-      return NextResponse.redirect(buildRedirectUrl("/login"));
-    }
   }
 
   return intlResponse;
