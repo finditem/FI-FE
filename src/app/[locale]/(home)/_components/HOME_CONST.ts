@@ -45,7 +45,7 @@ export const WRITE_BUTTONS = [
     type: "lost",
     href: "/write/post?type=lost",
     icon: "/main/LostFindActions/lost-position.svg",
-    style: "text-[#5B3322] bg-fill-accent-lostItem2",
+    style: "text-[#5B3322] bg-[#ffefad]",
   },
   {
     type: "found",
