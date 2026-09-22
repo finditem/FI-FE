@@ -31,8 +31,8 @@ interface FloatingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * // 게시글 작성 화면으로 이동
  * <FloatingButton ariaLabel="게시글 작성" mode="post" onClick={() => router.push("/write/post")} />
  *
- * // 공지 작성 화면으로 이동
- * <FloatingButton ariaLabel="공지 작성" mode="notice" onClick={() => router.push("/admin/notice/write")} />
+ * // 관리자 앱의 공지 작성 화면으로 이동
+ * <FloatingButton ariaLabel="공지 작성" mode="notice" onClick={() => router.push(getAdminUrl("/admin/notice/write"))} />
  * ```
  */
 

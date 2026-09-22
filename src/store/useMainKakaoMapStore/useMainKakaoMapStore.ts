@@ -14,6 +14,7 @@ const ADDRESS_REVALIDATE_DELAY_MS = 500;
  * - 지도 중심 `latLng`에 맞춰 주소를 바꿀 때는 `syncAddressFromLatLng`를 호출하고, 내부는 파일 상수(ms)만큼 `debounce` 후 `getAddressFromLatLng`를 1회 호출합니다.
  * - 디바운스 실행 직전 in-flight 요청은 `AbortController`로 끊습니다.
  * - GPS 전용 좌표는 `setUserGpsFromDevice` / `syncUserGpsAddress` 경로에서 `getAddressFromLatLng`의 `full` 변형을 씁니다.
+ * - 실시간 추적처럼 좌표만 잦게 바뀌는 경우에는 `setUserGpsLatLng`를 써서 주소 재조회를 건너뜁니다.
  * - `clearLatLng`는 지도 중심·주소·GPS·디바운스·`mapLevel`까지 기본값으로 되돌립니다.
  * - `levelResetSignal`, `markerSheetSnapSignal`은 구독 컴포넌트가 카운트 증가만 감지해 일회성 UI 반응에 씁니다.
  *
@@ -37,6 +38,8 @@ interface MainKakaoMapStore {
   userGpsAddress: string;
   /** GPS 좌표 저장 후 해당 주소 역지오코딩(디바운스·`full`) */
   setUserGpsFromDevice: (latLng: { lat: number; lng: number }) => void;
+  /** GPS 좌표만 갱신(주소 재조회 없음) */
+  setUserGpsLatLng: (latLng: { lat: number; lng: number }) => void;
   /** 저장된 GPS 좌표로 주소만 다시 조회 */
   syncUserGpsAddress: () => void;
   /** 중심·주소·GPS·줌·디바운스 초기화 */
@@ -125,6 +128,9 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         setUserGpsFromDevice: (latLng) => {
           set({ userGpsLatLng: latLng });
           resolveUserGpsAddressDebounced(latLng.lat, latLng.lng);
+        },
+        setUserGpsLatLng: (latLng) => {
+          set({ userGpsLatLng: latLng });
         },
         syncUserGpsAddress: () => {
           const g = get().userGpsLatLng;

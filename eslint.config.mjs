@@ -14,9 +14,6 @@ export default [
       "**/*.test.{ts,tsx}",
       "**/*.stories.{ts,tsx}",
       "src/mock/**",
-      // 관리자 페이지는 i18n 대상이 아닌 내부 전용 한국어 UI (useTranslations 미사용, robots noindex)
-      "src/app/\\[locale\\]/(admin)/**",
-      "src/api/fetch/admin/**",
     ],
     languageOptions: {
       parser: tsParser,

@@ -23,6 +23,20 @@ import { cn } from "@/utils";
 
 type LatLng = { lat: number; lng: number };
 
+/** 사용자 위치 마커 SVG(48x48 viewBox)의 기준값입니다. */
+const USER_LOCATION_MARKER = {
+  src: "/kakao-map/user-location.svg",
+  size: 48,
+  dotCenter: { x: 23.625, y: 16.625 },
+  arrowBearingDeg: 311.6,
+} as const;
+
+/** 마커의 점 중심이 오버레이 중앙(지도 좌표)에 오도록 맞추는 보정값 */
+const USER_LOCATION_MARKER_OFFSET = {
+  x: USER_LOCATION_MARKER.size / 2 - USER_LOCATION_MARKER.dotCenter.x,
+  y: USER_LOCATION_MARKER.size / 2 - USER_LOCATION_MARKER.dotCenter.y,
+};
+
 interface BaseKakaoMapProps {
   /** 지도의 중심 좌표 */
   center: LatLng;
@@ -46,6 +60,10 @@ interface BaseKakaoMapProps {
   onPlaceMarkerClick?: (placeId: number, position: { lat: number; lng: number }) => void;
   /** 선택되어 강조할 장소의 `placeId` */
   selectedPlaceId?: number | null;
+  /** 사용자의 현재 위치. 값이 있으면 그 좌표에 사용자 위치 마커를 표시합니다. */
+  userLocation?: LatLng | null;
+  /** 사용자의 진행 방향(북쪽 기준 시계방향 각도). 마커의 화살표가 이 방향을 가리킵니다. */
+  userHeading?: number | null;
   /** 원(Circle)의 반경 값. `showCircle`이 true일 때만 사용됩니다. */
   radius?: number;
   /** 중심 좌표 기준으로 반경 원(Circle)을 표시할지 여부 */
@@ -95,6 +113,8 @@ const BaseKakaoMap = ({
   placeMarkerData,
   onPlaceMarkerClick,
   selectedPlaceId,
+  userLocation,
+  userHeading,
 
   radius,
   showCircle = false,
@@ -188,6 +208,26 @@ const BaseKakaoMap = ({
             </button>
           </CustomOverlayMap>
         ))}
+
+        {userLocation && (
+          <CustomOverlayMap position={userLocation}>
+            <div className="relative h-12 w-12">
+              <div className="absolute inset-0 rounded-full bg-green-500/35" />
+              <div className="animate-user-location-pulse absolute inset-0 rounded-full bg-green-500/35" />
+              <Image
+                src={USER_LOCATION_MARKER.src}
+                alt=""
+                width={USER_LOCATION_MARKER.size}
+                height={USER_LOCATION_MARKER.size}
+                className="absolute left-0 top-0"
+                style={{
+                  transform: `translate(${USER_LOCATION_MARKER_OFFSET.x}px, ${USER_LOCATION_MARKER_OFFSET.y}px) rotate(${(userHeading ?? USER_LOCATION_MARKER.arrowBearingDeg) - USER_LOCATION_MARKER.arrowBearingDeg}deg)`,
+                  transformOrigin: `${USER_LOCATION_MARKER.dotCenter.x}px ${USER_LOCATION_MARKER.dotCenter.y}px`,
+                }}
+              />
+            </div>
+          </CustomOverlayMap>
+        )}
 
         {showCenterMarker && !markerData && (
           <MapMarker

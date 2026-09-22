@@ -8,6 +8,7 @@ import { useSearchUpdateQueryString } from "@/hooks";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";
+import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
 const NoticePageContent = () => {
   const t = useTranslations("NoticePage");
@@ -55,7 +56,7 @@ const Notice = () => {
           <FloatingButton
             ariaLabel={t("writeAriaLabel")}
             mode="notice"
-            onClick={() => router.push("/admin/notice/write")}
+            onClick={() => router.push(getAdminUrl("/admin/notice/write"))}
           />
         )}
       </div>

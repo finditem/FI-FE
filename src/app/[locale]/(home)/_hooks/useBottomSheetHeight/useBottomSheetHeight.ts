@@ -75,37 +75,53 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
     setIsFullyExpanded(latest >= thresholdPx - FULLY_EXPANDED_TOLERANCE_PX);
   });
 
-  useEffect(() => {
-    const max = getMaxHeightPx();
-    const points = getSnapHeights(max, {
-      searchValue,
-      contentHeights,
-      markerId,
-      placeParam,
-      feedParam,
-    });
-    setSnapHeights(points);
-    height.set(getTargetHeight({ searchValue, markerId, placeParam, feedParam, contentHeights }));
-    setIsInitialized(true);
-  }, [searchValue, markerId, placeParam, feedParam, contentHeights, markerSheetSnapSignal]);
+  const isContentMeasured = contentHeights !== null;
 
-  // 장소 필터 시트의 "지도" 버튼: 시트를 최소 높이로 접는다.
-  useEffect(() => {
-    if (placeSheetCollapseSignal === 0) return;
-    animate(height, MIN_HEIGHT_PX, { type: "spring", stiffness: 300, damping: 35 });
-  }, [placeSheetCollapseSignal, height]);
-
-  useEffect(() => {
-    const onResize = () => {
-      const max = getMaxHeightPx();
+  useEffect(
+    function recalculateSnapHeights() {
       setSnapHeights(
-        getSnapHeights(max, { searchValue, contentHeights, markerId, placeParam, feedParam })
+        getSnapHeights(getMaxHeightPx(), {
+          searchValue,
+          contentHeights,
+          markerId,
+          placeParam,
+          feedParam,
+        })
       );
-      height.set(Math.min(height.get(), max));
-    };
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [height, searchValue, markerId, placeParam, feedParam, contentHeights]);
+    },
+    [searchValue, markerId, placeParam, feedParam, contentHeights]
+  );
+
+  useEffect(
+    function resetHeightOnModeChange() {
+      height.set(getTargetHeight({ searchValue, markerId, placeParam, feedParam, contentHeights }));
+      setIsInitialized(true);
+    },
+    [searchValue, markerId, placeParam, feedParam, isContentMeasured, markerSheetSnapSignal]
+  );
+
+  useEffect(
+    function collapseSheetOnMapButtonSignal() {
+      if (placeSheetCollapseSignal === 0) return;
+      animate(height, MIN_HEIGHT_PX, { type: "spring", stiffness: 300, damping: 35 });
+    },
+    [placeSheetCollapseSignal, height]
+  );
+
+  useEffect(
+    function clampHeightOnResize() {
+      const onResize = () => {
+        const max = getMaxHeightPx();
+        setSnapHeights(
+          getSnapHeights(max, { searchValue, contentHeights, markerId, placeParam, feedParam })
+        );
+        height.set(Math.min(height.get(), max));
+      };
+      window.addEventListener("resize", onResize);
+      return () => window.removeEventListener("resize", onResize);
+    },
+    [height, searchValue, markerId, placeParam, feedParam, contentHeights]
+  );
 
   const snapToClosestHeight = (currentHeight: number) => {
     if (!snapHeights.length) return;
