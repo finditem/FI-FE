@@ -130,3 +130,29 @@
   -webkit-animation: skeleton-gradient 1.8s infinite ease-in-out;
   animation: skeleton-gradient 1.8s infinite ease-in-out;
 }
+
+/* 사용자 위치 마커 후광 */
+@keyframes user-location-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.animate-user-location-pulse {
+  animation: user-location-pulse 2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-user-location-pulse {
+    animation: none;
+  }
+}

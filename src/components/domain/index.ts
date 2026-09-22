@@ -12,7 +12,6 @@ export { default as BaseKakaoMap } from "./BaseKakaoMap/BaseKakaoMap";
 export { default as FilterSection } from "./FilterSectionBottomSheet/FilterSection/FilterSection";
 export { default as FilterBottomSheet } from "./FilterSectionBottomSheet/FilterBottomSheet/FilterBottomSheet";
 export { default as DateRangeBottomSheet } from "./DateRangeBottomSheet/DateRangeBottomSheet";
-export { default as ReadOnlyCommentItem } from "./ReadOnlyCommentItem/ReadOnlyCommentItem";
 export { default as ReportModal } from "./ReportModal/ReportModal";
 export { default as PostReportBlockActions } from "./PostReportBlockActions/PostReportBlockActions";
 export { default as WriteImageSection } from "./WriteImageSection/WriteImageSection";
@@ -27,7 +26,6 @@ export { default as AddToHomeScreenPWA } from "./AddToHomeScreenPWA/AddToHomeScr
 export { default as ContentShareModal } from "./ContentShareModal/ContentShareModal";
 export { default as TermsAgreement } from "./TermsAgreement/TermsAgreement";
 export { default as ImagePreviewList } from "./WriteImageSection/_internal/ImagePreviewList";
-export { AdminProfileChangeConfirmModal } from "./ProfileForm/_internal";
 export type { ReportReason } from "./ReportModal/_internal";
 export type {
   StatusFilterValue,

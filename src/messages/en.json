@@ -325,15 +325,6 @@
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
   },
-  "ReadOnlyCommentItem": {
-    "admin": "Admin"
-  },
-  "AdminProfileChangeConfirmModal": {
-    "title": "Change your profile?",
-    "description": "You're signed in with an admin account.\nDo you want to update the profile now?",
-    "cancel": "Cancel",
-    "confirm": "Change"
-  },
   "ProfileEditLeaveConfirmModal": {
     "title": "Your changes haven't been saved",
     "description": "Leave without saving?",
@@ -1055,11 +1046,18 @@
   "ChatBox": {
     "translateAriaLabel": "Translate",
     "showOriginalAriaLabel": "Show original",
-    "translatedPrefix": "[Translated]"
+    "translateError": "Translation failed. Please try again."
   },
   "ExpandableMessageBubble": {
     "hideLabel": "Hide",
     "showMoreLabel": "Show more"
+  },
+  "TranslationUsageBadge": {
+    "usageLabel": "{usedCount}/{limit} translations used today"
+  },
+  "TranslationLimitToast": {
+    "title": "You've used all your translations for today.",
+    "description": "You can translate again in {hours, plural, one {# hour} other {# hours}}. Translated messages remain visible."
   },
   "EmptyChatRoom": {
     "pageHeading": "Empty chat screen",
@@ -1818,9 +1816,6 @@
   "FloatingInquiryButton": {
     "label": "1:1 Inquiry"
   },
-  "usePostInquiryComments": {
-    "commentRegistered": "Your comment has been posted."
-  },
   "useApiSocialLogin": {
     "kakaoCodeInvalid": "Your Kakao authorization code is invalid or has already been used.",
     "kakaoUserInfoFailed": "Failed to retrieve your Kakao account information.",
@@ -1888,7 +1883,11 @@
   },
   "usePutPost": {
     "updateSuccess": "Post updated.",
-    "updateError": "Couldn't update the post."
+    "updateError": "Couldn't update the post.",
+    "limitExceededToast": "You've exceeded the edit limit ({count} times) within a minute."
+  },
+  "usePostEditRateLimit": {
+    "submitCountdown": "Retry in {seconds}s"
   },
   "usePutPostStatus": {
     "changeToSearchingSuccess": "Marked as searching.",

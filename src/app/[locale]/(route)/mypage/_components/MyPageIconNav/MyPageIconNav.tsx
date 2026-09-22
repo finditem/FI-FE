@@ -29,7 +29,7 @@ const MyPageIconNavItem = ({
           {pageName}
         </span>
       </Link>
-      {!isLast && <hr className="h-[46px] border border-divider-default_3" />}
+      {!isLast && <hr className="h-[46px] border border-flatGray-50" />}
     </>
   );
 };

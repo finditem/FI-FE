@@ -8,6 +8,7 @@ import { useState } from "react";
 import NoticeDeleteModal from "./_internal/NoticeDeleteModal";
 import { useGetNoticeDetail } from "@/api/fetch/notice";
 import { useTranslations } from "next-intl";
+import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
 const NoticeDetailHeader = ({ id }: { id: number }) => {
   const t = useTranslations("NoticePage.detail");
@@ -52,7 +53,7 @@ const NoticeDetailHeader = ({ id }: { id: number }) => {
                 text: t("edit"),
                 icon: { name: "Edit" },
                 onClick: () => {
-                  router.push(`/admin/notice/write/${id}`);
+                  router.push(getAdminUrl(`/admin/notice/write/${id}`));
                 },
               },
               {

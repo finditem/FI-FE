@@ -14,9 +14,10 @@ import { buildPostDateTime } from "../../_utils/buildPostDateTime/buildPostDateT
 interface UsePostEditSubmitProps {
   postId: number;
   methods: UseFormReturn<PostWriteFormValues>;
+  onEditLimitExceeded?: (unlockAt: string) => void;
 }
 
-const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
+const usePostEditSubmit = ({ postId, methods, onEditLimitExceeded }: UsePostEditSubmitProps) => {
   const { lat, lng, fullAddress, radius, postType, clearLocation } = useWriteStore();
 
   const getSubmitValues = (values: PostWriteFormValues) =>
@@ -41,7 +42,9 @@ const usePostEditSubmit = ({ postId, methods }: UsePostEditSubmitProps) => {
     return getSubmitValues(values).success;
   };
 
-  const { mutateAsync: putPost, isPending: isPosting } = usePutPost(postId);
+  const { mutateAsync: putPost, isPending: isPosting } = usePutPost(postId, {
+    onEditLimitExceeded,
+  });
 
   const toFormData = async (values: PostWriteSubmitValues): Promise<FormData> => {
     const firstImage = values.images[0];
