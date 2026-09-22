@@ -58,7 +58,7 @@ const MyPageMenuSection = ({
       </div>
 
       {index !== visibleMenuList.length - 1 && (
-        <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-divider-default_3" />
+        <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-flatGray-50" />
       )}
     </Fragment>
   ));
