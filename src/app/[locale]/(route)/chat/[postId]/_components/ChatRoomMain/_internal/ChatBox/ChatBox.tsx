@@ -42,7 +42,7 @@ const ChatBox = ({
 
   const style = CHAT_SENDER_STYLE[sender];
   return (
-    <div className={cn("flex items-end", style.container, marginBottom)}>
+    <div className={cn("flex items-end tablet:gap-2", style.container, marginBottom)}>
       <div className={cn("flex w-11 flex-col items-center gap-1", style.timeOrder)}>
         {messageType === "TEXT" && (
           <button
