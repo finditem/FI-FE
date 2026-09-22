@@ -84,6 +84,22 @@ describe("useMainKakaoMapStore", () => {
     expect(useMainKakaoMapStore.getState().userGpsAddress).toBe("도로명 전체");
   });
 
+  it("setUserGpsLatLng은 좌표만 갱신하고 주소는 조회하지 않습니다", async () => {
+    getAddressMock.mockResolvedValueOnce("도로명 전체");
+    useMainKakaoMapStore.getState().setUserGpsFromDevice({ lat: 5, lng: 6 });
+    jest.advanceTimersByTime(500);
+    await flushPromises();
+    getAddressMock.mockClear();
+
+    useMainKakaoMapStore.getState().setUserGpsLatLng({ lat: 9, lng: 10 });
+    jest.advanceTimersByTime(500);
+    await flushPromises();
+
+    expect(useMainKakaoMapStore.getState().userGpsLatLng).toEqual({ lat: 9, lng: 10 });
+    expect(useMainKakaoMapStore.getState().userGpsAddress).toBe("도로명 전체");
+    expect(getAddressMock).not.toHaveBeenCalled();
+  });
+
   it("syncUserGpsAddress는 저장된 GPS 좌표가 있을 때만 조회합니다", async () => {
     useMainKakaoMapStore.getState().clearLatLng();
     getAddressMock.mockClear();

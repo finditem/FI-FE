@@ -2,6 +2,7 @@
 
 import { BaseKakaoMap } from "@/components";
 import useMainKakaoMap from "../../_hooks/useMainKakaoMap/useMainKakaoMap";
+import useWatchUserLocation from "../../_hooks/useWatchUserLocation/useWatchUserLocation";
 import {
   useGetMarker,
   isMarkerFetchDisabledByZoom,
@@ -30,6 +31,7 @@ const MainKakaoMap = () => {
   const triggerLevelReset = useMainKakaoMapStore((s) => s.triggerLevelReset);
   const triggerMarkerSheetSnap = useMainKakaoMapStore((s) => s.triggerMarkerSheetSnap);
   const { mapCenter, mapLevel, setMapLevel, setLatLng } = useMainKakaoMap();
+  const { userLocation, heading } = useWatchUserLocation();
 
   const placeParam = searchParams.get(PLACE_FILTER_PARAM);
   const placeType: PlaceType | null =
@@ -91,6 +93,8 @@ const MainKakaoMap = () => {
       }
       placeMarkerData={isPlaceMode ? placeMarkers : undefined}
       selectedPlaceId={selectedPlaceId}
+      userLocation={userLocation}
+      userHeading={heading}
       onPlaceMarkerClick={handlePlaceMarkerClick}
       showCircle={!!selectedPlace}
       circleCenter={

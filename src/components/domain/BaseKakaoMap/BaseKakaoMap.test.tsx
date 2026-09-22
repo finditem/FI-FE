@@ -114,6 +114,30 @@ describe("<BaseKakaoMap />", () => {
     expect(screen.getAllByTestId("place-marker")).toHaveLength(2);
   });
 
+  it("userLocation이 있으면 사용자 위치 마커를 렌더링합니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const { container } = render(
+      <BaseKakaoMap center={center} userLocation={{ lat: 37.5, lng: 127.0 }} />
+    );
+    expect(container.querySelector('img[src*="user-location"]')).toBeInTheDocument();
+  });
+
+  it("userLocation이 없으면 사용자 위치 마커를 렌더링하지 않습니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const { container } = render(<BaseKakaoMap center={center} />);
+    expect(container.querySelector('img[src*="user-location"]')).not.toBeInTheDocument();
+  });
+
+  it("userHeading을 받으면 마커를 그 방향으로 회전시킵니다.", () => {
+    useKakaoLoader.mockReturnValue([false, null]);
+    const { container } = render(
+      <BaseKakaoMap center={center} userLocation={{ lat: 37.5, lng: 127.0 }} userHeading={0} />
+    );
+    expect(container.querySelector('img[src*="user-location"]')?.getAttribute("style")).toContain(
+      "rotate(-311.6deg)"
+    );
+  });
+
   it("children이 지도 위에 렌더링됩니다.", () => {
     useKakaoLoader.mockReturnValue([false, null]);
     render(
