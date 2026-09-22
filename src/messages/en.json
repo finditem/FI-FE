@@ -325,15 +325,6 @@
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
   },
-  "ReadOnlyCommentItem": {
-    "admin": "Admin"
-  },
-  "AdminProfileChangeConfirmModal": {
-    "title": "Change your profile?",
-    "description": "You're signed in with an admin account.\nDo you want to update the profile now?",
-    "cancel": "Cancel",
-    "confirm": "Change"
-  },
   "ProfileEditLeaveConfirmModal": {
     "title": "Your changes haven't been saved",
     "description": "Leave without saving?",
@@ -1824,9 +1815,6 @@
   },
   "FloatingInquiryButton": {
     "label": "1:1 Inquiry"
-  },
-  "usePostInquiryComments": {
-    "commentRegistered": "Your comment has been posted."
   },
   "useApiSocialLogin": {
     "kakaoCodeInvalid": "Your Kakao authorization code is invalid or has already been used.",

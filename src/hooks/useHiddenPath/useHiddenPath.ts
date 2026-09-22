@@ -8,7 +8,7 @@ import { usePathname } from "@/i18n/navigation";
  * @returns 허용 경로면 `false`(Footer 노출), 그 외면 `true`(Footer 숨김)
  *
  * @remarks
- * - 허용 경로(정확 일치): `/`, `/list`, `/chat`, `/alert`, `/mypage`, `/admin`
+ * - 허용 경로(정확 일치): `/`, `/list`, `/chat`, `/alert`, `/mypage`
  * - `usePathname()`이 `null`/`undefined`이면 `""`로 취급되어 허용 목록에 없다면 `true`입니다.
  * - Footer 노출 여부 제어에 사용합니다.
  *
@@ -26,7 +26,7 @@ import { usePathname } from "@/i18n/navigation";
  * ```
  */
 
-const visibleExactPaths = ["/", "/list", "/chat", "/alert", "/mypage", "/admin"];
+const visibleExactPaths = ["/", "/list", "/chat", "/alert", "/mypage"];
 
 export const useHiddenPath = () => {
   const pathname = usePathname() ?? "";

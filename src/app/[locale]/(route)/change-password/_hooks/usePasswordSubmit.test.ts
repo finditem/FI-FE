@@ -87,13 +87,13 @@ describe("usePasswordSubmit", () => {
       });
     });
 
-    it("role이 ADMIN이면 /admin으로 이동한다", async () => {
+    it("role이 ADMIN이면 관리자 앱으로 이동한다", async () => {
       mockUseGetUsersMe.mockReturnValue({ data: { result: { role: "ADMIN" } } });
       const { result } = renderHook(() => usePasswordSubmit());
       await act(async () => {
         await result.current.handlePasswordChange({ preventDefault: jest.fn() } as any);
       });
-      expect(mockRouterPush).toHaveBeenCalledWith("/admin");
+      expect(mockRouterPush).toHaveBeenCalledWith("https://a.finditem.kr/admin");
     });
 
     it("role이 USER이면 /mypage로 이동한다", async () => {

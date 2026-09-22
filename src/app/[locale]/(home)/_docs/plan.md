@@ -44,9 +44,33 @@
 
 ### 지도 장소 필터 기능
 
-- [ ] **사용자 위치 마커**: 지도에 현재 사용자 위치를 나타내는 마커 표시. GPS 좌표는
-      `useMainKakaoMapStore.userGpsLatLng`. `BaseKakaoMap`의 `showCenterMarker`는 지도 중심용이므로
-      사용자 위치 마커는 별도로 추가 필요. 디자인 TBD
+- [ ] **사용자 위치 마커**: 권한이 허용된 사용자의 현재 위치를 지도에 표시하고, 이동하면 마커도
+      따라 움직인다. 화살표는 진행 방향(`coords.heading`)을 가리킨다. 성수 서비스 범위 밖 처리와
+      토스트는 이 작업에 넣지 않는다.
+      Figma: [Home_30 성수동 서비스 범위 밖](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15410-282808),
+      [Map_Pin_my](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?node-id=15410-282912)
+  - [x] `public/kakao-map/user-location.svg` — 후광을 뺀 핀(링·점·화살표)만 담긴 48x48 에셋.
+        후광은 브랜드 그린 35% 원이라 SVG에 하드코딩하지 않고 CSS로 그린다. viewBox 48x48에서 점
+        중심이 `(23.625, 16.625)`로 정중앙이 아니므로 정렬 보정이 필요하다
+  - [x] `useMainKakaoMapStore`에 `setUserGpsLatLng` 추가 — 좌표만 쓰고 역지오코딩은 하지 않는다.
+        기존 `setUserGpsFromDevice`는 좌표를 쓸 때마다 주소를 다시 조회하는데, `watchPosition`으로
+        초 단위 갱신이 들어오면 그 호출이 계속 나간다
+  - [x] `_hooks/useWatchUserLocation` 신설 — 권한 허용 동안 `watchPosition` 구독, 첫 좌표는 주소까지
+        갱신하고 이후에는 좌표만 갱신, 10m 미만 이동은 무시, 언마운트 시 `clearWatch`.
+        `coords.heading`은 정지 상태에서 `null`이라 마지막 값을 유지한다
+  - [x] `BaseKakaoMap`에 `userLocation`·`userHeading` prop 추가 — CSS 후광 원 위에 핀 SVG를 얹고,
+        점 중심을 축으로 `heading - 311.6deg`만큼 회전시킨다 (화살표가 북서 311.6도로 그려져 있음)
+  - [x] `MainKakaoMap`에서 훅 호출 후 prop 전달
+  - [x] `MainSearchHeader`의 GPS 수집 `useEffect` 제거 — 새 훅이 대신한다
+  - [x] 테스트: 훅(권한 없으면 watch 안 검, 10m 미만 무시, 언마운트 정리), 스토어 새 액션,
+        `BaseKakaoMap` 렌더
+  - [x] 후광 펄스 애니메이션 — `globals.css`에 `user-location-pulse` 키프레임 추가. 고정 후광 위에
+        같은 원을 한 겹 더 얹어 1.6배까지 퍼지며 사라지게 한다. `prefers-reduced-motion: reduce`에서는
+        애니메이션을 끈다
+  - [x] 브라우저 확인 — 권한 허용 상태에서 지도에 마커 1개가 렌더되는 것과 후광·펄스를 확인했다.
+        화살표 회전은 heading 0/90/180을 주입한 하네스로 검증했다
+  - [ ] 실기기 확인 — 데스크톱은 `coords.heading`이 항상 `null`이라 실제 이동 중 회전과 10m 임계값은
+        모바일에서 확인해야 한다
 - [x] **장소 카테고리 마커 표시**: 헤더 칩(`MainSearchChipList`)의 팝업/카페/맛집 클릭 시 해당
       카테고리 장소 마커만 지도에 표시. 칩 없으면 장소 마커 없음. 장소 칩 활성 동안 게시글 마커는
       숨김. 카드/바텀시트/반경 원/선택 상태는 별도 기능으로 분리.
@@ -119,6 +143,28 @@ Figma: [동네 정보 탭](https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/?
 - [x] `usePostTypeFeed`(`homeFeedPosts.mock.ts`) 제거 — 피드 시트를 `useSearchLocation`
       (`/main/posts/search-location`)으로 교체했다. 검색 시트(`PostSheetContent`)가 쓰던 훅과 같아
       새로 만들 API 코드가 없었다. 이로써 `(home)` 라우트의 목업은 모두 사라졌다
+
+### 바텀시트 높이 강제 축소 버그
+
+시트를 끝까지 확장한 상태에서 "찾는 동안 동네 구경하실래요?" 섹션의 필터나 "더 보기"를 누르면 시트
+높이가 스냅 포인트로 강제 축소된다. 로컬과 release(`release.finditem.kr`) 양쪽에서 재현 확인했다
+(727px -> 301px). 트리거는 버튼 클릭 자체가 아니라 시트 콘텐츠 높이 변화다. 결과 개수와 카드 높이가
+같아 콘텐츠 높이가 그대로면 축소되지 않는다.
+
+원인: `useBottomSheetHeight`의 effect 하나가 스냅 포인트 재계산과 높이 리셋을 함께 처리하는데,
+deps에 `contentHeights`가 들어 있다. 이 값은 `useSectionHeights`의 ResizeObserver가 측정할 때마다
+새 객체로 전달되므로, 콘텐츠 높이가 변하는 모든 순간에 사용자가 끌어 올린 높이가 덮어써진다.
+
+- [x] `useBottomSheetHeight`의 effect를 스냅 포인트 재계산과 높이 리셋으로 분리하고, 높이 리셋
+      effect의 deps를 `contentHeights` 대신 `isContentMeasured`(최초 측정 여부)로 교체
+- [x] 같은 파일의 effect 4개를 기명 함수 표현식으로 전환하고, 이름이 대신하는 주석은 제거
+      (`useEffect(function recalculateSnapHeights() {...})` 형태. 이번 수정으로 건드리는 파일에만
+      적용하고 저장소 전체 전환은 별건으로 둔다)
+- [x] `useBottomSheetHeight.test.tsx`에 회귀 테스트 추가 — 확장 상태에서 `contentHeights`가
+      재측정돼도 높이를 유지하는지, 쿼리 파라미터(모드)가 바뀌면 리셋되는지
+- [x] `npm run test`(260 suites, 1477 tests), `npm run build` 통과 확인
+- [x] 브라우저에서 필터/더 보기 클릭으로 재확인 완료. 참고: `npm run build`는 실행 중인
+      `npm run dev`와 `.next` 디렉토리를 공유하므로, 개발 서버가 떠 있는 동안에는 돌리지 않는다
 
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
