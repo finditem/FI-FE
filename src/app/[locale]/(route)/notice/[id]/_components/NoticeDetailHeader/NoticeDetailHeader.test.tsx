@@ -84,7 +84,7 @@ describe("NoticeDetailHeader ([id])", () => {
     expect(within(actions).getByRole("button", { name: "공지사항 공유" })).toBeInTheDocument();
   });
 
-  it("관리자일 때 메뉴에서 수정 클릭 시 작성 페이지로 이동합니다", async () => {
+  it("관리자일 때 메뉴에서 수정 클릭 시 관리자 앱의 수정 페이지로 이동합니다", async () => {
     const user = userEvent.setup();
     setupUser("ADMIN");
     render(<NoticeDetailHeader id={42} />);
@@ -94,7 +94,7 @@ describe("NoticeDetailHeader ([id])", () => {
 
     await user.click(screen.getByRole("button", { name: "게시글 수정하기" }));
 
-    expect(mockPush).toHaveBeenCalledWith("/admin/notice/write/42");
+    expect(mockPush).toHaveBeenCalledWith("https://a.finditem.kr/admin/notice/write/42");
   });
 
   it("관리자일 때 메뉴에서 삭제 클릭 시 삭제 모달을 엽니다", async () => {

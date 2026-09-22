@@ -5,6 +5,7 @@ import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useFormContext } from "react-hook-form";
 import { useGetUsersMe, usePostChangePassword } from "@/api/fetch/user";
+import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
 export const usePasswordSubmit = () => {
   const router = useRouter();
@@ -25,7 +26,7 @@ export const usePasswordSubmit = () => {
     await mutateAsync({ newPassword, newPasswordConfirm });
 
     if (userData?.result?.role === "ADMIN") {
-      router.push("/admin");
+      router.push(getAdminUrl("/admin"));
     } else {
       router.push("/mypage");
     }

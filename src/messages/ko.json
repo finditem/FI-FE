@@ -325,15 +325,6 @@
     "likesAriaLabel": "좋아요 {count}개",
     "likes": "좋아요 {count}"
   },
-  "ReadOnlyCommentItem": {
-    "admin": "관리자"
-  },
-  "AdminProfileChangeConfirmModal": {
-    "title": "정말로 프로필을 변경하시겠습니까?",
-    "description": "현재 관리자 계정으로 로그인 중입니다.\n지금 프로필을 수정하시겠습니까?",
-    "cancel": "취소",
-    "confirm": "변경하기"
-  },
   "ProfileEditLeaveConfirmModal": {
     "title": "변경사항이 저장되지 않았습니다.",
     "description": "저장하지 않고 나가겠습니까?",
@@ -1824,9 +1815,6 @@
   },
   "FloatingInquiryButton": {
     "label": "1:1 문의하기"
-  },
-  "usePostInquiryComments": {
-    "commentRegistered": "댓글이 등록되었습니다."
   },
   "useApiSocialLogin": {
     "kakaoCodeInvalid": "카카오 인증코드가 유효하지 않거나 이미 사용되었어요",
