@@ -104,17 +104,38 @@ zoom = 19.92 - level
 
 **최소와 최대가 뒤바뀐다는 점을 놓치기 쉽다.** 카카오의 `minLevel = 13`(가장 축소된 한계)은 네이버의 `minZoom = 7`이 된다. `min`이 `min`으로 대응하지만 의미가 축소 한계에서 축소 한계로 유지되는지 확인해야 한다. 카카오 `minLevel`은 축소 한계이고 네이버 `minZoom`도 축소 한계이므로 이름은 맞아떨어지지만, 값은 `20 - level`로 반드시 변환한다.
 
+### 변환 시 반드시 clamp 한다
+
+네이버 `zoom`은 21까지 올라간다. `level = 20 - zoom`을 그대로 쓰면 `zoom` 20에서 `level`이 0, 21에서 -1이 된다. 서버로 보내는 값에 하한을 걸지 않으면 두 가지가 조용히 깨진다.
+
+- `useSearchLocation`의 `enabled: isValidCoordinates && level > 0` 조건이 false가 되어 게시글 조회가 멈춘다. 오류는 나지 않고 결과만 비어 있다.
+- `Math.min(mapLevel, 11)`은 상한만 거는 코드이므로 음수를 그대로 통과시켜 서버에 `level=-1`을 보낸다.
+
+```ts
+const level = Math.max(1, Math.min(20 - zoom, 11));
+```
+
+또한 `minZoom`과 `maxZoom`을 반드시 명시한다. `minZoom`을 지정하지 않으면 네이버 국내 최소값인 6까지 축소되고, 이때 `level`이 14가 되어 `isMapZoomFetchDisabled`의 범위(9에서 13)를 벗어난다. 지금은 `minLevel = 13` 덕분에 최대 축소 상태에서 마커 조회가 항상 꺼지지만, 마이그레이션 후에는 최대 축소에서 조회가 되살아나 전국 단위 질의가 나간다. `minZoom = 7`, `maxZoom = 17`로 현재 범위(레벨 3에서 13)를 유지한다.
+
 ### 서버 계약 문제
 
-이것이 마이그레이션의 최대 리스크다. 백엔드 API가 카카오 레벨을 그대로 받는다.
+이것이 마이그레이션의 최대 리스크다. 백엔드 API가 카카오 레벨을 그대로 받는다. `level`을 받는 엔드포인트는 다섯 개이고, 상한이 두 종류다.
 
-```
-/main/posts/marker?latitude=..&longitude=..&level=..
-/main/posts/recent-found?latitude=..&longitude=..&level=..
-/main/places/search-location?latitude=..&longitude=..&level=..&type=..
-```
+| 엔드포인트                         | 훅                        | 보내는 값                |
+| ---------------------------------- | ------------------------- | ------------------------ |
+| `GET /main/posts/marker`           | `useGetMarker`            | `Math.min(mapLevel, 11)` |
+| `GET /main/posts/recent-found`     | `useRecentFound`          | `Math.min(mapLevel, 11)` |
+| `GET /main/posts/search-location`  | `useSearchLocation`       | `Math.min(mapLevel, 11)` |
+| `GET /main/posts/{postId}/summary` | `useMapPostSummary`       | `Math.min(mapLevel, 11)` |
+| `GET /main/places/search-location` | `useSearchLocationPlaces` | `Math.min(mapLevel, 8)`  |
 
-`useGetMarker`, `useRecentFound`, `useSearchLocation`, `useSearchLocationPlaces`, `useMapPostSummary`가 모두 `Math.min(mapLevel, 11)`로 상한을 걸어 보낸다. 서버는 이 값으로 조회 반경을 결정한다.
+장소 필터만 상한이 8이다. 서버에 레벨과 반경의 대응 테이블이 두 벌 있다는 뜻이므로, 반경 파라미터로 바꾸는 논의를 할 때 두 경로를 함께 다뤄야 한다.
+
+`placeId`를 받는 엔드포인트는 `level`을 쓰지 않으므로 영향이 없다. 서버가 반경을 고정해 두고 있다.
+
+- `GET /main/places/{placeId}/nearby-post-markers`
+- `GET /main/places/{placeId}/nearby-posts`
+- `GET /main/places/{placeId}/summary`
 
 프론트가 네이버 `zoom`으로 바뀌면 선택지는 둘이다.
 
@@ -124,6 +145,29 @@ zoom = 19.92 - level
 **어느 쪽이든 백엔드와 먼저 합의해야 한다.** 합의 없이 프론트만 바꾸면 조회 반경이 조용히 달라져서, 오류 없이 결과 개수만 어긋나는 형태로 드러난다. 가장 찾기 어려운 종류의 버그다.
 
 권장하는 순서는 1번으로 마이그레이션을 끝내고 변환 함수 한 곳(`src/utils/`)에 격리한 다음, 별도 작업으로 2번을 진행하는 것이다.
+
+### 저장되는 주소 문자열이 갈린다
+
+`level`보다 찾기 어려운 문제다. 게시글 작성 시 프론트가 카카오로 지오코딩한 주소 문자열을 서버에 저장용으로 보낸다.
+
+```
+LocationRangeSection.tsx
+  data.documents[0].road_address.region_3depth_name || region_2depth_name
+```
+
+`PostWriteType`의 `address: string`이 이 값이고, 서버는 그대로 저장한다. 마이그레이션 후 신규 게시글은 네이버 기준(`region.area3.name`) 문자열로, 기존 게시글은 카카오 기준 문자열로 남는다. `address`는 `PostItemType`, `PostDetailType`, `SimilarType`, `MypagePostListType`에 모두 있으므로 목록 화면에서 두 포맷이 나란히 보인다.
+
+백엔드에 확인할 것은 다음 두 가지다.
+
+- `search-location`의 `keyword`가 저장된 `address` 문자열을 텍스트 매칭하는지. 그렇다면 포맷이 갈리는 순간 검색 결과가 어긋난다.
+- `PlaceSummary`의 `address`, `station`, `latitude`, `longitude`를 서버가 어떤 소스로 만드는지. 서버가 카카오 API를 쓰고 있으면 프론트만 옮겨도 장소 데이터와 게시글 주소의 표기가 계속 어긋난다.
+
+두 포맷을 맞추려면 신규 작성분의 조립 규칙을 기존 카카오 출력과 같은 모양으로 맞추거나, 기존 데이터를 일괄 변환해야 한다. 어느 쪽이든 백엔드와 함께 결정한다.
+
+### 영향이 없는 것
+
+- 좌표계. 카카오와 네이버 모두 WGS84(`EPSG:4326`)를 쓴다. `latitude`와 `longitude`를 그대로 주고받으면 된다.
+- `radius: Radius`(1000, 3000, 5000). 미터 단위 실수치이므로 지도 SDK와 무관하다. `getMapLevelByRadius`는 표시용 줌을 고르는 데만 쓰이고 서버로 가지 않는다.
 
 ## API 대응표
 
@@ -206,7 +250,9 @@ rename(map): 지도 컴포넌트 이름에서 벤더 표기 제거
 - [ ] NCP 콘솔에 Application 등록, Web Dynamic Map과 Geocoding, Reverse Geocoding API 활성화
 - [ ] Web 서비스 URL에 `http://localhost:3000`과 배포 도메인 등록
 - [ ] `NEXT_PUBLIC_NAVER_MAP_KEY_ID`, `NAVER_MAP_KEY` 환경 변수 추가 (후자에 `NEXT_PUBLIC_` 금지)
-- [ ] 백엔드와 `level` 파라미터 처리 방식 합의
+- [ ] 백엔드와 `level` 파라미터 처리 방식 합의 (엔드포인트 5개, 상한 11과 8 두 종류)
+- [ ] 백엔드에 `keyword` 검색이 저장된 `address` 문자열을 매칭하는지 확인
+- [ ] 백엔드에 `PlaceSummary`의 주소와 좌표 출처가 카카오인지 확인
 - [ ] `react-naver-maps` 설치, `react-kakao-maps-sdk` 제거
 
 ### 공통 코드
