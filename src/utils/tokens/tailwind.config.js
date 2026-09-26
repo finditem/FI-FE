@@ -199,11 +199,6 @@ module.exports = {
         yellow: {
           500: "#fee500"
         },
-        tansparnt: {
-      "white_4": "rgba(255, 255, 255, 0.04)",
-      "white_8": "rgba(255, 255, 255, 0.08)",
-      "white_12": "rgba(255, 255, 255, 0.12)"
-        },
         transparent: {
       "white_4": "rgba(255, 255, 255, 0.04)",
       "white_8": "rgba(255, 255, 255, 0.08)",
@@ -268,13 +263,7 @@ module.exports = {
             pressed: "#e4e4e4",
             default: "#f5f5f5",
             enteredSelected: "#f5f5f5",
-            disabled: "#e4e4e4",
-        "disabled_2": "#e4e4e4",
-        "pressed_2": "#e4e4e4",
-        "focused_2": "#f5f5f5",
-        "default_2": "#f5f5f5",
-        "enteredSelected_2": "#f5f5f5",
-        "hover_2": "#f5f5f5"
+            disabled: "#e4e4e4"
           },
           normal: {
             default: "#ffffff",
@@ -282,13 +271,7 @@ module.exports = {
             pressed: "#f5f5f5",
             hover: "#ffffff",
             enteredSelected: "#ffffff",
-            disabled: "#e4e4e4",
-        "pressed_2": "#f5f5f5",
-        "disabled_2": "#e4e4e4",
-        "focused_2": "#ffffff",
-        "enteredSelected_2": "#ffffff",
-        "hover_2": "#ffffff",
-        "default_2": "#ffffff"
+            disabled: "#e4e4e4"
           },
           subtle: {
             default: "rgba(245, 245, 245, 0.7)",
@@ -296,13 +279,7 @@ module.exports = {
             focused: "rgba(245, 245, 245, 0.7)",
             enteredSelected: "#f5f5f5",
             pressed: "#e4e4e4",
-            disabled: "rgba(228, 228, 228, 0.7)",
-        "pressed_2": "#e4e4e4",
-        "disabled_2": "rgba(228, 228, 228, 0.7)",
-        "focused_2": "rgba(245, 245, 245, 0.7)",
-        "enteredSelected_2": "#f5f5f5",
-        "hover_2": "rgba(245, 245, 245, 0.7)",
-        "default_2": "rgba(245, 245, 245, 0.7)"
+            disabled: "rgba(228, 228, 228, 0.7)"
           }
         },
         brand: {
@@ -313,13 +290,7 @@ module.exports = {
             default: "#d6f8e1",
             disabled: "#e3fcee",
             pressed: "#c2f1d4",
-        "focused_2": "#c2f1d4",
-        "hover_2": "#c2f1d4",
-        "default_2": "#eefff6",
-        "enteredSelected_2": "#e3fcee",
-        "pressed_2": "#c2f1d4",
-        "disabled_2": "#e3fcee",
-        "default_3": "#eefff6"
+        "default_2": "#eefff6"
           },
           normal: {
             pressed: "rgba(0, 158, 83, 0.7)",
@@ -327,13 +298,7 @@ module.exports = {
             default: "rgba(30, 184, 123, 0.7)",
             enteredSelected: "rgba(70, 198, 145, 0.7)",
             focused: "rgba(0, 183, 110, 0.7)",
-            disabled: "rgba(152, 227, 189, 0.9)",
-        "enteredSelected_2": "rgba(70, 198, 145, 0.7)",
-        "disabled_2": "rgba(152, 227, 189, 0.9)",
-        "default_2": "rgba(30, 184, 123, 0.7)",
-        "focused_2": "rgba(0, 183, 110, 0.7)",
-        "hover_2": "rgba(0, 183, 110, 0.7)",
-        "pressed_2": "rgba(0, 158, 83, 0.7)"
+            disabled: "rgba(152, 227, 189, 0.9)"
           },
           strong: {
             default: "#009e53",
@@ -348,31 +313,17 @@ module.exports = {
           normal: {
             enteredSelected: "#525252",
             hover: "#f5f5f5",
-            preesed: "#e4e4e4",
             disabled: "#e4e4e4",
             default: "#f5f5f5",
             focused: "#f5f5f5",
-        "default_2": "#f5f5f5",
-        "disabled_2": "#e4e4e4",
-        "preesed_2": "#e4e4e4",
-        "enteredSelected_2": "#525252",
-        "hover_2": "#f5f5f5",
-        "focused_2": "#f5f5f5",
             pressed: "#e4e4e4"
           },
           strong: {
             disabled: "rgba(255, 255, 255, 0.04)",
-            preesed: "rgba(255, 255, 255, 0.08)",
             enteredSelected: "rgba(255, 255, 255, 0.12)",
             default: "rgba(255, 255, 255, 0.04)",
             focused: "rgba(255, 255, 255, 0.08)",
             hover: "rgba(255, 255, 255, 0.08)",
-        "disabled_2": "rgba(255, 255, 255, 0.04)",
-        "enteredSelected_2": "rgba(255, 255, 255, 0.12)",
-        "focused_2": "rgba(255, 255, 255, 0.08)",
-        "hover_2": "rgba(255, 255, 255, 0.08)",
-        "default_2": "rgba(255, 255, 255, 0.04)",
-        "preesed_2": "rgba(255, 255, 255, 0.08)",
             pressed: "rgba(255, 255, 255, 0.08)"
           }
         },
@@ -380,22 +331,16 @@ module.exports = {
           kakao: "#fee500",
           foundItem: "#ebfbf1",
           lostItem: "#fdf1ed",
-      "foundItem_2": "#eaf2fe",
-      "lostItem_2": "#fef4e6",
-      "kakao_2": "#fee500",
-      "lostItem2": "#ffefad",
           location: "#e6e6f9"
         }
       },
       fg: {
         layout: {
           body: {
-            default: "#787878",
-        "default_2": "#787878"
+            default: "#787878"
           },
           header: {
-            default: "#363636",
-        "default_2": "#363636"
+            default: "#363636"
           }
         },
         neutralInversed: {
@@ -405,13 +350,7 @@ module.exports = {
             hover: "#000000",
             default: "#5d5d5d",
             focused: "#000000",
-            enteredSelected: "#ffffff",
-        "pressed_2": "#9d9d9d",
-        "disabled_2": "#cfcfcf",
-        "enteredSelected_2": "#ffffff",
-        "default_2": "#5d5d5d",
-        "focused_2": "#000000",
-        "hover_2": "#000000"
+            enteredSelected: "#ffffff"
           },
           strong: {
             default: "#cfcfcf",
@@ -430,63 +369,35 @@ module.exports = {
             hover: "#000000",
             disabled: "#9d9d9d",
             default: "#5d5d5d",
-            preesed: "#9d9d9d",
             enteredSelected: "#000000",
-        "placeholder_2": "#9d9d9d",
-        "focused_2": "#000000",
-        "default_2": "#5d5d5d",
-        "preesed_2": "#9d9d9d",
-        "disabled_2": "#9d9d9d",
-        "hover_2": "#000000",
-        "enteredSelected_2": "#000000",
             pressed: "#9d9d9d"
           },
           strong: {
-            preesed: "#9d9d9d",
             enteredSelected: "#000000",
             default: "#5d5d5d",
             placeholder: "#787878",
             disabled: "#9d9d9d",
             focused: "#000000",
             hover: "#000000",
-        "preesed_2": "#9d9d9d",
-        "hover_2": "#000000",
-        "default_2": "#5d5d5d",
-        "enteredSelected_2": "#000000",
-        "disabled_2": "#9d9d9d",
-        "focused_2": "#000000",
-        "placeholder_2": "#9d9d9d",
             pressed: "#9d9d9d"
           }
         },
         brand: {
-          subtle: {
-            pressed: "#98e3bd",
-            enteredSelected: "#f6fffc",
-            default: "#f6fffc",
-            focused: "#f6fffc",
-            hover: "#f6fffc",
-            disabled: "#c2f1d4",
-        "disabled_2": "#98e3bd",
-        "pressed_2": "#6ed5a7",
-        "enteredSelected_2": "#0aa874",
-        "focused_2": "#00b76e",
-        "hover_2": "#00b76e",
-        "default_2": "#0aa874"
-          },
           normal: {
-            disabled: "#98e3bd",
+            pressed: "#6ed5a7",
             enteredSelected: "#0aa874",
+            default: "#0aa874",
             focused: "#00b76e",
             hover: "#00b76e",
-            default: "#0aa874",
-            pressed: "#6ed5a7",
-        "default_2": "#f6fffc",
-        "disabled_2": "#c2f1d4",
-        "pressed_2": "#98e3bd",
-        "focused_2": "#f6fffc",
-        "hover_2": "#f6fffc",
-        "enteredSelected_2": "#f6fffc"
+            disabled: "#98e3bd"
+          },
+          subtle: {
+            disabled: "#c2f1d4",
+            enteredSelected: "#f6fffc",
+            focused: "#f6fffc",
+            hover: "#f6fffc",
+            default: "#f6fffc",
+            pressed: "#98e3bd"
           },
           strongUseThis: {
             default: "#009e53",
@@ -508,8 +419,6 @@ module.exports = {
         accent: {
           lostItem: "#ff9200",
           foundItem: "#4f95ff",
-      "lostItem_2": "#ff9200",
-      "foundItem_2": "#4f95ff",
           localInfo: "#dd4020"
         }
       },
@@ -521,21 +430,9 @@ module.exports = {
             hover: "#adadad",
             pressed: "#cfcfcf",
             disabled: "#cfcfcf",
-            default: "#cfcfcf",
-        "pressed_2": "#cfcfcf",
-        "focused_2": "#adadad",
-        "hover_2": "#adadad",
-        "default_2": "#cfcfcf",
-        "enteredSelected_2": "#9d9d9d",
-        "disabled_2": "#cfcfcf"
+            default: "#cfcfcf"
           },
           strong: {
-        "enteredSelected_2": "#69a5ff",
-        "focused_2": "#69a5ff",
-        "hover_2": "#b8d4ff",
-        "default_2": "#cfcfcf",
-        "pressed_2": "#b8d4ff",
-        "disabled_2": "#cfcfcf",
             enteredSelected: "#69a5ff",
             focused: "#69a5ff",
             hover: "#b8d4ff",
@@ -545,18 +442,10 @@ module.exports = {
           }
         },
         divider: {
-          default: "#d9d9d9",
-      "default_2": "#d9d9d9",
-      "default_3": "#e4e4e4"
+          default: "#d9d9d9"
         },
         brand: {
           subtle: {
-        "enteredSelected_2": "#69a5ff",
-        "focused_2": "#b8d4ff",
-        "default_2": "#cde1fe",
-        "pressed_2": "#69a5ff",
-        "disabled_2": "#cde1fe",
-        "hover_2": "#b8d4ff",
             default: "#d6f8e1",
             hover: "#c2f1d4",
             focused: "#c2f1d4",
@@ -570,13 +459,7 @@ module.exports = {
             focused: "rgba(0, 183, 110, 0.7)",
             enteredSelected: "rgba(70, 198, 145, 0.7)",
             pressed: "rgba(0, 158, 83, 0.7)",
-            disabled: "rgba(152, 227, 189, 0.9)",
-        "default_2": "rgba(30, 184, 123, 0.7)",
-        "hover_2": "rgba(0, 183, 110, 0.7)",
-        "focused_2": "rgba(0, 183, 110, 0.7)",
-        "enteredSelected_2": "rgba(70, 198, 145, 0.7)",
-        "pressed_2": "rgba(0, 158, 83, 0.7)",
-        "disabled_2": "rgba(152, 227, 189, 0.9)"
+            disabled: "rgba(152, 227, 189, 0.9)"
           }
         }
       },
@@ -585,10 +468,6 @@ module.exports = {
         warning: "#ff4242",
         toastSuccess: "#6ed5a7",
         toastWarning: "#ffc642",
-    "toastSuccess_3": "#46c691",
-    "toastWarning_3": "#ffc642",
-    "warning_3": "#ff4242",
-    "success_3": "#00b76e",
         bookmark: "#ffc642",
         favorite: "#ff6363",
         unselected: "#adadad",
@@ -601,12 +480,7 @@ module.exports = {
     "layout_2depth": "#f5f5f5",
         dimTransparent: "rgba(0, 0, 0, 0.5)",
         dimOpaque: "#363636",
-    "layout_1depth_2": "#ffffff",
-    "toast_2": "rgba(93, 93, 93, 0.7)",
-    "dimOpaque_2": "#363636",
-    "layout_2depth_2": "#f5f5f5",
     "dimTransparent_2": "rgba(120, 120, 120, 0.1)",
-    "dimTransparent_3": "rgba(120, 120, 120, 0.1)",
         layoutBrand: "#eefff6",
         notificationBlue: "#4f95ff",
         notificationGrey: "#5d5d5d",
