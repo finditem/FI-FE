@@ -27,6 +27,7 @@ const PostDetail = ({ data }: PostDetailProps) => {
     postId: String(data.id),
     radius: data.radius,
     date: data.date,
+    postType: data.postType,
   };
 
   return (

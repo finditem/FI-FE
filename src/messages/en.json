@@ -815,7 +815,9 @@
     "viewOnMapAriaLabel": "View location on map in detail",
     "noAddress": "No location info",
     "lostLocationLabel": "Lost Location",
-    "dateLostLabel": "Date lost"
+    "foundLocationLabel": "Found Location",
+    "dateLostLabel": "Date lost",
+    "dateFoundLabel": "Date found"
   },
   "PostDetailKakaoMap": {
     "mapAreaLabel": "Map area"

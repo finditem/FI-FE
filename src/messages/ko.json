@@ -815,7 +815,9 @@
     "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
     "noAddress": "위치 정보가 없어요",
     "lostLocationLabel": "분실장소",
-    "dateLostLabel": "분실일"
+    "foundLocationLabel": "습득장소",
+    "dateLostLabel": "분실일",
+    "dateFoundLabel": "습득일"
   },
   "PostDetailKakaoMap": {
     "mapAreaLabel": "지도 영역"

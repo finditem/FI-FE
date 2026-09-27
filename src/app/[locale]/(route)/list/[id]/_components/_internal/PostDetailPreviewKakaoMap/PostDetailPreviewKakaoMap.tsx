@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Icon, BaseKakaoMap } from "@/components";
+import type { PostType } from "@/types";
 import { cn } from "@/utils";
 import { parseDateString } from "@/utils/formatDate/parseDateString/parseDateString";
 
@@ -12,10 +13,11 @@ type MapData = {
   radius: number;
   /** 분실 또는 습득 일시 */
   date: string;
+  postType: PostType;
 };
 
-/** 분실일은 시각 없이 날짜만 보여준다. */
-const formatLostDate = (isoString: string) => {
+/** 분실일과 습득일은 시각 없이 날짜만 보여준다. */
+const formatEventDate = (isoString: string) => {
   const target = parseDateString(isoString);
   if (!target) {
     return "";
@@ -33,8 +35,9 @@ interface PostDetailPreviewKakaoMapProps {
 
 const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => {
   const t = useTranslations("PostDetailPreviewKakaoMap");
-  const { address, latitude, longitude, postId, radius, date } = data;
-  const lostDate = formatLostDate(date);
+  const { address, latitude, longitude, postId, radius, date, postType } = data;
+  const eventDate = formatEventDate(date);
+  const isLost = postType === "LOST";
 
   return (
     <div className="flex flex-col gap-[18px]">
@@ -58,7 +61,7 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
                     className="text-brand-normal-default"
                   />
                   <span className="text-body2-medium text-layout-body-default">
-                    {t("lostLocationLabel")}
+                    {t(isLost ? "lostLocationLabel" : "foundLocationLabel")}
                   </span>
                 </div>
               )}
@@ -78,11 +81,13 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
               aria-hidden="true"
               className="text-brand-normal-default"
             />
-            <span className="text-body2-medium text-layout-body-default">{t("dateLostLabel")}</span>
+            <span className="text-body2-medium text-layout-body-default">
+              {t(isLost ? "dateLostLabel" : "dateFoundLabel")}
+            </span>
           </div>
 
           <time dateTime={date} className="text-body2-semibold">
-            {lostDate}
+            {eventDate}
           </time>
         </div>
       </div>
