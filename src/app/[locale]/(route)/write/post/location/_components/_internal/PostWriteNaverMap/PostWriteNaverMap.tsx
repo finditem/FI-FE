@@ -5,14 +5,14 @@ import { BaseKakaoMap } from "@/components";
 import { Radius } from "@/types";
 import { getMapLevelByRadius } from "@/utils";
 
-interface PostWriteKakaoMapProps {
+interface PostWriteNaverMapProps {
   lat: number;
   lng: number;
   radius: Radius;
   onCenterChange?: (center: { lat: number; lng: number }) => void;
 }
 
-const PostWriteKakaoMap = ({ lat, lng, radius, onCenterChange }: PostWriteKakaoMapProps) => {
+const PostWriteNaverMap = ({ lat, lng, radius, onCenterChange }: PostWriteNaverMapProps) => {
   const [center, setCenter] = useState({ lat, lng });
 
   const level = getMapLevelByRadius(radius);
@@ -34,4 +34,4 @@ const PostWriteKakaoMap = ({ lat, lng, radius, onCenterChange }: PostWriteKakaoM
   );
 };
 
-export default PostWriteKakaoMap;
+export default PostWriteNaverMap;

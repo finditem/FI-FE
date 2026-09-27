@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Radius } from "@/types";
-import { BottomSheet, PostWriteKakaoMap } from "../_internal";
+import { BottomSheet, PostWriteNaverMap } from "../_internal";
 import { getKakaoLocalCoord2Address } from "@/api/fetch/kakao";
 import { useToast } from "@/context/ToastContext";
 
@@ -55,7 +55,7 @@ const LocationRangeSection = ({
   return (
     <>
       <div className="h-[calc(100vh-350px)] w-full">
-        <PostWriteKakaoMap
+        <PostWriteNaverMap
           lat={currentCoord.lat}
           lng={currentCoord.lng}
           radius={radius}
