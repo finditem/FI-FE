@@ -11,12 +11,12 @@ type MapData = {
   radius: number;
 };
 
-interface PostDetailPreviewKakaoMapProps {
+interface PostDetailPreviewNaverMapProps {
   data: MapData;
 }
 
-const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => {
-  const t = useTranslations("PostDetailPreviewKakaoMap");
+const PostDetailPreviewNaverMap = ({ data }: PostDetailPreviewNaverMapProps) => {
+  const t = useTranslations("PostDetailPreviewNaverMap");
   const { address, latitude, longitude, postId, radius } = data;
 
   return (
@@ -55,4 +55,4 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
   );
 };
 
-export default PostDetailPreviewKakaoMap;
+export default PostDetailPreviewNaverMap;
