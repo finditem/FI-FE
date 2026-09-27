@@ -216,6 +216,9 @@ module.exports = {
           800: "#dd4020",
           900: "#be391c"
         },
+        base: {
+          white: "#ffffff"
+        },
         gray: {
           0: "#ffffff"
         },
@@ -301,12 +304,12 @@ module.exports = {
             disabled: "rgba(152, 227, 189, 0.9)"
           },
           strong: {
-            default: "#009e53",
-            hover: "#00753e",
-            focused: "#00753e",
-            enteredSelected: "#009e53",
-            pressed: "#00753e",
-            disabled: "#46c691"
+            default: "#00b76e",
+            hover: "#009e53",
+            focused: "#009e53",
+            enteredSelected: "#00b76e",
+            pressed: "#009e53",
+            disabled: "#6ed5a7"
           }
         },
         neutralInversed: {
@@ -331,7 +334,12 @@ module.exports = {
           kakao: "#fee500",
           foundItem: "#ebfbf1",
           lostItem: "#fdf1ed",
-          location: "#e6e6f9"
+          location: "#e6e6f9",
+          lostBtn: "#fdf1ed",
+          foundBtn: "#ebfbf1"
+        },
+        base: {
+          white: "#ffffff"
         }
       },
       fg: {
@@ -408,12 +416,12 @@ module.exports = {
             disabled: "#0aa874"
           },
           strong: {
-            default: "#009e53",
-            hover: "#00753e",
-            focused: "#00753e",
-            enteredSelected: "#009e53",
-            pressed: "#00753e",
-            disabled: "#0aa874"
+            default: "#00b76e",
+            hover: "#009e53",
+            focused: "#009e53",
+            enteredSelected: "#00b76e",
+            pressed: "#009e53",
+            disabled: "#6ed5a7"
           }
         },
         accent: {
