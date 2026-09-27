@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { PLACE_FILTER_TO_CATEGORY, PlaceFilterValue } from "../HOME_CONST";
 import NeighborhoodPlaceList from "../NeighborhoodPlaceList/NeighborhoodPlaceList";
 import NeighborhoodPlaceCardSkeleton from "../NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
@@ -18,7 +18,7 @@ const MESSAGE_STYLE = "py-6 text-center text-body2-medium text-layout-body-defau
 
 const PlaceFilterSheetContent = ({ placeValue }: PlaceFilterSheetContentProps) => {
   const t = useTranslations("PlaceFilterSheet");
-  const collapseSheet = useMainKakaoMapStore((s) => s.triggerPlaceSheetCollapse);
+  const collapseSheet = useMainNaverMapStore((s) => s.triggerPlaceSheetCollapse);
   const filter = PLACE_FILTER_TO_CATEGORY[placeValue];
 
   return (

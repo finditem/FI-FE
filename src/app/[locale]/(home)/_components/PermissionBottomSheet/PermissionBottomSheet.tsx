@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Button, Icon, PopupLayout } from "@/components";
 import { useToast } from "@/context/ToastContext";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { clearMainGeoSessionConfirmed, markMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import { useState } from "react";
 import usePermissionConfig from "../../_hooks/usePermissionConfig/usePermissionConfig";
@@ -33,15 +33,15 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
           const next = { lat: coords.latitude, lng: coords.longitude };
-          useMainKakaoMapStore.getState().triggerLevelReset();
-          useMainKakaoMapStore.getState().setUserGpsFromDevice(next);
-          useMainKakaoMapStore.getState().setLatLng(next);
+          useMainNaverMapStore.getState().triggerLevelReset();
+          useMainNaverMapStore.getState().setUserGpsFromDevice(next);
+          useMainNaverMapStore.getState().setLatLng(next);
           markMainGeoSessionConfirmed();
           onClose();
         },
         (error) => {
-          useMainKakaoMapStore.getState().triggerLevelReset();
-          useMainKakaoMapStore.getState().clearLatLng();
+          useMainNaverMapStore.getState().triggerLevelReset();
+          useMainNaverMapStore.getState().clearLatLng();
           if (error.code === error.PERMISSION_DENIED) {
             clearMainGeoSessionConfirmed();
             addToast(t("locationPermissionDenied"), "warning");

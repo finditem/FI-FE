@@ -1,4 +1,4 @@
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import {
   clearMainGeoSessionConfirmed,
   hasMainGeoSessionConfirmed,
@@ -6,7 +6,7 @@ import {
 } from "@/utils/mainGeoSession";
 import { useEffect, useRef, useState } from "react";
 
-const useMainKakaoMap = () => {
+const useMainNaverMap = () => {
   const {
     latLng,
     setLatLng,
@@ -16,7 +16,7 @@ const useMainKakaoMap = () => {
     setMapLevel,
     setUserGpsFromDevice,
     triggerLevelReset,
-  } = useMainKakaoMapStore();
+  } = useMainNaverMapStore();
   const [isPermissionResolved, setIsPermissionResolved] = useState(false);
   const mapLevelRef = useRef(mapLevel);
   const prevLevelResetSignalRef = useRef(levelResetSignal);
@@ -108,4 +108,4 @@ const useMainKakaoMap = () => {
   };
 };
 
-export default useMainKakaoMap;
+export default useMainNaverMap;

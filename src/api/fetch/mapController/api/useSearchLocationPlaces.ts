@@ -2,7 +2,7 @@
 
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { PlaceType, SearchLocationPlacesResponse } from "../types/SearchLocationPlacesType";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { debounce } from "es-toolkit/compat";
 import { useEffect, useRef, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
@@ -11,7 +11,7 @@ import { keepPreviousData } from "@tanstack/react-query";
 const MAX_PLACE_SEARCH_LEVEL = 8;
 
 const useSearchLocationPlaces = (type: PlaceType | null) => {
-  const { latLng, mapLevel } = useMainKakaoMapStore();
+  const { latLng, mapLevel } = useMainNaverMapStore();
   const level = Math.min(mapLevel, MAX_PLACE_SEARCH_LEVEL);
   const { lat, lng } = latLng;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { BaseKakaoMap } from "@/components";
-import useMainKakaoMap from "../../_hooks/useMainKakaoMap/useMainKakaoMap";
+import useMainNaverMap from "../../_hooks/useMainNaverMap/useMainNaverMap";
 import useWatchUserLocation from "../../_hooks/useWatchUserLocation/useWatchUserLocation";
 import {
   useGetMarker,
@@ -23,14 +23,14 @@ import {
   PLACE_SELECTED_MAP_LEVEL,
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 
-const MainKakaoMap = () => {
+const MainNaverMap = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const triggerLevelReset = useMainKakaoMapStore((s) => s.triggerLevelReset);
-  const triggerMarkerSheetSnap = useMainKakaoMapStore((s) => s.triggerMarkerSheetSnap);
-  const { mapCenter, mapLevel, setMapLevel, setLatLng } = useMainKakaoMap();
+  const triggerLevelReset = useMainNaverMapStore((s) => s.triggerLevelReset);
+  const triggerMarkerSheetSnap = useMainNaverMapStore((s) => s.triggerMarkerSheetSnap);
+  const { mapCenter, mapLevel, setMapLevel, setLatLng } = useMainNaverMap();
   const { userLocation, heading } = useWatchUserLocation();
 
   const placeParam = searchParams.get(PLACE_FILTER_PARAM);
@@ -107,4 +107,4 @@ const MainKakaoMap = () => {
   );
 };
 
-export default MainKakaoMap;
+export default MainNaverMap;

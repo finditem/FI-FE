@@ -1,6 +1,6 @@
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { GetMarkerResponse } from "../types/GetMarkerType";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { keepPreviousData } from "@tanstack/react-query";
 import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";
 
@@ -9,7 +9,7 @@ export const isMarkerFetchDisabledByZoom = (mapLevel: number): boolean => {
 };
 
 const useGetMarker = () => {
-  const { latLng, mapLevel } = useMainKakaoMapStore();
+  const { latLng, mapLevel } = useMainNaverMapStore();
   const level = Math.min(mapLevel, 11);
   const { lat: latitude, lng: longitude } = latLng;
 

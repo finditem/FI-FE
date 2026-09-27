@@ -1,13 +1,13 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
 import { DEFAULT_LAT_LNG } from "@/constants";
-import { useMainKakaoMapStore } from "@/store";
-import useMainKakaoMap from "./useMainKakaoMap";
+import { useMainNaverMapStore } from "@/store";
+import useMainNaverMap from "./useMainNaverMap";
 
-describe("useMainKakaoMap", () => {
+describe("useMainNaverMap", () => {
   const originalGeolocation = navigator.geolocation;
 
   beforeEach(() => {
-    useMainKakaoMapStore.getState().clearLatLng();
+    useMainNaverMapStore.getState().clearLatLng();
   });
 
   afterEach(() => {
@@ -25,7 +25,7 @@ describe("useMainKakaoMap", () => {
       value: undefined,
     });
 
-    const { result } = renderHook(() => useMainKakaoMap());
+    const { result } = renderHook(() => useMainNaverMap());
 
     await waitFor(() => {
       expect(result.current.isPermissionResolved).toBe(true);
@@ -41,20 +41,20 @@ describe("useMainKakaoMap", () => {
       value: undefined,
     });
 
-    useMainKakaoMapStore.setState({ mapLevel: 9 });
+    useMainNaverMapStore.setState({ mapLevel: 9 });
 
-    const { result } = renderHook(() => useMainKakaoMap());
+    const { result } = renderHook(() => useMainNaverMap());
 
     await waitFor(() => {
       expect(result.current.isPermissionResolved).toBe(true);
     });
 
     act(() => {
-      useMainKakaoMapStore.getState().triggerLevelReset();
+      useMainNaverMapStore.getState().triggerLevelReset();
     });
 
     await waitFor(() => {
-      expect(useMainKakaoMapStore.getState().mapLevel).toBe(6);
+      expect(useMainNaverMapStore.getState().mapLevel).toBe(6);
     });
   });
 });

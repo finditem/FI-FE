@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
-import MainKakaoMap from "./MainKakaoMap";
+import MainNaverMap from "./MainNaverMap";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,9 +9,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof MainKakaoMap> = {
-  title: "페이지/메인 페이지/MainKakaoMap",
-  component: MainKakaoMap,
+const meta: Meta<typeof MainNaverMap> = {
+  title: "페이지/메인 페이지/MainNaverMap",
+  component: MainNaverMap,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
@@ -39,6 +39,6 @@ const meta: Meta<typeof MainKakaoMap> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MainKakaoMap>;
+type Story = StoryObj<typeof MainNaverMap>;
 
 export const Default: Story = {};

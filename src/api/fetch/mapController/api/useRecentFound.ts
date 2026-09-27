@@ -2,14 +2,14 @@
 
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { RecentFoundResponse } from "../types/RecentFoundType";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { debounce } from "es-toolkit/compat";
 import { useEffect, useRef, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";
 
 const useRecentFound = () => {
-  const { latLng, mapLevel } = useMainKakaoMapStore();
+  const { latLng, mapLevel } = useMainNaverMapStore();
   const level = Math.min(mapLevel, 11);
   const { lat, lng } = latLng;
   const isRecentFoundFetchDisabled = isMapZoomFetchDisabled(mapLevel);

@@ -1,4 +1,4 @@
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import {
   clearMainGeoSessionConfirmed,
   hasMainGeoSessionConfirmed,
@@ -8,7 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const useMyLocationButton = () => {
   const { setLatLng, setUserGpsFromDevice, clearLatLng, triggerLevelReset } =
-    useMainKakaoMapStore();
+    useMainNaverMapStore();
   const [isLocationPermissionSheetOpen, setIsLocationPermissionSheetOpen] = useState(false);
 
   useEffect(() => {

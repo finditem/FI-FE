@@ -1,10 +1,10 @@
 import { act, renderHook } from "@testing-library/react";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { clearMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import useMyLocationButton from "./useMyLocationButton";
 
 jest.mock("@/store", () => ({
-  useMainKakaoMapStore: jest.fn(),
+  useMainNaverMapStore: jest.fn(),
 }));
 
 jest.mock("@/utils/mainGeoSession", () => ({
@@ -15,8 +15,8 @@ jest.mock("@/utils/mainGeoSession", () => ({
 
 const mockClearMainGeoSessionConfirmed = jest.mocked(clearMainGeoSessionConfirmed);
 
-const mockUseMainKakaoMapStore = useMainKakaoMapStore as jest.MockedFunction<
-  typeof useMainKakaoMapStore
+const mockUseMainNaverMapStore = useMainNaverMapStore as jest.MockedFunction<
+  typeof useMainNaverMapStore
 >;
 
 const createStoreSlice = () => ({
@@ -32,12 +32,12 @@ describe("useMyLocationButton", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     slice = createStoreSlice();
-    mockUseMainKakaoMapStore.mockImplementation(((selector?: (s: typeof slice) => unknown) => {
+    mockUseMainNaverMapStore.mockImplementation(((selector?: (s: typeof slice) => unknown) => {
       if (typeof selector === "function") {
         return selector(slice as never);
       }
       return slice;
-    }) as typeof useMainKakaoMapStore);
+    }) as typeof useMainNaverMapStore);
   });
 
   it("geolocation이 없으면 클릭 시 clearLatLng를 호출한다", async () => {

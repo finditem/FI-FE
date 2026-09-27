@@ -7,7 +7,7 @@ import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { MapPostSummaryPageParam, mapPostTypeQueryToApiParam } from "./useMapPostSummary";
 import { MapPostSummaryPostItem, MapPostSummaryResponse } from "../types/MapPostSummaryType";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 
 const SEARCH_LOCATION_PAGE_SIZE = 10;
 
@@ -17,7 +17,7 @@ interface UseSearchLocationParams {
 }
 
 const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => {
-  const { mapLevel } = useMainKakaoMapStore();
+  const { mapLevel } = useMainNaverMapStore();
   const level = Math.min(mapLevel, 11);
   const axios = useAxios("public");
   const searchParams = useSearchParams();

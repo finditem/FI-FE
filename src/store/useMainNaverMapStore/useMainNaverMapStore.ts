@@ -21,7 +21,7 @@ const ADDRESS_REVALIDATE_DELAY_MS = 500;
  * @author hyungjun
  */
 
-interface MainKakaoMapStore {
+interface MainNaverMapStore {
   /** 지도 중심 좌표 */
   latLng: { lat: number; lng: number };
   /** 지도 중심 좌표만 갱신(주소는 `syncAddressFromLatLng`로 별도) */
@@ -65,13 +65,13 @@ interface MainKakaoMapStore {
 /**
  * @example
  * ```ts
- * const { latLng, setLatLng, syncAddressFromLatLng } = useMainKakaoMapStore();
+ * const { latLng, setLatLng, syncAddressFromLatLng } = useMainNaverMapStore();
  * setLatLng({ lat: 37.5665, lng: 126.978 });
  * syncAddressFromLatLng();
  * ```
  */
 
-export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
+export const useMainNaverMapStore = create<MainNaverMapStore>()(
   persist(
     (set, get) => {
       let abortController: AbortController | null = null;
@@ -171,6 +171,7 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
       };
     },
     {
+      // 저장 키는 카카오 시절 이름을 유지한다. 바꾸면 기존 사용자의 저장된 위치가 사라진다.
       name: "main-kakao-map-store",
       partialize: (state) => ({
         latLng: state.latLng,
