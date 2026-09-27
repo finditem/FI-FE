@@ -802,11 +802,20 @@
   },
   "PostDetailBody": {
     "viewCountLabel": "{count, plural, one {# view} other {# views}}",
-    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}"
+    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}",
+    "registeredLabel": "Registered",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "daysAgo": "{count, plural, one {# day ago} other {# days ago}}",
+    "weeksAgo": "{count, plural, one {# week ago} other {# weeks ago}}",
+    "monthsAgo": "{count, plural, one {# month ago} other {# months ago}}",
+    "yearsAgo": "{count, plural, one {# year ago} other {# years ago}}"
   },
   "PostDetailPreviewKakaoMap": {
     "viewOnMapAriaLabel": "View location on map in detail",
-    "noAddress": "No location info"
+    "noAddress": "No location info",
+    "lostLocationLabel": "Lost Location",
+    "dateLostLabel": "Date lost"
   },
   "PostDetailKakaoMap": {
     "mapAreaLabel": "Map area"
