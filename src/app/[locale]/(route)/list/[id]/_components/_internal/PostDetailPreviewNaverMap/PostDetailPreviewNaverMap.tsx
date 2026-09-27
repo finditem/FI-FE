@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Icon, BaseKakaoMap } from "@/components";
+import { Icon, BaseNaverMap } from "@/components";
 import { cn } from "@/utils";
 
 type MapData = {
@@ -27,7 +27,7 @@ const PostDetailPreviewNaverMap = ({ data }: PostDetailPreviewNaverMapProps) => 
           "tablet:h-[200px]"
         )}
       >
-        <BaseKakaoMap center={{ lat: latitude, lng: longitude }} level={7} showCenterMarker />
+        <BaseNaverMap center={{ lat: latitude, lng: longitude }} zoom={13} showCenterMarker />
       </div>
 
       <Link

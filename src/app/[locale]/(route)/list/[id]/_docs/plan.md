@@ -15,3 +15,11 @@
 
 - [x] 비로그인 사용자의 게시글 번역 API 요청을 비활성화한다.
 - [x] 변경 후 빌드를 검증한다.
+
+- [x] `PostDetailPreviewKakaoMap`을 `PostDetailPreviewNaverMap`으로 이름 변경한다 (폴더, 파일, `_internal/index.ts` export, `PostDetail` import).
+- [x] 번역 네임스페이스 `PostDetailPreviewKakaoMap`을 `PostDetailPreviewNaverMap`으로 ko/en 동시에 변경한다.
+- [x] `BaseKakaoMap level={7}`을 `BaseNaverMap zoom={13}`으로 전환한다.
+- [x] `post-detail.spec.ts`가 차단하는 지도 SDK 요청을 카카오에서 네이버(`oapi.map.naver.com`)로 바꾼다.
+- [x] `npm run check:i18n-keys`, `npm run test`, `npm run build`로 회귀를 확인한다.
+- [ ] `post-detail.spec.ts` e2e를 확인한다 (로컬 개발 서버가 e2e 모드가 아니라 미확인, #1245 머지 후 CI에서 확인).
+- [x] 실제 게시글 상세 화면에서 카카오 지도와 배율, 마커 위치가 같은지 확인한다.
