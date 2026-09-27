@@ -94,3 +94,39 @@
       이번 범위에서 제외 (Figma 프레임 좌표상으로만 존재, 말풍선이 폭 제한되어 시각 효과 없음)
 - [x] `npm run build` 통과 확인 (변경이 Tailwind className 추가뿐이라 타입/로직 영향 없음, ChatBox 단위 테스트 없음)
 - [x] 신규 정적 텍스트 없음 → i18n 작업 불필요
+
+## 헤더 메뉴에 "차단" 추가 (매너온도 3차 스프린트, 피그마 node-id=16364-160182)
+
+피그마 Kebab Menu 실제 시안은 기존 report/leave 2항목이 아니라 3항목 구성: "분실물 찾기 완료"(게시글
+작성자에게만 노출, 초록) / "차단, 신고하기"(하나의 메뉴 항목) / "채팅방 나가기"(빨강). 사용자 확인 결과:
+"차단, 신고하기" 클릭 시 기존처럼 신고/차단 두 버튼을 담은 작은 시트(`PostReportBlockActions` 재사용)를
+열고, "분실물 찾기 완료"는 이번 범위에 포함(게시글 작성자일 때만 노출, `list/[id]`의 `usePutPostStatus`
+재사용). "분실물 찾기 완료" 확인 모달은 아래 "찾기 완료 확인 모달" 섹션에서 `PostFoundConfirmModal`로
+전역화해서 이 라우트와 `list/[id]` 양쪽에서 공유한다.
+
+- [x] `_types/InfoButtonOptionValue.ts`: `"report" | "leave"` → `"changeToFound" | "reportBlock" | "leave"`
+- [x] `_components/CHATROOM_CONST.ts`: 정적 `INFO_OPTIONS` 배열을 `getInfoOptions(isMine: boolean)` 함수로 변경.
+      `changeToFound`는 `isMine`일 때만 포함, `textColor`에 `text-brand-strongUseThis-default` 추가
+- [x] `_hooks/useInfoOptions/useInfoOptions.ts`: `isMine` 인자를 받아 `getInfoOptions` 호출, `position`을
+      배열 인덱스 기반으로 `first`/`middle`/`last` 동적 계산 (기존엔 2항목 고정이라 first/last만 있었음)
+- [x] `ChatRoomHeaderInfoButton.tsx`:
+  - `postId`, `opponentUserId` prop 추가 (부모 `ChatRoomHeader`가 이미 갖고 있는 값을 그대로 전달)
+  - `useGetDetailPost({ id: postId })`로 `isMine` 조회
+  - `changeToFound` 클릭 → `PostFoundConfirmModal` 오픈
+  - `reportBlock` 클릭 → 기존 드롭다운 자리에 `PostReportBlockActions`(report/block 두 버튼) 서브시트 표시,
+    report 클릭 시 기존 `ReportModal`(targetType="CHAT", targetId=roomId), block 클릭 시 `BlockUserModal`
+    (writerId=opponentUserId)
+  - `leave` 클릭은 기존 `ChatLeaveModal` 흐름 그대로 유지
+- [x] `MenuItem` 라운딩 클래스: `position === "first"`일 때만 `rounded-t`, `"last"`일 때만 `rounded-b`로
+      변경(가운데 항목은 라운딩 없음)
+- [x] 케밥 메뉴 아이콘(체크/신고/나가기)은 Figma API 호출 한도로 정확한 SVG를 받지 못해 이번 범위 제외 —
+      텍스트만 있는 기존 스타일 유지 (후속 작업으로 남김)
+- [x] `ChatRoomHeader.tsx`: `ChatRoomHeaderInfoButton`에 `postId`, `opponentUserId` prop 전달
+- [x] i18n: `ChatRoomHeaderInfoButton.reportLabel` → `reportBlockLabel`로 키 이름 변경(텍스트는 기존과 동일,
+      이미 "차단, 신고하기"/"Block or report"로 들어가 있었음), `changeToFoundLabel`("분실물 찾기 완료") 신규 추가
+      (ko/en 동시)
+- [x] `ChatRoomHeaderInfoButton.test.tsx` 갱신: `postId`/`opponentUserId` prop 반영, "차단, 신고하기" 클릭 시
+      바로 report-modal이 아니라 서브시트가 열리는 것으로 기대값 수정, block 클릭 플로우 테스트 추가,
+      isMine true/false에 따른 "분실물 찾기 완료" 노출 여부 테스트 추가
+- [x] `ChatRoomHeaderInfoButton.stories.tsx`: 신규 필수 prop 반영
+- [x] `npm run test`, `npm run build`, `npm run check:i18n-keys` 통과 확인

@@ -13,22 +13,21 @@ export type ChatChipMode = keyof typeof CHAT_CHIP_MODE;
 
 interface InfoOption {
   value: InfoButtonOptionValue;
-  textColor: "text-neutral-normal-default" | "text-system-warning";
-  position: "first" | "last";
+  textColor:
+    "text-neutral-normal-default" | "text-system-warning" | "text-brand-strongUseThis-default";
 }
 
-export const INFO_OPTIONS: InfoOption[] = [
-  {
-    value: "report",
-    textColor: "text-neutral-normal-default",
-    position: "first",
-  },
-  {
-    value: "leave",
-    textColor: "text-system-warning",
-    position: "last",
-  },
-];
+export const getInfoOptions = (isMine: boolean): InfoOption[] => {
+  const options: InfoOption[] = [];
+
+  if (isMine) {
+    options.push({ value: "changeToFound", textColor: "text-brand-strongUseThis-default" });
+  }
+  options.push({ value: "reportBlock", textColor: "text-neutral-normal-default" });
+  options.push({ value: "leave", textColor: "text-system-warning" });
+
+  return options;
+};
 
 export const CHAT_SENDER_STYLE = {
   me: {

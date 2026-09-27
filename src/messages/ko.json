@@ -1022,7 +1022,8 @@
   },
   "ChatRoomHeaderInfoButton": {
     "menuAriaLabel": "채팅방 메뉴 열기 버튼",
-    "reportLabel": "차단, 신고하기",
+    "changeToFoundLabel": "분실물 찾기 완료",
+    "reportBlockLabel": "차단, 신고하기",
     "leaveLabel": "채팅방 나가기"
   },
   "PostFoundConfirmModal": {

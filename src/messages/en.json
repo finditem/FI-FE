@@ -1022,7 +1022,8 @@
   },
   "ChatRoomHeaderInfoButton": {
     "menuAriaLabel": "Open chat menu",
-    "reportLabel": "Block or report",
+    "changeToFoundLabel": "Mark item as found",
+    "reportBlockLabel": "Block or report",
     "leaveLabel": "Leave chat room"
   },
   "PostFoundConfirmModal": {
