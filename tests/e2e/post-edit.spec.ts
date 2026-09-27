@@ -30,6 +30,7 @@ const makeMockPostDetail = (overrides: Record<string, unknown> = {}) => ({
     isNew: false,
     isHot: false,
     createdAt: "2024-01-15T12:00:00Z",
+    date: "2025-01-14T09:30:00",
     isMine: true,
     imageResponseList: [],
     postUserInformation: {
