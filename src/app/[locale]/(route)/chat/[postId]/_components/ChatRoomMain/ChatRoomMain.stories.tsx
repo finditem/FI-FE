@@ -2,6 +2,7 @@ import { Meta, StoryObj } from "@storybook/nextjs";
 import ChatRoomMain from "./ChatRoomMain";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MOCK_CHAT_MESSAGES } from "@/mock/data/chat.data";
+import { ToastProvider } from "@/providers/ToastProviders";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -42,9 +43,11 @@ const meta: Meta<typeof ChatRoomMain> = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div className="h-[600px] w-[430px] border border-gray-200">
-          <Story />
-        </div>
+        <ToastProvider>
+          <div className="h-[600px] w-[430px] border border-gray-200">
+            <Story />
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     ),
   ],
