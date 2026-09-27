@@ -257,7 +257,6 @@ module.exports = {
         6000: 240,
         8000: 320
       },
-      baseColor: "#ffffff",
       fill: {
         neutral: {
           strong: {
@@ -332,8 +331,7 @@ module.exports = {
         },
         accent: {
           kakao: "#fee500",
-          foundItem: "#ebfbf1",
-          lostItem: "#fdf1ed",
+          foundItem: "#eaf2fe",
           location: "#e6e6f9",
           lostBtn: "#fdf1ed",
           foundBtn: "#ebfbf1"
