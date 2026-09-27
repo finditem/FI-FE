@@ -1032,6 +1032,27 @@
     "laterLabel": "나중에",
     "reviewLabel": "후기 남기기"
   },
+  "ReviewWritePage": {
+    "title": "찾길 후기",
+    "greeting": "{myNickname}님,\n{opponentNickname}와의 만남은 어떠셨나요?",
+    "feelingsAriaLabel": "만남에서 느낀 감정 선택",
+    "feelings": {
+      "touched": "감동",
+      "grateful": "감사",
+      "heartFlutter": "심쿵"
+    },
+    "helpQuestion": "어떤 도움을 받으셨나요?",
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
+    },
+    "reviewLabel": "후기를 남겨주세요.",
+    "reviewPlaceholder": "어떤 점이 고마웠는지 알려주세요. (최대 300자)",
+    "submitLabel": "후기 남기기"
+  },
   "ChatLeaveModal": {
     "cancelLabel": "아니요",
     "confirmLabel": "네, 나갈래요",

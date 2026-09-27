@@ -147,6 +147,7 @@ const ChatRoomHeaderInfoButton = ({
         isOpen={foundConfirmOpen}
         onClose={() => setFoundConfirmOpen(false)}
         postId={postId}
+        roomId={roomId}
       />
 
       <ReportModal
