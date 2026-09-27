@@ -1025,6 +1025,12 @@
     "reportLabel": "Block or report",
     "leaveLabel": "Leave chat room"
   },
+  "PostFoundConfirmModal": {
+    "title": "Leave a review to say thanks?",
+    "description": "Let the person who helped you find your item know you're grateful with a review.",
+    "laterLabel": "Later",
+    "reviewLabel": "Leave a review"
+  },
   "ChatLeaveModal": {
     "cancelLabel": "No",
     "confirmLabel": "Yes, leave",
