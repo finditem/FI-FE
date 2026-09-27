@@ -10,21 +10,37 @@ jest.mock("react-naver-maps", () => ({
     if (mockContainerError) throw mockContainerError;
     return children;
   },
-  NaverMap: ({ ref, children, onDragend }: any) => {
+  NaverMap: ({ ref, children, onDragend, onZoomChanged }: any) => {
     ref.current = { getCenter: () => mockMapCenter };
     return (
       <div data-testid="naver-map">
         <button type="button" onClick={onDragend}>
           drag end
         </button>
+        <button type="button" onClick={() => onZoomChanged?.(15)}>
+          zoom change
+        </button>
         {children}
       </div>
     );
   },
-  Marker: ({ position }: any) => (
-    <div data-testid="map-marker" data-position={`${position.lat},${position.lng}`} />
+  Marker: ({ position, icon, onClick }: any) => (
+    <button
+      type="button"
+      data-testid="map-marker"
+      data-position={`${position.lat},${position.lng}`}
+      data-icon={icon.url}
+      onClick={onClick}
+    />
   ),
-  Circle: ({ radius }: any) => <div data-testid="map-circle" data-radius={radius} />,
+  Circle: ({ radius, center }: any) => (
+    <div
+      data-testid="map-circle"
+      data-radius={radius}
+      data-center={`${center.lat},${center.lng}`}
+    />
+  ),
+  CustomOverlay: ({ children }: any) => <div data-testid="custom-overlay">{children}</div>,
 }));
 
 jest.mock("@/app/ErrorBoundary", () => {
@@ -40,6 +56,12 @@ jest.mock("@/app/ErrorBoundary", () => {
   }
   return { ErrorBoundary: MockErrorBoundary };
 });
+
+jest.mock("@/api/fetch/mapController", () => ({}));
+
+jest.mock("@/components/domain/BaseKakaoMap/MAP_MARKER_ICON", () => ({
+  MAP_MARKER_ICON: { LOST: "/lost.svg", FOUND: "/found.svg" },
+}));
 
 jest.mock("@/components/domain/BaseKakaoMap/_internal", () => ({
   MapLoadingState: () => <div data-testid="map-loading-state" />,
@@ -95,6 +117,99 @@ describe("<BaseNaverMap />", () => {
       "data-position",
       "37.544583,127.055972"
     );
+  });
+
+  it("markerData가 있으면 게시글 종류에 맞는 아이콘으로 마커를 렌더링합니다.", () => {
+    const markerData = [
+      { postId: 1, latitude: 37.5, longitude: 126.9, postType: "LOST" },
+      { postId: 2, latitude: 37.6, longitude: 127.0, postType: "FOUND" },
+    ] as any;
+    render(<BaseNaverMap center={center} markerData={markerData} />);
+
+    const icons = screen.getAllByTestId("map-marker").map((el) => el.dataset.icon);
+    expect(icons).toEqual(["/lost.svg", "/found.svg"]);
+  });
+
+  it("markerData가 있으면 showCenterMarker가 true여도 중심 마커를 렌더링하지 않습니다.", () => {
+    const markerData = [{ postId: 1, latitude: 37.5, longitude: 126.9, postType: "LOST" }] as any;
+    render(<BaseNaverMap center={center} showCenterMarker markerData={markerData} />);
+    expect(screen.getAllByTestId("map-marker")).toHaveLength(1);
+  });
+
+  it("게시글 마커를 누르면 postId와 좌표를 onMarkerClick으로 전달합니다.", () => {
+    const onMarkerClick = jest.fn();
+    const markerData = [{ postId: 7, latitude: 37.5, longitude: 126.9, postType: "LOST" }] as any;
+    render(<BaseNaverMap center={center} markerData={markerData} onMarkerClick={onMarkerClick} />);
+
+    fireEvent.click(screen.getByTestId("map-marker"));
+
+    expect(onMarkerClick).toHaveBeenCalledWith(7, { lat: 37.5, lng: 126.9 });
+  });
+
+  it("placeMarkerData가 있으면 장소 마커를 개수만큼 렌더링하고, 누르면 placeId를 전달합니다.", () => {
+    const onPlaceMarkerClick = jest.fn();
+    const placeMarkerData = [
+      { placeId: 1, latitude: 37.5, longitude: 127.0, type: "POPUP", thumbnailUrl: "/a.jpg" },
+      { placeId: 2, latitude: 37.6, longitude: 127.1, type: "CAFE", thumbnailUrl: "/b.jpg" },
+    ] as any;
+    render(
+      <BaseNaverMap
+        center={center}
+        placeMarkerData={placeMarkerData}
+        selectedPlaceId={2}
+        onPlaceMarkerClick={onPlaceMarkerClick}
+      />
+    );
+
+    const placeMarkers = screen.getAllByTestId("custom-overlay");
+    expect(placeMarkers).toHaveLength(2);
+    expect(screen.getByRole("button", { pressed: true })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("button", { pressed: true }));
+    expect(onPlaceMarkerClick).toHaveBeenCalledWith(2, { lat: 37.6, lng: 127.1 });
+  });
+
+  it("userLocation이 있으면 사용자 위치 마커를 렌더링하고, userHeading 방향으로 회전시킵니다.", () => {
+    const { container } = render(
+      <BaseNaverMap center={center} userLocation={{ lat: 37.5, lng: 127.0 }} userHeading={0} />
+    );
+    expect(container.querySelector('img[src*="user-location"]')?.getAttribute("style")).toContain(
+      "rotate(-311.6deg)"
+    );
+  });
+
+  it("userLocation이 없으면 사용자 위치 마커를 렌더링하지 않습니다.", () => {
+    const { container } = render(<BaseNaverMap center={center} />);
+    expect(container.querySelector('img[src*="user-location"]')).not.toBeInTheDocument();
+  });
+
+  it("innerRadius와 circleCenter를 주면 그 좌표에 바깥 원과 안쪽 원을 함께 그립니다.", () => {
+    const circleCenter = { lat: 37.544583, lng: 127.055972 };
+    render(
+      <BaseNaverMap
+        center={center}
+        showCircle
+        radius={500}
+        innerRadius={250}
+        circleCenter={circleCenter}
+      />
+    );
+
+    const circles = screen.getAllByTestId("map-circle");
+    expect(circles.map((el) => el.dataset.radius)).toEqual(["500", "250"]);
+    expect(circles.map((el) => el.dataset.center)).toEqual([
+      "37.544583,127.055972",
+      "37.544583,127.055972",
+    ]);
+  });
+
+  it("줌이 바뀌면 onZoomChange로 새 줌을 전달합니다.", () => {
+    const onZoomChange = jest.fn();
+    render(<BaseNaverMap center={center} onZoomChange={onZoomChange} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "zoom change" }));
+
+    expect(onZoomChange).toHaveBeenCalledWith(15);
   });
 
   it("children이 지도 위에 렌더링됩니다.", () => {
