@@ -33,14 +33,14 @@ const DetailPermissionSheet = ({ isOpen, onClose, state }: DetailPermissionSheet
       navigator.geolocation.getCurrentPosition(
         ({ coords }) => {
           const next = { lat: coords.latitude, lng: coords.longitude };
-          useMainNaverMapStore.getState().triggerLevelReset();
+          useMainNaverMapStore.getState().triggerZoomReset();
           useMainNaverMapStore.getState().setUserGpsFromDevice(next);
           useMainNaverMapStore.getState().setLatLng(next);
           markMainGeoSessionConfirmed();
           onClose();
         },
         (error) => {
-          useMainNaverMapStore.getState().triggerLevelReset();
+          useMainNaverMapStore.getState().triggerZoomReset();
           useMainNaverMapStore.getState().clearLatLng();
           if (error.code === error.PERMISSION_DENIED) {
             clearMainGeoSessionConfirmed();

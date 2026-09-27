@@ -3,6 +3,7 @@
 import useAxios from "@/api/_base/axios/useAxios";
 import useAppCompositeInfiniteQuery from "@/api/_base/query/useAppCompositeInfiniteQuery";
 import { useMainNaverMapStore } from "@/store";
+import { getServerMapLevel } from "@/utils";
 import { useSearchParams } from "next/navigation";
 import { POST_TYPE } from "@/app/[locale]/(home)/_components/HOME_CONST";
 import { MapPostSummaryPostItem, MapPostSummaryResponse } from "../types/MapPostSummaryType";
@@ -27,8 +28,8 @@ export type MapPostSummaryPageParam =
 
 const useMapPostSummary = (postId: number) => {
   const axios = useAxios("public");
-  const { mapLevel } = useMainNaverMapStore();
-  const level = Math.min(mapLevel, 11);
+  const { mapZoom } = useMainNaverMapStore();
+  const level = getServerMapLevel(mapZoom);
   const searchParams = useSearchParams();
   const apiPostType = mapPostTypeQueryToApiParam(searchParams.get(POST_TYPE));
   const postStatus = searchParams.get("postStatus");

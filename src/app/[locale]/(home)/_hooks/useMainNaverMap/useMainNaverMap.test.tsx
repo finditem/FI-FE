@@ -34,14 +34,14 @@ describe("useMainNaverMap", () => {
     expect(result.current.mapCenter).toEqual(DEFAULT_LAT_LNG);
   });
 
-  it("levelResetSignal이 변경되면 mapLevel을 6 이하로 맞춘다", async () => {
+  it("zoomResetSignal이 변경되면 너무 축소된 지도를 줌 14까지 확대한다", async () => {
     Object.defineProperty(navigator, "geolocation", {
       configurable: true,
       writable: true,
       value: undefined,
     });
 
-    useMainNaverMapStore.setState({ mapLevel: 9 });
+    useMainNaverMapStore.setState({ mapZoom: 11 });
 
     const { result } = renderHook(() => useMainNaverMap());
 
@@ -50,11 +50,35 @@ describe("useMainNaverMap", () => {
     });
 
     act(() => {
-      useMainNaverMapStore.getState().triggerLevelReset();
+      useMainNaverMapStore.getState().triggerZoomReset();
     });
 
     await waitFor(() => {
-      expect(useMainNaverMapStore.getState().mapLevel).toBe(6);
+      expect(useMainNaverMapStore.getState().mapZoom).toBe(14);
+    });
+  });
+
+  it("zoomResetSignal이 변경돼도 이미 줌 14보다 확대돼 있으면 그대로 둔다", async () => {
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+
+    useMainNaverMapStore.setState({ mapZoom: 16 });
+
+    const { result } = renderHook(() => useMainNaverMap());
+
+    await waitFor(() => {
+      expect(result.current.isPermissionResolved).toBe(true);
+    });
+
+    act(() => {
+      useMainNaverMapStore.getState().triggerZoomReset();
+    });
+
+    await waitFor(() => {
+      expect(useMainNaverMapStore.getState().mapZoom).toBe(16);
     });
   });
 });

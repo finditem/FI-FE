@@ -23,7 +23,7 @@ const createStoreSlice = () => ({
   setLatLng: jest.fn(),
   setUserGpsFromDevice: jest.fn(),
   clearLatLng: jest.fn(),
-  triggerLevelReset: jest.fn(),
+  triggerZoomReset: jest.fn(),
 });
 
 describe("useMyLocationButton", () => {

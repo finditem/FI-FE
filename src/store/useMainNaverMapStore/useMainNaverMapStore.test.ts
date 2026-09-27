@@ -1,4 +1,4 @@
-import { DEFAULT_ADDRESS, DEFAULT_LAT_LNG, DEFAULT_MAP_LEVEL } from "@/constants";
+import { DEFAULT_ADDRESS, DEFAULT_LAT_LNG, DEFAULT_MAP_ZOOM } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
 import { useMainNaverMapStore } from "./useMainNaverMapStore";
 
@@ -53,24 +53,24 @@ describe("useMainNaverMapStore", () => {
     expect(getAddressMock).not.toHaveBeenCalled();
   });
 
-  it("clearLatLng은 기본 좌표·주소·mapLevel로 되돌립니다", () => {
+  it("clearLatLng은 기본 좌표·주소·mapZoom로 되돌립니다", () => {
     useMainNaverMapStore.setState({
       latLng: { lat: 99, lng: 99 },
       address: "임시",
-      mapLevel: 3,
+      mapZoom: 3,
     });
     useMainNaverMapStore.getState().clearLatLng();
     expect(useMainNaverMapStore.getState().latLng).toEqual(DEFAULT_LAT_LNG);
     expect(useMainNaverMapStore.getState().address).toBe(DEFAULT_ADDRESS);
-    expect(useMainNaverMapStore.getState().mapLevel).toBe(DEFAULT_MAP_LEVEL);
+    expect(useMainNaverMapStore.getState().mapZoom).toBe(DEFAULT_MAP_ZOOM);
   });
 
-  it("triggerLevelReset과 triggerMarkerSheetSnap은 각 시그널을 1씩 올립니다", () => {
-    const s0 = useMainNaverMapStore.getState().levelResetSignal;
+  it("triggerZoomReset과 triggerMarkerSheetSnap은 각 시그널을 1씩 올립니다", () => {
+    const s0 = useMainNaverMapStore.getState().zoomResetSignal;
     const m0 = useMainNaverMapStore.getState().markerSheetSnapSignal;
-    useMainNaverMapStore.getState().triggerLevelReset();
+    useMainNaverMapStore.getState().triggerZoomReset();
     useMainNaverMapStore.getState().triggerMarkerSheetSnap();
-    expect(useMainNaverMapStore.getState().levelResetSignal).toBe(s0 + 1);
+    expect(useMainNaverMapStore.getState().zoomResetSignal).toBe(s0 + 1);
     expect(useMainNaverMapStore.getState().markerSheetSnapSignal).toBe(m0 + 1);
   });
 
@@ -119,8 +119,8 @@ describe("useMainNaverMapStore", () => {
     expect(getAddressMock).toHaveBeenCalledWith(7, 8, expect.any(AbortSignal), { variant: "full" });
   });
 
-  it("setMapLevel은 mapLevel을 변경합니다", () => {
-    useMainNaverMapStore.getState().setMapLevel(4);
-    expect(useMainNaverMapStore.getState().mapLevel).toBe(4);
+  it("setMapZoom은 mapZoom을 변경합니다", () => {
+    useMainNaverMapStore.getState().setMapZoom(4);
+    expect(useMainNaverMapStore.getState().mapZoom).toBe(4);
   });
 });

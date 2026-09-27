@@ -3,16 +3,17 @@
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { RecentFoundResponse } from "../types/RecentFoundType";
 import { useMainNaverMapStore } from "@/store";
+import { getServerMapLevel } from "@/utils";
 import { debounce } from "es-toolkit/compat";
 import { useEffect, useRef, useState } from "react";
 import { keepPreviousData } from "@tanstack/react-query";
 import { isMapZoomFetchDisabled } from "./isMapZoomFetchDisabled";
 
 const useRecentFound = () => {
-  const { latLng, mapLevel } = useMainNaverMapStore();
-  const level = Math.min(mapLevel, 11);
+  const { latLng, mapZoom } = useMainNaverMapStore();
+  const level = getServerMapLevel(mapZoom);
   const { lat, lng } = latLng;
-  const isRecentFoundFetchDisabled = isMapZoomFetchDisabled(mapLevel);
+  const isRecentFoundFetchDisabled = isMapZoomFetchDisabled(mapZoom);
 
   const [debouncedLatLng, setDebouncedLatLng] = useState(latLng);
 

@@ -11,19 +11,19 @@ const useMainNaverMap = () => {
     latLng,
     setLatLng,
     clearLatLng,
-    levelResetSignal,
-    mapLevel,
-    setMapLevel,
+    zoomResetSignal,
+    mapZoom,
+    setMapZoom,
     setUserGpsFromDevice,
-    triggerLevelReset,
+    triggerZoomReset,
   } = useMainNaverMapStore();
   const [isPermissionResolved, setIsPermissionResolved] = useState(false);
-  const mapLevelRef = useRef(mapLevel);
-  const prevLevelResetSignalRef = useRef(levelResetSignal);
+  const mapZoomRef = useRef(mapZoom);
+  const prevZoomResetSignalRef = useRef(zoomResetSignal);
 
   useEffect(() => {
     const applyGpsToMap = (next: { lat: number; lng: number }) => {
-      triggerLevelReset();
+      triggerZoomReset();
       setUserGpsFromDevice(next);
       setLatLng(next);
       markMainGeoSessionConfirmed();
@@ -87,22 +87,23 @@ const useMainNaverMap = () => {
     };
 
     void syncCenterByPermission();
-  }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerLevelReset]);
+  }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerZoomReset]);
 
   useEffect(() => {
-    mapLevelRef.current = mapLevel;
-  }, [mapLevel]);
+    mapZoomRef.current = mapZoom;
+  }, [mapZoom]);
 
   useEffect(() => {
-    if (prevLevelResetSignalRef.current === levelResetSignal) return;
-    prevLevelResetSignalRef.current = levelResetSignal;
-    setMapLevel(Math.min(mapLevelRef.current, 6));
-  }, [levelResetSignal, setMapLevel]);
+    if (prevZoomResetSignalRef.current === zoomResetSignal) return;
+    prevZoomResetSignalRef.current = zoomResetSignal;
+    // 너무 축소된 상태면 줌 14(반경 1km 배율, 카카오 레벨 6)까지 확대한다. 이미 더 확대돼 있으면 그대로 둔다.
+    setMapZoom(Math.max(mapZoomRef.current, 14));
+  }, [zoomResetSignal, setMapZoom]);
 
   return {
     mapCenter: latLng,
-    mapLevel,
-    setMapLevel,
+    mapZoom,
+    setMapZoom,
     setLatLng,
     isPermissionResolved,
   };
