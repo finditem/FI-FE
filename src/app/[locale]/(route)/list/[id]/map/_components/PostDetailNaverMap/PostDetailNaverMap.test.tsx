@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { useSearchParams } from "next/navigation";
-import PostDetailKakaoMap from "./PostDetailKakaoMap";
+import PostDetailNaverMap from "./PostDetailNaverMap";
 
 jest.mock("next/navigation", () => ({
   useSearchParams: jest.fn(),
@@ -21,11 +21,11 @@ jest.mock("@/components/domain", () => ({
 
 const mockUseSearchParams = useSearchParams as jest.Mock;
 
-describe("PostDetailKakaoMap", () => {
+describe("PostDetailNaverMap", () => {
   it("searchParams가 없을 때 기본 주소가 표시되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({ get: () => null });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByText("서울특별시 중구 세종대로 110 서울특별시청")).toBeInTheDocument();
     const map = screen.getByTestId("base-kakao-map");
@@ -38,7 +38,7 @@ describe("PostDetailKakaoMap", () => {
       get: (key: string) => (key === "address" ? "서울특별시 마포구 양화로 160" : null),
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByText("서울특별시 마포구 양화로 160")).toBeInTheDocument();
   });
@@ -49,7 +49,7 @@ describe("PostDetailKakaoMap", () => {
         key === "address" ? encodeURIComponent("서울특별시 강남구 테헤란로 427") : null,
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByText("서울특별시 강남구 테헤란로 427")).toBeInTheDocument();
   });
@@ -57,7 +57,7 @@ describe("PostDetailKakaoMap", () => {
   it("sr-only 제목 '지도 영역'이 렌더링되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({ get: () => null });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByRole("heading", { name: "지도 영역" })).toBeInTheDocument();
   });
@@ -70,7 +70,7 @@ describe("PostDetailKakaoMap", () => {
       },
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     const map = screen.getByTestId("base-kakao-map");
     expect(map).toHaveAttribute("data-lat", "37.5565");
@@ -82,7 +82,7 @@ describe("PostDetailKakaoMap", () => {
       get: (key: string) => (key === "radius" ? "1000" : null),
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "6");
   });
@@ -92,7 +92,7 @@ describe("PostDetailKakaoMap", () => {
       get: (key: string) => (key === "radius" ? "3000" : null),
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "7");
   });
@@ -102,7 +102,7 @@ describe("PostDetailKakaoMap", () => {
       get: (key: string) => (key === "radius" ? "5000" : null),
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "8");
   });
@@ -112,7 +112,7 @@ describe("PostDetailKakaoMap", () => {
       get: (key: string) => (key === "radius" ? "2000" : null),
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "6");
   });
@@ -125,7 +125,7 @@ describe("PostDetailKakaoMap", () => {
       },
     });
 
-    render(<PostDetailKakaoMap />);
+    render(<PostDetailNaverMap />);
 
     const map = screen.getByTestId("base-kakao-map");
     expect(map).toHaveAttribute("data-lat", "37.566370748");

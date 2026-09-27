@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
-import PostDetailKakaoMap from "./PostDetailKakaoMap";
+import PostDetailNaverMap from "./PostDetailNaverMap";
 
-const meta: Meta<typeof PostDetailKakaoMap> = {
-  title: "페이지/상세 페이지/PostDetailKakaoMap",
-  component: PostDetailKakaoMap,
+const meta: Meta<typeof PostDetailNaverMap> = {
+  title: "페이지/상세 페이지/PostDetailNaverMap",
+  component: PostDetailNaverMap,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",

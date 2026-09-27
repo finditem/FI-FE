@@ -39,8 +39,8 @@ const decodeAddress = (address: string) => {
   }
 };
 
-const PostDetailKakaoMap = () => {
-  const t = useTranslations("PostDetailKakaoMap");
+const PostDetailNaverMap = () => {
+  const t = useTranslations("PostDetailNaverMap");
   const searchParams = useSearchParams();
 
   const rawData = mapQuerySchema.parse({
@@ -77,4 +77,4 @@ const PostDetailKakaoMap = () => {
   );
 };
 
-export default PostDetailKakaoMap;
+export default PostDetailNaverMap;
