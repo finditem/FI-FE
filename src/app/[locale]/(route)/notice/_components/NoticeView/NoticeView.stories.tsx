@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import type { InfiniteData } from "@tanstack/react-query";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, onlineManager } from "@tanstack/react-query";
 import type { GetNoticesResponse } from "@/api/fetch/notice/types/NoticesType";
 import { MOCK_NOTICES_RESPONSE_FIRST_PAGE, MOCK_NOTICES_RESPONSE_LAST_PAGE } from "@/mock/data";
 import NoticeView from "./NoticeView";
@@ -73,6 +73,12 @@ export const LastPage: Story = {
 
 export const HasNextPage: Story = {
   render: () => <StoryShell page={MOCK_NOTICES_RESPONSE_FIRST_PAGE} />,
+  // 센티널이 화면에 보이면 다음 페이지를 요청하는데 스토리북에는 API가 없어 404로 스토리가 깨진다.
+  // 이 스토리에 있는 동안만 오프라인으로 두어 요청을 대기 상태로 멈추고, 떠날 때 되돌린다.
+  beforeEach: () => {
+    onlineManager.setOnline(false);
+    return () => onlineManager.setOnline(true);
+  },
   parameters: {
     docs: {
       description: {
