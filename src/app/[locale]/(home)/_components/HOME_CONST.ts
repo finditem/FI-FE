@@ -6,7 +6,7 @@ export const LOST_FIND_ACTION_DATA = [
     symbolImage: "/main/LostFindActions/home-lost-icon.svg",
     // 태블릿 기준 크기. 모바일에서는 컴포넌트에서 CSS로 축소한다.
     symbolSize: { width: 83, height: 56 },
-    bgColor: "bg-fill-accent-lostItem",
+    bgColor: "bg-fill-accent-lostBtn",
     emphasisClass: "text-[#332C29]",
     restClass: "text-[#786863] tablet:text-[#675a56]",
     subtitleClass: "text-[#907b74]",
