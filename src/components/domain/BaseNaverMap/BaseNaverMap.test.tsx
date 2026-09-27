@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import BaseNaverMap from "./BaseNaverMap";
 
 const mockMapCenter = { x: 127.055972, y: 37.544583 };
+const mockPanTo = jest.fn();
+const mockMorph = jest.fn();
 
 jest.mock("react-naver-maps", () => ({
   NavermapsProvider: ({ children }: any) => children,
@@ -11,7 +13,12 @@ jest.mock("react-naver-maps", () => ({
     return children;
   },
   NaverMap: ({ ref, children, onDragend, onZoomChanged }: any) => {
-    ref.current = { getCenter: () => mockMapCenter };
+    ref.current = {
+      getCenter: () => mockMapCenter,
+      getZoom: () => 14,
+      panTo: mockPanTo,
+      morph: mockMorph,
+    };
     return (
       <div data-testid="naver-map">
         <button type="button" onClick={onDragend}>
@@ -210,6 +217,24 @@ describe("<BaseNaverMap />", () => {
     fireEvent.click(screen.getByRole("button", { name: "zoom change" }));
 
     expect(onZoomChange).toHaveBeenCalledWith(15);
+  });
+
+  it("center가 바뀌면 순간 이동 대신 panTo로 미끄러지듯 이동합니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} />);
+    const nextCenter = { lat: 37.5471, lng: 127.0474 };
+
+    rerender(<BaseNaverMap center={nextCenter} />);
+
+    expect(mockPanTo).toHaveBeenLastCalledWith(nextCenter);
+  });
+
+  it("zoom이 바뀌면 이동과 줌을 morph로 한 번에 처리합니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} zoom={14} />);
+    const nextCenter = { lat: 37.5471, lng: 127.0474 };
+
+    rerender(<BaseNaverMap center={nextCenter} zoom={15} />);
+
+    expect(mockMorph).toHaveBeenLastCalledWith(nextCenter, 15);
   });
 
   it("children이 지도 위에 렌더링됩니다.", () => {

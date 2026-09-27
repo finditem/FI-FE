@@ -165,9 +165,25 @@ const BaseNaverMap = ({
   const mapRef = useRef<naver.maps.Map>(null);
   const [mapCenter, setMapCenter] = useState(center);
 
+  // react-naver-maps는 center prop이 바뀌면 애니메이션 없이 순간 이동하고, zoom prop은 이동 중에도 따로 적용한다.
+  // 카카오 isPanto처럼 미끄러지듯 이동하면서 흔들리지 않도록 중심과 줌을 직접 옮긴다.
+  // - 줌이 바뀌면 이동과 줌을 한 번에 처리하는 morph를 쓴다. 이동 중에 줌만 바뀌어도 목표 중심으로 이어서 이동한다.
+  // - 중심만 바뀌면 panTo를 쓴다.
   useEffect(() => {
     setMapCenter(center);
-  }, [center]);
+    const map = mapRef.current;
+    if (!map) return;
+
+    if (map.getZoom() !== zoom) {
+      map.morph(center, zoom);
+      return;
+    }
+
+    const current = map.getCenter();
+    if (current.y !== center.lat || current.x !== center.lng) {
+      map.panTo(center);
+    }
+  }, [center, zoom]);
 
   const handleDragEnd = () => {
     const coord = mapRef.current?.getCenter();
@@ -188,8 +204,8 @@ const BaseNaverMap = ({
           <Container style={{ width: "100%", height: "100%" }} fallback={<MapLoadingState />}>
             <NaverMap
               ref={mapRef}
-              center={mapCenter}
-              zoom={zoom}
+              defaultCenter={center}
+              defaultZoom={zoom}
               draggable={draggable}
               minZoom={minZoom}
               maxZoom={maxZoom}
