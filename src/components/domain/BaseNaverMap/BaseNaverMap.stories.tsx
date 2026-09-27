@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from "@storybook/nextjs";
 import { ToastProvider } from "@/providers/ToastProviders";
 import BaseNaverMap from "./BaseNaverMap";
 
