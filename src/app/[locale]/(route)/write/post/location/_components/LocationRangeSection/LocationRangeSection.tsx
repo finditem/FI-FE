@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Radius } from "@/types";
 import { BottomSheet, PostWriteNaverMap } from "../_internal";
-import { getKakaoLocalCoord2Address } from "@/api/fetch/kakao";
+import { getNaverAddress } from "../../_utils/getNaverAddress";
 import { useToast } from "@/context/ToastContext";
 
 interface LocationRangeSectionProps {
@@ -37,13 +37,11 @@ const LocationRangeSection = ({
     setCurrentCoord(center);
 
     try {
-      const data = await getKakaoLocalCoord2Address(center.lat, center.lng);
-      if (data.documents && data.documents.length > 0) {
-        const addressDoc = data.documents[0].road_address || data.documents[0].address;
-
-        const newFullAddress = addressDoc.address_name;
-        const newAddress = addressDoc.region_3depth_name || addressDoc.region_2depth_name;
-
+      const { address: newAddress, fullAddress: newFullAddress } = await getNaverAddress(
+        center.lat,
+        center.lng
+      );
+      if (newFullAddress) {
         setCurrentFullAddress(newFullAddress);
         setCurrentAddress(newAddress);
       }

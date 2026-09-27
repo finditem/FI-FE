@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { BaseKakaoMap } from "@/components";
+import { BaseNaverMap } from "@/components";
 import { Radius } from "@/types";
-import { getMapLevelByRadius } from "@/utils";
+import { getMapZoomByRadius } from "@/utils";
 
 interface PostWriteNaverMapProps {
   lat: number;
@@ -15,17 +15,17 @@ interface PostWriteNaverMapProps {
 const PostWriteNaverMap = ({ lat, lng, radius, onCenterChange }: PostWriteNaverMapProps) => {
   const [center, setCenter] = useState({ lat, lng });
 
-  const level = getMapLevelByRadius(radius);
+  const zoom = getMapZoomByRadius(radius);
 
   return (
-    <BaseKakaoMap
+    <BaseNaverMap
       center={center}
-      level={level}
+      zoom={zoom}
       draggable
       showCircle
       showCenterMarker
       radius={radius}
-      minLevel={9}
+      minZoom={11}
       onDragEnd={(nextCenter) => {
         setCenter(nextCenter);
         onCenterChange?.(nextCenter);
