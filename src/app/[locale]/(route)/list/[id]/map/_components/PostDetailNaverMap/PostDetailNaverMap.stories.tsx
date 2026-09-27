@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
+import { ToastProvider } from "@/providers/ToastProviders";
 import PostDetailNaverMap from "./PostDetailNaverMap";
 
 const meta: Meta<typeof PostDetailNaverMap> = {
@@ -10,9 +11,11 @@ const meta: Meta<typeof PostDetailNaverMap> = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: "100%", height: "100dvh" }}>
-        <Story />
-      </div>
+      <ToastProvider>
+        <div style={{ width: "100%", height: "100dvh" }}>
+          <Story />
+        </div>
+      </ToastProvider>
     ),
   ],
 };

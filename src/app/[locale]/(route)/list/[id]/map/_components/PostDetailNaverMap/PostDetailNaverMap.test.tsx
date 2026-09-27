@@ -7,13 +7,8 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@/components/domain", () => ({
-  BaseKakaoMap: ({ center, level, children }: any) => (
-    <div
-      data-testid="base-kakao-map"
-      data-lat={center.lat}
-      data-lng={center.lng}
-      data-level={level}
-    >
+  BaseNaverMap: ({ center, zoom, children }: any) => (
+    <div data-testid="base-naver-map" data-lat={center.lat} data-lng={center.lng} data-zoom={zoom}>
       {children}
     </div>
   ),
@@ -28,7 +23,7 @@ describe("PostDetailNaverMap", () => {
     render(<PostDetailNaverMap />);
 
     expect(screen.getByText("서울특별시 중구 세종대로 110 서울특별시청")).toBeInTheDocument();
-    const map = screen.getByTestId("base-kakao-map");
+    const map = screen.getByTestId("base-naver-map");
     expect(map).toHaveAttribute("data-lat", "37.566370748");
     expect(map).toHaveAttribute("data-lng", "126.977918341");
   });
@@ -72,49 +67,49 @@ describe("PostDetailNaverMap", () => {
 
     render(<PostDetailNaverMap />);
 
-    const map = screen.getByTestId("base-kakao-map");
+    const map = screen.getByTestId("base-naver-map");
     expect(map).toHaveAttribute("data-lat", "37.5565");
     expect(map).toHaveAttribute("data-lng", "126.9239");
   });
 
-  it("radius 1000일 때 지도 레벨 6으로 전달되어야 한다.", () => {
+  it("radius 1000일 때 지도 줌 14로 전달되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({
       get: (key: string) => (key === "radius" ? "1000" : null),
     });
 
     render(<PostDetailNaverMap />);
 
-    expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "6");
+    expect(screen.getByTestId("base-naver-map")).toHaveAttribute("data-zoom", "14");
   });
 
-  it("radius 3000일 때 지도 레벨 7으로 전달되어야 한다.", () => {
+  it("radius 3000일 때 지도 줌 13으로 전달되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({
       get: (key: string) => (key === "radius" ? "3000" : null),
     });
 
     render(<PostDetailNaverMap />);
 
-    expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "7");
+    expect(screen.getByTestId("base-naver-map")).toHaveAttribute("data-zoom", "13");
   });
 
-  it("radius 5000일 때 지도 레벨 8으로 전달되어야 한다.", () => {
+  it("radius 5000일 때 지도 줌 12로 전달되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({
       get: (key: string) => (key === "radius" ? "5000" : null),
     });
 
     render(<PostDetailNaverMap />);
 
-    expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "8");
+    expect(screen.getByTestId("base-naver-map")).toHaveAttribute("data-zoom", "12");
   });
 
-  it("허용되지 않는 radius는 기본 지도 레벨 6으로 전달되어야 한다.", () => {
+  it("허용되지 않는 radius는 기본 지도 줌 14로 전달되어야 한다.", () => {
     mockUseSearchParams.mockReturnValue({
       get: (key: string) => (key === "radius" ? "2000" : null),
     });
 
     render(<PostDetailNaverMap />);
 
-    expect(screen.getByTestId("base-kakao-map")).toHaveAttribute("data-level", "6");
+    expect(screen.getByTestId("base-naver-map")).toHaveAttribute("data-zoom", "14");
   });
 
   it("잘못된 좌표는 기본 좌표로 전달되어야 한다.", () => {
@@ -127,7 +122,7 @@ describe("PostDetailNaverMap", () => {
 
     render(<PostDetailNaverMap />);
 
-    const map = screen.getByTestId("base-kakao-map");
+    const map = screen.getByTestId("base-naver-map");
     expect(map).toHaveAttribute("data-lat", "37.566370748");
     expect(map).toHaveAttribute("data-lng", "126.977918341");
   });
