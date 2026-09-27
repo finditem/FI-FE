@@ -117,7 +117,9 @@ zoom = 19.92 - level
 const level = Math.max(1, Math.min(20 - zoom, 8));
 ```
 
-또한 `minZoom`과 `maxZoom`을 반드시 명시한다. `minZoom`을 지정하지 않으면 네이버 국내 최소값인 6까지 축소되고, 이때 `level`이 14가 되어 `isMapZoomFetchDisabled`의 범위(9에서 13)를 벗어난다. 지금은 `minLevel = 13` 덕분에 최대 축소 상태에서 마커 조회가 항상 꺼지지만, 마이그레이션 후에는 최대 축소에서 조회가 되살아나 전국 단위 질의가 나간다. `minZoom = 7`, `maxZoom = 17`로 현재 범위(레벨 3에서 13)를 유지한다.
+또한 `minZoom`과 `maxZoom`을 반드시 명시한다. `minZoom`을 지정하지 않으면 네이버 국내 최소값인 6까지 축소되고, 이때 `level`이 14가 되어 `isMapZoomFetchDisabled`의 범위(9에서 13)를 벗어난다. 지금은 `minLevel = 13` 덕분에 최대 축소 상태에서 마커 조회가 항상 꺼지지만, 마이그레이션 후에는 최대 축소에서 조회가 되살아나 전국 단위 질의가 나간다. `minZoom = 7`, `maxZoom = 19`로 현재 범위(레벨 1에서 13)를 유지한다.
+
+카카오 래퍼의 prop 이름은 동작과 반대로 읽힌다. `react-kakao-maps-sdk`는 `minLevel` prop을 카카오의 `setMaxLevel`(축소 한계)로, `maxLevel` prop을 `setMinLevel`(확대 한계)로 넘긴다. 따라서 `BaseKakaoMap`의 `minLevel = 13`은 "레벨 13보다 더 축소할 수 없다"는 뜻이고 네이버 `minZoom = 7`에 대응한다. 확대 한계는 걸려 있지 않아 카카오 최대 확대인 레벨 1(`zoom` 19)까지 확대되므로 `maxZoom`은 19로 둔다.
 
 ### 서버 계약
 
@@ -217,7 +219,7 @@ const listener = naver.maps.Event.addListener(map, "idle", handleIdle);
 naver.maps.Event.removeListener(listener);
 ```
 
-`MapCameraSync`가 `useEffect` cleanup에서 리스너를 해제하고 있으므로, 핸들을 보관하도록 고쳐야 한다. 그냥 옮기면 지도를 이동할 때마다 리스너가 쌓인다.
+`MapCameraSync`는 이 방식으로 리스너를 해제하지만, 확인해 보니 사용하는 곳이 없는 코드다. 네이버로 옮기지 않고 7번 PR에서 삭제한다. 앞으로 네이버 지도에서 이벤트를 직접 등록할 때는 반환된 핸들로 해제해야 한다. 등록할 때와 같은 인자로 해제하는 카카오 방식을 그대로 옮기면 지도를 이동할 때마다 리스너가 쌓인다.
 
 ### 지오코딩
 
@@ -254,18 +256,20 @@ naver.maps.Event.removeListener(listener);
 
 `develop`은 자동으로 릴리즈 PR이 되므로 어느 PR을 머지해도 서비스가 정상 동작해야 한다. 그래서 `BaseNaverMap`을 `BaseKakaoMap` 옆에 새로 만들고, 화면을 하나씩 옮긴다. 전환 기간에는 두 지도가 함께 존재하고 두 SDK가 모두 번들에 들어가며, 화면마다 지도 모양이 다르다. 위험이 낮은 화면부터 옮겨 앞 PR에서 얻은 교훈을 뒤 PR에 반영한다.
 
-| #   | 브랜치                          | 내용                                                                              |
-| --- | ------------------------------- | --------------------------------------------------------------------------------- |
-| 0   | `docs/naver-map-findings`       | 사전 조사 결과 문서 반영                                                          |
-| 1   | `feat/naver-map-base`           | `BaseNaverMap`, 줌 변환 유틸, `zoom` 기준 상수 추가. 아직 아무 화면도 쓰지 않는다 |
-| 2   | `feat/naver-map-detail-preview` | 게시글 상세 미리보기 지도 전환. 조작 없는 작은 지도라 가장 쉽다                   |
-| 3   | `feat/naver-map-detail`         | 게시글 상세 지도 전환. 반경 원과 마커                                             |
-| 4   | `feat/naver-map-write-location` | 게시글 위치 선택 지도와 주소 변환 전환                                            |
-| 5   | `feat/naver-map-overlay`        | `BaseNaverMap`에 장소 마커와 사용자 위치 마커 추가                                |
-| 6   | `feat/naver-map-home`           | 홈 지도, 스토어, 현재 위치 주소 변환 전환. 가장 크고 위험하다                     |
-| 7   | `chore/remove-kakao-map`        | 카카오 지도 코드, 패키지, `level` 기준 상수 제거                                  |
+| #   | 브랜치                          | 내용                                                            |
+| --- | ------------------------------- | --------------------------------------------------------------- |
+| 0   | `docs/naver-map-findings`       | 사전 조사 결과 문서 반영                                        |
+| 1   | `feat/naver-map-base`           | `BaseNaverMap`, 줌 변환 유틸 추가. 아직 아무 화면도 쓰지 않는다 |
+| 2   | `feat/naver-map-detail-preview` | 게시글 상세 미리보기 지도 전환. 조작 없는 작은 지도라 가장 쉽다 |
+| 3   | `feat/naver-map-detail`         | 게시글 상세 지도 전환. 반경 원과 마커                           |
+| 4   | `feat/naver-map-write-location` | 게시글 위치 선택 지도와 주소 변환 전환                          |
+| 5   | `feat/naver-map-overlay`        | `BaseNaverMap`에 장소 마커와 사용자 위치 마커 추가              |
+| 6   | `feat/naver-map-home`           | 홈 지도, 스토어, 현재 위치 주소 변환 전환. 가장 크고 위험하다   |
+| 7   | `chore/remove-kakao-map`        | 카카오 지도 코드, 패키지, `level` 기준 상수 제거                |
 
 주소 변환은 따로 PR을 만들지 않는다. 4번과 6번에서는 그 화면에 네이버 SDK가 로드되므로 `naver.maps.Service.reverseGeocode`로 바로 처리한다.
+
+`BaseNaverMap`은 SDK 로딩 실패를 `ErrorBoundary`로 잡고, `ErrorBoundary`는 토스트를 쓴다. 그래서 화면을 옮길 때 그 화면 컴포넌트의 스토리에 `ToastProvider` 데코레이터를 추가해야 한다.
 
 2, 3, 4, 6번은 라우트 하나에 국한된 작업이므로 시작할 때 `plan-route` 스킬로 그 라우트의 `_docs/plan.md`에 체크리스트를 만든다. 아래 체크리스트는 전체 진행 상황을 보는 용도다.
 
@@ -283,13 +287,12 @@ naver.maps.Event.removeListener(listener);
 
 ### 공통 코드
 
-- [ ] `BaseNaverMap` 추가 (`react-naver-maps` 설치)
+- [x] `BaseNaverMap` 추가 (`react-naver-maps` 설치, Jest 변환 대상 추가)
+- [x] `zoom`을 서버 `level`로 되돌리는 `getServerMapLevel`을 `src/utils/`에 추가 (1에서 8로 clamp)
+- [x] `getMapLevelByRadius`에 대응하는 `getMapZoomByRadius` 추가
 - [ ] `CustomOverlayMap`으로 그리던 장소 마커와 사용자 위치 마커를 네이버 오버레이로 이전
-- [ ] `MapCameraSync`의 이벤트 해제를 핸들 방식으로 수정
-- [ ] `zoom`과 `level` 변환 함수를 `src/utils/`에 추가 (`level`은 1에서 8로 clamp)
-- [ ] `getMapLevelByRadius`에 대응하는 `getMapZoomByRadius` 추가
-- [ ] `DEFAULT_MAP_LEVEL`에 대응하는 `DEFAULT_MAP_ZOOM = 15` 추가
-- [ ] `isMapZoomFetchDisabled`의 경계값을 `zoom` 기준으로 수정
+- [ ] `DEFAULT_MAP_LEVEL`에 대응하는 `DEFAULT_MAP_ZOOM = 15` 추가 (홈에서만 쓰므로 6번에서)
+- [ ] `isMapZoomFetchDisabled`의 경계값을 `zoom` 기준으로 수정 (홈에서만 쓰므로 6번에서)
 - [ ] `getAddressFromLatLng`를 네이버 응답 구조로 수정, `extractDongAddress` 필요 여부 판단
 - [ ] `public/kakao-map/` 에셋 폴더 이름 변경, `user-location.svg` 정렬 보정 재계산
 
@@ -302,9 +305,11 @@ naver.maps.Event.removeListener(listener);
 
 ### 정리
 
-- [ ] `BaseKakaoMap`, `src/api/fetch/kakao/`, `DEFAULT_MAP_LEVEL`, `getMapLevelByRadius` 삭제
+- [ ] `BaseKakaoMap`, `MapCameraSync`, `src/api/fetch/kakao/`, `DEFAULT_MAP_LEVEL`, `getMapLevelByRadius` 삭제
+- [ ] `MapLoadingState`, `MapErrorState`를 `BaseKakaoMap/_internal`에서 `BaseNaverMap/_internal`로 이동
 - [ ] `react-kakao-maps-sdk` 제거
-- [ ] `.env.example`에서 카카오 지도 키 두 개 제거, 네이버 키 두 개 추가 (`NEXT_PUBLIC_KAKAO_REDIRECT_URI`는 유지)
+- [x] `.env.example`에 네이버 키 두 개 추가
+- [ ] `.env.example`에서 카카오 지도 키 두 개 제거 (`NEXT_PUBLIC_KAKAO_REDIRECT_URI`는 유지)
 - [ ] 릴리즈 확인 후 배포 환경에서 카카오 지도 키 삭제
 - [ ] 백엔드에 DTO `@Max(11)`과 `MapLevel`(1에서 8) 불일치 알리기
 - [ ] 이 문서 삭제
