@@ -106,5 +106,8 @@
   "CheckBroken": "check-broken",
   "ChatReport": "chat-report",
   "Logout": "logout",
-  "Good": "good"
+  "Good": "good",
+  "Touched": "touched",
+  "Grateful": "thanks",
+  "HeartFlutter": "heart-skipped"
 }

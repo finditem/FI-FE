@@ -1,11 +1,19 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Icon } from "@/components/common";
+import type { IconName } from "@/components/common";
 import { cn } from "@/utils";
 
 export type ReviewFeelingValue = "touched" | "grateful" | "heartFlutter";
 
 const FEELING_VALUES: ReviewFeelingValue[] = ["touched", "grateful", "heartFlutter"];
+
+const FEELING_ICON: Record<ReviewFeelingValue, IconName> = {
+  touched: "Touched",
+  grateful: "Grateful",
+  heartFlutter: "HeartFlutter",
+};
 
 interface ReviewFeelingSelectProps {
   value: ReviewFeelingValue | null;
@@ -15,16 +23,13 @@ interface ReviewFeelingSelectProps {
 /**
  * 후기 작성 시 상대방과의 만남에서 느낀 감정을 하나 고르는 선택 UI입니다.
  *
- * @remarks
- * 아이콘 자산은 Figma API 호출 제한으로 아직 받아오지 못해 빈 원으로 자리만 잡아둔 상태입니다.
- *
  * @author suhyeon
  */
 const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
   const t = useTranslations("ReviewWritePage");
 
   return (
-    <div className="flex gap-6" role="radiogroup" aria-label={t("feelingsAriaLabel")}>
+    <div className="flex gap-9" role="radiogroup" aria-label={t("feelingsAriaLabel")}>
       {FEELING_VALUES.map((feeling) => {
         const isSelected = value === feeling;
 
@@ -39,10 +44,12 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
           >
             <span
               className={cn(
-                "size-16 rounded-full bg-fill-neutral-normal-default",
+                "size-[88px] rounded-full bg-fill-neutralInversed-normal-default flex-center",
                 isSelected && "bg-fill-brand-subtle-default_2"
               )}
-            />
+            >
+              <Icon name={FEELING_ICON[feeling]} size={48} />
+            </span>
             <span
               className={cn(
                 "text-body2-medium text-layout-body-default",
