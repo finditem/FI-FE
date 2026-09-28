@@ -40,6 +40,7 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
   const t = useTranslations("PostFoundConfirmModal");
   const router = useRouter();
   const { mutate: putPostStatus } = usePutPostStatus(postId, false);
+  const { mutate: putPostStatusSilently } = usePutPostStatus(postId, false, { silent: true });
 
   const handleLater = () => {
     putPostStatus({ postStatus: "FOUND" });
@@ -47,7 +48,7 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
   };
 
   const handleReview = () => {
-    putPostStatus({ postStatus: "FOUND" });
+    putPostStatusSilently({ postStatus: "FOUND" });
     onClose();
 
     if (roomId) {

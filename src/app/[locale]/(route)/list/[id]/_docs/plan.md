@@ -42,3 +42,17 @@
       ko/en 동시 추가
 - [x] `PostActionMenu.test.tsx` — 기존에 테스트 파일 자체가 없어 해당 없음 (범위 밖, 후속 작업으로 필요 시 신설)
 - [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, `npm run test`, `npm run build` 통과 확인
+
+## "후기 남기기" 버튼 토스트 제거 (매너온도 3차 스프린트, 사용자 요청)
+
+`PostFoundConfirmModal`의 "후기 남기기"는 상태 변경 성공/실패 토스트를 띄운 뒤 바로 후기 작성 페이지로
+이동해, 토스트가 뜨자마자 라우트가 바뀌는 게 부자연스러웠다. `usePutPostStatus`는 `PostActionMenu`에서도
+그대로 토스트가 필요해 훅 자체의 기본 동작은 유지하고, 옵션으로 껐다.
+
+- [x] `usePutPostStatus(postId, isFound, options?)`에 `{ silent?: boolean }` 옵션 추가 — `silent`가
+      `true`면 `onSuccess`/`onError` 모두 `addToast` 호출을 건너뛴다(쿼리 무효화는 silent 여부와 무관하게
+      항상 수행)
+- [x] `PostFoundConfirmModal.tsx`: "나중에" 버튼은 기존 훅 인스턴스(토스트 있음) 그대로 사용, "후기
+      남기기" 버튼은 `usePutPostStatus(postId, false, { silent: true })` 별도 인스턴스로 토스트 없이
+      상태만 바꾸고 바로 라우트 이동
+- [x] `npm run test`, `npm run build` 통과 확인
