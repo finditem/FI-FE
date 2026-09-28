@@ -55,10 +55,15 @@ const AppleContainer = () => {
         },
         {
           onSuccess: (res) => {
-            const { termsAgreed } = res.result;
+            const { termsAgreed, isTemporaryPassword } = res.result;
             login(termsAgreed);
 
             if (termsAgreed) {
+              if (isTemporaryPassword) {
+                router.replace("/change-password?reason=temporary-password");
+                return;
+              }
+
               const rawCallback = sessionStorage.getItem("callbackUrl");
               sessionStorage.removeItem("callbackUrl");
               router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");

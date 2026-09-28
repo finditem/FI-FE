@@ -106,7 +106,9 @@ describe("useLoginForm", () => {
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
-      mockEmailLoginMutateAsync.mockResolvedValue(undefined);
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: false },
+      });
     });
 
     it("성공 시 queryClient.clear가 호출된다", async () => {
@@ -125,6 +127,27 @@ describe("useLoginForm", () => {
         await flushPromises();
       });
       expect(mockRouterReplace).toHaveBeenCalledWith("/");
+    });
+  });
+
+  describe("임시 비밀번호로 로그인한 경우", () => {
+    beforeEach(() => {
+      mockHandleSubmit.mockImplementation(
+        (fn: Function) => () =>
+          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
+      );
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: true },
+      });
+    });
+
+    it("비밀번호 변경 페이지로 이동한다", async () => {
+      const { result } = renderHook(() => useLoginForm());
+      await act(async () => {
+        result.current.onSubmitLogin();
+        await flushPromises();
+      });
+      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
     });
   });
 

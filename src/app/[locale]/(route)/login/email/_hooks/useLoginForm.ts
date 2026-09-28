@@ -52,7 +52,7 @@ const useLoginForm = () => {
     };
 
     try {
-      await emailLoginMutateAsync(filterData);
+      const { result } = await emailLoginMutateAsync(filterData);
 
       setIsRedirecting(true);
 
@@ -62,8 +62,12 @@ const useLoginForm = () => {
 
       queryClient.clear();
 
-      const rawCallback = searchParams.get("callbackUrl");
-      router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      if (result.temporaryPassword) {
+        router.replace("/change-password?reason=temporary-password");
+      } else {
+        const rawCallback = searchParams.get("callbackUrl");
+        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      }
 
       if (data.rememberId) {
         setCookie("email", data.email, {
