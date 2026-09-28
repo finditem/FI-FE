@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { reloadWithLocale, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { usePopoverOutsideClose, usePopoverPosition } from "@/hooks";
 import { Icon } from "@/components";
@@ -19,7 +19,6 @@ const LanguageDropdown = () => {
   const tLanguage = useTranslations("LanguageSwitcher");
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
 
   usePopoverOutsideClose(isOpen, anchorRef, dropdownRef, () => setIsOpen(false));
   usePopoverPosition(isOpen, anchorRef, dropdownRef);
@@ -29,9 +28,7 @@ const LanguageDropdown = () => {
   const handleSelect = (nextLocale: (typeof routing.locales)[number]) => {
     setIsOpen(false);
     if (nextLocale === locale) return;
-    const query = searchParams.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, { locale: nextLocale });
-    router.refresh();
+    reloadWithLocale(pathname, nextLocale, searchParams.toString());
   };
 
   return (

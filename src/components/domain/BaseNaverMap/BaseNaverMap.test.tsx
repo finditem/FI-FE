@@ -6,6 +6,21 @@ const mockMapCenter = { x: 127.055972, y: 37.544583 };
 const mockPanTo = jest.fn();
 const mockMorph = jest.fn();
 
+jest.mock("next-intl", () => ({
+  useLocale: () => mockLocale,
+}));
+
+jest.mock("next/script", () => {
+  const { useEffect } = jest.requireActual("react");
+  return function MockScript({ src, onReady, onError }: any) {
+    useEffect(() => {
+      if (mockScriptLoadError) onError?.();
+      else onReady?.();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return <script data-testid="naver-map-script" data-src={src} />;
+  };
+});
+
 jest.mock("react-naver-maps", () => ({
   NavermapsProvider: ({ children }: any) => children,
   Container: ({ children }: any) => {
@@ -76,11 +91,15 @@ jest.mock("@/components/domain/BaseKakaoMap/_internal", () => ({
 }));
 
 let mockContainerError: Error | null = null;
+let mockLocale = "ko";
+let mockScriptLoadError = false;
 const center = { lat: 37.5665, lng: 126.978 };
 
 describe("<BaseNaverMap />", () => {
   afterEach(() => {
     mockContainerError = null;
+    mockLocale = "ko";
+    mockScriptLoadError = false;
   });
 
   it("지도를 렌더링합니다.", () => {
@@ -235,6 +254,23 @@ describe("<BaseNaverMap />", () => {
     rerender(<BaseNaverMap center={nextCenter} zoom={15} />);
 
     expect(mockMorph).toHaveBeenLastCalledWith(nextCenter, 15);
+  });
+
+  it("현재 언어를 붙여 네이버 지도 스크립트를 로드합니다.", () => {
+    mockLocale = "en";
+    render(<BaseNaverMap center={center} />);
+
+    const src = screen.getByTestId("naver-map-script").getAttribute("data-src");
+    expect(src).toContain("language=en");
+    expect(src).toContain("submodules=geocoder");
+  });
+
+  it("스크립트 로드에 실패하면 MapErrorState를 렌더링합니다.", () => {
+    mockScriptLoadError = true;
+    render(<BaseNaverMap center={center} />);
+
+    expect(screen.getByTestId("map-error-state")).toBeInTheDocument();
+    expect(screen.queryByTestId("naver-map")).not.toBeInTheDocument();
   });
 
   it("children이 지도 위에 렌더링됩니다.", () => {
