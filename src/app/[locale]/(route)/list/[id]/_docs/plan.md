@@ -30,7 +30,8 @@
 - [x] `src/components/domain/PostFoundConfirmModal/PostFoundConfirmModal.tsx` 신규 작성 — `ModalLayout` +
       `usePutPostStatus(postId, false)` 내장(PostDeleteModal/UserBlockModal과 동일하게 자체 완결형),
       props는 `{ isOpen, onClose, postId }`. 아이콘은 Figma의 커스텀 일러스트를 API 한도로 못 받아와
-      기존 `CompleteCheck` 스프라이트 아이콘으로 대체(후속 작업에서 교체 필요)
+      임시로 `CompleteCheck` 스프라이트 아이콘으로 대체했다가, 사용자가 직접 첨부한 `good.svg`로 교체
+      완료(`Good`, size 48, 기존 원형 배경 래퍼는 제거 — 일러스트 자체가 배경/색을 포함)
   - [x] 버튼 "나중에" / "후기 남기기" 둘 다 현재는 동일하게 상태 변경만 수행 (후기 작성 플로우 자체는
         아직 코드베이스에 없어 이번 범위 밖 — "후기 남기기" 클릭 시 실제 후기 작성 화면으로 이동하는 것은
         후속 작업으로 남김)

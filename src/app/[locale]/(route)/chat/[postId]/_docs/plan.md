@@ -120,7 +120,7 @@
 - [x] `MenuItem` 라운딩 클래스: `position === "first"`일 때만 `rounded-t`, `"last"`일 때만 `rounded-b`로
       변경(가운데 항목은 라운딩 없음)
 - [x] 케밥 메뉴 아이콘(체크/신고/나가기)은 Figma API 호출 한도로 정확한 SVG를 받지 못해 이번 범위 제외 —
-      텍스트만 있는 기존 스타일 유지 (후속 작업으로 남김)
+      텍스트만 있는 기존 스타일 유지 (아이콘은 아래 "케밥 메뉴 아이콘 반영" 섹션에서 후속으로 완료)
 - [x] `ChatRoomHeader.tsx`: `ChatRoomHeaderInfoButton`에 `postId`, `opponentUserId` prop 전달
 - [x] i18n: `ChatRoomHeaderInfoButton.reportLabel` → `reportBlockLabel`로 키 이름 변경(텍스트는 기존과 동일,
       이미 "차단, 신고하기"/"Block or report"로 들어가 있었음), `changeToFoundLabel`("분실물 찾기 완료") 신규 추가
@@ -130,3 +130,17 @@
       isMine true/false에 따른 "분실물 찾기 완료" 노출 여부 테스트 추가
 - [x] `ChatRoomHeaderInfoButton.stories.tsx`: 신규 필수 prop 반영
 - [x] `npm run test`, `npm run build`, `npm run check:i18n-keys` 통과 확인
+
+## 케밥 메뉴 아이콘 반영 (매너온도 3차 스프린트)
+
+사용자가 직접 첨부한 SVG(`check-broken.svg`/`chat-report.svg`/`logout.svg`)를 스프라이트에 등록해
+케밥 메뉴 3항목의 텍스트 앞에 아이콘을 붙였다. 세 아이콘 모두 fill이 시안 색(초록/빨강)으로
+하드코딩돼 있어 스프라이트 생성 시 `currentColor` 치환 대상이 아니고, 항목별 텍스트 색과 무관하게
+원래 색 그대로 렌더된다.
+
+- [x] `src/assets/`에 `check-broken.svg`(찾기 완료) / `chat-report.svg`(차단·신고) / `logout.svg`(나가기)
+      추가, `icon-manifest.json`에 `CheckBroken`/`ChatReport`/`Logout`로 등록 후 스프라이트 재생성
+- [x] `CHATROOM_CONST.ts`의 `InfoOption`에 `icon: IconName` 필드 추가, `getInfoOptions`에서 항목별 매핑
+- [x] `ChatRoomHeaderInfoButton.tsx`의 `MenuItem` 버튼을 `flex items-center gap-2`로 바꾸고 라벨 앞에
+      `<Icon name={icon} size={20} />` 렌더
+- [x] `npm run test`(`ChatRoomHeaderInfoButton.test.tsx` 15개), `npm run build` 통과 확인

@@ -41,9 +41,23 @@ Figma API 재개 후 별도로 다듬는다.
 
 - [x] `npm run test`, `npm run build` 통과 확인
 
+## 감정 선택 아이콘 반영 (매너온도 3차 스프린트)
+
+사용자가 직접 첨부한 SVG(`touched.svg`/`thanks.svg`/`heart-skipped.svg`)를 스프라이트에 등록해
+빈 원이었던 감정 선택 UI에 실제 아이콘을 넣었다. 원본 fill이 `#D9D9D9`라 스프라이트 생성 스크립트가
+자동으로 `currentColor`로 치환하는 대상이었고, 이를 `text-labelsVibrant-quaternary`(값도 동일하게
+`#d9d9d9`) 토큰으로 명시해 하드코딩 없이 디자인 토큰에 연결했다.
+
+- [x] `src/assets/`에 `touched.svg`(감동) / `thanks.svg`(감사) / `heart-skipped.svg`(심쿵) 추가,
+      `icon-manifest.json`에 `Touched`/`Grateful`/`HeartFlutter`로 등록 후 스프라이트 재생성
+- [x] `ReviewFeelingSelect.tsx`: `FEELING_ICON` 매핑 추가, 원형 버튼을 `size-[88px]` +
+      `bg-fill-neutralInversed-normal-default` + `flex-center`로 변경(기존 `size-16` 빈 원에서 확대),
+      내부에 `<Icon size={48} className="text-labelsVibrant-quaternary" />` 중앙 배치
+- [x] 원형 버튼 간 간격 `gap-6` → `gap-9`(36px)로 변경
+- [x] `npm run build` 통과 확인 (해당 컴포넌트 전용 테스트 파일은 아직 없어 build로만 검증)
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 제출 버튼 onClick 구현
-- Figma API 재개 후 정확한 색상/간격/아이콘 자산으로 재검수
-- 감정 선택 3종(감동/감사/심쿵)은 아이콘 자산 없이 빈 원으로만 자리를 잡아둔 상태 — 실제 아이콘 SVG 반영 필요
+- Figma API 재개 후 정확한 색상/간격 재검수 (아이콘 자산 자체는 위 섹션에서 반영 완료)
 - 후기 작성 페이지 자체의 테스트(`ReviewWritePage.test.tsx` 등)는 이번 범위에서 작성하지 않음

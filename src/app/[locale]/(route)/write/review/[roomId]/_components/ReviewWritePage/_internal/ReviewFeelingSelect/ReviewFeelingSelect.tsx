@@ -48,7 +48,11 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
                 isSelected && "bg-fill-brand-subtle-default_2"
               )}
             >
-              <Icon name={FEELING_ICON[feeling]} size={48} />
+              <Icon
+                name={FEELING_ICON[feeling]}
+                size={48}
+                className="text-labelsVibrant-quaternary"
+              />
             </span>
             <span
               className={cn(
