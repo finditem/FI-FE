@@ -5,27 +5,27 @@ commitish: main
 categories:
   - title: "## 추가된 기능"
     labels:
-      - "feature"
-      - "UI/UX"
-      - "design"
+      - "✨ feature"
+      - "🖌️ UI/UX"
+      - "🎨 design"
   - title: "## 수정된 사항"
     labels:
-      - "bug"
-      - "hotfix"
+      - "🐞 bug"
+      - "🚨 hotfix"
   - title: "## 기타 개선 사항"
     labels:
-      - "performance"
-      - "refactor"
-      - "a11y"
-      - "chore"
+      - "⚡️ performance"
+      - "🔧 refactor"
+      - "♿ a11y"
+      - "🧹 chore"
 
 version-resolver:
   major:
-    labels: ["major"]
+    labels: ["🔺 major"]
   minor:
-    labels: ["feature", "UI/UX", "design"]
+    labels: ["✨ feature", "🖌️ UI/UX", "🎨 design"]
   patch:
-    labels: ["bug", "hotfix", "performance", "refactor", "a11y", "chore"]
+    labels: ["🐞 bug", "🚨 hotfix", "⚡️ performance", "🔧 refactor", "♿ a11y", "🧹 chore"]
   default: patch
 
 template: |
