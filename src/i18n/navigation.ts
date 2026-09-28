@@ -18,6 +18,10 @@ export const reloadWithLocale = (
   locale: (typeof routing.locales)[number],
   search = ""
 ) => {
+  // next-intl 라우터가 언어를 바꿀 때 하는 것처럼 언어 쿠키를 먼저 맞춘다.
+  // 하지 않으면 미들웨어가 이전 언어 쿠키를 보고 원래 언어 주소로 되돌려 보낸다.
+  document.cookie = `NEXT_LOCALE=${locale}; path=/; SameSite=Lax`;
+
   const pathname = getPathname({ href, locale });
   window.location.assign(search ? `${pathname}?${search}` : pathname);
 };
