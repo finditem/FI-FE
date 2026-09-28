@@ -57,10 +57,8 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
 
   return (
     <ModalLayout isOpen={isOpen} onClose={onClose} className="gap-6 p-6 flex-col-center">
-      <div className="gap-4 flex-col-center">
-        <div className="size-12 rounded-full bg-fill-neutralInversed-normal-enteredSelected flex-center">
-          <Icon name="CompleteCheck" size={28} className="text-white" />
-        </div>
+      <div className="gap-6 flex-col-center">
+        <Icon name="Good" size={48} />
         <div className="gap-1 text-center flex-col-center">
           <p className="text-h3-semibold text-layout-header-default">{t("title")}</p>
           <p className="text-body2-regular text-layout-body-default">{t("description")}</p>

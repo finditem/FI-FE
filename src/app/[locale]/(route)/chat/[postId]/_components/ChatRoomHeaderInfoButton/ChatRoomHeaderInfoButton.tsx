@@ -26,7 +26,7 @@ const MenuItem = ({
 }) => {
   return (
     <ul className="absolute right-0 top-10 z-10 m-0 list-none p-0" role="menu">
-      {infoOptions.map(({ value, label, textColor, position }) => {
+      {infoOptions.map(({ value, label, textColor, position, icon }) => {
         return (
           <li key={value} role="menuitem">
             <button
@@ -34,12 +34,13 @@ const MenuItem = ({
               aria-label={label}
               onClick={() => onOptionClick(value)}
               className={cn(
-                "glass-card w-full text-nowrap border border-white bg-white/50 px-7 py-4 text-left text-h3-medium transition-colors hover:bg-white/70",
+                "glass-card flex w-full items-center gap-2 text-nowrap border border-white bg-white/50 px-7 py-4 text-left text-h3-medium transition-colors hover:bg-white/70",
                 textColor,
                 position === "first" && "rounded-t-[20px]",
                 position === "last" && "rounded-b-[20px]"
               )}
             >
+              <Icon name={icon} size={20} />
               {label}
             </button>
           </li>

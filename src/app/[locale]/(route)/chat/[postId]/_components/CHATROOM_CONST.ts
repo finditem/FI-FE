@@ -15,16 +15,25 @@ interface InfoOption {
   value: InfoButtonOptionValue;
   textColor:
     "text-neutral-normal-default" | "text-system-warning" | "text-brand-strongUseThis-default";
+  icon: IconName;
 }
 
 export const getInfoOptions = (isMine: boolean): InfoOption[] => {
   const options: InfoOption[] = [];
 
   if (isMine) {
-    options.push({ value: "changeToFound", textColor: "text-brand-strongUseThis-default" });
+    options.push({
+      value: "changeToFound",
+      textColor: "text-brand-strongUseThis-default",
+      icon: "CheckBroken",
+    });
   }
-  options.push({ value: "reportBlock", textColor: "text-neutral-normal-default" });
-  options.push({ value: "leave", textColor: "text-system-warning" });
+  options.push({
+    value: "reportBlock",
+    textColor: "text-neutral-normal-default",
+    icon: "ChatReport",
+  });
+  options.push({ value: "leave", textColor: "text-system-warning", icon: "Logout" });
 
   return options;
 };
