@@ -808,7 +808,7 @@
     "viewOnMapAriaLabel": "View location on map in detail",
     "noAddress": "No location info"
   },
-  "PostDetailKakaoMap": {
+  "PostDetailNaverMap": {
     "mapAreaLabel": "Map area"
   },
   "PostDetailMap": {

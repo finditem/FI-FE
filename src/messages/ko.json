@@ -808,7 +808,7 @@
     "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
     "noAddress": "위치 정보가 없어요"
   },
-  "PostDetailKakaoMap": {
+  "PostDetailNaverMap": {
     "mapAreaLabel": "지도 영역"
   },
   "PostDetailMap": {
