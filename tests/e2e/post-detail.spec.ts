@@ -162,7 +162,7 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 }
 
 test.describe("게시글 상세 페이지", () => {
@@ -354,7 +354,7 @@ test.describe("게시글 상세 페이지", () => {
         body: JSON.stringify({ result: null }),
       })
     );
-    await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+    await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 
     await page.goto(`/list/${POST_ID}`);
 
