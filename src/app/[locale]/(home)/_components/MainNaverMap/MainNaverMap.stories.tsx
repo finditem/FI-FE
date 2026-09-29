@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense } from "react";
-import MainKakaoMap from "./MainKakaoMap";
+import { ToastProvider } from "@/providers/ToastProviders";
+import MainNaverMap from "./MainNaverMap";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -9,9 +10,9 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta: Meta<typeof MainKakaoMap> = {
-  title: "페이지/메인 페이지/MainKakaoMap",
-  component: MainKakaoMap,
+const meta: Meta<typeof MainNaverMap> = {
+  title: "페이지/메인 페이지/MainNaverMap",
+  component: MainNaverMap,
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
@@ -26,19 +27,21 @@ const meta: Meta<typeof MainKakaoMap> = {
   decorators: [
     (Story) => (
       <QueryClientProvider client={queryClient}>
-        <div style={{ width: "100%", height: "480px" }}>
-          <Suspense
-            fallback={<div className="flex h-full items-center justify-center">지도 로딩…</div>}
-          >
-            <Story />
-          </Suspense>
-        </div>
+        <ToastProvider>
+          <div style={{ width: "100%", height: "480px" }}>
+            <Suspense
+              fallback={<div className="flex h-full items-center justify-center">지도 로딩…</div>}
+            >
+              <Story />
+            </Suspense>
+          </div>
+        </ToastProvider>
       </QueryClientProvider>
     ),
   ],
 };
 
 export default meta;
-type Story = StoryObj<typeof MainKakaoMap>;
+type Story = StoryObj<typeof MainNaverMap>;
 
 export const Default: Story = {};

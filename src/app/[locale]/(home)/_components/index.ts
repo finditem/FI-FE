@@ -4,7 +4,7 @@ export { default as PostSheetContent } from "./PostSheetContent/PostSheetContent
 export { default as MainSearchHeader } from "./MainSearchHeader/MainSearchHeader";
 export { default as MainSearchLayout } from "./MainSearchLayout/MainSearchLayout";
 export { default as SearchFocusDropdown } from "./SearchFocusDropdown/SearchFocusDropdown";
-export { default as MainKakaoMap } from "./MainKakaoMap/MainKakaoMap";
+export { default as MainNaverMap } from "./MainNaverMap/MainNaverMap";
 export { default as MyLocationButton } from "./MyLocationButton/MyLocationButton";
 export { default as MapPostSummarySheetContent } from "./MapPostSummarySheetContent/MapPostSummarySheetContent";
 export { default as MainSearchEmpty } from "./MainSearchEmpty/MainSearchEmpty";

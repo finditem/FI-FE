@@ -15,7 +15,7 @@ import {
   getSnapHeights,
   DefaultSheetContentHeights,
 } from "../../_utils/heightUtils";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 
 const FULLY_EXPANDED_HEIGHT_RATIO = 0.8;
 const FULLY_EXPANDED_TOLERANCE_PX = 2;
@@ -65,8 +65,8 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
   const markerId = searchParams.get(MARKER_ID);
   const placeParam = searchParams.get(PLACE_FILTER_PARAM);
   const feedParam = searchParams.get(FEED_PARAM);
-  const markerSheetSnapSignal = useMainKakaoMapStore((s) => s.markerSheetSnapSignal);
-  const placeSheetCollapseSignal = useMainKakaoMapStore((s) => s.placeSheetCollapseSignal);
+  const markerSheetSnapSignal = useMainNaverMapStore((s) => s.markerSheetSnapSignal);
+  const placeSheetCollapseSignal = useMainNaverMapStore((s) => s.placeSheetCollapseSignal);
   const height = useMotionValue(INITIAL_HEIGHT_PX);
 
   useMotionValueEvent(height, "change", (latest: number) => {

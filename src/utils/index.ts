@@ -7,6 +7,8 @@ export { executeShare } from "./executeShare/executeShare";
 export { getMapLevelByRadius } from "./getMapLevelByRadius/getMapLevelByRadius";
 export { getMapZoomByRadius } from "./getMapZoomByRadius/getMapZoomByRadius";
 export { getServerMapLevel } from "./getServerMapLevel/getServerMapLevel";
+export { getNaverAddress } from "./getNaverAddress/getNaverAddress";
+export type { NaverAddress } from "./getNaverAddress/getNaverAddress";
 export { normalizeEnumValue } from "./normalizeEnumValue/normalizeEnumValue";
 export { getRegionSearchResults } from "./getRegionSearchResults/getRegionSearchResults";
 export { formatViewCount } from "./formatViewCount/formatViewCount";

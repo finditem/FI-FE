@@ -1,7 +1,7 @@
 "use client";
 
-import { BaseKakaoMap } from "@/components";
-import useMainKakaoMap from "../../_hooks/useMainKakaoMap/useMainKakaoMap";
+import { BaseNaverMap } from "@/components";
+import useMainNaverMap from "../../_hooks/useMainNaverMap/useMainNaverMap";
 import useWatchUserLocation from "../../_hooks/useWatchUserLocation/useWatchUserLocation";
 import {
   useGetMarker,
@@ -20,17 +20,17 @@ import {
   PLACE_FILTER_VALUES,
   PLACE_ID_PARAM,
   PLACE_RADIUS_M,
-  PLACE_SELECTED_MAP_LEVEL,
+  PLACE_SELECTED_MAP_ZOOM,
 } from "../HOME_CONST";
 import type { PlaceFilterValue } from "../HOME_CONST";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 
-const MainKakaoMap = () => {
+const MainNaverMap = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const triggerLevelReset = useMainKakaoMapStore((s) => s.triggerLevelReset);
-  const triggerMarkerSheetSnap = useMainKakaoMapStore((s) => s.triggerMarkerSheetSnap);
-  const { mapCenter, mapLevel, setMapLevel, setLatLng } = useMainKakaoMap();
+  const triggerZoomReset = useMainNaverMapStore((s) => s.triggerZoomReset);
+  const triggerMarkerSheetSnap = useMainNaverMapStore((s) => s.triggerMarkerSheetSnap);
+  const { mapCenter, mapZoom, setMapZoom, setLatLng } = useMainNaverMap();
   const { userLocation, heading } = useWatchUserLocation();
 
   const placeParam = searchParams.get(PLACE_FILTER_PARAM);
@@ -52,7 +52,7 @@ const MainKakaoMap = () => {
 
   const placeMarkers = placesData?.result?.placeMarkers;
   const selectedPlace = selectedPlaceData?.result;
-  const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapLevel);
+  const showPostMarkers = !isPlaceMode && !isMarkerFetchDisabledByZoom(mapZoom);
 
   // 줌은 클릭 핸들러가 아니라 선택 상태에 맞춘다. 클릭에만 두면 URL로 바로 들어오거나
   // 뒤로가기로 선택이 복원될 때 줌이 빠져 500m 원이 화면을 덮는다.
@@ -60,11 +60,11 @@ const MainKakaoMap = () => {
   useEffect(() => {
     if (prevSelectedPlaceIdRef.current === selectedPlaceId) return;
     prevSelectedPlaceIdRef.current = selectedPlaceId;
-    if (selectedPlaceId !== null) setMapLevel(PLACE_SELECTED_MAP_LEVEL);
-  }, [selectedPlaceId, setMapLevel]);
+    if (selectedPlaceId !== null) setMapZoom(PLACE_SELECTED_MAP_ZOOM);
+  }, [selectedPlaceId, setMapZoom]);
 
   const handleMarkerClick = (postId: number, position: { lat: number; lng: number }) => {
-    triggerLevelReset();
+    triggerZoomReset();
     setLatLng(position);
     const params = new URLSearchParams(searchParams.toString());
     params.delete("search");
@@ -82,11 +82,11 @@ const MainKakaoMap = () => {
   };
 
   return (
-    <BaseKakaoMap
+    <BaseNaverMap
       center={mapCenter}
-      level={mapLevel}
+      zoom={mapZoom}
       draggable
-      onLevelChange={(nextLevel) => setMapLevel(nextLevel)}
+      onZoomChange={(nextZoom) => setMapZoom(nextZoom)}
       onDragEnd={(nextCenter) => setLatLng(nextCenter)}
       markerData={
         selectedPlace ? nearbyMarkerData?.result : showPostMarkers ? markerData?.result : undefined
@@ -107,4 +107,4 @@ const MainKakaoMap = () => {
   );
 };
 
-export default MainKakaoMap;
+export default MainNaverMap;
