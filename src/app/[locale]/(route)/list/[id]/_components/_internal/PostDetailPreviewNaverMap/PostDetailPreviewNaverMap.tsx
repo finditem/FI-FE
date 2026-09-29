@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Icon, BaseKakaoMap } from "@/components";
+import { Icon, BaseNaverMap } from "@/components";
 import { cn } from "@/utils";
 
 type MapData = {
@@ -11,12 +11,12 @@ type MapData = {
   radius: number;
 };
 
-interface PostDetailPreviewKakaoMapProps {
+interface PostDetailPreviewNaverMapProps {
   data: MapData;
 }
 
-const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => {
-  const t = useTranslations("PostDetailPreviewKakaoMap");
+const PostDetailPreviewNaverMap = ({ data }: PostDetailPreviewNaverMapProps) => {
+  const t = useTranslations("PostDetailPreviewNaverMap");
   const { address, latitude, longitude, postId, radius } = data;
 
   return (
@@ -27,7 +27,7 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
           "tablet:h-[200px]"
         )}
       >
-        <BaseKakaoMap center={{ lat: latitude, lng: longitude }} level={7} showCenterMarker />
+        <BaseNaverMap center={{ lat: latitude, lng: longitude }} zoom={13} showCenterMarker />
       </div>
 
       <Link
@@ -55,4 +55,4 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
   );
 };
 
-export default PostDetailPreviewKakaoMap;
+export default PostDetailPreviewNaverMap;
