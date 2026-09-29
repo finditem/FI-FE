@@ -25,6 +25,8 @@ interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   name: string;
   /** 필드 상단에 표시될 라벨 */
   label?: string;
+  /** 라벨 스타일 커스터마이즈 (미지정 시 기본 body2 스타일) */
+  labelClassName?: string;
   /** 기본 가이드라인 또는 입력 규칙 메시지 */
   rule?: string;
   /** `react-hook-form`의 유효성 검사 규칙 객체 */
@@ -50,6 +52,7 @@ interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const InputField = ({
   name,
   label,
+  labelClassName = "text-body2-regular text-layout-body-default",
   validation,
   rule,
   maxLength: maxLengthProp,
@@ -71,7 +74,7 @@ const InputField = ({
 
   return (
     <div className="flex w-full flex-col gap-1">
-      <Label name={name} label={label} className="text-body2-regular text-layout-body-default" />
+      <Label name={name} label={label} className={labelClassName} />
 
       <div className="relative">
         <textarea

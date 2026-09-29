@@ -46,7 +46,7 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
               className={cn(
                 "size-[88px] rounded-full flex-center",
                 isSelected
-                  ? "border border-brand-normal-disabled bg-[#C2F1D4]"
+                  ? "border border-brand-normal-disabled bg-[#C2F1D4]/30"
                   : "bg-fill-neutralInversed-normal-default"
               )}
             >
