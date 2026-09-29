@@ -26,6 +26,8 @@ const PostDetail = ({ data }: PostDetailProps) => {
     longitude: data.longitude,
     postId: String(data.id),
     radius: data.radius,
+    date: data.date,
+    postType: data.postType,
   };
 
   return (
