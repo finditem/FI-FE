@@ -1,4 +1,4 @@
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import {
   clearMainGeoSessionConfirmed,
   hasMainGeoSessionConfirmed,
@@ -7,8 +7,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 
 const useMyLocationButton = () => {
-  const { setLatLng, setUserGpsFromDevice, clearLatLng, triggerLevelReset } =
-    useMainKakaoMapStore();
+  const { setLatLng, setUserGpsFromDevice, clearLatLng, triggerZoomReset } = useMainNaverMapStore();
   const [isLocationPermissionSheetOpen, setIsLocationPermissionSheetOpen] = useState(false);
 
   useEffect(() => {
@@ -41,21 +40,21 @@ const useMyLocationButton = () => {
 
     navigator.geolocation.getCurrentPosition(
       ({ coords }) => {
-        triggerLevelReset();
+        triggerZoomReset();
         const next = { lat: coords.latitude, lng: coords.longitude };
         setUserGpsFromDevice(next);
         setLatLng(next);
         markMainGeoSessionConfirmed();
       },
       (error) => {
-        triggerLevelReset();
+        triggerZoomReset();
         clearLatLng();
         if (error.code === error.PERMISSION_DENIED) {
           clearMainGeoSessionConfirmed();
         }
       }
     );
-  }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerLevelReset]);
+  }, [clearLatLng, setLatLng, setUserGpsFromDevice, triggerZoomReset]);
 
   const handleMyLocationClick = async () => {
     if (typeof navigator === "undefined" || !navigator.geolocation) {

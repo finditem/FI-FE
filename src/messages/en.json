@@ -811,7 +811,7 @@
     "monthsAgo": "{count, plural, one {# month ago} other {# months ago}}",
     "yearsAgo": "{count, plural, one {# year ago} other {# years ago}}"
   },
-  "PostDetailPreviewKakaoMap": {
+  "PostDetailPreviewNaverMap": {
     "viewOnMapAriaLabel": "View location on map in detail",
     "noAddress": "No location info",
     "lostLocationLabel": "Lost Location",
@@ -819,7 +819,7 @@
     "dateLostLabel": "Date lost",
     "dateFoundLabel": "Date found"
   },
-  "PostDetailKakaoMap": {
+  "PostDetailNaverMap": {
     "mapAreaLabel": "Map area"
   },
   "PostDetailMap": {

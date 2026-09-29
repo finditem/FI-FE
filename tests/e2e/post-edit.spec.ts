@@ -68,23 +68,6 @@ const MOCK_VWORLD_RESPONSE = {
   },
 };
 
-const MOCK_KAKAO_COORD2ADDRESS = {
-  documents: [
-    {
-      address: {
-        address_name: "서울특별시 강남구 역삼동 1",
-        region_2depth_name: "강남구",
-        region_3depth_name: "역삼동",
-      },
-      road_address: {
-        address_name: "서울특별시 강남구 테헤란로 152",
-        region_3depth_name: "역삼동",
-      },
-    },
-  ],
-  meta: { total_count: 1 },
-};
-
 async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string, unknown> = {}) {
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({
@@ -113,15 +96,7 @@ async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/local/geo/coord2address.json**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify(MOCK_KAKAO_COORD2ADDRESS),
-    })
-  );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 }
 
 async function changeLocation(page: Page) {

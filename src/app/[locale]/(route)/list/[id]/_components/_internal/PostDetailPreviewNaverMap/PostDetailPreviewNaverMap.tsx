@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Icon, BaseKakaoMap } from "@/components";
+import { Icon, BaseNaverMap } from "@/components";
 import type { PostType } from "@/types";
 import { cn } from "@/utils";
 import { parseDateString } from "@/utils/formatDate/parseDateString/parseDateString";
@@ -29,12 +29,12 @@ const formatEventDate = (isoString: string) => {
   return `${target.getFullYear()}.${month}.${day}`;
 };
 
-interface PostDetailPreviewKakaoMapProps {
+interface PostDetailPreviewNaverMapProps {
   data: MapData;
 }
 
-const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => {
-  const t = useTranslations("PostDetailPreviewKakaoMap");
+const PostDetailPreviewNaverMap = ({ data }: PostDetailPreviewNaverMapProps) => {
+  const t = useTranslations("PostDetailPreviewNaverMap");
   const { address, latitude, longitude, postId, radius, date, postType } = data;
   const eventDate = formatEventDate(date);
   const isLost = postType === "LOST";
@@ -43,7 +43,7 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
     <div className="flex flex-col gap-[18px]">
       <div className="rounded-md border border-divider-default">
         <div className={cn("h-[147px] overflow-hidden", "tablet:h-[200px]")}>
-          <BaseKakaoMap center={{ lat: latitude, lng: longitude }} level={7} showCenterMarker />
+          <BaseNaverMap center={{ lat: latitude, lng: longitude }} zoom={13} showCenterMarker />
         </div>
 
         <Link
@@ -95,4 +95,4 @@ const PostDetailPreviewKakaoMap = ({ data }: PostDetailPreviewKakaoMapProps) => 
   );
 };
 
-export default PostDetailPreviewKakaoMap;
+export default PostDetailPreviewNaverMap;
