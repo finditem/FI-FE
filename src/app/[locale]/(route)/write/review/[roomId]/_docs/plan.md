@@ -9,6 +9,10 @@ Figma API 호출 한도로 `get_design_context`를 못 쓰는 상태라, 사용�
 찾길 후기_선택 프레임)을 시각 참고 자료로 삼아 구조만 우선 구현한다. 정확한 디자인 토큰(색상/간격 등)은
 Figma API 재개 후 별도로 다듬는다.
 
+전체 기획 스펙(찾기 완료 → 후기 작성 유도 → 후기 작성 3-1~3-5): [`chat/[postId]/_docs/manner-temperature-spec.md`](../../../chat/%5BpostId%5D/_docs/manner-temperature-spec.md).
+후기 작성 완료 팝업(3-5)과 후기 등록 API 연동은 이 스펙이 나온 시점 기준으로도 여전히 미착수 —
+"범위 밖 / 후속" 섹션 참고.
+
 ## 라우트 스켈레톤
 
 - [x] `page.tsx`: `roomId` params 검증(숫자 아니면 notFound) 후 `ReviewWritePage` 렌더

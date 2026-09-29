@@ -16,6 +16,8 @@
 - [x] 비로그인 사용자의 게시글 번역 API 요청을 비활성화한다.
 - [x] 변경 후 빌드를 검증한다.
 
+전체 기획 스펙(찾기 완료 → 후기 작성 유도 → 후기 작성): [`chat/[postId]/_docs/manner-temperature-spec.md`](../../../chat/%5BpostId%5D/_docs/manner-temperature-spec.md)
+
 ## "분실물 찾기 완료" 확인 모달 (매너온도 3차 스프린트, 피그마 node-id=16364-160277)
 
 `PostActionMenu`의 `handleStatusChange`가 확인 없이 바로 `putPostStatus`를 호출하는 문제 수정. Figma
