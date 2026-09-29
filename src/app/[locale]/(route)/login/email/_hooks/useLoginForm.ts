@@ -1,5 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState, type BaseSyntheticEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";

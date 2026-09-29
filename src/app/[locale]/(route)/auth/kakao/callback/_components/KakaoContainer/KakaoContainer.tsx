@@ -2,7 +2,8 @@
 "use no memo";
 
 import { useApiKakaoLogin } from "@/api/fetch/auth";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Terms, TermsAgreement, ErrorView } from "@/components";
 import { FormProvider, useForm } from "react-hook-form";
@@ -68,6 +69,9 @@ const KakaoContainer = () => {
               sessionStorage.removeItem("callbackUrl");
               router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
             } else {
+              if (isTemporaryPassword) {
+                sessionStorage.setItem("isTemporaryPassword", "true");
+              }
               setStep("Term");
             }
           },
