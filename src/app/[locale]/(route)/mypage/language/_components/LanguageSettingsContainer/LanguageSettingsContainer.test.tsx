@@ -1,15 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import { useRouter } from "@/i18n/navigation";
 import LanguageSettingsContainer from "./LanguageSettingsContainer";
 
-const mockReplace = jest.fn();
-const mockRefresh = jest.fn();
+const mockReloadWithLocale = jest.fn();
 const mockPatchPreferredLanguage = jest.fn();
 
 jest.mock("@/i18n/navigation", () => ({
-  useRouter: jest.fn(),
+  reloadWithLocale: (...args: unknown[]) => mockReloadWithLocale(...args),
 }));
 
 jest.mock("@/api/fetch/user", () => ({
@@ -29,7 +27,6 @@ describe("LanguageSettingsContainer", () => {
     mockPatchPreferredLanguage.mockImplementation(
       (_variables: unknown, options?: { onSuccess?: () => void }) => options?.onSuccess?.()
     );
-    (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace, refresh: mockRefresh });
   });
 
   it("현재 로케일(한국어)이 기본 선택되고 변경하기 버튼은 비활성화됩니다", () => {
@@ -50,7 +47,7 @@ describe("LanguageSettingsContainer", () => {
     expect(screen.getByRole("button", { name: "변경하기" })).toBeEnabled();
   });
 
-  it("변경하기 클릭 시 선택한 로케일로 마이페이지 메인으로 이동합니다", async () => {
+  it("변경하기 클릭 시 선택한 로케일의 마이페이지 메인을 새로 불러옵니다", async () => {
     const user = userEvent.setup();
     render(<LanguageSettingsContainer />);
 
@@ -61,8 +58,7 @@ describe("LanguageSettingsContainer", () => {
       { preferredLanguage: "EN" },
       expect.objectContaining({ onSuccess: expect.any(Function) })
     );
-    expect(mockReplace).toHaveBeenCalledWith("/mypage", { locale: "en" });
-    expect(mockRefresh).toHaveBeenCalled();
+    expect(mockReloadWithLocale).toHaveBeenCalledWith("/mypage", "en");
   });
 
   it("현재 로케일을 유지한 채 변경하기를 눌러도 라우팅하지 않습니다", async () => {
@@ -73,6 +69,6 @@ describe("LanguageSettingsContainer", () => {
     await user.click(screen.getByRole("button", { name: "변경하기" }));
 
     expect(mockPatchPreferredLanguage).not.toHaveBeenCalled();
-    expect(mockReplace).not.toHaveBeenCalled();
+    expect(mockReloadWithLocale).not.toHaveBeenCalled();
   });
 });

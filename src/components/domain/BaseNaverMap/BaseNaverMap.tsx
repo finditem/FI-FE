@@ -2,6 +2,8 @@
 
 import { ReactNode, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Script from "next/script";
+import { useLocale } from "next-intl";
 import {
   Circle,
   Container,
@@ -31,6 +33,18 @@ import { cn } from "@/utils";
  */
 
 type LatLng = { lat: number; lng: number };
+
+/**
+ * 네이버 지도 스크립트를 직접 로드하는 주소를 만듭니다.
+ *
+ * @remarks
+ * - react-naver-maps는 `language` 파라미터를 넘기지 못하지만, 이미 로드된 `naver.maps`가 있으면 그대로 재사용합니다.
+ *   그래서 언어를 붙인 스크립트를 먼저 로드한 뒤 `NavermapsProvider`를 그립니다.
+ * - 지도 라벨만 바뀌고, 역지오코딩 결과(게시글 저장 주소)는 언어와 관계없이 한국어로 옵니다.
+ * - 스크립트는 페이지당 한 번만 로드되므로, 언어를 바꿀 때는 페이지를 새로 불러와야 지도 언어가 바뀝니다.
+ */
+const getNaverMapScriptSrc = (language: string) =>
+  `https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${process.env.NEXT_PUBLIC_NAVER_MAP_KEY_ID}&submodules=geocoder&language=${language}`;
 
 /** 마커 이미지(26x37)의 크기. 좌표에 맞출 기준점을 카카오 지도에서 쓰던 offset(13, 20)과 같게 둡니다. */
 const markerIcon = (url: string): naver.maps.ImageIcon => ({
@@ -162,6 +176,8 @@ const BaseNaverMap = ({
   minZoom = 7,
   maxZoom = 19,
 }: BaseNaverMapProps) => {
+  const locale = useLocale();
+  const [scriptStatus, setScriptStatus] = useState<"loading" | "ready" | "error">("loading");
   const mapRef = useRef<naver.maps.Map>(null);
   const [mapCenter, setMapCenter] = useState(center);
 
@@ -195,98 +211,111 @@ const BaseNaverMap = ({
 
   return (
     <div className="relative h-full w-full [backface-visibility:hidden] [transform:translateZ(0)]">
-      <ErrorBoundary fallback={<MapErrorState />}>
-        {/* geocoder: 지도를 쓰는 화면에서 naver.maps.Service(역지오코딩)를 바로 쓸 수 있게 함께 로드한다 */}
-        <NavermapsProvider
-          ncpKeyId={process.env.NEXT_PUBLIC_NAVER_MAP_KEY_ID!}
-          submodules={["geocoder"]}
-        >
-          <Container style={{ width: "100%", height: "100%" }} fallback={<MapLoadingState />}>
-            <NaverMap
-              ref={mapRef}
-              defaultCenter={center}
-              defaultZoom={zoom}
-              draggable={draggable}
-              minZoom={minZoom}
-              maxZoom={maxZoom}
-              onDragend={handleDragEnd}
-              onZoomChanged={onZoomChange}
-            >
-              {markerData?.map(({ postId, latitude, longitude, postType }) => (
-                <Marker
-                  key={postId}
-                  position={{ lat: latitude, lng: longitude }}
-                  icon={POST_MARKER_ICON[postType]}
-                  onClick={
-                    onMarkerClick
-                      ? () => onMarkerClick(postId, { lat: latitude, lng: longitude })
-                      : undefined
-                  }
-                />
-              ))}
+      <Script
+        src={getNaverMapScriptSrc(locale)}
+        onReady={() => setScriptStatus("ready")}
+        onError={() => setScriptStatus("error")}
+      />
+      {scriptStatus === "loading" && <MapLoadingState />}
+      {scriptStatus === "error" && <MapErrorState />}
+      {scriptStatus === "ready" && (
+        <ErrorBoundary fallback={<MapErrorState />}>
+          {/* geocoder: 지도를 쓰는 화면에서 naver.maps.Service(역지오코딩)를 바로 쓸 수 있게 함께 로드한다 */}
+          <NavermapsProvider
+            ncpKeyId={process.env.NEXT_PUBLIC_NAVER_MAP_KEY_ID!}
+            submodules={["geocoder"]}
+          >
+            <Container style={{ width: "100%", height: "100%" }} fallback={<MapLoadingState />}>
+              <NaverMap
+                ref={mapRef}
+                defaultCenter={center}
+                defaultZoom={zoom}
+                draggable={draggable}
+                minZoom={minZoom}
+                maxZoom={maxZoom}
+                onDragend={handleDragEnd}
+                onZoomChanged={onZoomChange}
+              >
+                {markerData?.map(({ postId, latitude, longitude, postType }) => (
+                  <Marker
+                    key={postId}
+                    position={{ lat: latitude, lng: longitude }}
+                    icon={POST_MARKER_ICON[postType]}
+                    onClick={
+                      onMarkerClick
+                        ? () => onMarkerClick(postId, { lat: latitude, lng: longitude })
+                        : undefined
+                    }
+                  />
+                ))}
 
-              {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
-                <CenteredOverlay key={placeId} position={{ lat: latitude, lng: longitude }}>
-                  <button
-                    type="button"
-                    aria-pressed={selectedPlaceId === placeId}
-                    onClick={() => onPlaceMarkerClick?.(placeId, { lat: latitude, lng: longitude })}
-                    className={cn(
-                      "block overflow-hidden rounded-full border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]",
-                      selectedPlaceId === placeId ? "h-12 w-12 border-4" : "h-10 w-10 border-[3px]"
+                {placeMarkerData?.map(({ placeId, latitude, longitude, thumbnailUrl }) => (
+                  <CenteredOverlay key={placeId} position={{ lat: latitude, lng: longitude }}>
+                    <button
+                      type="button"
+                      aria-pressed={selectedPlaceId === placeId}
+                      onClick={() =>
+                        onPlaceMarkerClick?.(placeId, { lat: latitude, lng: longitude })
+                      }
+                      className={cn(
+                        "block overflow-hidden rounded-full border-white bg-[#D9D9D9] shadow-[0_3px_4px_rgba(0,0,0,0.17)]",
+                        selectedPlaceId === placeId
+                          ? "h-12 w-12 border-4"
+                          : "h-10 w-10 border-[3px]"
+                      )}
+                    >
+                      <Image
+                        src={thumbnailUrl}
+                        alt=""
+                        width={48}
+                        height={48}
+                        className="h-full w-full object-cover"
+                      />
+                    </button>
+                  </CenteredOverlay>
+                ))}
+
+                {userLocation && (
+                  <CenteredOverlay position={userLocation}>
+                    <div className="relative h-12 w-12">
+                      <div className="absolute inset-0 rounded-full bg-green-500/35" />
+                      <div className="animate-user-location-pulse absolute inset-0 rounded-full bg-green-500/35" />
+                      <Image
+                        src={USER_LOCATION_MARKER.src}
+                        alt=""
+                        width={USER_LOCATION_MARKER.size}
+                        height={USER_LOCATION_MARKER.size}
+                        className="absolute left-0 top-0"
+                        style={{
+                          transform: `translate(${USER_LOCATION_MARKER_OFFSET.x}px, ${USER_LOCATION_MARKER_OFFSET.y}px) rotate(${(userHeading ?? USER_LOCATION_MARKER.arrowBearingDeg) - USER_LOCATION_MARKER.arrowBearingDeg}deg)`,
+                          transformOrigin: `${USER_LOCATION_MARKER.dotCenter.x}px ${USER_LOCATION_MARKER.dotCenter.y}px`,
+                        }}
+                      />
+                    </div>
+                  </CenteredOverlay>
+                )}
+
+                {showCenterMarker && !markerData && (
+                  <Marker position={mapCenter} icon={CENTER_MARKER_ICON} />
+                )}
+
+                {showCircle && radius && (
+                  <>
+                    <Circle center={circleCenter ?? mapCenter} radius={radius} {...CIRCLE_STYLE} />
+                    {innerRadius && (
+                      <Circle
+                        center={circleCenter ?? mapCenter}
+                        radius={innerRadius}
+                        {...CIRCLE_STYLE}
+                      />
                     )}
-                  >
-                    <Image
-                      src={thumbnailUrl}
-                      alt=""
-                      width={48}
-                      height={48}
-                      className="h-full w-full object-cover"
-                    />
-                  </button>
-                </CenteredOverlay>
-              ))}
-
-              {userLocation && (
-                <CenteredOverlay position={userLocation}>
-                  <div className="relative h-12 w-12">
-                    <div className="absolute inset-0 rounded-full bg-green-500/35" />
-                    <div className="animate-user-location-pulse absolute inset-0 rounded-full bg-green-500/35" />
-                    <Image
-                      src={USER_LOCATION_MARKER.src}
-                      alt=""
-                      width={USER_LOCATION_MARKER.size}
-                      height={USER_LOCATION_MARKER.size}
-                      className="absolute left-0 top-0"
-                      style={{
-                        transform: `translate(${USER_LOCATION_MARKER_OFFSET.x}px, ${USER_LOCATION_MARKER_OFFSET.y}px) rotate(${(userHeading ?? USER_LOCATION_MARKER.arrowBearingDeg) - USER_LOCATION_MARKER.arrowBearingDeg}deg)`,
-                        transformOrigin: `${USER_LOCATION_MARKER.dotCenter.x}px ${USER_LOCATION_MARKER.dotCenter.y}px`,
-                      }}
-                    />
-                  </div>
-                </CenteredOverlay>
-              )}
-
-              {showCenterMarker && !markerData && (
-                <Marker position={mapCenter} icon={CENTER_MARKER_ICON} />
-              )}
-
-              {showCircle && radius && (
-                <>
-                  <Circle center={circleCenter ?? mapCenter} radius={radius} {...CIRCLE_STYLE} />
-                  {innerRadius && (
-                    <Circle
-                      center={circleCenter ?? mapCenter}
-                      radius={innerRadius}
-                      {...CIRCLE_STYLE}
-                    />
-                  )}
-                </>
-              )}
-            </NaverMap>
-          </Container>
-        </NavermapsProvider>
-      </ErrorBoundary>
+                  </>
+                )}
+              </NaverMap>
+            </Container>
+          </NavermapsProvider>
+        </ErrorBoundary>
+      )}
 
       {children}
     </div>
