@@ -30,7 +30,7 @@ const usePostEditInit = ({ data, methods }: UsePostEditInitProps) => {
       latitude: data.latitude,
       longitude: data.longitude,
       radius: data.radius,
-      date: data.createdAt,
+      date: data.date,
       temporarySave: false,
       images: data.imageResponseList.map((img) => ({
         id: img.id,

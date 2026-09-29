@@ -1,18 +1,18 @@
 import { act, renderHook } from "@testing-library/react";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { useGeolocationPermissionGranted } from "@/hooks";
 import useWatchUserLocation from "./useWatchUserLocation";
 
 jest.mock("@/store", () => ({
-  useMainKakaoMapStore: jest.fn(),
+  useMainNaverMapStore: jest.fn(),
 }));
 
 jest.mock("@/hooks", () => ({
   useGeolocationPermissionGranted: jest.fn(() => true),
 }));
 
-const mockUseMainKakaoMapStore = useMainKakaoMapStore as jest.MockedFunction<
-  typeof useMainKakaoMapStore
+const mockUseMainNaverMapStore = useMainNaverMapStore as jest.MockedFunction<
+  typeof useMainNaverMapStore
 >;
 const mockUseGeolocationPermissionGranted = jest.mocked(useGeolocationPermissionGranted);
 
@@ -40,12 +40,12 @@ describe("useWatchUserLocation", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     slice = createStoreSlice();
-    mockUseMainKakaoMapStore.mockImplementation(((selector?: (s: typeof slice) => unknown) => {
+    mockUseMainNaverMapStore.mockImplementation(((selector?: (s: typeof slice) => unknown) => {
       if (typeof selector === "function") {
         return selector(slice as never);
       }
       return slice;
-    }) as typeof useMainKakaoMapStore);
+    }) as typeof useMainNaverMapStore);
     mockUseGeolocationPermissionGranted.mockReturnValue(true);
 
     watchPosition = jest.fn((success: PositionCallback) => {

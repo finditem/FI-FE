@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS, DEFAULT_MAP_LEVEL } from "@/constants";
+import { DEFAULT_LAT_LNG, DEFAULT_ADDRESS, DEFAULT_MAP_ZOOM } from "@/constants";
 import { getAddressFromLatLng } from "./getAddressFromLatLng";
 import { debounce } from "es-toolkit/compat";
 
 const ADDRESS_REVALIDATE_DELAY_MS = 500;
 
 /**
- * 메인 화면 카카오 지도에서 쓰는 좌표·주소·줌·UI 신호 전역 스토어입니다.
+ * 메인 화면 네이버 지도에서 쓰는 좌표·주소·줌·UI 신호 전역 스토어입니다.
  *
  * @remarks
  * - `persist`로 `latLng`, `address`, `userGpsLatLng`, `userGpsAddress`만 로컬 스토리지에 둡니다.
@@ -15,13 +15,13 @@ const ADDRESS_REVALIDATE_DELAY_MS = 500;
  * - 디바운스 실행 직전 in-flight 요청은 `AbortController`로 끊습니다.
  * - GPS 전용 좌표는 `setUserGpsFromDevice` / `syncUserGpsAddress` 경로에서 `getAddressFromLatLng`의 `full` 변형을 씁니다.
  * - 실시간 추적처럼 좌표만 잦게 바뀌는 경우에는 `setUserGpsLatLng`를 써서 주소 재조회를 건너뜁니다.
- * - `clearLatLng`는 지도 중심·주소·GPS·디바운스·`mapLevel`까지 기본값으로 되돌립니다.
- * - `levelResetSignal`, `markerSheetSnapSignal`은 구독 컴포넌트가 카운트 증가만 감지해 일회성 UI 반응에 씁니다.
+ * - `clearLatLng`는 지도 중심·주소·GPS·디바운스·`mapZoom`까지 기본값으로 되돌립니다.
+ * - `zoomResetSignal`, `markerSheetSnapSignal`은 구독 컴포넌트가 카운트 증가만 감지해 일회성 UI 반응에 씁니다.
  *
  * @author hyungjun
  */
 
-interface MainKakaoMapStore {
+interface MainNaverMapStore {
   /** 지도 중심 좌표 */
   latLng: { lat: number; lng: number };
   /** 지도 중심 좌표만 갱신(주소는 `syncAddressFromLatLng`로 별도) */
@@ -44,14 +44,14 @@ interface MainKakaoMapStore {
   syncUserGpsAddress: () => void;
   /** 중심·주소·GPS·줌·디바운스 초기화 */
   clearLatLng: () => void;
-  /** 카카오 지도 줌 레벨 */
-  mapLevel: number;
-  /** 줌 레벨 갱신 */
-  setMapLevel: (level: number) => void;
+  /** 네이버 지도 줌. 클수록 확대되고, 서버로 보낼 때만 `getServerMapLevel`로 레벨로 되돌린다 */
+  mapZoom: number;
+  /** 줌 갱신 */
+  setMapZoom: (level: number) => void;
   /** 내 위치/줌 리셋 등에 반응하기 위한 단조 증가 신호 */
-  levelResetSignal: number;
-  /** `levelResetSignal`을 1 증가 */
-  triggerLevelReset: () => void;
+  zoomResetSignal: number;
+  /** `zoomResetSignal`을 1 증가 */
+  triggerZoomReset: () => void;
   /** 마커 탭 시 바텀시트 스냅 등에 쓰는 단조 증가 신호 */
   markerSheetSnapSignal: number;
   /** `markerSheetSnapSignal`을 1 증가 */
@@ -65,13 +65,13 @@ interface MainKakaoMapStore {
 /**
  * @example
  * ```ts
- * const { latLng, setLatLng, syncAddressFromLatLng } = useMainKakaoMapStore();
+ * const { latLng, setLatLng, syncAddressFromLatLng } = useMainNaverMapStore();
  * setLatLng({ lat: 37.5665, lng: 126.978 });
  * syncAddressFromLatLng();
  * ```
  */
 
-export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
+export const useMainNaverMapStore = create<MainNaverMapStore>()(
   persist(
     (set, get) => {
       let abortController: AbortController | null = null;
@@ -114,8 +114,8 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
         address: DEFAULT_ADDRESS,
         userGpsLatLng: null,
         userGpsAddress: "",
-        mapLevel: DEFAULT_MAP_LEVEL,
-        levelResetSignal: 0,
+        mapZoom: DEFAULT_MAP_ZOOM,
+        zoomResetSignal: 0,
         markerSheetSnapSignal: 0,
         placeSheetCollapseSignal: 0,
         setLatLng: (latLng) => {
@@ -150,15 +150,15 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
             address: DEFAULT_ADDRESS,
             userGpsLatLng: null,
             userGpsAddress: "",
-            mapLevel: DEFAULT_MAP_LEVEL,
+            mapZoom: DEFAULT_MAP_ZOOM,
           });
         },
-        setMapLevel: (level: number) => {
-          set({ mapLevel: level });
+        setMapZoom: (zoom: number) => {
+          set({ mapZoom: zoom });
         },
-        triggerLevelReset: () =>
+        triggerZoomReset: () =>
           set((state) => ({
-            levelResetSignal: state.levelResetSignal + 1,
+            zoomResetSignal: state.zoomResetSignal + 1,
           })),
         triggerMarkerSheetSnap: () =>
           set((state) => ({
@@ -171,6 +171,7 @@ export const useMainKakaoMapStore = create<MainKakaoMapStore>()(
       };
     },
     {
+      // 저장 키는 카카오 시절 이름을 유지한다. 바꾸면 기존 사용자의 저장된 위치가 사라진다.
       name: "main-kakao-map-store",
       partialize: (state) => ({
         latLng: state.latLng,
