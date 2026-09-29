@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Radius } from "@/types";
 import { BottomSheet, PostWriteNaverMap } from "../_internal";
-import { getNaverAddress } from "../../_utils/getNaverAddress";
+import { getNaverAddress } from "@/utils";
 import { useToast } from "@/context/ToastContext";
 
 interface LocationRangeSectionProps {

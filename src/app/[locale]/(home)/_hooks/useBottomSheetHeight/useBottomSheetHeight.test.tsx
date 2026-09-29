@@ -60,7 +60,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@/store", () => ({
-  useMainKakaoMapStore: jest.fn((selector: (s: { markerSheetSnapSignal: number }) => unknown) =>
+  useMainNaverMapStore: jest.fn((selector: (s: { markerSheetSnapSignal: number }) => unknown) =>
     selector({ markerSheetSnapSignal: 0 })
   ),
 }));
