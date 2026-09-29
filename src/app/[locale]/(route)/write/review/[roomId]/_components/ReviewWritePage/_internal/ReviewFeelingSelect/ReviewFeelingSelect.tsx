@@ -44,14 +44,18 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
           >
             <span
               className={cn(
-                "size-[88px] rounded-full bg-fill-neutralInversed-normal-default flex-center",
-                isSelected && "bg-fill-brand-subtle-default_2"
+                "size-[88px] rounded-full flex-center",
+                isSelected
+                  ? "border border-brand-normal-disabled bg-[#C2F1D4]"
+                  : "bg-fill-neutralInversed-normal-default"
               )}
             >
               <Icon
                 name={FEELING_ICON[feeling]}
                 size={48}
-                className="text-labelsVibrant-quaternary"
+                className={
+                  isSelected ? "text-brand-strong-default" : "text-labelsVibrant-quaternary"
+                }
               />
             </span>
             <span

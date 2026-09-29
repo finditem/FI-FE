@@ -40,6 +40,7 @@ const ReviewHelpChecklist = ({ value, onChange }: ReviewHelpChecklistProps) => {
           label={t(`helpItems.${item}`)}
           checked={value.includes(item)}
           onChange={() => toggleItem(item)}
+          textStyle="peer-checked:!text-brand-normal-default"
         />
       ))}
     </div>
