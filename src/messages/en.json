@@ -804,7 +804,7 @@
     "viewCountLabel": "{count, plural, one {# view} other {# views}}",
     "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}"
   },
-  "PostDetailPreviewKakaoMap": {
+  "PostDetailPreviewNaverMap": {
     "viewOnMapAriaLabel": "View location on map in detail",
     "noAddress": "No location info"
   },

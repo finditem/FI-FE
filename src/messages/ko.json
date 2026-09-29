@@ -804,7 +804,7 @@
     "viewCountLabel": "조회 {count}",
     "favoriteLabel": "즐겨찾기"
   },
-  "PostDetailPreviewKakaoMap": {
+  "PostDetailPreviewNaverMap": {
     "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
     "noAddress": "위치 정보가 없어요"
   },
