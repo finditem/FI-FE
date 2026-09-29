@@ -10,9 +10,15 @@ jobs:
   sync-hotfix:
     if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'hotfix/')
     runs-on: ubuntu-latest
+    # main을 대상으로 한 PR은 핫픽스가 아니어도 닫힐 때마다 이 워크플로를 실행한다. skipped 실행이 진행 중인 핫픽스 실행을 취소하지 않도록 job 단위로 둔다.
+    concurrency:
+      group: hotfix-sync
+      cancel-in-progress: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Create GitHub App token
         id: app-token
@@ -21,22 +27,52 @@ jobs:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
-      - name: Create Sync PR to Develop
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "main"
-          destination_branch: "develop"
-          pr_title: "[Hotfix] develop 최신화"
-          pr_body: "운영 환경(main)의 긴급 수정 사항을 develop 브랜치에 반영합니다."
-          pr_label: "hotfix-sync"
-          github_token: ${{ steps.app-token.outputs.token }}
+      - name: Create or Update Sync Pull Requests
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          sync_pr() {
+            target="$1"
+            title="$2"
 
-      - name: Create Sync PR to Release
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "main"
-          destination_branch: "release"
-          pr_title: "[Hotfix] release 최신화"
-          pr_body: "운영 환경(main)의 긴급 수정 사항을 release 브랜치에 반영합니다."
-          pr_label: "hotfix-sync"
-          github_token: ${{ steps.app-token.outputs.token }}
+            # if 조건 안에서는 rev-list가 실패해도 멈추지 않으므로 변수에 먼저 담는다.
+            count=$(git rev-list --count "origin/$target..origin/main")
+            if [ "$count" -eq 0 ]; then
+              echo "${target}에 반영할 변경 사항이 없습니다."
+              return 0
+            fi
+
+            # main의 first-parent 머지 커밋 중 대상 브랜치에 아직 없는 것에서 PR 번호를 뽑는다.
+            pr_numbers=$(git log "origin/$target..origin/main" --first-parent --merges --format='%s' \
+              | sed -n 's/^Merge pull request #\([0-9]*\) .*/\1/p')
+
+            {
+              echo "## 작업 요약"
+              echo "운영 환경(main)의 긴급 수정 사항을 $target 브랜치에 반영합니다."
+              echo
+              echo "## 포함된 PR"
+              if [ -z "$pr_numbers" ]; then
+                echo "- 없음"
+              fi
+              for number in $pr_numbers; do
+                gh pr view "$number" --json number,title,author \
+                  --jq '"- #\(.number) \(.title) (@\(.author.login))"'
+              done
+            } > "pr-body-$target.md"
+
+            existing=$(gh pr list --base "$target" --head main --state open --json number --jq '.[0].number // empty')
+
+            if [ -n "$existing" ]; then
+              gh pr edit "$existing" --body-file "pr-body-$target.md"
+            else
+              gh pr create --base "$target" --head main \
+                --title "$title" \
+                --body-file "pr-body-$target.md" \
+                --label "hotfix-sync"
+            fi
+          }
+
+          sync_pr develop "[Hotfix] develop 최신화"
+          sync_pr release "[Hotfix] release 최신화"
