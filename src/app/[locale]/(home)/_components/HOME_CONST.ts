@@ -6,7 +6,7 @@ export const LOST_FIND_ACTION_DATA = [
     symbolImage: "/main/LostFindActions/home-lost-icon.svg",
     // 태블릿 기준 크기. 모바일에서는 컴포넌트에서 CSS로 축소한다.
     symbolSize: { width: 83, height: 56 },
-    bgColor: "bg-fill-accent-lostItem",
+    bgColor: "bg-fill-accent-lostBtn",
     emphasisClass: "text-[#332C29]",
     restClass: "text-[#786863] tablet:text-[#675a56]",
     subtitleClass: "text-[#907b74]",
@@ -149,12 +149,12 @@ export const PLACE_ID_PARAM = "place-id" as const;
 export const PLACE_RADIUS_M = { outer: 500, inner: 250 } as const;
 
 /**
- * 장소 마커를 선택했을 때 맞추는 지도 줌 레벨.
- * 카카오 레벨 5는 4m/px라 500m 반경 원의 지름이 250px이 되어 390px 폭 화면에 들어온다.
- * `DEFAULT_MAP_LEVEL`과 같은 값이라 기본 상태에서 장소를 선택하면 줌이 바뀌지 않는다.
- * 사용자가 확대해 둔 상태에서 선택했을 때만 이 레벨로 되돌린다.
+ * 장소 마커를 선택했을 때 맞추는 지도 줌.
+ * 줌 15는 성수동 위도에서 약 4m/px라 500m 반경 원의 지름이 250px이 되어 390px 폭 화면에 들어온다.
+ * `DEFAULT_MAP_ZOOM`과 같은 값이라 기본 상태에서 장소를 선택하면 줌이 바뀌지 않는다.
+ * 사용자가 확대해 둔 상태에서 선택했을 때만 이 줌으로 되돌린다.
  */
-export const PLACE_SELECTED_MAP_LEVEL = 5;
+export const PLACE_SELECTED_MAP_ZOOM = 15;
 
 /** 검색바 아래 칩으로 여는 장소 필터 시트의 URL 파라미터 */
 export const PLACE_FILTER_PARAM = "place" as const;

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useGeolocationPermissionGranted } from "@/hooks";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import { getDistanceMeters } from "@/utils";
 
 /** 좌표를 다시 반영할 최소 이동 거리. 이보다 작은 변화는 GPS 흔들림으로 보고 버린다. */
@@ -19,9 +19,9 @@ const MIN_MOVE_METERS = 10;
  * - `coords.heading`은 정지 상태이거나 기기가 방향을 모를 때 `null`이라, 마지막으로 받은 값을 유지합니다. 데스크톱 측위에서는 계속 `null`입니다.
  */
 const useWatchUserLocation = () => {
-  const userGpsLatLng = useMainKakaoMapStore((s) => s.userGpsLatLng);
-  const setUserGpsFromDevice = useMainKakaoMapStore((s) => s.setUserGpsFromDevice);
-  const setUserGpsLatLng = useMainKakaoMapStore((s) => s.setUserGpsLatLng);
+  const userGpsLatLng = useMainNaverMapStore((s) => s.userGpsLatLng);
+  const setUserGpsFromDevice = useMainNaverMapStore((s) => s.setUserGpsFromDevice);
+  const setUserGpsLatLng = useMainNaverMapStore((s) => s.setUserGpsLatLng);
   const isPermissionGranted = useGeolocationPermissionGranted();
   const [heading, setHeading] = useState<number | null>(null);
   const lastLatLngRef = useRef<{ lat: number; lng: number } | null>(null);

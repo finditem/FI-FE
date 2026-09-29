@@ -12,6 +12,17 @@ interface ProfileProps {
   loading?: boolean;
 }
 
+/**
+ * 서버가 프로필 이미지로 URL/경로가 아닌 값(예: 숫자 0, 문자열 "0")을 내려줄 수 있어,
+ * http(s) URL이나 절대 경로(`/`로 시작) 형태일 때만 유효한 이미지 값으로 인정한다.
+ * 그 외에는 null을 반환해 ProfileAvatar가 기본 프로필 이미지로 대체하도록 한다.
+ */
+const resolveProfileImgSrc = (profileImg?: string): string | null => {
+  if (typeof profileImg !== "string") return null;
+  const trimmed = profileImg.trim();
+  return /^(https?:\/\/|\/)/.test(trimmed) ? trimmed : null;
+};
+
 const MyPageProfile = ({ userData, loading }: ProfileProps) => {
   const t = useTranslations("MyPageProfile");
   const { nickname, email, profileImg } = userData ?? {
@@ -25,7 +36,7 @@ const MyPageProfile = ({ userData, loading }: ProfileProps) => {
       <div className="flex w-[188px] items-center gap-6">
         <ProfileAvatar
           size={60}
-          src={profileImg ? profileImg : null}
+          src={resolveProfileImgSrc(profileImg)}
           alt={nickname}
           priority={true}
           className="flex-shrink-0"

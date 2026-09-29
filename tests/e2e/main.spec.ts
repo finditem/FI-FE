@@ -1,7 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import {
   MOCK_AUTH_REFRESH,
-  MOCK_KAKAO_COORD2ADDRESS,
   MOCK_MARKER,
   MOCK_RECENT_FOUND_EMPTY,
   MOCK_USERS_ME,
@@ -50,15 +49,7 @@ async function setupMainPageMocks(page: Page) {
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/local/geo/coord2address.json**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify(MOCK_KAKAO_COORD2ADDRESS),
-    })
-  );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 
   await page.route("**/api/main/posts/marker**", (route) =>
     route.fulfill({

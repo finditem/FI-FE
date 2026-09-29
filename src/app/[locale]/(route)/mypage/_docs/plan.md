@@ -21,3 +21,11 @@
 - [x] Storybook 스토리 작성
 - [x] Jest 테스트 작성 — 옵션 선택 시 라디오 토글, 현재 로케일과 동일할 때 버튼 disabled, 다른 로케일 선택 후 확정 시 `/mypage`로 라우터 전환 호출
 - [x] 마이페이지 관련 테스트와 빌드로 변경 사항을 검증한다. (`npx jest` 248 suites / 1403 tests 통과, `npm run build` 성공 — `/mypage/language` ko/en 라우트 생성 확인)
+
+## 프로필 이미지 방어 코드
+
+서버가 `profileImg`로 올바른 이미지 값이 아닌 값(예: 숫자 `0`, 문자열 `"0"` 등 URL/경로가 아닌 값)을 보내는 경우 기본 프로필 이미지가 나오도록 방어한다. `ProfileAvatar`는 빈 문자열과 깨진 URL(onError)만 방어하고 `"0"` 같은 비-URL 문자열은 로드 시도 후에야 fallback되므로, 마이페이지 쪽에서 유효한 이미지 값만 넘기도록 정제한다.
+
+- [x] `MyPageProfile`에서 `profileImg`가 유효한 이미지 값(http/https URL 또는 `/`로 시작하는 경로)일 때만 `src`로 넘기고, 그 외에는 `null`을 넘겨 `ProfileAvatar` 기본 이미지로 대체 (`resolveProfileImgSrc` 모듈 헬퍼 추가)
+- [x] `MyPageProfile.test.tsx`에 방어 케이스 테스트 추가 (`"0"` 등 잘못된 값이 와도 `ProfileAvatar`에 유효 src가 넘어가지 않음) — 유효 URL 전달 + `it.each`로 `"0"`/`""`/`"abc"`/`"123"` 무효 케이스, 총 9 tests 통과
+- [x] `npm run test` + `npm run build`로 검증 (MyPageProfile 9 tests 통과, `npm run build` 성공)
