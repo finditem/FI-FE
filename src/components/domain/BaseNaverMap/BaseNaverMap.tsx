@@ -108,7 +108,11 @@ const BaseNaverMap = ({
   return (
     <div className="relative h-full w-full [backface-visibility:hidden] [transform:translateZ(0)]">
       <ErrorBoundary fallback={<MapErrorState />}>
-        <NavermapsProvider ncpKeyId={process.env.NEXT_PUBLIC_NAVER_MAP_KEY_ID!}>
+        {/* geocoder: 지도를 쓰는 화면에서 naver.maps.Service(역지오코딩)를 바로 쓸 수 있게 함께 로드한다 */}
+        <NavermapsProvider
+          ncpKeyId={process.env.NEXT_PUBLIC_NAVER_MAP_KEY_ID!}
+          submodules={["geocoder"]}
+        >
           <Container style={{ width: "100%", height: "100%" }} fallback={<MapLoadingState />}>
             <NaverMap
               ref={mapRef}
