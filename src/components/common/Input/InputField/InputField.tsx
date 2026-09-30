@@ -27,6 +27,8 @@ interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   /** 라벨 스타일 커스터마이즈 (미지정 시 기본 body2 스타일) */
   labelClassName?: string;
+  /** 라벨과 입력 영역 사이 간격 등 최상위 래퍼 스타일 (미지정 시 gap-1) */
+  wrapperClassName?: string;
   /** 기본 가이드라인 또는 입력 규칙 메시지 */
   rule?: string;
   /** `react-hook-form`의 유효성 검사 규칙 객체 */
@@ -53,6 +55,7 @@ const InputField = ({
   name,
   label,
   labelClassName = "text-body2-regular text-layout-body-default",
+  wrapperClassName = "gap-1",
   validation,
   rule,
   maxLength: maxLengthProp,
@@ -73,41 +76,44 @@ const InputField = ({
   const maxLength = maxLengthFromValidation ?? maxLengthProp;
 
   return (
-    <div className="flex w-full flex-col gap-1">
+    <div className={cn("flex w-full flex-col", wrapperClassName)}>
       <Label name={name} label={label} className={labelClassName} />
 
-      <div className="relative">
-        <textarea
-          id={name}
-          {...props}
-          className={cn(
-            "text-body4-regular h-[120px] w-full resize-none rounded-[10px] border border-neutral-normal-default p-3 pr-9",
-            "hover:border-neutral-normal-hover focus:border-neutral-normal-focused disabled:border-neutral-normal-disabled disabled:bg-fill-neutral-normal-disabled",
-            !!errors[name] && "!border-system-warning",
-            isValue && "focus:border-neutral-normal-focused"
-          )}
-          {...register(name, validation)}
-          maxLength={maxLength}
-        />
+      {/* 입력창과 안내 문구는 항상 gap-1로 붙여, 라벨과의 간격(wrapperClassName)과 독립적으로 유지한다. */}
+      <div className="flex flex-col gap-1">
+        <div className="relative">
+          <textarea
+            id={name}
+            {...props}
+            className={cn(
+              "text-body4-regular h-[120px] w-full resize-none rounded-[10px] border border-neutral-normal-default p-3 pr-9",
+              "hover:border-neutral-normal-hover focus:border-neutral-normal-focused disabled:border-neutral-normal-disabled disabled:bg-fill-neutral-normal-disabled",
+              !!errors[name] && "!border-system-warning",
+              isValue && "focus:border-neutral-normal-focused"
+            )}
+            {...register(name, validation)}
+            maxLength={maxLength}
+          />
 
-        {/* 삭제 버튼 */}
-        <DeleteButton
-          value={isValue}
-          className="right-[14px] top-[14px]"
-          onDelete={() => onDelete(name)}
-        />
-      </div>
+          {/* 삭제 버튼 */}
+          <DeleteButton
+            value={isValue}
+            className="right-[14px] top-[14px]"
+            onDelete={() => onDelete(name)}
+          />
+        </div>
 
-      {/* 안내 문구 */}
-      <div className="flex w-full justify-between text-caption1-regular text-layout-body-default">
-        <Caption
-          hasError={!!errors[name]}
-          errorMessage={errors[name]?.message as string}
-          rule={rule}
-        />
+        {/* 안내 문구 */}
+        <div className="flex w-full justify-between text-caption1-regular text-layout-body-default">
+          <Caption
+            hasError={!!errors[name]}
+            errorMessage={errors[name]?.message as string}
+            rule={rule}
+          />
 
-        {/* 글자 수 확인 */}
-        <Counter isLength={isValueStr.length} maxLength={maxLength} />
+          {/* 글자 수 확인 */}
+          <Counter isLength={isValueStr.length} maxLength={maxLength} />
+        </div>
       </div>
     </div>
   );

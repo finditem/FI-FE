@@ -32,7 +32,7 @@ const ReviewHelpChecklist = ({ value, onChange }: ReviewHelpChecklistProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-[18px]">
       {HELP_ITEM_VALUES.map((item) => (
         <CheckBox
           key={item}
