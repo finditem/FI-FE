@@ -49,6 +49,7 @@ export const iconImports = {
   NoWithdrawalAdmin: () => import("@/assets/no-withdrawal-admin.svg"),
   Marker: () => import("@/assets/marker.svg"),
   NoPublicDataSearch: () => import("@/assets/no-public-data-search.svg"),
+  ReviewThanks: () => import("@/assets/review-thanks.svg"),
 } satisfies Record<string, IconImporter>;
 
 export type IconName = SpriteIconName | keyof typeof iconImports;
