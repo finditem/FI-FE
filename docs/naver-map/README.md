@@ -39,6 +39,33 @@ NCP Maps는 아래 하위 상품으로 나뉜다. 우리가 쓰는 것은 Web Dy
 
 ## 인증
 
+### Application 등록
+
+Maps는 새 상품으로 개편되면서 `AI·NAVER API` 메뉴에서 빠졌다. 오래된 가이드의 `AI·NAVER API > Application` 경로로 들어가면 CLOVA만 보이고 Maps를 선택할 수 없다. 현재 경로는 다음과 같다.
+
+```
+Services > Application Services > Maps > Application > [Application 등록]
+```
+
+API는 우리가 쓰는 세 개만 선택한다. 쓰지 않는 API를 켜 두면 키가 유출됐을 때 과금될 수 있는 범위만 넓어진다. Static Map이나 Directions가 필요해지면 나중에 `[수정]`에서 체크하면 되고, 키는 바뀌지 않는다.
+
+- Dynamic Map
+- Geocoding
+- Reverse Geocoding
+
+Web 서비스 URL은 공식 규칙에 따라 `http://`로 시작하게 입력하고 `www`는 뺀다. 인증은 요청의 Referer에서 도메인만 비교하므로 실제 사이트가 `https`여도 동작한다. 공식 문서상 서브도메인은 대표 도메인 등록으로 허용되지만, 릴리즈 주소는 확실하게 하기 위해 따로 등록했다.
+
+Application은 환경별로 두 개를 둔다. 개발 중 사용량이 운영 통계와 섞이지 않고, 개발 PC에서 Secret이 유출되어도 개발용 키만 재발급하면 된다.
+
+| Application    | Web 서비스 URL                                   | 키를 쓰는 환경             |
+| -------------- | ------------------------------------------------ | -------------------------- |
+| `finditem-dev` | `http://localhost`, `http://release.finditem.kr` | 로컬(`.env.local`), 릴리즈 |
+| `finditem`     | `http://finditem.kr`                             | 운영                       |
+
+`http://localhost`는 `npm run dev`와, `capacitor.config.ts`의 `server.url`로 로컬 서버를 띄우는 iOS 개발 빌드를 함께 허용한다. 로컬에서 인증이 실패하면 `http://localhost:3000`을 추가한다. 앱은 웹 지도를 그대로 쓰므로 Android 패키지 이름과 iOS Bundle ID는 등록하지 않는다.
+
+`http://finditem.kr`은 서브도메인도 허용하므로 운영 키로도 릴리즈에서 지도가 뜬다. 운영 키를 릴리즈 환경 변수에 넣지 않도록 주의한다.
+
 ### 키 종류
 
 NCP 콘솔에서 Application을 등록하면 키 한 쌍이 발급된다. 예전 이름은 Client ID와 Client Secret이었고 현재 콘솔 표기는 Key ID와 Key이다. 같은 값을 가리킨다.
@@ -56,7 +83,7 @@ NCP 콘솔에서 Application을 등록하면 키 한 쌍이 발급된다. 예전
 <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=YOUR_KEY_ID&submodules=geocoder"></script>
 ```
 
-이 키는 브라우저에 노출되므로 NCP 콘솔의 Application 설정에서 Web 서비스 URL을 등록해 도메인을 제한한다. 로컬 개발 주소(`http://localhost:3000`)와 배포 도메인(`https://www.finditem.kr`)을 모두 등록해야 한다. 등록하지 않은 도메인에서 호출하면 `인증이 실패하였습니다` 오류가 난다.
+이 키는 브라우저에 노출되므로 NCP 콘솔의 Application 설정에서 Web 서비스 URL을 등록해 도메인을 제한한다. 등록하지 않은 도메인에서 호출하면 `인증이 실패하였습니다` 오류가 난다. 등록 방법은 아래 Application 등록 항목을 따른다.
 
 인증 실패는 전역 함수로 잡는다.
 
@@ -67,6 +94,8 @@ window.navermap_authFailure = () => {
 ```
 
 ### REST API
+
+호스트는 `maps.apigw.ntruss.com`이다. 오래된 문서와 예제의 `naveropenapi.apigw.ntruss.com`은 개편 전 상품의 주소라서, 새 Maps 상품의 키로 호출하면 `401 Permission Denied`(`A subscription to the API is required.`)가 난다.
 
 헤더 두 개를 보낸다. 이름 대소문자는 무관하다.
 

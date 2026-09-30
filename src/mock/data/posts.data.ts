@@ -44,6 +44,7 @@ export const MOCK_POST_DEFAULT_DETAIL: GetDetailPostResponse = {
     favoriteStatus: false,
     viewCount: 0,
     createdAt: "2025-12-26T10:22:58",
+    date: "2025-12-25T18:40:00",
     isNew: false,
     isHot: false,
     isMine: false,

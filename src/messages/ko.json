@@ -802,13 +802,24 @@
   },
   "PostDetailBody": {
     "viewCountLabel": "조회 {count}",
-    "favoriteLabel": "즐겨찾기"
+    "favoriteLabel": "즐겨찾기",
+    "registeredLabel": "등록",
+    "minutesAgo": "{count}분 전",
+    "hoursAgo": "{count}시간 전",
+    "daysAgo": "{count}일 전",
+    "weeksAgo": "{count}주 전",
+    "monthsAgo": "{count}개월 전",
+    "yearsAgo": "{count}년 전"
   },
-  "PostDetailPreviewKakaoMap": {
+  "PostDetailPreviewNaverMap": {
     "viewOnMapAriaLabel": "지도에서 위치 자세히 보기",
-    "noAddress": "위치 정보가 없어요"
+    "noAddress": "위치 정보가 없어요",
+    "lostLocationLabel": "분실장소",
+    "foundLocationLabel": "습득장소",
+    "dateLostLabel": "분실일",
+    "dateFoundLabel": "습득일"
   },
-  "PostDetailKakaoMap": {
+  "PostDetailNaverMap": {
     "mapAreaLabel": "지도 영역"
   },
   "PostDetailMap": {

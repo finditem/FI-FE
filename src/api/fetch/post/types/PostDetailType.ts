@@ -20,6 +20,8 @@ export type PostDetailData = {
   isNew: boolean;
   isHot: boolean;
   createdAt: string;
+  /** 분실 또는 습득 일시(Asia/Seoul). 타임존 표기가 없는 ISO 8601 문자열이다. */
+  date: string;
   isMine: boolean;
   imageResponseList: ImageResponse[];
   postUserInformation: userInformation;

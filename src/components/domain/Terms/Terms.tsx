@@ -69,7 +69,7 @@ const Terms = ({ termName, onAgree, showButton = false, pageType = "TERM" }: Ter
                 disabled={isPending}
               />
             </div>
-            <hr className="my-5 max-w-full border border-flatGray-50" />
+            <hr className="my-5 max-w-full border border-neutral-strong-default" />
           </>
         )}
         <div>{content}</div>

@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastProvider } from "@/providers/ToastProviders";
 import type { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
 import NeighborhoodPlaceCard from "./NeighborhoodPlaceCard";
+
+const queryClient = new QueryClient();
 
 const BASE_PLACE: NeighborhoodPlace = {
   placeId: 1,
@@ -24,9 +28,13 @@ const meta: Meta<typeof NeighborhoodPlaceCard> = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <div className="w-full max-w-[430px] bg-white px-5">
-        <Story />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <ToastProvider>
+          <div className="w-full max-w-[430px] bg-white px-5">
+            <Story />
+          </div>
+        </ToastProvider>
+      </QueryClientProvider>
     ),
   ],
 };
