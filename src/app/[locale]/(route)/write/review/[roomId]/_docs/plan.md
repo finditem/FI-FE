@@ -72,8 +72,10 @@ Figma API 재개 후 별도로 다듬는다.
       "후기 작성 완료" 클릭 시 `router.back()`으로 이전 화면 이동(스펙 3-5)
 - [x] i18n: `ReviewCompleteModal` 네임스페이스(`title`/`description`/`confirmLabel`) ko/en 동시 추가
 - [x] `npm run check:i18n-keys`, `npm run lint:i18n-literal`, `npm run test`(1444개) 통과 확인
-- [ ] 상단 일러스트(하트-손)는 정확한 자산을 아직 못 받아 임시로 `Good` 아이콘(size 88)을 사용 — 실제
-      자산(SVG) 확보 후 교체 필요
+- [x] 상단 일러스트를 사용자 첨부 자산 `review-thanks.svg`로 교체. `<pattern>` + 임베드 래스터 구조라
+      스프라이트(`<use>` 클로닝) 대신 `iconImports`에 동적 등록(`ReviewThanks`), `NoComments` 등 다른
+      일러스트와 동일하게 `<Icon size={88} />`로 렌더(89x84 비정사각이라 미세한 정사각 보정 발생, 기존
+      일러스트 처리 방식과 동일)
 - [ ] 버튼 문구: Figma 레이어 텍스트는 "작성 후기 완료"이나 어순 오타로 판단해 스펙 문구 "후기 작성 완료"로
       반영함 — 확정 필요
 

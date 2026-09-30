@@ -15,8 +15,7 @@ interface ReviewCompleteModalProps {
  * 찾길 후기가 정상 등록된 뒤 노출되는 후기 작성 완료 팝업입니다. (기획 스펙 3-5)
  *
  * @remarks
- * 상단 일러스트는 정확한 하트-손 자산을 아직 받지 못해 임시로 `Good` 아이콘을 사용합니다. 자산 확보 시
- * 교체가 필요합니다. 백드롭/ESC로도 닫히며, 이때도 `onConfirm`과 동일하게 처리합니다.
+ * 백드롭/ESC로도 닫히며, 이때도 `onConfirm`과 동일하게 처리합니다.
  *
  * @author suhyeon
  */
@@ -30,7 +29,7 @@ const ReviewCompleteModal = ({ isOpen, onConfirm }: ReviewCompleteModalProps) =>
       className="w-[320px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-4 flex-col-center">
-        <Icon name="Good" size={88} />
+        <Icon name="ReviewThanks" size={88} />
         <div className="gap-1 text-center flex-col-center">
           <p className="whitespace-pre-line text-h3-semibold text-layout-header-default">
             {t("title")}
