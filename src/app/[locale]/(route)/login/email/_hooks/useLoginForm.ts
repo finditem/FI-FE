@@ -1,5 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState, type BaseSyntheticEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
@@ -52,7 +53,7 @@ const useLoginForm = () => {
     };
 
     try {
-      await emailLoginMutateAsync(filterData);
+      const { result } = await emailLoginMutateAsync(filterData);
 
       setIsRedirecting(true);
 
@@ -62,8 +63,12 @@ const useLoginForm = () => {
 
       queryClient.clear();
 
-      const rawCallback = searchParams.get("callbackUrl");
-      router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      if (result.temporaryPassword) {
+        router.replace("/change-password?reason=temporary-password");
+      } else {
+        const rawCallback = searchParams.get("callbackUrl");
+        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      }
 
       if (data.rememberId) {
         setCookie("email", data.email, {
