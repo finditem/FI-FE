@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { DetailHeader } from "@/components/layout";
 import { Button, InputField } from "@/components/common";
@@ -13,6 +14,7 @@ import ReviewFeelingSelect, {
 import ReviewHelpChecklist, {
   ReviewHelpItemValue,
 } from "./_internal/ReviewHelpChecklist/ReviewHelpChecklist";
+import ReviewCompleteModal from "./_internal/ReviewCompleteModal/ReviewCompleteModal";
 
 interface ReviewFormValues {
   content: string;
@@ -27,18 +29,20 @@ interface ReviewWritePageProps {
  * 진입합니다.
  *
  * @remarks
- * 후기 등록 백엔드 API가 아직 없어 제출 동작은 이번 범위에서 제외했습니다 — 구조와 로컬 입력 상태까지만
- * 구현되어 있습니다.
+ * 후기 등록 백엔드 API가 아직 없어 실제 등록은 생략하고, "후기 남기기" 클릭 시 완료 팝업만 노출합니다.
+ * API 연동 시 제출 성공 콜백에서 완료 팝업을 열도록 바꾸면 됩니다.
  *
  * @author suhyeon
  */
 
 const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
   const t = useTranslations("ReviewWritePage");
+  const router = useRouter();
   const { data: chatRoom } = useGetChatRoom({ roomId });
   const { data: userInfo } = useGetUsersMe();
   const [feeling, setFeeling] = useState<ReviewFeelingValue | null>(null);
   const [helpItems, setHelpItems] = useState<ReviewHelpItemValue[]>([]);
+  const [isCompleteOpen, setIsCompleteOpen] = useState(false);
   const methods = useForm<ReviewFormValues>({
     mode: "onChange",
     defaultValues: { content: "" },
@@ -48,6 +52,16 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
   const opponentNickname = chatRoom?.result.opponentUser.nickname ?? "";
   // 감정 유형(1개)과 도움 경험(1개 이상)은 필수, 상세 후기는 선택 입력이다.
   const canSubmit = feeling !== null && helpItems.length > 0;
+
+  const handleSubmit = () => {
+    // TODO: 후기 등록 API 연동 시 성공 응답 후 완료 팝업을 열도록 교체
+    setIsCompleteOpen(true);
+  };
+
+  const handleCompleteConfirm = () => {
+    setIsCompleteOpen(false);
+    router.back();
+  };
 
   return (
     <div className="flex min-h-dvh flex-col">
@@ -80,10 +94,18 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
       </div>
 
       <div className="w-full border-t border-flatGray-50 bg-white px-4 pb-8 pt-3">
-        <Button type="button" size="big" className="w-full" disabled={!canSubmit}>
+        <Button
+          type="button"
+          size="big"
+          className="w-full"
+          disabled={!canSubmit}
+          onClick={handleSubmit}
+        >
           {t("submitLabel")}
         </Button>
       </div>
+
+      <ReviewCompleteModal isOpen={isCompleteOpen} onConfirm={handleCompleteConfirm} />
     </div>
   );
 };

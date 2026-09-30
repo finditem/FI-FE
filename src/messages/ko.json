@@ -1053,6 +1053,11 @@
     "reviewPlaceholder": "어떤 점이 고마웠는지 알려주세요. (최대 300자)",
     "submitLabel": "후기 남기기"
   },
+  "ReviewCompleteModal": {
+    "title": "찾길과 함께\n따뜻한 마음을 전한 이웃",
+    "description": "소중한 후기, 잘 전달됐어요.",
+    "confirmLabel": "후기 작성 완료"
+  },
   "ChatLeaveModal": {
     "cancelLabel": "아니요",
     "confirmLabel": "네, 나갈래요",

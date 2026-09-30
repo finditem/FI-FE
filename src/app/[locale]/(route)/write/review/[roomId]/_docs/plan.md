@@ -60,8 +60,27 @@ Figma API 재개 후 별도로 다듬는다.
 - [x] 원형 버튼 간 간격 `gap-6` → `gap-9`(36px)로 변경
 - [x] `npm run build` 통과 확인 (해당 컴포넌트 전용 테스트 파일은 아직 없어 build로만 검증)
 
+## 후기 작성 완료 팝업 (매너온도 3차 스프린트, 피그마 node-id=16364-160405, 스펙 3-5)
+
+"후기 남기기" 클릭 시 노출되는 완료 팝업을 퍼블리싱했다. 백엔드 후기 등록 API가 아직 없어 실제 등록은
+생략하고, 클릭 시 로컬 상태로 팝업만 연다. API 연동 시 제출 성공 콜백에서 팝업을 열도록 교체하면 된다.
+
+- [x] `ReviewWritePage/_internal/ReviewCompleteModal/ReviewCompleteModal.tsx` 신규 — `ModalLayout` 기반,
+      일러스트 + 타이틀(2줄) + 설명 + 단일 outlined 버튼("후기 작성 완료"). props는 `{ isOpen, onConfirm }`,
+      백드롭/ESC도 `onConfirm`으로 처리
+- [x] `ReviewWritePage.tsx`: `isCompleteOpen` 상태 추가, 제출 버튼 `onClick={handleSubmit}`으로 팝업 오픈,
+      "후기 작성 완료" 클릭 시 `router.back()`으로 이전 화면 이동(스펙 3-5)
+- [x] i18n: `ReviewCompleteModal` 네임스페이스(`title`/`description`/`confirmLabel`) ko/en 동시 추가
+- [x] `npm run check:i18n-keys`, `npm run lint:i18n-literal`, `npm run test`(1444개) 통과 확인
+- [ ] 상단 일러스트(하트-손)는 정확한 자산을 아직 못 받아 임시로 `Good` 아이콘(size 88)을 사용 — 실제
+      자산(SVG) 확보 후 교체 필요
+- [ ] 버튼 문구: Figma 레이어 텍스트는 "작성 후기 완료"이나 어순 오타로 판단해 스펙 문구 "후기 작성 완료"로
+      반영함 — 확정 필요
+
 ## 범위 밖 / 후속
 
-- 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 제출 버튼 onClick 구현
+- 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
 - Figma API 재개 후 정확한 색상/간격 재검수 (아이콘 자산 자체는 위 섹션에서 반영 완료)
 - 후기 작성 페이지 자체의 테스트(`ReviewWritePage.test.tsx` 등)는 이번 범위에서 작성하지 않음
+- 완료 팝업 후 "채팅방 내 [후기 작성하기] 버튼 미노출" / "중복 작성 불가"(스펙 3-5)는 백엔드 필드 계약
+  확인 후 반영
