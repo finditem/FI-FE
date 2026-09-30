@@ -1061,6 +1061,7 @@
       "helpfulInfo": "They shared info that helped me find my item."
     },
     "reviewLabel": "Leave a review.",
+    "reviewOptional": "(Optional)",
     "reviewPlaceholder": "Tell us what you're grateful for. (up to 300 characters)",
     "submitLabel": "Leave a review"
   },

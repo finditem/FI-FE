@@ -69,22 +69,30 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
 
       <div className="flex flex-1 flex-col gap-10 px-5 py-6">
         <div className="flex flex-col gap-7">
-          <p className="gap-2 whitespace-pre-line text-h2-bold text-labelsVibrant-primary">
+          <p className="whitespace-pre-line text-h2-bold text-labelsVibrant-primary">
             {t("greeting", { myNickname, opponentNickname })}
+            <span className="text-system-success">{" *"}</span>
           </p>
 
           <ReviewFeelingSelect value={feeling} onChange={setFeeling} />
         </div>
 
         <div className="flex flex-col gap-7">
-          <p className="text-h2-bold text-[#171717]">{t("helpQuestion")}</p>
+          <p className="text-h2-bold text-[#171717]">
+            {t("helpQuestion")}
+            <span className="text-system-success">{" *"}</span>
+          </p>
           <ReviewHelpChecklist value={helpItems} onChange={setHelpItems} />
         </div>
 
         <FormProvider {...methods}>
           <InputField
             name="content"
-            label={t("reviewLabel")}
+            label={
+              <>
+                {t("reviewLabel")} <span className="text-h2-regular">{t("reviewOptional")}</span>
+              </>
+            }
             labelClassName="text-h2-bold text-[#242424]"
             wrapperClassName="gap-4"
             placeholder={t("reviewPlaceholder")}

@@ -1,7 +1,7 @@
 "use client";
 "use no memo";
 
-import { TextareaHTMLAttributes } from "react";
+import { ReactNode, TextareaHTMLAttributes } from "react";
 import { cn } from "@/utils";
 import { RegisterOptions, useFormContext, useWatch } from "react-hook-form";
 import DeleteButton from "../_internal/DeleteButton/DeleteButton";
@@ -24,7 +24,7 @@ interface InputFieldProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** 폼 상태 관리를 위한 고유 식별자 (필수) */
   name: string;
   /** 필드 상단에 표시될 라벨 */
-  label?: string;
+  label?: ReactNode;
   /** 라벨 스타일 커스터마이즈 (미지정 시 기본 body2 스타일) */
   labelClassName?: string;
   /** 라벨과 입력 영역 사이 간격 등 최상위 래퍼 스타일 (미지정 시 gap-1) */

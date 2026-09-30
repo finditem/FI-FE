@@ -79,6 +79,14 @@ Figma API 재개 후 별도로 다듬는다.
 - [ ] 버튼 문구: Figma 레이어 텍스트는 "작성 후기 완료"이나 어순 오타로 판단해 스펙 문구 "후기 작성 완료"로
       반영함 — 확정 필요
 
+## 필수/선택 표기 (매너온도 3차 스프린트)
+
+- [x] 인사말("~만남은 어떠셨나요?")과 도움 질문("어떤 도움을 받으셨나요?") 헤딩 끝에 필수 표시 `*`를
+      `text-system-success` 색으로 인라인 추가 (감정 유형·도움 경험이 필수 입력이므로)
+- [x] 후기 입력 라벨에 "(선택)" 문구를 `text-h2-regular`로 덧붙임. `InputField`/`Label`의 `label` prop을
+      `string`에서 `ReactNode`로 확장해 서로 다른 굵기의 라벨을 주입(문자열도 ReactNode라 다른 사용처
+      2곳은 영향 없음). i18n `ReviewWritePage.reviewOptional`(ko/en) 추가
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
