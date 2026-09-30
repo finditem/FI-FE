@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { PostListItem } from "@/components";
 import { useSearchLocation } from "@/api/fetch/mapController";
 import { useInfiniteScroll } from "@/hooks";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
 import HomeFilterSection from "../HomeFilterSection/HomeFilterSection";
 import PostFeedSkeleton from "./_internal/PostFeedSkeleton/PostFeedSkeleton";
 
@@ -20,7 +20,7 @@ const MESSAGE_STYLE = "py-10 text-center text-body2-medium text-layout-body-defa
  */
 const PostTypeSheetContent = () => {
   const t = useTranslations("PostTypeSheet");
-  const { lat, lng } = useMainKakaoMapStore((s) => s.latLng);
+  const { lat, lng } = useMainNaverMapStore((s) => s.latLng);
 
   const {
     data: posts = [],

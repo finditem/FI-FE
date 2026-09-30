@@ -13,7 +13,7 @@ import { focusSearchDropdownBoundary } from "../../_utils/searchDropdownListKeyb
 import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
-import { useMainKakaoMapStore, useMainRecentSearch } from "@/store";
+import { useMainNaverMapStore, useMainRecentSearch } from "@/store";
 import { trackClickSearchBar, trackSearch } from "@/utils/analytics/analytics";
 
 interface LocationFormValues {
@@ -41,7 +41,7 @@ const HeaderSearchForm = ({
   const t = useTranslations("MainSearchHeader");
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
-  const userGpsAddress = useMainKakaoMapStore((s) => s.userGpsAddress);
+  const userGpsAddress = useMainNaverMapStore((s) => s.userGpsAddress);
   const geoGranted = useGeolocationPermissionGranted();
   const isResolvedGpsAddress =
     userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
