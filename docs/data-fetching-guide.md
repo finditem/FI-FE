@@ -138,6 +138,10 @@ Axios를 사용하지 않습니다. `queryFn`·`initialPageParam`·`getNextPageP
 
 경로: `@/api/_base/query/useServerPrefetchQuery`
 
+> 참고: `useServerPrefetchQuery`는 베이스 유틸로 제공되지만, 현재 레포에서 실제로 사용하는 화면은 없다.
+> 아래 내용과 예시는 SSR/SSG/ISR 프리패치가 필요해질 때 따르는 제안 패턴이다. (실사용이 생기면 이 문서에
+> 실제 경로를 추가한다.)
+
 파일 상단 `"server-only"` — 클라이언트 번들에 섞이지 않게 합니다.
 
 ```ts
@@ -154,16 +158,20 @@ await useServerPrefetchQuery({
 - ISR을 쓰려면 `fetcher`는 반드시 네이티브 `fetch` 기반이어야 하며, `next: { revalidate: 초 }` (또는 프로젝트 정책에 맞는 `cache` 옵션)를 명시합니다.
 - 인증이 필요한 프리패치는 서버에서 `cookies()`로 얻은 값을 Cookie 헤더 등으로 넘기는 패턴을 사용합니다.
 - 훅 내부 기본값: `staleTime: 1000 * 60`, `gcTime: 1000 * 60 * 5` (TanStack Query v5 용어; 과거 `cacheTime`과 동일 개념).
-- 프로젝트 예시: `src/app/(route)/mypage/layout.tsx` (`["users-me"]` 프리패치, `revalidate: 0` 등).
 
 ## 4. 전역 QueryClient Provider
 
-파일: `src/providers/QueryProviders.tsx`
-루트 레이아웃에서는 default export 이름이 `Providers`입니다.
+파일: `src/providers/QueryProviders.tsx` — `QueryProviders`는 named export입니다. 루트 레이아웃은 이
+`QueryProviders`를 포함해 전역 Provider들을 묶은 `AppProviders`(`src/providers/AppProviders.tsx`의
+default export)를 사용합니다.
 
 ```tsx
-import Providers from "@/providers/QueryProviders";
-// <Providers>{children}</Providers>
+// src/app/[locale]/layout.tsx
+import AppProviders from "@/providers/AppProviders";
+// <AppProviders>{children}</AppProviders>
+
+// AppProviders 내부에서 QueryProviders를 조합
+import { QueryProviders } from "@/providers/QueryProviders";
 ```
 
 - SSR 시점: 요청마다 새 `QueryClient` (또는 해당 레이아웃에서 명시적으로 생성한 인스턴스).
@@ -236,12 +244,12 @@ export default function PostList() {
 
 ## 8. 관련 파일 빠른 참조
 
-| 목적          | 경로                                |
-| ------------- | ----------------------------------- |
-| Auth Axios    | `src/api/_base/axios/authApi.ts`    |
-| Public Axios  | `src/api/_base/axios/publicApi.ts`  |
-| Base URL      | `src/api/_base/axios/getBaseURL.ts` |
-| Axios 선택 훅 | `src/api/_base/axios/useAxios.ts`   |
-| Query 래퍼들  | `src/api/_base/query/*.ts`          |
-| 전역 Provider | `src/providers/QueryProviders.tsx`  |
-| 프리패치 예시 | `src/app/(route)/mypage/layout.tsx` |
+| 목적               | 경로                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------- |
+| Auth Axios         | `src/api/_base/axios/authApi.ts`                                                    |
+| Public Axios       | `src/api/_base/axios/publicApi.ts`                                                  |
+| Base URL           | `src/api/_base/axios/getBaseURL.ts`                                                 |
+| Axios 선택 훅      | `src/api/_base/axios/useAxios.ts`                                                   |
+| Query 래퍼들       | `src/api/_base/query/*.ts`                                                          |
+| 전역 Provider      | `src/providers/AppProviders.tsx` (내부에서 `src/providers/QueryProviders.tsx` 조합) |
+| 서버 프리패치 유틸 | `src/api/_base/query/useServerPrefetchQuery.ts` (현재 앱 미사용, 3절 참고)          |
