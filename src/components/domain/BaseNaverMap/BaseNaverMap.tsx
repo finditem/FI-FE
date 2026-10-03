@@ -180,13 +180,19 @@ const BaseNaverMap = ({
   const [scriptStatus, setScriptStatus] = useState<"loading" | "ready" | "error">("loading");
   const mapRef = useRef<naver.maps.Map>(null);
   const [mapCenter, setMapCenter] = useState(center);
+  const prevCenterRef = useRef(center);
 
   // react-naver-maps는 center prop이 바뀌면 애니메이션 없이 순간 이동하고, zoom prop은 이동 중에도 따로 적용한다.
   // 카카오 isPanto처럼 미끄러지듯 이동하면서 흔들리지 않도록 중심과 줌을 직접 옮긴다.
   // - 줌이 바뀌면 이동과 줌을 한 번에 처리하는 morph를 쓴다. 이동 중에 줌만 바뀌어도 목표 중심으로 이어서 이동한다.
   // - 중심만 바뀌면 panTo를 쓴다.
+  // - center prop이 그대로면 옮기지 않는다. 사용자가 휠이나 핀치로 줌하면 지도 중심이 이미 바뀌어 있는데,
+  //   이때 예전 center로 panTo하면 지도가 원래 자리로 되돌아간다.
   useEffect(() => {
     setMapCenter(center);
+    const isCenterChanged =
+      prevCenterRef.current.lat !== center.lat || prevCenterRef.current.lng !== center.lng;
+    prevCenterRef.current = center;
     const map = mapRef.current;
     if (!map) return;
 
@@ -194,6 +200,7 @@ const BaseNaverMap = ({
       map.morph(center, zoom);
       return;
     }
+    if (!isCenterChanged) return;
 
     const current = map.getCenter();
     if (current.y !== center.lat || current.x !== center.lng) {
@@ -205,6 +212,8 @@ const BaseNaverMap = ({
     const coord = mapRef.current?.getCenter();
     if (!coord) return;
     const nextCenter = { lat: coord.y, lng: coord.x };
+    // 부모가 이 좌표를 center로 돌려줘도 panTo하지 않게 한다. 드래그 뒤 관성 이동 중에 손 뗀 지점으로 끌려가지 않는다.
+    prevCenterRef.current = nextCenter;
     setMapCenter(nextCenter);
     onDragEnd?.(nextCenter);
   };

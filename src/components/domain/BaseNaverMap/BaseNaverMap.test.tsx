@@ -247,6 +247,27 @@ describe("<BaseNaverMap />", () => {
     expect(mockPanTo).toHaveBeenLastCalledWith(nextCenter);
   });
 
+  it("사용자가 줌해 지도 줌과 zoom이 같아지면, center가 그대로일 때 예전 중심으로 되돌리지 않습니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} zoom={15} />);
+    mockPanTo.mockClear();
+    mockMorph.mockClear();
+
+    rerender(<BaseNaverMap center={center} zoom={14} />);
+
+    expect(mockPanTo).not.toHaveBeenCalled();
+    expect(mockMorph).not.toHaveBeenCalled();
+  });
+
+  it("드래그 후 부모가 같은 좌표를 center로 돌려주면 panTo하지 않습니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} />);
+    fireEvent.click(screen.getByRole("button", { name: "drag end" }));
+    mockPanTo.mockClear();
+
+    rerender(<BaseNaverMap center={{ lat: mockMapCenter.y, lng: mockMapCenter.x }} />);
+
+    expect(mockPanTo).not.toHaveBeenCalled();
+  });
+
   it("zoom이 바뀌면 이동과 줌을 morph로 한 번에 처리합니다.", () => {
     const { rerender } = render(<BaseNaverMap center={center} zoom={14} />);
     const nextCenter = { lat: 37.5471, lng: 127.0474 };
