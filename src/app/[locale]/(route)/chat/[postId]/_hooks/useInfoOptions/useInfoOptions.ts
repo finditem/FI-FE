@@ -1,9 +1,9 @@
 import { useTranslations } from "next-intl";
 import { getInfoOptions } from "../../_components/CHATROOM_CONST";
 
-const useInfoOptions = (isMine: boolean) => {
+const useInfoOptions = (canMarkFound: boolean) => {
   const t = useTranslations("ChatRoomHeaderInfoButton");
-  const options = getInfoOptions(isMine);
+  const options = getInfoOptions(canMarkFound);
 
   return options.map((option, index) => ({
     ...option,

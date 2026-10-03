@@ -235,6 +235,18 @@ describe("ChatRoomHeaderInfoButton", () => {
     expect(screen.getByTestId("found-confirm-modal")).toBeInTheDocument();
   });
 
+  it("게시글 작성자여도 이미 찾기 완료된 게시글이면 분실물 찾기 완료 항목이 노출되지 않습니다", async () => {
+    mockUseGetDetailPost.mockReturnValue({
+      data: { result: { isMine: true, postStatus: "FOUND" } },
+    } as any);
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+
+    expect(screen.queryByRole("menuitem", { name: "분실물 찾기 완료" })).not.toBeInTheDocument();
+  });
+
   it("게시글 작성자가 아닌 경우 분실물 찾기 완료 항목이 노출되지 않습니다", async () => {
     const user = userEvent.setup();
     renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);

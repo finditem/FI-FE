@@ -48,12 +48,18 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
   };
 
   const handleReview = () => {
-    putPostStatusSilently({ postStatus: "FOUND" });
-    onClose();
+    putPostStatusSilently(
+      { postStatus: "FOUND" },
+      {
+        onSuccess: () => {
+          onClose();
 
-    if (roomId) {
-      router.push(`/write/review/${roomId}`);
-    }
+          if (roomId) {
+            router.push(`/write/review/${roomId}`);
+          }
+        },
+      }
+    );
   };
 
   return (

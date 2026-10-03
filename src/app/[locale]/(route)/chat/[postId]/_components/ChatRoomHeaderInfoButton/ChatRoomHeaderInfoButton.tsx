@@ -92,7 +92,9 @@ const ChatRoomHeaderInfoButton = ({
   const { mutate: leaveChatRoom } = useLeaveChatRoom(roomId);
   const { data: postDetail } = useGetDetailPost({ id: postId });
   const isMine = postDetail?.result.isMine ?? false;
-  const infoOptions = useInfoOptions(isMine);
+  // 이미 찾기 완료된 게시글은 다시 완료 처리할 수 없으므로 "분실물 찾기 완료" 항목을 숨긴다.
+  const isFound = postDetail?.result.postStatus === "FOUND";
+  const infoOptions = useInfoOptions(isMine && !isFound);
 
   const handleMenuButtonClick = () => {
     setChatMenuOpen((prev) => !prev);

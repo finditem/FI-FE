@@ -18,10 +18,10 @@ interface InfoOption {
   icon: IconName;
 }
 
-export const getInfoOptions = (isMine: boolean): InfoOption[] => {
+export const getInfoOptions = (canMarkFound: boolean): InfoOption[] => {
   const options: InfoOption[] = [];
 
-  if (isMine) {
+  if (canMarkFound) {
     options.push({
       value: "changeToFound",
       textColor: "text-brand-strongUseThis-default",

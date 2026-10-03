@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl";
 import { PutPostStatusRequestBody } from "../types/PutPostStatusType";
 
 interface UsePutPostStatusOptions {
-  /** true면 성공/실패 토스트를 띄우지 않는다. (default: false) */
+  /** true면 성공 토스트를 띄우지 않는다. 실패 토스트는 항상 띄운다. (default: false) */
   silent?: boolean;
 }
 
@@ -31,9 +31,7 @@ export const usePutPostStatus = (
       queryClient.invalidateQueries({ queryKey: ["/users/me/posts"] });
     },
     onError: () => {
-      if (!silent) {
-        addToast(isFound ? t("changeToSearchingError") : t("changeToFoundError"), "error");
-      }
+      addToast(isFound ? t("changeToSearchingError") : t("changeToFoundError"), "error");
     },
   });
 };
