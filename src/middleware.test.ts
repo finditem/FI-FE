@@ -65,3 +65,33 @@ describe("middleware 세션 첫 접속 언어 복원", () => {
     expect(hasSessionCookie(response)).toBe(false);
   });
 });
+
+describe("middleware 세션 만료 시 토큰 쿠키 삭제", () => {
+  const getTokenCookies = (host: string) => {
+    const headers = new Headers({ host, cookie: "locale_session=1" });
+    const request = new NextRequest(
+      new URL("/login?reason=session-expired", "http://localhost:3000"),
+      { headers }
+    );
+    return middleware(request)
+      .headers.getSetCookie()
+      .filter((cookie) => /^(access|refresh)_token=/.test(cookie));
+  };
+
+  it.each(["www.finditem.kr", "finditem.kr", "a.finditem.kr:443"])(
+    "%s에서는 상위 도메인으로 발급된 쿠키를 지우도록 Domain=.finditem.kr을 붙인다",
+    (host) => {
+      const cookies = getTokenCookies(host);
+
+      expect(cookies).toHaveLength(2);
+      cookies.forEach((cookie) => expect(cookie).toContain("Domain=.finditem.kr"));
+    }
+  );
+
+  it.each(["localhost:3000", "evilfinditem.kr"])("%s에서는 도메인을 붙이지 않는다", (host) => {
+    const cookies = getTokenCookies(host);
+
+    expect(cookies).toHaveLength(2);
+    cookies.forEach((cookie) => expect(cookie).not.toContain("Domain="));
+  });
+});

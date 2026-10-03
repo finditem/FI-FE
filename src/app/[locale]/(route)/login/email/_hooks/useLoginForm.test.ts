@@ -11,6 +11,8 @@ const mockQueryClientClear = jest.fn();
 const mockHandleSubmit = jest.fn();
 const mockSetValue = jest.fn();
 const mockUseApiEmailLogin = jest.fn();
+const mockAxiosGet = jest.fn();
+const mockGetAdminUrl = jest.fn((path: string) => `https://a.finditem.kr${path}`);
 
 jest.mock("next/navigation", () => ({
   useSearchParams: () => ({ get: jest.fn().mockReturnValue(null) }),
@@ -30,6 +32,16 @@ jest.mock("@/hooks", () => ({
 
 jest.mock("@/api/fetch/auth/api/useApiEmailLogin", () => ({
   useApiEmailLogin: () => mockUseApiEmailLogin(),
+}));
+
+jest.mock("@/api/_base/axios/useAxios", () => ({
+  __esModule: true,
+  default: () => ({ get: mockAxiosGet }),
+}));
+
+jest.mock("@/utils", () => ({
+  ...jest.requireActual("@/utils"),
+  getAdminUrl: (path: string) => mockGetAdminUrl(path),
 }));
 
 jest.mock("cookies-next", () => ({
@@ -112,6 +124,7 @@ describe("useLoginForm", () => {
       mockEmailLoginMutateAsync.mockResolvedValue({
         result: { userId: "1", temporaryPassword: false },
       });
+      mockAxiosGet.mockResolvedValue({ data: { result: { role: "USER" } } });
     });
 
     it("성공 시 queryClient.clear가 호출된다", async () => {
@@ -129,6 +142,46 @@ describe("useLoginForm", () => {
         result.current.onSubmitLogin();
         await flushPromises();
       });
+      expect(mockRouterReplace).toHaveBeenCalledWith("/");
+    });
+
+    it("관리자 계정이면 관리자 앱으로 이동하고 운영 앱 라우팅은 하지 않는다", async () => {
+      jest.spyOn(console, "error").mockImplementation(() => {});
+      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
+      const { result } = renderHook(() => useLoginForm());
+      await act(async () => {
+        result.current.onSubmitLogin();
+        await flushPromises();
+      });
+      expect(mockAxiosGet).toHaveBeenCalledWith("/users/me");
+      expect(mockGetAdminUrl).toHaveBeenCalledWith("/admin");
+      expect(mockRouterReplace).not.toHaveBeenCalled();
+      expect(mockQueryClientClear).not.toHaveBeenCalled();
+    });
+
+    it("관리자라도 임시 비밀번호로 로그인하면 역할을 조회하지 않고 비밀번호 변경 페이지로 이동한다", async () => {
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: true },
+      });
+      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
+      const { result } = renderHook(() => useLoginForm());
+      await act(async () => {
+        result.current.onSubmitLogin();
+        await flushPromises();
+      });
+      expect(mockAxiosGet).not.toHaveBeenCalled();
+      expect(mockGetAdminUrl).not.toHaveBeenCalled();
+      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
+    });
+
+    it("역할 조회에 실패하면 일반 사용자 흐름으로 이동한다", async () => {
+      mockAxiosGet.mockRejectedValue(new Error("network"));
+      const { result } = renderHook(() => useLoginForm());
+      await act(async () => {
+        result.current.onSubmitLogin();
+        await flushPromises();
+      });
+      expect(mockGetAdminUrl).not.toHaveBeenCalled();
       expect(mockRouterReplace).toHaveBeenCalledWith("/");
     });
   });
