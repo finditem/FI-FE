@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { z } from "zod";
-import { Icon, BaseKakaoMap } from "@/components";
-import { cn, getMapLevelByRadius } from "@/utils";
+import { Icon, BaseNaverMap } from "@/components";
+import { cn, getMapZoomByRadius } from "@/utils";
 
 const DEFAULT_MAP_QUERY = {
   address: "서울특별시 중구 세종대로 110 서울특별시청",
@@ -39,8 +39,8 @@ const decodeAddress = (address: string) => {
   }
 };
 
-const PostDetailKakaoMap = () => {
-  const t = useTranslations("PostDetailKakaoMap");
+const PostDetailNaverMap = () => {
+  const t = useTranslations("PostDetailNaverMap");
   const searchParams = useSearchParams();
 
   const rawData = mapQuerySchema.parse({
@@ -54,13 +54,13 @@ const PostDetailKakaoMap = () => {
     <section className="relative h-full w-full">
       <h2 className="sr-only">{t("mapAreaLabel")}</h2>
 
-      <BaseKakaoMap
+      <BaseNaverMap
         center={{ lat: rawData.lat, lng: rawData.lng }}
-        level={getMapLevelByRadius(rawData.radius)}
+        zoom={getMapZoomByRadius(rawData.radius)}
         showCircle
         showCenterMarker
         radius={rawData.radius}
-        minLevel={8}
+        minZoom={12}
         draggable
       >
         <div
@@ -72,9 +72,9 @@ const PostDetailKakaoMap = () => {
           <Icon name="Position" className="text-brand-normal-default" />
           <span className="text-h3-semibold text-flatGray-700">{rawData.address}</span>
         </div>
-      </BaseKakaoMap>
+      </BaseNaverMap>
     </section>
   );
 };
 
-export default PostDetailKakaoMap;
+export default PostDetailNaverMap;

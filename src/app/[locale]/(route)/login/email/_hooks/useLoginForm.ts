@@ -1,5 +1,6 @@
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef, useState, type BaseSyntheticEvent } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
@@ -65,7 +66,7 @@ const useLoginForm = () => {
     };
 
     try {
-      const loginResponse = await emailLoginMutateAsync(filterData);
+      const { result } = await emailLoginMutateAsync(filterData);
 
       setIsRedirecting(true);
 
@@ -81,7 +82,7 @@ const useLoginForm = () => {
 
       // 관리자는 토큰 쿠키가 .finditem.kr로 공유되므로 관리자 앱으로 보내면 바로 로그인된 상태가 된다.
       // 임시 비밀번호 계정은 비밀번호 변경 화면이 먼저이고, 그 화면이 변경 후 관리자 앱으로 보낸다.
-      if (!loginResponse.result.temporaryPassword && (await isAdminUser())) {
+      if (!result.temporaryPassword && (await isAdminUser())) {
         window.location.replace(getAdminUrl("/admin"));
         return;
       }
@@ -92,8 +93,12 @@ const useLoginForm = () => {
 
       queryClient.clear();
 
-      const rawCallback = searchParams.get("callbackUrl");
-      router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      if (result.temporaryPassword) {
+        router.replace("/change-password?reason=temporary-password");
+      } else {
+        const rawCallback = searchParams.get("callbackUrl");
+        router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+      }
     } catch (error) {
       const errorCode = (error as AxiosError<ApiBaseResponseType<null>>).response?.data.code;
       if (errorCode) {

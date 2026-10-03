@@ -15,8 +15,11 @@ const mockAxiosGet = jest.fn();
 const mockGetAdminUrl = jest.fn((path: string) => `https://a.finditem.kr${path}`);
 
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: mockRouterReplace }),
   useSearchParams: () => ({ get: jest.fn().mockReturnValue(null) }),
+}));
+
+jest.mock("@/i18n/navigation", () => ({
+  useRouter: () => ({ replace: mockRouterReplace }),
 }));
 
 jest.mock("@/context/ToastContext", () => ({
@@ -118,7 +121,9 @@ describe("useLoginForm", () => {
         (fn: Function) => () =>
           Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
       );
-      mockEmailLoginMutateAsync.mockResolvedValue({ result: { temporaryPassword: false } });
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: false },
+      });
       mockAxiosGet.mockResolvedValue({ data: { result: { role: "USER" } } });
     });
 
@@ -154,8 +159,10 @@ describe("useLoginForm", () => {
       expect(mockQueryClientClear).not.toHaveBeenCalled();
     });
 
-    it("관리자라도 임시 비밀번호로 로그인하면 역할을 조회하지 않고 일반 흐름을 탄다", async () => {
-      mockEmailLoginMutateAsync.mockResolvedValue({ result: { temporaryPassword: true } });
+    it("관리자라도 임시 비밀번호로 로그인하면 역할을 조회하지 않고 비밀번호 변경 페이지로 이동한다", async () => {
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: true },
+      });
       mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
@@ -164,7 +171,7 @@ describe("useLoginForm", () => {
       });
       expect(mockAxiosGet).not.toHaveBeenCalled();
       expect(mockGetAdminUrl).not.toHaveBeenCalled();
-      expect(mockRouterReplace).toHaveBeenCalledWith("/");
+      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
     });
 
     it("역할 조회에 실패하면 일반 사용자 흐름으로 이동한다", async () => {
@@ -176,6 +183,27 @@ describe("useLoginForm", () => {
       });
       expect(mockGetAdminUrl).not.toHaveBeenCalled();
       expect(mockRouterReplace).toHaveBeenCalledWith("/");
+    });
+  });
+
+  describe("임시 비밀번호로 로그인한 경우", () => {
+    beforeEach(() => {
+      mockHandleSubmit.mockImplementation(
+        (fn: Function) => () =>
+          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
+      );
+      mockEmailLoginMutateAsync.mockResolvedValue({
+        result: { userId: "1", temporaryPassword: true },
+      });
+    });
+
+    it("비밀번호 변경 페이지로 이동한다", async () => {
+      const { result } = renderHook(() => useLoginForm());
+      await act(async () => {
+        result.current.onSubmitLogin();
+        await flushPromises();
+      });
+      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
     });
   });
 

@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
+import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
@@ -31,7 +32,7 @@ const getAuthCookieDomain = (host: string | null) => {
     : undefined;
 };
 
-export function middleware(request: NextRequest) {
+function handleRequest(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
 
   if (intlResponse.headers.get("location")) {
@@ -85,6 +86,36 @@ export function middleware(request: NextRequest) {
   }
 
   return intlResponse;
+}
+
+const LOCALE_SESSION_COOKIE = "locale_session";
+
+const hasLocalePrefix = (pathname: string) =>
+  routing.locales.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
+
+export function middleware(request: NextRequest) {
+  const fetchDest = request.headers.get("sec-fetch-dest");
+  const isPageRequest = fetchDest == null || fetchDest === "document";
+
+  if (request.cookies.has(LOCALE_SESSION_COOKIE) || !isPageRequest) {
+    return handleRequest(request);
+  }
+
+  const { pathname, search } = request.nextUrl;
+  const savedLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  const shouldRestoreLocale =
+    hasLocale(routing.locales, savedLocale) &&
+    savedLocale !== routing.defaultLocale &&
+    !hasLocalePrefix(pathname);
+
+  const response = shouldRestoreLocale
+    ? NextResponse.redirect(
+        new URL(`/${savedLocale}${pathname === "/" ? "" : pathname}${search}`, request.url)
+      )
+    : handleRequest(request);
+
+  response.cookies.set(LOCALE_SESSION_COOKIE, "1", { path: "/" });
+  return response;
 }
 
 export const config = {

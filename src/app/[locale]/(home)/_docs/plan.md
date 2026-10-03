@@ -215,3 +215,17 @@ startTime`, 시작==종료면 24시간 운영
 - 장소 마커 클릭 → `summary`와 `nearby-post-markers`를 각각 조회 (반경 원/바텀시트 항목).
 - 반경 원: 바깥 500m는 Swagger의 `nearby-posts`/`nearby-post-markers` 설명문("장소 반경 500m")
   기준이고, 안쪽 250m는 데이터와 무관한 장식이다.
+
+## 네이버 지도 전환 (feat/naver-map-home)
+
+- [x] `MainKakaoMap`, `useMainKakaoMap`, `useMainKakaoMapStore`를 `Naver` 이름으로 바꾼다 (persist 저장 키 `main-kakao-map-store`는 기존 사용자 데이터 보존을 위해 유지).
+- [x] 스토어의 `mapLevel`/`setMapLevel`/`levelResetSignal`/`triggerLevelReset`을 `mapZoom`/`setMapZoom`/`zoomResetSignal`/`triggerZoomReset`으로 바꾸고 기본값을 `DEFAULT_MAP_ZOOM = 15`로 둔다.
+- [x] 줌 리셋(`Math.min(level, 6)`)을 `Math.max(zoom, 14)`로, `PLACE_SELECTED_MAP_LEVEL = 5`를 `PLACE_SELECTED_MAP_ZOOM = 15`로 바꾼다.
+- [x] `isMapZoomFetchDisabled`를 줌 기준(`zoom <= 11`, 기존 레벨 9에서 13)으로 바꾼다.
+- [x] 지도 API 훅 5개가 서버로 보내기 직전에만 `getServerMapLevel(mapZoom)`으로 레벨을 되돌리게 한다.
+- [x] `MainNaverMap`을 `BaseNaverMap`으로 전환한다 (`zoom`, `onZoomChange`, 마커와 오버레이).
+- [x] `getNaverAddress`를 전역 `src/utils`로 옮기고, SDK가 준비될 때까지 기다리게 한다.
+- [x] `getAddressFromLatLng`를 카카오 REST에서 `getNaverAddress`로 바꾼다.
+- [x] 관련 단위 테스트, 스토리, e2e(`main.spec.ts`)를 갱신한다.
+- [x] `npm run test`, 타입 검사로 회귀를 확인한다.
+- [x] 실제 홈 화면에서 게시글 마커, 줌에 따른 조회 차단, 장소 선택, 내 위치, 현재 위치 주소를 확인한다.
