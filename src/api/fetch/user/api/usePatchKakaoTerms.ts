@@ -1,7 +1,7 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useAgreeStore } from "@/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { isValidCallbackUrl } from "@/utils";
 
 export interface KakaoTermType {
@@ -22,6 +22,15 @@ export const usePatchKakaoTerms = () => {
     {
       onSuccess: () => {
         setAgreed();
+
+        const isTemporaryPassword = sessionStorage.getItem("isTemporaryPassword") === "true";
+        sessionStorage.removeItem("isTemporaryPassword");
+
+        if (isTemporaryPassword) {
+          router.replace("/change-password?reason=temporary-password");
+          return;
+        }
+
         const rawCallback = sessionStorage.getItem("callbackUrl");
         sessionStorage.removeItem("callbackUrl");
         router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
