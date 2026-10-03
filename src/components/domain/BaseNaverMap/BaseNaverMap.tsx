@@ -181,6 +181,7 @@ const BaseNaverMap = ({
   const mapRef = useRef<naver.maps.Map>(null);
   const [mapCenter, setMapCenter] = useState(center);
   const prevCenterRef = useRef(center);
+  const zoomFromMapRef = useRef<number | null>(null);
 
   // react-naver-maps는 center prop이 바뀌면 애니메이션 없이 순간 이동하고, zoom prop은 이동 중에도 따로 적용한다.
   // 카카오 isPanto처럼 미끄러지듯 이동하면서 흔들리지 않도록 중심과 줌을 직접 옮긴다.
@@ -188,6 +189,8 @@ const BaseNaverMap = ({
   // - 중심만 바뀌면 panTo를 쓴다.
   // - center prop이 그대로면 옮기지 않는다. 사용자가 휠이나 핀치로 줌하면 지도 중심이 이미 바뀌어 있는데,
   //   이때 예전 center로 panTo하면 지도가 원래 자리로 되돌아간다.
+  // - 지도가 onZoomChange로 알려 준 줌이 zoom prop으로 돌아오면 다시 morph하지 않는다. morph 도중에도 중간 줌이
+  //   전달되는데, 그 값으로 morph하면 원래 목표 줌으로 가던 애니메이션을 덮어써 중간 줌에서 멈춘다.
   useEffect(() => {
     setMapCenter(center);
     const isCenterChanged =
@@ -196,7 +199,7 @@ const BaseNaverMap = ({
     const map = mapRef.current;
     if (!map) return;
 
-    if (map.getZoom() !== zoom) {
+    if (map.getZoom() !== zoom && zoomFromMapRef.current !== zoom) {
       map.morph(center, zoom);
       return;
     }
@@ -207,6 +210,11 @@ const BaseNaverMap = ({
       map.panTo(center);
     }
   }, [center, zoom]);
+
+  const handleZoomChanged = (nextZoom: number) => {
+    zoomFromMapRef.current = nextZoom;
+    onZoomChange?.(nextZoom);
+  };
 
   const handleDragEnd = () => {
     const coord = mapRef.current?.getCenter();
@@ -243,7 +251,7 @@ const BaseNaverMap = ({
                 minZoom={minZoom}
                 maxZoom={maxZoom}
                 onDragend={handleDragEnd}
-                onZoomChanged={onZoomChange}
+                onZoomChanged={handleZoomChanged}
               >
                 {markerData?.map(({ postId, latitude, longitude, postType }) => (
                   <Marker

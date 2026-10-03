@@ -268,6 +268,16 @@ describe("<BaseNaverMap />", () => {
     expect(mockPanTo).not.toHaveBeenCalled();
   });
 
+  it("지도가 onZoomChange로 알려 준 줌이 zoom prop으로 돌아오면 다시 morph하지 않습니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} zoom={14} />);
+    fireEvent.click(screen.getByRole("button", { name: "zoom change" }));
+    mockMorph.mockClear();
+
+    rerender(<BaseNaverMap center={center} zoom={15} />);
+
+    expect(mockMorph).not.toHaveBeenCalled();
+  });
+
   it("zoom이 바뀌면 이동과 줌을 morph로 한 번에 처리합니다.", () => {
     const { rerender } = render(<BaseNaverMap center={center} zoom={14} />);
     const nextCenter = { lat: 37.5471, lng: 127.0474 };
