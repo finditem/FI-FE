@@ -19,6 +19,18 @@ const stripLocalePrefix = (pathname: string) => {
 const withLocalePrefix = (locale: string, pathname: string) =>
   locale === routing.defaultLocale ? pathname : `/${locale}${pathname}`;
 
+const AUTH_COOKIE_PARENT_DOMAIN = "finditem.kr";
+
+// 백엔드가 finditem.kr 계열 요청에는 토큰 쿠키를 상위 도메인으로 발급하므로, 지울 때도 같은 도메인을 줘야 지워진다.
+// dev 서버는 nextUrl을 자기 주소로 만들기 때문에 실제 접속 도메인은 Host 헤더로 판단한다.
+const getAuthCookieDomain = (host: string | null) => {
+  const hostname = host?.split(":")[0] ?? "";
+  return hostname === AUTH_COOKIE_PARENT_DOMAIN ||
+    hostname.endsWith(`.${AUTH_COOKIE_PARENT_DOMAIN}`)
+    ? `.${AUTH_COOKIE_PARENT_DOMAIN}`
+    : undefined;
+};
+
 export function middleware(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
 
@@ -52,8 +64,9 @@ export function middleware(request: NextRequest) {
 
   // 세션 완료 시 로그인 페이지로 진입 했을 때 모든 토큰 제거
   if (isAuthPath && isSessionExpired) {
-    intlResponse.cookies.set("access_token", "", { path: "/", maxAge: 0 });
-    intlResponse.cookies.set("refresh_token", "", { path: "/", maxAge: 0 });
+    const domain = getAuthCookieDomain(request.headers.get("host"));
+    intlResponse.cookies.set("access_token", "", { path: "/", maxAge: 0, domain });
+    intlResponse.cookies.set("refresh_token", "", { path: "/", maxAge: 0, domain });
     return intlResponse;
   }
 
