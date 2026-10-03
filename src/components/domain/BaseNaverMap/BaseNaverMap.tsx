@@ -127,6 +127,11 @@ interface BaseNaverMapProps {
   onDragEnd?: (center: LatLng) => void;
   /** 지도 줌 변경 시 호출되는 콜백 */
   onZoomChange?: (zoom: number) => void;
+  /**
+   * 지도가 멈췄을 때(idle) 중심이 마지막으로 알던 center와 다르면 새 중심 좌표를 전달합니다.
+   * 휠이나 핀치 줌, 드래그 뒤 관성 이동처럼 사용자가 옮긴 중심을 부모 상태에 맞출 때 씁니다.
+   */
+  onCenterChange?: (center: LatLng) => void;
   /** 지도 위에 오버레이로 표시할 UI 요소 */
   children?: ReactNode;
   /** 최대 축소 한계 (default: 7, 카카오 레벨 13) */
@@ -170,6 +175,7 @@ const BaseNaverMap = ({
 
   onDragEnd,
   onZoomChange,
+  onCenterChange,
 
   children,
 
@@ -216,6 +222,20 @@ const BaseNaverMap = ({
     onZoomChange?.(nextZoom);
   };
 
+  // ponytail: panTo/morph 애니메이션 도중의 idle에서도 중간 중심이 전달되어 조회가 몇 번 더 일어날 수 있다.
+  // 요청이 문제가 되면 애니메이션 목표 좌표를 기록해 그동안의 idle을 건너뛴다.
+  const handleIdle = () => {
+    if (!onCenterChange) return;
+    const coord = mapRef.current?.getCenter();
+    if (!coord) return;
+    const prev = prevCenterRef.current;
+    if (prev.lat === coord.y && prev.lng === coord.x) return;
+    const nextCenter = { lat: coord.y, lng: coord.x };
+    prevCenterRef.current = nextCenter;
+    setMapCenter(nextCenter);
+    onCenterChange(nextCenter);
+  };
+
   const handleDragEnd = () => {
     const coord = mapRef.current?.getCenter();
     if (!coord) return;
@@ -252,6 +272,7 @@ const BaseNaverMap = ({
                 maxZoom={maxZoom}
                 onDragend={handleDragEnd}
                 onZoomChanged={handleZoomChanged}
+                onIdle={handleIdle}
               >
                 {markerData?.map(({ postId, latitude, longitude, postType }) => (
                   <Marker

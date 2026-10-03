@@ -27,7 +27,7 @@ jest.mock("react-naver-maps", () => ({
     if (mockContainerError) throw mockContainerError;
     return children;
   },
-  NaverMap: ({ ref, children, onDragend, onZoomChanged }: any) => {
+  NaverMap: ({ ref, children, onDragend, onZoomChanged, onIdle }: any) => {
     ref.current = {
       getCenter: () => mockMapCenter,
       getZoom: () => 14,
@@ -41,6 +41,9 @@ jest.mock("react-naver-maps", () => ({
         </button>
         <button type="button" onClick={() => onZoomChanged?.(15)}>
           zoom change
+        </button>
+        <button type="button" onClick={onIdle}>
+          idle
         </button>
         {children}
       </div>
@@ -276,6 +279,32 @@ describe("<BaseNaverMap />", () => {
     rerender(<BaseNaverMap center={center} zoom={15} />);
 
     expect(mockMorph).not.toHaveBeenCalled();
+  });
+
+  it("지도가 멈췄을 때 중심이 바뀌어 있으면 onCenterChange로 새 중심을 한 번만 전달합니다.", () => {
+    const onCenterChange = jest.fn();
+    render(<BaseNaverMap center={center} onCenterChange={onCenterChange} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "idle" }));
+    fireEvent.click(screen.getByRole("button", { name: "idle" }));
+
+    expect(onCenterChange).toHaveBeenCalledTimes(1);
+    expect(onCenterChange).toHaveBeenCalledWith({ lat: 37.544583, lng: 127.055972 });
+  });
+
+  it("onCenterChange로 전달한 좌표가 center로 돌아오면 panTo하지 않습니다.", () => {
+    const { rerender } = render(<BaseNaverMap center={center} onCenterChange={jest.fn()} />);
+    fireEvent.click(screen.getByRole("button", { name: "idle" }));
+    mockPanTo.mockClear();
+
+    rerender(
+      <BaseNaverMap
+        center={{ lat: mockMapCenter.y, lng: mockMapCenter.x }}
+        onCenterChange={jest.fn()}
+      />
+    );
+
+    expect(mockPanTo).not.toHaveBeenCalled();
   });
 
   it("zoom이 바뀌면 이동과 줌을 morph로 한 번에 처리합니다.", () => {

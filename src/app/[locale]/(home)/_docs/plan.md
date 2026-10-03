@@ -247,3 +247,4 @@ startTime`, 시작==종료면 24시간 운영
 - [x] 내 위치 버튼이 권한 granted일 때 `getCurrentPosition`(데스크톱에서 10초 이상 걸림) 대신 추적 중인 `userGpsLatLng`로 바로 이동하게 한다.
 - [x] `BaseNaverMap`이 지도에서 올라온 중간 줌으로 다시 morph해 목표 줌 애니메이션을 덮어쓰지 않게 한다.
 - [x] 바텀시트 드래그 종료를 document의 `pointerup`/`pointercancel`로 받고, 새 드래그 전에 이전 리스너를 정리해 시트가 마우스를 따라다니지 않게 한다.
+- [x] 사용자 줌과 관성 이동 뒤 지도가 멈추면(`idle`) 실제 중심을 `latLng`에 저장해, 마커 조회가 화면 중심을 기준으로 이뤄지게 한다.
