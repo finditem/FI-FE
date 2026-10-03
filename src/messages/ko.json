@@ -939,7 +939,7 @@
     "skipForNow": "다음에 할래요."
   },
   "MainSearchHeader": {
-    "placeholder": "장소, 주소를 입력해 주세요.",
+    "placeholder": "이 동네 어디서 잃어버리셨나요?",
     "backLabel": "뒤로가기",
     "searchLabel": "위치 검색"
   },
