@@ -24,6 +24,7 @@ interface PointerHandlerEvent {
   currentTarget: EventTarget & HTMLElement;
   pointerId: number;
   clientY: number;
+  button: number;
 }
 
 const getTargetHeight = ({
@@ -59,7 +60,7 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
   const [snapHeights, setSnapHeights] = useState<number[]>([]);
   const [isFullyExpanded, setIsFullyExpanded] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
-  const moveListenerRef = useRef<((e: PointerEvent) => void) | null>(null);
+  const stopDragRef = useRef<(() => void) | null>(null);
   const searchParams = useSearchParams();
   const searchValue = searchParams.get("search");
   const markerId = searchParams.get(MARKER_ID);
@@ -137,7 +138,17 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
     });
   };
 
+  const endDrag = () => {
+    if (!stopDragRef.current) return;
+    stopDragRef.current();
+    snapToClosestHeight(height.get());
+  };
+
+  // 드래그 종료는 손잡이가 아니라 document의 pointerup으로 받는다. 손잡이가 pointerup을 놓치면
+  // (우클릭 메뉴, 포인터 캡처 해제 등) pointermove 리스너가 남아 버튼을 떼도 시트가 마우스를 따라온다.
   const handlePointerDown = (e: PointerHandlerEvent) => {
+    if (e.button !== 0) return;
+    stopDragRef.current?.();
     e.currentTarget.setPointerCapture(e.pointerId);
     const startY = e.clientY;
     const startHeight = height.get();
@@ -149,20 +160,27 @@ const useBottomSheetHeight = (contentHeights: DefaultSheetContentHeights | null 
       height.set(newHeight);
     };
 
-    moveListenerRef.current = onPointerMove;
     document.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointerup", endDrag);
+    document.addEventListener("pointercancel", endDrag);
+    stopDragRef.current = () => {
+      document.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointerup", endDrag);
+      document.removeEventListener("pointercancel", endDrag);
+      stopDragRef.current = null;
+    };
   };
 
   const handlePointerUp = (e: PointerHandlerEvent) => {
-    const currentHeight = height.get();
-    snapToClosestHeight(currentHeight);
-    e.currentTarget.releasePointerCapture(e.pointerId);
-    const listener = moveListenerRef.current;
-    if (listener) {
-      document.removeEventListener("pointermove", listener);
-      moveListenerRef.current = null;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
     }
+    endDrag();
   };
+
+  useEffect(function stopDragOnUnmount() {
+    return () => stopDragRef.current?.();
+  }, []);
 
   return { height, isFullyExpanded, isInitialized, handlePointerDown, handlePointerUp };
 };

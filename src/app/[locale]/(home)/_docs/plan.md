@@ -229,3 +229,22 @@ startTime`, 시작==종료면 24시간 운영
 - [x] 관련 단위 테스트, 스토리, e2e(`main.spec.ts`)를 갱신한다.
 - [x] `npm run test`, 타입 검사로 회귀를 확인한다.
 - [x] 실제 홈 화면에서 게시글 마커, 줌에 따른 조회 차단, 장소 선택, 내 위치, 현재 위치 주소를 확인한다.
+
+## 장소 상세 탭 아이콘과 검색바 디자인 반영 (fix/naver-map-zoom-recenter)
+
+- [x] 근처 분실물 탭 아이콘을 피그마의 `place-nearby-post.svg`(`PlaceNearbyPost`)로 바꾼다.
+- [x] 검색바 기본 상태에 1.2px 브랜드 테두리(`border-brand-normal-default`)를 넣는다.
+- [x] 검색바 높이를 54px로 고정하고 입력창을 세로 가운데 정렬한다.
+- [x] 검색 아이콘과 입력 글자 간격을 4px(`pl-6`)로 줄인다.
+- [x] placeholder를 `text-h3-medium`, `labelsVibrant-secondary` 색으로 바꾼다.
+- [x] 검색바와 칩 목록 간격을 12px(`mt-3`)로 바꾼다.
+- [x] `MainSearchHeader.placeholder` 문구를 ko/en 모두 "이 동네 어디서 잃어버리셨나요?"에 맞춰 바꾼다.
+- [x] e2e `main.spec.ts`의 placeholder 선택자를 새 문구로 바꾼다.
+- [x] `npm run check:i18n-keys`와 관련 단위 테스트로 확인한다.
+- [x] 검색바 아이콘을 피그마의 `home-search.svg`(`HomeSearch`)로 바꾼다.
+- [x] 지도 분실물/발견물 마커 색을 피그마에 맞춰 `#FF5A5F`/`#0AA874`로 바꾼다.
+- [x] 위치 권한이 있을 때 내 위치 버튼을 누르면 현재 줌과 상관없이 `DEFAULT_MAP_ZOOM`(15)으로 맞추고 내 위치로 이동한다.
+- [x] 내 위치 버튼이 권한 granted일 때 `getCurrentPosition`(데스크톱에서 10초 이상 걸림) 대신 추적 중인 `userGpsLatLng`로 바로 이동하게 한다.
+- [x] `BaseNaverMap`이 지도에서 올라온 중간 줌으로 다시 morph해 목표 줌 애니메이션을 덮어쓰지 않게 한다.
+- [x] 바텀시트 드래그 종료를 document의 `pointerup`/`pointercancel`로 받고, 새 드래그 전에 이전 리스너를 정리해 시트가 마우스를 따라다니지 않게 한다.
+- [x] 사용자 줌과 관성 이동 뒤 지도가 멈추면(`idle`) 실제 중심을 `latLng`에 저장해, 마커 조회가 화면 중심을 기준으로 이뤄지게 한다.
