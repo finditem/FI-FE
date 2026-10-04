@@ -93,8 +93,8 @@ const HeaderSearchForm = ({
   return (
     <form
       className={cn(
-        "relative w-full rounded-[10px] bg-white px-5 py-4",
-        isDropdownOpen && "border border-black/25"
+        "relative flex h-[54px] w-full items-center rounded-[10px] bg-white px-5",
+        isDropdownOpen ? "border border-black/25" : "border-[1.2px] border-brand-normal-default"
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -120,7 +120,7 @@ const HeaderSearchForm = ({
           }
         }}
         className={cn(
-          "w-full pl-8 text-h3-semibold text-flatGray-700 placeholder:text-flatGray-700"
+          "w-full pl-6 text-h3-medium text-flatGray-700 placeholder:text-labelsVibrant-secondary"
         )}
         placeholder={locationPlaceholder}
       />
@@ -131,11 +131,7 @@ const HeaderSearchForm = ({
         aria-label={isDropdownOpen ? t("backLabel") : t("searchLabel")}
         className="absolute left-5 top-1/2 -translate-y-1/2"
       >
-        <Icon
-          name={isDropdownOpen ? "ArrowLeftSmall" : "Search"}
-          size={20}
-          className={!isDropdownOpen ? "text-brand-strong-default" : ""}
-        />
+        <Icon name={isDropdownOpen ? "ArrowLeftSmall" : "HomeSearch"} size={20} />
       </button>
     </form>
   );
@@ -172,7 +168,7 @@ const HeaderContent = ({
         searchInputRef={searchInputRef}
       />
       {!isDropdownOpen && (
-        <div className="mt-2">
+        <div className="mt-3">
           <MainSearchChipList />
         </div>
       )}

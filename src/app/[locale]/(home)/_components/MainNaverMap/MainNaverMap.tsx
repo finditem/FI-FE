@@ -88,6 +88,7 @@ const MainNaverMap = () => {
       draggable
       onZoomChange={(nextZoom) => setMapZoom(nextZoom)}
       onDragEnd={(nextCenter) => setLatLng(nextCenter)}
+      onCenterChange={(nextCenter) => setLatLng(nextCenter)}
       markerData={
         selectedPlace ? nearbyMarkerData?.result : showPostMarkers ? markerData?.result : undefined
       }
