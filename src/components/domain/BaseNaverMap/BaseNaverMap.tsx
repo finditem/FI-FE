@@ -127,6 +127,11 @@ interface BaseNaverMapProps {
   onDragEnd?: (center: LatLng) => void;
   /** 지도 줌 변경 시 호출되는 콜백 */
   onZoomChange?: (zoom: number) => void;
+  /**
+   * 지도가 멈췄을 때(idle) 중심이 마지막으로 알던 center와 다르면 새 중심 좌표를 전달합니다.
+   * 휠이나 핀치 줌, 드래그 뒤 관성 이동처럼 사용자가 옮긴 중심을 부모 상태에 맞출 때 씁니다.
+   */
+  onCenterChange?: (center: LatLng) => void;
   /** 지도 위에 오버레이로 표시할 UI 요소 */
   children?: ReactNode;
   /** 최대 축소 한계 (default: 7, 카카오 레벨 13) */
@@ -170,6 +175,7 @@ const BaseNaverMap = ({
 
   onDragEnd,
   onZoomChange,
+  onCenterChange,
 
   children,
 
@@ -180,20 +186,30 @@ const BaseNaverMap = ({
   const [scriptStatus, setScriptStatus] = useState<"loading" | "ready" | "error">("loading");
   const mapRef = useRef<naver.maps.Map>(null);
   const [mapCenter, setMapCenter] = useState(center);
+  const prevCenterRef = useRef(center);
+  const zoomFromMapRef = useRef<number | null>(null);
 
   // react-naver-maps는 center prop이 바뀌면 애니메이션 없이 순간 이동하고, zoom prop은 이동 중에도 따로 적용한다.
   // 카카오 isPanto처럼 미끄러지듯 이동하면서 흔들리지 않도록 중심과 줌을 직접 옮긴다.
   // - 줌이 바뀌면 이동과 줌을 한 번에 처리하는 morph를 쓴다. 이동 중에 줌만 바뀌어도 목표 중심으로 이어서 이동한다.
   // - 중심만 바뀌면 panTo를 쓴다.
+  // - center prop이 그대로면 옮기지 않는다. 사용자가 휠이나 핀치로 줌하면 지도 중심이 이미 바뀌어 있는데,
+  //   이때 예전 center로 panTo하면 지도가 원래 자리로 되돌아간다.
+  // - 지도가 onZoomChange로 알려 준 줌이 zoom prop으로 돌아오면 다시 morph하지 않는다. morph 도중에도 중간 줌이
+  //   전달되는데, 그 값으로 morph하면 원래 목표 줌으로 가던 애니메이션을 덮어써 중간 줌에서 멈춘다.
   useEffect(() => {
     setMapCenter(center);
+    const isCenterChanged =
+      prevCenterRef.current.lat !== center.lat || prevCenterRef.current.lng !== center.lng;
+    prevCenterRef.current = center;
     const map = mapRef.current;
     if (!map) return;
 
-    if (map.getZoom() !== zoom) {
+    if (map.getZoom() !== zoom && zoomFromMapRef.current !== zoom) {
       map.morph(center, zoom);
       return;
     }
+    if (!isCenterChanged) return;
 
     const current = map.getCenter();
     if (current.y !== center.lat || current.x !== center.lng) {
@@ -201,10 +217,31 @@ const BaseNaverMap = ({
     }
   }, [center, zoom]);
 
+  const handleZoomChanged = (nextZoom: number) => {
+    zoomFromMapRef.current = nextZoom;
+    onZoomChange?.(nextZoom);
+  };
+
+  // ponytail: panTo/morph 애니메이션 도중의 idle에서도 중간 중심이 전달되어 조회가 몇 번 더 일어날 수 있다.
+  // 요청이 문제가 되면 애니메이션 목표 좌표를 기록해 그동안의 idle을 건너뛴다.
+  const handleIdle = () => {
+    if (!onCenterChange) return;
+    const coord = mapRef.current?.getCenter();
+    if (!coord) return;
+    const prev = prevCenterRef.current;
+    if (prev.lat === coord.y && prev.lng === coord.x) return;
+    const nextCenter = { lat: coord.y, lng: coord.x };
+    prevCenterRef.current = nextCenter;
+    setMapCenter(nextCenter);
+    onCenterChange(nextCenter);
+  };
+
   const handleDragEnd = () => {
     const coord = mapRef.current?.getCenter();
     if (!coord) return;
     const nextCenter = { lat: coord.y, lng: coord.x };
+    // 부모가 이 좌표를 center로 돌려줘도 panTo하지 않게 한다. 드래그 뒤 관성 이동 중에 손 뗀 지점으로 끌려가지 않는다.
+    prevCenterRef.current = nextCenter;
     setMapCenter(nextCenter);
     onDragEnd?.(nextCenter);
   };
@@ -234,7 +271,8 @@ const BaseNaverMap = ({
                 minZoom={minZoom}
                 maxZoom={maxZoom}
                 onDragend={handleDragEnd}
-                onZoomChanged={onZoomChange}
+                onZoomChanged={handleZoomChanged}
+                onIdle={handleIdle}
               >
                 {markerData?.map(({ postId, latitude, longitude, postType }) => (
                   <Marker

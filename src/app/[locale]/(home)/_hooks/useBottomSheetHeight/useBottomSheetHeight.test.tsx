@@ -77,6 +77,49 @@ describe("useBottomSheetHeight", () => {
     mockGetSnapHeights.mockReturnValue([100, 400, 700]);
   });
 
+  describe("드래그", () => {
+    const createHandle = () => ({
+      currentTarget: Object.assign(document.createElement("div"), {
+        setPointerCapture: jest.fn(),
+        releasePointerCapture: jest.fn(),
+        hasPointerCapture: jest.fn(() => true),
+      }),
+      pointerId: 1,
+      button: 0,
+    });
+    const movePointer = (clientY: number) => {
+      document.dispatchEvent(new MouseEvent("pointermove", { clientY }));
+    };
+
+    it("손잡이가 pointerup을 놓쳐도 document의 pointerup으로 드래그가 끝난다", async () => {
+      const { result } = renderHook(() => useBottomSheetHeight());
+      await waitFor(() => expect(result.current.isInitialized).toBe(true));
+      const startHeight = result.current.height.get();
+
+      act(() => result.current.handlePointerDown({ ...createHandle(), clientY: 500 }));
+      act(() => movePointer(450));
+      expect(result.current.height.get()).toBe(startHeight + 50);
+
+      act(() => {
+        document.dispatchEvent(new MouseEvent("pointerup"));
+      });
+      act(() => movePointer(300));
+
+      expect(result.current.height.get()).toBe(startHeight + 50);
+    });
+
+    it("왼쪽 버튼이 아니면 드래그를 시작하지 않는다", async () => {
+      const { result } = renderHook(() => useBottomSheetHeight());
+      await waitFor(() => expect(result.current.isInitialized).toBe(true));
+      const startHeight = result.current.height.get();
+
+      act(() => result.current.handlePointerDown({ ...createHandle(), button: 2, clientY: 500 }));
+      act(() => movePointer(300));
+
+      expect(result.current.height.get()).toBe(startHeight);
+    });
+  });
+
   it("마운트 후 isInitialized가 true가 된다", async () => {
     const { result } = renderHook(() => useBottomSheetHeight(null));
 
