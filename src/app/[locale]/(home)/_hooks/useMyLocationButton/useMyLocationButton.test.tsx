@@ -1,4 +1,5 @@
 import { act, renderHook } from "@testing-library/react";
+import { DEFAULT_MAP_ZOOM } from "@/constants";
 import { useMainNaverMapStore } from "@/store";
 import { clearMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
 import useMyLocationButton from "./useMyLocationButton";
@@ -20,10 +21,12 @@ const mockUseMainNaverMapStore = useMainNaverMapStore as jest.MockedFunction<
 >;
 
 const createStoreSlice = () => ({
+  userGpsLatLng: null as { lat: number; lng: number } | null,
   setLatLng: jest.fn(),
   setUserGpsFromDevice: jest.fn(),
   clearLatLng: jest.fn(),
   triggerZoomReset: jest.fn(),
+  setMapZoom: jest.fn(),
 });
 
 describe("useMyLocationButton", () => {
@@ -85,6 +88,36 @@ describe("useMyLocationButton", () => {
 
     expect(getCurrentPosition).toHaveBeenCalled();
     expect(slice.setLatLng).toHaveBeenCalledWith({ lat: 37.5, lng: 127 });
+    expect(slice.setMapZoom).toHaveBeenCalledWith(DEFAULT_MAP_ZOOM);
+  });
+
+  it("권한이 granted이고 추적 중인 위치가 있으면 위치를 새로 요청하지 않고 기본 줌으로 바로 이동한다", async () => {
+    slice.userGpsLatLng = { lat: 37.5, lng: 127.0 };
+    const getCurrentPosition = jest.fn();
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(getCurrentPosition).not.toHaveBeenCalled();
+    expect(slice.setMapZoom).toHaveBeenCalledWith(DEFAULT_MAP_ZOOM);
+    expect(slice.setLatLng).toHaveBeenCalledWith({ lat: 37.5, lng: 127.0 });
   });
 
   it("getCurrentPosition 실패 시 clearLatLng를 호출하고 세션 초기화는 하지 않는다", async () => {
