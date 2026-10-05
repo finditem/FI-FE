@@ -39,8 +39,14 @@ interface PostFoundConfirmModalProps {
 const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundConfirmModalProps) => {
   const t = useTranslations("PostFoundConfirmModal");
   const router = useRouter();
-  const { mutate: putPostStatus } = usePutPostStatus(postId, false);
-  const { mutate: putPostStatusSilently } = usePutPostStatus(postId, false, { silent: true });
+  const { mutate: putPostStatus, isPending: isPutPending } = usePutPostStatus(postId, false);
+  const { mutate: putPostStatusSilently, isPending: isPutSilentPending } = usePutPostStatus(
+    postId,
+    false,
+    { silent: true }
+  );
+  // 상태 변경 응답을 기다리는 동안 버튼을 비활성화해 같은 요청이 중복 전송되는 것을 막는다.
+  const isPending = isPutPending || isPutSilentPending;
 
   const handleLater = () => {
     putPostStatus({ postStatus: "FOUND" });
@@ -73,10 +79,15 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
       </div>
 
       <div className="w-full gap-2 flex-center">
-        <Button variant="outlined" className="min-h-11 flex-1" onClick={handleLater}>
+        <Button
+          variant="outlined"
+          className="min-h-11 flex-1"
+          onClick={handleLater}
+          disabled={isPending}
+        >
           {t("laterLabel")}
         </Button>
-        <Button className="min-h-11 flex-1" onClick={handleReview}>
+        <Button className="min-h-11 flex-1" onClick={handleReview} disabled={isPending}>
           {t("reviewLabel")}
         </Button>
       </div>

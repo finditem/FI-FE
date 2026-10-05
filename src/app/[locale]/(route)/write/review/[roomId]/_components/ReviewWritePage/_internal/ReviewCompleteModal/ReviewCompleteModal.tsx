@@ -1,8 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Button, Icon } from "@/components/common";
-import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
+import { Button, Icon, ModalLayout } from "@/components/common";
 
 interface ReviewCompleteModalProps {
   /** 모달 열림 여부 */
