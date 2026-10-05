@@ -1045,7 +1045,7 @@
   },
   "ReviewWritePage": {
     "title": "찾길 후기",
-    "greeting": "{myNickname}님,\n{opponentNickname}와의 만남은 어떠셨나요?",
+    "greeting": "{myNickname}님,\n{opponentNickname}님과의 만남은 어떠셨나요?",
     "feelingsAriaLabel": "만남에서 느낀 감정 선택",
     "feelings": {
       "touched": "감동",

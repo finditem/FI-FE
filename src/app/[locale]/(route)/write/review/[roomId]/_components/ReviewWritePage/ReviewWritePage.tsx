@@ -76,8 +76,7 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
         </div>
 
         <div className="flex flex-col gap-7">
-          {/* TODO(수현): text-[#171717]는 디자인 토큰 미확정 상태의 임시 값이므로 토큰 확정되면 교체 */}
-          <p className="text-h2-bold text-[#171717]">
+          <p className="text-h2-bold text-labelsVibrant-primary">
             {t("helpQuestion")} <RequiredText className="text-system-success" />
           </p>
           <ReviewHelpChecklist value={helpItems} onChange={setHelpItems} />
@@ -91,7 +90,7 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
                 {t("reviewLabel")} <span className="text-h2-regular">{t("reviewOptional")}</span>
               </>
             }
-            labelClassName="text-h2-bold text-[#242424]"
+            labelClassName="text-h2-bold text-labelsVibrant-primary"
             wrapperClassName="gap-4"
             placeholder={t("reviewPlaceholder")}
             maxLength={300}
