@@ -248,3 +248,10 @@ startTime`, 시작==종료면 24시간 운영
 - [x] `BaseNaverMap`이 지도에서 올라온 중간 줌으로 다시 morph해 목표 줌 애니메이션을 덮어쓰지 않게 한다.
 - [x] 바텀시트 드래그 종료를 document의 `pointerup`/`pointercancel`로 받고, 새 드래그 전에 이전 리스너를 정리해 시트가 마우스를 따라다니지 않게 한다.
 - [x] 사용자 줌과 관성 이동 뒤 지도가 멈추면(`idle`) 실제 중심을 `latLng`에 저장해, 마커 조회가 화면 중심을 기준으로 이뤄지게 한다.
+
+## 내 위치 버튼 바텀시트 높이 보정 (refactor/map-auto-location)
+
+- [x] 픽셀 오프셋만큼 위도를 옮기는 메르카토르 계산 `offsetLatLngByPixels`를 `_utils/mapOffsetUtils.ts`에 추가한다.
+- [x] `BottomSheet`가 현재 시트 높이를 읽는 `getSheetHeight`를 `MyLocationButton`에 넘긴다.
+- [x] `useMyLocationButton`이 이동할 때 시트 높이의 절반만큼 중심을 남쪽으로 옮겨, 내 위치가 시트를 뺀 지도 영역 가운데에 오게 한다. 누른 시점에 한 번만 보정하고 시트 높이가 바뀌어도 다시 맞추지 않는다.
+- [ ] 브라우저에서 시트 높이별로 내 위치가 보이는 영역 가운데에 오는지 확인한다.

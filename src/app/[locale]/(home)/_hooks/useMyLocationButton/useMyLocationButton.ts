@@ -6,8 +6,12 @@ import {
   markMainGeoSessionConfirmed,
 } from "@/utils/mainGeoSession";
 import { useCallback, useEffect, useState } from "react";
+import { offsetLatLngByPixels } from "../../_utils/mapOffsetUtils";
 
-const useMyLocationButton = () => {
+/**
+ * @param getSheetHeight - 바텀시트의 현재 높이를 읽는 함수. 넘기면 내 위치가 시트에 가리지 않는 지도 영역 가운데에 오도록 중심을 보정한다.
+ */
+const useMyLocationButton = (getSheetHeight?: () => number) => {
   const {
     userGpsLatLng,
     setLatLng,
@@ -41,9 +45,11 @@ const useMyLocationButton = () => {
   }, [clearLatLng]);
 
   // 지금 줌과 상관없이 기본 줌으로 맞춘다. 축소해 둔 상태여도 내 위치 주변이 같은 배율로 보인다.
+  // 지도는 시트 뒤까지 깔려 있어, 시트 높이의 절반만큼 중심을 내려야 내 위치가 보이는 영역 가운데에 온다.
+  // 이동하는 시점에 한 번만 맞추고, 이후 시트 높이가 바뀌어도 다시 옮기지 않는다.
   const moveToMyLocation = (latLng: { lat: number; lng: number }) => {
     setMapZoom(DEFAULT_MAP_ZOOM);
-    setLatLng(latLng);
+    setLatLng(offsetLatLngByPixels(latLng, (getSheetHeight?.() ?? 0) / 2, DEFAULT_MAP_ZOOM));
   };
 
   const requestDeviceLocation = useCallback(() => {
