@@ -62,7 +62,7 @@ const BottomSheetContent = () => {
     >
       {!isFullyExpanded && (
         <div className="relative">
-          <MyLocationButton />
+          <MyLocationButton getSheetHeight={() => height.get()} />
         </div>
       )}
 
