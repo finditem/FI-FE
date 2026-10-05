@@ -10,9 +10,9 @@ interface PlaceDetailTabsProps {
   onChange: (tab: PlaceDetailTab) => void;
 }
 
-const TABS: { value: PlaceDetailTab; icon: "PlaceMarker" | "MapMyLocation" }[] = [
+const TABS: { value: PlaceDetailTab; icon: "PlaceMarker" | "PlaceNearbyPost" }[] = [
   { value: "place", icon: "PlaceMarker" },
-  { value: "post", icon: "MapMyLocation" },
+  { value: "post", icon: "PlaceNearbyPost" },
 ];
 
 /** 장소 상세 시트 상단의 동네 정보 / 근처 분실물 탭 전환 */

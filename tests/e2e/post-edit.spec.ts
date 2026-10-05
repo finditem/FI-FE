@@ -257,6 +257,8 @@ test.describe("게시글 수정 페이지", () => {
 
     const requestData = JSON.parse(jsonStringMatch![0]);
     expect(requestData.title).toBe("PUT 요청 검증 제목");
+    // 작성 후에는 분실/발견 유형을 바꿀 수 없어 수정 요청에 postType을 싣지 않는다.
+    expect(requestData).not.toHaveProperty("postType");
     // 타임존 표기가 없는 로컬 날짜·시간이어야 한다.
     expect(requestData.date).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/);
   });

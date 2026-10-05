@@ -111,3 +111,13 @@ Figma 스펙(찾아줘 v2.0, node-id 15428-316139, "분실했어요 게시글 �
 - [x] `npm run test` (260 suites / 1470 tests 통과) + `npm run build` (성공)
 - [ ] 5회 제한 시나리오의 e2e 커버리지 필요 여부 판단 (mock 서버 구성 필요 — 백엔드 API 확정 후 판단)
 - [ ] 백엔드 API 확정 후 실제 응답으로 통합 테스트 재검증
+
+## 수정 요청에서 postType 제거 (finditem/FI-BE#576 대응)
+
+게시글 정책상 작성 후에는 분실/발견 유형을 바꿀 수 없어, 백엔드가 `PUT /posts/{postId}` 요청에서 `postType`을
+받지 않도록 제거한다. 프론트엔드도 수정 요청 바디에서 이 필드를 뺀다. `postStatus` 변경은 그대로 유지한다.
+제출 검증(`postWriteSubmitSchema`)의 `postType` 필수 검사는 수정 화면 초기화가 서버 값으로 채워주므로 그대로 둔다.
+
+- [x] `PutPostEditRequest`를 `Omit<PostWriteRequest, "postType">` 기반으로 변경
+- [x] `usePostEditSubmit`의 요청 바디에서 `postType` 제거
+- [x] `post-edit.spec.ts`의 PUT 요청 검증에 `postType`이 실리지 않는다는 단언 추가

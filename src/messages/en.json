@@ -939,7 +939,7 @@
     "skipForNow": "Maybe later"
   },
   "MainSearchHeader": {
-    "placeholder": "Enter a place or address",
+    "placeholder": "Where did you lose it around here?",
     "backLabel": "Back",
     "searchLabel": "Search location"
   },
