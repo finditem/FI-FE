@@ -13,8 +13,7 @@ export type ChatChipMode = keyof typeof CHAT_CHIP_MODE;
 
 interface InfoOption {
   value: InfoButtonOptionValue;
-  textColor:
-    "text-neutral-normal-default" | "text-system-warning" | "text-brand-strongUseThis-default";
+  textColor: "text-system-warning" | "text-brand-strongUseThis-default";
   icon: IconName;
 }
 
@@ -30,7 +29,7 @@ export const getInfoOptions = (canMarkFound: boolean): InfoOption[] => {
   }
   options.push({
     value: "reportBlock",
-    textColor: "text-neutral-normal-default",
+    textColor: "text-system-warning",
     icon: "ChatReport",
   });
   options.push({ value: "leave", textColor: "text-system-warning", icon: "Logout" });
