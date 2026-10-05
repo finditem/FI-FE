@@ -8,13 +8,11 @@ import { DetailHeader } from "@/components/layout";
 import { Button, InputField } from "@/components/common";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
 import { useGetUsersMe } from "@/api/fetch/user";
-import ReviewFeelingSelect, {
-  ReviewFeelingValue,
-} from "./_internal/ReviewFeelingSelect/ReviewFeelingSelect";
-import ReviewHelpChecklist, {
-  ReviewHelpItemValue,
-} from "./_internal/ReviewHelpChecklist/ReviewHelpChecklist";
+import ReviewFeelingSelect from "./_internal/ReviewFeelingSelect/ReviewFeelingSelect";
+import ReviewHelpChecklist from "./_internal/ReviewHelpChecklist/ReviewHelpChecklist";
 import ReviewCompleteModal from "./_internal/ReviewCompleteModal/ReviewCompleteModal";
+import type { ReviewFeelingValue } from "../../_types/ReviewFeelingValue";
+import type { ReviewHelpItemValue } from "../../_types/ReviewHelpItemValue";
 
 interface ReviewFormValues {
   content: string;

@@ -4,8 +4,7 @@ import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import type { IconName } from "@/components/common";
 import { cn } from "@/utils";
-
-export type ReviewFeelingValue = "touched" | "grateful" | "heartFlutter";
+import type { ReviewFeelingValue } from "../../../../_types/ReviewFeelingValue";
 
 const FEELING_VALUES: ReviewFeelingValue[] = ["touched", "grateful", "heartFlutter"];
 

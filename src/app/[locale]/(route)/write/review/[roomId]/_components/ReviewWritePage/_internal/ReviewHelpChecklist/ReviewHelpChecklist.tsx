@@ -2,9 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { CheckBox } from "@/components/common";
-
-export type ReviewHelpItemValue =
-  "kind" | "trustworthy" | "quickResponse" | "safeKeeping" | "helpfulInfo";
+import type { ReviewHelpItemValue } from "../../../../_types/ReviewHelpItemValue";
 
 const HELP_ITEM_VALUES: ReviewHelpItemValue[] = [
   "kind",
