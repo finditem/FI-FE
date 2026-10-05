@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
 import { DetailHeader } from "@/components/layout";
-import { Button, InputField } from "@/components/common";
+import { Button, InputField, RequiredText } from "@/components/common";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
 import { useGetUsersMe } from "@/api/fetch/user";
 import ReviewFeelingSelect from "./_internal/ReviewFeelingSelect/ReviewFeelingSelect";
@@ -52,7 +52,7 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
   const canSubmit = feeling !== null && helpItems.length > 0;
 
   const handleSubmit = () => {
-    // TODO: 후기 등록 API 연동 시 성공 응답 후 완료 팝업을 열도록 교체
+    // TODO(수현): 후기 등록 API 연동 시 성공 응답 후 완료 팝업을 열도록 교체
     setIsCompleteOpen(true);
   };
 
@@ -68,17 +68,17 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
       <div className="flex flex-1 flex-col gap-10 px-5 py-6">
         <div className="flex flex-col gap-7">
           <p className="whitespace-pre-line text-h2-bold text-labelsVibrant-primary">
-            {t("greeting", { myNickname, opponentNickname })}
-            <span className="text-system-success">{" *"}</span>
+            {t("greeting", { myNickname, opponentNickname })}{" "}
+            <RequiredText className="text-system-success" />
           </p>
 
           <ReviewFeelingSelect value={feeling} onChange={setFeeling} />
         </div>
 
         <div className="flex flex-col gap-7">
+          {/* TODO(수현): text-[#171717]는 디자인 토큰 미확정 상태의 임시 값이므로 토큰 확정되면 교체 */}
           <p className="text-h2-bold text-[#171717]">
-            {t("helpQuestion")}
-            <span className="text-system-success">{" *"}</span>
+            {t("helpQuestion")} <RequiredText className="text-system-success" />
           </p>
           <ReviewHelpChecklist value={helpItems} onChange={setHelpItems} />
         </div>
