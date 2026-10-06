@@ -102,5 +102,7 @@
   "PlaceHeart": "place-heart",
   "PlaceHeartActive": "place-heart-active",
   "MessageTranslate": "message-translate",
-  "MessageTranslateActive": "message-translate-active"
+  "MessageTranslateActive": "message-translate-active",
+  "ReceiveReview": "receive-review",
+  "SendReview": "send-review"
 }

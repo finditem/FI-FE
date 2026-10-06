@@ -1419,6 +1419,26 @@
     "title": "내가 쓴 댓글",
     "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
   },
+  "MypageReviewsLayout": {
+    "title": "찾길 후기",
+    "description": "찾아줘에서 주고받은 찾길 후기를 확인해보세요."
+  },
+  "MypageReviewsPage": {
+    "title": "찾길 후기",
+    "srOnlyTitle": "찾길 후기 페이지",
+    "tabsAriaLabel": "찾길 후기 탭",
+    "tabs": {
+      "received": "받은 후기",
+      "sent": "보낸 후기",
+      "hidden": "숨긴 후기"
+    },
+    "empty": {
+      "receivedTitle": "아직 받은 후기가 없어요",
+      "receivedDescription": "후기편지가 도착하면 여기에 후기 목록이 표기돼요.",
+      "sentTitle": "아직 보낸 후기가 없어요",
+      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요."
+    }
+  },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "필터 영역",
     "date": "기간",
