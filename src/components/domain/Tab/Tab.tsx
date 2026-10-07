@@ -62,7 +62,7 @@ const Tab = <T extends string>({
             key={tab.key}
             {...buttonProps}
             className={cn(
-              "relative h-[60px] flex-1 text-h3-semibold text-flatGray-300 flex-center",
+              "relative h-[60px] flex-1 text-h3-semibold text-system-unselected flex-center",
               isSelected && "text-flatGreen-500"
             )}
             onClick={() => onValueChange(tab.key)}

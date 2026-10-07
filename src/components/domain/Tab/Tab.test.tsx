@@ -32,7 +32,7 @@ describe("<Tab />", () => {
       expect(el).toHaveClass("h-[60px]");
       expect(el).toHaveClass("flex-1");
       expect(el).toHaveClass("text-h3-semibold");
-      expect(el).toHaveClass("text-flatGray-300");
+      expect(el).toHaveClass("text-system-unselected");
       expect(el).toHaveClass("flex-center");
     });
 
