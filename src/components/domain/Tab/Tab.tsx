@@ -72,7 +72,7 @@ const Tab = <T extends string>({
             {isSelected && (
               <motion.span
                 layoutId={underlineLayoutId}
-                className="bg-brand-normal-default absolute inset-x-0 bottom-0 h-[2px]"
+                className="absolute inset-x-0 bottom-0 h-[2px] bg-fill-brand-normal-default"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 aria-hidden
               />
