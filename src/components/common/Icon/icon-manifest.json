@@ -104,5 +104,6 @@
   "MessageTranslate": "message-translate",
   "MessageTranslateActive": "message-translate-active",
   "ReceiveReview": "receive-review",
-  "SendReview": "send-review"
+  "SendReview": "send-review",
+  "HiddenReview": "hidden-review"
 }

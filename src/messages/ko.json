@@ -1437,7 +1437,9 @@
       "receivedTitle": "아직 받은 후기가 없어요",
       "receivedDescription": "후기편지가 도착하면 여기에 후기 목록이 표기돼요.",
       "sentTitle": "아직 보낸 후기가 없어요",
-      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요."
+      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요.",
+      "hiddenTitle": "숨긴 후기가 없어요",
+      "hiddenDescription": "후기는 여기에서 확인하고 언제든 다시 해제할 수 있어요."
     }
   },
   "ReviewCard": {

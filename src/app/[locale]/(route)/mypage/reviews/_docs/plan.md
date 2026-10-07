@@ -62,7 +62,7 @@ API 연동은 제외한다.
 
 ## 열린 질문 / 후속
 
-- 숨긴 후기 빈 상태 아이콘/문구, 보낸 후기 확정 문구는 디자인 확정 후 반영.
+- 보낸 후기 확정 문구는 디자인 확정 후 반영.
 - 보낸 후기/숨긴 후기의 리스트(후기 카드) 상태와 전체 API 연동은 별도 작업으로 분리.
 - "찾길 후기" 진입 지점 링크 추가는 이번 범위 제외.
 - 신규 라우트 컴포넌트의 Storybook/Jest 테스트는 별도 PR로 분리(컨벤션).
@@ -112,3 +112,29 @@ API 연동은 제외한다.
 - [ ] 로컬 dev에서 받은 후기 탭 리스트 카드 렌더링 눈으로 확인 (dev 서버는 사용자 실행)
 - [ ] 케밥 메뉴 가로점 아이콘(`dot-horizontal2`) 에셋 확보 후 교체 — 현재는 기존 세로점 `DetailMenu`로 대체
 - [ ] 케밥 메뉴 클릭 동작(신고/숨기기 등) 연동 — 현재는 버튼만 퍼블리싱, onClick 미연결
+
+## 숨긴 후기 빈 상태 퍼블리싱
+
+받은/보낸 후기와 동일한 형식(`EmptyState` + 아이콘 + title + description)으로 숨긴 후기 탭의
+빈 상태를 추가. 아이콘은 사용자가 전달한 `~/Desktop/hidden-review.svg`, size는 다른 두 탭(90)과
+달리 70으로 지정(사용자 지정값, 원본 viewBox가 71x70이라 자연스러운 크기이기도 함).
+
+- [x] `hidden-review.svg`를 `src/assets/`로 복사, `icon-manifest.json`에 `HiddenReview` 등록,
+      스프라이트 재생성(107개) 확인
+- [x] `ReviewsContent`의 "hidden" 분기를 `EmptyState(icon="HiddenReview", iconSize=70)`로 교체
+      (기존 `return null` 제거)
+- [x] 번역 키 추가: `MypageReviewsPage.empty.hiddenTitle`("숨긴 후기가 없어요")/
+      `hiddenDescription`("후기는 여기에서 확인하고 언제든 다시 해제할 수 있어요.") — ko/en
+- [x] `npm run check:i18n-keys` 통과 확인
+- [x] 타입체크(`npx tsc --noEmit`, 기존 무관 에러 외 신규 에러 없음) + `npm run test`(251 suites /
+      1454 tests) 통과 확인. `npm run build`는 사용자의 로컬 `next dev`가 이미 `.next`를 쓰고 있어
+      충돌 — 이번엔 건너뜀(아래 "막힌 지점" 참고)
+- [ ] 로컬 dev에서 숨긴 후기 탭 빈 상태 렌더링 눈으로 확인
+
+### 막힌 지점
+
+`npm run build`가 `.next` 디렉터리를 사용자의 실행 중인 `next dev`(같은 프로젝트 경로)와 동시에
+건드리면서 `PageNotFoundError`로 실패함(코드 문제 아님 — dev 서버가 켜져 있는 동안 `next build`를
+돌리면 `.next` 산출물 형식이 충돌). 이후 세션에서는 dev 서버가 켜져 있을 때 `npm run build`를
+돌리지 말고, `npx tsc --noEmit`(타입체크) + `npm run test`로 대체 검증할 것. 전체 build 검증이
+필요하면 사용자에게 dev 서버를 잠시 멈춰달라고 요청할 것.

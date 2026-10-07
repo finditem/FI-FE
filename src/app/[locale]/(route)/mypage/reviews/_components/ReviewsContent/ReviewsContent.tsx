@@ -17,7 +17,7 @@ interface ReviewsContentProps {
  * @remarks
  * - 받은 후기는 리스트(카드) 상태까지 퍼블리싱되었습니다. API 연동 전까지는 더미 데이터를 씁니다.
  * - 보낸 후기는 아직 빈 상태만 퍼블리싱 범위입니다.
- * - 숨긴 후기 탭은 빈 상태 디자인이 확정되지 않아 콘텐츠를 비워 둡니다.
+ * - 숨긴 후기는 빈 상태까지 퍼블리싱되었습니다.
  */
 const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   const t = useTranslations("MypageReviewsPage");
@@ -59,8 +59,13 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
     );
   }
 
-  // TODO(suhyeon): 숨긴 후기 빈 상태 디자인 확정 시 EmptyState 추가
-  return null;
+  return (
+    <EmptyState
+      icon={{ iconName: "HiddenReview", iconSize: 70 }}
+      title={t("empty.hiddenTitle")}
+      description={t("empty.hiddenDescription")}
+    />
+  );
 };
 
 export default ReviewsContent;

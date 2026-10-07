@@ -1437,7 +1437,9 @@
       "receivedTitle": "No reviews received yet",
       "receivedDescription": "When a review letter arrives, it will appear here.",
       "sentTitle": "No reviews sent yet",
-      "sentDescription": "When you send a review letter, it will appear here."
+      "sentDescription": "When you send a review letter, it will appear here.",
+      "hiddenTitle": "No hidden reviews",
+      "hiddenDescription": "You can check reviews here and unhide them anytime."
     }
   },
   "ReviewCard": {
