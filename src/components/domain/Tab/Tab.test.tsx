@@ -32,13 +32,18 @@ describe("<Tab />", () => {
       expect(el).toHaveClass("h-[60px]");
       expect(el).toHaveClass("flex-1");
       expect(el).toHaveClass("text-h3-semibold");
-      expect(el).toHaveClass("text-system-unselected");
       expect(el).toHaveClass("flex-center");
     });
 
-    expect(btn2.className).toContain("text-brand-normal-default");
-    expect(btn1.className).not.toContain("text-brand-normal-default");
-    expect(btn3.className).not.toContain("text-brand-normal-default");
+    // 선택/비선택 색상 클래스는 동시에 섞이지 않고 하나만 붙어야 한다(순수 clsx는 tailwind-merge가
+    // 아니라 중복 color 클래스를 제거하지 않으므로, 분기 자체가 배타적이어야 안전하다).
+    expect(btn2).toHaveClass("text-brand-normal-default");
+    expect(btn2).not.toHaveClass("text-system-unselected");
+
+    [btn1, btn3].forEach((el) => {
+      expect(el).toHaveClass("text-system-unselected");
+      expect(el).not.toHaveClass("text-brand-normal-default");
+    });
 
     // 밑줄(motion.span)은 선택된 탭 버튼 안에만 렌더된다.
     expect(btn2.querySelector("span")).not.toBeNull();
