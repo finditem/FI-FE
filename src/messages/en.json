@@ -1427,6 +1427,7 @@
     "title": "Reviews",
     "srOnlyTitle": "Reviews page",
     "tabsAriaLabel": "Review tabs",
+    "countLabel": "Reviews",
     "tabs": {
       "received": "Received",
       "sent": "Sent",
@@ -1438,6 +1439,9 @@
       "sentTitle": "No reviews sent yet",
       "sentDescription": "When you send a review letter, it will appear here."
     }
+  },
+  "ReviewCard": {
+    "menuAriaLabel": "Review options menu"
   },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",
