@@ -63,7 +63,7 @@ const Tab = <T extends string>({
             {...buttonProps}
             className={cn(
               "relative h-[60px] flex-1 text-h3-semibold text-system-unselected flex-center",
-              isSelected && "text-flatGreen-500"
+              isSelected && "text-brand-normal-default"
             )}
             onClick={() => onValueChange(tab.key)}
             type="button"
@@ -72,7 +72,7 @@ const Tab = <T extends string>({
             {isSelected && (
               <motion.span
                 layoutId={underlineLayoutId}
-                className="absolute inset-x-0 bottom-0 h-[2px] bg-flatGreen-500"
+                className="bg-brand-normal-default absolute inset-x-0 bottom-0 h-[2px]"
                 transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 aria-hidden
               />

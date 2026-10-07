@@ -36,9 +36,9 @@ describe("<Tab />", () => {
       expect(el).toHaveClass("flex-center");
     });
 
-    expect(btn2.className).toContain("text-flatGreen-500");
-    expect(btn1.className).not.toContain("text-flatGreen-500");
-    expect(btn3.className).not.toContain("text-flatGreen-500");
+    expect(btn2.className).toContain("text-brand-normal-default");
+    expect(btn1.className).not.toContain("text-brand-normal-default");
+    expect(btn3.className).not.toContain("text-brand-normal-default");
 
     // 밑줄(motion.span)은 선택된 탭 버튼 안에만 렌더된다.
     expect(btn2.querySelector("span")).not.toBeNull();
