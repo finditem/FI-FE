@@ -21,7 +21,7 @@ describe("<Tab />", () => {
     expect(screen.getByRole("button", { name: "Tab 3" })).toBeInTheDocument();
   });
 
-  it("선택된 탭에만 선택 스타일 클래스를 적용합니다.", () => {
+  it("선택된 탭에만 선택 스타일과 밑줄을 적용합니다.", () => {
     render(<Tab tabs={tabs} selected="tab2" onValueChange={jest.fn()} />);
 
     const btn1 = screen.getByRole("button", { name: "Tab 1" });
@@ -36,12 +36,26 @@ describe("<Tab />", () => {
       expect(el).toHaveClass("flex-center");
     });
 
-    expect(btn2.className).toContain("border-b-2");
-    expect(btn2.className).toContain("border-flatGreen-500");
     expect(btn2.className).toContain("text-flatGreen-500");
+    expect(btn1.className).not.toContain("text-flatGreen-500");
+    expect(btn3.className).not.toContain("text-flatGreen-500");
 
-    expect(btn1.className).not.toContain("border-b-2");
-    expect(btn3.className).not.toContain("border-b-2");
+    // 밑줄(motion.span)은 선택된 탭 버튼 안에만 렌더된다.
+    expect(btn2.querySelector("span")).not.toBeNull();
+    expect(btn1.querySelector("span")).toBeNull();
+    expect(btn3.querySelector("span")).toBeNull();
+  });
+
+  it("선택 탭이 바뀌면 밑줄이 새 탭으로 옮겨갑니다.", () => {
+    const { rerender } = render(<Tab tabs={tabs} selected="tab1" onValueChange={jest.fn()} />);
+
+    expect(screen.getByRole("button", { name: "Tab 1" }).querySelector("span")).not.toBeNull();
+    expect(screen.getByRole("button", { name: "Tab 3" }).querySelector("span")).toBeNull();
+
+    rerender(<Tab tabs={tabs} selected="tab3" onValueChange={jest.fn()} />);
+
+    expect(screen.getByRole("button", { name: "Tab 1" }).querySelector("span")).toBeNull();
+    expect(screen.getByRole("button", { name: "Tab 3" }).querySelector("span")).not.toBeNull();
   });
 
   it("탭 클릭 시 onValueChange를 해당 key로 호출합니다.", () => {

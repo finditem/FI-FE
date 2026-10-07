@@ -1,7 +1,17 @@
+"use client";
+
+import { useId } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/utils";
 
 /**
  * 탭 컴포넌트입니다.
+ *
+ * @remarks
+ * - 선택 표시 밑줄은 `framer-motion`의 `layoutId` 공유 레이아웃 애니메이션으로, 탭을 바꾸면
+ *   이전 탭에서 새 탭으로 슬라이드하며 이동합니다.
+ * - 한 화면에 Tab이 여러 개 있어도 밑줄이 서로 간섭하지 않도록 `useId`로 인스턴스별 고유
+ *   `layoutId`를 부여합니다.
  *
  * @author jikwon
  */
@@ -35,6 +45,8 @@ const Tab = <T extends string>({
   className,
   ...buttonProps
 }: TabProps<T>) => {
+  const underlineLayoutId = useId();
+
   return (
     <div
       className={cn(
@@ -42,20 +54,32 @@ const Tab = <T extends string>({
         className
       )}
     >
-      {tabs.map((tab) => (
-        <button
-          key={tab.key}
-          {...buttonProps}
-          className={cn(
-            "h-[60px] flex-1 text-h3-semibold text-flatGray-300 flex-center",
-            selected === tab.key && "border-b-2 border-flatGreen-500 text-flatGreen-500"
-          )}
-          onClick={() => onValueChange(tab.key)}
-          type="button"
-        >
-          {tab.label}
-        </button>
-      ))}
+      {tabs.map((tab) => {
+        const isSelected = selected === tab.key;
+
+        return (
+          <button
+            key={tab.key}
+            {...buttonProps}
+            className={cn(
+              "relative h-[60px] flex-1 text-h3-semibold text-flatGray-300 flex-center",
+              isSelected && "text-flatGreen-500"
+            )}
+            onClick={() => onValueChange(tab.key)}
+            type="button"
+          >
+            {tab.label}
+            {isSelected && (
+              <motion.span
+                layoutId={underlineLayoutId}
+                className="absolute inset-x-0 bottom-0 h-[2px] bg-flatGreen-500"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                aria-hidden
+              />
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 };
