@@ -1033,8 +1033,42 @@
   },
   "ChatRoomHeaderInfoButton": {
     "menuAriaLabel": "Open chat menu",
-    "reportLabel": "Block or report",
+    "changeToFoundLabel": "Mark item as found",
+    "reportBlockLabel": "Block or report",
     "leaveLabel": "Leave chat room"
+  },
+  "PostFoundConfirmModal": {
+    "title": "Leave a review to say thanks?",
+    "description": "Let the person who helped you find your item know you're grateful with a review.",
+    "laterLabel": "Later",
+    "reviewLabel": "Leave a review"
+  },
+  "ReviewWritePage": {
+    "title": "Chajgil Review",
+    "greeting": "Hi {myNickname},\nhow was your meetup with {opponentNickname}?",
+    "feelingsAriaLabel": "Select how the meetup made you feel",
+    "feelings": {
+      "touched": "Touched",
+      "grateful": "Grateful",
+      "heartFlutter": "Heart flutter"
+    },
+    "helpQuestion": "What kind of help did you get?",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
+    },
+    "reviewLabel": "Leave a review.",
+    "reviewOptional": "(Optional)",
+    "reviewPlaceholder": "Tell us what you're grateful for. (up to 300 characters)",
+    "submitLabel": "Leave a review"
+  },
+  "ReviewCompleteModal": {
+    "title": "A neighbor who shared warmth\nwith Chajgil",
+    "description": "Your heartfelt review has been delivered.",
+    "confirmLabel": "Done"
   },
   "ChatLeaveModal": {
     "cancelLabel": "No",

@@ -105,5 +105,12 @@
   "PlaceHeart": "place-heart",
   "PlaceHeartActive": "place-heart-active",
   "MessageTranslate": "message-translate",
-  "MessageTranslateActive": "message-translate-active"
+  "MessageTranslateActive": "message-translate-active",
+  "CheckBroken": "check-broken",
+  "ChatReport": "chat-report",
+  "Logout": "logout",
+  "Good": "good",
+  "Touched": "touched",
+  "Grateful": "thanks",
+  "HeartFlutter": "heart-skipped"
 }

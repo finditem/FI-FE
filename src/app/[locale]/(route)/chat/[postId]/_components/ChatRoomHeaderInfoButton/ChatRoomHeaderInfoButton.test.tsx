@@ -123,16 +123,33 @@ jest.mock("@/components/domain/ReportModal/_internal", () => ({
 jest.mock("@/components/domain", () => ({
   ReportModal: ({ isOpen }: any) =>
     isOpen ? <div data-testid="report-modal">Report Modal</div> : null,
+  PostReportBlockActions: ({ onOpenReport, onOpenBlock }: any) => (
+    <div data-testid="report-block-sheet">
+      <button onClick={onOpenReport}>신고하기</button>
+      <button onClick={onOpenBlock}>차단하기</button>
+    </div>
+  ),
+  BlockUserModal: ({ isOpen }: any) =>
+    isOpen ? <div data-testid="block-modal">Block Modal</div> : null,
+  PostFoundConfirmModal: ({ isOpen }: any) =>
+    isOpen ? <div data-testid="found-confirm-modal">Found Confirm Modal</div> : null,
+}));
+
+const mockUseGetDetailPost = jest.fn(() => ({ data: { result: { isMine: false } } }));
+
+jest.mock("@/api/fetch/post", () => ({
+  useGetDetailPost: (...args: any[]) => mockUseGetDetailPost(...args),
 }));
 
 describe("ChatRoomHeaderInfoButton", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     onSuccessCallback = undefined;
+    mockUseGetDetailPost.mockReturnValue({ data: { result: { isMine: false } } } as any);
   });
 
   it("정보 버튼이 렌더링됩니다", () => {
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
     expect(infoButton).toBeInTheDocument();
@@ -141,7 +158,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("정보 버튼 클릭 시 메뉴가 열립니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
     await user.click(infoButton);
@@ -153,7 +170,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("메뉴 옵션들이 올바르게 렌더링됩니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
     await user.click(infoButton);
@@ -162,22 +179,86 @@ describe("ChatRoomHeaderInfoButton", () => {
     expect(screen.getByText("채팅방 나가기")).toBeInTheDocument();
   });
 
-  it("차단, 신고하기 클릭 시 Report 컴포넌트가 열립니다", async () => {
+  it("차단, 신고하기 클릭 시 신고/차단 시트가 열립니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
     await user.click(infoButton);
 
-    const reportButton = screen.getByRole("button", { name: "차단, 신고하기" });
-    await user.click(reportButton);
+    const reportBlockButton = screen.getByRole("button", { name: "차단, 신고하기" });
+    await user.click(reportBlockButton);
+
+    expect(screen.getByTestId("report-block-sheet")).toBeInTheDocument();
+  });
+
+  it("신고/차단 시트에서 신고하기 클릭 시 Report 컴포넌트가 열립니다", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+    await user.click(screen.getByRole("button", { name: "차단, 신고하기" }));
+    await user.click(screen.getByRole("button", { name: "신고하기" }));
 
     expect(screen.getByTestId("report-modal")).toBeInTheDocument();
   });
 
+  it("신고/차단 시트에서 차단하기 클릭 시 Block 모달이 열립니다", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+    await user.click(screen.getByRole("button", { name: "차단, 신고하기" }));
+    await user.click(screen.getByRole("button", { name: "차단하기" }));
+
+    expect(screen.getByTestId("block-modal")).toBeInTheDocument();
+  });
+
+  it("게시글 작성자인 경우 분실물 찾기 완료 항목이 노출됩니다", async () => {
+    mockUseGetDetailPost.mockReturnValue({ data: { result: { isMine: true } } } as any);
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+
+    expect(screen.getByRole("menuitem", { name: "분실물 찾기 완료" })).toBeInTheDocument();
+  });
+
+  it("분실물 찾기 완료 클릭 시 확인 모달이 열립니다", async () => {
+    mockUseGetDetailPost.mockReturnValue({ data: { result: { isMine: true } } } as any);
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+    await user.click(screen.getByRole("button", { name: "분실물 찾기 완료" }));
+
+    expect(screen.getByTestId("found-confirm-modal")).toBeInTheDocument();
+  });
+
+  it("게시글 작성자여도 이미 찾기 완료된 게시글이면 분실물 찾기 완료 항목이 노출되지 않습니다", async () => {
+    mockUseGetDetailPost.mockReturnValue({
+      data: { result: { isMine: true, postStatus: "FOUND" } },
+    } as any);
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+
+    expect(screen.queryByRole("menuitem", { name: "분실물 찾기 완료" })).not.toBeInTheDocument();
+  });
+
+  it("게시글 작성자가 아닌 경우 분실물 찾기 완료 항목이 노출되지 않습니다", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
+
+    await user.click(screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" }));
+
+    expect(screen.queryByRole("menuitem", { name: "분실물 찾기 완료" })).not.toBeInTheDocument();
+  });
+
   it("채팅방 나가기 클릭 시 모달이 열립니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
     await user.click(infoButton);
@@ -196,7 +277,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("모달에서 확인 클릭 시 router.replace가 호출됩니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     // 메뉴 열기
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
@@ -217,7 +298,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("모달에서 취소 클릭 시 모달이 닫힙니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     // 메뉴 열기
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
@@ -238,7 +319,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("외부 클릭 시 메뉴가 닫힙니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     // 메뉴 열기
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
@@ -254,7 +335,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("메뉴 내부 클릭 시 메뉴가 닫히지 않습니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     // 메뉴 열기
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
@@ -271,7 +352,7 @@ describe("ChatRoomHeaderInfoButton", () => {
 
   it("정보 버튼을 다시 클릭하면 메뉴가 닫힙니다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} />);
+    renderWithProviders(<ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />);
 
     const infoButton = screen.getByRole("button", { name: "채팅방 메뉴 열기 버튼" });
 

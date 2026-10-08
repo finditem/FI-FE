@@ -43,6 +43,6 @@ type Story = StoryObj<typeof ChatRoomHeaderInfoButton>;
 
 export const Default: Story = {
   render: () => {
-    return <ChatRoomHeaderInfoButton roomId={1} />;
+    return <ChatRoomHeaderInfoButton roomId={1} postId={1} opponentUserId={2} />;
   },
 };
