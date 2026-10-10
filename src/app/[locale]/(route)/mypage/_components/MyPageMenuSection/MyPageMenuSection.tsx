@@ -42,7 +42,10 @@ const MyPageMenuSection = ({
             href={item.pageLink}
             className={cn(rowClassName, disabled && "pointer-events-none")}
           >
-            {item.pageName}
+            <span className="flex items-center gap-2">
+              <Icon name={item.iconName} size={20} />
+              {item.pageName}
+            </span>
             <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
           </Link>
           {isUserLogin && item.key === "accountSettings" && (
@@ -51,7 +54,10 @@ const MyPageMenuSection = ({
               onClick={handleLogout}
               disabled={isPending || disabled}
             >
-              {t("logout")}
+              <span className="flex items-center gap-2">
+                <Icon name="MypageLogout" size={20} />
+                {t("logout")}
+              </span>
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
             </button>
           )}

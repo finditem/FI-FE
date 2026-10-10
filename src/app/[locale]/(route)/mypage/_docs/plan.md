@@ -64,7 +64,7 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 
 - [x] Figma에서 메뉴 행 아이콘 18종과 아이콘 탭 아이콘(`message-square-typing`)을 SVG로 받는다. 기존 매니페스트의 `Heart`, `MessageTyping`, `Logout`은 모양이 같은지 확인 후 재사용한다. (확인 결과 `Heart`는 모양이 다르고 `MessageTyping`과 `Logout`은 색상이 고정되어 있어 모두 새로 추가했다. Figma MCP 호출 한도 때문에 사용자가 직접 export한 파일을 사용했다.)
 - [x] `src/assets`에 SVG를 추가하고 `icon-manifest.json`에 등록한 뒤 `npm run generate:icon-sprite`로 스프라이트를 생성한다.
-- [ ] `MYPAGE_MENU_LIST` 각 페이지에 `iconName`을 추가하고 `useMypageMenuList`와 `MyPageMenuSection`에서 20px 리딩 아이콘을 렌더링한다. 언어 설정 아이콘은 시안의 16px 대신 20px로 통일한다(디자이너 확인 필요).
+- [x] `MYPAGE_MENU_LIST` 각 페이지에 `iconName`을 추가하고 `useMypageMenuList`와 `MyPageMenuSection`에서 20px 리딩 아이콘을 렌더링한다. 언어 설정 아이콘은 시안의 16px 대신 20px로 통일한다(디자이너 확인 필요).
 
 ### 4단계: 찾길 온도 카드 (feature 브랜치)
 
