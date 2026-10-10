@@ -30,7 +30,7 @@ Figma `찜한 장소_Empty`(노드 `16364:160753`)와 `찜한 장소_컨텐츠`(
 
 ## 마이페이지 연결
 
-- [ ] 마이페이지 아이콘 탭의 찜한 장소 링크 TODO를 정리한다(`/mypage/favorite-places`).
+- [x] 마이페이지 아이콘 탭의 찜한 장소 링크 TODO를 정리한다(`/mypage/favorite-places`).
 
 ## 검증과 테스트 (test 브랜치)
 
