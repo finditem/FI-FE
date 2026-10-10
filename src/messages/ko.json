@@ -1413,6 +1413,45 @@
   "MyPageContainer": {
     "unexpectedError": "예상치 못한 에러가 발생했어요"
   },
+  "MyPageTemperatureCard": {
+    "title": "찾길 온도",
+    "infoAriaLabel": "찾길 온도 설명 보기",
+    "firstTemperature": "첫 온도 {value}℃",
+    "message": {
+      "low": "따뜻한 발걸음으로 다시 온도를 올려봐요",
+      "first": "첫 습득물을 등록하고 온도를 올려보세요",
+      "rising": "이웃의 물건을 찾아주기 시작했어요",
+      "good": "잘 찾아주고, 잘 돌려주는 이웃이에요",
+      "trusted": "믿고 찾을 수 있는 이웃이에요",
+      "max": "최고 온도에 도달했어요"
+    }
+  },
+  "TemperatureInfoSheet": {
+    "title": "찾길온도",
+    "description": "찾길온도는 분실물을 등록하고 이웃에게 소중한 물건을\n찾아주는 따뜻한 행동을 온도로 나타낸 지표에요.",
+    "columnItem": "온도 구성",
+    "columnValue": "건당 온도",
+    "rules": {
+      "foundPost": {
+        "title": "습득 게시",
+        "description": "습득한 물건을 게시한 경우"
+      },
+      "returned": {
+        "title": "반환 완료",
+        "description": "실제 분실물 반환이 완료된 경우"
+      },
+      "review": {
+        "title": "따뜻한 후기",
+        "description": "도움을 받은 사용자에게 후기를 받은 경우"
+      },
+      "penalty": {
+        "title": "비매너 및 문제 행동",
+        "description": "신고 제재 정책상 실제 위반으로 처리 완료된 경우"
+      }
+    },
+    "note": "* 모든 활동은 최근 1년간 발생 또는 확정된 내역을 기준으로 산정합니다.",
+    "confirm": "확인"
+  },
   "AccountPage": {
     "title": "계정 설정"
   },
