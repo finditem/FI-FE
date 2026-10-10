@@ -46,10 +46,10 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 - [x] `MyPageContainer` 배경을 시안의 `[Bg]/Layout 2depth`(#F5F5F5)에 대응하는 토큰(`bg-flatGray-25` 후보, `src/utils/tokens/tailwind.config.js`에서 시맨틱 토큰 우선 확인)으로 지정하고, 섹션 사이 간격을 12px, 좌우 여백을 16px로 맞춘다.
 - [x] `MyPageProfile`을 흰 카드(radius 16, 상하 20px, 좌우 16px 패딩)로 감싼다. 상단 safe-area 여백은 카드 바깥 컨테이너로 옮겨 유지한다.
 - [ ] `MyPageIconNav`를 흰 카드(높이 84px)로 감싸고 구분선 높이를 46px에서 36px로 줄인다.
-- [ ] `MyPageMenuSection`의 섹션 사이 `hr`을 제거하고 섹션마다 흰 카드로 감싼다.
-- [ ] 섹션 제목을 `text-body2-regular text-layout-body-default`에서 H3 SemiBold 18px, `[Fg]/Layout/Header/Default` 토큰으로 바꾸고 터치 영역 높이를 57px로 맞춘다.
-- [ ] 메뉴 행을 높이 44px, 행 간격 2px, 우측 chevron 24px 구조로 바꾼다. 리딩 아이콘 자리는 3단계에서 채운다.
-- [ ] 로그아웃 버튼을 다른 행과 같은 모양(텍스트 + chevron)의 행으로 통일한다. 동작은 기존 `useLogout`을 유지한다.
+- [x] `MyPageMenuSection`의 섹션 사이 `hr`을 제거하고 섹션마다 흰 카드로 감싼다.
+- [x] 섹션 제목을 `text-body2-regular text-layout-body-default`에서 H3 SemiBold 18px, `[Fg]/Layout/Header/Default` 토큰으로 바꾸고 터치 영역 높이를 57px로 맞춘다.
+- [x] 메뉴 행을 높이 44px, 행 간격 2px, 우측 chevron 24px 구조로 바꾼다. 리딩 아이콘 자리는 3단계에서 채운다.
+- [x] 로그아웃 버튼을 다른 행과 같은 모양(텍스트 + chevron)의 행으로 통일한다. 동작은 기존 `useLogout`을 유지한다.
 - [ ] 화면 확인 후 `npm run test` + `npm run build`로 검증한다. 기존 스냅샷이나 클래스 기반 테스트가 깨지면 수정은 5단계 test 브랜치에서 한다.
 
 ### 2단계: 메뉴 구성과 노출 규칙 (1단계와 같은 PR 또는 후속 design PR)

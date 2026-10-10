@@ -27,40 +27,35 @@ const MyPageMenuSection = ({
 
   const { handleLogout, isPending } = useLogout();
 
-  return visibleMenuList.map((menu, index) => (
-    <Fragment key={menu.key}>
-      <div className="flex w-full flex-col gap-3 px-5 py-6">
-        <div className="flex text-body2-regular text-layout-body-default">{menu.title}</div>
+  const rowClassName =
+    "flex h-11 w-full items-center justify-between px-4 text-body1-semibold text-neutral-strong-default";
 
-        {menu.pages.map((item) => (
-          <Fragment key={item.key}>
-            <Link
-              href={item.pageLink}
-              className={cn(
-                "flex w-full justify-between py-[10px] text-body1-semibold text-neutral-strong-default",
-                disabled && "pointer-events-none"
-              )}
+  return visibleMenuList.map((menu) => (
+    <div key={menu.key} className="flex w-full flex-col gap-[2px] rounded-[16px] bg-white pb-4">
+      <div className="flex p-4 text-h3-semibold text-layout-header-default">{menu.title}</div>
+
+      {menu.pages.map((item) => (
+        <Fragment key={item.key}>
+          <Link
+            href={item.pageLink}
+            className={cn(rowClassName, disabled && "pointer-events-none")}
+          >
+            {item.pageName}
+            <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
+          </Link>
+          {isUserLogin && item.key === "accountSettings" && (
+            <button
+              className={rowClassName}
+              onClick={handleLogout}
+              disabled={isPending || disabled}
             >
-              {item.pageName}
+              {t("logout")}
               <Icon name="ArrowRightSmall" size={24} className="text-neutral-strong-default" />
-            </Link>
-            {isUserLogin && item.key === "accountSettings" && (
-              <button
-                className="flex w-full py-[10px] text-body1-semibold text-neutral-strong-default"
-                onClick={handleLogout}
-                disabled={isPending || disabled}
-              >
-                {t("logout")}
-              </button>
-            )}
-          </Fragment>
-        ))}
-      </div>
-
-      {index !== visibleMenuList.length - 1 && (
-        <hr className="mx-5 max-w-full border-0 border-t-[0.5px] border-solid border-neutral-strong-default" />
-      )}
-    </Fragment>
+            </button>
+          )}
+        </Fragment>
+      ))}
+    </div>
   ));
 };
 
