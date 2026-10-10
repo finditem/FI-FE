@@ -95,6 +95,12 @@ API 연동은 제외한다.
   공개 배럴에는 올리지 않음).
 - `ReviewsContent`의 "received" 분기를 `MOCK_RECEIVED_REVIEWS.length === 0` 체크로 바꿔 빈 상태/리스트
   상태를 모두 유지 — API 연동 시 목데이터 배열만 실제 fetch 결과로 교체하면 되는 구조.
+- 하이드레이션 에러 대응: 더미 데이터의 `createdAt`이 모듈 로드 시점 `Date.now()` 기준 상대 시각이라
+  서버 렌더(서버 프로세스 모듈 로드 시각)와 클라이언트 하이드레이션(클라 번들 로드 시각)의 값이 달라
+  `<time>`의 `dateTime`/상대 라벨이 어긋났음. `ReviewsContent`의 received 리스트를 `useState`/`useEffect`
+  마운트 플래그로 가려 SSR·첫 렌더에는 `LoadingState`만 보여주고, 마운트 이후에만 시간 의존 카드를
+  렌더하도록 함(실제 리스트도 클라이언트 패칭이므로 로딩→리스트 흐름이 자연스러움). API 연동 시 이
+  마운트 게이트는 쿼리의 `isLoading`으로 대체.
 
 ### 작업 항목
 

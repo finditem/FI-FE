@@ -1,6 +1,7 @@
 "use client";
 
-import { EmptyState } from "@/components";
+import { useEffect, useState } from "react";
+import { EmptyState, LoadingState } from "@/components";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
 import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
@@ -22,8 +23,17 @@ interface ReviewsContentProps {
 const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   const t = useTranslations("MypageReviewsPage");
 
-  // TODO(수현): 받은 후기 API 연동 후 MOCK_RECEIVED_REVIEWS를 실제 데이터로 교체
+  // 더미 데이터의 createdAt이 모듈 로드 시점 기준 상대 시각이라, 서버에서 렌더하면 클라이언트와
+  // 값이 어긋나 하이드레이션 에러가 난다. 실제 리스트도 클라이언트 패칭이므로, 마운트 전(SSR/첫
+  // 렌더)에는 로딩 상태만 보여주고 마운트 이후에만 시간 의존 콘텐츠(후기 카드)를 렌더한다.
+  // TODO(수현): 받은 후기 API 연동 시 이 마운트 게이트를 쿼리의 isLoading으로 대체하고
+  // MOCK_RECEIVED_REVIEWS를 실제 데이터로 교체.
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   if (selectedTab === "received") {
+    if (!isMounted) return <LoadingState />;
+
     if (MOCK_RECEIVED_REVIEWS.length === 0) {
       return (
         <EmptyState
