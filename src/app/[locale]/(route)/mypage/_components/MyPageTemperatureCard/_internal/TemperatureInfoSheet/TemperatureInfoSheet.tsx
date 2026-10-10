@@ -31,9 +31,9 @@ const TemperatureInfoSheet = ({ isOpen, onClose }: TemperatureInfoSheetProps) =>
     <PopupLayout
       isOpen={isOpen}
       onClose={onClose}
-      className="flex flex-col items-center gap-5 px-4 pb-6 pt-3"
+      draggable
+      className="flex flex-col items-center gap-5 px-4 pb-6"
     >
-      <div aria-hidden className="h-1 w-10 rounded-full bg-layout_3depth" />
       <Image src={TEMPERATURE_CHARACTER.rising} alt="" width={70} height={70} />
 
       <div className="flex flex-col items-center gap-2 text-center">
