@@ -55,8 +55,8 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 ### 2단계: 메뉴 구성과 노출 규칙 (1단계와 같은 PR 또는 후속 design PR)
 
 - [ ] `MYPAGE_TAP_CONFIG`를 찾길 후기, 찜한 장소, 채팅 목록 3개로 교체한다. 찾길 후기와 찜한 장소 링크는 경로가 정해질 때까지 TODO 주석으로 표시한다.
-- [ ] `MYPAGE_MENU_LIST`의 `servicePolicy.pages` 첫 항목으로 공지사항(`/notice`)을 추가한다.
-- [ ] `MyPageMenuSection`의 비로그인 필터를 섹션 전체 제외에서 "서비스 정책은 공지사항만 남김"으로 바꾼다.
+- [x] `MYPAGE_MENU_LIST`의 `servicePolicy.pages` 첫 항목으로 공지사항(`/notice`)을 추가한다.
+- [x] `MyPageMenuSection`의 비로그인 필터를 섹션 전체 제외에서 "서비스 정책은 공지사항만 남김"으로 바꾼다.
 - [ ] 번역 수정: `MyPageMenu.accountManagement`를 "계정 설정"으로, `MyPageMenu.chatList`를 "채팅 목록"으로 바꾸고, 찾길 후기와 찜한 장소 키를 추가한다.
 - [ ] 번역 키는 `src/messages/ko.json`, `en.json`에 동시에 추가하고 `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
 

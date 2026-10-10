@@ -18,12 +18,14 @@ const MyPageMenuSection = ({
   const t = useTranslations("MyPageMenu");
   const menuList = useMypageMenuList();
 
-  const visibleMenuList = menuList.filter((menu) => {
-    if (!isUserLogin && menu.key === "servicePolicy") {
-      return false;
-    }
-    return true;
-  });
+  // 비로그인 사용자에게는 서비스 정책 중 공지사항만 노출한다.
+  const visibleMenuList = isUserLogin
+    ? menuList
+    : menuList.map((menu) =>
+        menu.key === "servicePolicy"
+          ? { ...menu, pages: menu.pages.filter((page) => page.key === "notice") }
+          : menu
+      );
 
   const { handleLogout, isPending } = useLogout();
 

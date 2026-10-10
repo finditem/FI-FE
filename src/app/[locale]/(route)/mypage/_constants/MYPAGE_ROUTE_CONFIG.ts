@@ -31,6 +31,7 @@ export const MYPAGE_MENU_LIST = [
   {
     key: "servicePolicy",
     pages: [
+      { key: "notice", pageLink: "/notice" },
       { key: "serviceIntro", pageLink: "/hello" },
       { key: "privacyPolicy", pageLink: "/terms/privacy" },
       { key: "serviceTerms", pageLink: "/terms/service" },
@@ -41,6 +42,5 @@ export const MYPAGE_MENU_LIST = [
 ] as const;
 
 export const MYPAGE_TAP_CONFIG = [
-  { key: "notice", iconName: "AnnotationAlert", pageLink: "/notice" },
   { key: "chatList", iconName: "MessageTyping", pageLink: "/chat" },
 ] as const;
