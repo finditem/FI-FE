@@ -13,7 +13,7 @@ const meta: Meta<typeof MyPageProfile> = {
   },
   decorators: [
     (Story) => (
-      <div className="min-h-screen w-[390px] items-center justify-center p-4">
+      <div className="min-h-screen w-[390px] items-center justify-center bg-layout_2depth p-4">
         <Story />
       </div>
     ),

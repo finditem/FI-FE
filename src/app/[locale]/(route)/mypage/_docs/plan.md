@@ -80,7 +80,7 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 - [x] `MyPageMenuSection.test.tsx`: 비로그인 시 서비스 정책에 공지사항만 노출되는지, 로그인 시 로그아웃 행이 노출되는지 검증한다.
 - [x] `MyPageIconNav.test.tsx`: 아이콘 탭 3개 항목과 링크를 검증한다.
 - [ ] `MyPageTemperatureCard` 테스트와 스토리를 추가한다. 온도 값에 따른 진행 바 위치를 검증한다.
-- [ ] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
+- [x] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
 
 ### 미결 사항
 
