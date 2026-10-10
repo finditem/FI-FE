@@ -45,7 +45,7 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 
 - [x] `MyPageContainer` 배경을 시안의 `[Bg]/Layout 2depth`(#F5F5F5)에 대응하는 토큰(`bg-flatGray-25` 후보, `src/utils/tokens/tailwind.config.js`에서 시맨틱 토큰 우선 확인)으로 지정하고, 섹션 사이 간격을 12px, 좌우 여백을 16px로 맞춘다.
 - [x] `MyPageProfile`을 흰 카드(radius 16, 상하 20px, 좌우 16px 패딩)로 감싼다. 상단 safe-area 여백은 카드 바깥 컨테이너로 옮겨 유지한다.
-- [ ] `MyPageIconNav`를 흰 카드(높이 84px)로 감싸고 구분선 높이를 46px에서 36px로 줄인다.
+- [x] `MyPageIconNav`를 흰 카드(높이 84px)로 감싸고 구분선 높이를 46px에서 36px로 줄인다.
 - [x] `MyPageMenuSection`의 섹션 사이 `hr`을 제거하고 섹션마다 흰 카드로 감싼다.
 - [x] 섹션 제목을 `text-body2-regular text-layout-body-default`에서 H3 SemiBold 18px, `[Fg]/Layout/Header/Default` 토큰으로 바꾸고 터치 영역 높이를 57px로 맞춘다.
 - [x] 메뉴 행을 높이 44px, 행 간격 2px, 우측 chevron 24px 구조로 바꾼다. 리딩 아이콘 자리는 3단계에서 채운다.
@@ -54,10 +54,10 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 
 ### 2단계: 메뉴 구성과 노출 규칙 (1단계와 같은 PR 또는 후속 design PR)
 
-- [ ] `MYPAGE_TAP_CONFIG`를 찾길 후기, 찜한 장소, 채팅 목록 3개로 교체한다. 찾길 후기와 찜한 장소 링크는 경로가 정해질 때까지 TODO 주석으로 표시한다.
+- [x] `MYPAGE_TAP_CONFIG`를 찾길 후기, 찜한 장소, 채팅 목록 3개로 교체한다. 찾길 후기와 찜한 장소 링크는 경로가 정해질 때까지 TODO 주석으로 표시한다.
 - [x] `MYPAGE_MENU_LIST`의 `servicePolicy.pages` 첫 항목으로 공지사항(`/notice`)을 추가한다.
 - [x] `MyPageMenuSection`의 비로그인 필터를 섹션 전체 제외에서 "서비스 정책은 공지사항만 남김"으로 바꾼다.
-- [ ] 번역 수정: `MyPageMenu.accountManagement`를 "계정 설정"으로, `MyPageMenu.chatList`를 "채팅 목록"으로 바꾸고, 찾길 후기와 찜한 장소 키를 추가한다.
+- [x] 번역 수정: `MyPageMenu.accountManagement`를 "계정 설정"으로, `MyPageMenu.chatList`를 "채팅 목록"으로 바꾸고, 찾길 후기와 찜한 장소 키를 추가한다.
 - [ ] 번역 키는 `src/messages/ko.json`, `en.json`에 동시에 추가하고 `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
 
 ### 3단계: 메뉴 아이콘 (asset 브랜치)

@@ -1401,6 +1401,8 @@
     "contentPolicy": "Content Usage Agreement",
     "notice": "Notices",
     "chatList": "Chat",
+    "review": "Chajgil Review",
+    "favoritePlaces": "Saved Places",
     "logout": "Log out"
   },
   "MyPageProfile": {
