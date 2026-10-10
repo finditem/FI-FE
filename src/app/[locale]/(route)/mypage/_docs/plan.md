@@ -75,8 +75,8 @@ Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 
 - [x] 번역 네임스페이스 `MyPageTemperatureCard`, `TemperatureInfoSheet`를 정하고 ko/en에 동시에 추가한다.
 - [x] `_components/MyPageTemperatureCard`를 만든다. 제목과 정보 아이콘, 온도 수치(36.5 미만은 회색), 구간 문구, 캐릭터, 0~99℃ 막대(첫 온도 표시, 99에서는 손잡이 없음)로 구성한다.
 - [x] `MyPageTemperatureCard/_internal/TemperatureInfoSheet`를 `PopupLayout`으로 만든다.
-- [ ] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 로그인 시에만 배치하고, 온도는 기본값 36.5와 `TODO(준열)` 주석으로 둔다.
-- [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
+- [x] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 로그인 시에만 배치하고, 온도는 기본값 36.5와 `TODO(준열)` 주석으로 둔다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
 
 ### 5단계: 테스트와 스토리북 (test 브랜치, 별도 PR)
 
