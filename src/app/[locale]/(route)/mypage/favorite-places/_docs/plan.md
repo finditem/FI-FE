@@ -15,9 +15,9 @@ Figma `찜한 장소_Empty`(노드 `16364:160753`)와 `찜한 장소_컨텐츠`(
 
 ## API 훅
 
-- [ ] `src/api/fetch/user/types`에 `FavoritePlacesResponseType` 추가(`places`, `hasNext`, `nextFavoriteUpdatedAt`, 백엔드 추가 예정인 `totalCount`).
-- [ ] `src/api/fetch/user/api/useGetUserMeFavoritePlaces` 추가. `useAppInfiniteQuery`에 `pageParamName: "lastFavoriteUpdatedAt"`, `hasNext` 기반 `getNextPageParam`을 쓰고 `type`을 쿼리 파라미터로 보낸다.
-- [ ] `usePlaceFavorite`의 `onSettled`에서 찜한 장소 목록 캐시도 무효화해 찜 해제 후 목록이 갱신되게 한다.
+- [x] `src/api/fetch/user/types`에 `FavoritePlacesResponseType` 추가(`places`, `hasNext`, `nextFavoriteUpdatedAt`, 백엔드 추가 예정인 `totalCount`).
+- [x] `src/api/fetch/user/api/useGetUserMeFavoritePlaces` 추가. `useAppInfiniteQuery`에 `pageParamName: "lastFavoriteUpdatedAt"`, `hasNext` 기반 `getNextPageParam`을 쓰고 `type`을 쿼리 파라미터로 보낸다.
+- [x] `usePlaceFavorite`의 `onSettled`에서 찜한 장소 목록 캐시도 무효화해 찜 해제 후 목록이 갱신되게 한다.
 
 ## 페이지
 
