@@ -280,6 +280,10 @@
     "activity": {
       "heading": "아직 활동 내역이 없어요.",
       "body": "아직 활동 내역이 없습니다.\n게시글 작성이나 댓글 참여를 시작해보세요"
+    },
+    "favoritePlaces": {
+      "heading": "아직 찜한 장소가 없어요",
+      "body": "마음에 드는 장소를 찜하면 여기에 목록이 표시돼요."
     }
   },
   "MypageSearch": {
@@ -1449,6 +1453,19 @@
   "MypageFavoritesContent": {
     "loadError": "목록을 불러오는데 실패했어요",
     "srOnlyTitle": "내 즐겨찾기 목록 영역"
+  },
+  "MypageFavoritePlacesPage": {
+    "title": "찜한 장소",
+    "srOnlyTitle": "찜한 장소 페이지"
+  },
+  "MypageFavoritePlacesLayout": {
+    "title": "찜한 장소",
+    "description": "찾아줘에서 내가 찜한 장소를 확인해보세요."
+  },
+  "MypageFavoritePlacesContent": {
+    "totalCount": "총 {count}곳을 찜했어요.",
+    "loadError": "목록을 불러오는데 실패했어요",
+    "srOnlyTitle": "내 찜한 장소 목록 영역"
   },
   "MypagePostsPage": {
     "title": "내가 쓴 게시글",

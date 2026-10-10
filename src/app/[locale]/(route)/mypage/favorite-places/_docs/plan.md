@@ -21,12 +21,12 @@ Figma `찜한 장소_Empty`(노드 `16364:160753`)와 `찜한 장소_컨텐츠`(
 
 ## 페이지
 
-- [ ] 번역 네임스페이스 정하기: `MypageFavoritePlacesLayout`(title, description), `MypageFavoritePlacesPage`(title, srOnlyTitle), `MypageFavoritePlacesContent`(totalCount, loadError, srOnlyTitle), `MypageEmptyUI.favoritePlaces`(heading, body).
-- [ ] `layout.tsx` 작성 — `generateMetadata`로 title, description 설정 (`favorites/layout.tsx` 패턴).
-- [ ] `page.tsx` 작성 — `DetailHeader` + `h1 sr-only` + 컨텐츠 컴포넌트 (`favorites/page.tsx` 패턴).
-- [ ] `_components/MypageFavoritePlacesContent` 작성 — 개수 문구, 필터 칩, `PlaceCard` 목록, 무한 스크롤(`useInfiniteScroll`), 로딩 스켈레톤, 빈 상태.
-- [ ] `MypageEmptyUI`에 `favoritePlaces` 타입 추가(`PlaceMarker` 아이콘).
-- [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인.
+- [x] 번역 네임스페이스 정하기: `MypageFavoritePlacesLayout`(title, description), `MypageFavoritePlacesPage`(title, srOnlyTitle), `MypageFavoritePlacesContent`(totalCount, loadError, srOnlyTitle), `MypageEmptyUI.favoritePlaces`(heading, body).
+- [x] `layout.tsx` 작성 — `generateMetadata`로 title, description 설정 (`favorites/layout.tsx` 패턴).
+- [x] `page.tsx` 작성 — `DetailHeader` + `h1 sr-only` + 컨텐츠 컴포넌트 (`favorites/page.tsx` 패턴).
+- [x] `_components/MypageFavoritePlacesContent` 작성 — 개수 문구, 필터 칩, `PlaceCard` 목록, 무한 스크롤(`useInfiniteScroll`), 로딩 스켈레톤, 빈 상태.
+- [x] `MypageEmptyUI`에 `favoritePlaces` 타입 추가(`PlaceMarker` 아이콘).
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys` 통과 확인.
 
 ## 마이페이지 연결
 

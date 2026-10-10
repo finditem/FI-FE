@@ -280,6 +280,10 @@
     "activity": {
       "heading": "No activity yet",
       "body": "Start by writing a post or leaving a comment."
+    },
+    "favoritePlaces": {
+      "heading": "No saved places yet",
+      "body": "Save places you like and they will appear here."
     }
   },
   "MypageSearch": {
@@ -1449,6 +1453,19 @@
   "MypageFavoritesContent": {
     "loadError": "Couldn't load your favorites.",
     "srOnlyTitle": "My favorites"
+  },
+  "MypageFavoritePlacesPage": {
+    "title": "Saved Places",
+    "srOnlyTitle": "Saved places page"
+  },
+  "MypageFavoritePlacesLayout": {
+    "title": "Saved Places",
+    "description": "Check the places you saved on finditem."
+  },
+  "MypageFavoritePlacesContent": {
+    "totalCount": "{count} saved places in total",
+    "loadError": "Failed to load the list",
+    "srOnlyTitle": "My saved places list"
   },
   "MypagePostsPage": {
     "title": "My Posts",
