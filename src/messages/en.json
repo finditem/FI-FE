@@ -1443,7 +1443,9 @@
     }
   },
   "ReviewCard": {
-    "menuAriaLabel": "Review options menu"
+    "menuOpenAriaLabel": "Open review options menu",
+    "menuCloseAriaLabel": "Close review options menu",
+    "hideReview": "Hide review"
   },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",
