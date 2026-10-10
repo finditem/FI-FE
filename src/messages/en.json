@@ -859,19 +859,23 @@
   },
   "NeighborhoodSection": {
     "title": "Explore the neighborhood while you wait?",
-    "filterAll": "All",
-    "filterPopup": "Pop-up",
-    "filterCafe": "Cafe",
-    "filterRestaurant": "Restaurant",
     "moreButton": "See more",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceCard": {
     "statusOpen": "Open now",
     "statusUpcoming": "Opening soon",
     "statusBreakTime": "On break",
     "statusClosed": "Closed",
     "openAt": "Opens at {time}",
-    "favoriteAriaLabel": "Add {name} to favorites",
-    "loadError": "Could not load places.",
-    "empty": "No places to show."
+    "favoriteAriaLabel": "Add {name} to favorites"
+  },
+  "PlaceFilter": {
+    "all": "All",
+    "popup": "Pop-up",
+    "cafe": "Cafe",
+    "restaurant": "Restaurant"
   },
   "PlaceFilterSheet": {
     "popupTitle": "Pop-up stores",

@@ -2,12 +2,11 @@
 
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
-import { Icon } from "@/components";
+import { Icon, PlaceCardSkeleton } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useMainNaverMapStore } from "@/store";
 import { PLACE_FILTER_TO_CATEGORY, PlaceFilterValue } from "../HOME_CONST";
 import NeighborhoodPlaceList from "../NeighborhoodPlaceList/NeighborhoodPlaceList";
-import NeighborhoodPlaceCardSkeleton from "../NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
 import PlaceFilterSheetCount from "./_internal/PlaceFilterSheetCount/PlaceFilterSheetCount";
 
 interface PlaceFilterSheetContentProps {
@@ -33,7 +32,7 @@ const PlaceFilterSheetContent = ({ placeValue }: PlaceFilterSheetContentProps) =
       </div>
 
       <ErrorBoundary fallback={<p className={MESSAGE_STYLE}>{t("loadError")}</p>}>
-        <Suspense fallback={<NeighborhoodPlaceCardSkeleton count={5} />}>
+        <Suspense fallback={<PlaceCardSkeleton count={5} />}>
           <NeighborhoodPlaceList filter={filter} />
         </Suspense>
       </ErrorBoundary>

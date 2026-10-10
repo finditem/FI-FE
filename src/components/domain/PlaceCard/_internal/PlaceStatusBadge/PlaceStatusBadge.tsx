@@ -22,7 +22,7 @@ const STATUS_LABEL_KEY: Record<PlaceOperationStatus, string> = {
 
 /** 장소 카드의 운영 상태 뱃지 (운영중 / 브레이크타임 / 오픈 예정 / 영업 종료) */
 const PlaceStatusBadge = ({ status }: PlaceStatusBadgeProps) => {
-  const t = useTranslations("NeighborhoodSection");
+  const t = useTranslations("PlaceCard");
 
   return (
     <span

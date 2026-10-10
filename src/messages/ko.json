@@ -859,19 +859,23 @@
   },
   "NeighborhoodSection": {
     "title": "찾는 동안 동네 구경하실래요?",
-    "filterAll": "모두보기",
-    "filterPopup": "팝업",
-    "filterCafe": "카페",
-    "filterRestaurant": "맛집",
     "moreButton": "더 보기",
+    "loadError": "장소를 불러오지 못했어요.",
+    "empty": "표시할 장소가 없어요."
+  },
+  "PlaceCard": {
     "statusOpen": "운영중",
     "statusUpcoming": "오픈 예정",
     "statusBreakTime": "브레이크 타임",
     "statusClosed": "영업 종료",
     "openAt": "{time} 오픈",
-    "favoriteAriaLabel": "{name} 즐겨찾기",
-    "loadError": "장소를 불러오지 못했어요.",
-    "empty": "표시할 장소가 없어요."
+    "favoriteAriaLabel": "{name} 즐겨찾기"
+  },
+  "PlaceFilter": {
+    "all": "모두보기",
+    "popup": "팝업",
+    "cafe": "카페",
+    "restaurant": "맛집"
   },
   "PlaceFilterSheet": {
     "popupTitle": "팝업 스토어",
