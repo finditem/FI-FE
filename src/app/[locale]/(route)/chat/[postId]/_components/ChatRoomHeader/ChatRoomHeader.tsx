@@ -75,7 +75,7 @@ const ChatRoomHeader = ({ chatRoom, roomId, currentUserId, withdrawn }: ChatRoom
           </Link>
         )}
 
-        <ChatRoomHeaderInfoButton roomId={roomId} />
+        <ChatRoomHeaderInfoButton roomId={roomId} postId={postId} opponentUserId={opponentUserId} />
       </nav>
 
       <LinkWrapper deleted={deleted} href={`/list/${postId}`}>

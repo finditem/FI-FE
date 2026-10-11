@@ -23,6 +23,7 @@ export { default as Terms } from "./Terms/Terms";
 export { default as ProfileForm } from "./ProfileForm/_internal/ProfileForm/ProfileForm";
 export { default as ProfileEditSection } from "./ProfileForm/ProfileEditSection";
 export { default as BlockUserModal } from "./PostReportBlockActions/UserBlockModal/UserBlockModal";
+export { default as PostFoundConfirmModal } from "./PostFoundConfirmModal/PostFoundConfirmModal";
 export { default as AddToHomeScreenPWA } from "./AddToHomeScreenPWA/AddToHomeScreenPWA";
 export { default as ContentShareModal } from "./ContentShareModal/ContentShareModal";
 export { default as TermsAgreement } from "./TermsAgreement/TermsAgreement";

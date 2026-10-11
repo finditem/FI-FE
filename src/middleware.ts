@@ -1,5 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";
+import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
 
@@ -19,7 +20,19 @@ const stripLocalePrefix = (pathname: string) => {
 const withLocalePrefix = (locale: string, pathname: string) =>
   locale === routing.defaultLocale ? pathname : `/${locale}${pathname}`;
 
-export function middleware(request: NextRequest) {
+const AUTH_COOKIE_PARENT_DOMAIN = "finditem.kr";
+
+// 백엔드가 finditem.kr 계열 요청에는 토큰 쿠키를 상위 도메인으로 발급하므로, 지울 때도 같은 도메인을 줘야 지워진다.
+// dev 서버는 nextUrl을 자기 주소로 만들기 때문에 실제 접속 도메인은 Host 헤더로 판단한다.
+const getAuthCookieDomain = (host: string | null) => {
+  const hostname = host?.split(":")[0] ?? "";
+  return hostname === AUTH_COOKIE_PARENT_DOMAIN ||
+    hostname.endsWith(`.${AUTH_COOKIE_PARENT_DOMAIN}`)
+    ? `.${AUTH_COOKIE_PARENT_DOMAIN}`
+    : undefined;
+};
+
+function handleRequest(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
 
   if (intlResponse.headers.get("location")) {
@@ -52,8 +65,9 @@ export function middleware(request: NextRequest) {
 
   // 세션 완료 시 로그인 페이지로 진입 했을 때 모든 토큰 제거
   if (isAuthPath && isSessionExpired) {
-    intlResponse.cookies.set("access_token", "", { path: "/", maxAge: 0 });
-    intlResponse.cookies.set("refresh_token", "", { path: "/", maxAge: 0 });
+    const domain = getAuthCookieDomain(request.headers.get("host"));
+    intlResponse.cookies.set("access_token", "", { path: "/", maxAge: 0, domain });
+    intlResponse.cookies.set("refresh_token", "", { path: "/", maxAge: 0, domain });
     return intlResponse;
   }
 
@@ -72,6 +86,36 @@ export function middleware(request: NextRequest) {
   }
 
   return intlResponse;
+}
+
+const LOCALE_SESSION_COOKIE = "locale_session";
+
+const hasLocalePrefix = (pathname: string) =>
+  routing.locales.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
+
+export function middleware(request: NextRequest) {
+  const fetchDest = request.headers.get("sec-fetch-dest");
+  const isPageRequest = fetchDest == null || fetchDest === "document";
+
+  if (request.cookies.has(LOCALE_SESSION_COOKIE) || !isPageRequest) {
+    return handleRequest(request);
+  }
+
+  const { pathname, search } = request.nextUrl;
+  const savedLocale = request.cookies.get("NEXT_LOCALE")?.value;
+  const shouldRestoreLocale =
+    hasLocale(routing.locales, savedLocale) &&
+    savedLocale !== routing.defaultLocale &&
+    !hasLocalePrefix(pathname);
+
+  const response = shouldRestoreLocale
+    ? NextResponse.redirect(
+        new URL(`/${savedLocale}${pathname === "/" ? "" : pathname}${search}`, request.url)
+      )
+    : handleRequest(request);
+
+  response.cookies.set(LOCALE_SESSION_COOKIE, "1", { path: "/" });
+  return response;
 }
 
 export const config = {

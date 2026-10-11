@@ -11,9 +11,10 @@ import SearchFocusDropdown from "../SearchFocusDropdown/SearchFocusDropdown";
 import MainSearchChipList from "../MainSearchChipList/MainSearchChipList";
 import { focusSearchDropdownBoundary } from "../../_utils/searchDropdownListKeyboard";
 import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
+import { MAIN_SEARCH_HEADER_ID } from "../HOME_CONST";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
-import { useMainKakaoMapStore, useMainRecentSearch } from "@/store";
+import { useMainNaverMapStore, useMainRecentSearch } from "@/store";
 import { trackClickSearchBar, trackSearch } from "@/utils/analytics/analytics";
 
 interface LocationFormValues {
@@ -41,7 +42,7 @@ const HeaderSearchForm = ({
   const t = useTranslations("MainSearchHeader");
   const router = useRouter();
   const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
-  const userGpsAddress = useMainKakaoMapStore((s) => s.userGpsAddress);
+  const userGpsAddress = useMainNaverMapStore((s) => s.userGpsAddress);
   const geoGranted = useGeolocationPermissionGranted();
   const isResolvedGpsAddress =
     userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
@@ -93,8 +94,8 @@ const HeaderSearchForm = ({
   return (
     <form
       className={cn(
-        "relative w-full rounded-[10px] bg-white px-5 py-4",
-        isDropdownOpen && "border border-black/25"
+        "relative flex h-[54px] w-full items-center rounded-[10px] bg-white px-5",
+        isDropdownOpen ? "border border-black/25" : "border-[1.2px] border-brand-normal-default"
       )}
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -120,7 +121,7 @@ const HeaderSearchForm = ({
           }
         }}
         className={cn(
-          "w-full pl-8 text-h3-semibold text-flatGray-700 placeholder:text-flatGray-700"
+          "w-full pl-6 text-h3-medium text-flatGray-700 placeholder:text-labelsVibrant-secondary"
         )}
         placeholder={locationPlaceholder}
       />
@@ -131,11 +132,7 @@ const HeaderSearchForm = ({
         aria-label={isDropdownOpen ? t("backLabel") : t("searchLabel")}
         className="absolute left-5 top-1/2 -translate-y-1/2"
       >
-        <Icon
-          name={isDropdownOpen ? "ArrowLeftSmall" : "Search"}
-          size={20}
-          className={!isDropdownOpen ? "text-brand-strong-default" : ""}
-        />
+        <Icon name={isDropdownOpen ? "ArrowLeftSmall" : "HomeSearch"} size={20} />
       </button>
     </form>
   );
@@ -158,6 +155,7 @@ const HeaderContent = ({
 
   return (
     <header
+      id={MAIN_SEARCH_HEADER_ID}
       className={cn(
         "fixed left-1/2 top-0 z-10 w-full max-w-[768px] -translate-x-1/2 px-5 pb-[10px] pt-[calc(10px+var(--safe-area-top))]",
         (searchValue || focused) && "border-x-2 bg-white"
@@ -172,7 +170,7 @@ const HeaderContent = ({
         searchInputRef={searchInputRef}
       />
       {!isDropdownOpen && (
-        <div className="mt-2">
+        <div className="mt-3">
           <MainSearchChipList />
         </div>
       )}

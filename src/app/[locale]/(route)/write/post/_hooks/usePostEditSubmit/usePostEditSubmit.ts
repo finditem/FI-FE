@@ -51,7 +51,6 @@ const usePostEditSubmit = ({ postId, methods, onEditLimitExceeded }: UsePostEdit
     const thumbnailImageId = firstImage?.id ?? null;
 
     const request: PutPostEditRequest = {
-      postType: values.postType,
       title: values.title,
       category: values.category,
       content: values.content,

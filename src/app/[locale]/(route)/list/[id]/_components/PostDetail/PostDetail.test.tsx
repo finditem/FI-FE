@@ -7,14 +7,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 jest.mock("swiper/css", () => ({}));
 jest.mock("swiper/css/pagination", () => ({}));
-jest.mock("@/utils", () => {
-  const actual = jest.requireActual("@/utils");
-
-  return {
-    ...actual,
-    formatDate: (date: string) => "2025.12.26",
-  };
-});
+jest.mock("../../_utils/formatPostDate/formatPostDate", () => ({
+  formatPostDate: () => "3일 전",
+}));
 
 const queryClient = new QueryClient();
 
@@ -41,7 +36,7 @@ describe("게시글 상세 페이지", () => {
   it("게시글 상세 페이지의 시간이 렌더링되어야 한다.", () => {
     renderWithProviders(<PostDetail type="find" data={MOCK_POST_DEFAULT_DETAIL.result} />);
 
-    const postDetailElement = screen.getByText("2025.12.26");
+    const postDetailElement = screen.getByText("3일 전");
     expect(postDetailElement).toBeInTheDocument();
   });
 

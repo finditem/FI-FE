@@ -1,9 +1,10 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { PostDetailData } from "@/api/fetch/post";
-import { formatDate, formatViewCount } from "@/utils";
+import { formatViewCount } from "@/utils";
 import PostChipSection from "../PostChipSection/PostChipSection";
 import { useToggleFavorite } from "../../../_hooks/useToggleFavorite/useToggleFavorite";
+import { useFormatPostDate } from "../../../_hooks/useFormatPostDate/useFormatPostDate";
 
 interface PostDetailBodyProps {
   data: PostDetailData;
@@ -14,6 +15,7 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
   const locale = useLocale();
   const { title, content, favoriteCount, postStatus, category, createdAt, viewCount } = data;
   const { handleToggleFavorite, isPending } = useToggleFavorite({ postId: data.id });
+  const formatPostDate = useFormatPostDate();
   const isKo = locale === "ko";
 
   return (
@@ -23,8 +25,9 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
       <div className="mt-[14px]">
         <div>
           <h1 className="text-[20px] font-semibold text-layout-header-default">{title}</h1>
-          <time className="text-[14px] leading-[140%] text-layout-body-default">
-            {formatDate(createdAt)}
+          <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
+            <span>{t("registeredLabel")}</span>{" "}
+            <span className="text-body2-semibold">{formatPostDate(createdAt)}</span>
           </time>
         </div>
 

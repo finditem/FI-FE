@@ -802,13 +802,24 @@
   },
   "PostDetailBody": {
     "viewCountLabel": "{count, plural, one {# view} other {# views}}",
-    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}"
+    "favoriteCountLabel": "{count, plural, one {# bookmark} other {# bookmarks}}",
+    "registeredLabel": "Registered",
+    "minutesAgo": "{count, plural, one {# minute ago} other {# minutes ago}}",
+    "hoursAgo": "{count, plural, one {# hour ago} other {# hours ago}}",
+    "daysAgo": "{count, plural, one {# day ago} other {# days ago}}",
+    "weeksAgo": "{count, plural, one {# week ago} other {# weeks ago}}",
+    "monthsAgo": "{count, plural, one {# month ago} other {# months ago}}",
+    "yearsAgo": "{count, plural, one {# year ago} other {# years ago}}"
   },
-  "PostDetailPreviewKakaoMap": {
+  "PostDetailPreviewNaverMap": {
     "viewOnMapAriaLabel": "View location on map in detail",
-    "noAddress": "No location info"
+    "noAddress": "No location info",
+    "lostLocationLabel": "Lost Location",
+    "foundLocationLabel": "Found Location",
+    "dateLostLabel": "Date lost",
+    "dateFoundLabel": "Date found"
   },
-  "PostDetailKakaoMap": {
+  "PostDetailNaverMap": {
     "mapAreaLabel": "Map area"
   },
   "PostDetailMap": {
@@ -928,7 +939,7 @@
     "skipForNow": "Maybe later"
   },
   "MainSearchHeader": {
-    "placeholder": "Enter a place or address",
+    "placeholder": "Where did you lose it around here?",
     "backLabel": "Back",
     "searchLabel": "Search location"
   },
@@ -1022,8 +1033,42 @@
   },
   "ChatRoomHeaderInfoButton": {
     "menuAriaLabel": "Open chat menu",
-    "reportLabel": "Block or report",
+    "changeToFoundLabel": "Mark item as found",
+    "reportBlockLabel": "Block or report",
     "leaveLabel": "Leave chat room"
+  },
+  "PostFoundConfirmModal": {
+    "title": "Leave a review to say thanks?",
+    "description": "Let the person who helped you find your item know you're grateful with a review.",
+    "laterLabel": "Later",
+    "reviewLabel": "Leave a review"
+  },
+  "ReviewWritePage": {
+    "title": "Chajgil Review",
+    "greeting": "Hi {myNickname},\nhow was your meetup with {opponentNickname}?",
+    "feelingsAriaLabel": "Select how the meetup made you feel",
+    "feelings": {
+      "touched": "Touched",
+      "grateful": "Grateful",
+      "heartFlutter": "Heart flutter"
+    },
+    "helpQuestion": "What kind of help did you get?",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
+    },
+    "reviewLabel": "Leave a review.",
+    "reviewOptional": "(Optional)",
+    "reviewPlaceholder": "Tell us what you're grateful for. (up to 300 characters)",
+    "submitLabel": "Leave a review"
+  },
+  "ReviewCompleteModal": {
+    "title": "A neighbor who shared warmth\nwith Chajgil",
+    "description": "Your heartfelt review has been delivered.",
+    "confirmLabel": "Done"
   },
   "ChatLeaveModal": {
     "cancelLabel": "No",

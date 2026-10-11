@@ -1,7 +1,7 @@
 import { ItemStatus } from "@/types";
 import { PostWriteRequest } from "./PostWriteType";
 
-export interface PutPostEditRequest extends PostWriteRequest {
+export interface PutPostEditRequest extends Omit<PostWriteRequest, "postType"> {
   postStatus: ItemStatus;
   keepImageIdList: number[];
   thumbnailImageId: number | null;

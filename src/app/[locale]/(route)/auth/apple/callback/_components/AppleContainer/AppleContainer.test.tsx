@@ -24,8 +24,11 @@ jest.mock("@/store", () => ({
 }));
 
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({ replace: mockRouterReplace, push: mockRouterPush }),
   useSearchParams: () => mockUseSearchParams(),
+}));
+
+jest.mock("@/i18n/navigation", () => ({
+  useRouter: () => ({ replace: mockRouterReplace, push: mockRouterPush }),
 }));
 
 jest.mock("../AppleLoading/AppleLoading", () => ({
@@ -133,6 +136,25 @@ describe("<AppleContainer />", () => {
     });
   });
 
+  describe("onSuccess — termsAgreed=true, isTemporaryPassword=true", () => {
+    beforeEach(() => {
+      sessionStorage.setItem("oauthState", "test-state");
+      mockUseSearchParams.mockReturnValue(withCodeParams);
+      mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
+        onSuccess({ result: { termsAgreed: true, isTemporaryPassword: true } });
+      });
+    });
+
+    it("비밀번호 변경 페이지로 이동한다", async () => {
+      render(<AppleContainer />);
+      await waitFor(() => {
+        expect(mockRouterReplace).toHaveBeenCalledWith(
+          "/change-password?reason=temporary-password"
+        );
+      });
+    });
+  });
+
   describe("onSuccess — termsAgreed=false", () => {
     beforeEach(() => {
       sessionStorage.setItem("oauthState", "test-state");
@@ -159,6 +181,23 @@ describe("<AppleContainer />", () => {
       render(<AppleContainer />);
       await waitFor(() => {
         expect(screen.getByTestId("terms-agreement")).toBeInTheDocument();
+      });
+    });
+  });
+
+  describe("onSuccess — termsAgreed=false, isTemporaryPassword=true", () => {
+    beforeEach(() => {
+      sessionStorage.setItem("oauthState", "test-state");
+      mockUseSearchParams.mockReturnValue(withCodeParams);
+      mockAppleLoginMutate.mockImplementation((_payload: any, { onSuccess }: any) => {
+        onSuccess({ result: { termsAgreed: false, isTemporaryPassword: true } });
+      });
+    });
+
+    it("isTemporaryPassword 값을 sessionStorage에 보관한다", async () => {
+      render(<AppleContainer />);
+      await waitFor(() => {
+        expect(sessionStorage.getItem("isTemporaryPassword")).toBe("true");
       });
     });
   });
