@@ -22,16 +22,11 @@ const ReviewsContainer = () => {
   ] as const;
 
   return (
-    <div className="h-base">
-      <Tab
-        tabs={tabs}
-        selected={tab}
-        onValueChange={updateTabQuery}
-        aria-label={t("tabsAriaLabel")}
-      />
+    <section className="h-base" aria-label={t("tabsAriaLabel")}>
+      <Tab tabs={tabs} selected={tab} onValueChange={updateTabQuery} />
 
       <ReviewsContent selectedTab={tab} />
-    </div>
+    </section>
   );
 };
 
