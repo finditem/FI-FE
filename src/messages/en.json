@@ -1419,6 +1419,34 @@
     "title": "My Comments",
     "description": "View the comments you've posted on finditem."
   },
+  "ReviewDetailLayout": {
+    "title": "Review Letter",
+    "description": "View a review letter you received on finditem."
+  },
+  "ReviewDetailPage": {
+    "title": "Review",
+    "backAriaLabel": "Go back",
+    "receivedChip": "Received",
+    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review<lineBreak></lineBreak>has arrived.</strong>",
+    "sender": {
+      "nickname": "Space Puppy",
+      "location": "Seongsu 1-dong, Seongdong-gu",
+      "date": "2026.07.22"
+    },
+    "letter": "Thank you so much for coming out willingly even though I reached out late at night. Thanks to you, I was relieved that I didn't have to reissue my ID. I'm glad to have such a warm neighbor in Seongsu. I hope only good things come your way. Thank you!",
+    "strengths": {
+      "title": "What I liked",
+      "kind": "They were kind and warm.",
+      "trust": "I could communicate with confidence.",
+      "quick": "Their quick response was very helpful."
+    },
+    "foundItem": {
+      "title": "Found item",
+      "name": "Phone, black leather card wallet case",
+      "meta": "Near Seongsu Station · 2025.11.11"
+    },
+    "chatButton": "Go to chat"
+  },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",
     "date": "Date",
