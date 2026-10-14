@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Button, Icon, ProfileAvatar } from "@/components";
+import { Button, Icon, ListItemImage, ProfileAvatar } from "@/components";
 
 interface ReviewLetterDetailProps {
   reviewId: number;
@@ -10,7 +10,7 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
   const strengths = [t("strengths.kind"), t("strengths.trust"), t("strengths.quick")];
 
   return (
-    <main className="flow-root bg-white pb-[calc(92px+var(--safe-area-bottom))]">
+    <main className="flow-root bg-white pb-[calc(116px+var(--safe-area-bottom))]">
       <section className="relative z-10 mx-5 -mt-[38px] mb-6 flex flex-col gap-8 rounded-[16px] bg-white px-4 py-6 shadow-[0px_0px_1px_rgba(0,0,0,0.05),0px_4px_4px_rgba(0,0,0,0.08)]">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
@@ -74,8 +74,14 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
             {t("foundItem.title")}
           </h2>
           <div className="flex items-center gap-4">
-            {/* TODO(suhyeon): 찾아준 물건 썸네일 이미지 연동. 현재는 placeholder */}
-            <div className="size-[69px] shrink-0 rounded-[16px] bg-[#d9d9d9]" aria-hidden />
+            {/* TODO(suhyeon): 찾아준 물건 이미지와 카테고리를 후기 API 데이터로 연동. 현재는 리스트와 동일한 카테고리 대체 아이콘 */}
+            <ListItemImage
+              src={null}
+              alt={t("foundItem.name")}
+              size={69}
+              category="ELECTRONICS"
+              className="shrink-0"
+            />
             <div className="flex min-w-0 flex-col gap-1">
               <p className="truncate text-h3-semibold text-neutral-normal-default">
                 {t("foundItem.name")}
