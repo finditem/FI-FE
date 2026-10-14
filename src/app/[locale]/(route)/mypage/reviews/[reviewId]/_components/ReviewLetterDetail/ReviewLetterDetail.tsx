@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { Button, Icon, ListItemImage, ProfileAvatar } from "@/components";
+import { Button, Icon, ProfileAvatar } from "@/components";
+import { CATEGORY_TILE_ICON_MAP } from "@/constants";
 
 interface ReviewLetterDetailProps {
   reviewId: number;
@@ -74,14 +75,14 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
             {t("foundItem.title")}
           </h2>
           <div className="flex items-center gap-4">
-            {/* TODO(suhyeon): 찾아준 물건 이미지와 카테고리를 후기 API 데이터로 연동. 현재는 리스트와 동일한 카테고리 대체 아이콘 */}
-            <ListItemImage
-              src={null}
-              alt={t("foundItem.name")}
-              size={69}
-              category="ELECTRONICS"
-              className="shrink-0"
-            />
+            {/* TODO(suhyeon): 찾아준 물건 이미지와 카테고리를 후기 API 데이터로 연동. 현재는 리스트(ListItemImage)와 동일한 카테고리 대체 아이콘 */}
+            <div className="flex size-[69px] shrink-0 items-center justify-center overflow-hidden rounded-[16px]">
+              <Icon
+                name={CATEGORY_TILE_ICON_MAP.ELECTRONICS}
+                size={69}
+                className="text-labelsVibrant-quaternary"
+              />
+            </div>
             <div className="flex min-w-0 flex-col gap-1">
               <p className="truncate text-h3-semibold text-neutral-normal-default">
                 {t("foundItem.name")}
