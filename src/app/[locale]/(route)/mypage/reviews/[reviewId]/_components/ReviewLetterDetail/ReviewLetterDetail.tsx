@@ -10,7 +10,7 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
   const strengths = [t("strengths.kind"), t("strengths.trust"), t("strengths.quick")];
 
   return (
-    <main className="flow-root min-h-screen bg-white pb-[calc(120px+var(--safe-area-bottom))]">
+    <main className="flow-root flex-1 bg-white pb-[calc(120px+var(--safe-area-bottom))]">
       <section className="relative z-10 mx-5 -mt-[38px] mb-6 flex flex-col gap-8 rounded-[16px] bg-white px-4 py-6 shadow-[0px_0px_1px_rgba(0,0,0,0.05),0px_4px_4px_rgba(0,0,0,0.08)]">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
