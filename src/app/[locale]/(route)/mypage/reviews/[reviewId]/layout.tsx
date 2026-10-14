@@ -24,7 +24,7 @@ const ReviewDetailLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen bg-[#4ccd99]">
       <ReviewDetailHeader title={t("title")} backAriaLabel={t("backAriaLabel")} />
-      <section className="overflow-hidden px-5 pt-2 text-white">
+      <section className="overflow-hidden px-5 pb-7 pt-2 text-white">
         <div className="flex items-start gap-[51px]">
           <div className="flex w-[122px] flex-col items-start gap-2">
             <span className="inline-block rounded-full border-[0.5px] border-white bg-white/[0.33] px-3 py-1 text-caption1-semibold text-white">
