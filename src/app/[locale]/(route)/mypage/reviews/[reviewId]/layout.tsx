@@ -22,7 +22,7 @@ const ReviewDetailLayout = async ({ children }: { children: ReactNode }) => {
   const emotion = DEFAULT_REVIEW_EMOTION;
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#4ccd99]">
+    <div className="bg-[#4ccd99]">
       <ReviewDetailHeader title={t("title")} backAriaLabel={t("backAriaLabel")} />
       <section className="overflow-hidden px-5 pb-7 pt-2 text-white">
         <div className="flex items-start gap-[51px]">
