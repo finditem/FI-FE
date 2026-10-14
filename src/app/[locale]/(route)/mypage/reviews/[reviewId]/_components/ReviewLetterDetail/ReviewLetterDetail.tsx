@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { Button, Icon, ProfileAvatar } from "@/components";
 import { CATEGORY_TILE_ICON_MAP } from "@/constants";
+import { MOCK_REVIEW_HAS_LETTER } from "../../_constants/MOCK_REVIEW";
 
 interface ReviewLetterDetailProps {
   reviewId: number;
@@ -35,9 +36,11 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
             </div>
           </div>
 
-          <p className="whitespace-pre-line rounded-[12px] px-4 py-5 text-letter-regular text-labelsVibrant-primary bg-fill-brand-subtle-default_2">
-            {t("letter")}
-          </p>
+          {MOCK_REVIEW_HAS_LETTER && (
+            <p className="whitespace-pre-line rounded-[12px] px-4 py-5 text-letter-regular text-labelsVibrant-primary bg-fill-brand-subtle-default_2">
+              {t("letter")}
+            </p>
+          )}
 
           <section className="flex flex-col gap-3" aria-labelledby={`strengths-${reviewId}`}>
             <h2
