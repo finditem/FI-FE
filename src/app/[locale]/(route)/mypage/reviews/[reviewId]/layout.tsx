@@ -24,28 +24,30 @@ const ReviewDetailLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen bg-[#4ccd99]">
       <ReviewDetailHeader title={t("title")} backAriaLabel={t("backAriaLabel")} />
-      <section className="relative h-[206px] overflow-hidden px-5 text-white">
-        <div className="relative z-10 max-w-[210px]">
-          <span className="inline-block rounded-full border-[0.5px] border-white bg-white/[0.33] px-3 py-1 text-caption1-semibold text-white">
-            {t("receivedChip")}
-          </span>
-          <p className="mt-2 text-h2-regular">
-            {t.rich("arrivalMessage", {
-              lineBreak: () => <br />,
-              strong: (chunks) => <strong className="text-h1-bold">{chunks}</strong>,
-            })}
-          </p>
-        </div>
+      <section className="overflow-hidden px-5 pt-2 text-white">
+        <div className="flex items-start gap-[51px]">
+          <div className="flex w-[122px] flex-col items-start gap-2">
+            <span className="inline-block rounded-full border-[0.5px] border-white bg-white/[0.33] px-3 py-1 text-caption1-semibold text-white">
+              {t("receivedChip")}
+            </span>
+            <p className="whitespace-nowrap text-h2-regular">
+              {t.rich("arrivalMessage", {
+                lineBreak: () => <br />,
+                strong: (chunks) => <strong className="text-h1-bold">{chunks}</strong>,
+              })}
+            </p>
+          </div>
 
-        <Image
-          src={REVIEW_EMOTION_CHARACTER[emotion]}
-          alt=""
-          aria-hidden
-          width={176}
-          height={169}
-          priority
-          className="pointer-events-none absolute bottom-0 right-2 select-none"
-        />
+          <Image
+            src={REVIEW_EMOTION_CHARACTER[emotion]}
+            alt=""
+            aria-hidden
+            width={177}
+            height={170}
+            priority
+            className="pointer-events-none shrink-0 select-none"
+          />
+        </div>
       </section>
       {children}
     </div>
