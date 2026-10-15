@@ -1493,7 +1493,8 @@
   "ReviewCard": {
     "menuOpenAriaLabel": "Open review options menu",
     "menuCloseAriaLabel": "Close review options menu",
-    "hideReview": "Hide review"
+    "hideReview": "Hide review",
+    "moreAriaLabel": "More options"
   },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",
