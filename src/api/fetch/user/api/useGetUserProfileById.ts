@@ -10,7 +10,8 @@ import { UserUpperTabType } from "../types/UserDataType";
 export const useGetUserProfileById = (
   userId: string | undefined,
   type: UserUpperTabType,
-  size = 10
+  size = 10,
+  options?: { enabled?: boolean }
 ) => {
   const params = new URLSearchParams();
   params.set("type", type);
@@ -22,7 +23,7 @@ export const useGetUserProfileById = (
     `/users/${userId}/page?${params.toString()}`,
     {
       placeholderData: keepPreviousData,
-      enabled: !!userId,
+      enabled: !!userId && (options?.enabled ?? true),
 
       getNextPageParam: (lastPage) =>
         lastPage.result.hasNext ? lastPage.result.nextCursor : undefined,

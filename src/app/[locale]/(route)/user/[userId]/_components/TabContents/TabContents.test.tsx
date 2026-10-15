@@ -5,6 +5,7 @@ import { MOCK_USER_PROFILE_COMMENT_DATA, MOCK_USER_PROFILE_POST_DATA } from "@/m
 
 jest.mock("@/components/domain", () => ({
   PostListItem: () => <div data-testid="list-item">PostListItem</div>,
+  ReviewCard: () => <li data-testid="review-card">ReviewCard</li>,
 }));
 
 jest.mock("../_internal/UserCommentItem/UserCommentItem", () => () => (
@@ -54,5 +55,11 @@ describe("TabContents", () => {
 
     expect(screen.queryAllByTestId("list-item").length).toBeGreaterThan(0);
     expect(screen.queryAllByTestId("comment-item")).toHaveLength(0);
+  });
+
+  it("받은 후기 탭 선택 시 마운트 이후 후기 카드가 표시되어야 합니다", async () => {
+    render(<TabContents selectedTab="reviews" isLoading={false} data={undefined} />);
+
+    expect(await screen.findAllByTestId("review-card")).not.toHaveLength(0);
   });
 });

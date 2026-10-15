@@ -99,4 +99,20 @@ describe("UserProfileView", () => {
 
     expect(screen.getByRole("heading", { level: 1, name: "짱구 프로필" })).toBeInTheDocument();
   });
+
+  it("받은 후기 탭 선택 시 게시글/댓글/즐겨찾기 조회 API 호출을 건너뛰어야 합니다", () => {
+    mockUseUserProfileTabQuery.mockReturnValue({
+      tab: "reviews",
+      updateTabQuery: jest.fn(),
+    });
+
+    render(<UserProfileView />);
+
+    expect(mockUseGetUserProfileById).toHaveBeenCalledWith(
+      "1",
+      "POSTS",
+      10,
+      expect.objectContaining({ enabled: false })
+    );
+  });
 });

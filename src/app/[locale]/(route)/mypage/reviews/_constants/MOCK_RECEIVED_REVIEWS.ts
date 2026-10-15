@@ -1,4 +1,4 @@
-import type { ReviewCardData } from "../_types/ReviewCardData";
+import type { ReviewCardData } from "@/types";
 
 const minutesAgo = (minutes: number) => new Date(Date.now() - minutes * 60 * 1000).toISOString();
 

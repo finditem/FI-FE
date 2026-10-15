@@ -312,7 +312,8 @@
     "tabs": {
       "posts": "게시글",
       "comments": "댓글",
-      "favorites": "즐겨찾기"
+      "favorites": "즐겨찾기",
+      "reviews": "받은 후기"
     },
     "empty": {
       "postsTitle": "아직 작성한 게시글이 없어요",
@@ -320,7 +321,9 @@
       "commentsTitle": "아직 작성한 댓글이 없어요",
       "commentsDescription": "아직 작성한 댓글이 없습니다.\n지금 바로 댓글을 남겨보세요!",
       "favoritesTitle": "아직 즐겨찾기한 게시글이 없어요",
-      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다."
+      "favoritesDescription": "해당 유저가 즐겨찾기한 게시글이 없습니다.",
+      "reviewsTitle": "아직 받은 후기가 없어요",
+      "reviewsDescription": "해당 유저가 받은 후기가 없습니다."
     },
     "likesAriaLabel": "좋아요 {count}개",
     "likes": "좋아요 {count}"
