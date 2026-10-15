@@ -1493,8 +1493,7 @@
   "ReviewCard": {
     "menuOpenAriaLabel": "후기 더보기 메뉴 열기",
     "menuCloseAriaLabel": "후기 더보기 메뉴 닫기",
-    "hideReview": "후기 숨기기",
-    "moreAriaLabel": "더보기"
+    "hideReview": "후기 숨기기"
   },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "필터 영역",

@@ -2,17 +2,14 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Button, Chip, Icon, KebabMenuButton, ProfileAvatar } from "@/components";
+import { Button, Chip, KebabMenuButton, ProfileAvatar } from "@/components";
 import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 import { useClickOutside } from "@/hooks";
 import type { ReviewCardData } from "@/types";
 
 interface ReviewCardProps {
   data: ReviewCardData;
-  /**
-   * 후기 숨기기 케밥 메뉴 노출 여부. 본인이 받은 후기를 보는 화면에서만 true로 둔다.
-   * false면 타인 프로필 화면에서처럼 숨기기 메뉴 없이 아이콘 버튼만 노출한다.
-   */
+  /** 후기 숨기기 케밥 메뉴 노출 여부. 본인이 받은 후기를 보는 화면에서만 true로 둔다. */
   showHideMenu?: boolean;
 }
 
@@ -20,8 +17,7 @@ interface ReviewCardProps {
  * 찾길 후기 카드 하나를 렌더합니다.
  *
  * @remarks
- * - `showHideMenu`가 true일 때는 케밥 메뉴(후기 숨기기 버튼)를, false일 때는 숨기기 기능 없는
- *   아이콘 버튼만 노출합니다.
+ * - `showHideMenu`가 true일 때만 케밥 메뉴(후기 숨기기 버튼)를 노출합니다.
  * - 실제 후기 숨기기 처리는 API 연동 전입니다.
  */
 const ReviewCard = ({ data, showHideMenu = true }: ReviewCardProps) => {
@@ -41,7 +37,7 @@ const ReviewCard = ({ data, showHideMenu = true }: ReviewCardProps) => {
             <p className="flex-1 truncate text-body1-semibold text-layout-header-default">
               {nickname}
             </p>
-            {showHideMenu ? (
+            {showHideMenu && (
               <div ref={kebabMenuRef} className="relative">
                 <KebabMenuButton
                   ariaLabel={t(isKebabMenuOpen ? "menuCloseAriaLabel" : "menuOpenAriaLabel")}
@@ -60,14 +56,6 @@ const ReviewCard = ({ data, showHideMenu = true }: ReviewCardProps) => {
                   </Button>
                 )}
               </div>
-            ) : (
-              <button type="button" aria-label={t("moreAriaLabel")}>
-                <Icon
-                  name="RowMenu"
-                  size={20}
-                  className="text-neutral-normal-default hover:text-neutral-normal-hover active:text-neutral-normal-pressed"
-                />
-              </button>
             )}
           </div>
           <p className="text-body2-regular text-layout-body-default">
