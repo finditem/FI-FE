@@ -1427,7 +1427,7 @@
     "title": "Review",
     "backAriaLabel": "Go back",
     "receivedChip": "Received",
-    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review<lineBreak></lineBreak>has arrived.</strong>",
+    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
     "sender": {
       "nickname": "Space Puppy",
       "location": "Seongsu 1-dong, Seongdong-gu",

@@ -24,16 +24,19 @@ const ReviewDetailLayout = async ({ children }: { children: ReactNode }) => {
   return (
     <div className="bg-[#4ccd99]">
       <ReviewDetailHeader title={t("title")} backAriaLabel={t("backAriaLabel")} />
-      <section className="overflow-hidden px-5 pb-7 pt-2 text-white">
-        <div className="flex items-start gap-[51px]">
-          <div className="flex w-[122px] flex-col items-start gap-2">
+      <section className="overflow-hidden px-5 pb-7 pt-2 text-white tablet:px-16">
+        <div className="flex items-start gap-[51px] tablet:gap-[111px]">
+          <div className="flex w-[122px] flex-col items-start gap-2 tablet:w-[320px]">
             <span className="inline-block rounded-full border-[0.5px] border-white bg-white/[0.33] px-3 py-1 text-caption1-semibold text-white">
               {t("receivedChip")}
             </span>
-            <p className="whitespace-nowrap text-h2-regular">
+            <p className="whitespace-nowrap text-h2-regular tablet:text-h1-regular">
               {t.rich("arrivalMessage", {
                 lineBreak: () => <br />,
-                strong: (chunks) => <strong className="text-h1-bold">{chunks}</strong>,
+                lineBreakMobile: () => <br className="tablet:hidden" />,
+                strong: (chunks) => (
+                  <strong className="text-h1-bold tablet:text-title2-bold">{chunks}</strong>
+                ),
               })}
             </p>
           </div>

@@ -1427,7 +1427,7 @@
     "title": "찾길 후기",
     "backAriaLabel": "뒤로 가기",
     "receivedChip": "받은 후기",
-    "arrivalMessage": "성수317님, <lineBreak></lineBreak><strong>감사의 후기가<lineBreak></lineBreak>도착했어요.</strong>",
+    "arrivalMessage": "성수317님, <lineBreak></lineBreak><strong>감사의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
     "sender": {
       "nickname": "우주강아지",
       "location": "성동구 성수1동",

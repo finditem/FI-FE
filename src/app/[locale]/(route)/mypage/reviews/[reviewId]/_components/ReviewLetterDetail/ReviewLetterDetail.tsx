@@ -13,7 +13,7 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
 
   return (
     <main className="flow-root bg-white pb-[calc(116px+var(--safe-area-bottom))]">
-      <section className="relative z-10 mx-5 -mt-[38px] mb-6 flex flex-col gap-8 rounded-[16px] bg-white px-4 py-6 shadow-[0px_0px_1px_rgba(0,0,0,0.05),0px_4px_4px_rgba(0,0,0,0.08)]">
+      <section className="relative z-10 mx-5 -mt-[38px] mb-6 flex flex-col gap-8 rounded-[16px] bg-white px-4 py-6 shadow-[0px_0px_1px_rgba(0,0,0,0.05),0px_4px_4px_rgba(0,0,0,0.08)] tablet:mx-auto tablet:max-w-[672px] tablet:px-8">
         <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <div className="relative">
