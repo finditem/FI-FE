@@ -4,14 +4,13 @@ import "@testing-library/jest-dom";
 import { useLocale } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import LanguageDropdown from "./LanguageDropdown";
-import { usePathname, useRouter } from "@/i18n/navigation";
+import { usePathname } from "@/i18n/navigation";
 
-const mockReplace = jest.fn();
-const mockRefresh = jest.fn();
+const mockReloadWithLocale = jest.fn();
 
 jest.mock("@/i18n/navigation", () => ({
   usePathname: jest.fn(),
-  useRouter: jest.fn(),
+  reloadWithLocale: (...args: unknown[]) => mockReloadWithLocale(...args),
 }));
 
 jest.mock("next/navigation", () => ({
@@ -41,7 +40,6 @@ describe("LanguageDropdown", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     (usePathname as jest.Mock).mockReturnValue("/login");
-    (useRouter as jest.Mock).mockReturnValue({ replace: mockReplace, refresh: mockRefresh });
     (useLocale as jest.Mock).mockReturnValue("ko");
     (useSearchParams as jest.Mock).mockReturnValue(new URLSearchParams());
   });
@@ -77,19 +75,18 @@ describe("LanguageDropdown", () => {
     await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("한국어"));
 
-    expect(mockReplace).not.toHaveBeenCalled();
+    expect(mockReloadWithLocale).not.toHaveBeenCalled();
     expect(screen.queryByText("English")).not.toBeInTheDocument();
   });
 
-  it("다른 로케일(English) 옵션을 클릭하면 해당 로케일로 라우팅하고 닫힙니다", async () => {
+  it("다른 로케일(English) 옵션을 클릭하면 해당 로케일로 페이지를 새로 불러오고 닫힙니다", async () => {
     const user = userEvent.setup();
     render(<LanguageDropdown />);
 
     await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("English"));
 
-    expect(mockReplace).toHaveBeenCalledWith("/login", { locale: "en" });
-    expect(mockRefresh).toHaveBeenCalled();
+    expect(mockReloadWithLocale).toHaveBeenCalledWith("/login", "en", "");
     expect(screen.queryByText("English")).not.toBeInTheDocument();
   });
 
@@ -103,11 +100,10 @@ describe("LanguageDropdown", () => {
     await user.click(screen.getByRole("button", { name: /^언어 선택/ }));
     await user.click(screen.getByText("English"));
 
-    expect(mockReplace).toHaveBeenCalledWith(
-      "/login?callbackUrl=%2Fmypage&reason=session-expired",
-      {
-        locale: "en",
-      }
+    expect(mockReloadWithLocale).toHaveBeenCalledWith(
+      "/login",
+      "en",
+      "callbackUrl=%2Fmypage&reason=session-expired"
     );
   });
 

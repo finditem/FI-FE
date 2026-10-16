@@ -25,7 +25,7 @@ const ReviewLetterDetail = async ({ reviewId }: ReviewLetterDetailProps) => {
             <div className="relative">
               <ProfileAvatar size={60} alt={t("sender.nickname")} />
               <span className="absolute -bottom-0.5 -right-0.5 size-[18px] rounded-full border-2 border-white bg-fill-brand-strong-default flex-center">
-                <Icon name="SendReview" size={9} className="text-white" />
+                <Icon name="SendReviewArrow" size={9} className="text-white" />
               </span>
             </div>
             <div className="flex flex-col gap-1">

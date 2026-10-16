@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { DetailHeader } from "@/components";
-import { PostDetailKakaoMap } from "./_components";
+import { PostDetailNaverMap } from "./_components";
 
 const page = () => {
   const t = useTranslations("PostDetailMap");
@@ -14,7 +14,7 @@ const page = () => {
 
       <div className="min-h-0 flex-1">
         <Suspense fallback={null}>
-          <PostDetailKakaoMap />
+          <PostDetailNaverMap />
         </Suspense>
       </div>
     </section>

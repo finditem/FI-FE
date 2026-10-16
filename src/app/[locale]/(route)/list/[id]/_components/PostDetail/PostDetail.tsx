@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import type { PostDetailData } from "@/api/fetch/post/types/PostDetailType";
 import PostDetailHeader from "../PostDetailHeader/PostDetailHeader";
-import { PostDetailBody, PostDetailPreviewKakaoMap } from "../_internal";
+import { PostDetailBody, PostDetailPreviewNaverMap } from "../_internal";
 import { trackViewItemDetail, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 interface PostDetailProps {
@@ -26,6 +26,8 @@ const PostDetail = ({ data }: PostDetailProps) => {
     longitude: data.longitude,
     postId: String(data.id),
     radius: data.radius,
+    date: data.date,
+    postType: data.postType,
   };
 
   return (
@@ -35,7 +37,7 @@ const PostDetail = ({ data }: PostDetailProps) => {
       <section className="flex flex-col gap-9 px-5 py-[27px]">
         <PostDetailBody data={data} />
 
-        <PostDetailPreviewKakaoMap data={mapData} />
+        <PostDetailPreviewNaverMap data={mapData} />
       </section>
     </article>
   );

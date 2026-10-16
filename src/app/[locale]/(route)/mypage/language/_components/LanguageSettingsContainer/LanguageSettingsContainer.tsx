@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { reloadWithLocale } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { FooterButton } from "@/components";
 import { useGetPreferredLanguage, usePatchPreferredLanguage } from "@/api/fetch/user";
@@ -19,7 +19,6 @@ const LanguageSettingsContainer = () => {
   const locale = useLocale() as AppLocale;
   const tLanguage = useTranslations("LanguageSwitcher");
   const t = useTranslations("LanguageSettingsPage");
-  const router = useRouter();
   const { data: preferredLanguageData, isLoading: isPreferredLanguageLoading } =
     useGetPreferredLanguage();
   const { mutate: patchPreferredLanguage, isPending } = usePatchPreferredLanguage();
@@ -36,10 +35,7 @@ const LanguageSettingsContainer = () => {
   const handleConfirm = () => {
     if (isPending || isPreferredLanguageLoading) return;
 
-    const moveToSelectedLocale = () => {
-      router.replace("/mypage", { locale: selected });
-      router.refresh();
-    };
+    const moveToSelectedLocale = () => reloadWithLocale("/mypage", selected);
 
     if (selected === preferredLanguage) {
       if (selected !== locale) moveToSelectedLocale();

@@ -17,23 +17,6 @@ const MOCK_VWORLD_RESPONSE = {
   },
 };
 
-const MOCK_KAKAO_COORD2ADDRESS = {
-  documents: [
-    {
-      address: {
-        address_name: "서울특별시 중구 명동2가 1",
-        region_2depth_name: "중구",
-        region_3depth_name: "명동2가",
-      },
-      road_address: {
-        address_name: "서울특별시 중구 명동길 14",
-        region_3depth_name: "명동",
-      },
-    },
-  ],
-  meta: { total_count: 1 },
-};
-
 const MOCK_POST_RESPONSE = {
   isSuccess: true,
   code: "200",
@@ -65,15 +48,7 @@ async function setupCommonMocks(page: Page) {
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/local/geo/coord2address.json**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify(MOCK_KAKAO_COORD2ADDRESS),
-    })
-  );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 
   await page.route("**/api/posts", async (route) => {
     if (route.request().method() === "POST") {

@@ -9,6 +9,7 @@ import {
   Icon,
   ModalLayout,
   PostReportBlockActions,
+  PostFoundConfirmModal,
   ReportModal,
   BlockUserModal as UserBlockModal,
 } from "@/components";
@@ -32,6 +33,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isBlockOpen, setIsBlockOpen] = useState(false);
+  const [foundConfirmOpen, setFoundConfirmOpen] = useState(false);
 
   const isFound = postStatus === "FOUND";
   const { mutate: putPostStatus } = usePutPostStatus(postId, isFound);
@@ -42,7 +44,13 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   };
 
   const handleStatusChange = () => {
-    putPostStatus({ postStatus: isFound ? "SEARCHING" : "FOUND" });
+    if (!isFound) {
+      setFoundConfirmOpen(true);
+      onClose();
+      return;
+    }
+
+    putPostStatus({ postStatus: "SEARCHING" });
     onClose();
   };
 
@@ -122,6 +130,12 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
         isOpen={isBlockOpen}
         onClose={() => setIsBlockOpen(false)}
         writerId={writerId}
+      />
+
+      <PostFoundConfirmModal
+        isOpen={foundConfirmOpen}
+        onClose={() => setFoundConfirmOpen(false)}
+        postId={postId}
       />
     </>
   );

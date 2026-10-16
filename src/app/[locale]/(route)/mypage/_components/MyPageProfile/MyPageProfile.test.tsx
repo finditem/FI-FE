@@ -11,7 +11,9 @@ jest.mock("next/link", () => ({
 }));
 
 jest.mock("@/components/common", () => ({
-  ProfileAvatar: ({ alt }: { alt: string }) => <div aria-label={alt} />,
+  ProfileAvatar: ({ alt, src }: { alt: string; src?: string | null }) => (
+    <div aria-label={alt} data-src={src ?? "null"} />
+  ),
   Button: ({ children, href }: { children: React.ReactNode; href?: string }) => (
     <a href={href}>{children}</a>
   ),
@@ -41,4 +43,36 @@ describe("MyPageProfile", () => {
       "/mypage/profile"
     );
   });
+
+  it("profileImg가 유효한 URL이면 ProfileAvatar에 그대로 전달된다", () => {
+    render(
+      <MyPageProfile
+        userData={{
+          nickname: "테스트유저",
+          email: "test@example.com",
+          profileImg: "https://example.com/profile.png",
+        }}
+      />
+    );
+    expect(screen.getByLabelText("테스트유저")).toHaveAttribute(
+      "data-src",
+      "https://example.com/profile.png"
+    );
+  });
+
+  it.each(["0", "", "abc", "123"])(
+    "profileImg가 이미지 값이 아니면(%s) ProfileAvatar에 src가 전달되지 않는다",
+    (invalidValue) => {
+      render(
+        <MyPageProfile
+          userData={{
+            nickname: "테스트유저",
+            email: "test@example.com",
+            profileImg: invalidValue,
+          }}
+        />
+      );
+      expect(screen.getByLabelText("테스트유저")).toHaveAttribute("data-src", "null");
+    }
+  );
 });
