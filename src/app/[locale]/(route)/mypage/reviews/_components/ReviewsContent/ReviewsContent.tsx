@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { EmptyState, LoadingState } from "@/components";
+import { EmptyState } from "@/components";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
 import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
 import ReviewCard from "../_internal/ReviewCard/ReviewCard";
+import ReviewListSkeleton from "../_internal/ReviewListSkeleton/ReviewListSkeleton";
 
 interface ReviewsContentProps {
   /** 현재 선택된 탭 */
@@ -32,7 +33,7 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   useEffect(() => setIsMounted(true), []);
 
   if (selectedTab === "received") {
-    if (!isMounted) return <LoadingState />;
+    if (!isMounted) return <ReviewListSkeleton />;
 
     if (MOCK_RECEIVED_REVIEWS.length === 0) {
       return (

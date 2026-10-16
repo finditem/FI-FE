@@ -144,3 +144,56 @@ API 연동은 제외한다.
 돌리면 `.next` 산출물 형식이 충돌). 이후 세션에서는 dev 서버가 켜져 있을 때 `npm run build`를
 돌리지 말고, `npx tsc --noEmit`(타입체크) + `npm run test`로 대체 검증할 것. 전체 build 검증이
 필요하면 사용자에게 dev 서버를 잠시 멈춰달라고 요청할 것.
+
+## 받은 후기 리스트 로딩 상태 퍼블리싱 (Figma node 17635-133898, TalkToFigma로 조회)
+
+참고 Figma: "찾길 후기_받은 후기_M_로딩중" (파일 `BnMhrCOz7goLFef2jr8Zpf`, node 17635:133898).
+주의: 이름이 비슷한 node 17651:138357("찾길 후기_받은 후기_로딩중_M")은 실제로는 후기 편지
+상세(ReviewLetterDetail, `feat/review-letter-detail` 브랜치 소관) 페이지의 로딩 스켈레톤이라
+이 작업 범위가 아님 — 이름 순서(`M_로딩중` vs `로딩중_M`)로 두 프레임이 구분됨. 공식 Figma
+MCP(`mcp__figma__*`)는 Starter 플랜 호출 한도로 막혀 있어, 사용자가 켜둔 Figma 데스크톱 앱의
+Talk to Figma 플러그인(채널 `mz1bgy0p`, `mcp__TalkToFigma__*`)으로 대신 조회함.
+
+이 작업은 `develop` 최신 커밋에서 새로 분기한 `design/mypage-reviews-loading` 브랜치
+(worktree: `/Users/isuhyeon/orca/workspaces/FI-FE/design-reviews-loading`)에서 진행. 작업
+도중 기존 작업 브랜치 `feat/review-letter-detail`(worktree `develop-3`)에서 과거 세션이 stash
+적용 충돌을 미해결 상태로 남겨둔 것을 발견했으나, 이번 작업과 무관해 손대지 않고 그대로 보존함
+(develop-3 쪽에서 별도로 해결 필요).
+
+### 설계 메모
+
+- Figma 프레임 구조: 탭(`Tab Menu`, 이미 공통 컴포넌트로 구현됨) 아래 "후기 N" 카운트 라벨
+  자리의 회색 바(42x24, 내부 bar 42x16 rounded-4) + `Review1` 카드 스켈레톤 2개 반복.
+- 카드 스켈레톤(`Review1`, 350x148, `ReviewCard`와 동일한 `px-5 py-[30px]` 패딩)은 실제
+  `ReviewCard`의 레이아웃을 그대로 따름:
+  - 아바타 자리: 60x60 원형 (`Ellipse 87`)
+  - 닉네임/위치 자리: 87x20 + 140x16, 둘 다 rounded-4, gap 4px → 실제 카드의
+    `flex flex-col gap-1` 헤더 영역과 1:1 대응
+  - 본문 자리: 350x40 rounded-10 블록 하나로, 실제 카드의 2줄 말줄임(`line-clamp-2`) 본문을
+    표현 (줄 단위로 나누지 않음) — 실제 카드와 동일하게 `mt-3`
+  - 태그 자리: 183x24 + 30x24 pill(rounded-full), gap 4px — 실제 `Chip`/`+N` 배지 자리,
+    실제 카드와 동일하게 `mt-3 gap-1`
+  - 배경의 연한 민트색 블롭 장식(`Frame 2`, e3fcee)은 스크린샷에는 보이지 않는 장식용
+    잔여 요소로 판단해 구현 생략.
+- 기존 스켈레톤 컨벤션(`NoticeListSkeleton`, `PostFeedSkeleton`) 그대로 따름:
+  `bg-labelsVibrant-quaternary skeleton-animation` 공통 클래스 + `cn()` 조합, 컴포넌트
+  하나당 폴더 하나(`_internal/ReviewListSkeleton/ReviewListSkeleton.tsx`).
+- `ReviewsContent`의 `!isMounted` 분기(하이드레이션 에러 회피용 임시 게이트, 추후
+  `isLoading`으로 교체 예정이라고 이미 TODO 주석 있음)에서 기존 범용 `LoadingState`(스피너)
+  대신 이 `ReviewListSkeleton`을 반환하도록 교체.
+- 카드 반복 개수: Figma가 정확히 2개만 보여주고(헤더+탭+카드2개로 390x844 한 화면이 꽉 참),
+  임의로 늘리지 않고 Figma 그대로 `count` 기본값 2로 설정(prop으로 오버라이드 가능).
+
+### 작업 항목
+
+- [x] `_components/_internal/ReviewListSkeleton/ReviewListSkeleton.tsx` 작성 (카운트 라벨
+      스켈레톤 + `ReviewCardSkeletonItem` 2개 반복)
+- [x] `ReviewsContent`의 `!isMounted` 분기를 `LoadingState` → `ReviewListSkeleton`으로 교체
+- [x] `npx tsc --noEmit` 통과 확인 (기존 무관 에러 외 신규 에러 없음 — `next-env.d.ts`가
+      새 worktree에 없어서 뜨던 `@/assets/*.svg` 모듈 에러는 develop-3에서 파일 복사로 해결,
+      코드 문제 아님)
+- [x] `npx jest reviews` 통과 확인 (258 suites / 1534 tests)
+- [ ] 로컬 dev에서 `/ko/mypage/reviews?tab=received` 첫 렌더(마운트 전) 시 스켈레톤 노출 눈으로
+      확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
+- [ ] 신규 컴포넌트(`ReviewListSkeleton`)의 Storybook/Jest 테스트는 별도 `test/*` 브랜치·PR로
+      분리(컨벤션)
