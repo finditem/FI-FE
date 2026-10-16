@@ -183,17 +183,20 @@ Talk to Figma 플러그인(채널 `mz1bgy0p`, `mcp__TalkToFigma__*`)으로 대�
   대신 이 `ReviewListSkeleton`을 반환하도록 교체.
 - 카드 반복 개수: Figma가 정확히 2개만 보여주고(헤더+탭+카드2개로 390x844 한 화면이 꽉 참),
   임의로 늘리지 않고 Figma 그대로 `count` 기본값 2로 설정(prop으로 오버라이드 가능).
+- 적용 범위(사용자 피드백 반영): 로딩 스켈레톤은 받은/보낸/숨긴 세 탭 모두에 적용한다. 따라서
+  마운트 게이트(`!isMounted`)를 `received` 분기 안이 아니라 탭 분기 바깥 최상단으로 올려, 어떤
+  탭으로 진입하든(`?tab=received/sent/hidden`) 첫 렌더에 스켈레톤이 보이도록 한다. 보낸/숨긴 탭
+  전용 로딩 디자인은 Figma에 따로 없어 같은 `ReviewListSkeleton`을 재사용한다. 마운트 이후에는
+  각 탭이 기존대로 리스트(받은) 또는 빈 상태(보낸/숨긴)를 렌더한다.
 
 ### 작업 항목
 
 - [x] `_components/_internal/ReviewListSkeleton/ReviewListSkeleton.tsx` 작성 (카운트 라벨
       스켈레톤 + `ReviewCardSkeletonItem` 2개 반복)
 - [x] `ReviewsContent`의 `!isMounted` 분기를 `LoadingState` → `ReviewListSkeleton`으로 교체
-- [x] `npx tsc --noEmit` 통과 확인 (기존 무관 에러 외 신규 에러 없음 — `next-env.d.ts`가
-      새 worktree에 없어서 뜨던 `@/assets/*.svg` 모듈 에러는 develop-3에서 파일 복사로 해결,
-      코드 문제 아님)
+- [x] 마운트 게이트를 탭 분기 밖 최상단으로 올려 세 탭(받은/보낸/숨긴) 모두 로딩 스켈레톤 적용
 - [x] `npx jest reviews` 통과 확인 (258 suites / 1534 tests)
-- [ ] 로컬 dev에서 `/ko/mypage/reviews?tab=received` 첫 렌더(마운트 전) 시 스켈레톤 노출 눈으로
-      확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
+- [ ] 로컬 dev에서 `/ko/mypage/reviews?tab=received|sent|hidden` 첫 렌더(마운트 전) 시 스켈레톤
+      노출 눈으로 확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
 - [ ] 신규 컴포넌트(`ReviewListSkeleton`)의 Storybook/Jest 테스트는 별도 `test/*` 브랜치·PR로
       분리(컨벤션)
