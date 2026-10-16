@@ -10,6 +10,6 @@ export const REVIEW_EMOTION_CHARACTER: Record<ReviewEmotion, string> = {
 
 /**
  * 후기 데이터 연동 전 기본 감정.
- * TODO(suhyeon): 후기 조회 API의 감정 필드로 대체하고, 감정에 따라 캐릭터와 도착 메시지를 분기한다.
+ * TODO(수현): 후기 조회 API의 감정 필드로 대체하고, 감정에 따라 캐릭터와 도착 메시지를 분기한다.
  */
 export const DEFAULT_REVIEW_EMOTION: ReviewEmotion = "gratitude";

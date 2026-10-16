@@ -27,6 +27,19 @@
 - [x] `npx tsc --noEmit`: reviews 라우트 신규 오류 0건, 기존 오류 7건은 모두 무관한 테스트 파일
 - [ ] 로컬 dev 서버 미기동으로 이번 세션 라이브 렌더 확인은 보류(이전 세션 SSR 확인 이력 있음)
 
+## PR 리뷰 반영
+
+- [x] 중첩된 `main` 요소 제거
+- [x] 반응형 클래스를 `cn`으로 분리
+- [x] 임시 날짜와 API 연동 TODO를 `TODO(수현)`으로 통일
+- [x] 중앙 정렬 요소에 `flex-center` 적용
+- [x] 색상·구분선(`border-labelsVibrant-quaternary`)·라운드·그림자를 기존 디자인 토큰과 Tailwind 유틸리티로 교체
+- [x] 물건 썸네일 크기를 4px 단위로 조정하고 공통 텍스트 색상을 부모로 이동
+- [x] CTA 높이 강제 덮어쓰기를 제거하고 데이터 연동 전까지 비활성화
+- [x] safe area를 헤더 높이에 포함하고 직접 진입 시 홈으로 이동하는 뒤로가기 fallback 적용
+- [x] 임의의 hero gap을 제거하고 flex 레이아웃으로 정렬
+- [x] 이미지 포맷 및 글꼴 토큰 전역 변경을 현재 PR에서 제거
+
 ## Figma 정합 2차 (node 17250-28984, MCP)
 
 - [x] 토큰/폰트/스크린샷 확보(get_design_context, get_variable_defs). Code Connect는 플랜 제한으로 미사용

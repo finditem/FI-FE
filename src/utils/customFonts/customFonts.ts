@@ -38,7 +38,6 @@ const customFonts: Record<string, any> = {
   "h3-medium": ["18px", { fontWeight: medium, lineHeight: "140%" }],
   "h3-regular": ["18px", { fontWeight: regular, lineHeight: "140%" }],
 
-  "body1-bold": ["16px", { fontWeight: bold, lineHeight: "150%" }],
   "body1-semibold": ["16px", { fontWeight: semiBold, lineHeight: "150%" }],
   "body1-medium": ["16px", { fontWeight: medium, lineHeight: "150%" }],
   "body1-regular": ["16px", { fontWeight: regular, lineHeight: "150%" }],
@@ -46,10 +45,6 @@ const customFonts: Record<string, any> = {
   "body2-semibold": ["14px", { fontWeight: semiBold, lineHeight: "140%" }],
   "body2-medium": ["14px", { fontWeight: medium, lineHeight: "140%" }],
   "body2-regular": ["14px", { fontWeight: regular, lineHeight: "140%" }],
-
-  // Figma "Letter/Regular" (후기 편지 본문). 원 디자인 폰트는 NanumSquareRound이나
-  // 프로젝트 미탑재로 기본 폰트(Pretendard)를 쓰되 크기/행간은 동일하게 맞춘다.
-  "letter-regular": ["16px", { fontWeight: regular, lineHeight: "188%" }],
 
   "caption1-semibold": [
     "12px",
