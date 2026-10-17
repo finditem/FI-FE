@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { EmptyState, LoadingState, ReviewCard } from "@/components";
+import { MOCK_RECEIVED_REVIEWS } from "@/mock/data";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
-import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
 
 interface ReviewsContentProps {
   /** 현재 선택된 탭 */

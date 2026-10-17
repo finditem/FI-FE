@@ -10,6 +10,7 @@ export const useMypageMenuList = () => {
     pages: menu.pages.map((page) => ({
       key: page.key,
       pageName: t(page.key),
+      iconName: page.iconName,
       pageLink: page.pageLink,
     })),
   }));

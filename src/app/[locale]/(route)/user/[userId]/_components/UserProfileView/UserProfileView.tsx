@@ -28,12 +28,10 @@ const UserProfileView = () => {
   const { tab, updateTabQuery } = useUserProfileTabQuery();
   const isApiTab = tab !== "reviews";
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetUserProfileById(userId, upperCase(isApiTab ? tab : "posts"), 10, {
-      enabled: isApiTab,
-    });
+    useGetUserProfileById(userId, upperCase(isApiTab ? tab : "posts"));
   const { ref } = useInfiniteScroll({
     fetchNextPage,
-    hasNextPage,
+    hasNextPage: isApiTab ? hasNextPage : false,
     isFetchingNextPage,
   });
 
