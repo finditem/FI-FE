@@ -11,7 +11,7 @@ Figma `찜한 장소_Empty`(노드 `16364:160753`)와 `찜한 장소_컨텐츠`(
 - [x] `NeighborhoodPlaceCardSkeleton`을 `src/components/domain/PlaceCardSkeleton`으로 옮기고 홈 사용처 import를 바꾼다.
 - [x] 홈 `NeighborhoodSection`의 필터 옵션(`FILTERS`)을 `src/constants/PLACE_FILTER_OPTIONS.ts`로 옮긴다.
 - [x] 번역: 카드와 배지 문구(`statusOpen` 등, `openAt`, `favoriteAriaLabel`)를 `PlaceCard` 네임스페이스로, 필터 라벨을 `PlaceFilter` 네임스페이스로 옮긴다. ko/en 동시 수정.
-- [ ] 카드 스토리(`NeighborhoodPlaceCard.stories.tsx`) 이동은 test 브랜치에서 한다.
+- [x] 카드 스토리(`NeighborhoodPlaceCard.stories.tsx`) 이동은 test 브랜치에서 한다.
 
 ## API 훅
 
@@ -35,7 +35,7 @@ Figma `찜한 장소_Empty`(노드 `16364:160753`)와 `찜한 장소_컨텐츠`(
 ## 검증과 테스트 (test 브랜치)
 
 - [ ] `npm run test` + `npm run build`로 검증한다.
-- [ ] 카드 스토리 이동, 컨텐츠 컴포넌트 테스트와 스토리 추가는 별도 test 브랜치에서 한다.
+- [x] 카드 스토리 이동, 컨텐츠 컴포넌트 테스트와 스토리 추가는 별도 test 브랜치에서 한다. (컨텐츠는 API 의존이 커서 스토리 대신 jest 테스트 7건으로 검증했다.)
 
 ## 백엔드 대기
 
