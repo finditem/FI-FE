@@ -1074,9 +1074,10 @@
     "submitLabel": "Leave a review"
   },
   "ReviewCompleteModal": {
-    "title": "A neighbor who shared warmth\nwith Chajgil",
+    "title": "A neighbor in our town\nwho shared warmth",
     "description": "Your heartfelt review has been delivered.",
-    "confirmLabel": "Done"
+    "confirmLabel": "Confirm",
+    "viewSentReviewLabel": "View sent review"
   },
   "ChatLeaveModal": {
     "cancelLabel": "No",

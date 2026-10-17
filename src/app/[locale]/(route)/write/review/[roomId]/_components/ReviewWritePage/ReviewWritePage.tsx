@@ -61,6 +61,11 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
     router.back();
   };
 
+  const handleViewSentReview = () => {
+    setIsCompleteOpen(false);
+    router.push("/mypage/reviews?tab=sent");
+  };
+
   return (
     <div className="flex min-h-dvh flex-col">
       <DetailHeader title={t("title")} />
@@ -110,7 +115,11 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
         </Button>
       </div>
 
-      <ReviewCompleteModal isOpen={isCompleteOpen} onConfirm={handleCompleteConfirm} />
+      <ReviewCompleteModal
+        isOpen={isCompleteOpen}
+        onConfirm={handleCompleteConfirm}
+        onViewSentReview={handleViewSentReview}
+      />
     </div>
   );
 };

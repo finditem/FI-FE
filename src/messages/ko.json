@@ -1074,9 +1074,10 @@
     "submitLabel": "후기 남기기"
   },
   "ReviewCompleteModal": {
-    "title": "찾길과 함께\n따뜻한 마음을 전한 이웃",
+    "title": "우리 동네에서\n따뜻한 마음을 전한 이웃",
     "description": "소중한 후기, 잘 전달됐어요.",
-    "confirmLabel": "후기 작성 완료"
+    "confirmLabel": "확인",
+    "viewSentReviewLabel": "보낸 후기 보기"
   },
   "ChatLeaveModal": {
     "cancelLabel": "아니요",

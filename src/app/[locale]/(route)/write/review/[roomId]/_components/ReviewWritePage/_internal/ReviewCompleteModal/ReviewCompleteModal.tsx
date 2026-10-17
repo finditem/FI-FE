@@ -1,13 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Button, Icon, ModalLayout } from "@/components/common";
+import { Button, ModalLayout } from "@/components/common";
 
 interface ReviewCompleteModalProps {
   /** 모달 열림 여부 */
   isOpen: boolean;
-  /** "후기 작성 완료" 클릭 시 호출 (스펙상 이전 화면으로 이동) */
+  /** "확인" 클릭(백드롭/ESC 포함) 시 호출 (스펙상 이전 화면으로 이동) */
   onConfirm: () => void;
+  /** "보낸 후기 보기" 클릭 시 호출 */
+  onViewSentReview: () => void;
 }
 
 /**
@@ -18,7 +21,7 @@ interface ReviewCompleteModalProps {
  *
  * @author suhyeon
  */
-const ReviewCompleteModal = ({ isOpen, onConfirm }: ReviewCompleteModalProps) => {
+const ReviewCompleteModal = ({ isOpen, onConfirm, onViewSentReview }: ReviewCompleteModalProps) => {
   const t = useTranslations("ReviewCompleteModal");
 
   return (
@@ -28,7 +31,7 @@ const ReviewCompleteModal = ({ isOpen, onConfirm }: ReviewCompleteModalProps) =>
       className="w-[320px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-4 flex-col-center">
-        <Icon name="ReviewThanks" size={88} />
+        <Image src="/review/review-thanks.png" alt="" width={76} height={72} />
         <div className="gap-1 text-center flex-col-center">
           <p className="whitespace-pre-line text-h3-semibold text-layout-header-default">
             {t("title")}
@@ -37,9 +40,18 @@ const ReviewCompleteModal = ({ isOpen, onConfirm }: ReviewCompleteModalProps) =>
         </div>
       </div>
 
-      <Button variant="outlined" size="small" className="w-full" onClick={onConfirm}>
-        {t("confirmLabel")}
-      </Button>
+      <div className="flex w-full gap-2">
+        <Button variant="outlined" size="big" onClick={onConfirm}>
+          {t("confirmLabel")}
+        </Button>
+        <Button
+          ignoreBase
+          className="flex-1 rounded-[10px] py-[10px] text-body1-semibold text-white bg-fill-brand-strong-default flex-center"
+          onClick={onViewSentReview}
+        >
+          {t("viewSentReviewLabel")}
+        </Button>
+      </div>
     </ModalLayout>
   );
 };
