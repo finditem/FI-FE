@@ -1487,6 +1487,34 @@
     "title": "My Comments",
     "description": "View the comments you've posted on finditem."
   },
+  "MypageReviewsLayout": {
+    "title": "Reviews",
+    "description": "View the reviews you've exchanged on finditem."
+  },
+  "MypageReviewsPage": {
+    "title": "Reviews",
+    "srOnlyTitle": "Reviews page",
+    "tabsAriaLabel": "Review tabs",
+    "countLabel": "Reviews",
+    "tabs": {
+      "received": "Received",
+      "sent": "Sent",
+      "hidden": "Hidden"
+    },
+    "empty": {
+      "receivedTitle": "No reviews received yet",
+      "receivedDescription": "When a review letter arrives, it will appear here.",
+      "sentTitle": "No reviews sent yet",
+      "sentDescription": "When you send a review letter, it will appear here.",
+      "hiddenTitle": "No hidden reviews",
+      "hiddenDescription": "You can check reviews here and unhide them anytime."
+    }
+  },
+  "ReviewCard": {
+    "menuOpenAriaLabel": "Open review options menu",
+    "menuCloseAriaLabel": "Close review options menu",
+    "hideReview": "Hide review"
+  },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",
     "date": "Date",
