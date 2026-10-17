@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { MapLoadingState, MapErrorState } from "./MapState";
 
 const meta: Meta = {
-  title: "공통 컴포넌트 도메인/BaseKakaoMap/MapState",
+  title: "공통 컴포넌트 도메인/BaseNaverMap/MapState",
   tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
