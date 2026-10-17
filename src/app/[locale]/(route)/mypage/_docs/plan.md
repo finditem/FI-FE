@@ -80,15 +80,15 @@ Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 
 
 ### 5단계: 테스트와 스토리북 (test 브랜치, 별도 PR)
 
-- [ ] `MyPageMenuSection.test.tsx`: 비로그인 시 서비스 정책에 공지사항만 노출되는지, 로그인 시 로그아웃 행이 노출되는지 검증한다.
-- [ ] `MyPageIconNav.test.tsx`: 아이콘 탭 3개 항목과 링크를 검증한다.
+- [x] `MyPageMenuSection.test.tsx`: 비로그인 시 서비스 정책에 공지사항만 노출되는지, 로그인 시 로그아웃 행이 노출되는지 검증한다.
+- [x] `MyPageIconNav.test.tsx`: 아이콘 탭 3개 항목과 링크를 검증한다.
 - [ ] `MyPageTemperatureCard` 테스트와 스토리를 추가한다. 온도 값에 따른 진행 바 위치를 검증한다.
-- [ ] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
+- [x] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
 
 ### 미결 사항
 
-- [ ] 찜한 장소 이동 경로: 목록 화면과 조회 API가 없다. 새 화면을 만들지 기존 화면으로 보낼지 정해야 한다.
-- [ ] 찾길 후기 진입 링크: 담당자에게 경로를 받는다.
+- [x] 찜한 장소 이동 경로: 목록 화면과 조회 API가 없다. 새 화면을 만들지 기존 화면으로 보낼지 정해야 한다. (`GET /users/me/favorite-places`로 `/mypage/favorite-places` 화면을 새로 만들었다. 진행은 `favorite-places/_docs/plan.md` 참고.)
+- [x] 찾길 후기 진입 링크: 담당자에게 경로를 받는다. (#1278에서 `/mypage/reviews` 페이지가 추가되어 탭 링크와 일치한다.)
 - [ ] 찾길 온도 정보 아이콘 동작(툴팁 또는 모달)과 숨김 상태인 "더보기" 레이어의 이번 범위 포함 여부를 디자이너에게 확인한다.
 - [ ] 비로그인 상태의 찾길 온도 카드 노출 방식(숨김 또는 로그인 유도 상태)을 디자이너에게 확인한다.
 - [ ] 개인정보처리방침을 비로그인에게 숨겨도 출시 심사에 문제가 없는지 확인한다.
