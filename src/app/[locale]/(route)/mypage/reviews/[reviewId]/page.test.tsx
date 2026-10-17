@@ -9,6 +9,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("./_components", () => ({
+  ReviewDetailHero: () => <div data-testid="review-hero" />,
   ReviewLetterDetail: ({ reviewId }: { reviewId: number }) => (
     <div data-testid="letter-detail">{reviewId}</div>
   ),
