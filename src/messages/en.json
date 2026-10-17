@@ -2000,6 +2000,10 @@
     "notMember": "You're not a member. Please log in.",
     "nicknameDuplicated": "This nickname is already in use. Please try a different one."
   },
+  "usePostReview": {
+    "alreadyWritten": "You've already written a review for this.",
+    "submitError": "Failed to submit your review."
+  },
   "usePostChangePassword": {
     "changeSuccess": "Password changed",
     "changeError": "Password change failed"

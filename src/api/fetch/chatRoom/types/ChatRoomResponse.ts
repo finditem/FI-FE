@@ -51,6 +51,16 @@ export interface ChatListUpdateResponse {
   unreadCount: number;
 }
 
+export type FindCompletionStatus = "NONE" | "COMPLETED_HERE" | "COMPLETED_ELSEWHERE";
+
+export interface FindCompletionInfo {
+  status: FindCompletionStatus;
+  /** COMPLETED_HERE일 때만 값이 있고, 후기 작성 API(findCompletionId)에 사용한다. */
+  findCompletionId: number | null;
+  canComplete: boolean;
+  canWriteReview: boolean;
+}
+
 export interface ChatRoomResponse {
   roomId: number;
   unreadCount: number;
@@ -62,4 +72,5 @@ export interface ChatRoomResponse {
     withdrawn: boolean;
   };
   postInfo: ChatRoomPostInfo;
+  findCompletion: FindCompletionInfo;
 }

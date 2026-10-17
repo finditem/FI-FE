@@ -87,10 +87,28 @@ Figma API 재개 후 별도로 다듬는다.
       `string`에서 `ReactNode`로 확장해 서로 다른 굵기의 라벨을 주입(문자열도 ReactNode라 다른 사용처
       2곳은 영향 없음). i18n `ReviewWritePage.reviewOptional`(ko/en) 추가
 
+## 후기 등록 API 연동 (POST /reviews)
+
+Swagger(`https://dev-api.finditem.kr/swagger-ui/index.html#/Review/write`) 계약 확정에 따라 실제 등록
+연동. `findCompletionId`는 채팅방 상세(`findCompletion.findCompletionId`)에서 가져온다.
+
+- [x] `src/api/fetch/chatRoom/types/ChatRoomResponse.ts`: `FindCompletionInfo`(`status`/`findCompletionId`/
+      `canComplete`/`canWriteReview`) 타입 추가, `ChatRoomResponse.findCompletion` 필드로 연결
+      (백엔드 `ChatRoomResultDTO.findCompletion`과 계약 일치)
+- [x] `src/api/fetch/review/` 도메인 신규 생성 — `types/ReviewCreateType.ts`(`ReviewEmotionType`/
+      `ReviewHelpType`/`ReviewCreateRequest`/`ReviewIdResponse`), `api/usePostReview.ts`(`useAppMutation`
+      기반, 성공 시 `chatRoomDetail` 쿼리 무효화 + `onSuccess` 콜백, 에러는 `REVIEW409-ALREADY_WRITTEN`만
+      별도 토스트 분기 후 나머지는 공통 에러 토스트), `index.ts`
+- [x] `ReviewWritePage.tsx`: `handleSubmit`에서 실제 `usePostReview` 호출로 교체. 로컬 UI 값
+      (`ReviewFeelingValue`/`ReviewHelpItemValue`)을 백엔드 enum으로 변환하는 `EMOTION_REQUEST_MAP`/
+      `HELP_TYPE_REQUEST_MAP` 추가. `findCompletionId`가 없으면(채팅방 응답 아직 없음/이 방에서 완료
+      처리 안 됨) 제출 버튼 비활성화. 제출 중(`isPending`)에도 비활성화해 중복 제출 방지. 성공 콜백에서
+      완료 팝업 오픈(기존 TODO 제거)
+- [x] i18n: `usePostReview` 네임스페이스(`alreadyWritten`/`submitError`) ko/en 동시 추가
+
 ## 범위 밖 / 후속
 
-- 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
 - Figma API 재개 후 정확한 색상/간격 재검수 (아이콘 자산 자체는 위 섹션에서 반영 완료)
 - 후기 작성 페이지 자체의 테스트(`ReviewWritePage.test.tsx` 등)는 이번 범위에서 작성하지 않음
-- 완료 팝업 후 "채팅방 내 [후기 작성하기] 버튼 미노출" / "중복 작성 불가"(스펙 3-5)는 백엔드 필드 계약
-  확인 후 반영
+- 완료 팝업 후 "채팅방 내 [후기 작성하기] 버튼 미노출"은 `findCompletion.canWriteReview` 필드가 타입에는
+  추가됐으나 채팅 쪽 UI에서 아직 소비하지 않음 — 채팅 상세 작업 시 반영
