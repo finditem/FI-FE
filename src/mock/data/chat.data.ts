@@ -88,6 +88,12 @@ export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
     deleted: false,
     postStatus: "FOUND",
   },
+  findCompletion: {
+    status: "COMPLETED_HERE",
+    findCompletionId: 1,
+    canComplete: false,
+    canWriteReview: true,
+  },
 };
 
 export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
@@ -109,6 +115,12 @@ export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
     thumbnailUrl: "https://via.placeholder.com/40",
     deleted: false,
     postStatus: "SEARCHING",
+  },
+  findCompletion: {
+    status: "NONE",
+    findCompletionId: null,
+    canComplete: true,
+    canWriteReview: false,
   },
 };
 

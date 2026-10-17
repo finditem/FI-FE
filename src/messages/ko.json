@@ -2090,6 +2090,15 @@
     "notMember": "회원이 아니에요. 로그인을 해주세요",
     "nicknameDuplicated": "이미 사용 중인 닉네임이에요. 다른 닉네임으로 다시 시도해 주세요"
   },
+  "usePostReview": {
+    "alreadyWritten": "이미 후기를 작성했어요",
+    "submitError": "후기 등록에 실패했어요"
+  },
+  "usePostFindCompletion": {
+    "completeSuccess": "찾기 완료로 처리했어요",
+    "alreadyCompleted": "이미 찾기 완료된 게시글이에요",
+    "completeError": "찾기 완료 처리에 실패했어요"
+  },
   "usePostChangePassword": {
     "changeSuccess": "비밀번호 변경이 완료되었어요",
     "changeError": "비밀번호 변경에 실패했어요"
