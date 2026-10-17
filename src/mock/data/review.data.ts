@@ -1,6 +1,16 @@
-import type { ReviewCardData } from "../_types/ReviewCardData";
+import type { ReviewCardData } from "@/app/[locale]/(route)/mypage/reviews/_types/ReviewCardData";
 
 const minutesAgo = (minutes: number) => new Date(Date.now() - minutes * 60 * 1000).toISOString();
+
+export const MOCK_REVIEW_CARD: ReviewCardData = {
+  id: 1,
+  nickname: "우주강아지",
+  location: "성동구 성수1동",
+  createdAt: "2026-07-22T10:00:00.000Z",
+  content: "늦은 밤에 연락드렸는데 흔쾌히 나와주셔서 감사했어요.",
+  tagLabel: "친절하고 따뜻하게 대해주셨어요.",
+  extraTagCount: 1,
+};
 
 // TODO(수현): 후기 리스트 백엔드 API 연동 후 제거 — Figma 받은 후기 리스트(node 16664-86655) 더미 데이터
 export const MOCK_RECEIVED_REVIEWS: ReviewCardData[] = [
