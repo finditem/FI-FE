@@ -25,20 +25,21 @@ jest.mock("@/components/common", () => ({
 }));
 
 describe("MyPageIconNav", () => {
-  it("공지사항, 채팅목록 탭이 렌더된다", () => {
+  it("찾길 후기, 찜한 장소, 채팅 목록 탭이 렌더된다", () => {
     render(<MyPageIconNav />);
-    expect(screen.getByText("공지사항")).toBeInTheDocument();
-    expect(screen.getByText("채팅목록")).toBeInTheDocument();
+    expect(screen.getByText("찾길 후기")).toBeInTheDocument();
+    expect(screen.getByText("찜한 장소")).toBeInTheDocument();
+    expect(screen.getByText("채팅 목록")).toBeInTheDocument();
   });
 
-  it("공지사항 링크가 /notice를 가리킨다", () => {
+  it("공지사항 탭은 서비스 정책으로 옮겨져 렌더되지 않는다", () => {
     render(<MyPageIconNav />);
-    expect(screen.getByRole("link", { name: /공지사항/ })).toHaveAttribute("href", "/notice");
+    expect(screen.queryByText("공지사항")).not.toBeInTheDocument();
   });
 
-  it("채팅목록 링크가 /chat을 가리킨다", () => {
+  it("채팅 목록 링크가 /chat을 가리킨다", () => {
     render(<MyPageIconNav />);
-    expect(screen.getByRole("link", { name: /채팅목록/ })).toHaveAttribute("href", "/chat");
+    expect(screen.getByRole("link", { name: /채팅 목록/ })).toHaveAttribute("href", "/chat");
   });
 
   it("disabled=true이면 모든 링크에 pointer-events-none 클래스가 포함된다", () => {

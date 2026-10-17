@@ -1,9 +1,11 @@
 "use client";
 
-import { PostListItem, EmptyState, LoadingState } from "@/components";
+import { useEffect, useState } from "react";
+import { PostListItem, EmptyState, LoadingState, ReviewCard } from "@/components";
 import { UserCommentsDataType, UserPostsDataType, UserProfileItem } from "@/api/fetch/user";
 import { UserProfileTabKey } from "../../_types/UserProfileTabType";
 import { UserCommentItem } from "../_internal";
+import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
 import { useTranslations } from "next-intl";
 
 interface TabContentsProps {
@@ -14,6 +16,36 @@ interface TabContentsProps {
 
 const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
   const t = useTranslations("UserProfilePage");
+
+  // 받은 후기 더미 데이터의 createdAt이 모듈 로드 시점 기준 상대 시각이라, 서버와 클라이언트
+  // 렌더 시점이 달라지면 하이드레이션 에러가 난다. 마운트 이후에만 시간 의존 콘텐츠를 렌더한다.
+  // TODO(수현): 받은 후기 API 연동 시 이 마운트 게이트를 쿼리의 isLoading으로 대체.
+  const [isReviewsMounted, setIsReviewsMounted] = useState(false);
+  useEffect(() => setIsReviewsMounted(true), []);
+
+  if (selectedTab === "reviews") {
+    if (!isReviewsMounted) return <LoadingState />;
+
+    return (
+      <section aria-label={t("tabContentAriaLabel")}>
+        <ul>
+          {MOCK_RECEIVED_REVIEWS.length === 0 ? (
+            <li>
+              <EmptyState
+                icon={{ iconName: "ReceiveReview", iconSize: 70 }}
+                title={t("empty.reviewsTitle")}
+                description={t("empty.reviewsDescription")}
+              />
+            </li>
+          ) : (
+            MOCK_RECEIVED_REVIEWS.map((review) => (
+              <ReviewCard key={review.id} data={review} showHideMenu={false} />
+            ))
+          )}
+        </ul>
+      </section>
+    );
+  }
 
   if (isLoading) return <LoadingState />;
   if (!data) return null;

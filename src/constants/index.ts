@@ -6,3 +6,4 @@ export * from "./DEFAULT_MAP_DATA";
 export * from "./GEO_SESSION";
 export * from "./AUTH_EVENTS";
 export * from "./WEB_PUSH";
+export * from "./PLACE_FILTER_OPTIONS";

@@ -6,9 +6,10 @@ export { default as FooterButton } from "./FooterButton/FooterButton";
 export { default as PostListItem } from "./PostListItem/PostListItem";
 export { default as MypageSearch } from "./MypageSearch/MypageSearch";
 export { default as MypageEmptyUI } from "./MypageEmptyUI/MypageEmptyUI";
+export { default as PlaceCard } from "./PlaceCard/PlaceCard";
+export { default as PlaceCardSkeleton } from "./PlaceCardSkeleton/PlaceCardSkeleton";
 export { default as MypageCommentItem } from "../../app/[locale]/(route)/mypage/reports/[id]/_components/ReportCommentItem/ReportCommentItem";
 export { default as CommentCard } from "./CommentCard/CommentCard";
-export { default as BaseKakaoMap } from "./BaseKakaoMap/BaseKakaoMap";
 export { default as BaseNaverMap } from "./BaseNaverMap/BaseNaverMap";
 export { default as FilterSection } from "./FilterSectionBottomSheet/FilterSection/FilterSection";
 export { default as FilterBottomSheet } from "./FilterSectionBottomSheet/FilterBottomSheet/FilterBottomSheet";
@@ -28,6 +29,7 @@ export { default as AddToHomeScreenPWA } from "./AddToHomeScreenPWA/AddToHomeScr
 export { default as ContentShareModal } from "./ContentShareModal/ContentShareModal";
 export { default as TermsAgreement } from "./TermsAgreement/TermsAgreement";
 export { default as ImagePreviewList } from "./WriteImageSection/_internal/ImagePreviewList";
+export { default as ReviewCard } from "./ReviewCard/ReviewCard";
 export type { ReportReason } from "./ReportModal/_internal";
 export type {
   StatusFilterValue,

@@ -1,1 +1,1 @@
-export type UserProfileTabKey = "posts" | "comments" | "favorites";
+export type UserProfileTabKey = "posts" | "comments" | "favorites" | "reviews";

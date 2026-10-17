@@ -34,7 +34,9 @@ const ReviewListSkeleton = ({ count = 2 }: ReviewListSkeletonProps) => {
   return (
     <section>
       <div className="px-5 pb-2 pt-[26px]">
-        <div className={cn(SKELETON_STYLE, "h-4 w-[42px] rounded-md")} />
+        <div className="flex h-6 items-center">
+          <div className={cn(SKELETON_STYLE, "h-4 w-[42px] rounded-md")} />
+        </div>
       </div>
       <ul>
         {Array.from({ length: count }).map((_, index) => (

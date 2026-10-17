@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { EmptyState } from "@/components";
+import { EmptyState, ReviewCard } from "@/components";
+import { MOCK_RECEIVED_REVIEWS } from "@/mock/data";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
-import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
-import ReviewCard from "../_internal/ReviewCard/ReviewCard";
 import ReviewListSkeleton from "../_internal/ReviewListSkeleton/ReviewListSkeleton";
 
 interface ReviewsContentProps {

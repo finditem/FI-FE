@@ -1,12 +1,12 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { UserTabType } from "@/api/fetch/user";
+import type { UserProfileTabKey } from "../../_types/UserProfileTabType";
 
-const DEFAULT_TAB: UserTabType = "posts";
+const DEFAULT_TAB: UserProfileTabKey = "posts";
 
-const isUserTabType = (value: string | null): value is UserTabType => {
-  return value === "posts" || value === "comments" || value === "favorites";
+const isUserProfileTabKey = (value: string | null): value is UserProfileTabKey => {
+  return value === "posts" || value === "comments" || value === "favorites" || value === "reviews";
 };
 
 export const useUserProfileTabQuery = () => {
@@ -15,9 +15,9 @@ export const useUserProfileTabQuery = () => {
   const searchParams = useSearchParams();
 
   const rawTab = searchParams.get("tab");
-  const tab: UserTabType = isUserTabType(rawTab) ? rawTab : DEFAULT_TAB;
+  const tab: UserProfileTabKey = isUserProfileTabKey(rawTab) ? rawTab : DEFAULT_TAB;
 
-  const updateTabQuery = (nextTab: UserTabType) => {
+  const updateTabQuery = (nextTab: UserProfileTabKey) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (nextTab === DEFAULT_TAB) params.delete("tab");
