@@ -22,14 +22,14 @@ const MyPageIconNavItem = ({
     <>
       <Link
         href={pageLink}
-        className={cn("w-full gap-2 py-4 flex-col-center", disabled && "pointer-events-none")}
+        className={cn("flex-1 gap-2 flex-col-center", disabled && "pointer-events-none")}
       >
-        <Icon name={iconName} size={24} />
-        <span className="whitespace-nowrap px-[50px] text-body2-medium text-neutral-strong-default">
+        <Icon name={iconName} size={24} className="text-layout-body-default" />
+        <span className="whitespace-nowrap text-body2-medium text-neutral-strong-default">
           {pageName}
         </span>
       </Link>
-      {!isLast && <hr className="h-[46px] border border-neutral-strong-default" />}
+      {!isLast && <hr className="h-9 border border-neutral-strong-default" />}
     </>
   );
 };
@@ -38,7 +38,7 @@ const MyPageIconNav = ({ disabled }: { disabled?: boolean }) => {
   const tapConfig = useMypageTapConfig();
 
   return (
-    <div className="w-full gap-[26px] px-5 py-[6px] flex-center">
+    <div className="flex w-full items-center rounded-[16px] bg-white py-4">
       {tapConfig.map((item, index) => (
         <MyPageIconNavItem
           key={item.key}

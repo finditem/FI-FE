@@ -11,8 +11,8 @@
 - [x] 마이페이지 받은 후기(`ReviewsContent`, `MOCK_RECEIVED_REVIEWS`)가 승격된 `ReviewCard`/`ReviewCardData`를 가리키도록 import 경로를 갱신한다.
 - [x] `_types/UserProfileTabType.ts`에 `"reviews"` 탭 키를 추가한다.
 - [x] `useUserProfileTabQuery`가 API 전용 `UserTabType` 대신 라우트 로컬 `UserProfileTabKey`를 기준으로 쿼리스트링을 동기화하도록 수정한다(`reviews`는 백엔드 `type` 파라미터에 없는 값이라 분리 필요).
-- [x] `useGetUserProfileById`에 `enabled` 옵션을 추가해, `reviews` 탭 선택 시 포스트/댓글/즐겨찾기 조회 API 호출을 건너뛰도록 한다.
-- [x] `UserProfileView.tsx`의 tabs 배열에 "받은 후기" 탭을 추가하고 API 호출 분기를 적용한다.
+- [x] `reviews` 탭에서도 프로필 메타데이터와 사용자 오류를 확인하도록 최초 프로필 요청은 유지하고, 포스트/댓글/즐겨찾기의 추가 페이지 요청만 건너뛴다.
+- [x] `UserProfileView.tsx`의 tabs 배열에 "받은 후기" 탭을 추가하고 무한 스크롤 분기를 적용한다.
 - [x] `TabContents.tsx`에 `reviews` 탭 분기를 추가한다 — 더미 데이터(`_constants/MOCK_RECEIVED_REVIEWS.ts`) 기반 `ReviewCard` 목록 또는 `EmptyState`, 하이드레이션 안전을 위한 mount 게이트 포함.
 - [x] 타인페이지용 받은 후기 더미 데이터(`_constants/MOCK_RECEIVED_REVIEWS.ts`)를 작성한다(실제 API 없음, TODO 주석 포함).
 - [x] 번역 키 추가: `UserProfilePage.tabs.reviews`, `UserProfilePage.empty.reviewsTitle`/`reviewsDescription` (ko/en).

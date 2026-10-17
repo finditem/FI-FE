@@ -1,7 +1,7 @@
 import { IconName } from "@/components/common/Icon/Icon";
 
 export const EMPTY_ICON_MAP: Record<
-  "posts" | "comments" | "favorites" | "reports" | "inquiries" | "activity",
+  "posts" | "comments" | "favorites" | "reports" | "inquiries" | "activity" | "favoritePlaces",
   IconName
 > = {
   posts: "NoPosts",
@@ -10,4 +10,5 @@ export const EMPTY_ICON_MAP: Record<
   reports: "NoReports",
   inquiries: "NoInquiries",
   activity: "NoActivity",
+  favoritePlaces: "PlaceMarker",
 };
