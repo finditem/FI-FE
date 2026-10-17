@@ -74,3 +74,8 @@ export interface ChatRoomResponse {
   postInfo: ChatRoomPostInfo;
   findCompletion: FindCompletionInfo;
 }
+
+/** POST /chats/{roomId}/find-completion 응답 */
+export interface FindCompletionResponse {
+  findCompletionId: number;
+}

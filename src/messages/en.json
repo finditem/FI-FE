@@ -2004,6 +2004,11 @@
     "alreadyWritten": "You've already written a review for this.",
     "submitError": "Failed to submit your review."
   },
+  "usePostFindCompletion": {
+    "completeSuccess": "Marked as found.",
+    "alreadyCompleted": "This post is already marked as found.",
+    "completeError": "Couldn't complete the find."
+  },
   "usePostChangePassword": {
     "changeSuccess": "Password changed",
     "changeError": "Password change failed"

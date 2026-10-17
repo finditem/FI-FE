@@ -103,8 +103,21 @@ Swagger(`https://dev-api.finditem.kr/swagger-ui/index.html#/Review/write`) 계�
       (`ReviewFeelingValue`/`ReviewHelpItemValue`)을 백엔드 enum으로 변환하는 `EMOTION_REQUEST_MAP`/
       `HELP_TYPE_REQUEST_MAP` 추가. `findCompletionId`가 없으면(채팅방 응답 아직 없음/이 방에서 완료
       처리 안 됨) 제출 버튼 비활성화. 제출 중(`isPending`)에도 비활성화해 중복 제출 방지. 성공 콜백에서
-      완료 팝업 오픈(기존 TODO 제거)
+      완료 팝업 오픈(기존 TODO 제거). `findCompletion`은 옵셔널 체이닝으로 접근(백엔드 미반영 시 방어)
 - [x] i18n: `usePostReview` 네임스페이스(`alreadyWritten`/`submitError`) ko/en 동시 추가
+
+### 선행: 찾기 완료 처리 API 연동 (라우트 밖 / 공통·채팅 도메인)
+
+후기 작성의 `findCompletionId`는 "찾기 완료" 처리 시 발급된다. 기존 찾기 완료 플로우가
+`PUT /posts/{postId}/status`(게시글 상태만 변경)만 호출해 `findCompletionId`가 생성되지 않던 문제를
+`POST /chats/{roomId}/find-completion` 연동으로 해결. 이 변경은 `src/components/domain`(공통)과
+`src/api/fetch/chatRoom`(채팅 도메인)에 걸쳐 write/review 라우트 범위 밖이라 여기서는 참고로만 기록한다.
+
+- [x] `src/api/fetch/chatRoom/api/usePostFindCompletion.ts` 신규(응답 `FindCompletionResponse`),
+      성공 시 채팅방 상세/게시글 캐시 무효화 → 후기 페이지 진입 시 최신 `findCompletion` 반영
+- [x] `PostFoundConfirmModal`: `roomId`가 있으면(채팅 상세) `find-completion` 호출로 전환,
+      없으면(게시글 상세) 기존 `PUT status` 유지. 기존 테스트도 바뀐 동작에 맞춰 갱신
+- [x] i18n: `usePostFindCompletion` 네임스페이스(`completeSuccess`/`alreadyCompleted`/`completeError`)
 
 ## 범위 밖 / 후속
 

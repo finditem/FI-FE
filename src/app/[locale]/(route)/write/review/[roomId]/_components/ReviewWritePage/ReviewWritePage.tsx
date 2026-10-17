@@ -63,7 +63,7 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
 
   const myNickname = userInfo?.result?.nickname ?? "";
   const opponentNickname = chatRoom?.result.opponentUser.nickname ?? "";
-  const findCompletionId = chatRoom?.result.findCompletion.findCompletionId ?? null;
+  const findCompletionId = chatRoom?.result.findCompletion?.findCompletionId ?? null;
   // 감정 유형(1개)과 도움 경험(1개 이상)은 필수, 상세 후기는 선택 입력이다.
   const canSubmit = feeling !== null && helpItems.length > 0 && findCompletionId !== null;
 
