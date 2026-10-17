@@ -106,6 +106,19 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
 - [ ] 실행 중이던 dev 서버는 `public/review/` 폴더가 서버 시작 후 추가돼 로컬에서 404. dev 재시작 필요
       (프로덕션 빌드에는 정상 포함)
 
+## 후기 작성 완료 팝업 일러스트 교체 (사용자 첨부 `thanks.png`)
+
+기존 `review-thanks.svg`(pattern + 임베드 래스터, 89x84 비정사각 보정 필요했던 자산)를 사용자가 새로
+전달한 하트 일러스트 PNG(152x144)로 교체했다. 단일 정적 일러스트라 스프라이트/`iconImports` 동적 등록
+없이 감정 선택 아이콘과 동일하게 `next/image` + `public/` 경로 방식으로 전환했다.
+
+- [x] `public/review/review-thanks.png` 추가
+- [x] `ReviewCompleteModal.tsx`: `Icon name="ReviewThanks"` 제거, `next/image`로 교체
+      (width=93 height=88, 원본 152x144 비율 유지)
+- [x] 미사용이 된 `ReviewThanks` 등록(`src/components/common/Icon/index.ts`)과 원본 자산
+      `src/assets/review-thanks.svg` 삭제
+- [x] `npm run build` 통과 확인
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈

@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Button, Icon, ModalLayout } from "@/components/common";
+import { Button, ModalLayout } from "@/components/common";
 
 interface ReviewCompleteModalProps {
   /** 모달 열림 여부 */
@@ -28,7 +29,7 @@ const ReviewCompleteModal = ({ isOpen, onConfirm }: ReviewCompleteModalProps) =>
       className="w-[320px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-4 flex-col-center">
-        <Icon name="ReviewThanks" size={88} />
+        <Image src="/review/review-thanks.png" alt="" width={93} height={88} />
         <div className="gap-1 text-center flex-col-center">
           <p className="whitespace-pre-line text-h3-semibold text-layout-header-default">
             {t("title")}
