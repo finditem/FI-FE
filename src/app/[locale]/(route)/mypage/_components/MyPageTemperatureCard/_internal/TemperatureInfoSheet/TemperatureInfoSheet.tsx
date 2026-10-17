@@ -34,7 +34,7 @@ const TemperatureInfoSheet = ({ isOpen, onClose }: TemperatureInfoSheetProps) =>
       draggable
       className="flex flex-col items-center gap-5 px-4 pb-6"
     >
-      <Image src={TEMPERATURE_CHARACTER.rising} alt="" width={70} height={70} />
+      <Image src={TEMPERATURE_CHARACTER.rising} alt="" width={70} height={70} unoptimized />
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h2 className="text-h2-bold text-layout-header-default">{t("title")}</h2>
