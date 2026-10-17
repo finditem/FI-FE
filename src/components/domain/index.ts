@@ -10,7 +10,6 @@ export { default as PlaceCard } from "./PlaceCard/PlaceCard";
 export { default as PlaceCardSkeleton } from "./PlaceCardSkeleton/PlaceCardSkeleton";
 export { default as MypageCommentItem } from "../../app/[locale]/(route)/mypage/reports/[id]/_components/ReportCommentItem/ReportCommentItem";
 export { default as CommentCard } from "./CommentCard/CommentCard";
-export { default as BaseKakaoMap } from "./BaseKakaoMap/BaseKakaoMap";
 export { default as BaseNaverMap } from "./BaseNaverMap/BaseNaverMap";
 export { default as FilterSection } from "./FilterSectionBottomSheet/FilterSection/FilterSection";
 export { default as FilterBottomSheet } from "./FilterSectionBottomSheet/FilterBottomSheet/FilterBottomSheet";

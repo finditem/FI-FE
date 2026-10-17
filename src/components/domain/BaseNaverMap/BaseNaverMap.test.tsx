@@ -84,11 +84,11 @@ jest.mock("@/app/ErrorBoundary", () => {
 
 jest.mock("@/api/fetch/mapController", () => ({}));
 
-jest.mock("@/components/domain/BaseKakaoMap/MAP_MARKER_ICON", () => ({
+jest.mock("./_internal/MAP_MARKER_ICON", () => ({
   MAP_MARKER_ICON: { LOST: "/lost.svg", FOUND: "/found.svg" },
 }));
 
-jest.mock("@/components/domain/BaseKakaoMap/_internal", () => ({
+jest.mock("./_internal", () => ({
   MapLoadingState: () => <div data-testid="map-loading-state" />,
   MapErrorState: () => <div data-testid="map-error-state" />,
 }));

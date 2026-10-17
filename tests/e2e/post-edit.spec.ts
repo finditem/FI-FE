@@ -294,7 +294,6 @@ test.describe("게시글 수정 페이지", () => {
         body: JSON.stringify({ isSuccess: false, code: "404", message: "Not Found", result: null }),
       })
     );
-    await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
 
     await page.goto(`/write/post/${POST_ID}`);
 
