@@ -119,6 +119,25 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
       `src/assets/review-thanks.svg` 삭제
 - [x] `npm run build` 통과 확인
 
+## 후기 작성 완료 팝업 2차 퍼블리싱 (Talk to Figma `찾길 후기_선택_완료팝업_M`, node 16948:136043)
+
+완료 팝업이 단일 버튼(outlined, 전체 폭 "후기 작성 완료")에서 2버튼 레이아웃으로 변경됐다. 좌측
+"확인"(outlined, 기존 화면으로 복귀)과 우측 "보낸 후기 보기"(solid 브랜드 그린, 보낸 후기 탭으로 이동)로
+액션이 분리됐다. 일러스트는 기존 `review-thanks.png`(152x144)와 동일 자산으로 보이며, 이 모달에서는
+더 작게(76x72) 표시된다.
+
+- [x] `ReviewCompleteModal.tsx`: props를 `{ isOpen, onConfirm, onViewSentReview }`로 확장
+- [x] 액션 영역을 2버튼 레이아웃으로 교체: `Button variant="outlined" size="big"`(확인, hug-width) +
+      `Button ignoreBase`(보낸 후기 보기, flex-1, `bg-fill-brand-strong-default`(#00b76e) 풀 오퍼시티 +
+      흰 텍스트 — 공용 `Button`의 solid 기본 스타일은 70% 오퍼시티라 Figma와 안 맞아 `ignoreBase`로 직접
+      스타일링함)
+- [x] 일러스트 표시 크기 93x88 → 76x72 (원본 152x144 비율 유지, 이 모달 기준으로 더 작게)
+- [x] `ReviewWritePage.tsx`: `handleViewSentReview` 추가 — 모달 닫고
+      `router.push("/mypage/reviews?tab=sent")`로 보낸 후기 탭 이동 (`useReviewTabQuery`의 쿼리 규약과 일치)
+- [x] i18n `ReviewCompleteModal`: title을 "찾길과 함께 → 우리 동네에서"로 변경(description은 기존과
+      동일), `confirmLabel`을 "후기 작성 완료" → "확인"으로 변경, `viewSentReviewLabel`(ko/en) 신규 추가
+- [x] `npm run check:i18n-keys`, `npm run build` 통과 확인
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
