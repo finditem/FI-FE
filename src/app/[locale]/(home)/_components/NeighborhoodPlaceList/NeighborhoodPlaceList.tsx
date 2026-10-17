@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Icon } from "@/components";
+import { Icon, PlaceCard } from "@/components";
 import useNeighborhoodPlaces from "../../_hooks/useNeighborhoodPlaces/useNeighborhoodPlaces";
 import { NeighborhoodPlaceFilter } from "../../_types/NeighborhoodPlace";
-import NeighborhoodPlaceCard from "../NeighborhoodPlaceCard/NeighborhoodPlaceCard";
 
 const LIST_STYLE = "divide-y divide-divider-default";
 
@@ -32,7 +31,7 @@ const NeighborhoodPlaceList = ({ filter, collapsedCount }: NeighborhoodPlaceList
     <>
       <ul className={LIST_STYLE}>
         {visiblePlaces.map((place) => (
-          <NeighborhoodPlaceCard key={place.placeId} place={place} />
+          <PlaceCard key={place.placeId} place={place} />
         ))}
       </ul>
       {canExpand && (

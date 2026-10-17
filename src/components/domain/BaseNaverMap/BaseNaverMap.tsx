@@ -13,8 +13,8 @@ import {
   NavermapsProvider,
 } from "react-naver-maps";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
-import { MapErrorState, MapLoadingState } from "@/components/domain/BaseKakaoMap/_internal";
-import { MAP_MARKER_ICON } from "@/components/domain/BaseKakaoMap/MAP_MARKER_ICON";
+import { MapErrorState, MapLoadingState } from "./_internal";
+import { MAP_MARKER_ICON } from "./_internal/MAP_MARKER_ICON";
 import { GetMarkerData, PlaceMarker } from "@/api/fetch/mapController";
 import { cn } from "@/utils";
 
@@ -54,7 +54,7 @@ const markerIcon = (url: string): naver.maps.ImageIcon => ({
   anchor: { x: 13, y: 20 },
 });
 
-const CENTER_MARKER_ICON = markerIcon("/kakao-map/marker.svg");
+const CENTER_MARKER_ICON = markerIcon("/map/marker.svg");
 
 const POST_MARKER_ICON = {
   LOST: markerIcon(MAP_MARKER_ICON.LOST),
@@ -63,7 +63,7 @@ const POST_MARKER_ICON = {
 
 /** 사용자 위치 마커 SVG(48x48 viewBox)의 기준값입니다. */
 const USER_LOCATION_MARKER = {
-  src: "/kakao-map/user-location.svg",
+  src: "/map/user-location.svg",
   size: 48,
   dotCenter: { x: 23.625, y: 16.625 },
   arrowBearingDeg: 311.6,

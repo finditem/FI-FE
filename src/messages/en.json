@@ -280,6 +280,10 @@
     "activity": {
       "heading": "No activity yet",
       "body": "Start by writing a post or leaving a comment."
+    },
+    "favoritePlaces": {
+      "heading": "No saved places yet",
+      "body": "Save places you like and they will appear here."
     }
   },
   "MypageSearch": {
@@ -859,19 +863,23 @@
   },
   "NeighborhoodSection": {
     "title": "Explore the neighborhood while you wait?",
-    "filterAll": "All",
-    "filterPopup": "Pop-up",
-    "filterCafe": "Cafe",
-    "filterRestaurant": "Restaurant",
     "moreButton": "See more",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceCard": {
     "statusOpen": "Open now",
     "statusUpcoming": "Opening soon",
     "statusBreakTime": "On break",
     "statusClosed": "Closed",
     "openAt": "Opens at {time}",
-    "favoriteAriaLabel": "Add {name} to favorites",
-    "loadError": "Could not load places.",
-    "empty": "No places to show."
+    "favoriteAriaLabel": "Add {name} to favorites"
+  },
+  "PlaceFilter": {
+    "all": "All",
+    "popup": "Pop-up",
+    "cafe": "Cafe",
+    "restaurant": "Restaurant"
   },
   "PlaceFilterSheet": {
     "popupTitle": "Pop-up stores",
@@ -1381,7 +1389,7 @@
     "myActivity": "My Activity",
     "notification": "Notifications",
     "reportInquiry": "Reports/Inquiries",
-    "accountManagement": "Account Management",
+    "accountManagement": "Account Settings",
     "servicePolicy": "Service Policies",
     "myPosts": "My Posts",
     "myComments": "My Comments",
@@ -1401,6 +1409,8 @@
     "contentPolicy": "Content Usage Agreement",
     "notice": "Notices",
     "chatList": "Chat",
+    "review": "Chajgil Review",
+    "favoritePlaces": "Saved Places",
     "logout": "Log out"
   },
   "MyPageProfile": {
@@ -1410,6 +1420,45 @@
   },
   "MyPageContainer": {
     "unexpectedError": "Something unexpected went wrong"
+  },
+  "MyPageTemperatureCard": {
+    "title": "Chajgil Temperature",
+    "infoAriaLabel": "Learn about Chajgil temperature",
+    "firstTemperature": "Start {value}℃",
+    "message": {
+      "low": "Warm up your temperature again with kind steps",
+      "first": "Post your first found item to raise your temperature",
+      "rising": "You have started finding items for your neighbors",
+      "good": "A neighbor who finds and returns items well",
+      "trusted": "A neighbor everyone can trust",
+      "max": "You reached the highest temperature"
+    }
+  },
+  "TemperatureInfoSheet": {
+    "title": "Chajgil Temperature",
+    "description": "Chajgil temperature shows, as a temperature, the kind acts of\nposting found items and returning precious belongings to neighbors.",
+    "columnItem": "Activity",
+    "columnValue": "Per activity",
+    "rules": {
+      "foundPost": {
+        "title": "Found item posted",
+        "description": "When you post an item you found"
+      },
+      "returned": {
+        "title": "Item returned",
+        "description": "When a lost item is actually returned"
+      },
+      "review": {
+        "title": "Warm review",
+        "description": "When you receive a review from someone you helped"
+      },
+      "penalty": {
+        "title": "Bad manners or misconduct",
+        "description": "When a report is confirmed as an actual violation"
+      }
+    },
+    "note": "* All activities are counted based on records from the last year.",
+    "confirm": "OK"
   },
   "AccountPage": {
     "title": "Account Settings"
@@ -1443,6 +1492,19 @@
   "MypageFavoritesContent": {
     "loadError": "Couldn't load your favorites.",
     "srOnlyTitle": "My favorites"
+  },
+  "MypageFavoritePlacesPage": {
+    "title": "Saved Places",
+    "srOnlyTitle": "Saved places page"
+  },
+  "MypageFavoritePlacesLayout": {
+    "title": "Saved Places",
+    "description": "Check the places you saved on finditem."
+  },
+  "MypageFavoritePlacesContent": {
+    "totalCount": "{count} saved places in total",
+    "loadError": "Failed to load the list",
+    "srOnlyTitle": "My saved places list"
   },
   "MypagePostsPage": {
     "title": "My Posts",

@@ -87,7 +87,7 @@ API 연동은 제외한다.
   - 본문 2줄 말줄임: `line-clamp-2`(`UserCommentItem`/`CommentMeta`에서 쓰는 패턴과 동일).
   - 닉네임/카운트 텍스트: 디자인 토큰 체계에 "Body1/Bold"(16px·700)가 없어 가장 가까운
     `text-body1-semibold`로 대체(`UserCommentItem`의 닉네임류 텍스트와 동일 선택).
-- 더미 데이터: `_constants/MOCK_RECEIVED_REVIEWS.ts`에 Figma 카피 그대로(오탈자 "아전히" 포함) 2건
+- 더미 데이터: `src/mock/data/review.data.ts`에 Figma 카피 그대로(오탈자 "아전히" 포함) 2건
   하드코딩, `TODO(수현)` 주석으로 API 연동 시 교체 지점 표시. `lint:i18n-literal`에서 이 파일은
   한글 리터럴 경고가 뜨는데, UI 번역 키가 아니라 임시 목데이터라 의도된 경고임.
 - `ReviewCard`는 `ReviewsContent`에서만 쓰는 내부 구현이라 `_components/_internal/`에 배치
@@ -106,7 +106,7 @@ API 연동은 제외한다.
 
 - [x] `_types/ReviewCardData.ts` — 카드 하나의 데이터 shape (`id`/`nickname`/`location`/`createdAt`/
       `content`/`tagLabel`/`extraTagCount`)
-- [x] `_constants/MOCK_RECEIVED_REVIEWS.ts` — Figma 카피 기반 더미 데이터 2건
+- [x] `src/mock/data/review.data.ts` — Figma 카피 기반 더미 데이터 2건
 - [x] `_components/_internal/ReviewCard` — 카드 프레젠테이션 컴포넌트(아바타/닉네임/케밥/위치·시간/
       본문/칩)
 - [x] `ReviewsContent`의 "received" 분기를 리스트 상태로 확장 ("후기 N" 카운트 헤더 + `ReviewCard` 목록,
