@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/nextjs";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastProvider } from "@/providers/ToastProviders";
-import type { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
-import NeighborhoodPlaceCard from "./NeighborhoodPlaceCard";
+import type { PlaceSummary } from "@/api/fetch/mapController";
+import PlaceCard from "./PlaceCard";
 
 const queryClient = new QueryClient();
 
-const BASE_PLACE: NeighborhoodPlace = {
+const BASE_PLACE: PlaceSummary = {
   placeId: 1,
   name: "젠틀 몬스터 성수 팝업",
   address: "서울 성동구 연무장13길 11",
@@ -22,9 +22,9 @@ const BASE_PLACE: NeighborhoodPlace = {
   isFavorite: false,
 };
 
-const meta: Meta<typeof NeighborhoodPlaceCard> = {
-  title: "페이지/메인 페이지/NeighborhoodPlaceCard",
-  component: NeighborhoodPlaceCard,
+const meta: Meta<typeof PlaceCard> = {
+  title: "공통 컴포넌트 도메인/PlaceCard",
+  component: PlaceCard,
   tags: ["autodocs"],
   decorators: [
     (Story) => (
@@ -40,7 +40,7 @@ const meta: Meta<typeof NeighborhoodPlaceCard> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof NeighborhoodPlaceCard>;
+type Story = StoryObj<typeof PlaceCard>;
 
 /** 운영 기간을 표시하는 팝업 */
 export const Open: Story = {

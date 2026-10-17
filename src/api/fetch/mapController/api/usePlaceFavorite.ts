@@ -70,6 +70,8 @@ const usePlaceFavorite = (placeId: number) => {
     queryClient.invalidateQueries({
       predicate: (query) => PLACE_LIST_QUERY_KEYS.includes(query.queryKey[0] as string),
     });
+    // 마이페이지 찜한 장소 목록은 무한 스크롤 캐시라 낙관적 업데이트 대신 무효화만 한다.
+    queryClient.invalidateQueries({ queryKey: ["favorite-places"] });
   };
 
   const buildOptions = (nextIsFavorite: boolean, successKey: string, errorKey: string) => ({

@@ -2,11 +2,11 @@ import { cn } from "@/utils";
 
 const BLOCK = "bg-labelsVibrant-quaternary skeleton-animation";
 
-interface NeighborhoodPlaceCardSkeletonProps {
+interface PlaceCardSkeletonProps {
   count?: number;
 }
 
-const NeighborhoodPlaceCardSkeleton = ({ count = 3 }: NeighborhoodPlaceCardSkeletonProps) => {
+const PlaceCardSkeleton = ({ count = 3 }: PlaceCardSkeletonProps) => {
   return (
     <ul>
       {Array.from({ length: count }).map((_, index) => (
@@ -29,4 +29,4 @@ const NeighborhoodPlaceCardSkeleton = ({ count = 3 }: NeighborhoodPlaceCardSkele
   );
 };
 
-export default NeighborhoodPlaceCardSkeleton;
+export default PlaceCardSkeleton;

@@ -280,6 +280,10 @@
     "activity": {
       "heading": "No activity yet",
       "body": "Start by writing a post or leaving a comment."
+    },
+    "favoritePlaces": {
+      "heading": "No saved places yet",
+      "body": "Save places you like and they will appear here."
     }
   },
   "MypageSearch": {
@@ -859,19 +863,23 @@
   },
   "NeighborhoodSection": {
     "title": "Explore the neighborhood while you wait?",
-    "filterAll": "All",
-    "filterPopup": "Pop-up",
-    "filterCafe": "Cafe",
-    "filterRestaurant": "Restaurant",
     "moreButton": "See more",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceCard": {
     "statusOpen": "Open now",
     "statusUpcoming": "Opening soon",
     "statusBreakTime": "On break",
     "statusClosed": "Closed",
     "openAt": "Opens at {time}",
-    "favoriteAriaLabel": "Add {name} to favorites",
-    "loadError": "Could not load places.",
-    "empty": "No places to show."
+    "favoriteAriaLabel": "Add {name} to favorites"
+  },
+  "PlaceFilter": {
+    "all": "All",
+    "popup": "Pop-up",
+    "cafe": "Cafe",
+    "restaurant": "Restaurant"
   },
   "PlaceFilterSheet": {
     "popupTitle": "Pop-up stores",
@@ -1445,6 +1453,19 @@
   "MypageFavoritesContent": {
     "loadError": "Couldn't load your favorites.",
     "srOnlyTitle": "My favorites"
+  },
+  "MypageFavoritePlacesPage": {
+    "title": "Saved Places",
+    "srOnlyTitle": "Saved places page"
+  },
+  "MypageFavoritePlacesLayout": {
+    "title": "Saved Places",
+    "description": "Check the places you saved on finditem."
+  },
+  "MypageFavoritePlacesContent": {
+    "totalCount": "{count} saved places in total",
+    "loadError": "Failed to load the list",
+    "srOnlyTitle": "My saved places list"
   },
   "MypagePostsPage": {
     "title": "My Posts",

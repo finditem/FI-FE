@@ -49,7 +49,6 @@ export const MYPAGE_MENU_LIST = [
 
 export const MYPAGE_TAP_CONFIG = [
   { key: "review", iconName: "MypageReview", pageLink: "/mypage/reviews" },
-  // TODO(준열): 찜한 장소 목록 화면 경로가 확정되면 pageLink를 교체한다.
   { key: "favoritePlaces", iconName: "MypageFavoritePlaces", pageLink: "/mypage/favorite-places" },
   { key: "chatList", iconName: "MypageChatList", pageLink: "/chat" },
 ] as const;

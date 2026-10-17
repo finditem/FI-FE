@@ -2,18 +2,17 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Icon } from "@/components";
-import { usePlaceFavorite } from "@/api/fetch/mapController";
+import { Icon } from "@/components/common";
+import { usePlaceFavorite, type PlaceSummary } from "@/api/fetch/mapController";
 import { formatPlaceSchedule } from "@/utils";
-import { NeighborhoodPlace } from "../../_types/NeighborhoodPlace";
 import PlaceStatusBadge from "./_internal/PlaceStatusBadge/PlaceStatusBadge";
 
-interface NeighborhoodPlaceCardProps {
-  place: NeighborhoodPlace;
+interface PlaceCardProps {
+  place: PlaceSummary;
 }
 
-const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
-  const t = useTranslations("NeighborhoodSection");
+const PlaceCard = ({ place }: PlaceCardProps) => {
+  const t = useTranslations("PlaceCard");
   const {
     placeId,
     name,
@@ -81,4 +80,4 @@ const NeighborhoodPlaceCard = ({ place }: NeighborhoodPlaceCardProps) => {
   );
 };
 
-export default NeighborhoodPlaceCard;
+export default PlaceCard;
