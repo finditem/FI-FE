@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { EmptyState, LoadingState } from "@/components";
+import { MOCK_RECEIVED_REVIEWS } from "@/mock/data";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
-import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
 import ReviewCard from "../_internal/ReviewCard/ReviewCard";
 
 interface ReviewsContentProps {

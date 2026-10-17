@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
+import { MOCK_RECEIVED_REVIEWS } from "@/mock/data";
 import ReviewsContent from "./ReviewsContent";
 
 jest.mock("@/components", () => ({
