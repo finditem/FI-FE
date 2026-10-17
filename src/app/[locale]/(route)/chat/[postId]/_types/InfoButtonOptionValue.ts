@@ -1,1 +1,1 @@
-export type InfoButtonOptionValue = "report" | "leave";
+export type InfoButtonOptionValue = "changeToFound" | "reportBlock" | "leave";

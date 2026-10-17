@@ -25,7 +25,7 @@ const meta: Meta<typeof MyPageContainer> = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <div className="min-h-screen w-[390px] items-center justify-center p-4">
+          <div className="min-h-screen w-[390px]">
             <Story />
           </div>
         </ToastProvider>

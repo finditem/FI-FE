@@ -4,13 +4,13 @@
 
 ## 카카오 로그인은 건드리지 않는다
 
-이 레포에서 카카오는 지도와 소셜 로그인 두 곳에 쓰인다. 마이그레이션 대상은 지도뿐이다.
+이 레포에서 카카오는 지도, 소셜 로그인, 카카오톡 공유 세 곳에 쓰인다. 마이그레이션 대상은 지도뿐이다. 환경 변수는 지도 외 용도로도 쓰이므로 모두 유지한다.
 
-| 환경 변수                          | 용도               | 처리     |
-| ---------------------------------- | ------------------ | -------- |
-| `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY` | 지도 SDK           | 제거     |
-| `NEXT_PUBLIC_KAKAO_REST_API_KEY`   | 로컬 API(지오코딩) | 제거     |
-| `NEXT_PUBLIC_KAKAO_REDIRECT_URI`   | 카카오 로그인      | **유지** |
+| 환경 변수                          | 지도 외 사용처                                           | 처리     |
+| ---------------------------------- | -------------------------------------------------------- | -------- |
+| `NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY` | 카카오톡 공유 (`shareWithKakao.ts`)                      | **유지** |
+| `NEXT_PUBLIC_KAKAO_REST_API_KEY`   | 카카오 로그인 인가 요청의 `client_id` (`login/page.tsx`) | **유지** |
+| `NEXT_PUBLIC_KAKAO_REDIRECT_URI`   | 카카오 로그인                                            | **유지** |
 
 `src/app/[locale]/(route)/auth/kakao/callback/`은 로그인 콜백이므로 그대로 둔다.
 

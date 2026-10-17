@@ -25,7 +25,7 @@ const meta: Meta<typeof MyPageMenuSection> = {
     (Story) => (
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <div className="min-h-screen w-[375px] items-center justify-center p-4">
+          <div className="flex min-h-screen w-[390px] flex-col gap-3 bg-layout_2depth p-4">
             <Story />
           </div>
         </ToastProvider>
@@ -37,4 +37,10 @@ const meta: Meta<typeof MyPageMenuSection> = {
 export default meta;
 type Story = StoryObj<typeof MyPageMenuSection>;
 
-export const Default: Story = {};
+export const LoggedIn: Story = {
+  args: { isUserLogin: true },
+};
+
+export const Guest: Story = {
+  args: { isUserLogin: false },
+};

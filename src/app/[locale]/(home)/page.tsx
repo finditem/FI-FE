@@ -1,4 +1,4 @@
-import { BottomSheet, MainKakaoMap, MainSearchHeader } from "./_components";
+import { BottomSheet, MainNaverMap, MainSearchHeader } from "./_components";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
@@ -27,7 +27,7 @@ const Page = () => {
     <div className="h-[calc(100dvh-87px)]">
       <MainSearchHeader />
       <Suspense fallback={null}>
-        <MainKakaoMap />
+        <MainNaverMap />
       </Suspense>
       <BottomSheet />
     </div>

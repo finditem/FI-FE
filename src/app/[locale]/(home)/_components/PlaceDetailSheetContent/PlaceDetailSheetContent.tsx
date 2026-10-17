@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
+import { PlaceCard, PlaceCardSkeleton } from "@/components";
 import { useSearchLocationPlaces, usePlaceSummary } from "@/api/fetch/mapController";
 import type {
   NearbyPostFilter as NearbyPostFilterValue,
@@ -11,8 +12,6 @@ import type {
 import { getDistanceMeters } from "@/utils";
 import { PLACE_RADIUS_M } from "../HOME_CONST";
 import type { PlaceDetailTab } from "../../_types/PlaceDetailTab";
-import NeighborhoodPlaceCard from "../NeighborhoodPlaceCard/NeighborhoodPlaceCard";
-import NeighborhoodPlaceCardSkeleton from "../NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
 import PlaceDetailTabs from "./_internal/PlaceDetailTabs/PlaceDetailTabs";
 import NearbyPostList from "./_internal/NearbyPostList/NearbyPostList";
 import NearbyPostFilter from "./_internal/NearbyPostFilter/NearbyPostFilter";
@@ -57,13 +56,13 @@ const PlaceDetailSheetContent = ({ placeId, placeType }: PlaceDetailSheetContent
       {tab === "place" ? (
         <ErrorBoundary fallback={<p className={MESSAGE_STYLE}>{t("loadError")}</p>}>
           {isLoading ? (
-            <NeighborhoodPlaceCardSkeleton count={3} />
+            <PlaceCardSkeleton count={3} />
           ) : nearbyPlaces.length === 0 ? (
             <p className={MESSAGE_STYLE}>{t("emptyPlace")}</p>
           ) : (
             <ul className="divide-y divide-divider-default">
               {nearbyPlaces.map((place) => (
-                <NeighborhoodPlaceCard key={place.placeId} place={place} />
+                <PlaceCard key={place.placeId} place={place} />
               ))}
             </ul>
           )}

@@ -84,6 +84,29 @@ describe("<PopupLayout />", () => {
     expect(content).toHaveClass("custom-class");
   });
 
+  it("draggable이 없으면 손잡이를 렌더하지 않습니다.", () => {
+    render(
+      <PopupLayout isOpen>
+        <p>내용</p>
+      </PopupLayout>
+    );
+    expect(screen.queryByTestId("popup-drag-handle")).not.toBeInTheDocument();
+  });
+
+  it("draggable이면 내용 위에 손잡이를 렌더합니다.", () => {
+    render(
+      <PopupLayout isOpen draggable>
+        <p>내용</p>
+      </PopupLayout>
+    );
+    const handle = screen.getByTestId("popup-drag-handle");
+    expect(handle).toBeInTheDocument();
+    expect(handle.firstElementChild).toHaveClass("bg-labelsVibrant-primary");
+    expect(handle.compareDocumentPosition(screen.getByText("내용"))).toBe(
+      Node.DOCUMENT_POSITION_FOLLOWING
+    );
+  });
+
   it("useModalLockAndEsc 훅이 올바른 파라미터로 호출됩니다.", () => {
     const onClose = jest.fn();
     render(

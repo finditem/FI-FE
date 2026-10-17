@@ -1,7 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import {
   MOCK_AUTH_REFRESH,
-  MOCK_KAKAO_COORD2ADDRESS,
   MOCK_MARKER,
   MOCK_RECENT_FOUND_EMPTY,
   MOCK_USERS_ME,
@@ -50,15 +49,7 @@ async function setupMainPageMocks(page: Page) {
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/local/geo/coord2address.json**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify(MOCK_KAKAO_COORD2ADDRESS),
-    })
-  );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 
   await page.route("**/api/main/posts/marker**", (route) =>
     route.fulfill({
@@ -88,7 +79,7 @@ test.describe("메인 페이지", () => {
   });
 
   test("헤더·바텀시트 기본 UI가 보인다", async ({ page }) => {
-    await expect(page.getByPlaceholder("장소, 주소를 입력해 주세요.")).toBeVisible();
+    await expect(page.getByPlaceholder("이 동네 어디서 잃어버리셨나요?")).toBeVisible();
 
     await expect(page.getByRole("link", { name: "분실 신고 목록 페이지로 이동" })).toBeVisible();
     await expect(page.getByRole("link", { name: "발견 신고 목록 페이지로 이동" })).toBeVisible();
@@ -137,7 +128,7 @@ test.describe("메인 페이지", () => {
     await waitForMainBottomSheetInteractive(page);
 
     const keyword = "테스트키워드";
-    const searchInput = page.getByPlaceholder("장소, 주소를 입력해 주세요.");
+    const searchInput = page.getByPlaceholder("이 동네 어디서 잃어버리셨나요?");
     await searchInput.click();
     await searchInput.fill(keyword);
 

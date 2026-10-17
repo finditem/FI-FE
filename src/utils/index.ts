@@ -7,6 +7,8 @@ export { executeShare } from "./executeShare/executeShare";
 export { getMapLevelByRadius } from "./getMapLevelByRadius/getMapLevelByRadius";
 export { getMapZoomByRadius } from "./getMapZoomByRadius/getMapZoomByRadius";
 export { getServerMapLevel } from "./getServerMapLevel/getServerMapLevel";
+export { getNaverAddress } from "./getNaverAddress/getNaverAddress";
+export type { NaverAddress } from "./getNaverAddress/getNaverAddress";
 export { normalizeEnumValue } from "./normalizeEnumValue/normalizeEnumValue";
 export { getRegionSearchResults } from "./getRegionSearchResults/getRegionSearchResults";
 export { formatViewCount } from "./formatViewCount/formatViewCount";
@@ -30,7 +32,6 @@ export {
 export { retryBackoffController } from "./retryBackoffController/retryBackoffController";
 export { formatMetadataKeyword } from "./formatMetadataKeyword/formatMetadataKeyword";
 export { formatMetadataAddress } from "./formatMetadataAddress/formatMetadataAddress";
-export { extractDongAddress } from "./extractDongAddress/extractDongAddress";
 export { isValidCallbackUrl } from "./isValidCallbackUrl/isValidCallbackUrl";
 export { getLoginRedirectPath } from "./getLoginRedirectPath/getLoginRedirectPath";
 export { createOAuthState, verifyOAuthState } from "./oauthState/oauthState";

@@ -11,13 +11,24 @@ interface ReviewDetailHeaderProps {
 const ReviewDetailHeader = ({ title, backAriaLabel }: ReviewDetailHeaderProps) => {
   const router = useRouter();
 
+  const handleBack = () => {
+    const historyCount = parseInt(sessionStorage.getItem("__fmi_history_count") || "0", 10);
+
+    if (historyCount > 1) {
+      router.back();
+      return;
+    }
+
+    router.push("/");
+  };
+
   return (
-    <header className="flex h-14 items-center gap-2 px-5 pt-[var(--safe-area-top)] text-white">
+    <header className="flex h-[calc(56px+var(--safe-area-top))] items-center gap-2 px-5 pt-[var(--safe-area-top)] text-white">
       <button
         type="button"
-        className="flex size-[30px] items-center justify-center"
+        className="size-[30px] flex-center"
         aria-label={backAriaLabel}
-        onClick={() => router.back()}
+        onClick={handleBack}
       >
         <Icon name="ArrowLeftSmall" size={30} className="text-white" />
       </button>

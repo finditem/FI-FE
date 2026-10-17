@@ -5,10 +5,15 @@ import { Icon } from "@/components";
 import { LocationPermissionBottomSheet } from "../PermissionBottomSheet/PermissionBottomSheet";
 import useMyLocationButton from "../../_hooks/useMyLocationButton/useMyLocationButton";
 
-const MyLocationButton = () => {
+interface MyLocationButtonProps {
+  /** 바텀시트의 현재 높이를 읽는 함수. 내 위치로 이동할 때 시트에 가리는 만큼 중심을 보정한다. */
+  getSheetHeight?: () => number;
+}
+
+const MyLocationButton = ({ getSheetHeight }: MyLocationButtonProps) => {
   const t = useTranslations("MyLocationButton");
   const { handleMyLocationClick, isLocationPermissionSheetOpen, closeLocationPermissionSheet } =
-    useMyLocationButton();
+    useMyLocationButton(getSheetHeight);
 
   return (
     <>
