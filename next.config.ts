@@ -82,6 +82,8 @@ const nextConfig: NextConfig = {
   },
 
   images: {
+    // AVIF를 우선 협상해 전송 용량을 줄인다. 미지원 브라우저는 WebP로 자동 폴백된다.
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",
