@@ -65,7 +65,7 @@ const TemperatureInfoSheet = ({ isOpen, onClose }: TemperatureInfoSheetProps) =>
                   delta > 0 ? "text-brand-strongUseThis-default" : "text-system-warning"
                 )}
               >
-                {delta > 0 ? "+" : ""}
+                {delta > 0 && "+"}
                 {delta.toFixed(1)}℃
               </span>
             </li>
