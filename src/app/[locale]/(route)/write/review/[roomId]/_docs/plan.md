@@ -87,6 +87,25 @@ Figma API 재개 후 별도로 다듬는다.
       `string`에서 `ReactNode`로 확장해 서로 다른 굵기의 라벨을 주입(문자열도 ReactNode라 다른 사용처
       2곳은 영향 없음). i18n `ReviewWritePage.reviewOptional`(ko/en) 추가
 
+## 감정 선택 UI 디자인 변경 (Talk to Figma `찾길 후기_M` / `찾길 후기_선택_M`)
+
+감정 선택 UI를 스프라이트 SVG 아이콘(`Touched`/`Grateful`/`HeartFlutter`, `currentColor` 단색)에서
+상태별 유령 일러스트 PNG로 교체한다. 디자이너가 미선택(흑백)과 선택(컬러) 그림을 각각 별도 PNG로 제공해,
+CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한다.
+
+- [x] `public/review/feeling/`에 PNG 6종 배치(감정별 default/selected): touched, grateful, heart-flutter
+- [x] `ReviewFeelingSelect.tsx`: `Icon` 제거하고 `next/image`로 교체. 감정별 `{ default, selected }`
+      이미지 경로 매핑 상수로 분리, 선택 상태에 따라 소스 전환
+- [x] 원형 배경색: 미선택 `bg-fill-neutralInversed-normal-default`(#f5f5f5) 유지, 선택은
+      `bg-[#1eb87b]/70`(디자인값, 토큰 없음)로 변경
+- [x] 라벨 색: 미선택 `text-labelsVibrant-secondary`(#999999), 선택 `text-brand-normal-default`(#0aa874)
+- [x] 이미지 표시 크기 45x60(원본 90x120의 1/2) 중앙 배치
+- [x] `npm run build` 통과 확인(해당 컴포넌트 전용 테스트 없음)
+- [ ] 미사용이 된 스프라이트 아이콘(`Touched`/`Grateful`/`HeartFlutter` = `touched.svg`/`thanks.svg`/
+      `heart-skipped.svg`) 정리는 전역 스프라이트 재생성이 필요해 이 PR 범위 밖. 별도 `asset` 작업으로 분리
+- [ ] 실행 중이던 dev 서버는 `public/review/` 폴더가 서버 시작 후 추가돼 로컬에서 404. dev 재시작 필요
+      (프로덕션 빌드에는 정상 포함)
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
