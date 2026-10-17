@@ -97,10 +97,12 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
 - [x] `ReviewFeelingSelect.tsx`: `Icon` 제거하고 `next/image`로 교체. 감정별 `{ default, selected }`
       이미지 경로 매핑 상수로 분리, 선택 상태에 따라 소스 전환
 - [x] 원형 배경색: 미선택 `bg-fill-neutralInversed-normal-default`(#f5f5f5) 유지, 선택은
-      `bg-[#1eb87b]/70`(디자인값, 토큰 없음)로 변경
+      `[Fill]/Brand/Normal/Default` 토큰인 `bg-fill-brand-normal-default`(rgba(30, 184, 123, 0.7))로 변경
 - [x] 라벨 색: 미선택 `text-labelsVibrant-secondary`(#999999), 선택 `text-brand-normal-default`(#0aa874)
 - [x] 이미지 표시 크기 45x60(원본 90x120의 1/2) 중앙 배치
 - [x] `npm run build` 통과 확인(해당 컴포넌트 전용 테스트 없음)
+- [x] PR 전체 변경분과 후기 작성 페이지의 하드코딩 색상 및 원시 팔레트 사용 여부 재점검
+- [x] Prettier, `git diff --check`, i18n 키 검사, 관련 테스트 및 빌드 재검증
 - [ ] 미사용이 된 스프라이트 아이콘(`Touched`/`Grateful`/`HeartFlutter` = `touched.svg`/`thanks.svg`/
       `heart-skipped.svg`) 정리는 전역 스프라이트 재생성이 필요해 이 PR 범위 밖. 별도 `asset` 작업으로 분리
 - [ ] 실행 중이던 dev 서버는 `public/review/` 폴더가 서버 시작 후 추가돼 로컬에서 404. dev 재시작 필요
