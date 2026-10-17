@@ -56,7 +56,9 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
             <span
               className={cn(
                 "size-[88px] rounded-full flex-center",
-                isSelected ? "bg-[#1eb87b]/70" : "bg-fill-neutralInversed-normal-default"
+                isSelected
+                  ? "bg-fill-brand-normal-default"
+                  : "bg-fill-neutralInversed-normal-default"
               )}
             >
               <Image
