@@ -1381,7 +1381,7 @@
     "myActivity": "내 활동",
     "notification": "알림",
     "reportInquiry": "신고/문의",
-    "accountManagement": "계정 관리",
+    "accountManagement": "계정 설정",
     "servicePolicy": "서비스 정책",
     "myPosts": "내가 쓴 게시글",
     "myComments": "내가 쓴 댓글",
@@ -1400,7 +1400,9 @@
     "marketingTerms": "마케팅 수신 약관",
     "contentPolicy": "콘텐츠 활용 동의서",
     "notice": "공지사항",
-    "chatList": "채팅목록",
+    "chatList": "채팅 목록",
+    "review": "찾길 후기",
+    "favoritePlaces": "찜한 장소",
     "logout": "로그아웃"
   },
   "MyPageProfile": {

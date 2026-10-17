@@ -37,7 +37,7 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
     : undefined;
 
   return (
-    <div className="flex w-full flex-col h-f-base">
+    <div className="flex w-full flex-col gap-3 bg-layout_2depth px-4 pb-4 pt-[calc(16px+var(--safe-area-top))] h-f-base">
       <MyPageProfile userData={userData} loading={isFetching} />
 
       <MyPageIconNav disabled={isFetching} />

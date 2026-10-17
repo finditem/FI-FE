@@ -1381,7 +1381,7 @@
     "myActivity": "My Activity",
     "notification": "Notifications",
     "reportInquiry": "Reports/Inquiries",
-    "accountManagement": "Account Management",
+    "accountManagement": "Account Settings",
     "servicePolicy": "Service Policies",
     "myPosts": "My Posts",
     "myComments": "My Comments",
@@ -1401,6 +1401,8 @@
     "contentPolicy": "Content Usage Agreement",
     "notice": "Notices",
     "chatList": "Chat",
+    "review": "Chajgil Review",
+    "favoritePlaces": "Saved Places",
     "logout": "Log out"
   },
   "MyPageProfile": {
