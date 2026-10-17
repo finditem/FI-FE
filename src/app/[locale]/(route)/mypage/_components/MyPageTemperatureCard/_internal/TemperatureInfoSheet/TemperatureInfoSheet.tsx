@@ -34,7 +34,7 @@ const TemperatureInfoSheet = ({ isOpen, onClose }: TemperatureInfoSheetProps) =>
       draggable
       className="flex flex-col items-center gap-5 px-4 pb-6"
     >
-      <Image src={TEMPERATURE_CHARACTER.rising} alt="" width={70} height={70} />
+      <Image src={TEMPERATURE_CHARACTER.rising} alt="" width={70} height={70} unoptimized />
 
       <div className="flex flex-col items-center gap-2 text-center">
         <h2 className="text-h2-bold text-layout-header-default">{t("title")}</h2>
@@ -44,33 +44,43 @@ const TemperatureInfoSheet = ({ isOpen, onClose }: TemperatureInfoSheetProps) =>
       </div>
 
       <div className="w-full rounded-[16px] bg-layout_2depth px-4 pt-3">
-        <div className="flex justify-between text-body2-medium text-layout-body-default">
-          <span>{t("columnItem")}</span>
-          <span>{t("columnValue")}</span>
-        </div>
-        <ul className="divide-y divide-divider-default">
-          {TEMPERATURE_RULES.map(({ key, delta }) => (
-            <li key={key} className="flex items-center justify-between gap-3 py-3">
-              <div className="flex flex-col gap-1">
-                <span className="text-body2-semibold text-layout-header-default">
-                  {t(`rules.${key}.title`)}
-                </span>
-                <span className="text-caption1-regular text-labelsVibrant-secondary">
-                  {t(`rules.${key}.description`)}
-                </span>
-              </div>
-              <span
-                className={cn(
-                  "shrink-0 text-body1-semibold",
-                  delta > 0 ? "text-brand-strongUseThis-default" : "text-system-warning"
-                )}
-              >
-                {delta > 0 ? "+" : ""}
-                {delta.toFixed(1)}℃
-              </span>
-            </li>
-          ))}
-        </ul>
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th scope="col" className="text-left text-body2-medium text-layout-body-default">
+                {t("columnItem")}
+              </th>
+              <th scope="col" className="text-right text-body2-medium text-layout-body-default">
+                {t("columnValue")}
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-divider-default">
+            {TEMPERATURE_RULES.map(({ key, delta }) => (
+              <tr key={key}>
+                <th scope="row" className="py-3 pr-3 text-left">
+                  <span className="flex flex-col gap-1">
+                    <span className="text-body2-semibold text-layout-header-default">
+                      {t(`rules.${key}.title`)}
+                    </span>
+                    <span className="text-caption1-regular text-labelsVibrant-secondary">
+                      {t(`rules.${key}.description`)}
+                    </span>
+                  </span>
+                </th>
+                <td
+                  className={cn(
+                    "whitespace-nowrap py-3 text-right text-body1-semibold",
+                    delta > 0 ? "text-brand-strongUseThis-default" : "text-system-warning"
+                  )}
+                >
+                  {delta > 0 && "+"}
+                  {delta.toFixed(1)}℃
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       <p className="w-full break-keep text-caption2-regular text-layout-body-default">

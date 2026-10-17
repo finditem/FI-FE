@@ -10,14 +10,14 @@ const CHARACTER_DIR = "/mypage/temperature";
 
 /**
  * 구간별 캐릭터 이미지 경로.
- * Figma에서 받은 SVG가 래스터 이미지를 감싼 형태라, 아이콘 스프라이트 대신 PNG로 바꿔 `next/image`로 쓴다.
+ * Figma의 캐릭터가 비트맵 이미지라 아이콘 스프라이트 대신 4배 크기 webp로 두고, `next/image`의 재압축 없이(`unoptimized`) 쓴다.
  * 36.6~50 구간과 50.1~69.9 구간은 같은 캐릭터를 쓴다.
  */
 export const TEMPERATURE_CHARACTER: Record<TemperatureTier, string> = {
-  low: `${CHARACTER_DIR}/mypage-temperature-low.png`,
-  first: `${CHARACTER_DIR}/mypage-temperature-default.png`,
-  rising: `${CHARACTER_DIR}/mypage-temperature-50.png`,
-  good: `${CHARACTER_DIR}/mypage-temperature-50.png`,
-  trusted: `${CHARACTER_DIR}/mypage-temperature-99.png`,
-  max: `${CHARACTER_DIR}/mypage-temperature-max.png`,
+  low: `${CHARACTER_DIR}/mypage-temperature-low.webp`,
+  first: `${CHARACTER_DIR}/mypage-temperature-default.webp`,
+  rising: `${CHARACTER_DIR}/mypage-temperature-50.webp`,
+  good: `${CHARACTER_DIR}/mypage-temperature-50.webp`,
+  trusted: `${CHARACTER_DIR}/mypage-temperature-99.webp`,
+  max: `${CHARACTER_DIR}/mypage-temperature-max.webp`,
 };

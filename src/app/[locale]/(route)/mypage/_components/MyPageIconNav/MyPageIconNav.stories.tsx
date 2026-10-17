@@ -18,7 +18,7 @@ type Story = StoryObj<typeof MyPageIconNav>;
 
 export const Default: Story = {
   render: () => (
-    <div className="w-[375px] bg-white">
+    <div className="w-[390px] bg-layout_2depth p-4">
       <MyPageIconNav />
     </div>
   ),

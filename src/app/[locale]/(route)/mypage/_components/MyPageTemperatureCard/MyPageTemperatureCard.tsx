@@ -79,6 +79,7 @@ const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
           alt=""
           width={58}
           height={58}
+          unoptimized
           className="shrink-0"
         />
       </div>
