@@ -12,3 +12,4 @@ export type { Radius } from "./mapRadius";
 export type { CommentItemType, AuthorResponse, ImageList } from "./CommentItemType";
 export type { UserType } from "./UserType";
 export type { VWorldAddressItem } from "./VWorldAddressItem";
+export type { ReviewCardData } from "./ReviewCardData";

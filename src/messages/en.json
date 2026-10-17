@@ -316,7 +316,8 @@
     "tabs": {
       "posts": "Posts",
       "comments": "Comments",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "reviews": "Reviews"
     },
     "empty": {
       "postsTitle": "No posts yet",
@@ -324,7 +325,9 @@
       "commentsTitle": "No comments yet",
       "commentsDescription": "This user hasn't written any comments yet.",
       "favoritesTitle": "No saved posts yet",
-      "favoritesDescription": "This user hasn't saved any posts yet."
+      "favoritesDescription": "This user hasn't saved any posts yet.",
+      "reviewsTitle": "No reviews received yet",
+      "reviewsDescription": "This user hasn't received any reviews yet."
     },
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"

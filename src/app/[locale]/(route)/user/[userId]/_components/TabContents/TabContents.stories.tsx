@@ -49,3 +49,11 @@ export const Favorite: Story = {
     data: MOCK_USER_PROFILE_DATA_BY_POSTS.list,
   },
 };
+
+export const Review: Story = {
+  args: {
+    selectedTab: "reviews",
+    isLoading: false,
+    data: undefined,
+  },
+};

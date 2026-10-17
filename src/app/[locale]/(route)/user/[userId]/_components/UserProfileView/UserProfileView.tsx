@@ -3,14 +3,15 @@
 import { useParams } from "next/navigation";
 import { notFound } from "next/navigation";
 import { Tab } from "@/components";
-import { useGetUserProfileById, UserTabType, UserUpperTabType } from "@/api/fetch/user";
+import { useGetUserProfileById, UserUpperTabType } from "@/api/fetch/user";
 import UserHeader from "../UserHeader/UserHeader";
 import TabContents from "../TabContents/TabContents";
 import { useUserProfileTabQuery } from "../../_hooks/useUserProfileTabQuery/useUserProfileTabQuery";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll/useInfiniteScroll";
 import { useTranslations } from "next-intl";
+import type { UserProfileTabKey } from "../../_types/UserProfileTabType";
 
-const upperCase = (tab: UserTabType): UserUpperTabType => {
+const upperCase = (tab: UserProfileTabKey): UserUpperTabType => {
   return tab.toUpperCase() as UserUpperTabType;
 };
 
@@ -21,14 +22,16 @@ const UserProfileView = () => {
     { key: "posts", label: t("tabs.posts") },
     { key: "comments", label: t("tabs.comments") },
     { key: "favorites", label: t("tabs.favorites") },
+    { key: "reviews", label: t("tabs.reviews") },
   ] as const;
 
   const { tab, updateTabQuery } = useUserProfileTabQuery();
+  const isApiTab = tab !== "reviews";
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetUserProfileById(userId, upperCase(tab));
+    useGetUserProfileById(userId, upperCase(isApiTab ? tab : "posts"));
   const { ref } = useInfiniteScroll({
     fetchNextPage,
-    hasNextPage,
+    hasNextPage: isApiTab ? hasNextPage : false,
     isFetchingNextPage,
   });
 

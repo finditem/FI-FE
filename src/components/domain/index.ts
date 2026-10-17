@@ -29,6 +29,7 @@ export { default as AddToHomeScreenPWA } from "./AddToHomeScreenPWA/AddToHomeScr
 export { default as ContentShareModal } from "./ContentShareModal/ContentShareModal";
 export { default as TermsAgreement } from "./TermsAgreement/TermsAgreement";
 export { default as ImagePreviewList } from "./WriteImageSection/_internal/ImagePreviewList";
+export { default as ReviewCard } from "./ReviewCard/ReviewCard";
 export type { ReportReason } from "./ReportModal/_internal";
 export type {
   StatusFilterValue,

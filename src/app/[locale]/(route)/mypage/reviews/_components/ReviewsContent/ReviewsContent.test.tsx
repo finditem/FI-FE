@@ -10,11 +10,7 @@ jest.mock("@/components", () => ({
     </div>
   ),
   LoadingState: () => <div data-testid="loading-state">Loading...</div>,
-}));
-
-jest.mock("../_internal/ReviewCard/ReviewCard", () => ({
-  __esModule: true,
-  default: ({ data }: { data: { id: number | string; nickname: string } }) => (
+  ReviewCard: ({ data }: { data: { id: number | string; nickname: string } }) => (
     <li data-testid="review-card">{data.nickname}</li>
   ),
 }));

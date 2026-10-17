@@ -99,4 +99,15 @@ describe("UserProfileView", () => {
 
     expect(screen.getByRole("heading", { level: 1, name: "짱구 프로필" })).toBeInTheDocument();
   });
+
+  it("받은 후기 탭으로 직접 진입해도 프로필 메타데이터를 조회해야 합니다", () => {
+    mockUseUserProfileTabQuery.mockReturnValue({
+      tab: "reviews",
+      updateTabQuery: jest.fn(),
+    });
+
+    render(<UserProfileView />);
+
+    expect(mockUseGetUserProfileById).toHaveBeenCalledWith("1", "POSTS");
+  });
 });

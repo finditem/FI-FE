@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { EmptyState, LoadingState } from "@/components";
+import { EmptyState, LoadingState, ReviewCard } from "@/components";
 import { MOCK_RECEIVED_REVIEWS } from "@/mock/data";
 import { useTranslations } from "next-intl";
 import type { ReviewTabType } from "../../_types/ReviewTabType";
-import ReviewCard from "../_internal/ReviewCard/ReviewCard";
 
 interface ReviewsContentProps {
   /** 현재 선택된 탭 */
