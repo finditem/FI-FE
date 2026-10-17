@@ -32,7 +32,6 @@ export {
 export { retryBackoffController } from "./retryBackoffController/retryBackoffController";
 export { formatMetadataKeyword } from "./formatMetadataKeyword/formatMetadataKeyword";
 export { formatMetadataAddress } from "./formatMetadataAddress/formatMetadataAddress";
-export { extractDongAddress } from "./extractDongAddress/extractDongAddress";
 export { isValidCallbackUrl } from "./isValidCallbackUrl/isValidCallbackUrl";
 export { getLoginRedirectPath } from "./getLoginRedirectPath/getLoginRedirectPath";
 export { createOAuthState, verifyOAuthState } from "./oauthState/oauthState";

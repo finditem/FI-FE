@@ -2,24 +2,18 @@
 
 import { Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Filter } from "@/components";
+import { Filter, PlaceCardSkeleton } from "@/components";
+import { PLACE_FILTER_OPTIONS } from "@/constants";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useHorizontalDragScroll } from "@/hooks";
 import { NeighborhoodPlaceFilter } from "../../../../_types/NeighborhoodPlace";
 import NeighborhoodPlaceList from "../../../NeighborhoodPlaceList/NeighborhoodPlaceList";
-import NeighborhoodPlaceCardSkeleton from "../../../NeighborhoodPlaceCardSkeleton/NeighborhoodPlaceCardSkeleton";
-
-const FILTERS: { value: NeighborhoodPlaceFilter; labelKey: string }[] = [
-  { value: "ALL", labelKey: "filterAll" },
-  { value: "POPUP", labelKey: "filterPopup" },
-  { value: "CAFE", labelKey: "filterCafe" },
-  { value: "RESTAURANT", labelKey: "filterRestaurant" },
-];
 
 const COLLAPSED_COUNT = 3;
 
 const NeighborhoodSection = () => {
   const t = useTranslations("NeighborhoodSection");
+  const tFilter = useTranslations("PlaceFilter");
   const { ref, onMouseDown } = useHorizontalDragScroll();
   const [filter, setFilter] = useState<NeighborhoodPlaceFilter>("ALL");
 
@@ -32,14 +26,14 @@ const NeighborhoodSection = () => {
       <p className="mt-14 pl-1 text-h2-bold text-neutral-strong-hover">{t("title")}</p>
 
       <div ref={ref} onMouseDown={onMouseDown} className="flex gap-2 overflow-x-auto no-scrollbar">
-        {FILTERS.map(({ value, labelKey }) => (
+        {PLACE_FILTER_OPTIONS.map(({ value, labelKey }) => (
           <Filter
             key={value}
-            ariaLabel={t(labelKey)}
+            ariaLabel={tFilter(labelKey)}
             onSelected={filter === value}
             onClick={() => handleFilterClick(value)}
           >
-            {t(labelKey)}
+            {tFilter(labelKey)}
           </Filter>
         ))}
       </div>
@@ -51,7 +45,7 @@ const NeighborhoodSection = () => {
           </p>
         }
       >
-        <Suspense fallback={<NeighborhoodPlaceCardSkeleton />}>
+        <Suspense fallback={<PlaceCardSkeleton />}>
           <NeighborhoodPlaceList key={filter} filter={filter} collapsedCount={COLLAPSED_COUNT} />
         </Suspense>
       </ErrorBoundary>
