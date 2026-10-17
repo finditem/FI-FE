@@ -68,12 +68,15 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 
 ### 4단계: 찾길 온도 카드 (feature 브랜치)
 
-- [ ] 번역 네임스페이스 `MyPageTemperatureCard`를 정하고 제목, 안내 문구, 눈금 라벨(0℃, 첫 온도 36.5℃, 99℃) 키를 ko/en에 동시에 추가한다.
-- [ ] `_components/MyPageTemperatureCard` 컴포넌트를 만든다. 제목과 정보 아이콘, 온도 수치(Title 3 Bold 28px, 브랜드 그린), 안내 문구, 캐릭터 이미지, 0~99℃ 진행 바(트랙 8px, 16px 썸, `shodow6(ondo)` 그림자)로 구성한다.
-- [ ] 온도 값은 prop으로 받고 `MyPageContainer`에서 기본값 36.5를 넘긴다. `UsersMeType`에 필드가 생기면 교체하도록 `TODO(담당자)` 주석을 남긴다.
-- [ ] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 배치한다. 비로그인 상태 노출 여부가 정해질 때까지는 로그인 시에만 렌더링한다.
-- [ ] 캐릭터 이미지를 Figma에서 받아 `public/mypage/` 아래에 추가한다.
-- [ ] 이번 단계 범위에서도 `lint:i18n-literal`, `check:i18n-keys`를 통과시킨다.
+Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 `마이페이지_찾길온도_M`을 Chrome으로 확인했다. 온도 구간별 변형이 6개(36.5 미만, 36.5, 36.6~~50, 50.1~~69.9, 70~98.9, 99)이고 구간마다 문구, 캐릭터, 색상이 다르다. 정보 아이콘은 온도 구성(습득 게시 +0.5, 반환 완료 +2.0, 따뜻한 후기 +1.0, 비매너 및 문제 행동 -1.0)을 설명하는 바텀시트를 연다. 숨김 상태의 "더보기"는 어느 변형에도 쓰이지 않아 범위에서 제외한다.
+
+- [x] 캐릭터 에셋 6종을 추가한다(사용자가 Figma에서 export). Figma SVG가 래스터 이미지를 감싼 형태(파일당 약 130KB)라 아이콘 스프라이트에 넣지 않고, 4배 크기 PNG로 바꿔 `public/mypage/temperature/`에 두고 `next/image`로 쓴다. 36.6~~50과 50.1~~69.9 구간은 같은 이미지라 5개 파일이다.
+- [x] `_utils/getTemperatureTier`로 온도를 구간 키로 바꾸고, `_constants/TEMPERATURE.ts`에 첫 온도(36.5), 최대 온도(99), 구간별 캐릭터를 둔다.
+- [x] 번역 네임스페이스 `MyPageTemperatureCard`, `TemperatureInfoSheet`를 정하고 ko/en에 동시에 추가한다.
+- [x] `_components/MyPageTemperatureCard`를 만든다. 제목과 정보 아이콘, 온도 수치(36.5 미만은 회색), 구간 문구, 캐릭터, 0~99℃ 막대(첫 온도 표시, 99에서는 손잡이 없음)로 구성한다.
+- [x] `MyPageTemperatureCard/_internal/TemperatureInfoSheet`를 `PopupLayout`으로 만든다.
+- [x] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 로그인 시에만 배치하고, 온도는 기본값 36.5와 `TODO(준열)` 주석으로 둔다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
 
 ### 5단계: 테스트와 스토리북 (test 브랜치, 별도 PR)
 
