@@ -5,7 +5,8 @@ import { Icon } from "@/components/common";
 import { EMPTY_ICON_MAP } from "./_constants/EMPTY_CONSTANTS";
 
 interface MypageEmptyUIProps {
-  pageType: "posts" | "comments" | "reports" | "inquiries" | "activity" | "favorites";
+  pageType:
+    "posts" | "comments" | "reports" | "inquiries" | "activity" | "favorites" | "favoritePlaces";
 }
 
 const MypageEmptyUI = ({ pageType }: MypageEmptyUIProps) => {

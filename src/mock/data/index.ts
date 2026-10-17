@@ -7,3 +7,4 @@ export * from "./userProfile.data";
 export * from "./comment.data";
 export * from "./inquiry.data";
 export * from "./notice.data";
+export * from "./review.data";

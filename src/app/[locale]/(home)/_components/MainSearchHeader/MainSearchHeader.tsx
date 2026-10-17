@@ -11,6 +11,7 @@ import SearchFocusDropdown from "../SearchFocusDropdown/SearchFocusDropdown";
 import MainSearchChipList from "../MainSearchChipList/MainSearchChipList";
 import { focusSearchDropdownBoundary } from "../../_utils/searchDropdownListKeyboard";
 import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
+import { MAIN_SEARCH_HEADER_ID } from "../HOME_CONST";
 import { DEFAULT_ADDRESS } from "@/constants";
 import { useGeolocationPermissionGranted } from "@/hooks";
 import { useMainNaverMapStore, useMainRecentSearch } from "@/store";
@@ -154,6 +155,7 @@ const HeaderContent = ({
 
   return (
     <header
+      id={MAIN_SEARCH_HEADER_ID}
       className={cn(
         "fixed left-1/2 top-0 z-10 w-full max-w-[768px] -translate-x-1/2 px-5 pb-[10px] pt-[calc(10px+var(--safe-area-top))]",
         (searchValue || focused) && "border-x-2 bg-white"

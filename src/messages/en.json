@@ -280,6 +280,10 @@
     "activity": {
       "heading": "No activity yet",
       "body": "Start by writing a post or leaving a comment."
+    },
+    "favoritePlaces": {
+      "heading": "No saved places yet",
+      "body": "Save places you like and they will appear here."
     }
   },
   "MypageSearch": {
@@ -312,7 +316,8 @@
     "tabs": {
       "posts": "Posts",
       "comments": "Comments",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "reviews": "Reviews"
     },
     "empty": {
       "postsTitle": "No posts yet",
@@ -320,7 +325,9 @@
       "commentsTitle": "No comments yet",
       "commentsDescription": "This user hasn't written any comments yet.",
       "favoritesTitle": "No saved posts yet",
-      "favoritesDescription": "This user hasn't saved any posts yet."
+      "favoritesDescription": "This user hasn't saved any posts yet.",
+      "reviewsTitle": "No reviews received yet",
+      "reviewsDescription": "This user hasn't received any reviews yet."
     },
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
@@ -859,19 +866,23 @@
   },
   "NeighborhoodSection": {
     "title": "Explore the neighborhood while you wait?",
-    "filterAll": "All",
-    "filterPopup": "Pop-up",
-    "filterCafe": "Cafe",
-    "filterRestaurant": "Restaurant",
     "moreButton": "See more",
+    "loadError": "Could not load places.",
+    "empty": "No places to show."
+  },
+  "PlaceCard": {
     "statusOpen": "Open now",
     "statusUpcoming": "Opening soon",
     "statusBreakTime": "On break",
     "statusClosed": "Closed",
     "openAt": "Opens at {time}",
-    "favoriteAriaLabel": "Add {name} to favorites",
-    "loadError": "Could not load places.",
-    "empty": "No places to show."
+    "favoriteAriaLabel": "Add {name} to favorites"
+  },
+  "PlaceFilter": {
+    "all": "All",
+    "popup": "Pop-up",
+    "cafe": "Cafe",
+    "restaurant": "Restaurant"
   },
   "PlaceFilterSheet": {
     "popupTitle": "Pop-up stores",
@@ -1033,8 +1044,42 @@
   },
   "ChatRoomHeaderInfoButton": {
     "menuAriaLabel": "Open chat menu",
-    "reportLabel": "Block or report",
+    "changeToFoundLabel": "Mark item as found",
+    "reportBlockLabel": "Block or report",
     "leaveLabel": "Leave chat room"
+  },
+  "PostFoundConfirmModal": {
+    "title": "Leave a review to say thanks?",
+    "description": "Let the person who helped you find your item know you're grateful with a review.",
+    "laterLabel": "Later",
+    "reviewLabel": "Leave a review"
+  },
+  "ReviewWritePage": {
+    "title": "Chajgil Review",
+    "greeting": "Hi {myNickname},\nhow was your meetup with {opponentNickname}?",
+    "feelingsAriaLabel": "Select how the meetup made you feel",
+    "feelings": {
+      "touched": "Touched",
+      "grateful": "Grateful",
+      "heartFlutter": "Heart flutter"
+    },
+    "helpQuestion": "What kind of help did you get?",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
+    },
+    "reviewLabel": "Leave a review.",
+    "reviewOptional": "(Optional)",
+    "reviewPlaceholder": "Tell us what you're grateful for. (up to 300 characters)",
+    "submitLabel": "Leave a review"
+  },
+  "ReviewCompleteModal": {
+    "title": "A neighbor who shared warmth\nwith Chajgil",
+    "description": "Your heartfelt review has been delivered.",
+    "confirmLabel": "Done"
   },
   "ChatLeaveModal": {
     "cancelLabel": "No",
@@ -1347,7 +1392,7 @@
     "myActivity": "My Activity",
     "notification": "Notifications",
     "reportInquiry": "Reports/Inquiries",
-    "accountManagement": "Account Management",
+    "accountManagement": "Account Settings",
     "servicePolicy": "Service Policies",
     "myPosts": "My Posts",
     "myComments": "My Comments",
@@ -1367,6 +1412,8 @@
     "contentPolicy": "Content Usage Agreement",
     "notice": "Notices",
     "chatList": "Chat",
+    "review": "Chajgil Review",
+    "favoritePlaces": "Saved Places",
     "logout": "Log out"
   },
   "MyPageProfile": {
@@ -1376,6 +1423,45 @@
   },
   "MyPageContainer": {
     "unexpectedError": "Something unexpected went wrong"
+  },
+  "MyPageTemperatureCard": {
+    "title": "Chajgil Temperature",
+    "infoAriaLabel": "Learn about Chajgil temperature",
+    "firstTemperature": "Start {value}℃",
+    "message": {
+      "low": "Warm up your temperature again with kind steps",
+      "first": "Post your first found item to raise your temperature",
+      "rising": "You have started finding items for your neighbors",
+      "good": "A neighbor who finds and returns items well",
+      "trusted": "A neighbor everyone can trust",
+      "max": "You reached the highest temperature"
+    }
+  },
+  "TemperatureInfoSheet": {
+    "title": "Chajgil Temperature",
+    "description": "Chajgil temperature shows, as a temperature, the kind acts of\nposting found items and returning precious belongings to neighbors.",
+    "columnItem": "Activity",
+    "columnValue": "Per activity",
+    "rules": {
+      "foundPost": {
+        "title": "Found item posted",
+        "description": "When you post an item you found"
+      },
+      "returned": {
+        "title": "Item returned",
+        "description": "When a lost item is actually returned"
+      },
+      "review": {
+        "title": "Warm review",
+        "description": "When you receive a review from someone you helped"
+      },
+      "penalty": {
+        "title": "Bad manners or misconduct",
+        "description": "When a report is confirmed as an actual violation"
+      }
+    },
+    "note": "* All activities are counted based on records from the last year.",
+    "confirm": "OK"
   },
   "AccountPage": {
     "title": "Account Settings"
@@ -1410,6 +1496,19 @@
     "loadError": "Couldn't load your favorites.",
     "srOnlyTitle": "My favorites"
   },
+  "MypageFavoritePlacesPage": {
+    "title": "Saved Places",
+    "srOnlyTitle": "Saved places page"
+  },
+  "MypageFavoritePlacesLayout": {
+    "title": "Saved Places",
+    "description": "Check the places you saved on finditem."
+  },
+  "MypageFavoritePlacesContent": {
+    "totalCount": "{count} saved places in total",
+    "loadError": "Failed to load the list",
+    "srOnlyTitle": "My saved places list"
+  },
   "MypagePostsPage": {
     "title": "My Posts",
     "srOnlyTitle": "My posts page"
@@ -1429,6 +1528,62 @@
   "MypageCommentsLayout": {
     "title": "My Comments",
     "description": "View the comments you've posted on finditem."
+  },
+  "ReviewDetailLayout": {
+    "title": "Review Letter",
+    "description": "View a review letter you received on finditem."
+  },
+  "ReviewDetailPage": {
+    "title": "Review",
+    "backAriaLabel": "Go back",
+    "receivedChip": "Received",
+    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
+    "sender": {
+      "nickname": "Space Puppy",
+      "location": "Seongsu 1-dong, Seongdong-gu",
+      "date": "2026.07.22"
+    },
+    "letter": "Thank you so much for coming out willingly even though I reached out late at night. Thanks to you, I was relieved that I didn't have to reissue my ID. I'm glad to have such a warm neighbor in Seongsu. I hope only good things come your way. Thank you!",
+    "strengths": {
+      "title": "What I liked",
+      "kind": "They were kind and warm.",
+      "trust": "I could communicate with confidence.",
+      "quick": "Their quick response was very helpful."
+    },
+    "foundItem": {
+      "title": "Found item",
+      "name": "Phone, black leather card wallet case",
+      "meta": "Near Seongsu Station · 2025.11.11"
+    },
+    "chatButton": "Go to chat"
+  },
+  "MypageReviewsLayout": {
+    "title": "Reviews",
+    "description": "View the reviews you've exchanged on finditem."
+  },
+  "MypageReviewsPage": {
+    "title": "Reviews",
+    "srOnlyTitle": "Reviews page",
+    "tabsAriaLabel": "Review tabs",
+    "countLabel": "Reviews",
+    "tabs": {
+      "received": "Received",
+      "sent": "Sent",
+      "hidden": "Hidden"
+    },
+    "empty": {
+      "receivedTitle": "No reviews received yet",
+      "receivedDescription": "When a review letter arrives, it will appear here.",
+      "sentTitle": "No reviews sent yet",
+      "sentDescription": "When you send a review letter, it will appear here.",
+      "hiddenTitle": "No hidden reviews",
+      "hiddenDescription": "You can check reviews here and unhide them anytime."
+    }
+  },
+  "ReviewCard": {
+    "menuOpenAriaLabel": "Open review options menu",
+    "menuCloseAriaLabel": "Close review options menu",
+    "hideReview": "Hide review"
   },
   "MypageCommentsFilterSection": {
     "sectionAriaLabel": "Comment filters",

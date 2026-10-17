@@ -89,6 +89,9 @@ export const MAIN_SEARCH_CHIPS = [
 
 export type MainSearchChipType = (typeof MAIN_SEARCH_CHIPS)[number]["type"];
 
+/** 지도 위에 떠 있는 검색 헤더의 id. 내 위치로 이동할 때 헤더가 가리는 높이를 재는 데 쓴다. */
+export const MAIN_SEARCH_HEADER_ID = "main-search-header";
+
 export const BOTTOM_OFFSET_PX = 86.67;
 export const HEADER_HEIGHT_PX = 85;
 export const MIN_HEIGHT_PX = 27;
