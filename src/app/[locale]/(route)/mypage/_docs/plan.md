@@ -68,18 +68,21 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 
 ### 4단계: 찾길 온도 카드 (feature 브랜치)
 
-- [ ] 번역 네임스페이스 `MyPageTemperatureCard`를 정하고 제목, 안내 문구, 눈금 라벨(0℃, 첫 온도 36.5℃, 99℃) 키를 ko/en에 동시에 추가한다.
-- [ ] `_components/MyPageTemperatureCard` 컴포넌트를 만든다. 제목과 정보 아이콘, 온도 수치(Title 3 Bold 28px, 브랜드 그린), 안내 문구, 캐릭터 이미지, 0~99℃ 진행 바(트랙 8px, 16px 썸, `shodow6(ondo)` 그림자)로 구성한다.
-- [ ] 온도 값은 prop으로 받고 `MyPageContainer`에서 기본값 36.5를 넘긴다. `UsersMeType`에 필드가 생기면 교체하도록 `TODO(담당자)` 주석을 남긴다.
-- [ ] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 배치한다. 비로그인 상태 노출 여부가 정해질 때까지는 로그인 시에만 렌더링한다.
-- [ ] 캐릭터 이미지를 Figma에서 받아 `public/mypage/` 아래에 추가한다.
-- [ ] 이번 단계 범위에서도 `lint:i18n-literal`, `check:i18n-keys`를 통과시킨다.
+Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 `마이페이지_찾길온도_M`을 Chrome으로 확인했다. 온도 구간별 변형이 6개(36.5 미만, 36.5, 36.6~~50, 50.1~~69.9, 70~98.9, 99)이고 구간마다 문구, 캐릭터, 색상이 다르다. 정보 아이콘은 온도 구성(습득 게시 +0.5, 반환 완료 +2.0, 따뜻한 후기 +1.0, 비매너 및 문제 행동 -1.0)을 설명하는 바텀시트를 연다. 숨김 상태의 "더보기"는 어느 변형에도 쓰이지 않아 범위에서 제외한다.
+
+- [x] 캐릭터 에셋 6종을 추가한다(사용자가 Figma에서 export). Figma SVG가 래스터 이미지를 감싼 형태(파일당 약 130KB)라 아이콘 스프라이트에 넣지 않고, 4배 크기 PNG로 바꿔 `public/mypage/temperature/`에 두고 `next/image`로 쓴다. 36.6~~50과 50.1~~69.9 구간은 같은 이미지라 5개 파일이다.
+- [x] `_utils/getTemperatureTier`로 온도를 구간 키로 바꾸고, `_constants/TEMPERATURE.ts`에 첫 온도(36.5), 최대 온도(99), 구간별 캐릭터를 둔다.
+- [x] 번역 네임스페이스 `MyPageTemperatureCard`, `TemperatureInfoSheet`를 정하고 ko/en에 동시에 추가한다.
+- [x] `_components/MyPageTemperatureCard`를 만든다. 제목과 정보 아이콘, 온도 수치(36.5 미만은 회색), 구간 문구, 캐릭터, 0~99℃ 막대(첫 온도 표시, 99에서는 손잡이 없음)로 구성한다.
+- [x] `MyPageTemperatureCard/_internal/TemperatureInfoSheet`를 `PopupLayout`으로 만든다.
+- [x] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 로그인 시에만 배치하고, 온도는 기본값 36.5와 `TODO(준열)` 주석으로 둔다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
 
 ### 5단계: 테스트와 스토리북 (test 브랜치, 별도 PR)
 
 - [x] `MyPageMenuSection.test.tsx`: 비로그인 시 서비스 정책에 공지사항만 노출되는지, 로그인 시 로그아웃 행이 노출되는지 검증한다.
 - [x] `MyPageIconNav.test.tsx`: 아이콘 탭 3개 항목과 링크를 검증한다.
-- [ ] `MyPageTemperatureCard` 테스트와 스토리를 추가한다. 온도 값에 따른 진행 바 위치를 검증한다.
+- [x] `MyPageTemperatureCard` 테스트와 스토리를 추가한다. 온도 값에 따른 진행 바 위치를 검증한다.
 - [x] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
 
 ### 미결 사항
@@ -89,3 +92,19 @@ Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페�
 - [ ] 찾길 온도 정보 아이콘 동작(툴팁 또는 모달)과 숨김 상태인 "더보기" 레이어의 이번 범위 포함 여부를 디자이너에게 확인한다.
 - [ ] 비로그인 상태의 찾길 온도 카드 노출 방식(숨김 또는 로그인 유도 상태)을 디자이너에게 확인한다.
 - [ ] 개인정보처리방침을 비로그인에게 숨겨도 출시 심사에 문제가 없는지 확인한다.
+
+## 찾길 온도 API 연동
+
+백엔드가 찾길 온도를 `/users/me`가 아닌 별도 엔드포인트 `GET /users/me/temperature`(응답 `{ temperature, calculatedAt }`)로 제공한다. 온도는 매주 월요일 04:00(KST)에만 갱신되므로 활동 직후 재조회하지 않는다. staleTime은 기본값(1분)으로 두어 마이페이지 진입 시 조회되게 한다. 레이아웃 시프트를 막기 위해 카드는 지금처럼 `userData`가 있을 때 렌더링하고, 온도가 오기 전에는 카드 틀(제목, 막대 배경, 눈금)만 그린 채 수치, 문구, 캐릭터, 막대 채움을 `invisible`로 둔다. 조회 실패 시에도 임시 값(36.5)을 보여 주지 않고 같은 상태로 둔다. 에러는 명세("다른 섹션과 같은 패턴")에 따라 `useGetUsersMe` 에러와 합쳐(`usersMeError ?? temperatureError`) 기존 `useEffect` 처리를 그대로 탄다. 401은 `authApi` 인터셉터가 재발급으로 먼저 처리하므로 무시 코드 목록은 바꾸지 않는다. `calculatedAt`은 시안에 표시 문구가 없어 타입에만 두고 화면에는 그리지 않는다.
+
+- [x] `src/api/fetch/user/types/UserTemperatureType.ts`에 응답 타입 추가 후 `index.ts`에서 export
+- [x] `src/api/fetch/user/api/useGetUsersMeTemperature.ts` 추가 (`useAppQuery`, `"auth"`, `hasToken`으로 enabled, staleTime은 기본값) 후 `index.ts`에서 export
+- [x] `MyPageTemperatureCard`의 `temperature`를 optional로 바꾸고, 값이 없으면 수치·문구·캐릭터·막대 채움을 `invisible` 처리
+- [x] `MyPageContainer`에서 기본값(`FIRST_TEMPERATURE`)과 `TODO(준열)` 주석을 지우고 조회 결과를 카드에 전달
+- [x] `MyPageContainer`에서 온도 조회 에러를 `useGetUsersMe` 에러와 합쳐 기존 에러 처리(토스트 1회)에 넘김
+- [x] `npm run test` + `npm run build`로 검증 (jest 266 suites / 1575 tests 통과, 화면 확인 후 `npm run build` 성공)
+- [x] (test 브랜치 `test/mypage-temperature-api`, 별도 PR) 온도 미도착 상태 테스트와 `Loading` 스토리 추가. 기존 카드 테스트·스토리처럼 온도 숫자만 넘기므로 `src/mock/data`에 둘 fixture는 없다
+
+### 미결 사항
+
+- [ ] 바텀시트의 "비매너 및 문제 행동 -1.0℃" 감점이 백엔드 산정에 실제로 반영되는지 확인한다. 백엔드 명세에는 가산 3종과 1년 경과 제외만 있다.

@@ -316,7 +316,8 @@
     "tabs": {
       "posts": "Posts",
       "comments": "Comments",
-      "favorites": "Favorites"
+      "favorites": "Favorites",
+      "reviews": "Reviews"
     },
     "empty": {
       "postsTitle": "No posts yet",
@@ -324,7 +325,9 @@
       "commentsTitle": "No comments yet",
       "commentsDescription": "This user hasn't written any comments yet.",
       "favoritesTitle": "No saved posts yet",
-      "favoritesDescription": "This user hasn't saved any posts yet."
+      "favoritesDescription": "This user hasn't saved any posts yet.",
+      "reviewsTitle": "No reviews received yet",
+      "reviewsDescription": "This user hasn't received any reviews yet."
     },
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
@@ -1422,6 +1425,45 @@
   "MyPageContainer": {
     "unexpectedError": "Something unexpected went wrong"
   },
+  "MyPageTemperatureCard": {
+    "title": "Chajgil Temperature",
+    "infoAriaLabel": "Learn about Chajgil temperature",
+    "firstTemperature": "Start {value}℃",
+    "message": {
+      "low": "Warm up your temperature again with kind steps",
+      "first": "Post your first found item to raise your temperature",
+      "rising": "You have started finding items for your neighbors",
+      "good": "A neighbor who finds and returns items well",
+      "trusted": "A neighbor everyone can trust",
+      "max": "You reached the highest temperature"
+    }
+  },
+  "TemperatureInfoSheet": {
+    "title": "Chajgil Temperature",
+    "description": "Chajgil temperature shows, as a temperature, the kind acts of\nposting found items and returning precious belongings to neighbors.",
+    "columnItem": "Activity",
+    "columnValue": "Per activity",
+    "rules": {
+      "foundPost": {
+        "title": "Found item posted",
+        "description": "When you post an item you found"
+      },
+      "returned": {
+        "title": "Item returned",
+        "description": "When a lost item is actually returned"
+      },
+      "review": {
+        "title": "Warm review",
+        "description": "When you receive a review from someone you helped"
+      },
+      "penalty": {
+        "title": "Bad manners or misconduct",
+        "description": "When a report is confirmed as an actual violation"
+      }
+    },
+    "note": "* All activities are counted based on records from the last year.",
+    "confirm": "OK"
+  },
   "AccountPage": {
     "title": "Account Settings"
   },
@@ -1487,6 +1529,34 @@
   "MypageCommentsLayout": {
     "title": "My Comments",
     "description": "View the comments you've posted on finditem."
+  },
+  "ReviewDetailLayout": {
+    "title": "Review Letter",
+    "description": "View a review letter you received on finditem."
+  },
+  "ReviewDetailPage": {
+    "title": "Review",
+    "backAriaLabel": "Go back",
+    "receivedChip": "Received",
+    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
+    "sender": {
+      "nickname": "Space Puppy",
+      "location": "Seongsu 1-dong, Seongdong-gu",
+      "date": "2026.07.22"
+    },
+    "letter": "Thank you so much for coming out willingly even though I reached out late at night. Thanks to you, I was relieved that I didn't have to reissue my ID. I'm glad to have such a warm neighbor in Seongsu. I hope only good things come your way. Thank you!",
+    "strengths": {
+      "title": "What I liked",
+      "kind": "They were kind and warm.",
+      "trust": "I could communicate with confidence.",
+      "quick": "Their quick response was very helpful."
+    },
+    "foundItem": {
+      "title": "Found item",
+      "name": "Phone, black leather card wallet case",
+      "meta": "Near Seongsu Station · 2025.11.11"
+    },
+    "chatButton": "Go to chat"
   },
   "MypageReviewsLayout": {
     "title": "Reviews",
