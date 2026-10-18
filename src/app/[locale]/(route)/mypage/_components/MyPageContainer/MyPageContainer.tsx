@@ -6,13 +6,15 @@ import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
 import MyPageTemperatureCard from "../MyPageTemperatureCard/MyPageTemperatureCard";
-import { FIRST_TEMPERATURE } from "../../_constants/TEMPERATURE";
-import { useGetUsersMe } from "@/api/fetch/user";
+import { useGetUsersMe, useGetUsersMeTemperature } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const t = useTranslations("MyPageContainer");
-  const { data, isFetching, error } = useGetUsersMe(hasToken);
+  const { data, isFetching, error: usersMeError } = useGetUsersMe(hasToken);
+  const { data: temperatureData, error: temperatureError } = useGetUsersMeTemperature(hasToken);
+  // 두 요청이 함께 실패해도 토스트가 한 번만 뜨도록 하나로 합쳐 기존 에러 처리에 넘긴다.
+  const error = usersMeError ?? temperatureError;
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -42,8 +44,7 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
     <div className="flex w-full flex-col gap-3 bg-layout_2depth px-4 pb-4 pt-[calc(16px+var(--safe-area-top))] h-f-base">
       <MyPageProfile userData={userData} loading={isFetching} />
 
-      {/* TODO(준열): 백엔드가 유저 정보에 찾길 온도를 추가하면 기본값 대신 그 값을 넘긴다. */}
-      {userData && <MyPageTemperatureCard temperature={FIRST_TEMPERATURE} />}
+      {userData && <MyPageTemperatureCard temperature={temperatureData?.result?.temperature} />}
 
       <MyPageIconNav disabled={isFetching} />
 

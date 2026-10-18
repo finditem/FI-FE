@@ -21,7 +21,7 @@ const toPercent = (value: number) =>
   (Math.min(Math.max(value, 0), MAX_TEMPERATURE) / MAX_TEMPERATURE) * 100;
 
 interface MyPageTemperatureCardProps {
-  temperature: number;
+  temperature?: number;
 }
 
 /**
@@ -31,21 +31,27 @@ interface MyPageTemperatureCardProps {
  * @remarks
  * - 36.5 미만이면 수치와 막대를 회색으로 표시합니다.
  * - 99에 도달하면 막대 끝의 손잡이를 숨깁니다.
+ * - `temperature`가 없으면(조회 중이거나 실패) 카드 높이는 그대로 두고 수치, 문구, 캐릭터, 막대 채움만 숨겨
+ *   값이 도착할 때 아래 섹션이 밀리지 않게 합니다. 임시 값을 보여 주지 않도록 기본값으로 대체하지 않습니다.
  *
  * @param temperature 찾길 온도 (0~99)
  *
  * @example
  * ```tsx
  * <MyPageTemperatureCard temperature={36.5} />
+ * <MyPageTemperatureCard temperature={data?.result.temperature} />
  * ```
  */
 const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
   const t = useTranslations("MyPageTemperatureCard");
   const [isInfoOpen, setIsInfoOpen] = useState(false);
 
-  const tier = getTemperatureTier(temperature);
+  const isLoaded = temperature !== undefined;
+  // 값이 없을 때는 숨긴 요소의 자리만 잡으면 되므로 구간 계산에 첫 온도를 넣어 둔다.
+  const value = temperature ?? FIRST_TEMPERATURE;
+  const tier = getTemperatureTier(value);
   const isLow = tier === "low";
-  const percent = toPercent(temperature);
+  const percent = toPercent(value);
 
   return (
     <section className="flex w-full flex-col gap-2 rounded-[16px] bg-white px-4 py-5">
@@ -61,7 +67,7 @@ const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
         </button>
       </div>
 
-      <div className="flex items-center justify-between gap-3">
+      <div className={cn("flex items-center justify-between gap-3", !isLoaded && "invisible")}>
         <div className="flex flex-col gap-2">
           <p
             className={cn(
@@ -69,7 +75,7 @@ const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
               isLow ? "text-layout-body-default" : "text-brand-strongUseThis-default"
             )}
           >
-            {temperature.toFixed(1)}
+            {value.toFixed(1)}
             <span className="text-h3-semibold">℃</span>
           </p>
           <p className="text-caption1-regular text-layout-header-default">{t(`message.${tier}`)}</p>
@@ -90,7 +96,8 @@ const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
           <div
             className={cn(
               "absolute left-0 top-1 h-2 rounded-full",
-              isLow && "bg-labelsVibrant-tertiary"
+              isLow && "bg-labelsVibrant-tertiary",
+              !isLoaded && "invisible"
             )}
             style={{
               width: `${percent}%`,
@@ -104,6 +111,7 @@ const MyPageTemperatureCard = ({ temperature }: MyPageTemperatureCardProps) => {
             <div
               className={cn(
                 "absolute top-0 size-4 -translate-x-1/2 rounded-full bg-white",
+                !isLoaded && "invisible",
                 isLow
                   ? "shadow-[0_1px_4px_rgba(0,0,0,0.2)]"
                   : "shadow-[0_2px_4px_#93DFBA,0_0_2px_#009E53]"
