@@ -6,13 +6,13 @@ import MyPageProfile from "../MyPageProfile/MyPageProfile";
 import MyPageIconNav from "../MyPageIconNav/MyPageIconNav";
 import MyPageMenuSection from "../MyPageMenuSection/MyPageMenuSection";
 import MyPageTemperatureCard from "../MyPageTemperatureCard/MyPageTemperatureCard";
-import { FIRST_TEMPERATURE } from "../../_constants/TEMPERATURE";
-import { useGetUsersMe } from "@/api/fetch/user";
+import { useGetUsersMe, useGetUsersMeTemperature } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const t = useTranslations("MyPageContainer");
   const { data, isFetching, error } = useGetUsersMe(hasToken);
+  const { data: temperatureData } = useGetUsersMeTemperature(hasToken);
   const { addToast } = useToast();
 
   useEffect(() => {
@@ -42,8 +42,7 @@ const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
     <div className="flex w-full flex-col gap-3 bg-layout_2depth px-4 pb-4 pt-[calc(16px+var(--safe-area-top))] h-f-base">
       <MyPageProfile userData={userData} loading={isFetching} />
 
-      {/* TODO(준열): 백엔드가 유저 정보에 찾길 온도를 추가하면 기본값 대신 그 값을 넘긴다. */}
-      {userData && <MyPageTemperatureCard temperature={FIRST_TEMPERATURE} />}
+      {userData && <MyPageTemperatureCard temperature={temperatureData?.result?.temperature} />}
 
       <MyPageIconNav disabled={isFetching} />
 
