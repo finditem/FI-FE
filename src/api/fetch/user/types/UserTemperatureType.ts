@@ -1,8 +1,8 @@
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 
-export interface GetUsersMeTemperatureResponse extends ApiBaseResponseType<UserTemperatureType> {}
+export interface GetUsersMeTemperatureResponse extends ApiBaseResponseType<UsersMeTemperatureType> {}
 
-export interface UserTemperatureType {
+export interface UsersMeTemperatureType {
   /** 찾길 온도(℃). 소수 첫째 자리까지 내려오며 범위는 0.0~99.0, 신규 사용자는 36.5 */
   temperature: number;
   /**
