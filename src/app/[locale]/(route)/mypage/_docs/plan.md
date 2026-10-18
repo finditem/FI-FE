@@ -95,12 +95,13 @@ Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 
 
 ## 찾길 온도 API 연동
 
-백엔드가 찾길 온도를 `/users/me`가 아닌 별도 엔드포인트 `GET /users/me/temperature`(응답 `{ temperature, calculatedAt }`)로 제공한다. 온도는 매주 월요일 04:00(KST)에만 갱신되므로 활동 직후 재조회하지 않는다. staleTime은 기본값(1분)으로 두어 마이페이지 진입 시 조회되게 한다. 레이아웃 시프트를 막기 위해 카드는 지금처럼 `userData`가 있을 때 렌더링하고, 온도가 오기 전에는 카드 틀(제목, 막대 배경, 눈금)만 그린 채 수치, 문구, 캐릭터, 막대 채움을 `invisible`로 둔다. 조회 실패 시에도 임시 값(36.5)을 보여 주지 않고 같은 상태로 둔다. `calculatedAt`은 시안에 표시 문구가 없어 타입에만 두고 화면에는 그리지 않는다.
+백엔드가 찾길 온도를 `/users/me`가 아닌 별도 엔드포인트 `GET /users/me/temperature`(응답 `{ temperature, calculatedAt }`)로 제공한다. 온도는 매주 월요일 04:00(KST)에만 갱신되므로 활동 직후 재조회하지 않는다. staleTime은 기본값(1분)으로 두어 마이페이지 진입 시 조회되게 한다. 레이아웃 시프트를 막기 위해 카드는 지금처럼 `userData`가 있을 때 렌더링하고, 온도가 오기 전에는 카드 틀(제목, 막대 배경, 눈금)만 그린 채 수치, 문구, 캐릭터, 막대 채움을 `invisible`로 둔다. 조회 실패 시에도 임시 값(36.5)을 보여 주지 않고 같은 상태로 둔다. 에러는 명세("다른 섹션과 같은 패턴")에 따라 `useGetUsersMe` 에러와 합쳐(`usersMeError ?? temperatureError`) 기존 `useEffect` 처리를 그대로 탄다. 401은 `authApi` 인터셉터가 재발급으로 먼저 처리하므로 무시 코드 목록은 바꾸지 않는다. `calculatedAt`은 시안에 표시 문구가 없어 타입에만 두고 화면에는 그리지 않는다.
 
 - [x] `src/api/fetch/user/types/UserTemperatureType.ts`에 응답 타입 추가 후 `index.ts`에서 export
 - [x] `src/api/fetch/user/api/useGetUsersMeTemperature.ts` 추가 (`useAppQuery`, `"auth"`, `hasToken`으로 enabled, staleTime은 기본값) 후 `index.ts`에서 export
 - [x] `MyPageTemperatureCard`의 `temperature`를 optional로 바꾸고, 값이 없으면 수치·문구·캐릭터·막대 채움을 `invisible` 처리
 - [x] `MyPageContainer`에서 기본값(`FIRST_TEMPERATURE`)과 `TODO(준열)` 주석을 지우고 조회 결과를 카드에 전달
+- [x] `MyPageContainer`에서 온도 조회 에러를 `useGetUsersMe` 에러와 합쳐 기존 에러 처리(토스트 1회)에 넘김
 - [ ] `npm run test` + `npm run build`로 검증 (jest 266 suites / 1575 tests 통과, 타입체크는 기존 테스트 파일 오류 외 이상 없음. build는 dev 서버를 깨뜨리므로 화면 확인 후 실행)
 - [ ] (test 브랜치, 별도 PR) 온도 미도착 상태 테스트와 스토리 추가, mock 데이터는 `src/mock/data/mypage.data.ts`에 둔다
 

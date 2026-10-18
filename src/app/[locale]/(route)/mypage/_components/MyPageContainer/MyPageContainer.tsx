@@ -11,8 +11,10 @@ import { useTranslations } from "next-intl";
 
 const MyPageContainer = ({ hasToken }: { hasToken: boolean }) => {
   const t = useTranslations("MyPageContainer");
-  const { data, isFetching, error } = useGetUsersMe(hasToken);
-  const { data: temperatureData } = useGetUsersMeTemperature(hasToken);
+  const { data, isFetching, error: usersMeError } = useGetUsersMe(hasToken);
+  const { data: temperatureData, error: temperatureError } = useGetUsersMeTemperature(hasToken);
+  // 두 요청이 함께 실패해도 토스트가 한 번만 뜨도록 하나로 합쳐 기존 에러 처리에 넘긴다.
+  const error = usersMeError ?? temperatureError;
   const { addToast } = useToast();
 
   useEffect(() => {
