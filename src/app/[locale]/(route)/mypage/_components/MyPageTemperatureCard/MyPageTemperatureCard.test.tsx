@@ -38,6 +38,22 @@ describe("MyPageTemperatureCard", () => {
     expect(screen.getByText("46.5")).toHaveClass("text-brand-strongUseThis-default");
   });
 
+  it("온도가 없으면 카드 틀은 유지하고 수치와 문구를 숨긴다", () => {
+    render(<MyPageTemperatureCard />);
+    expect(screen.getByText("찾길 온도")).toBeInTheDocument();
+    expect(screen.getByText("첫 온도 36.5℃")).toBeInTheDocument();
+    expect(screen.getByText("36.5").closest(".invisible")).not.toBeNull();
+    expect(
+      screen.getByText("첫 습득물을 등록하고 온도를 올려보세요").closest(".invisible")
+    ).not.toBeNull();
+  });
+
+  it("온도가 있으면 수치와 문구를 숨기지 않는다", () => {
+    render(<MyPageTemperatureCard temperature={46.5} />);
+    expect(screen.getByText("46.5").closest(".invisible")).toBeNull();
+    expect(screen.getByText("이웃의 물건을 찾아주기 시작했어요").closest(".invisible")).toBeNull();
+  });
+
   it("첫 온도 표시를 렌더한다", () => {
     render(<MyPageTemperatureCard temperature={46.5} />);
     expect(screen.getByText("첫 온도 36.5℃")).toBeInTheDocument();
