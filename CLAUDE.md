@@ -28,6 +28,7 @@ tests/e2e/        # Playwright 스펙 (기능별 1파일)
 - 라우트 전용 코드는 해당 라우트 폴더 하위 `_components`/`_hooks`/`_types`/`_utils`(private 폴더)에 둔다. 여러 라우트에서 재사용되면 그때 `src/components`, `src/hooks` 등 전역 폴더로 올린다.
 - `hooks/`, `store/`, `utils/`는 도메인별로 묶지 않고, 함수/훅 하나당 폴더 하나(`utils/formatDate/`, `hooks/useLogout/` 등)로 세분화하는 컨벤션이다. 새 유틸/훅을 추가할 때도 이 패턴을 따른다.
 - `_components` 하위 컴포넌트도 동일하게 컴포넌트 하나당 폴더 하나. 그 컴포넌트 내부에서만 쓰는 하위 조각은 `_internal` 폴더에 둔다.
+- 테스트·스토리북·MSW·개발 화면에서 사용하는 mock/fixture 데이터는 라우트의 `_constants`나 개별 테스트·스토리 파일에 두지 않고 `src/mock/data/`에 도메인별 `*.data.ts` 파일로 관리한다.
 
 ## 커밋 컨벤션 (commitlint 강제)
 

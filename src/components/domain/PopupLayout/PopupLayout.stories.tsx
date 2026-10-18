@@ -35,3 +35,19 @@ export const Default: Story = {
     ),
   },
 };
+
+/** 상단 손잡이를 아래로 끌어 닫을 수 있는 팝업 */
+export const Draggable: Story = {
+  args: {
+    isOpen: true,
+    draggable: true,
+    onClose: () => alert("닫기"),
+    className: "px-4 pb-6 flex-col-center",
+    children: (
+      <>
+        <h2>팝업 제목</h2>
+        <p className="h-[100px] flex-center">손잡이를 아래로 끌어 닫아 보세요</p>
+      </>
+    ),
+  },
+};

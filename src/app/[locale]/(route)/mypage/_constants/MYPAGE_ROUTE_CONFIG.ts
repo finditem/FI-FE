@@ -2,45 +2,53 @@ export const MYPAGE_MENU_LIST = [
   {
     key: "myActivity",
     pages: [
-      { key: "myPosts", pageLink: "/mypage/posts" },
-      { key: "myComments", pageLink: "/mypage/comments" },
-      { key: "favorites", pageLink: "/mypage/favorites" },
-      { key: "myActivities", pageLink: "/mypage/activities" },
-      { key: "blockedUsers", pageLink: "/mypage/blocked-users" },
+      { key: "myPosts", iconName: "MypagePosts", pageLink: "/mypage/posts" },
+      { key: "myComments", iconName: "MypageComments", pageLink: "/mypage/comments" },
+      { key: "favorites", iconName: "MypageFavorites", pageLink: "/mypage/favorites" },
+      { key: "myActivities", iconName: "MypageActivities", pageLink: "/mypage/activities" },
+      { key: "blockedUsers", iconName: "MypageBlockedUsers", pageLink: "/mypage/blocked-users" },
     ],
   },
   {
     key: "notification",
-    pages: [{ key: "notificationSettings", pageLink: "/mypage/notifications" }],
+    pages: [
+      {
+        key: "notificationSettings",
+        iconName: "MypageNotificationSettings",
+        pageLink: "/mypage/notifications",
+      },
+    ],
   },
   {
     key: "reportInquiry",
     pages: [
-      { key: "myReports", pageLink: "/mypage/reports" },
-      { key: "myInquiries", pageLink: "/mypage/inquiries" },
-      { key: "faq", pageLink: "/support" },
+      { key: "myReports", iconName: "MypageReports", pageLink: "/mypage/reports" },
+      { key: "myInquiries", iconName: "MypageInquiries", pageLink: "/mypage/inquiries" },
+      { key: "faq", iconName: "MypageFaq", pageLink: "/support" },
     ],
   },
   {
     key: "accountManagement",
     pages: [
-      { key: "languageSettings", pageLink: "/mypage/language" },
-      { key: "accountSettings", pageLink: "/mypage/account" },
+      { key: "languageSettings", iconName: "MypageLanguageSettings", pageLink: "/mypage/language" },
+      { key: "accountSettings", iconName: "MypageAccountSettings", pageLink: "/mypage/account" },
     ],
   },
   {
     key: "servicePolicy",
     pages: [
-      { key: "serviceIntro", pageLink: "/hello" },
-      { key: "privacyPolicy", pageLink: "/terms/privacy" },
-      { key: "serviceTerms", pageLink: "/terms/service" },
-      { key: "marketingTerms", pageLink: "/terms/marketing" },
-      { key: "contentPolicy", pageLink: "/terms/contentPolicy" },
+      { key: "notice", iconName: "MypageNotice", pageLink: "/notice" },
+      { key: "serviceIntro", iconName: "MypageServiceIntro", pageLink: "/hello" },
+      { key: "privacyPolicy", iconName: "MypagePrivacyPolicy", pageLink: "/terms/privacy" },
+      { key: "serviceTerms", iconName: "MypageServiceTerms", pageLink: "/terms/service" },
+      { key: "marketingTerms", iconName: "MypageMarketingTerms", pageLink: "/terms/marketing" },
+      { key: "contentPolicy", iconName: "MypageContentPolicy", pageLink: "/terms/contentPolicy" },
     ],
   },
 ] as const;
 
 export const MYPAGE_TAP_CONFIG = [
-  { key: "notice", iconName: "AnnotationAlert", pageLink: "/notice" },
-  { key: "chatList", iconName: "MessageTyping", pageLink: "/chat" },
+  { key: "review", iconName: "MypageReview", pageLink: "/mypage/reviews" },
+  { key: "favoritePlaces", iconName: "MypageFavoritePlaces", pageLink: "/mypage/favorite-places" },
+  { key: "chatList", iconName: "MypageChatList", pageLink: "/chat" },
 ] as const;

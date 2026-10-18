@@ -84,8 +84,6 @@ async function setupListPageMocks(page: Page) {
       body: JSON.stringify(MOCK_POSTS_SEARCH),
     })
   );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
 }
 
 test.describe("게시글 목록 페이지", () => {

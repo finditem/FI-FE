@@ -29,3 +29,82 @@
 - [x] `MyPageProfile`에서 `profileImg`가 유효한 이미지 값(http/https URL 또는 `/`로 시작하는 경로)일 때만 `src`로 넘기고, 그 외에는 `null`을 넘겨 `ProfileAvatar` 기본 이미지로 대체 (`resolveProfileImgSrc` 모듈 헬퍼 추가)
 - [x] `MyPageProfile.test.tsx`에 방어 케이스 테스트 추가 (`"0"` 등 잘못된 값이 와도 `ProfileAvatar`에 유효 src가 넘어가지 않음) — 유효 URL 전달 + `it.each`로 `"0"`/`""`/`"abc"`/`"123"` 무효 케이스, 총 9 tests 통과
 - [x] `npm run test` + `npm run build`로 검증 (MyPageProfile 9 tests 통과, `npm run build` 성공)
+
+## v2.0 마이페이지 시안 반영
+
+Figma `마이페이지_M`(노드 `16948:136208`) 기준으로 메인 마이페이지를 리디자인한다. 비교 보고서는 https://claude.ai/artifact/EcRNnJ9qqXEtSHgy1GofUU 에 있다. 레이아웃 골격을 먼저 바꾸고, 메뉴 데이터 구성, 아이콘, 찾길 온도 카드 순서로 진행한다. 앞 단계일수록 외부 의존(에셋, API, 다른 담당자 화면)이 없어서 바로 착수할 수 있고, 뒤 단계는 앞 단계의 카드 구조 위에 얹기만 하면 되도록 순서를 잡았다.
+
+확정된 결정 사항은 다음과 같다.
+
+- 시안의 상단 뒤로가기 네비게이션 바는 반영하지 않는다. 하단 탭 진입 화면이므로 지금처럼 헤더 없이 두고 프로필 영역의 상단 safe-area 여백을 유지한다.
+- 찾길 온도 값은 추후 백엔드가 유저 정보(`/users/me` 예상)에 넣어 줄 예정이다. UI를 먼저 만들고 기본값 36.5와 TODO 주석으로 표시한다.
+- 찾길 후기 상세 화면은 다른 담당자 작업이다. 마이페이지에서는 아이콘 탭의 진입 링크만 연결한다.
+- 비로그인 상태에서는 서비스 정책 섹션에 공지사항만 노출하고, 나머지 정책 항목과 로그아웃은 로그인 시에만 노출한다. 공지사항이 아이콘 탭에서 서비스 정책으로 옮겨져도 비로그인 사용자의 공지사항 진입 경로가 유지된다.
+
+### 1단계: 카드 레이아웃 골격 (design 브랜치)
+
+- [x] `MyPageContainer` 배경을 시안의 `[Bg]/Layout 2depth`(#F5F5F5)에 대응하는 토큰(`bg-flatGray-25` 후보, `src/utils/tokens/tailwind.config.js`에서 시맨틱 토큰 우선 확인)으로 지정하고, 섹션 사이 간격을 12px, 좌우 여백을 16px로 맞춘다.
+- [x] `MyPageProfile`을 흰 카드(radius 16, 상하 20px, 좌우 16px 패딩)로 감싼다. 상단 safe-area 여백은 카드 바깥 컨테이너로 옮겨 유지한다.
+- [x] `MyPageIconNav`를 흰 카드(높이 84px)로 감싸고 구분선 높이를 46px에서 36px로 줄인다.
+- [x] `MyPageMenuSection`의 섹션 사이 `hr`을 제거하고 섹션마다 흰 카드로 감싼다.
+- [x] 섹션 제목을 `text-body2-regular text-layout-body-default`에서 H3 SemiBold 18px, `[Fg]/Layout/Header/Default` 토큰으로 바꾸고 터치 영역 높이를 57px로 맞춘다.
+- [x] 메뉴 행을 높이 44px, 행 간격 2px, 우측 chevron 24px 구조로 바꾼다. 리딩 아이콘 자리는 3단계에서 채운다.
+- [x] 로그아웃 버튼을 다른 행과 같은 모양(텍스트 + chevron)의 행으로 통일한다. 동작은 기존 `useLogout`을 유지한다.
+- [ ] 화면 확인 후 `npm run test` + `npm run build`로 검증한다. 기존 스냅샷이나 클래스 기반 테스트가 깨지면 수정은 5단계 test 브랜치에서 한다.
+
+### 2단계: 메뉴 구성과 노출 규칙 (1단계와 같은 PR 또는 후속 design PR)
+
+- [x] `MYPAGE_TAP_CONFIG`를 찾길 후기, 찜한 장소, 채팅 목록 3개로 교체한다. 찾길 후기와 찜한 장소 링크는 경로가 정해질 때까지 TODO 주석으로 표시한다.
+- [x] `MYPAGE_MENU_LIST`의 `servicePolicy.pages` 첫 항목으로 공지사항(`/notice`)을 추가한다.
+- [x] `MyPageMenuSection`의 비로그인 필터를 섹션 전체 제외에서 "서비스 정책은 공지사항만 남김"으로 바꾼다.
+- [x] 번역 수정: `MyPageMenu.accountManagement`를 "계정 설정"으로, `MyPageMenu.chatList`를 "채팅 목록"으로 바꾸고, 찾길 후기와 찜한 장소 키를 추가한다.
+- [ ] 번역 키는 `src/messages/ko.json`, `en.json`에 동시에 추가하고 `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
+
+### 3단계: 메뉴 아이콘 (asset 브랜치)
+
+- [x] Figma에서 메뉴 행 아이콘 18종과 아이콘 탭 아이콘(`message-square-typing`)을 SVG로 받는다. 기존 매니페스트의 `Heart`, `MessageTyping`, `Logout`은 모양이 같은지 확인 후 재사용한다. (확인 결과 `Heart`는 모양이 다르고 `MessageTyping`과 `Logout`은 색상이 고정되어 있어 모두 새로 추가했다. Figma MCP 호출 한도 때문에 사용자가 직접 export한 파일을 사용했다.)
+- [x] `src/assets`에 SVG를 추가하고 `icon-manifest.json`에 등록한 뒤 `npm run generate:icon-sprite`로 스프라이트를 생성한다.
+- [x] `MYPAGE_MENU_LIST` 각 페이지에 `iconName`을 추가하고 `useMypageMenuList`와 `MyPageMenuSection`에서 20px 리딩 아이콘을 렌더링한다. 언어 설정 아이콘은 시안의 16px 대신 20px로 통일한다(디자이너 확인 필요).
+
+### 4단계: 찾길 온도 카드 (feature 브랜치)
+
+Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 `마이페이지_찾길온도_M`을 Chrome으로 확인했다. 온도 구간별 변형이 6개(36.5 미만, 36.5, 36.6~~50, 50.1~~69.9, 70~98.9, 99)이고 구간마다 문구, 캐릭터, 색상이 다르다. 정보 아이콘은 온도 구성(습득 게시 +0.5, 반환 완료 +2.0, 따뜻한 후기 +1.0, 비매너 및 문제 행동 -1.0)을 설명하는 바텀시트를 연다. 숨김 상태의 "더보기"는 어느 변형에도 쓰이지 않아 범위에서 제외한다.
+
+- [x] 캐릭터 에셋 6종을 추가한다(사용자가 Figma에서 export). Figma SVG가 래스터 이미지를 감싼 형태(파일당 약 130KB)라 아이콘 스프라이트에 넣지 않고, 4배 크기 PNG로 바꿔 `public/mypage/temperature/`에 두고 `next/image`로 쓴다. 36.6~~50과 50.1~~69.9 구간은 같은 이미지라 5개 파일이다.
+- [x] `_utils/getTemperatureTier`로 온도를 구간 키로 바꾸고, `_constants/TEMPERATURE.ts`에 첫 온도(36.5), 최대 온도(99), 구간별 캐릭터를 둔다.
+- [x] 번역 네임스페이스 `MyPageTemperatureCard`, `TemperatureInfoSheet`를 정하고 ko/en에 동시에 추가한다.
+- [x] `_components/MyPageTemperatureCard`를 만든다. 제목과 정보 아이콘, 온도 수치(36.5 미만은 회색), 구간 문구, 캐릭터, 0~99℃ 막대(첫 온도 표시, 99에서는 손잡이 없음)로 구성한다.
+- [x] `MyPageTemperatureCard/_internal/TemperatureInfoSheet`를 `PopupLayout`으로 만든다.
+- [x] `MyPageContainer`에서 프로필 카드와 아이콘 탭 사이에 로그인 시에만 배치하고, 온도는 기본값 36.5와 `TODO(준열)` 주석으로 둔다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`를 통과시킨다.
+
+### 5단계: 테스트와 스토리북 (test 브랜치, 별도 PR)
+
+- [x] `MyPageMenuSection.test.tsx`: 비로그인 시 서비스 정책에 공지사항만 노출되는지, 로그인 시 로그아웃 행이 노출되는지 검증한다.
+- [x] `MyPageIconNav.test.tsx`: 아이콘 탭 3개 항목과 링크를 검증한다.
+- [x] `MyPageTemperatureCard` 테스트와 스토리를 추가한다. 온도 값에 따른 진행 바 위치를 검증한다.
+- [x] 기존 `MyPageProfile`, `MyPageMenuSection`, `MyPageIconNav`, `MyPageContainer` 스토리를 새 카드 레이아웃에 맞게 갱신한다.
+
+### 미결 사항
+
+- [x] 찜한 장소 이동 경로: 목록 화면과 조회 API가 없다. 새 화면을 만들지 기존 화면으로 보낼지 정해야 한다. (`GET /users/me/favorite-places`로 `/mypage/favorite-places` 화면을 새로 만들었다. 진행은 `favorite-places/_docs/plan.md` 참고.)
+- [x] 찾길 후기 진입 링크: 담당자에게 경로를 받는다. (#1278에서 `/mypage/reviews` 페이지가 추가되어 탭 링크와 일치한다.)
+- [ ] 찾길 온도 정보 아이콘 동작(툴팁 또는 모달)과 숨김 상태인 "더보기" 레이어의 이번 범위 포함 여부를 디자이너에게 확인한다.
+- [ ] 비로그인 상태의 찾길 온도 카드 노출 방식(숨김 또는 로그인 유도 상태)을 디자이너에게 확인한다.
+- [ ] 개인정보처리방침을 비로그인에게 숨겨도 출시 심사에 문제가 없는지 확인한다.
+
+## 찾길 온도 API 연동
+
+백엔드가 찾길 온도를 `/users/me`가 아닌 별도 엔드포인트 `GET /users/me/temperature`(응답 `{ temperature, calculatedAt }`)로 제공한다. 온도는 매주 월요일 04:00(KST)에만 갱신되므로 활동 직후 재조회하지 않는다. staleTime은 기본값(1분)으로 두어 마이페이지 진입 시 조회되게 한다. 레이아웃 시프트를 막기 위해 카드는 지금처럼 `userData`가 있을 때 렌더링하고, 온도가 오기 전에는 카드 틀(제목, 막대 배경, 눈금)만 그린 채 수치, 문구, 캐릭터, 막대 채움을 `invisible`로 둔다. 조회 실패 시에도 임시 값(36.5)을 보여 주지 않고 같은 상태로 둔다. 에러는 명세("다른 섹션과 같은 패턴")에 따라 `useGetUsersMe` 에러와 합쳐(`usersMeError ?? temperatureError`) 기존 `useEffect` 처리를 그대로 탄다. 401은 `authApi` 인터셉터가 재발급으로 먼저 처리하므로 무시 코드 목록은 바꾸지 않는다. `calculatedAt`은 시안에 표시 문구가 없어 타입에만 두고 화면에는 그리지 않는다.
+
+- [x] `src/api/fetch/user/types/UserTemperatureType.ts`에 응답 타입 추가 후 `index.ts`에서 export
+- [x] `src/api/fetch/user/api/useGetUsersMeTemperature.ts` 추가 (`useAppQuery`, `"auth"`, `hasToken`으로 enabled, staleTime은 기본값) 후 `index.ts`에서 export
+- [x] `MyPageTemperatureCard`의 `temperature`를 optional로 바꾸고, 값이 없으면 수치·문구·캐릭터·막대 채움을 `invisible` 처리
+- [x] `MyPageContainer`에서 기본값(`FIRST_TEMPERATURE`)과 `TODO(준열)` 주석을 지우고 조회 결과를 카드에 전달
+- [x] `MyPageContainer`에서 온도 조회 에러를 `useGetUsersMe` 에러와 합쳐 기존 에러 처리(토스트 1회)에 넘김
+- [x] `npm run test` + `npm run build`로 검증 (jest 266 suites / 1575 tests 통과, 화면 확인 후 `npm run build` 성공)
+- [x] (test 브랜치 `test/mypage-temperature-api`, 별도 PR) 온도 미도착 상태 테스트와 `Loading` 스토리 추가. 기존 카드 테스트·스토리처럼 온도 숫자만 넘기므로 `src/mock/data`에 둘 fixture는 없다
+
+### 미결 사항
+
+- [ ] 바텀시트의 "비매너 및 문제 행동 -1.0℃" 감점이 백엔드 산정에 실제로 반영되는지 확인한다. 백엔드 명세에는 가산 3종과 1년 경과 제외만 있다.
