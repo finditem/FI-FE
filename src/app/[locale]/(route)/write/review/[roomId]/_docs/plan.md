@@ -140,6 +140,15 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
       동일), `confirmLabel`을 "후기 작성 완료" → "확인"으로 변경, `viewSentReviewLabel`(ko/en) 신규 추가
 - [x] `npm run check:i18n-keys`, `npm run build` 통과 확인
 
+## 이미지 최적화: PNG → WebP 변환 (PR #1303 리뷰 반영)
+
+리뷰어 요청으로 `public/review/` 하위 PNG 7개(감정 선택 6개 + 완료 팝업 일러스트)를 WebP로 변환했다.
+
+- [x] `sharp`(quality 90)로 전부 변환, 원본 PNG는 삭제(중복 보관 안 함)
+- [x] `ReviewFeelingSelect.tsx`/`ReviewCompleteModal.tsx`의 `next/image` `src` 경로를 `.webp`로 교체
+- [x] 전체 용량 102.2K → 32.5K (-68.2%), 화질 손상 없음(육안 확인)
+- [x] `npm run build` 통과 확인
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈

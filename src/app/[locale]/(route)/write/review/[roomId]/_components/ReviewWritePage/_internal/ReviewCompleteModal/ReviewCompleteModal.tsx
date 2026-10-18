@@ -31,7 +31,7 @@ const ReviewCompleteModal = ({ isOpen, onConfirm, onViewSentReview }: ReviewComp
       className="w-[320px] gap-6 p-6 flex-col-center"
     >
       <div className="gap-4 flex-col-center">
-        <Image src="/review/review-thanks.png" alt="" width={76} height={72} />
+        <Image src="/review/review-thanks.webp" alt="" width={76} height={72} />
         <div className="gap-1 text-center flex-col-center">
           <p className="whitespace-pre-line text-h3-semibold text-layout-header-default">
             {t("title")}

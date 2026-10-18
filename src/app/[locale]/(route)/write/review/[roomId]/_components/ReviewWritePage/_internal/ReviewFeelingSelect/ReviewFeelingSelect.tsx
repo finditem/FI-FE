@@ -9,16 +9,16 @@ const FEELING_VALUES: ReviewFeelingValue[] = ["touched", "grateful", "heartFlutt
 
 const FEELING_IMAGE: Record<ReviewFeelingValue, { default: string; selected: string }> = {
   touched: {
-    default: "/review/feeling/touched-default.png",
-    selected: "/review/feeling/touched-selected.png",
+    default: "/review/feeling/touched-default.webp",
+    selected: "/review/feeling/touched-selected.webp",
   },
   grateful: {
-    default: "/review/feeling/grateful-default.png",
-    selected: "/review/feeling/grateful-selected.png",
+    default: "/review/feeling/grateful-default.webp",
+    selected: "/review/feeling/grateful-selected.webp",
   },
   heartFlutter: {
-    default: "/review/feeling/heart-flutter-default.png",
-    selected: "/review/feeling/heart-flutter-selected.png",
+    default: "/review/feeling/heart-flutter-default.webp",
+    selected: "/review/feeling/heart-flutter-selected.webp",
   },
 };
 
