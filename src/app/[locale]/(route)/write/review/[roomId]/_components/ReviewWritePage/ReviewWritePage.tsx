@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from "@/i18n/navigation";
 import { DetailHeader } from "@/components/layout";
 import { Button, InputField, RequiredText } from "@/components/common";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";

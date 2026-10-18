@@ -149,6 +149,16 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
 - [x] 전체 용량 102.2K → 32.5K (-68.2%), 화질 손상 없음(육안 확인)
 - [x] `npm run build` 통과 확인
 
+## 로케일 보존 라우터로 교체 (PR #1303 Codex 리뷰 반영)
+
+"보낸 후기 보기" 클릭 시 `next/navigation`의 `useRouter`로 `/mypage/reviews?tab=sent`에 푸시하면,
+영어(`/en/...`) 사용자가 클라이언트 라우팅으로 이동할 때 로케일 접두사가 없는 주소라 한국어로
+전환되는 문제가 있었다(접두사 없는 주소는 `localeDetection: false`로 항상 한국어 고정).
+
+- [x] `useRouter` import를 `next/navigation` → `@/i18n/navigation`(next-intl `createNavigation` 래퍼)로
+      교체. `router.back()`/`router.push()` 호출부 변경 없이 현재 로케일을 자동으로 유지
+- [x] `npm run build` 통과 확인
+
 ## 범위 밖 / 후속
 
 - 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
