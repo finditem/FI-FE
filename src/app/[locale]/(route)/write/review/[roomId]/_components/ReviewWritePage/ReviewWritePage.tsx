@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from "@/i18n/navigation";
 import { DetailHeader } from "@/components/layout";
 import { Button, InputField, RequiredText } from "@/components/common";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
@@ -61,6 +61,11 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
     router.back();
   };
 
+  const handleViewSentReview = () => {
+    setIsCompleteOpen(false);
+    router.push("/mypage/reviews?tab=sent");
+  };
+
   return (
     <div className="flex min-h-dvh flex-col">
       <DetailHeader title={t("title")} />
@@ -110,7 +115,11 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
         </Button>
       </div>
 
-      <ReviewCompleteModal isOpen={isCompleteOpen} onConfirm={handleCompleteConfirm} />
+      <ReviewCompleteModal
+        isOpen={isCompleteOpen}
+        onConfirm={handleCompleteConfirm}
+        onViewSentReview={handleViewSentReview}
+      />
     </div>
   );
 };
