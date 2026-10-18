@@ -103,7 +103,7 @@ Figma `Card1` 컴포넌트 세트(노드 `17372:133572`)와 정보 바텀시트 
 - [x] `MyPageContainer`에서 기본값(`FIRST_TEMPERATURE`)과 `TODO(준열)` 주석을 지우고 조회 결과를 카드에 전달
 - [x] `MyPageContainer`에서 온도 조회 에러를 `useGetUsersMe` 에러와 합쳐 기존 에러 처리(토스트 1회)에 넘김
 - [x] `npm run test` + `npm run build`로 검증 (jest 266 suites / 1575 tests 통과, 화면 확인 후 `npm run build` 성공)
-- [ ] (test 브랜치, 별도 PR) 온도 미도착 상태 테스트와 스토리 추가, mock 데이터는 `src/mock/data/mypage.data.ts`에 둔다
+- [x] (test 브랜치 `test/mypage-temperature-api`, 별도 PR) 온도 미도착 상태 테스트와 `Loading` 스토리 추가. 기존 카드 테스트·스토리처럼 온도 숫자만 넘기므로 `src/mock/data`에 둘 fixture는 없다
 
 ### 미결 사항
 
