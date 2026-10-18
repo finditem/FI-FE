@@ -64,11 +64,14 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
   const myNickname = userInfo?.result?.nickname ?? "";
   const opponentNickname = chatRoom?.result.opponentUser.nickname ?? "";
   const findCompletionId = chatRoom?.result.findCompletion?.findCompletionId ?? null;
+  // findCompletionId가 남아 있어도 이미 후기를 작성한 경우 등은 canWriteReview가 false로 내려온다.
+  const canWriteReview = chatRoom?.result.findCompletion?.canWriteReview ?? false;
   // 감정 유형(1개)과 도움 경험(1개 이상)은 필수, 상세 후기는 선택 입력이다.
-  const canSubmit = feeling !== null && helpItems.length > 0 && findCompletionId !== null;
+  const canSubmit =
+    feeling !== null && helpItems.length > 0 && findCompletionId !== null && canWriteReview;
 
   const handleSubmit = () => {
-    if (feeling === null || findCompletionId === null) return;
+    if (feeling === null || findCompletionId === null || !canWriteReview) return;
 
     postReview({
       findCompletionId,
