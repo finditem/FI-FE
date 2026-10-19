@@ -2098,6 +2098,10 @@
     "alreadyWritten": "You've already written a review for this.",
     "submitError": "Failed to submit your review."
   },
+  "useHideReview": {
+    "hideSuccess": "Review hidden.",
+    "hideError": "Couldn't hide the review."
+  },
   "usePostFindCompletion": {
     "completeSuccess": "Marked as found.",
     "alreadyCompleted": "This post is already marked as found.",

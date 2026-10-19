@@ -1,5 +1,5 @@
 export interface ReviewCardData {
-  id: string | number;
+  id: number;
   avatarUrl?: string | null;
   nickname: string;
   location: string;

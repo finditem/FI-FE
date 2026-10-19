@@ -2098,6 +2098,10 @@
     "alreadyWritten": "이미 후기를 작성했어요",
     "submitError": "후기 등록에 실패했어요"
   },
+  "useHideReview": {
+    "hideSuccess": "후기를 숨겼어요",
+    "hideError": "후기를 숨기지 못했어요"
+  },
   "usePostFindCompletion": {
     "completeSuccess": "찾기 완료로 처리했어요",
     "alreadyCompleted": "이미 찾기 완료된 게시글이에요",

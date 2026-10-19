@@ -22,6 +22,7 @@ interface ReviewsContentProps {
  */
 const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   const t = useTranslations("MypageReviewsPage");
+  const [receivedReviews, setReceivedReviews] = useState(MOCK_RECEIVED_REVIEWS);
 
   // 모든 탭은 진입 시 로딩 스켈레톤을 먼저 보여준 뒤 콘텐츠를 렌더한다. 실제 후기 목록은 세 탭 모두
   // 클라이언트에서 비동기로 패칭될 예정이라 로딩 → 콘텐츠 흐름이 자연스럽다. 또한 받은 후기 더미
@@ -32,10 +33,14 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => setIsMounted(true), []);
 
+  const removeHiddenReview = (reviewId: number) => {
+    setReceivedReviews((reviews) => reviews.filter((review) => review.id !== reviewId));
+  };
+
   if (!isMounted) return <ReviewListSkeleton />;
 
   if (selectedTab === "received") {
-    if (MOCK_RECEIVED_REVIEWS.length === 0) {
+    if (receivedReviews.length === 0) {
       return (
         <EmptyState
           icon={{ iconName: "ReceiveReview", iconSize: 90 }}
@@ -49,11 +54,11 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
       <section>
         <h2 className="flex items-center gap-1 px-5 pb-2 pt-[26px] text-body1-semibold text-layout-header-default">
           {t("countLabel")}
-          <span>{MOCK_RECEIVED_REVIEWS.length}</span>
+          <span>{receivedReviews.length}</span>
         </h2>
         <ul>
-          {MOCK_RECEIVED_REVIEWS.map((review) => (
-            <ReviewCard key={review.id} data={review} />
+          {receivedReviews.map((review) => (
+            <ReviewCard key={review.id} data={review} onHidden={removeHiddenReview} />
           ))}
         </ul>
       </section>

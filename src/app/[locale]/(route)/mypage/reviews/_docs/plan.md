@@ -200,3 +200,20 @@ Talk to Figma 플러그인(채널 `mz1bgy0p`, `mcp__TalkToFigma__*`)으로 대�
       노출 눈으로 확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
 - [ ] 신규 컴포넌트(`ReviewListSkeleton`)의 Storybook/Jest 테스트는 별도 `test/*` 브랜치·PR로
       분리(컨벤션)
+
+## 후기 숨기기 API 연동
+
+Swagger의 `POST /reviews/{reviewId}/hide`를 받은 후기 카드의 숨기기 메뉴에 연결한다. 이 API는
+요청 본문 없이 후기 ID를 경로로 전달하며, 성공한 후기는 현재 사용자의 목록에서만 제외되고 복구할
+수 없다.
+
+### 작업 항목
+
+- [x] `useHideReview` mutation 훅을 추가하고 후기 목록 캐시 무효화와 성공·실패 토스트를 처리
+- [x] `ReviewCard`의 숨기기 버튼에 mutation을 연결하고 중복 요청을 방지
+- [x] 숨기기 성공 시 현재 받은 후기 목록에서 해당 카드를 제거
+- [x] i18n 키 및 API barrel export 갱신
+- [x] 변경 파일 ESLint와 i18n 키 검사 통과 확인. 전체 타입 검사는 기존 테스트 파일의 무관한 타입 오류
+      9건 때문에 실패했으며 이번 변경 파일에서는 신규 타입 오류가 발생하지 않음
+- [ ] `ReviewCard` 테스트에 Query/Toast Provider 또는 mutation mock 추가. 저장소 규칙에 따라 테스트 브랜치에서
+      별도 처리

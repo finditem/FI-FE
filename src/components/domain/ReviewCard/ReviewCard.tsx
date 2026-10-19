@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { useHideReview } from "@/api/fetch/review";
 import { Button, Chip, KebabMenuButton, ProfileAvatar } from "@/components";
 import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
 import { useClickOutside } from "@/hooks";
@@ -11,6 +12,8 @@ interface ReviewCardProps {
   data: ReviewCardData;
   /** 후기 숨기기 케밥 메뉴 노출 여부. 본인이 받은 후기를 보는 화면에서만 true로 둔다. */
   showHideMenu?: boolean;
+  /** 숨기기 API 성공 후 현재 목록 상태를 갱신할 때 사용합니다. */
+  onHidden?: (reviewId: number) => void;
 }
 
 /**
@@ -18,14 +21,20 @@ interface ReviewCardProps {
  *
  * @remarks
  * - `showHideMenu`가 true일 때만 케밥 메뉴(후기 숨기기 버튼)를 노출합니다.
- * - 실제 후기 숨기기 처리는 API 연동 전입니다.
+ * - 숨기기 성공 시 `onHidden`으로 목록에서 제거할 후기 ID를 전달합니다.
  */
-const ReviewCard = ({ data, showHideMenu = true }: ReviewCardProps) => {
+const ReviewCard = ({ data, showHideMenu = true, onHidden }: ReviewCardProps) => {
   const t = useTranslations("ReviewCard");
   const formatDate = useFormatDate();
   const [isKebabMenuOpen, setIsKebabMenuOpen] = useState(false);
   const kebabMenuRef = useClickOutside(() => setIsKebabMenuOpen(false));
   const { avatarUrl, nickname, location, createdAt, content, tagLabel, extraTagCount } = data;
+  const { mutate: hideReview, isPending: isHiding } = useHideReview(data.id, {
+    onSuccess: () => {
+      setIsKebabMenuOpen(false);
+      onHidden?.(data.id);
+    },
+  });
 
   return (
     <li className="w-full px-5 py-[30px]">
@@ -50,6 +59,8 @@ const ReviewCard = ({ data, showHideMenu = true }: ReviewCardProps) => {
                   <Button
                     ignoreBase
                     icon={{ name: "Eye", size: 24 }}
+                    disabled={isHiding}
+                    onClick={() => hideReview(undefined)}
                     className="glass-card absolute right-0 top-full z-10 mt-1 flex items-center gap-2 text-nowrap rounded-[20px] border border-white px-7 py-[15px] text-h3-medium text-system-warning bg-fill-neutral-subtle-default"
                   >
                     {t("hideReview")}
