@@ -1,8 +1,25 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import { MOCK_REVIEW_CARD } from "@/mock/data";
+import { useHideReview } from "@/api/fetch/review";
 import ReviewCard from "./ReviewCard";
 
+const mockHideMutate = jest.fn();
+
+jest.mock("@/api/fetch/review", () => ({
+  useHideReview: jest.fn(() => ({
+    mutate: mockHideMutate,
+    isPending: false,
+  })),
+}));
+
+const mockUseHideReview = jest.mocked(useHideReview);
+
+const openKebabMenu = () =>
+  fireEvent.click(screen.getByRole("button", { name: "후기 더보기 메뉴 열기" }));
+
 describe("ReviewCard", () => {
+  beforeEach(() => jest.clearAllMocks());
+
   it("닉네임, 위치, 본문, 대표 태그를 렌더한다", () => {
     render(<ReviewCard data={MOCK_REVIEW_CARD} />);
     expect(screen.getByText("우주강아지")).toBeInTheDocument();
@@ -36,7 +53,7 @@ describe("ReviewCard", () => {
 
   it("케밥 메뉴를 열면 후기 숨기기 버튼이 나타난다", () => {
     render(<ReviewCard data={MOCK_REVIEW_CARD} />);
-    fireEvent.click(screen.getByRole("button", { name: "후기 더보기 메뉴 열기" }));
+    openKebabMenu();
     expect(screen.getByRole("button", { name: "후기 더보기 메뉴 닫기" })).toHaveAttribute(
       "aria-expanded",
       "true"
@@ -47,6 +64,27 @@ describe("ReviewCard", () => {
   it("showHideMenu가 false면 케밥 메뉴를 노출하지 않는다", () => {
     render(<ReviewCard data={MOCK_REVIEW_CARD} showHideMenu={false} />);
     expect(screen.queryByRole("button", { name: "후기 더보기 메뉴 열기" })).not.toBeInTheDocument();
+    expect(screen.queryByText("후기 숨기기")).not.toBeInTheDocument();
+  });
+
+  it("후기 숨기기를 클릭하면 해당 후기 id로 숨기기 요청을 보낸다", () => {
+    render(<ReviewCard data={MOCK_REVIEW_CARD} />);
+    openKebabMenu();
+    fireEvent.click(screen.getByText("후기 숨기기"));
+
+    expect(mockUseHideReview).toHaveBeenCalledWith(MOCK_REVIEW_CARD.id, expect.any(Object));
+    expect(mockHideMutate).toHaveBeenCalledWith(undefined);
+  });
+
+  it("숨기기 성공 시 onHidden에 후기 id를 전달하고 케밥 메뉴를 닫는다", () => {
+    const onHidden = jest.fn();
+    render(<ReviewCard data={MOCK_REVIEW_CARD} onHidden={onHidden} />);
+    openKebabMenu();
+
+    const { onSuccess } = mockUseHideReview.mock.calls[0][1] ?? {};
+    act(() => onSuccess?.());
+
+    expect(onHidden).toHaveBeenCalledWith(MOCK_REVIEW_CARD.id);
     expect(screen.queryByText("후기 숨기기")).not.toBeInTheDocument();
   });
 });
