@@ -218,18 +218,17 @@ Swagger의 `POST /reviews/{reviewId}/hide`를 받은 후기 카드의 숨기기 
 - [ ] `ReviewCard` 테스트에 Query/Toast Provider 또는 mutation mock 추가. 저장소 규칙에 따라 테스트 브랜치에서
       별도 처리
 
-## 후기 목록 API 연동 및 숨긴 후기 탭 제거
+## 후기 목록 API 연동
 
 Swagger의 `GET /users/me/reviews`를 받은 후기와 보낸 후기 탭에 연결한다. API는 `type`, `cursor`,
-`size`를 쿼리로 받고 `reviewList`, `reviewCount`, `nextCursor`, `hasNext`를 반환한다. 숨긴 후기는
-목록 API에서 제외되며 제품 기능에서도 삭제하기로 했으므로 관련 탭과 쿼리 값, 번역을 제거한다.
+`size`를 쿼리로 받고 `reviewList`, `reviewCount`, `nextCursor`, `hasNext`를 반환한다. 숨긴 후기 탭
+제거는 이 브랜치에 포함하지 않고 별도 작업으로 분리한다.
 
 ### 작업 항목
 
 - [x] `src/api/fetch/review`에 후기 목록 응답 타입과 cursor 무한 조회 훅을 추가한다.
 - [x] API 응답을 `ReviewCard` 표시 데이터로 변환하고 받은/보낸 후기 목록과 빈 상태를 연동한다.
 - [x] 후기 목록에 공통 무한 스크롤 센티널과 다음 페이지 로딩 상태를 연결한다.
-- [x] 숨긴 후기 탭, `hidden` 쿼리 값, 숨긴 후기 전용 번역을 제거한다.
 - [x] API에 없는 위치와 선택 입력 후기 본문을 `ReviewCard`가 안전하게 처리하도록 보완한다.
 - [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, 관련 테스트를 통과한다. 전체 타입체크는
       기존의 무관한 테스트 타입 오류 때문에 실패했으며 이번 변경 파일의 오류는 모두 해소했다.

@@ -1569,13 +1569,16 @@
     "countLabel": "Reviews",
     "tabs": {
       "received": "Received",
-      "sent": "Sent"
+      "sent": "Sent",
+      "hidden": "Hidden"
     },
     "empty": {
       "receivedTitle": "No reviews received yet",
       "receivedDescription": "When a review letter arrives, it will appear here.",
       "sentTitle": "No reviews sent yet",
-      "sentDescription": "When you send a review letter, it will appear here."
+      "sentDescription": "When you send a review letter, it will appear here.",
+      "hiddenTitle": "No hidden reviews",
+      "hiddenDescription": "You can check reviews here and unhide them anytime."
     },
     "withdrawnUser": "Deleted user",
     "loadError": "Failed to load reviews",

@@ -77,6 +77,13 @@ describe("ReviewsContent", () => {
     expect(screen.getByText("아직 보낸 후기가 없어요")).toBeInTheDocument();
   });
 
+  it("숨긴 후기 탭은 기존 빈 상태를 렌더한다", () => {
+    render(<ReviewsContent selectedTab="hidden" />);
+
+    expect(screen.getByTestId("empty-state")).toBeInTheDocument();
+    expect(screen.getByText("숨긴 후기가 없어요")).toBeInTheDocument();
+  });
+
   it("첫 페이지를 불러오는 동안 후기 목록 스켈레톤을 렌더한다", () => {
     mockUseGetMyReviews.mockReturnValue({
       ...baseQueryResult,

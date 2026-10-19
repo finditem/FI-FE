@@ -35,6 +35,16 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
     if (isError) addToast(t("loadError"), "error");
   }, [addToast, isError, t]);
 
+  if (selectedTab === "hidden") {
+    return (
+      <EmptyState
+        icon={{ iconName: "HiddenReview", iconSize: 70 }}
+        title={t("empty.hiddenTitle")}
+        description={t("empty.hiddenDescription")}
+      />
+    );
+  }
+
   if (isLoading) return <ReviewListSkeleton />;
 
   const reviews = (data?.reviewList ?? []).filter(
