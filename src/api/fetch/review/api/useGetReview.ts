@@ -1,3 +1,4 @@
+import type { AxiosError } from "axios";
 import useAppQuery from "@/api/_base/query/useAppQuery";
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { ReviewDetailResponse } from "../types/ReviewDetailType";
@@ -13,7 +14,7 @@ import { ReviewDetailResponse } from "../types/ReviewDetailType";
  * ```
  */
 export const useGetReview = ({ reviewId }: { reviewId: number }) =>
-  useAppQuery<ApiBaseResponseType<ReviewDetailResponse>, ApiBaseResponseType<null>>(
+  useAppQuery<ApiBaseResponseType<ReviewDetailResponse>, AxiosError<ApiBaseResponseType<null>>>(
     "auth",
     ["review-detail", reviewId],
     `/reviews/${reviewId}`

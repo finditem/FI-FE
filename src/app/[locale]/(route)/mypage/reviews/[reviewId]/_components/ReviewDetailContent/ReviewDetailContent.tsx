@@ -2,6 +2,7 @@
 
 import { notFound } from "next/navigation";
 import { useGetReview } from "@/api/fetch/review";
+import { ErrorState } from "@/components";
 import ReviewDetailHero from "../ReviewDetailHero/ReviewDetailHero";
 import ReviewLetterDetail from "../ReviewLetterDetail/ReviewLetterDetail";
 import ReviewDetailSkeleton from "../_internal/ReviewDetailSkeleton/ReviewDetailSkeleton";
@@ -21,12 +22,14 @@ interface ReviewDetailContentProps {
  * @author suhyeon
  */
 const ReviewDetailContent = ({ reviewId }: ReviewDetailContentProps) => {
-  const { data, isLoading, isError } = useGetReview({ reviewId });
+  const { data, isLoading, isError, error } = useGetReview({ reviewId });
 
   if (isLoading) return <ReviewDetailSkeleton />;
 
   const review = data?.result;
-  if (isError || !review) return notFound();
+  const errorStatus = error?.response?.status;
+  if (isError && (errorStatus === 403 || errorStatus === 404)) return notFound();
+  if (isError || !review) return <ErrorState icon={{}} />;
 
   return (
     <>
