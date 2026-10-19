@@ -1569,16 +1569,22 @@
     "countLabel": "후기",
     "tabs": {
       "received": "받은 후기",
-      "sent": "보낸 후기",
-      "hidden": "숨긴 후기"
+      "sent": "보낸 후기"
     },
     "empty": {
       "receivedTitle": "아직 받은 후기가 없어요",
       "receivedDescription": "후기편지가 도착하면 여기에 후기 목록이 표기돼요.",
       "sentTitle": "아직 보낸 후기가 없어요",
-      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요.",
-      "hiddenTitle": "숨긴 후기가 없어요",
-      "hiddenDescription": "후기는 여기에서 확인하고 언제든 다시 해제할 수 있어요."
+      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요."
+    },
+    "withdrawnUser": "탈퇴한 회원",
+    "loadError": "후기 목록을 불러오지 못했어요",
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
     }
   },
   "ReviewCard": {

@@ -1569,16 +1569,22 @@
     "countLabel": "Reviews",
     "tabs": {
       "received": "Received",
-      "sent": "Sent",
-      "hidden": "Hidden"
+      "sent": "Sent"
     },
     "empty": {
       "receivedTitle": "No reviews received yet",
       "receivedDescription": "When a review letter arrives, it will appear here.",
       "sentTitle": "No reviews sent yet",
-      "sentDescription": "When you send a review letter, it will appear here.",
-      "hiddenTitle": "No hidden reviews",
-      "hiddenDescription": "You can check reviews here and unhide them anytime."
+      "sentDescription": "When you send a review letter, it will appear here."
+    },
+    "withdrawnUser": "Deleted user",
+    "loadError": "Failed to load reviews",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
     }
   },
   "ReviewCard": {

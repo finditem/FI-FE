@@ -70,13 +70,17 @@ const ReviewCard = ({ data, showHideMenu = true, onHidden }: ReviewCardProps) =>
             )}
           </div>
           <p className="text-body2-regular text-layout-body-default">
-            <span className="after:inline-block after:px-1 after:content-['·']">{location}</span>
+            {location && (
+              <span className="after:inline-block after:px-1 after:content-['·']">{location}</span>
+            )}
             <time dateTime={createdAt}>{formatDate(createdAt)}</time>
           </p>
         </div>
       </div>
 
-      <p className="mt-3 line-clamp-2 text-body2-medium text-neutral-normal-default">{content}</p>
+      {content && (
+        <p className="mt-3 line-clamp-2 text-body2-medium text-neutral-normal-default">{content}</p>
+      )}
 
       <div className="mt-3 flex items-center gap-1">
         <Chip label={tagLabel} type="neutralStrong" />

@@ -34,7 +34,7 @@ export const useHideReview = (reviewId: number, options?: UseHideReviewOptions) 
     AxiosError<ApiBaseResponseType<null>>
   >("auth", `/reviews/${reviewId}/hide`, "post", {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["reviews"] });
+      queryClient.invalidateQueries({ queryKey: ["/users/me/reviews"] });
       addToast(t("hideSuccess"), "success");
       options?.onSuccess?.();
     },
