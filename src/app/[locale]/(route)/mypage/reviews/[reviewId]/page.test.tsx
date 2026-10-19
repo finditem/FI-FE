@@ -9,9 +9,8 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("./_components", () => ({
-  ReviewDetailHero: () => <div data-testid="review-hero" />,
-  ReviewLetterDetail: ({ reviewId }: { reviewId: number }) => (
-    <div data-testid="letter-detail">{reviewId}</div>
+  ReviewDetailContent: ({ reviewId }: { reviewId: number }) => (
+    <div data-testid="review-detail-content">{reviewId}</div>
   ),
 }));
 
@@ -21,10 +20,10 @@ const renderPage = (reviewId: string) =>
 describe("ReviewDetailPage", () => {
   beforeEach(() => jest.clearAllMocks());
 
-  it("유효한 양의 정수 reviewId면 해당 값으로 ReviewLetterDetail을 렌더한다", async () => {
+  it("유효한 양의 정수 reviewId면 해당 값으로 ReviewDetailContent를 렌더한다", async () => {
     render(await renderPage("5"));
 
-    expect(screen.getByTestId("letter-detail")).toHaveTextContent("5");
+    expect(screen.getByTestId("review-detail-content")).toHaveTextContent("5");
     expect(notFound).not.toHaveBeenCalled();
   });
 
