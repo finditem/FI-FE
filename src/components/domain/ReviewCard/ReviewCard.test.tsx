@@ -24,7 +24,7 @@ describe("ReviewCard", () => {
     render(<ReviewCard data={MOCK_REVIEW_CARD} />);
     expect(screen.getByText("우주강아지")).toBeInTheDocument();
     expect(screen.getByText("성동구 성수1동")).toBeInTheDocument();
-    expect(screen.getByText(MOCK_REVIEW_CARD.content)).toBeInTheDocument();
+    expect(screen.getByText(MOCK_REVIEW_CARD.content!)).toBeInTheDocument();
     expect(screen.getByText(MOCK_REVIEW_CARD.tagLabel)).toBeInTheDocument();
   });
 
@@ -40,7 +40,7 @@ describe("ReviewCard", () => {
 
   it("createdAt을 time 요소의 dateTime으로 노출한다", () => {
     render(<ReviewCard data={MOCK_REVIEW_CARD} />);
-    const time = screen.getByText(MOCK_REVIEW_CARD.location).parentElement?.querySelector("time");
+    const time = screen.getByText(MOCK_REVIEW_CARD.location!).parentElement?.querySelector("time");
     expect(time).toHaveAttribute("dateTime", MOCK_REVIEW_CARD.createdAt);
   });
 

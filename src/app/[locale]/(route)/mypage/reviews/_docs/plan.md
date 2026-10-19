@@ -231,5 +231,6 @@ Swagger의 `GET /users/me/reviews`를 받은 후기와 보낸 후기 탭에 연�
 - [x] 후기 목록에 공통 무한 스크롤 센티널과 다음 페이지 로딩 상태를 연결한다.
 - [x] 숨긴 후기 탭, `hidden` 쿼리 값, 숨긴 후기 전용 번역을 제거한다.
 - [x] API에 없는 위치와 선택 입력 후기 본문을 `ReviewCard`가 안전하게 처리하도록 보완한다.
-- [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, 타입체크와 관련 검증을 통과한다.
-- [ ] 변경된 기능 테스트를 갱신하고 관련 GitHub Actions 검증을 통과한다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, 관련 테스트를 통과한다. 전체 타입체크는
+      기존의 무관한 테스트 타입 오류 때문에 실패했으며 이번 변경 파일의 오류는 모두 해소했다.
+- [x] 변경된 기능 테스트를 갱신하고 관련 테스트 24개가 통과하는 것을 확인한다.
