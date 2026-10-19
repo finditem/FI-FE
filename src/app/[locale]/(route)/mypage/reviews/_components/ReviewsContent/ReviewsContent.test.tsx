@@ -31,11 +31,4 @@ describe("ReviewsContent", () => {
     expect(screen.getByText("아직 보낸 후기가 없어요")).toBeInTheDocument();
     expect(screen.queryByTestId("review-card")).not.toBeInTheDocument();
   });
-
-  it("숨긴 후기 탭은 숨긴 후기 빈 상태를 렌더한다", () => {
-    render(<ReviewsContent selectedTab="hidden" />);
-
-    expect(screen.getByTestId("empty-state")).toBeInTheDocument();
-    expect(screen.getByText("숨긴 후기가 없어요")).toBeInTheDocument();
-  });
 });

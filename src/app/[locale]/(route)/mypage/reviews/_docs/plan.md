@@ -200,3 +200,12 @@ Talk to Figma 플러그인(채널 `mz1bgy0p`, `mcp__TalkToFigma__*`)으로 대�
       노출 눈으로 확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
 - [ ] 신규 컴포넌트(`ReviewListSkeleton`)의 Storybook/Jest 테스트는 별도 `test/*` 브랜치·PR로
       분리(컨벤션)
+
+## 숨긴 후기 탭 제거
+
+제품 기능 삭제 결정에 따라 마이페이지 후기 목록에서 숨긴 후기 탭과 관련 쿼리 상태를 제거한다.
+
+- [x] 후기 탭과 `ReviewTabType`에서 `hidden`을 제거한다.
+- [x] 기존 `?tab=hidden` 접근은 기본 받은 후기 탭으로 폴백하도록 변경한다.
+- [x] 숨긴 후기 빈 상태, 번역 키, Storybook 상태를 제거한다.
+- [x] 기존 테스트를 두 탭 구조에 맞게 갱신한다.

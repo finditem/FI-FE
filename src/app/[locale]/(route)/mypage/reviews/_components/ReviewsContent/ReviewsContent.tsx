@@ -18,7 +18,6 @@ interface ReviewsContentProps {
  * @remarks
  * - 받은 후기는 리스트(카드) 상태까지 퍼블리싱되었습니다. API 연동 전까지는 더미 데이터를 씁니다.
  * - 보낸 후기는 아직 빈 상태만 퍼블리싱 범위입니다.
- * - 숨긴 후기는 빈 상태까지 퍼블리싱되었습니다.
  */
 const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
   const t = useTranslations("MypageReviewsPage");
@@ -70,13 +69,7 @@ const ReviewsContent = ({ selectedTab }: ReviewsContentProps) => {
     );
   }
 
-  return (
-    <EmptyState
-      icon={{ iconName: "HiddenReview", iconSize: 70 }}
-      title={t("empty.hiddenTitle")}
-      description={t("empty.hiddenDescription")}
-    />
-  );
+  return null;
 };
 
 export default ReviewsContent;
