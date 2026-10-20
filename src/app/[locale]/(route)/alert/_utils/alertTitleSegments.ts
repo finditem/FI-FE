@@ -16,6 +16,7 @@ const HIGHLIGHT_PHRASE_BY_NOTIFICATION_TYPE: Partial<Record<NotificationType, st
   INQUIRY_REPLY: "문의하신 내용에 답변",
   REPORT_RESULT: "신고에 대한 답변",
   NOTICE: "새로운 공지사항이 등록",
+  REVIEW: "새로운 후기",
 };
 
 const splitByHighlightPhrase = (title: string, phrase: string): AlertTitleSegment[] => {

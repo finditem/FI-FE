@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { usePutPostStatus } from "@/api/fetch/post";
+import usePostFindCompletion from "@/api/fetch/chatRoom/api/usePostFindCompletion";
 import { Button, Icon } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
 
@@ -11,9 +12,11 @@ import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
  *
  * @remarks
  * - SEARCHING → FOUND 방향으로 상태를 바꿀 때만 사용합니다.
- * - 두 버튼 모두 상태 변경을 확정합니다. `roomId`가 있으면(채팅 상세에서 연 경우) "후기 남기기" 클릭 시
- *   찾길 후기 작성 페이지로 이동합니다. `roomId`가 없으면(게시글 상세에서 연 경우, 특정 채팅방이 없어
- *   리뷰 대상이 불명확) 상태 변경만 수행합니다.
+ * - `roomId`가 있으면(채팅 상세에서 연 경우) 찾기 완료 API(`POST /chats/{roomId}/find-completion`)를
+ *   호출합니다. 채팅 상대가 도움을 준 사용자로 기록되고 게시글도 찾음 상태가 되며, 후기 작성에 필요한
+ *   findCompletionId가 발급됩니다. "후기 남기기" 클릭 시에는 완료 후 찾길 후기 작성 페이지로 이동합니다.
+ * - `roomId`가 없으면(게시글 상세에서 연 경우, 특정 채팅방이 없어 리뷰 대상이 불명확) 게시글 상태만
+ *   `FOUND`로 바꿉니다.
  *
  * @author suhyeon
  */
@@ -40,32 +43,39 @@ const PostFoundConfirmModal = ({ isOpen, onClose, postId, roomId }: PostFoundCon
   const t = useTranslations("PostFoundConfirmModal");
   const router = useRouter();
   const { mutate: putPostStatus, isPending: isPutPending } = usePutPostStatus(postId, false);
-  const { mutate: putPostStatusSilently, isPending: isPutSilentPending } = usePutPostStatus(
-    postId,
-    false,
-    { silent: true }
+  // roomId가 있을 때만 사용하는 찾기 완료 처리. roomId가 없으면 호출되지 않는다.
+  const { mutate: completeFind, isPending: isCompletePending } = usePostFindCompletion(
+    roomId ?? 0,
+    postId
   );
-  // 상태 변경 응답을 기다리는 동안 버튼을 비활성화해 같은 요청이 중복 전송되는 것을 막는다.
-  const isPending = isPutPending || isPutSilentPending;
+  const { mutate: completeFindSilently, isPending: isCompleteSilentPending } =
+    usePostFindCompletion(roomId ?? 0, postId, { silent: true });
+  // 응답을 기다리는 동안 버튼을 비활성화해 같은 요청이 중복 전송되는 것을 막는다.
+  const isPending = isPutPending || isCompletePending || isCompleteSilentPending;
 
   const handleLater = () => {
+    if (roomId) {
+      completeFind(undefined, { onSuccess: onClose });
+      return;
+    }
     putPostStatus({ postStatus: "FOUND" });
     onClose();
   };
 
   const handleReview = () => {
-    putPostStatusSilently(
-      { postStatus: "FOUND" },
-      {
-        onSuccess: () => {
-          onClose();
+    // roomId가 없으면 리뷰 대상 채팅방을 특정할 수 없어 후기 작성으로 진입하지 않는다.
+    if (!roomId) {
+      putPostStatus({ postStatus: "FOUND" });
+      onClose();
+      return;
+    }
 
-          if (roomId) {
-            router.push(`/write/review/${roomId}`);
-          }
-        },
-      }
-    );
+    completeFindSilently(undefined, {
+      onSuccess: () => {
+        onClose();
+        router.push(`/write/review/${roomId}`);
+      },
+    });
   };
 
   return (

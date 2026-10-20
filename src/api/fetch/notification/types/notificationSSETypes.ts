@@ -13,6 +13,9 @@ export const NOTIFICATION_TYPE = {
   CATEGORY: "CATEGORY",
   NOTICE: "NOTICE",
   SYSTEM: "SYSTEM",
+  // TODO(수현): 백엔드 알림 타입 enum에 아직 없음(2026-10-19 기준 dev-api 스펙 확인). 후기 도착 알림
+  // API 연동 시 백엔드 값과 일치하는지 다시 확인
+  REVIEW: "REVIEW",
 } as const;
 
 export type NotificationType = (typeof NOTIFICATION_TYPE)[keyof typeof NOTIFICATION_TYPE];
