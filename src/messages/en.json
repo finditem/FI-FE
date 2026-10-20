@@ -1579,6 +1579,15 @@
       "sentDescription": "When you send a review letter, it will appear here.",
       "hiddenTitle": "No hidden reviews",
       "hiddenDescription": "You can check reviews here and unhide them anytime."
+    },
+    "withdrawnUser": "Deleted user",
+    "loadError": "Failed to load reviews",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
     }
   },
   "ReviewCard": {
@@ -2094,6 +2103,19 @@
     "notMember": "You're not a member. Please log in.",
     "nicknameDuplicated": "This nickname is already in use. Please try a different one."
   },
+  "usePostReview": {
+    "alreadyWritten": "You've already written a review for this.",
+    "submitError": "Failed to submit your review."
+  },
+  "useHideReview": {
+    "hideSuccess": "Review hidden.",
+    "hideError": "Couldn't hide the review."
+  },
+  "usePostFindCompletion": {
+    "completeSuccess": "Marked as found.",
+    "alreadyCompleted": "This post is already marked as found.",
+    "completeError": "Couldn't complete the find."
+  },
   "usePostChangePassword": {
     "changeSuccess": "Password changed",
     "changeError": "Password change failed"
@@ -2104,7 +2126,9 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "You have {count} new notifications",
-    "goToAlertPage": "Go to notifications"
+    "goToAlertPage": "Go to notifications",
+    "reviewArrived": "A review has arrived.",
+    "goToReviewPage": "Go to reviews"
   },
   "useFormatKoreanDate": {
     "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]

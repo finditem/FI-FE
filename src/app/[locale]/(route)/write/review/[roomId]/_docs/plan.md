@@ -159,10 +159,44 @@ CSS 채도 필터 없이 선택 상태에 따라 이미지 소스만 교체한�
       교체. `router.back()`/`router.push()` 호출부 변경 없이 현재 로케일을 자동으로 유지
 - [x] `npm run build` 통과 확인
 
+## 후기 등록 API 연동 (POST /reviews)
+
+Swagger(`https://dev-api.finditem.kr/swagger-ui/index.html#/Review/write`) 계약 확정에 따라 실제 등록
+연동. `findCompletionId`는 채팅방 상세(`findCompletion.findCompletionId`)에서 가져온다.
+
+- [x] `src/api/fetch/chatRoom/types/ChatRoomResponse.ts`: `FindCompletionInfo`(`status`/`findCompletionId`/
+      `canComplete`/`canWriteReview`) 타입 추가, `ChatRoomResponse.findCompletion` 필드로 연결
+      (백엔드 `ChatRoomResultDTO.findCompletion`과 계약 일치)
+- [x] `src/api/fetch/review/` 도메인 신규 생성 — `types/ReviewCreateType.ts`(`ReviewEmotionType`/
+      `ReviewHelpType`/`ReviewCreateRequest`/`ReviewIdResponse`), `api/usePostReview.ts`(`useAppMutation`
+      기반, 성공 시 `chatRoomDetail` 쿼리 무효화 + `onSuccess` 콜백, 에러는 `REVIEW409-ALREADY_WRITTEN`만
+      별도 토스트 분기 후 나머지는 공통 에러 토스트), `index.ts`
+- [x] `ReviewWritePage.tsx`: `handleSubmit`에서 실제 `usePostReview` 호출로 교체. 로컬 UI 값
+      (`ReviewFeelingValue`/`ReviewHelpItemValue`)을 백엔드 enum으로 변환하는 `EMOTION_REQUEST_MAP`/
+      `HELP_TYPE_REQUEST_MAP` 추가. `findCompletionId`가 없으면(채팅방 응답 아직 없음/이 방에서 완료
+      처리 안 됨) 제출 버튼 비활성화. 제출 중(`isPending`)에도 비활성화해 중복 제출 방지. 성공 콜백에서
+      완료 팝업 오픈(기존 TODO 제거). `findCompletion`은 옵셔널 체이닝으로 접근(백엔드 미반영 시 방어)
+- [x] `canWriteReview`도 `canSubmit`/`handleSubmit` 가드에 반영 — `findCompletionId`가 남아 있어도 이미
+      후기를 작성한 경우 등은 `canWriteReview: false`라 제출 버튼을 비활성화해야 재방문 시
+      `REVIEW409-ALREADY_WRITTEN`로만 막히는 폼이 노출되지 않는다
+- [x] i18n: `usePostReview` 네임스페이스(`alreadyWritten`/`submitError`) ko/en 동시 추가
+
+### 선행: 찾기 완료 처리 API 연동 (라우트 밖 / 공통·채팅 도메인)
+
+후기 작성의 `findCompletionId`는 "찾기 완료" 처리 시 발급된다. 기존 찾기 완료 플로우가
+`PUT /posts/{postId}/status`(게시글 상태만 변경)만 호출해 `findCompletionId`가 생성되지 않던 문제를
+`POST /chats/{roomId}/find-completion` 연동으로 해결. 이 변경은 `src/components/domain`(공통)과
+`src/api/fetch/chatRoom`(채팅 도메인)에 걸쳐 write/review 라우트 범위 밖이라 여기서는 참고로만 기록한다.
+
+- [x] `src/api/fetch/chatRoom/api/usePostFindCompletion.ts` 신규(응답 `FindCompletionResponse`),
+      성공 시 채팅방 상세/게시글 캐시 무효화 → 후기 페이지 진입 시 최신 `findCompletion` 반영
+- [x] `PostFoundConfirmModal`: `roomId`가 있으면(채팅 상세) `find-completion` 호출로 전환,
+      없으면(게시글 상세) 기존 `PUT status` 유지. 기존 테스트도 바뀐 동작에 맞춰 갱신
+- [x] i18n: `usePostFindCompletion` 네임스페이스(`completeSuccess`/`alreadyCompleted`/`completeError`)
+
 ## 범위 밖 / 후속
 
-- 후기 등록 백엔드 API 연동 (Swagger 계약 확정 필요), 확정되면 `handleSubmit`에서 실제 등록 후 완료 팝업 오픈
 - Figma API 재개 후 정확한 색상/간격 재검수 (아이콘 자산 자체는 위 섹션에서 반영 완료)
 - 후기 작성 페이지 자체의 테스트(`ReviewWritePage.test.tsx` 등)는 이번 범위에서 작성하지 않음
-- 완료 팝업 후 "채팅방 내 [후기 작성하기] 버튼 미노출" / "중복 작성 불가"(스펙 3-5)는 백엔드 필드 계약
-  확인 후 반영
+- 완료 팝업 후 "채팅방 내 [후기 작성하기] 버튼 미노출"은 `findCompletion.canWriteReview` 필드가 타입에는
+  추가됐으나 채팅 쪽 UI에서 아직 소비하지 않음 — 채팅 상세 작업 시 반영
