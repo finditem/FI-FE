@@ -1,5 +1,6 @@
 import type { ReviewDetailResponse } from "@/api/fetch/review";
 import type { ReviewCardData } from "@/types";
+import type { ReviewListItem } from "@/api/fetch/review";
 
 const minutesAgo = (minutes: number) => new Date(Date.now() - minutes * 60 * 1000).toISOString();
 
@@ -66,3 +67,17 @@ export const MOCK_RECEIVED_REVIEWS: ReviewCardData[] = [
     extraTagCount: 1,
   },
 ];
+
+export const MOCK_REVIEW_LIST_ITEM: ReviewListItem = {
+  reviewId: 1,
+  emotion: "GRATEFUL",
+  helpTypes: ["KIND_AND_WARM", "QUICK_RESPONSE"],
+  content: "늦은 밤에 연락드렸는데 흔쾌히 나와주셔서 감사했어요.",
+  createdAt: "2026-07-22T10:00:00.000Z",
+  user: {
+    userId: 10,
+    nickname: "우주강아지",
+    profileImageUrl: null,
+    withdrawn: false,
+  },
+};
