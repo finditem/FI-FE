@@ -1579,6 +1579,15 @@
       "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요.",
       "hiddenTitle": "숨긴 후기가 없어요",
       "hiddenDescription": "후기는 여기에서 확인하고 언제든 다시 해제할 수 있어요."
+    },
+    "withdrawnUser": "탈퇴한 회원",
+    "loadError": "후기 목록을 불러오지 못했어요",
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
     }
   },
   "ReviewCard": {
@@ -2093,6 +2102,19 @@
     "updateSuccess": "프로필을 변경했어요",
     "notMember": "회원이 아니에요. 로그인을 해주세요",
     "nicknameDuplicated": "이미 사용 중인 닉네임이에요. 다른 닉네임으로 다시 시도해 주세요"
+  },
+  "usePostReview": {
+    "alreadyWritten": "이미 후기를 작성했어요",
+    "submitError": "후기 등록에 실패했어요"
+  },
+  "useHideReview": {
+    "hideSuccess": "후기를 숨겼어요",
+    "hideError": "후기를 숨기지 못했어요"
+  },
+  "usePostFindCompletion": {
+    "completeSuccess": "찾기 완료로 처리했어요",
+    "alreadyCompleted": "이미 찾기 완료된 게시글이에요",
+    "completeError": "찾기 완료 처리에 실패했어요"
   },
   "usePostChangePassword": {
     "changeSuccess": "비밀번호 변경이 완료되었어요",
