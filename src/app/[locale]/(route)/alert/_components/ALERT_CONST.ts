@@ -5,6 +5,7 @@ export const ALERT_CATEGORIES = [
   { key: "category" },
   { key: "chat" },
   { key: "comment" },
+  { key: "review" },
   { key: "notice" },
   { key: "inquiry_reply" },
   { key: "report_result" },
@@ -35,6 +36,7 @@ export const ALERT_ICON_BG_BY_NOTIFICATION_TYPE: Partial<
   FAVORITE: { icon: "AlertStar", bg: "bg-system-bookmark" },
   CATEGORY: { icon: "AlertItem", bg: "bg-fg-accent-foundItem" },
   COMMENT: { icon: "Comment", bg: "bg-fg-neutral-strong-default" },
+  REVIEW: { icon: "Comment", bg: "bg-fg-neutral-strong-default" },
 };
 
 export const DEFAULT_ALERT_ICON_BG: AlertIconBackgroundColor = {

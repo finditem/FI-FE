@@ -1208,6 +1208,7 @@
     "pageHeading": "Notifications page"
   },
   "AlertCategories": {
+    "reviewLabel": "Reviews",
     "allLabel": "All",
     "categoryLabel": "Category keywords",
     "chatLabel": "Chat",
@@ -2127,7 +2128,9 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "You have {count} new notifications",
-    "goToAlertPage": "Go to notifications"
+    "goToAlertPage": "Go to notifications",
+    "reviewArrived": "A review has arrived.",
+    "goToReviewPage": "Go to reviews"
   },
   "useFormatKoreanDate": {
     "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
