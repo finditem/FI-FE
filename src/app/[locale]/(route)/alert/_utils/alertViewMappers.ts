@@ -26,9 +26,9 @@ export const getAlertIconBackgroundColor = (
     }
   }
 
-  if (type === "COMMENT") {
-    const commentByType = ALERT_ICON_BG_BY_NOTIFICATION_TYPE.COMMENT;
-    if (commentByType) return commentByType;
+  if (type === "COMMENT" || type === "REVIEW") {
+    const byType = ALERT_ICON_BG_BY_NOTIFICATION_TYPE[type];
+    if (byType) return byType;
   }
 
   const refMapper = ALERT_ICON_BG_BY_REFERENCE_TYPE[referenceType];

@@ -15,6 +15,8 @@ export const alertRouteUrl = (
       return `/mypage/inquiries/${referenceId}`;
     case "NOTICE":
       return `/notice/${referenceId}`;
+    case "REVIEW":
+      return `/mypage/reviews/${referenceId}`;
     case "REPORT":
       return `/mypage/reports/${referenceId}`;
     default:
