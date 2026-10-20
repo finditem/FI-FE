@@ -2126,7 +2126,9 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "새 알림 {count}건이 도착했어요",
-    "goToAlertPage": "알림 페이지로 이동"
+    "goToAlertPage": "알림 페이지로 이동",
+    "reviewArrived": "후기가 도착했어요.",
+    "goToReviewPage": "찾길 후기로 이동"
   },
   "useFormatKoreanDate": {
     "weekdays": ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]

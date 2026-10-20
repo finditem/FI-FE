@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, useCallback, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { debounce } from "es-toolkit/compat";
 import {
@@ -15,6 +15,7 @@ import { useFaviconNotification } from "@/hooks";
 import { useSnackBar } from "@/context/SnackBarContext";
 import { useAuthStore, useNotificationStore } from "@/store";
 import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
+import { useRouter } from "@/i18n/navigation";
 
 const isAuthRoutePath = (pathname: string) =>
   pathname.startsWith("/login") || pathname.startsWith("/sign-up");
@@ -99,6 +100,16 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
         return;
       }
 
+      // 후기 도착은 배치 요약 없이 전용 문구·이동 경로로 즉시 노출한다.
+      // TODO(수현): 백엔드 알림 타입 enum에 REVIEW가 아직 없음(2026-10-19 기준 dev-api 스펙 확인) —
+      // 실제 SSE 이벤트로 받는 시점에 이 분기가 정상 동작하는지 재검증 필요
+      if (type === NOTIFICATION_TYPE.REVIEW) {
+        debouncedFlush.flush();
+        queryClient.invalidateQueries({ queryKey: ["notificationList"] });
+        showSnackBar(t("reviewArrived"), t("goToReviewPage"), () => router.push("/mypage/reviews"));
+        return;
+      }
+
       const isChatPage = pathname.startsWith("/chat");
       const isChatNotification =
         type === NOTIFICATION_TYPE.CHAT ||
@@ -117,7 +128,16 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
 
       debouncedFlush();
     },
-    [pathname, debouncedFlush, setHasUnreadNotification, addUnreadNotificationType]
+    [
+      pathname,
+      debouncedFlush,
+      setHasUnreadNotification,
+      addUnreadNotificationType,
+      queryClient,
+      showSnackBar,
+      t,
+      router,
+    ]
   );
 
   const prevPathnameRef = useRef(pathname);
