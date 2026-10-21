@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { z } from "zod";
-import { ReviewDetailHero, ReviewLetterDetail } from "./_components";
+import { ReviewDetailContent } from "./_components";
 
 interface ReviewDetailPageProps {
   params: Promise<{ reviewId: string }>;
@@ -14,12 +14,7 @@ const ReviewDetailPage = async ({ params }: ReviewDetailPageProps) => {
 
   if (!parsedReviewId.success) notFound();
 
-  return (
-    <>
-      <ReviewDetailHero />
-      <ReviewLetterDetail reviewId={parsedReviewId.data} />
-    </>
-  );
+  return <ReviewDetailContent reviewId={parsedReviewId.data} />;
 };
 
 export default ReviewDetailPage;
