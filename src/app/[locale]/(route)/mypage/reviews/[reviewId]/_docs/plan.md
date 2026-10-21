@@ -106,6 +106,44 @@ Talk to Figma 플러그인(`mcp__TalkToFigma__*`)으로 조회했다.
 - [ ] 신규 컴포넌트(`ReviewDetailHero`, `ReviewDetailSkeleton`)의 Storybook/테스트는 별도 `test/*`
       브랜치·PR로 분리(컨벤션)
 
+## 후기 상세 API 연동 (GET /reviews/{reviewId})
+
+Swagger `GET /reviews/{reviewId}` 스펙에 맞춰 목업/하드코딩을 실제 데이터로 교체한다. 이 레포의 인증
+상세 페이지 공통 패턴(클라이언트 컴포넌트 + `useAppQuery`, `useServerPrefetchQuery`/SSR 인증 fetch는
+미사용)을 따른다. 사용자 결정: 받은 후기 상세만, content가 null이면 편지 영역 숨김, 감정별 3문구+캐릭터
+분기.
+
+### 설계 결정
+
+- 서버 컴포넌트였던 히어로/카드를 클라이언트 패칭 구조로 전환한다. `page.tsx`(서버)는 zod로 reviewId를
+  검증(실패 시 notFound)한 뒤 신규 클라이언트 컨테이너 `ReviewDetailContent`에 reviewId만 넘긴다.
+- `ReviewDetailContent`("use client")가 `useGetReview`로 조회해 로딩 시 `ReviewDetailSkeleton`,
+  403/404 등 에러 시 `notFound()`(UserProfileView 선례), 성공 시 히어로+카드에 데이터를 props로 전달.
+- 문구(emotion/helpTypes 라벨)는 서버가 아니라 FE에서 i18n 매핑(사용자 요청). helpTypes는 응답 순서대로 렌더.
+
+### 작업 항목
+
+- [ ] `src/api/fetch/review` 도메인 신규: `types/ReviewDetailType.ts`(ReviewEmotionType/ReviewHelpType/
+      ReviewUser/ReviewPost/ReviewDetailResponse), `api/useGetReview.ts`(useAppQuery, auth), `index.ts`
+- [ ] `_components/ReviewDetailContent` 신규(클라이언트 패칭 컨테이너): 로딩 스켈레톤/에러 notFound/성공 분기
+- [ ] `ReviewDetailHero`를 클라이언트로 전환, `review` props 수신. 감정별 캐릭터+도착 문구(author 닉네임 반영)
+- [ ] `ReviewLetterDetail`을 클라이언트로 전환, `review` props 수신. 프로필(author, 탈퇴 시 기본값),
+      편지 본문(content null이면 숨김), 장점(helpTypes FE 매핑), 찾아준 물건(post 썸네일/제목/주소/날짜),
+      채팅 CTA(roomId 있을 때 `/chat/{postId}?roomId=`로 이동, 없으면 비활성)
+- [ ] `_constants/REVIEW_EMOTION.ts`를 백엔드 enum(MOVED/GRATEFUL/HEART_FLUTTERED) 키로 재정의,
+      `MOCK_REVIEW.ts`(MOCK_REVIEW_HAS_LETTER) 제거
+- [ ] `_utils`에 ISO→"YYYY.MM.DD"(`formatYmdLabel` 활용) 라벨 유틸 추가, 발신 날짜/분실 일시 표기에 사용
+- [ ] i18n: emotion별 arrivalMessage 3종(ko/en), helpTypes 5종 라벨, 탈퇴 사용자 닉네임, 날짜 null 폴백
+- [ ] 연동으로 깨지는 기존 테스트(`page.test.tsx`, `ReviewLetterDetail.test.tsx`) 갱신 — 기능과 별도 커밋
+- [ ] `npm run test`/`npm run build`/`check:i18n-keys` 통과
+
+### 확정 필요 / 가정 (PR에 명시)
+
+- 감동/심쿵 도착 문구와 en 번역은 초안 — 확정 필요.
+- 발신자 행 "위치"는 ReviewUser에 필드가 없어 `post.address`로 대체(가정). 찾아준 물건 메타와 중복 가능.
+- 썸네일(post.thumbnailUrl)이 null일 때 폴백(중립 플레이스홀더). Figma "No Image" 프레임 미확인.
+- `src/api/fetch/review` 도메인이 미머지 PR #1305(후기 작성 API)와 겹침 — 머지 순서에 따라 enum/index 조율 필요.
+
 ## 비고
 
 - 브랜치가 origin/develop보다 117 커밋 뒤처져 있음. rebase 여부는 사용자 확인 후 진행(임의 수행하지 않음).

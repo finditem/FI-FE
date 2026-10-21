@@ -10,3 +10,6 @@ export type {
   ReviewListType,
   ReviewListUser,
 } from "./types/ReviewListType";
+export type { ReviewUser, ReviewPost, ReviewDetailResponse } from "./types/ReviewDetailType";
+
+export { useGetReview } from "./api/useGetReview";
