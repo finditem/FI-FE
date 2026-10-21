@@ -1538,23 +1538,24 @@
     "title": "찾길 후기",
     "backAriaLabel": "뒤로 가기",
     "receivedChip": "받은 후기",
-    "arrivalMessage": "성수317님, <lineBreak></lineBreak><strong>감사의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
-    "sender": {
-      "nickname": "우주강아지",
-      "location": "성동구 성수1동",
-      "date": "2026.07.22"
+    "withdrawnUser": "탈퇴한 사용자",
+    "arrivalMessage": {
+      "GRATEFUL": "{nickname}님, <lineBreak></lineBreak><strong>감사의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
+      "MOVED": "{nickname}님, <lineBreak></lineBreak><strong>감동의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
+      "HEART_FLUTTERED": "{nickname}님, <lineBreak></lineBreak><strong>설레는 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>"
     },
-    "letter": "늦은 밤에 연락드렸는데 흔쾌히 나와주셔서 정말 감사했어요. 덕분에 신분증 다시 만들지 않아도 되서 한시름 놓았습니다. 성수동에 이렇게 따뜻한 이웃이 계셔서 다행이에요. 항상 좋은 일만 가득하시길 바래요, 감사합니다!",
     "strengths": {
-      "title": "이런 점이 좋았어요",
-      "kind": "친절하고 따뜻하게 대해주셨어요.",
-      "trust": "믿고 소통할 수 있었어요.",
-      "quick": "빠르게 연락해 주셔서 도움이 됐어요."
+      "title": "이런 점이 좋았어요"
+    },
+    "helpTypes": {
+      "KIND_AND_WARM": "친절하고 따뜻하게 대해주셨어요.",
+      "TRUSTWORTHY_COMMUNICATION": "믿고 소통할 수 있었어요.",
+      "QUICK_RESPONSE": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "SAFE_STORAGE": "물건을 안전하게 보관해 주셨어요.",
+      "USEFUL_INFORMATION": "물건을 찾을 수 있도록 정보를 알려주셨어요."
     },
     "foundItem": {
-      "title": "찾아준 물건",
-      "name": "휴대폰, 검정색 카드지갑 가죽케이스",
-      "meta": "성수역 근처 · 2025.11.11"
+      "title": "찾아준 물건"
     },
     "chatButton": "채팅창으로 이동하기"
   },
