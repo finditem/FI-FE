@@ -39,20 +39,20 @@ describe("ReviewsContainer", () => {
     mockUseReviewTabQuery.mockReturnValue({ tab: "received", updateTabQuery: mockUpdateTabQuery });
   });
 
-  it("받은/보낸/숨긴 후기 탭을 렌더한다", () => {
+  it("받은 후기와 보낸 후기 탭만 렌더한다", () => {
     render(<ReviewsContainer />);
 
     expect(screen.getByRole("button", { name: "받은 후기" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "보낸 후기" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "숨긴 후기" })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "숨긴 후기" })).not.toBeInTheDocument();
   });
 
   it("현재 선택된 탭을 콘텐츠에 전달한다", () => {
-    mockUseReviewTabQuery.mockReturnValue({ tab: "hidden", updateTabQuery: mockUpdateTabQuery });
+    mockUseReviewTabQuery.mockReturnValue({ tab: "sent", updateTabQuery: mockUpdateTabQuery });
 
     render(<ReviewsContainer />);
 
-    expect(screen.getByTestId("reviews-content")).toHaveTextContent("hidden");
+    expect(screen.getByTestId("reviews-content")).toHaveTextContent("sent");
   });
 
   it("탭을 클릭하면 해당 키로 updateTabQuery를 호출한다", () => {

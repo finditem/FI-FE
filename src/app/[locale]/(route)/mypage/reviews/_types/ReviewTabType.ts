@@ -1,1 +1,1 @@
-export type ReviewTabType = "received" | "sent" | "hidden";
+export type ReviewTabType = "received" | "sent";
