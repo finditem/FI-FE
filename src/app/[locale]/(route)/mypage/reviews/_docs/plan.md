@@ -200,3 +200,45 @@ Talk to Figma 플러그인(채널 `mz1bgy0p`, `mcp__TalkToFigma__*`)으로 대�
       노출 눈으로 확인 (dev 서버는 사용자 실행 — 이번엔 새 worktree라 아직 안 띄워져 있음)
 - [ ] 신규 컴포넌트(`ReviewListSkeleton`)의 Storybook/Jest 테스트는 별도 `test/*` 브랜치·PR로
       분리(컨벤션)
+
+## 숨긴 후기 탭 제거
+
+제품 기능 삭제 결정에 따라 마이페이지 후기 목록에서 숨긴 후기 탭과 관련 쿼리 상태를 제거한다.
+
+- [x] 후기 탭과 `ReviewTabType`에서 `hidden`을 제거한다.
+- [x] 기존 `?tab=hidden` 접근은 기본 받은 후기 탭으로 폴백하도록 변경한다.
+- [x] 숨긴 후기 빈 상태, 번역 키, Storybook 상태를 제거한다.
+- [x] 기존 테스트를 두 탭 구조에 맞게 갱신한다.
+
+## 후기 숨기기 API 연동
+
+Swagger의 `POST /reviews/{reviewId}/hide`를 받은 후기 카드의 숨기기 메뉴에 연결한다. 이 API는
+요청 본문 없이 후기 ID를 경로로 전달하며, 성공한 후기는 현재 사용자의 목록에서만 제외되고 복구할
+수 없다.
+
+### 작업 항목
+
+- [x] `useHideReview` mutation 훅을 추가하고 후기 목록 캐시 무효화와 성공·실패 토스트를 처리
+- [x] `ReviewCard`의 숨기기 버튼에 mutation을 연결하고 중복 요청을 방지
+- [x] 숨기기 성공 시 현재 받은 후기 목록에서 해당 카드를 제거
+- [x] i18n 키 및 API barrel export 갱신
+- [x] 변경 파일 ESLint와 i18n 키 검사 통과 확인. 전체 타입 검사는 기존 테스트 파일의 무관한 타입 오류
+      9건 때문에 실패했으며 이번 변경 파일에서는 신규 타입 오류가 발생하지 않음
+- [ ] `ReviewCard` 테스트에 Query/Toast Provider 또는 mutation mock 추가. 저장소 규칙에 따라 테스트 브랜치에서
+      별도 처리
+
+## 후기 목록 API 연동
+
+Swagger의 `GET /users/me/reviews`를 받은 후기와 보낸 후기 탭에 연결한다. API는 `type`, `cursor`,
+`size`를 쿼리로 받고 `reviewList`, `reviewCount`, `nextCursor`, `hasNext`를 반환한다. 숨긴 후기 탭
+제거는 이 브랜치에 포함하지 않고 별도 작업으로 분리한다.
+
+### 작업 항목
+
+- [x] `src/api/fetch/review`에 후기 목록 응답 타입과 cursor 무한 조회 훅을 추가한다.
+- [x] API 응답을 `ReviewCard` 표시 데이터로 변환하고 받은/보낸 후기 목록과 빈 상태를 연동한다.
+- [x] 후기 목록에 공통 무한 스크롤 센티널과 다음 페이지 로딩 상태를 연결한다.
+- [x] API에 없는 위치와 선택 입력 후기 본문을 `ReviewCard`가 안전하게 처리하도록 보완한다.
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, 관련 테스트를 통과한다. 전체 타입체크는
+      기존의 무관한 테스트 타입 오류 때문에 실패했으며 이번 변경 파일의 오류는 모두 해소했다.
+- [x] 변경된 기능 테스트를 갱신하고 관련 테스트 24개가 통과하는 것을 확인한다.
