@@ -18,3 +18,14 @@
 - [x] 번역 키 추가: `UserProfilePage.tabs.reviews`, `UserProfilePage.empty.reviewsTitle`/`reviewsDescription` (ko/en).
 - [x] 변경된 기존 컴포넌트(`TabContents`, `UserProfileView`)의 테스트/스토리를 갱신한다. 신규 컴포넌트는 없으므로(모두 기존 파일 수정) 별도 PR 분리 대상 없음.
 - [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, `npm run test`, `npm run build` 로컬 검증.
+
+## 받은 후기 탭 실제 API 연동 (GET /users/{userId}/page?type=REVIEWS)
+
+- [x] `UserProfileIdDataType`에 `reviews: ReviewListItem[]`를 추가하고, `UserProfileItem` 유니온에 `ReviewListItem`을 포함한다(`@/api/fetch/review`의 `ReviewListItem` 재사용).
+- [x] `UserDataType`의 `UserTabType`/`UserUpperTabType`에 `reviews`/`REVIEWS`를 추가한다.
+- [x] `useGetUserProfileById`의 `select`에 `REVIEWS` 분기를 추가해 `r.reviews`를 반환한다.
+- [x] `UserProfileView.tsx`에서 `reviews`를 더 이상 비 API 탭으로 분리하지 않고, 네 탭 모두 API 조회와 무한 스크롤을 공유하도록 `isApiTab` 특수 처리를 제거한다.
+- [x] `TabContents.tsx`의 `reviews` 분기를 더미/마운트 게이트 대신 실제 목록 데이터로 교체하고, `ReviewListItem`을 `ReviewCardData`로 매핑한다(도움 경험 라벨 i18n 매핑 포함, `showHideMenu={false}`).
+- [x] 더 이상 쓰지 않는 `_constants/MOCK_RECEIVED_REVIEWS.ts`를 제거한다.
+- [x] 번역 키 추가: `UserProfilePage.helpItems.*`, `UserProfilePage.withdrawnUser` (ko/en).
+- [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, `npm run build` 로컬 검증. (기존 컴포넌트 테스트/스토리 갱신은 별도 `test/*` PR로 분리)

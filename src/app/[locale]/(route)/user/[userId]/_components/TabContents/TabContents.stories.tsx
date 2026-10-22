@@ -1,6 +1,10 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
 import TabContents from "./TabContents";
-import { MOCK_USER_PROFILE_DATA_BY_COMMENTS, MOCK_USER_PROFILE_DATA_BY_POSTS } from "@/mock/data";
+import {
+  MOCK_REVIEW_LIST_ITEM,
+  MOCK_USER_PROFILE_DATA_BY_COMMENTS,
+  MOCK_USER_PROFILE_DATA_BY_POSTS,
+} from "@/mock/data";
 
 const meta: Meta<typeof TabContents> = {
   title: "페이지/타인 페이지/TabContents",
@@ -54,6 +58,6 @@ export const Review: Story = {
   args: {
     selectedTab: "reviews",
     isLoading: false,
-    data: undefined,
+    data: [MOCK_REVIEW_LIST_ITEM],
   },
 };

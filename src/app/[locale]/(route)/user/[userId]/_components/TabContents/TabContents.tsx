@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { PostListItem, EmptyState, LoadingState, ReviewCard } from "@/components";
 import { UserCommentsDataType, UserPostsDataType, UserProfileItem } from "@/api/fetch/user";
+import type { ReviewHelpType, ReviewListItem } from "@/api/fetch/review";
+import type { ReviewCardData } from "@/types";
 import { UserProfileTabKey } from "../../_types/UserProfileTabType";
 import { UserCommentItem } from "../_internal";
-import { MOCK_RECEIVED_REVIEWS } from "../../_constants/MOCK_RECEIVED_REVIEWS";
 import { useTranslations } from "next-intl";
 
 interface TabContentsProps {
@@ -14,41 +14,29 @@ interface TabContentsProps {
   isLoading: boolean;
 }
 
+const HELP_TYPE_LABEL_KEYS: Record<ReviewHelpType, string> = {
+  KIND_AND_WARM: "helpItems.kind",
+  TRUSTWORTHY_COMMUNICATION: "helpItems.trustworthy",
+  QUICK_RESPONSE: "helpItems.quickResponse",
+  SAFE_STORAGE: "helpItems.safeKeeping",
+  USEFUL_INFORMATION: "helpItems.helpfulInfo",
+};
+
 const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
   const t = useTranslations("UserProfilePage");
 
-  // 받은 후기 더미 데이터의 createdAt이 모듈 로드 시점 기준 상대 시각이라, 서버와 클라이언트
-  // 렌더 시점이 달라지면 하이드레이션 에러가 난다. 마운트 이후에만 시간 의존 콘텐츠를 렌더한다.
-  // TODO(수현): 받은 후기 API 연동 시 이 마운트 게이트를 쿼리의 isLoading으로 대체.
-  const [isReviewsMounted, setIsReviewsMounted] = useState(false);
-  useEffect(() => setIsReviewsMounted(true), []);
-
-  if (selectedTab === "reviews") {
-    if (!isReviewsMounted) return <LoadingState />;
-
-    return (
-      <section aria-label={t("tabContentAriaLabel")}>
-        <ul>
-          {MOCK_RECEIVED_REVIEWS.length === 0 ? (
-            <li>
-              <EmptyState
-                icon={{ iconName: "ReceiveReview", iconSize: 70 }}
-                title={t("empty.reviewsTitle")}
-                description={t("empty.reviewsDescription")}
-              />
-            </li>
-          ) : (
-            MOCK_RECEIVED_REVIEWS.map((review) => (
-              <ReviewCard key={review.id} data={review} showHideMenu={false} />
-            ))
-          )}
-        </ul>
-      </section>
-    );
-  }
-
   if (isLoading) return <LoadingState />;
   if (!data) return null;
+
+  const toReviewCardData = (review: ReviewListItem): ReviewCardData => ({
+    id: review.reviewId,
+    avatarUrl: review.user.profileImageUrl,
+    nickname: review.user.nickname ?? t("withdrawnUser"),
+    createdAt: review.createdAt,
+    content: review.content,
+    tagLabel: t(HELP_TYPE_LABEL_KEYS[review.helpTypes[0]]),
+    extraTagCount: Math.max(review.helpTypes.length - 1, 0),
+  });
 
   return (
     <section aria-label={t("tabContentAriaLabel")}>
@@ -106,6 +94,29 @@ const TabContents = ({ selectedTab, data, isLoading }: TabContentsProps) => {
               );
             })
           ))}
+
+        {selectedTab === "reviews" &&
+          (() => {
+            const reviews = data as ReviewListItem[];
+
+            return reviews.length === 0 ? (
+              <li>
+                <EmptyState
+                  icon={{ iconName: "ReceiveReview", iconSize: 70 }}
+                  title={t("empty.reviewsTitle")}
+                  description={t("empty.reviewsDescription")}
+                />
+              </li>
+            ) : (
+              reviews.map((review) => (
+                <ReviewCard
+                  key={review.reviewId}
+                  data={toReviewCardData(review)}
+                  showHideMenu={false}
+                />
+              ))
+            );
+          })()}
       </ul>
     </section>
   );

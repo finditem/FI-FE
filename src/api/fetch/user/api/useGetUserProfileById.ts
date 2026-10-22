@@ -35,6 +35,7 @@ export const useGetUserProfileById = (
 
           if (type === "POSTS") return r.posts;
           if (type === "FAVORITES") return r.favorites;
+          if (type === "REVIEWS") return r.reviews;
           return r.comments;
         });
 

@@ -26,14 +26,9 @@ const UserProfileView = () => {
   ] as const;
 
   const { tab, updateTabQuery } = useUserProfileTabQuery();
-  const isApiTab = tab !== "reviews";
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetUserProfileById(userId, upperCase(isApiTab ? tab : "posts"));
-  const { ref } = useInfiniteScroll({
-    fetchNextPage,
-    hasNextPage: isApiTab ? hasNextPage : false,
-    isFetchingNextPage,
-  });
+    useGetUserProfileById(userId, upperCase(tab));
+  const { ref } = useInfiniteScroll({ fetchNextPage, hasNextPage, isFetchingNextPage });
 
   if (isError || !userId) return notFound();
   const profileData = data?.profile;

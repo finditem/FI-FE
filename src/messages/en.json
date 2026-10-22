@@ -329,6 +329,14 @@
       "reviewsTitle": "No reviews received yet",
       "reviewsDescription": "This user hasn't received any reviews yet."
     },
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
+    },
+    "withdrawnUser": "Deleted user",
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
   },
