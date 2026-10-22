@@ -6,7 +6,7 @@ import type { ReviewTabType } from "../../_types/ReviewTabType";
 const DEFAULT_TAB: ReviewTabType = "received";
 
 const isReviewTabType = (value: string | null): value is ReviewTabType => {
-  return value === "received" || value === "sent" || value === "hidden";
+  return value === "received" || value === "sent";
 };
 
 /**

@@ -33,12 +33,14 @@ describe("useReviewTabQuery", () => {
     expect(result.current.tab).toBe("received");
   });
 
-  it("tab 쿼리가 sent/hidden이면 그대로 반영한다", () => {
+  it("tab 쿼리가 sent이면 그대로 반영한다", () => {
     mockUseSearchParams.mockReturnValue(new URLSearchParams("tab=sent"));
     expect(renderHook(() => useReviewTabQuery()).result.current.tab).toBe("sent");
+  });
 
+  it("삭제된 hidden tab 값이면 기본값 received로 폴백한다", () => {
     mockUseSearchParams.mockReturnValue(new URLSearchParams("tab=hidden"));
-    expect(renderHook(() => useReviewTabQuery()).result.current.tab).toBe("hidden");
+    expect(renderHook(() => useReviewTabQuery()).result.current.tab).toBe("received");
   });
 
   it("비정상 tab 값이면 기본값 received로 폴백한다", () => {
@@ -79,10 +81,10 @@ describe("useReviewTabQuery", () => {
     mockUseSearchParams.mockReturnValue(new URLSearchParams("foo=1&tab=sent"));
 
     const { result } = renderHook(() => useReviewTabQuery());
-    act(() => result.current.updateTabQuery("hidden"));
+    act(() => result.current.updateTabQuery("sent"));
 
     const params = parseQueryPath(mockReplace.mock.calls[0][0]);
     expect(params.get("foo")).toBe("1");
-    expect(params.get("tab")).toBe("hidden");
+    expect(params.get("tab")).toBe("sent");
   });
 });
