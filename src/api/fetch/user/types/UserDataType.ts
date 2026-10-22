@@ -5,5 +5,5 @@ export interface UserDataType {
   profileImg: string;
 }
 
-export type UserTabType = "posts" | "comments" | "favorites";
-export type UserUpperTabType = "POSTS" | "COMMENTS" | "FAVORITES";
+export type UserTabType = "posts" | "comments" | "favorites" | "reviews";
+export type UserUpperTabType = "POSTS" | "COMMENTS" | "FAVORITES" | "REVIEWS";

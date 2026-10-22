@@ -1,4 +1,5 @@
 import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import { ReviewListItem } from "@/api/fetch/review";
 import { CategoryType, ItemStatus, PostType } from "@/types";
 
 export interface GetUserProfileDataResponse extends ApiBaseResponseType<UserProfileIdDataType> {}
@@ -11,6 +12,7 @@ export interface UserProfileIdDataType {
   posts: Array<UserPostsDataType>;
   comments: Array<UserCommentsDataType>;
   favorites: Array<UserPostsDataType>;
+  reviews: Array<ReviewListItem>;
 
   nextCursor?: number;
   hasNext?: boolean;
@@ -41,7 +43,7 @@ export interface UserCommentsDataType {
   createdAt: string;
 }
 
-export type UserProfileItem = UserPostsDataType | UserCommentsDataType;
+export type UserProfileItem = UserPostsDataType | UserCommentsDataType | ReviewListItem;
 
 export interface UserProfileInfiniteSelectedData {
   profile: {

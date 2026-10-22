@@ -329,6 +329,14 @@
       "reviewsTitle": "아직 받은 후기가 없어요",
       "reviewsDescription": "해당 유저가 받은 후기가 없습니다."
     },
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
+    },
+    "withdrawnUser": "탈퇴한 회원",
     "likesAriaLabel": "좋아요 {count}개",
     "likes": "좋아요 {count}"
   },
