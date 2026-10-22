@@ -14,10 +14,11 @@ const ALERT_CATEGORIES = ALERT_CATEGORY_KEYS.map((category) => ({
 const mockReplace = jest.fn();
 const mockGet = jest.fn();
 
+jest.mock("@/i18n/navigation", () => ({
+  useRouter: () => ({ replace: mockReplace }),
+}));
+
 jest.mock("next/navigation", () => ({
-  useRouter: () => ({
-    replace: mockReplace,
-  }),
   useSearchParams: () => ({
     get: mockGet,
   }),
@@ -56,6 +57,15 @@ describe("AlertCategory", () => {
     expect(screen.getByRole("button", { name: "전체 필터" })).not.toHaveClass(
       "bg-fill-neutralInversed-normal-enteredSelected"
     );
+  });
+
+  it("후기 필터를 선택하면 로케일을 유지하는 라우터로 이동한다", async () => {
+    const user = userEvent.setup();
+    render(<AlertCategory />);
+
+    await user.click(screen.getByRole("button", { name: "후기 필터" }));
+
+    expect(mockReplace).toHaveBeenCalledWith("/alert?category=review");
   });
 
   it("필터 클릭 시 해당 category로 router.replace를 호출한다", async () => {
