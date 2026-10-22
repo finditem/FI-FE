@@ -28,7 +28,3 @@ export const Received: Story = {
 export const SentEmpty: Story = {
   args: { selectedTab: "sent" },
 };
-
-export const HiddenEmpty: Story = {
-  args: { selectedTab: "hidden" },
-};
