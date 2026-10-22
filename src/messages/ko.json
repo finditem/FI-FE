@@ -329,6 +329,14 @@
       "reviewsTitle": "아직 받은 후기가 없어요",
       "reviewsDescription": "해당 유저가 받은 후기가 없습니다."
     },
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
+    },
+    "withdrawnUser": "탈퇴한 회원",
     "likesAriaLabel": "좋아요 {count}개",
     "likes": "좋아요 {count}"
   },
@@ -1077,9 +1085,10 @@
     "submitLabel": "후기 남기기"
   },
   "ReviewCompleteModal": {
-    "title": "찾길과 함께\n따뜻한 마음을 전한 이웃",
+    "title": "우리 동네에서\n따뜻한 마음을 전한 이웃",
     "description": "소중한 후기, 잘 전달됐어요.",
-    "confirmLabel": "후기 작성 완료"
+    "confirmLabel": "확인",
+    "viewSentReviewLabel": "보낸 후기 보기"
   },
   "ChatLeaveModal": {
     "cancelLabel": "아니요",
@@ -1207,6 +1216,7 @@
     "pageHeading": "알림 페이지"
   },
   "AlertCategories": {
+    "reviewLabel": "후기",
     "allLabel": "전체",
     "categoryLabel": "카테고리 키워드",
     "chatLabel": "채팅",
@@ -1537,23 +1547,24 @@
     "title": "찾길 후기",
     "backAriaLabel": "뒤로 가기",
     "receivedChip": "받은 후기",
-    "arrivalMessage": "성수317님, <lineBreak></lineBreak><strong>감사의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
-    "sender": {
-      "nickname": "우주강아지",
-      "location": "성동구 성수1동",
-      "date": "2026.07.22"
+    "withdrawnUser": "탈퇴한 사용자",
+    "arrivalMessage": {
+      "GRATEFUL": "{nickname}님, <lineBreak></lineBreak><strong>감사의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
+      "MOVED": "{nickname}님, <lineBreak></lineBreak><strong>감동의 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>",
+      "HEART_FLUTTERED": "{nickname}님, <lineBreak></lineBreak><strong>설레는 후기가 <lineBreakMobile></lineBreakMobile>도착했어요.</strong>"
     },
-    "letter": "늦은 밤에 연락드렸는데 흔쾌히 나와주셔서 정말 감사했어요. 덕분에 신분증 다시 만들지 않아도 되서 한시름 놓았습니다. 성수동에 이렇게 따뜻한 이웃이 계셔서 다행이에요. 항상 좋은 일만 가득하시길 바래요, 감사합니다!",
     "strengths": {
-      "title": "이런 점이 좋았어요",
-      "kind": "친절하고 따뜻하게 대해주셨어요.",
-      "trust": "믿고 소통할 수 있었어요.",
-      "quick": "빠르게 연락해 주셔서 도움이 됐어요."
+      "title": "이런 점이 좋았어요"
+    },
+    "helpTypes": {
+      "KIND_AND_WARM": "친절하고 따뜻하게 대해주셨어요.",
+      "TRUSTWORTHY_COMMUNICATION": "믿고 소통할 수 있었어요.",
+      "QUICK_RESPONSE": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "SAFE_STORAGE": "물건을 안전하게 보관해 주셨어요.",
+      "USEFUL_INFORMATION": "물건을 찾을 수 있도록 정보를 알려주셨어요."
     },
     "foundItem": {
-      "title": "찾아준 물건",
-      "name": "휴대폰, 검정색 카드지갑 가죽케이스",
-      "meta": "성수역 근처 · 2025.11.11"
+      "title": "찾아준 물건"
     },
     "chatButton": "채팅창으로 이동하기"
   },
@@ -1568,16 +1579,22 @@
     "countLabel": "후기",
     "tabs": {
       "received": "받은 후기",
-      "sent": "보낸 후기",
-      "hidden": "숨긴 후기"
+      "sent": "보낸 후기"
     },
     "empty": {
       "receivedTitle": "아직 받은 후기가 없어요",
       "receivedDescription": "후기편지가 도착하면 여기에 후기 목록이 표기돼요.",
       "sentTitle": "아직 보낸 후기가 없어요",
-      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요.",
-      "hiddenTitle": "숨긴 후기가 없어요",
-      "hiddenDescription": "후기는 여기에서 확인하고 언제든 다시 해제할 수 있어요."
+      "sentDescription": "후기편지를 보내면 여기에 후기 목록이 표기돼요."
+    },
+    "withdrawnUser": "탈퇴한 회원",
+    "loadError": "후기 목록을 불러오지 못했어요",
+    "helpItems": {
+      "kind": "친절하고 따뜻하게 대해주셨어요.",
+      "trustworthy": "믿고 소통할 수 있었어요.",
+      "quickResponse": "빠르게 연락해 주셔서 도움이 됐어요.",
+      "safeKeeping": "물건을 안전하게 보관해 주셨어요.",
+      "helpfulInfo": "물건을 찾을 수 있도록 정보를 알려주셨어요."
     }
   },
   "ReviewCard": {
@@ -2093,6 +2110,19 @@
     "notMember": "회원이 아니에요. 로그인을 해주세요",
     "nicknameDuplicated": "이미 사용 중인 닉네임이에요. 다른 닉네임으로 다시 시도해 주세요"
   },
+  "usePostReview": {
+    "alreadyWritten": "이미 후기를 작성했어요",
+    "submitError": "후기 등록에 실패했어요"
+  },
+  "useHideReview": {
+    "hideSuccess": "후기를 숨겼어요",
+    "hideError": "후기를 숨기지 못했어요"
+  },
+  "usePostFindCompletion": {
+    "completeSuccess": "찾기 완료로 처리했어요",
+    "alreadyCompleted": "이미 찾기 완료된 게시글이에요",
+    "completeError": "찾기 완료 처리에 실패했어요"
+  },
   "usePostChangePassword": {
     "changeSuccess": "비밀번호 변경이 완료되었어요",
     "changeError": "비밀번호 변경에 실패했어요"
@@ -2103,7 +2133,9 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "새 알림 {count}건이 도착했어요",
-    "goToAlertPage": "알림 페이지로 이동"
+    "goToAlertPage": "알림 페이지로 이동",
+    "reviewArrived": "후기가 도착했어요.",
+    "goToReviewPage": "찾길 후기로 이동"
   },
   "useFormatKoreanDate": {
     "weekdays": ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"]

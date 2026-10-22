@@ -329,6 +329,14 @@
       "reviewsTitle": "No reviews received yet",
       "reviewsDescription": "This user hasn't received any reviews yet."
     },
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
+    },
+    "withdrawnUser": "Deleted user",
     "likesAriaLabel": "{count, plural, one {# like} other {# likes}}",
     "likes": "{count, plural, one {# like} other {# likes}}"
   },
@@ -1077,9 +1085,10 @@
     "submitLabel": "Leave a review"
   },
   "ReviewCompleteModal": {
-    "title": "A neighbor who shared warmth\nwith Chajgil",
+    "title": "A neighbor in our town\nwho shared warmth",
     "description": "Your heartfelt review has been delivered.",
-    "confirmLabel": "Done"
+    "confirmLabel": "Confirm",
+    "viewSentReviewLabel": "View sent review"
   },
   "ChatLeaveModal": {
     "cancelLabel": "No",
@@ -1207,6 +1216,7 @@
     "pageHeading": "Notifications page"
   },
   "AlertCategories": {
+    "reviewLabel": "Reviews",
     "allLabel": "All",
     "categoryLabel": "Category keywords",
     "chatLabel": "Chat",
@@ -1537,23 +1547,24 @@
     "title": "Review",
     "backAriaLabel": "Go back",
     "receivedChip": "Received",
-    "arrivalMessage": "Seongsu317, <lineBreak></lineBreak><strong>a thank-you review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
-    "sender": {
-      "nickname": "Space Puppy",
-      "location": "Seongsu 1-dong, Seongdong-gu",
-      "date": "2026.07.22"
+    "withdrawnUser": "Deleted user",
+    "arrivalMessage": {
+      "GRATEFUL": "{nickname}, <lineBreak></lineBreak><strong>a thank-you review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
+      "MOVED": "{nickname}, <lineBreak></lineBreak><strong>a touching review <lineBreakMobile></lineBreakMobile>has arrived.</strong>",
+      "HEART_FLUTTERED": "{nickname}, <lineBreak></lineBreak><strong>a heart-fluttering review <lineBreakMobile></lineBreakMobile>has arrived.</strong>"
     },
-    "letter": "Thank you so much for coming out willingly even though I reached out late at night. Thanks to you, I was relieved that I didn't have to reissue my ID. I'm glad to have such a warm neighbor in Seongsu. I hope only good things come your way. Thank you!",
     "strengths": {
-      "title": "What I liked",
-      "kind": "They were kind and warm.",
-      "trust": "I could communicate with confidence.",
-      "quick": "Their quick response was very helpful."
+      "title": "What I liked"
+    },
+    "helpTypes": {
+      "KIND_AND_WARM": "They were kind and warm.",
+      "TRUSTWORTHY_COMMUNICATION": "I could communicate with confidence.",
+      "QUICK_RESPONSE": "Their quick response was very helpful.",
+      "SAFE_STORAGE": "They kept my item safe.",
+      "USEFUL_INFORMATION": "They shared helpful information to find my item."
     },
     "foundItem": {
-      "title": "Found item",
-      "name": "Phone, black leather card wallet case",
-      "meta": "Near Seongsu Station · 2025.11.11"
+      "title": "Found item"
     },
     "chatButton": "Go to chat"
   },
@@ -1568,16 +1579,22 @@
     "countLabel": "Reviews",
     "tabs": {
       "received": "Received",
-      "sent": "Sent",
-      "hidden": "Hidden"
+      "sent": "Sent"
     },
     "empty": {
       "receivedTitle": "No reviews received yet",
       "receivedDescription": "When a review letter arrives, it will appear here.",
       "sentTitle": "No reviews sent yet",
-      "sentDescription": "When you send a review letter, it will appear here.",
-      "hiddenTitle": "No hidden reviews",
-      "hiddenDescription": "You can check reviews here and unhide them anytime."
+      "sentDescription": "When you send a review letter, it will appear here."
+    },
+    "withdrawnUser": "Deleted user",
+    "loadError": "Failed to load reviews",
+    "helpItems": {
+      "kind": "They were kind and warm.",
+      "trustworthy": "I felt I could trust and talk with them.",
+      "quickResponse": "They responded quickly, which really helped.",
+      "safeKeeping": "They kept my item safe.",
+      "helpfulInfo": "They shared info that helped me find my item."
     }
   },
   "ReviewCard": {
@@ -2093,6 +2110,19 @@
     "notMember": "You're not a member. Please log in.",
     "nicknameDuplicated": "This nickname is already in use. Please try a different one."
   },
+  "usePostReview": {
+    "alreadyWritten": "You've already written a review for this.",
+    "submitError": "Failed to submit your review."
+  },
+  "useHideReview": {
+    "hideSuccess": "Review hidden.",
+    "hideError": "Couldn't hide the review."
+  },
+  "usePostFindCompletion": {
+    "completeSuccess": "Marked as found.",
+    "alreadyCompleted": "This post is already marked as found.",
+    "completeError": "Couldn't complete the find."
+  },
   "usePostChangePassword": {
     "changeSuccess": "Password changed",
     "changeError": "Password change failed"
@@ -2103,7 +2133,9 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "You have {count} new notifications",
-    "goToAlertPage": "Go to notifications"
+    "goToAlertPage": "Go to notifications",
+    "reviewArrived": "A review has arrived.",
+    "goToReviewPage": "Go to reviews"
   },
   "useFormatKoreanDate": {
     "weekdays": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]

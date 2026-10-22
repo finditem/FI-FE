@@ -1,17 +1,25 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { Icon } from "@/components/common";
-import type { IconName } from "@/components/common";
 import { cn } from "@/utils";
 import type { ReviewFeelingValue } from "../../../../_types/ReviewFeelingValue";
 
 const FEELING_VALUES: ReviewFeelingValue[] = ["touched", "grateful", "heartFlutter"];
 
-const FEELING_ICON: Record<ReviewFeelingValue, IconName> = {
-  touched: "Touched",
-  grateful: "Grateful",
-  heartFlutter: "HeartFlutter",
+const FEELING_IMAGE: Record<ReviewFeelingValue, { default: string; selected: string }> = {
+  touched: {
+    default: "/review/feeling/touched-default.webp",
+    selected: "/review/feeling/touched-selected.webp",
+  },
+  grateful: {
+    default: "/review/feeling/grateful-default.webp",
+    selected: "/review/feeling/grateful-selected.webp",
+  },
+  heartFlutter: {
+    default: "/review/feeling/heart-flutter-default.webp",
+    selected: "/review/feeling/heart-flutter-selected.webp",
+  },
 };
 
 interface ReviewFeelingSelectProps {
@@ -21,6 +29,10 @@ interface ReviewFeelingSelectProps {
 
 /**
  * 후기 작성 시 상대방과의 만남에서 느낀 감정을 하나 고르는 선택 UI입니다.
+ *
+ * @remarks
+ * 감정별로 미선택(흑백)과 선택(컬러) 일러스트가 별도 이미지로 제공되어, 선택 상태에 따라
+ * 이미지 소스 자체를 교체합니다. CSS 채도 필터는 쓰지 않습니다.
  *
  * @author suhyeon
  */
@@ -45,22 +57,22 @@ const ReviewFeelingSelect = ({ value, onChange }: ReviewFeelingSelectProps) => {
               className={cn(
                 "size-[88px] rounded-full flex-center",
                 isSelected
-                  ? "border border-brand-normal-disabled bg-[#C2F1D4]/30"
+                  ? "bg-fill-brand-normal-default"
                   : "bg-fill-neutralInversed-normal-default"
               )}
             >
-              <Icon
-                name={FEELING_ICON[feeling]}
-                size={48}
-                className={
-                  isSelected ? "text-brand-strong-default" : "text-labelsVibrant-quaternary"
-                }
+              <Image
+                src={isSelected ? FEELING_IMAGE[feeling].selected : FEELING_IMAGE[feeling].default}
+                alt=""
+                width={45}
+                height={60}
+                className="h-[60px] w-auto"
               />
             </span>
             <span
               className={cn(
-                "text-body2-medium text-layout-body-default",
-                isSelected && "text-brand-strongUseThis-default"
+                "text-body2-medium",
+                isSelected ? "text-brand-normal-default" : "text-labelsVibrant-secondary"
               )}
             >
               {t(`feelings.${feeling}`)}

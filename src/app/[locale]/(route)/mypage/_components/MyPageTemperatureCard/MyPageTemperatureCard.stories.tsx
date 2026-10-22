@@ -23,6 +23,9 @@ const meta: Meta<typeof MyPageTemperatureCard> = {
 export default meta;
 type Story = StoryObj<typeof MyPageTemperatureCard>;
 
+/** 온도 조회 전 또는 실패: 카드 틀만 그리고 수치, 문구, 캐릭터, 막대 채움을 숨긴다 */
+export const Loading: Story = { args: { temperature: undefined } };
+
 /** 36.5도 미만: 회색 수치와 막대 */
 export const Low: Story = { args: { temperature: 31.2 } };
 

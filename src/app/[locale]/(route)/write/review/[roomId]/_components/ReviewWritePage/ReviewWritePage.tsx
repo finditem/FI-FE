@@ -2,12 +2,13 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from "@/i18n/navigation";
 import { DetailHeader } from "@/components/layout";
 import { Button, InputField, RequiredText } from "@/components/common";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
 import { useGetUsersMe } from "@/api/fetch/user";
+import { usePostReview, type ReviewEmotionType, type ReviewHelpType } from "@/api/fetch/review";
 import ReviewFeelingSelect from "./_internal/ReviewFeelingSelect/ReviewFeelingSelect";
 import ReviewHelpChecklist from "./_internal/ReviewHelpChecklist/ReviewHelpChecklist";
 import ReviewCompleteModal from "./_internal/ReviewCompleteModal/ReviewCompleteModal";
@@ -22,13 +23,24 @@ interface ReviewWritePageProps {
   roomId: number;
 }
 
+// 프론트 전용 UI 값(ReviewFeelingValue/ReviewHelpItemValue)을 백엔드 계약 enum으로 변환한다.
+const EMOTION_REQUEST_MAP: Record<ReviewFeelingValue, ReviewEmotionType> = {
+  touched: "MOVED",
+  grateful: "GRATEFUL",
+  heartFlutter: "HEART_FLUTTERED",
+};
+
+const HELP_TYPE_REQUEST_MAP: Record<ReviewHelpItemValue, ReviewHelpType> = {
+  kind: "KIND_AND_WARM",
+  trustworthy: "TRUSTWORTHY_COMMUNICATION",
+  quickResponse: "QUICK_RESPONSE",
+  safeKeeping: "SAFE_STORAGE",
+  helpfulInfo: "USEFUL_INFORMATION",
+};
+
 /**
  * 찾길 후기 작성 페이지입니다. 채팅 상세의 "분실물 찾기 완료" 확인 모달에서 "후기 남기기"를 눌렀을 때
  * 진입합니다.
- *
- * @remarks
- * 후기 등록 백엔드 API가 아직 없어 실제 등록은 생략하고, "후기 남기기" 클릭 시 완료 팝업만 노출합니다.
- * API 연동 시 제출 성공 콜백에서 완료 팝업을 열도록 바꾸면 됩니다.
  *
  * @author suhyeon
  */
@@ -45,20 +57,38 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
     mode: "onChange",
     defaultValues: { content: "" },
   });
+  const { mutate: postReview, isPending } = usePostReview(roomId, {
+    onSuccess: () => setIsCompleteOpen(true),
+  });
 
   const myNickname = userInfo?.result?.nickname ?? "";
   const opponentNickname = chatRoom?.result.opponentUser.nickname ?? "";
+  const findCompletionId = chatRoom?.result.findCompletion?.findCompletionId ?? null;
+  // findCompletionId가 남아 있어도 이미 후기를 작성한 경우 등은 canWriteReview가 false로 내려온다.
+  const canWriteReview = chatRoom?.result.findCompletion?.canWriteReview ?? false;
   // 감정 유형(1개)과 도움 경험(1개 이상)은 필수, 상세 후기는 선택 입력이다.
-  const canSubmit = feeling !== null && helpItems.length > 0;
+  const canSubmit =
+    feeling !== null && helpItems.length > 0 && findCompletionId !== null && canWriteReview;
 
   const handleSubmit = () => {
-    // TODO(수현): 후기 등록 API 연동 시 성공 응답 후 완료 팝업을 열도록 교체
-    setIsCompleteOpen(true);
+    if (feeling === null || findCompletionId === null || !canWriteReview) return;
+
+    postReview({
+      findCompletionId,
+      emotion: EMOTION_REQUEST_MAP[feeling],
+      helpTypes: helpItems.map((item) => HELP_TYPE_REQUEST_MAP[item]),
+      content: methods.getValues("content"),
+    });
   };
 
   const handleCompleteConfirm = () => {
     setIsCompleteOpen(false);
     router.back();
+  };
+
+  const handleViewSentReview = () => {
+    setIsCompleteOpen(false);
+    router.push("/mypage/reviews?tab=sent");
   };
 
   return (
@@ -103,14 +133,18 @@ const ReviewWritePage = ({ roomId }: ReviewWritePageProps) => {
           type="button"
           size="big"
           className="w-full"
-          disabled={!canSubmit}
+          disabled={!canSubmit || isPending}
           onClick={handleSubmit}
         >
           {t("submitLabel")}
         </Button>
       </div>
 
-      <ReviewCompleteModal isOpen={isCompleteOpen} onConfirm={handleCompleteConfirm} />
+      <ReviewCompleteModal
+        isOpen={isCompleteOpen}
+        onConfirm={handleCompleteConfirm}
+        onViewSentReview={handleViewSentReview}
+      />
     </div>
   );
 };

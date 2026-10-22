@@ -6,9 +6,11 @@ export * from "./types/MypageCommentsResponseType";
 export * from "./types/DeleteAccountType";
 export * from "./types/PreferredLanguageType";
 export * from "./types/FavoritePlacesResponseType";
+export * from "./types/UserTemperatureType";
 
 export { useGetUserProfileById } from "./api/useGetUserProfileById";
 export { useGetUsersMe } from "./api/useGetUsersMe";
+export { useGetUsersMeTemperature } from "./api/useGetUsersMeTemperature";
 export { usePatchProfile } from "./api/usePatchProfile";
 export { useGetUserMeFavorites } from "./api/useGetUserMeFavorites";
 export { useGetUserMeFavoritePlaces } from "./api/useGetUserMeFavoritePlaces";
