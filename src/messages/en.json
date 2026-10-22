@@ -1208,6 +1208,7 @@
     "pageHeading": "Notifications page"
   },
   "AlertCategories": {
+    "reviewLabel": "Reviews",
     "allLabel": "All",
     "categoryLabel": "Category keywords",
     "chatLabel": "Chat",

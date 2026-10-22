@@ -11,7 +11,7 @@ import { getAlertIconBackgroundColor } from "@/app/[locale]/(route)/alert/_utils
 import { CheckBox, Icon, IconName, EmptyState } from "@/components";
 import { useFormatDate, useInfiniteScroll } from "@/hooks";
 import { cn } from "@/utils";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import type { Dispatch, SetStateAction } from "react";
 
 interface AlertItemProps {

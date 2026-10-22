@@ -14,10 +14,13 @@ const ALERT_CATEGORIES = ALERT_CATEGORY_KEYS.map((category) => ({
 const mockReplace = jest.fn();
 const mockGet = jest.fn();
 
-jest.mock("next/navigation", () => ({
+jest.mock("@/i18n/navigation", () => ({
   useRouter: () => ({
     replace: mockReplace,
   }),
+}));
+
+jest.mock("next/navigation", () => ({
   useSearchParams: () => ({
     get: mockGet,
   }),

@@ -5,6 +5,7 @@ export const ALERT_CATEGORIES = [
   { key: "category" },
   { key: "chat" },
   { key: "comment" },
+  { key: "review" },
   { key: "notice" },
   { key: "inquiry_reply" },
   { key: "report_result" },

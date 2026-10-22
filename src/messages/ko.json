@@ -1208,6 +1208,7 @@
     "pageHeading": "알림 페이지"
   },
   "AlertCategories": {
+    "reviewLabel": "후기",
     "allLabel": "전체",
     "categoryLabel": "카테고리 키워드",
     "chatLabel": "채팅",
