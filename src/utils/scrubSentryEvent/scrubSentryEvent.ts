@@ -8,8 +8,14 @@ const REDACTED = "[Redacted]";
  */
 const SENSITIVE_KEY_RE = /token|password|passwd|secret|authorization|cookie|email|phone/i;
 
-/** 키 이름이 평범해도 값 자체가 자격 증명처럼 보이면 가립니다. JWT, Bearer 토큰입니다. */
-const SENSITIVE_VALUE_RE = /eyJ[\w-]{6,}\.[\w-]{6,}|\bBearer\s+[\w.-]+/;
+/**
+ * 키 이름이 평범해도 값 자체가 자격 증명처럼 보이면 가립니다. JWT와 Bearer 토큰입니다.
+ * HTTP 인증 방식 이름은 대소문자를 구분하지 않으므로 Bearer는 `i` 플래그로 따로 검사합니다.
+ */
+const JWT_RE = /eyJ[\w-]{6,}\.[\w-]{6,}/;
+const BEARER_RE = /\bbearer\s+[\w.-]+/i;
+
+const isSensitiveValue = (value: string) => JWT_RE.test(value) || BEARER_RE.test(value);
 
 /** URL 쿼리에서 값을 가릴 파라미터입니다. OAuth 콜백의 일회용 값과 토큰류입니다. */
 const SENSITIVE_QUERY_KEYS = ["code", "state", "token", "access_token", "refresh_token"];
@@ -17,8 +23,10 @@ const SENSITIVE_QUERY_KEYS = ["code", "state", "token", "access_token", "refresh
 const MAX_DEPTH = 6;
 
 const scrubValue = (value: unknown, seen: WeakSet<object>, depth: number): unknown => {
-  if (typeof value === "string") return SENSITIVE_VALUE_RE.test(value) ? REDACTED : value;
-  if (value === null || typeof value !== "object" || depth > MAX_DEPTH) return value;
+  if (typeof value === "string") return isSensitiveValue(value) ? REDACTED : value;
+  if (value === null || typeof value !== "object") return value;
+  // 더 깊이 내려가지 않는 대신 검사하지 못한 하위 값을 원본 그대로 보내지 않도록 통째로 가립니다.
+  if (depth > MAX_DEPTH) return REDACTED;
   if (seen.has(value)) return REDACTED;
   seen.add(value);
 
@@ -32,6 +40,22 @@ const scrubValue = (value: unknown, seen: WeakSet<object>, depth: number): unkno
 };
 
 const scrubObject = <T>(value: T): T => scrubValue(value, new WeakSet(), 0) as T;
+
+/**
+ * 요청 본문은 객체가 아니라 직렬화된 문자열로 들어올 수 있습니다. JSON이면 파싱해 키 기준으로 가리고,
+ * 형식을 알 수 없는 문자열은 안에 무엇이 들었는지 확인할 수 없으므로 통째로 가립니다.
+ */
+const scrubRequestBody = (data: unknown): unknown => {
+  if (typeof data !== "string") return scrubObject(data);
+
+  try {
+    const parsed: unknown = JSON.parse(data);
+    if (parsed !== null && typeof parsed === "object") return JSON.stringify(scrubObject(parsed));
+  } catch {
+    // JSON이 아닌 본문은 아래에서 통째로 가립니다.
+  }
+  return data === "" ? data : REDACTED;
+};
 
 const scrubUrl = (url: string) => {
   const queryIndex = url.indexOf("?");
@@ -99,7 +123,7 @@ export const scrubSentryEvent = <T extends Event>(event: T): T => {
       ...request,
       ...(request.url && { url: scrubUrl(request.url) }),
       ...(request.headers && { headers: scrubObject(request.headers) }),
-      ...(request.data !== undefined && { data: scrubObject(request.data) }),
+      ...(request.data !== undefined && { data: scrubRequestBody(request.data) }),
       ...(request.query_string !== undefined && {
         query_string:
           typeof request.query_string === "string"
