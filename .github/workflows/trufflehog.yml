@@ -33,7 +33,11 @@ jobs:
         with:
           fetch-depth: 0
 
+      # 액션 태그는 실행 스크립트만 고정하고, 실제 스캐너 이미지는 version 입력값(기본 latest)으로 받는다.
+      # 업스트림 새 이미지가 스캔 동작을 몰래 바꾸지 않도록 이미지도 같은 버전으로 고정한다.
+      # Dependabot은 액션 태그만 올리므로 태그를 올릴 때 version도 함께 맞춘다.
       - name: Secret scan
         uses: trufflesecurity/trufflehog@v3.99.2
         with:
+          version: 3.99.2
           extra_args: --results=verified
