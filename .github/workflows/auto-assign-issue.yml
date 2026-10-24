@@ -8,6 +8,7 @@ permissions:
 
 jobs:
   assign:
+    if: github.event.issue.user.type != 'Bot'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App token
