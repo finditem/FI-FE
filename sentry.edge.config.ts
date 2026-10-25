@@ -4,6 +4,8 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
+import { SENTRY_DATA_COLLECTION } from "@/constants/SENTRY_DATA_COLLECTION";
+import { scrubSentryEvent } from "@/utils/scrubSentryEvent/scrubSentryEvent";
 
 const isProd = process.env.NODE_ENV === "production";
 const isE2E = process.env.NEXT_PUBLIC_IS_E2E === "true";
@@ -23,7 +25,8 @@ Sentry.init({
   // Enable logs to be sent to Sentry
   enableLogs: true,
 
-  // Enable sending user PII (Personally Identifiable Information)
-  // https://docs.sentry.io/platforms/javascript/guides/nextjs/configuration/options/#sendDefaultPii
-  sendDefaultPii: true,
+  // 쿠키·사용자 정보·요청 본문은 수집하지 않고, 전송 직전에 토큰과 연락처를 한 번 더 가린다.
+  dataCollection: SENTRY_DATA_COLLECTION,
+  beforeSend: scrubSentryEvent,
+  beforeSendTransaction: scrubSentryEvent,
 });
