@@ -18,7 +18,7 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
 
       - name: Assign issue to author
-        uses: pozil/auto-assign-issue@v2
+        uses: pozil/auto-assign-issue@v4
         with:
           repo-token: ${{ steps.app-token.outputs.token }}
           assignees: ${{ github.event.issue.user.login }}
