@@ -1,10 +1,6 @@
-import useAppMutation from "@/api/_base/query/useAppMutation";
-import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import { useMutation } from "@tanstack/react-query";
+import { refreshSession } from "@/api/_base/auth/authSession";
 
 export const useApiRefreshToken = () => {
-  return useAppMutation<
-    undefined,
-    ApiBaseResponseType<{ userId: number; temporaryPassword: boolean }>,
-    ApiBaseResponseType<null>
-  >("auth", "auth/refresh", "post");
+  return useMutation({ mutationFn: refreshSession, retry: false });
 };

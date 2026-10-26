@@ -8,3 +8,4 @@
  * SSE 등 후속 연결 로직에서 `addEventListener`로 구독합니다.
  */
 export const AUTH_LOGIN_SUCCESS_EVENT = "authLoginSuccess";
+export const AUTH_SESSION_ENDED_EVENT = "authSessionEnded";

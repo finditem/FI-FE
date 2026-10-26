@@ -8,3 +8,4 @@ export * from "./comment.data";
 export * from "./inquiry.data";
 export * from "./notice.data";
 export * from "./review.data";
+export * from "./auth.data";

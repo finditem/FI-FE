@@ -7,6 +7,8 @@ import { create } from "zustand";
  */
 
 interface AuthStore {
+  status: "checking" | "authenticated" | "anonymous" | "unavailable";
+  setStatus: (status: AuthStore["status"]) => void;
   /** 인증 상태 확인 완료 여부 (true: 로그인/로그아웃 상태 확정, false: 확인 중) */
   isAuthInitialized: boolean;
   /** 인증 초기화 상태를 설정합니다 */
@@ -14,6 +16,8 @@ interface AuthStore {
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
+  status: "checking",
+  setStatus: (status) => set({ status, isAuthInitialized: status !== "checking" }),
   isAuthInitialized: false,
   setAuthInitialized: (val) => set({ isAuthInitialized: val }),
 }));

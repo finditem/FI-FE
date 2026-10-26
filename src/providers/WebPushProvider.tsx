@@ -25,9 +25,10 @@ import { isWebPushSupported, registerWebPushServiceWorker, syncWebPushSubscripti
 export const WebPushProvider = ({ children }: PropsWithChildren) => {
   const isLoggedIn = useAgreeStore((s) => s.isLoggedIn);
   const isAuthInitialized = useAuthStore((s) => s.isAuthInitialized);
+  const isAuthenticated = useAuthStore((s) => s.status === "authenticated");
 
   const { data: notificationSetting } = useGetNotificationSetting({
-    enabled: isLoggedIn && isAuthInitialized,
+    enabled: isLoggedIn && isAuthInitialized && isAuthenticated,
   });
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const WebPushProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoggedIn || !isAuthInitialized) return;
+    if (!isLoggedIn || !isAuthInitialized || !isAuthenticated) return;
 
     const browserPushOn = notificationSetting?.result?.browserNotificationEnabled;
     if (!browserPushOn) return;
@@ -51,7 +52,12 @@ export const WebPushProvider = ({ children }: PropsWithChildren) => {
         }
       }
     })();
-  }, [isLoggedIn, isAuthInitialized, notificationSetting?.result?.browserNotificationEnabled]);
+  }, [
+    isLoggedIn,
+    isAuthInitialized,
+    isAuthenticated,
+    notificationSetting?.result?.browserNotificationEnabled,
+  ]);
 
   return children;
 };

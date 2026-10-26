@@ -3,8 +3,9 @@ import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
 import { AxiosError } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { completeLogin } from "@/api/_base/auth/completeLogin";
 
 type SocialProvider = "kakao" | "apple";
 
@@ -15,6 +16,7 @@ export const useApiSocialLogin = <
   provider: SocialProvider
 ) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { addToast } = useToast();
   const t = useTranslations("useApiSocialLogin");
@@ -36,10 +38,8 @@ export const useApiSocialLogin = <
     `/auth/${provider}`,
     "post",
     {
-      onSuccess: () => {
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
-        }
+      onSuccess: async () => {
+        await completeLogin(queryClient);
       },
       onError: (error) => {
         const code = error.response?.data.code;

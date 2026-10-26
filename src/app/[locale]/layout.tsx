@@ -143,7 +143,7 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <AppProviders>
             <MSWProvider />
-            <AuthBootstrap />
+            <AuthBootstrap hasToken={hasToken} />
             <main className="w-full flex-1">{children}</main>
             <Footer hasToken={hasToken} />
             <Script

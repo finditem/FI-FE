@@ -1,67 +1,82 @@
-import axios from "axios";
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  CanceledError,
+  type InternalAxiosRequestConfig,
+} from "axios";
 import { getBaseURL } from "./getBaseURL";
+import {
+  expireSession,
+  getSessionEpoch,
+  getTokenVersion,
+  isAuthenticationError,
+  isSessionTerminal,
+  refreshSession,
+  startClientSession,
+} from "../auth/authSession";
 
-const authApi = axios.create({
-  baseURL: getBaseURL(),
-  withCredentials: true,
-  timeout: 5000,
+type AuthRequestConfig = InternalAxiosRequestConfig & {
+  _authRetry?: boolean;
+  _sessionEpoch?: number;
+  _tokenVersion?: number;
+};
+
+const authApi = axios.create({ baseURL: getBaseURL(), withCredentials: true, timeout: 5000 });
+const isSessionRequest = (url = "") =>
+  /^\/?auth\/(login|kakao|apple|refresh|logout)(?:[/?]|$)/.test(url);
+
+authApi.interceptors.request.use(async (config: AuthRequestConfig) => {
+  if (/^\/?auth\/(login|kakao|apple)(?:[/?]|$)/.test(config.url ?? "")) {
+    await startClientSession();
+  }
+  if (!isSessionRequest(config.url) && typeof window !== "undefined") {
+    if (config._sessionEpoch !== undefined && config._sessionEpoch !== getSessionEpoch()) {
+      throw new CanceledError("Session changed");
+    }
+    config._sessionEpoch = getSessionEpoch();
+    config._tokenVersion = getTokenVersion();
+    if (isSessionTerminal()) {
+      // 게스트의 쓰기 동작도 기존 호출부가 로그인 안내로 처리할 수 있는 401을 반환한다.
+      throw new AxiosError("Session expired", "ERR_BAD_REQUEST", config, undefined, {
+        config,
+        status: 401,
+        statusText: "Unauthorized",
+        headers: new AxiosHeaders(),
+        data: {
+          isSuccess: false,
+          code: "AUTH401-INVALID_REFRESH",
+          message: "Session expired",
+          result: null,
+        },
+      });
+    }
+  }
+  return config;
 });
 
 authApi.interceptors.response.use(
-  (response) => response,
-
-  async (error) => {
-    const originalRequest = error.config;
-
-    // 서버환경에서 실행했을때 에러라는 것을 알려줌
-    if (typeof window === "undefined" || !originalRequest) {
-      return Promise.reject(error);
+  (response) => {
+    const config = response.config as AuthRequestConfig;
+    if (config._sessionEpoch !== undefined && config._sessionEpoch !== getSessionEpoch()) {
+      throw new CanceledError("Session changed");
     }
-
-    const isAuthError = [401].includes(error.response?.status);
-    const isAlreadyRetried = originalRequest._retry;
-    const isRefreshRequest = originalRequest.url?.includes("auth/refresh");
-
-    const isLoginAttempt =
-      originalRequest.url?.includes("auth/login") ||
-      originalRequest.url?.includes("auth/apple") ||
-      originalRequest.url?.includes("auth/kakao");
-
-    if (isRefreshRequest || isLoginAttempt) {
-      return Promise.reject(error);
+    return response;
+  },
+  async (error: unknown) => {
+    if (!axios.isAxiosError(error)) throw error;
+    const request = error.config as AuthRequestConfig | undefined;
+    if (typeof window === "undefined" || !request || isSessionRequest(request.url)) throw error;
+    if (request._sessionEpoch !== getSessionEpoch()) throw new CanceledError("Session changed");
+    if (isSessionTerminal()) throw error;
+    if (!isAuthenticationError(error)) throw error;
+    if (request._authRetry) {
+      await expireSession();
+      throw error;
     }
-
-    if (isAuthError && !isAlreadyRetried) {
-      originalRequest._retry = true;
-
-      try {
-        await authApi.post("/auth/refresh");
-
-        // 토큰 재발급 성공 시 커스텀 이벤트 발생
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent("tokenRefreshed"));
-        }
-
-        return authApi(originalRequest);
-      } catch (refreshError) {
-        // 로그아웃 안내 토스트는 로그인 페이지에서 보여줌
-        const currentPath = window.location.pathname;
-        const isProtectPath =
-          currentPath.startsWith("/mypage/") ||
-          currentPath.startsWith("/write") ||
-          currentPath.startsWith("/chat") ||
-          currentPath.startsWith("/change-password");
-
-        if (isProtectPath && window.location.pathname !== "/login")
-          window.location.replace(
-            "/login?reason=session-expired&callbackUrl=" +
-              encodeURIComponent(currentPath + window.location.search)
-          );
-        return Promise.reject(refreshError);
-      }
-    }
-
-    return Promise.reject(error);
+    request._authRetry = true;
+    // 이미 갱신된 토큰 이전에 시작한 요청이면 추가 회전 없이 원요청만 재시도한다.
+    if (request._tokenVersion === getTokenVersion()) await refreshSession();
+    return authApi(request);
   }
 );
 

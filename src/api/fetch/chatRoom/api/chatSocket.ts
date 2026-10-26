@@ -1,5 +1,5 @@
 import { Client, IMessage, StompSubscription } from "@stomp/stompjs";
-import authApi from "@/api/_base/axios/authApi";
+import { isSessionTerminal, refreshSession } from "@/api/_base/auth/authSession";
 import { retryBackoffController } from "@/utils";
 
 export type MessageHandler<T = any> = (message: T) => void;
@@ -45,8 +45,6 @@ const getChatSocketBrokerURL = (): string => {
   return REMOTE_CHAT_BROKER_URL;
 };
 
-const MAX_AUTH_REFRESH_FAILURES = 1;
-let consecutiveAuthRefreshFailures = 0;
 let isAuthInvalid = false;
 
 const performReconnectChatSocket = async () => {
@@ -68,21 +66,23 @@ const performReconnectChatSocket = async () => {
     }
 
     try {
-      await authApi.post("/auth/refresh");
+      await refreshSession();
       console.log("[STOMP] Token refreshed before reconnecting");
-      consecutiveAuthRefreshFailures = 0;
     } catch (refreshError) {
-      consecutiveAuthRefreshFailures += 1;
       console.warn(
-        "[STOMP] Token refresh failed. Stop reconnect attempts after session becomes invalid:",
+        "[STOMP] Token refresh failed. Only invalid sessions stop reconnecting:",
         refreshError
       );
 
-      if (consecutiveAuthRefreshFailures >= MAX_AUTH_REFRESH_FAILURES) {
+      if (isSessionTerminal()) {
         isAuthInvalid = true;
         disconnectChatSocket();
         return;
       }
+      isReconnecting = false;
+      // 현재 백오프 작업의 finally가 실행 상태를 해제한 다음 다시 예약한다.
+      setTimeout(() => scheduleReconnectChatSocket(), 0);
+      return;
     }
 
     connectChatSocket();
@@ -133,7 +133,6 @@ export const connectChatSocket = () => {
       console.log("[STOMP] connected");
       isReconnecting = false;
       isAuthInvalid = false;
-      consecutiveAuthRefreshFailures = 0;
       reconnectRetryController.reset();
 
       pendingSubscriptions.forEach((subscribe) => subscribe());

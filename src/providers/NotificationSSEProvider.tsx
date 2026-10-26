@@ -50,6 +50,7 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   const { showSnackBar } = useSnackBar();
   const t = useTranslations("NotificationSSEProvider");
   const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
+  const isAuthenticated = useAuthStore((state) => state.status === "authenticated");
   const hasUnreadNotification = useNotificationStore((state) => state.hasUnreadNotification);
   const setHasUnreadNotification = useNotificationStore((state) => state.setHasUnreadNotification);
 
@@ -90,6 +91,13 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
       debouncedFlush.cancel();
     };
   }, [debouncedFlush]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      bufferedKeysRef.current = [];
+      debouncedFlush.cancel();
+    }
+  }, [isAuthenticated, debouncedFlush]);
 
   const onNotification = useCallback(
     ({ type, referenceType, title }: NotificationEventData) => {
@@ -144,17 +152,17 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   const hasPendingSSEReconnectRef = useRef(false);
 
   const { connect } = useNotificationSSE({
-    enabled: isAuthInitialized,
+    enabled: isAuthInitialized && isAuthenticated,
     onNotification,
   });
 
   const requestSSEReconnect = useCallback(() => {
     hasPendingSSEReconnectRef.current = true;
-    if (!isAuthInitialized) return;
+    if (!isAuthInitialized || !isAuthenticated) return;
 
     connect();
     hasPendingSSEReconnectRef.current = false;
-  }, [isAuthInitialized, connect]);
+  }, [isAuthInitialized, isAuthenticated, connect]);
 
   useEffect(() => {
     const prevPathname = prevPathnameRef.current;

@@ -8,6 +8,11 @@ import { useRouter } from "next/navigation";
 import { WEB_PUSH_UNSUBSCRIBE_BEFORE_LOGOUT_TIMEOUT_MS } from "@/constants";
 import { unsubscribeWebPushFromServer } from "@/utils";
 import { useApiLogout } from "@/api/fetch/auth";
+import {
+  expireSession,
+  isAuthenticationError,
+  resetClientSession,
+} from "@/api/_base/auth/authSession";
 
 const useLogout = () => {
   const { mutateAsync: logoutMutateAsync, isPending } = useApiLogout();
@@ -43,15 +48,22 @@ const useLogout = () => {
       }
 
       try {
-        await logoutMutateAsync();
+        try {
+          await logoutMutateAsync();
+        } catch (error) {
+          if (!isAuthenticationError(error)) throw error;
+          await expireSession({ redirect: false });
+        }
 
         setIsRedirecting(true);
+        resetClientSession();
         disconnectNotificationSSE();
         resetUnreadNotificationState();
         queryClient.clear();
         logout();
         addToast(t("logoutSuccess"), "success");
         router.push("/");
+        router.refresh();
       } catch {
         addToast(t("logoutError"), "error");
       } finally {

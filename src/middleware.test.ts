@@ -3,6 +3,7 @@
  */
 import { NextRequest } from "next/server";
 import { middleware } from "./middleware";
+import { MOCK_AUTH_STALE_COOKIES, MOCK_AUTH_GUEST_COOKIES } from "@/mock/data/auth.data";
 
 const createRequest = (
   path: string,
@@ -83,8 +84,9 @@ describe("middleware 세션 만료 시 토큰 쿠키 삭제", () => {
     (host) => {
       const cookies = getTokenCookies(host);
 
-      expect(cookies).toHaveLength(2);
-      cookies.forEach((cookie) => expect(cookie).toContain("Domain=.finditem.kr"));
+      expect(cookies).toHaveLength(4);
+      expect(cookies.filter((cookie) => cookie.includes("Domain=.finditem.kr"))).toHaveLength(2);
+      expect(cookies.filter((cookie) => !cookie.includes("Domain="))).toHaveLength(2);
     }
   );
 
@@ -93,5 +95,33 @@ describe("middleware 세션 만료 시 토큰 쿠키 삭제", () => {
 
     expect(cookies).toHaveLength(2);
     cookies.forEach((cookie) => expect(cookie).not.toContain("Domain="));
+  });
+});
+
+describe("인증 경로 회귀", () => {
+  it.each(["/login", "/login/email", "/en/login", "/en/login/email"])(
+    "만료된 쿠키가 있어도 %s에 진입할 수 있다",
+    (path) => {
+      expect(
+        getLocation(middleware(createRequest(path, { cookie: MOCK_AUTH_STALE_COOKIES })))
+      ).toBeNull();
+    }
+  );
+  it.each(["/chat", "/alert", "/mypage/account", "/en/chat", "/en/alert"])(
+    "게스트의 %s 요청은 원래 목적지를 보존해 로그인으로 보낸다",
+    (path) => {
+      const response = middleware(
+        createRequest(path + "?tab=unread", { cookie: MOCK_AUTH_GUEST_COOKIES })
+      );
+      const url = new URL(response.headers.get("location")!);
+      const prefix = path.startsWith("/en/") ? "/en" : "";
+      expect(url.pathname).toBe(`${prefix}/login`);
+      expect(url.searchParams.get("callbackUrl")).toBe(path.slice(prefix.length) + "?tab=unread");
+    }
+  );
+  it("마이페이지 루트는 게스트에게 계속 허용한다", () => {
+    expect(
+      getLocation(middleware(createRequest("/mypage", { cookie: MOCK_AUTH_GUEST_COOKIES })))
+    ).toBeNull();
   });
 });

@@ -1,226 +1,188 @@
-import { renderHook, act } from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
+import { createElement, type ReactNode } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import useLoginForm from "./useLoginForm";
+import useFooterNav from "@/components/layout/Footer/_hooks/useFooterNav";
+import { useAuthStore } from "@/store/useAuthStore/useAuthStore";
+import { resetClientSession, startClientSession } from "@/api/_base/auth/authSession";
+import { useAgreeStore } from "@/store/useAgreeStore/useAgreeStore";
+import {
+  MOCK_AUTH_ADMIN,
+  MOCK_AUTH_INVALID_FORM,
+  MOCK_AUTH_LOGIN_FORM,
+  MOCK_AUTH_LOGIN_RESPONSE,
+  MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE,
+  MOCK_AUTH_USER,
+} from "@/mock/data/auth.data";
 
-const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
-
-const mockRouterReplace = jest.fn();
+const mockRouter = { replace: jest.fn(), refresh: jest.fn() };
 const mockAddToast = jest.fn();
 const mockHandlerApiError = jest.fn();
-const mockEmailLoginMutateAsync = jest.fn();
-const mockQueryClientClear = jest.fn();
-const mockHandleSubmit = jest.fn();
-const mockSetValue = jest.fn();
-const mockUseApiEmailLogin = jest.fn();
-const mockAxiosGet = jest.fn();
+const mockEmailLogin = jest.fn();
+const mockGet = jest.fn();
+const mockSubmit = jest.fn();
 const mockGetAdminUrl = jest.fn((path: string) => `https://a.finditem.kr${path}`);
-
-jest.mock("next/navigation", () => ({
-  useSearchParams: () => ({ get: jest.fn().mockReturnValue(null) }),
-}));
-
+jest.mock("next/navigation", () => ({ useSearchParams: () => ({ get: () => null }) }));
 jest.mock("@/i18n/navigation", () => ({
-  useRouter: () => ({ replace: mockRouterReplace }),
+  useRouter: () => mockRouter,
+  usePathname: () => "/",
+  getPathname: ({ href }: { href: string }) => href,
 }));
-
-jest.mock("@/context/ToastContext", () => ({
-  useToast: () => ({ addToast: mockAddToast }),
-}));
-
+jest.mock("@/context/ToastContext", () => ({ useToast: () => ({ addToast: mockAddToast }) }));
 jest.mock("@/hooks", () => ({
   useErrorToast: () => ({ handlerApiError: mockHandlerApiError }),
+  useHiddenPath: () => false,
 }));
-
 jest.mock("@/api/fetch/auth/api/useApiEmailLogin", () => ({
-  useApiEmailLogin: () => mockUseApiEmailLogin(),
+  useApiEmailLogin: () => ({ mutateAsync: mockEmailLogin, isPending: false }),
 }));
-
-jest.mock("@/api/_base/axios/useAxios", () => ({
+jest.mock("@/api/_base/axios/authApi", () => ({
   __esModule: true,
-  default: () => ({ get: mockAxiosGet }),
+  default: { get: (...args: unknown[]) => mockGet(...args) },
 }));
-
 jest.mock("@/utils", () => ({
-  ...jest.requireActual("@/utils"),
   getAdminUrl: (path: string) => mockGetAdminUrl(path),
+  isValidCallbackUrl: () => false,
 }));
-
 jest.mock("cookies-next", () => ({
-  getCookie: jest.fn(() => undefined),
+  getCookie: () => undefined,
   setCookie: jest.fn(),
   deleteCookie: jest.fn(),
 }));
-
-jest.mock("@tanstack/react-query", () => ({
-  useQueryClient: () => ({ clear: mockQueryClientClear }),
-}));
-
-jest.mock("@/constants", () => ({
-  AUTH_LOGIN_SUCCESS_EVENT: "auth-login-success",
-}));
-
 jest.mock("react-hook-form", () => ({
-  useFormContext: () => ({
-    handleSubmit: mockHandleSubmit,
-    setValue: mockSetValue,
-  }),
+  useFormContext: () => ({ handleSubmit: mockSubmit, setValue: jest.fn() }),
 }));
 
-describe("useLoginForm", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-    mockUseApiEmailLogin.mockReturnValue({
-      mutateAsync: mockEmailLoginMutateAsync,
-      isPending: false,
-    });
-    mockHandleSubmit.mockImplementation((fn: Function) => (e?: any) => {
-      e?.preventDefault?.();
-      return Promise.resolve(fn);
-    });
+let client: QueryClient;
+const wrapper = ({ children }: { children: ReactNode }) =>
+  createElement(QueryClientProvider, { client }, children);
+
+beforeEach(async () => {
+  jest.clearAllMocks();
+  await startClientSession();
+  useAuthStore.getState().setStatus("anonymous");
+  client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
+  mockSubmit.mockImplementation((callback) => () => callback(MOCK_AUTH_LOGIN_FORM));
+  mockEmailLogin.mockResolvedValue(MOCK_AUTH_LOGIN_RESPONSE);
+  mockGet.mockResolvedValue({ data: MOCK_AUTH_USER });
+});
+afterEach(() => {
+  client.clear();
+  jest.restoreAllMocks();
+});
+
+it("로그인 후 hasToken=false인 Footer도 마이페이지 방문 없이 채팅 이동을 허용한다", async () => {
+  const { result } = renderHook(() => ({ login: useLoginForm(), footer: useFooterNav(false) }), {
+    wrapper,
   });
-
-  it("isPending 값을 반환한다", () => {
-    mockUseApiEmailLogin.mockReturnValue({
-      mutateAsync: mockEmailLoginMutateAsync,
-      isPending: true,
-    });
-    const { result } = renderHook(() => useLoginForm());
-    expect(result.current.isPending).toBe(true);
+  expect(
+    result.current.footer.items.find((item) => item.href === "/chat")?.isLoginRequiredDisabled
+  ).toBe(true);
+  await act(async () => {
+    result.current.login.onSubmitLogin();
   });
+  await waitFor(() => expect(mockRouter.replace).toHaveBeenCalledWith("/"));
+  expect(client.getQueryData(["users-me"])).toEqual(MOCK_AUTH_USER);
+  expect(
+    result.current.footer.items.find((item) => item.href === "/chat")?.isLoginRequiredDisabled
+  ).toBe(false);
+  const preventDefault = jest.fn();
+  result.current.footer.items
+    .find((item) => item.href === "/chat")!
+    .onClick({ preventDefault } as never);
+  expect(preventDefault).not.toHaveBeenCalled();
+  expect(mockRouter.refresh).toHaveBeenCalled();
+});
 
-  describe("이메일 유효성 검사", () => {
-    it("이메일 형식이 올바르지 않으면 경고 토스트가 표시된다", async () => {
-      mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "invalid-email", password: "pw", rememberId: false }))
-      );
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockAddToast).toHaveBeenCalledWith("아이디에 이메일을 입력해주세요.", "warning");
-    });
-
-    it("이메일 형식이 올바르지 않으면 API가 호출되지 않는다", async () => {
-      mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "not-email", password: "pw", rememberId: false }))
-      );
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockEmailLoginMutateAsync).not.toHaveBeenCalled();
-    });
+it("인증 확인 중에는 로그인 필요 안내를 표시하지 않는다", () => {
+  useAuthStore.getState().setStatus("checking");
+  const { result } = renderHook(() => useFooterNav(false), { wrapper });
+  const preventDefault = jest.fn();
+  act(() => {
+    result.current.items
+      .find((item) => item.href === "/chat")!
+      .onClick({ preventDefault } as never);
   });
+  expect(preventDefault).toHaveBeenCalled();
+  expect(result.current.items.find((item) => item.href === "/chat")!.showLoginRequiredNotice).toBe(
+    false
+  );
+});
 
-  describe("로그인 성공", () => {
-    beforeEach(() => {
-      mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
-      );
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: false },
-      });
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "USER" } } });
-    });
-
-    it("성공 시 queryClient.clear가 호출된다", async () => {
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockQueryClientClear).toHaveBeenCalled();
-    });
-
-    it("성공 시 router.replace('/')가 호출된다", async () => {
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockRouterReplace).toHaveBeenCalledWith("/");
-    });
-
-    it("관리자 계정이면 관리자 앱으로 이동하고 운영 앱 라우팅은 하지 않는다", async () => {
-      jest.spyOn(console, "error").mockImplementation(() => {});
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockAxiosGet).toHaveBeenCalledWith("/users/me");
-      expect(mockGetAdminUrl).toHaveBeenCalledWith("/admin");
-      expect(mockRouterReplace).not.toHaveBeenCalled();
-      expect(mockQueryClientClear).not.toHaveBeenCalled();
-    });
-
-    it("관리자라도 임시 비밀번호로 로그인하면 역할을 조회하지 않고 비밀번호 변경 페이지로 이동한다", async () => {
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: true },
-      });
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockAxiosGet).not.toHaveBeenCalled();
-      expect(mockGetAdminUrl).not.toHaveBeenCalled();
-      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
-    });
-
-    it("역할 조회에 실패하면 일반 사용자 흐름으로 이동한다", async () => {
-      mockAxiosGet.mockRejectedValue(new Error("network"));
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockGetAdminUrl).not.toHaveBeenCalled();
-      expect(mockRouterReplace).toHaveBeenCalledWith("/");
-    });
+it("이전 계정의 개인 캐시를 삭제하고 새 사용자 응답을 저장한다", async () => {
+  client.setQueryData(["private-previous-user"], MOCK_AUTH_ADMIN);
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  await act(async () => {
+    result.current.onSubmitLogin();
   });
+  await waitFor(() => expect(mockRouter.replace).toHaveBeenCalledWith("/"));
+  expect(client.getQueryData(["private-previous-user"])).toBeUndefined();
+  expect(client.getQueryData(["users-me"])).toEqual(MOCK_AUTH_USER);
+});
 
-  describe("임시 비밀번호로 로그인한 경우", () => {
-    beforeEach(() => {
-      mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
-      );
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: true },
-      });
-    });
-
-    it("비밀번호 변경 페이지로 이동한다", async () => {
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockRouterReplace).toHaveBeenCalledWith("/change-password?reason=temporary-password");
-    });
+it("프로필 조회가 일시 실패해도 성공한 로그인을 취소하지 않는다", async () => {
+  mockGet.mockRejectedValue(new Error("network"));
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  await act(async () => {
+    result.current.onSubmitLogin();
   });
+  await waitFor(() => expect(mockRouter.replace).toHaveBeenCalledWith("/"));
+  expect(useAuthStore.getState().status).toBe("authenticated");
+});
 
-  describe("로그인 실패", () => {
-    it("에러 코드가 있으면 handlerApiError가 호출된다", async () => {
-      mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
-      );
-      const error = { response: { data: { code: "AUTH401-INVALID_CREDENTIALS" } } };
-      mockEmailLoginMutateAsync.mockRejectedValue(error);
-      const { result } = renderHook(() => useLoginForm());
-      await act(async () => {
-        result.current.onSubmitLogin();
-        await flushPromises();
-      });
-      expect(mockHandlerApiError).toHaveBeenCalled();
-    });
+it("임시 비밀번호는 역할 조회보다 비밀번호 변경을 우선한다", async () => {
+  mockEmailLogin.mockResolvedValue(MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE);
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  await act(async () => {
+    result.current.onSubmitLogin();
   });
+  await waitFor(() =>
+    expect(mockRouter.replace).toHaveBeenCalledWith("/change-password?reason=temporary-password")
+  );
+  expect(mockGet).not.toHaveBeenCalled();
+});
+
+it("로그인 완료 처리 중 로그아웃되면 이전 로그인 응답이 세션을 복원하지 않는다", async () => {
+  mockEmailLogin.mockResolvedValue(MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE);
+  let release!: () => void;
+  const cancel = jest.spyOn(client, "cancelQueries").mockImplementationOnce(
+    () =>
+      new Promise<void>((resolve) => {
+        release = resolve;
+      })
+  );
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  act(() => {
+    result.current.onSubmitLogin();
+  });
+  await waitFor(() => expect(cancel).toHaveBeenCalled());
+  await act(async () => {
+    resetClientSession();
+    release();
+  });
+  await waitFor(() => expect(result.current.isPending).toBe(false));
+  expect(mockRouter.replace).not.toHaveBeenCalled();
+  expect(useAuthStore.getState().status).toBe("anonymous");
+  expect(useAgreeStore.getState().isLoggedIn).toBe(false);
+});
+
+it("관리자는 관리자 앱으로 이동한다", async () => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+  mockGet.mockResolvedValue({ data: MOCK_AUTH_ADMIN });
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  await act(async () => {
+    result.current.onSubmitLogin();
+  });
+  await waitFor(() => expect(mockGetAdminUrl).toHaveBeenCalledWith("/admin"));
+  expect(mockRouter.replace).not.toHaveBeenCalled();
+});
+
+it("이메일 검증 실패 시 로그인 요청을 보내지 않는다", async () => {
+  mockSubmit.mockImplementation((callback) => () => callback(MOCK_AUTH_INVALID_FORM));
+  const { result } = renderHook(() => useLoginForm(), { wrapper });
+  await act(async () => {
+    result.current.onSubmitLogin();
+  });
+  expect(mockEmailLogin).not.toHaveBeenCalled();
+  expect(mockAddToast).toHaveBeenCalled();
 });

@@ -7,6 +7,7 @@ import { useHiddenPath } from "@/hooks";
 import { getPathname, usePathname } from "@/i18n/navigation";
 import { FOOTER_LINK, type FooterLinkHref } from "../_constants/CONST_FOOTER";
 import useLoginNoticeTimer from "./useLoginNoticeTimer";
+import { useAuthStore } from "@/store/useAuthStore/useAuthStore";
 
 type FooterLinkItem = (typeof FOOTER_LINK)[number];
 
@@ -28,8 +29,9 @@ const useFooterNav = (hasToken: boolean) => {
   const t = useTranslations("Footer");
   const isHidden = useHiddenPath();
 
-  const { data: userData, isError } = useGetUsersMe(hasToken);
-  const isLoggedIn = !!userData && !isError;
+  useGetUsersMe(hasToken);
+  const status = useAuthStore((state) => state.status);
+  const isLoggedIn = status === "authenticated";
 
   const { loginNoticeFor, setLoginNoticeFor } = useLoginNoticeTimer();
 
@@ -41,6 +43,7 @@ const useFooterNav = (hasToken: boolean) => {
     if (isLoggedIn) return;
 
     e.preventDefault();
+    if (status !== "anonymous") return;
     if (loginNoticeFor === link.href) return;
     setLoginNoticeFor(link.href);
   };

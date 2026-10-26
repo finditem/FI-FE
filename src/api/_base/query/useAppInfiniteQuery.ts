@@ -8,6 +8,7 @@ import {
   QueryKey,
 } from "@tanstack/react-query";
 import { ApiBaseResponseType } from "../types/ApiBaseResponseType";
+import axiosClient from "axios";
 
 // 제네릭
 // TQueryData: axios 요청 후 서버에서 받아올 데이터 타입 (페이지 단위)
@@ -60,7 +61,7 @@ const useAppInfiniteQuery = <TQueryFnData, TError = unknown, TData = TQueryFnDat
 
   return useInfiniteQuery<TQueryFnData, TError, TData, QueryKey, unknown>({
     queryKey,
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam, signal }) => {
       const params = new URLSearchParams();
 
       if (pageParam !== undefined && pageParam !== null) {
@@ -70,12 +71,15 @@ const useAppInfiniteQuery = <TQueryFnData, TError = unknown, TData = TQueryFnDat
       const separator = url.includes("?") ? "&" : "?";
       const fullUrl = params.toString() ? `${url}${separator}${params.toString()}` : url;
 
-      const { data } = await axios.get<TQueryFnData>(fullUrl);
+      const { data } = await axios.get<TQueryFnData>(fullUrl, { signal });
       return data;
     },
     initialPageParam,
     getNextPageParam,
-    retry: 1,
+    retry: (count, error) =>
+      !axiosClient.isCancel(error) &&
+      !(axiosClient.isAxiosError(error) && [401, 403].includes(error.response?.status ?? 0)) &&
+      count < 1,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60,
     ...rest,

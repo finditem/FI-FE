@@ -1,70 +1,77 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { useApiRefreshToken } from "@/api/fetch/auth";
-import { useAgreeStore, useAuthStore } from "@/store";
+import { getSessionEpoch, refreshSession, resetClientSession } from "@/api/_base/auth/authSession";
+import { useAuthStore } from "@/store/useAuthStore/useAuthStore";
+import { AUTH_SESSION_ENDED_EVENT } from "@/constants/AUTH_EVENTS";
+import { isAuthRoute } from "@/utils/authRoutes/authRoutes";
+import { disconnectChatSocket } from "@/api/fetch/chatRoom/api/chatSocket";
+import { disconnectNotificationSSE } from "@/api/fetch/notification/api/notificationSSEClient";
 
-export default function AuthBootstrap() {
+export default function AuthBootstrap({ hasToken }: { hasToken: boolean }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { logout } = useAgreeStore();
-
-  const { mutate: refreshTokenMutate } = useApiRefreshToken();
-  const ranRef = useRef(false);
-
-  const setAuthInitialized = useAuthStore((state) => state.setAuthInitialized);
-
-  const isMainPage = pathname === "/";
-  const isAuthPage = pathname.startsWith("/login") || pathname.startsWith("/sign-up");
-  const isProtectPath =
-    pathname.startsWith("/mypage/") ||
-    pathname.startsWith("/write") ||
-    pathname.startsWith("/chat") ||
-    pathname.startsWith("/change-password");
+  const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (isAuthPage) {
-      setAuthInitialized(true);
+    const handleSessionEnded = () => {
+      queryClient.clear();
+      disconnectChatSocket();
+      disconnectNotificationSSE();
+    };
+    window.addEventListener(AUTH_SESSION_ENDED_EVENT, handleSessionEnded);
+    return () => window.removeEventListener(AUTH_SESSION_ENDED_EVENT, handleSessionEnded);
+  }, [queryClient]);
+
+  useEffect(() => {
+    const { status, setStatus } = useAuthStore.getState();
+    if (status === "authenticated" || status === "anonymous") return;
+    if (isAuthRoute(pathname)) {
+      setStatus("anonymous");
       return;
     }
-
-    if (!isMainPage && !isProtectPath) {
-      setAuthInitialized(true);
+    if (!hasToken) {
+      resetClientSession();
       return;
     }
-
-    if (ranRef.current) return;
-    ranRef.current = true;
-
-    refreshTokenMutate(undefined, {
-      onSuccess: (data) => {
-        if (data?.result?.temporaryPassword) {
+    const epoch = getSessionEpoch();
+    let active = true;
+    void refreshSession()
+      .then((data) => {
+        if (active && data.result.temporaryPassword) {
           router.replace("/change-password?reason=temporary-password");
         }
-      },
-      onError: (error) => {
-        logout();
-        if (error.code === "AUTH401-INVALID_REFRESH" && isProtectPath) {
-          router.replace(
-            "/login?reason=session-expired&callbackUrl=" +
-              encodeURIComponent(pathname + window.location.search)
-          );
+      })
+      .catch((error: unknown) => {
+        if (active && epoch === getSessionEpoch() && !axios.isCancel(error)) {
+          setStatus("unavailable");
         }
-      },
-      onSettled: () => {
-        setAuthInitialized(true);
-      },
-    });
-  }, [refreshTokenMutate, router, pathname, setAuthInitialized]);
+      });
+    return () => {
+      active = false;
+    };
+  }, [hasToken, pathname, router]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const currentCount = parseInt(sessionStorage.getItem("__fmi_history_count") || "0", 10);
-      if (currentCount < 2) {
-        sessionStorage.setItem("__fmi_history_count", (currentCount + 1).toString());
-      }
-    }
+    const recover = () => {
+      if (useAuthStore.getState().status !== "unavailable" || isAuthRoute(pathname)) return;
+      void refreshSession().catch(() => {});
+    };
+    window.addEventListener("online", recover);
+    window.addEventListener("focus", recover);
+    return () => {
+      window.removeEventListener("online", recover);
+      window.removeEventListener("focus", recover);
+    };
+  }, [pathname]);
+
+  useEffect(() => {
+    const currentCount = parseInt(sessionStorage.getItem("__fmi_history_count") || "0", 10);
+    if (currentCount < 2)
+      sessionStorage.setItem("__fmi_history_count", (currentCount + 1).toString());
   }, [pathname]);
 
   return null;
