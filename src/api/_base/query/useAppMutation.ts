@@ -2,7 +2,11 @@
 
 import type { AxiosRequestConfig } from "axios";
 import useAxios from "../axios/useAxios";
-import { useMutation, UseMutationOptions, UseMutationResult } from "@tanstack/react-query";
+import {
+  useMutation,
+  type UseMutationOptions,
+  type UseMutationResult,
+} from "@tanstack/react-query";
 
 // 제네릭
 // TVariables: mutate 호출 시 넣는 데이터 타입 (ex: {title: string; content: string})
@@ -46,11 +50,7 @@ const useAppMutation = <TVariables, TData = unknown, TError = unknown, TContext 
 
       if (method === "delete") {
         const config: AxiosRequestConfig | undefined =
-          variables != null
-            ? appMutationConfig?.sendDeleteBody
-              ? { data: variables }
-              : undefined
-            : undefined;
+          variables != null && appMutationConfig?.sendDeleteBody ? { data: variables } : undefined;
 
         const { data } = await axios.delete<TData>(requestUrl, config);
         return data;

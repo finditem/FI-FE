@@ -1,5 +1,7 @@
 "use client";
 
+import { AUTH_TOKEN_REFRESHED_EVENT } from "@/constants/AUTH_EVENTS";
+
 import { retryBackoffController } from "@/utils/retryBackoffController/retryBackoffController";
 import type { NotificationEventData } from "../types/notificationSSETypes";
 
@@ -43,9 +45,9 @@ const reconnectRetryController = retryBackoffController({
 });
 
 function getRuntime(): SSERuntime {
-  const g = globalThis as typeof globalThis & { [RUNTIME_KEY]?: SSERuntime };
-  if (!g[RUNTIME_KEY]) {
-    g[RUNTIME_KEY] = {
+  const globalRuntime = globalThis as typeof globalThis & { [RUNTIME_KEY]?: SSERuntime };
+  if (!globalRuntime[RUNTIME_KEY]) {
+    globalRuntime[RUNTIME_KEY] = {
       eventSource: null,
       connectionVersion: 0,
       connectInFlight: false,
@@ -58,11 +60,17 @@ function getRuntime(): SSERuntime {
       consecutiveSSEErrorCount: 0,
     };
   }
-  return g[RUNTIME_KEY];
+  return globalRuntime[RUNTIME_KEY];
 }
 
-export function setNotificationSSEHandlers(next: Partial<Handlers>) {
-  Object.assign(handlers, next);
+/**
+ * 기존 연결을 유지하면서 알림 이벤트의 처리 함수를 갱신합니다.
+ * @param nextHandlers - 갱신할 이벤트 처리 함수만 지정합니다.
+ * @example
+ * setNotificationSSEHandlers({ onNotification: handleNotification });
+ */
+export function setNotificationSSEHandlers(nextHandlers: Partial<Handlers>) {
+  Object.assign(handlers, nextHandlers);
 }
 
 const getNotificationSSESubscribeURL = (): string => {
@@ -82,19 +90,19 @@ async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string }
   const subscribeUrl = getNotificationSSESubscribeURL();
   if (!subscribeUrl) return null;
 
-  const rt = getRuntime();
+  const runtime = getRuntime();
 
   try {
-    const res = await fetch(ACCESS_TOKEN_API_PATH, { cache: "no-store" });
-    if (!res.ok) {
-      rt.isAuthInvalid = true;
+    const response = await fetch(ACCESS_TOKEN_API_PATH, { cache: "no-store" });
+    if (!response.ok) {
+      runtime.isAuthInvalid = true;
       return null;
     }
 
-    const data = (await res.json()) as { accessToken: string | null };
+    const data = (await response.json()) as { accessToken: string | null };
     const token = data.accessToken ?? undefined;
     if (!token) {
-      rt.isAuthInvalid = true;
+      runtime.isAuthInvalid = true;
       return null;
     }
 
@@ -103,27 +111,38 @@ async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string }
       accessToken: token,
     };
   } catch {
-    rt.isAuthInvalid = true;
+    runtime.isAuthInvalid = true;
     return null;
   }
 }
 
 function release() {
-  const rt = getRuntime();
-  rt.connectionVersion += 1;
-  if (rt.eventSource) {
-    rt.eventSource.close();
-    rt.eventSource = null;
+  const runtime = getRuntime();
+  runtime.connectionVersion += 1;
+  if (runtime.eventSource) {
+    runtime.eventSource.close();
+    runtime.eventSource = null;
   }
   handlers.onConnectionState?.(false);
 }
 
 function detachTokenRefreshListener() {
   if (typeof window === "undefined") return;
-  const rt = getRuntime();
-  if (!rt.tokenRefreshHandler) return;
-  window.removeEventListener("tokenRefreshed", rt.tokenRefreshHandler);
-  rt.tokenRefreshHandler = null;
+  const runtime = getRuntime();
+  if (!runtime.tokenRefreshHandler) return;
+  window.removeEventListener(AUTH_TOKEN_REFRESHED_EVENT, runtime.tokenRefreshHandler);
+  runtime.tokenRefreshHandler = null;
+}
+
+function attachTokenRefreshListener(runtime: SSERuntime): void {
+  if (typeof window === "undefined") return;
+  detachTokenRefreshListener();
+  runtime.tokenRefreshHandler = () => {
+    runtime.isAuthInvalid = false;
+    runtime.consecutiveSSEErrorCount = 0;
+    scheduleReconnectNotificationSSE({ immediate: true, resetAttempt: true });
+  };
+  window.addEventListener(AUTH_TOKEN_REFRESHED_EVENT, runtime.tokenRefreshHandler);
 }
 
 function scheduleReconnectNotificationSSE({
@@ -133,11 +152,11 @@ function scheduleReconnectNotificationSSE({
   immediate?: boolean;
   resetAttempt?: boolean;
 } = {}) {
-  const rt = getRuntime();
-  if (!rt.shouldKeepAlive) return;
-  if (rt.isAuthInvalid) return;
-  if (rt.isReconnecting) return;
-  if (rt.connectInFlight) return;
+  const runtime = getRuntime();
+  if (!runtime.shouldKeepAlive) return;
+  if (runtime.isAuthInvalid) return;
+  if (runtime.isReconnecting) return;
+  if (runtime.connectInFlight) return;
 
   reconnectRetryController.schedule(() => performReconnectNotificationSSE(), {
     immediate,
@@ -146,132 +165,142 @@ function scheduleReconnectNotificationSSE({
 }
 
 async function performReconnectNotificationSSE() {
-  const rt = getRuntime();
-  if (!rt.shouldKeepAlive) return;
-  if (rt.isAuthInvalid) return;
-  if (rt.isReconnecting) return;
-  rt.isReconnecting = true;
+  const runtime = getRuntime();
+  if (!runtime.shouldKeepAlive) return;
+  if (runtime.isAuthInvalid) return;
+  if (runtime.isReconnecting) return;
+  runtime.isReconnecting = true;
 
   try {
     release();
     await connectNotificationSSE({ force: true });
-    rt.consecutiveAuthRefreshFailures = 0;
-    rt.isAuthInvalid = false;
+    runtime.consecutiveAuthRefreshFailures = 0;
+    runtime.isAuthInvalid = false;
   } finally {
-    rt.isReconnecting = false;
+    runtime.isReconnecting = false;
   }
 }
 
+/**
+ * 알림 연결·재시도와 토큰 갱신 리스너를 함께 정리합니다.
+ * @example
+ * disconnectNotificationSSE();
+ */
 export function disconnectNotificationSSE() {
-  const rt = getRuntime();
-  rt.connectInFlight = false;
-  rt.shouldKeepAlive = false;
-  rt.isReconnecting = false;
-  rt.isAuthInvalid = false;
-  rt.consecutiveAuthRefreshFailures = 0;
-  rt.currentAccessToken = null;
-  rt.consecutiveSSEErrorCount = 0;
+  const runtime = getRuntime();
+  runtime.connectInFlight = false;
+  runtime.shouldKeepAlive = false;
+  runtime.isReconnecting = false;
+  runtime.isAuthInvalid = false;
+  runtime.consecutiveAuthRefreshFailures = 0;
+  runtime.currentAccessToken = null;
+  runtime.consecutiveSSEErrorCount = 0;
   reconnectRetryController.cancel();
   detachTokenRefreshListener();
   release();
 }
 
-export async function connectNotificationSSE(options?: { force?: boolean }): Promise<void> {
+interface ConnectNotificationSSEOptions {
+  /** 기존 연결을 교체할지 지정하며 기본값은 false입니다. */
+  force?: boolean;
+}
+
+/**
+ * 현재 토큰과 연결 세대를 확인한 뒤 알림 SSE를 연결합니다.
+ * @param options - 로그인 완료·토큰 갱신 시 force로 연결 교체를 요청합니다.
+ * @example
+ * await connectNotificationSSE({ force: true });
+ */
+export async function connectNotificationSSE(
+  options?: ConnectNotificationSSEOptions
+): Promise<void> {
   if (typeof window === "undefined") return;
 
-  const rt = getRuntime();
+  const runtime = getRuntime();
   const force = options?.force === true;
 
   if (!force) {
-    if (rt.eventSource?.readyState === EventSource.OPEN) return;
-    if (rt.eventSource?.readyState === EventSource.CONNECTING) return;
-    if (rt.connectInFlight) return;
-    if (rt.isReconnecting) return;
-    if (rt.isAuthInvalid) return;
+    if (runtime.eventSource?.readyState === EventSource.OPEN) return;
+    if (runtime.eventSource?.readyState === EventSource.CONNECTING) return;
+    if (runtime.connectInFlight) return;
+    if (runtime.isReconnecting) return;
+    if (runtime.isAuthInvalid) return;
   }
 
-  rt.shouldKeepAlive = true;
-  rt.connectInFlight = true;
+  runtime.shouldKeepAlive = true;
+  runtime.connectInFlight = true;
 
   try {
     release();
 
-    const version = rt.connectionVersion;
+    const connectionVersion = runtime.connectionVersion;
 
     const connectionInfo = await buildSubscribeUrl();
     if (!connectionInfo) return;
 
-    if (rt.connectionVersion !== version) return;
+    if (runtime.connectionVersion !== connectionVersion) return;
 
-    if (rt.currentAccessToken !== connectionInfo.accessToken) {
-      rt.currentAccessToken = connectionInfo.accessToken;
-      rt.consecutiveSSEErrorCount = 0;
+    if (runtime.currentAccessToken !== connectionInfo.accessToken) {
+      runtime.currentAccessToken = connectionInfo.accessToken;
+      runtime.consecutiveSSEErrorCount = 0;
     }
 
-    const es = new EventSource(connectionInfo.url, { withCredentials: true });
+    const eventSource = new EventSource(connectionInfo.url, { withCredentials: true });
 
-    if (rt.connectionVersion !== version) {
-      es.close();
+    if (runtime.connectionVersion !== connectionVersion) {
+      eventSource.close();
       return;
     }
 
-    rt.eventSource = es;
-    rt.isAuthInvalid = false;
-    rt.consecutiveAuthRefreshFailures = 0;
+    runtime.eventSource = eventSource;
+    runtime.isAuthInvalid = false;
+    runtime.consecutiveAuthRefreshFailures = 0;
 
     reconnectRetryController.reset();
 
-    if (typeof window !== "undefined") {
-      if (rt.tokenRefreshHandler) {
-        window.removeEventListener("tokenRefreshed", rt.tokenRefreshHandler);
-      }
+    attachTokenRefreshListener(runtime);
 
-      rt.tokenRefreshHandler = () => {
-        rt.isAuthInvalid = false;
-        rt.consecutiveSSEErrorCount = 0;
-        scheduleReconnectNotificationSSE({ immediate: true, resetAttempt: true });
-      };
-
-      window.addEventListener("tokenRefreshed", rt.tokenRefreshHandler);
-    }
-
-    es.onopen = () => {
-      if (rt.connectionVersion !== version || rt.eventSource !== es) return;
+    eventSource.onopen = () => {
+      if (runtime.connectionVersion !== connectionVersion || runtime.eventSource !== eventSource)
+        return;
       handlers.onConnectionState?.(true);
-      rt.consecutiveSSEErrorCount = 0;
+      runtime.consecutiveSSEErrorCount = 0;
       reconnectRetryController.reset();
     };
 
-    es.addEventListener("connect", (e: MessageEvent) => {
-      if (rt.connectionVersion !== version || rt.eventSource !== es) return;
+    eventSource.addEventListener("connect", (event: MessageEvent) => {
+      if (runtime.connectionVersion !== connectionVersion || runtime.eventSource !== eventSource)
+        return;
       handlers.onConnectionState?.(true);
-      handlers.onConnect?.(typeof e.data === "string" ? e.data : "");
-      rt.consecutiveSSEErrorCount = 0;
+      handlers.onConnect?.(typeof event.data === "string" ? event.data : "");
+      runtime.consecutiveSSEErrorCount = 0;
       reconnectRetryController.reset();
     });
 
-    es.addEventListener("notification", (e: MessageEvent) => {
-      if (rt.connectionVersion !== version || rt.eventSource !== es) return;
-      const data = JSON.parse(e.data) as NotificationEventData;
+    eventSource.addEventListener("notification", (event: MessageEvent) => {
+      if (runtime.connectionVersion !== connectionVersion || runtime.eventSource !== eventSource)
+        return;
+      const data = JSON.parse(event.data) as NotificationEventData;
       handlers.onNotification?.(data);
     });
 
-    es.onerror = () => {
-      if (rt.connectionVersion !== version || rt.eventSource !== es) return;
+    eventSource.onerror = () => {
+      if (runtime.connectionVersion !== connectionVersion || runtime.eventSource !== eventSource)
+        return;
       handlers.onConnectionState?.(false);
       // 브라우저 EventSource 자동 재연결 루프를 차단한다.
-      es.close();
-      rt.eventSource = null;
-      rt.consecutiveSSEErrorCount += 1;
+      eventSource.close();
+      runtime.eventSource = null;
+      runtime.consecutiveSSEErrorCount += 1;
 
-      if (rt.consecutiveSSEErrorCount >= MAX_SSE_ERROR_RETRY_PER_TOKEN) {
-        rt.isAuthInvalid = true;
+      if (runtime.consecutiveSSEErrorCount >= MAX_SSE_ERROR_RETRY_PER_TOKEN) {
+        runtime.isAuthInvalid = true;
         return;
       }
 
       scheduleReconnectNotificationSSE();
     };
   } finally {
-    rt.connectInFlight = false;
+    runtime.connectInFlight = false;
   }
 }

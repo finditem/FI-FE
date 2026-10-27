@@ -34,6 +34,7 @@ export const usePatchKakaoTerms = () => {
         const rawCallback = sessionStorage.getItem("callbackUrl");
         sessionStorage.removeItem("callbackUrl");
         router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+        router.refresh();
       },
     }
   );

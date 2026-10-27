@@ -84,7 +84,7 @@ export default useAxios;
   - `queryKey`: 예) `["posts"]`, `["post", id]`
   - `url`: API 경로 (예: `/posts/1`)
   - `options`: `staleTime`, `select`, `enabled`, `suspense` 등 (`queryKey` / `queryFn` 제외)
-- 기본값 (훅 내부): `retry: 1`, `refetchOnWindowFocus: false`, `staleTime: 1000 * 60` — `options`로 덮어쓸 수 있습니다.
+- 기본값 (훅 내부): 취소 오류와 HTTP 401·403은 재시도하지 않고, 나머지 오류는 1회 재시도합니다. `refetchOnWindowFocus: false`, `staleTime: 1000 * 60`이며 `options`로 덮어쓸 수 있습니다.
 
 ### useAppMutation
 
@@ -118,7 +118,7 @@ Cursor 기반 GET 무한 스크롤용입니다. `axios.get`으로 페이지를 �
 - 주요 옵션
   - `pageParamName` (기본 `"cursor"`): 쿼리스트링 이름. `pageParam`이 있으면 `?cursor=...` 형태로 붙음.
   - `initialPageParam`, `getNextPageParam`: 미지정 시, 응답이 `ApiBaseResponseType<{ nextCursor: string | null }>` 형태면 `result.nextCursor`로 다음 페이지 파라미터를 추론.
-  - `suspense` 등 나머지는 `useAppQuery`와 유사한 패턴.
+  - `suspense` 등 나머지는 `useAppQuery`와 유사한 패턴입니다. 기본 재시도 정책도 동일하며 `options.retry`로 덮어쓸 수 있습니다.
 - 제네릭: 페이지 단위 응답 `TQueryFnData`, `TError`, 가공 후 `TData` (기본 `TQueryFnData`).
 
 공통 응답 래퍼 타입은 `ApiBaseResponseType<T>` (`src/api/_base/types/ApiBaseResponseType.ts`)입니다.
@@ -253,3 +253,13 @@ export default function PostList() {
 | Query 래퍼들       | `src/api/_base/query/*.ts`                                                          |
 | 전역 Provider      | `src/providers/AppProviders.tsx` (내부에서 `src/providers/QueryProviders.tsx` 조합) |
 | 서버 프리패치 유틸 | `src/api/_base/query/useServerPrefetchQuery.ts` (현재 앱 미사용, 3절 참고)          |
+
+## 9. 인증 세션 초기화의 예외와 의존 방향
+
+- 일반 도메인 API는 베이스 Query·Mutation 훅을 사용합니다. 인증 초기화의 명령형 요청은 아래 모듈에 한정합니다.
+- `authApi`는 `authSession`에 의존합니다. `authSession`의 `sessionTransport`에는 인증 인터셉터가 없으며, 이를 `authApi`로 바꾸면 재발급 재귀나 순환 의존이 생길 수 있습니다.
+- Bootstrap·401 복구·채팅 재연결은 `refreshSession()`의 진행 중인 Promise를 공유합니다. `useApiRefreshToken`도 `useAppMutation`의 `options.mutationFn`에 이 함수를 지정합니다. 일반 도메인 요청에서 직접 전송하는 용도로 이 예외를 확대하지 않습니다.
+- `completeLogin`은 이전 요청 취소와 캐시 삭제 후 사용자 조회를 기다려야 하므로 `queryClient.fetchQuery`와 `authApi`를 직접 사용합니다. `USERS_ME_QUERY_KEY`는 사용자 조회·프로필 수정과 같은 캐시 키이며, 화면용 훅으로 대체하면 초기화 순서를 보장할 수 없습니다.
+- 세션의 HTTP 401은 만료로 처리하고 refresh의 403·5xx·네트워크 오류는 일시 장애로 남깁니다. `useAppQuery`·`useAppInfiniteQuery`의 재시도 제외 정책과 인터셉터의 원요청 최대 1회 재전송은 서로 다른 계층의 정책입니다.
+- `sessionEpoch`는 이전 계정의 응답을 차단하고 `tokenVersion`은 같은 세션의 늦은 401을 구분하므로 하나의 값으로 합치지 않습니다.
+- `AUTH_TOKEN_REFRESHED_EVENT`와 `AUTH_SESSION_ENDED_EVENT`로 연결 갱신·정리를 알립니다. 이벤트 문자열은 기존 구독자와의 호환성을 유지합니다.

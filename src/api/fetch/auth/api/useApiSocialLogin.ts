@@ -1,13 +1,21 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
-import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
 import { useToast } from "@/context/ToastContext";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { AUTH_LOGIN_SUCCESS_EVENT } from "@/constants";
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
+import { useQueryClient } from "@tanstack/react-query";
+import { completeLogin } from "@/api/_base/auth/completeLogin";
 
 type SocialProvider = "kakao" | "apple";
 
+/**
+ * 소셜 로그인 성공 후 사용자 캐시와 인증 상태의 확정을 기다립니다.
+ * @param provider - 로그인할 소셜 제공자입니다.
+ * @returns 소셜 로그인 요청과 공통 완료 처리를 포함한 mutation 상태를 반환합니다.
+ * @example
+ * const login = useApiSocialLogin<KakaoLoginRequest, KakaoLoginResponse>("kakao");
+ */
 export const useApiSocialLogin = <
   TRequest extends { code: string; environment: string },
   TResponse,
@@ -15,6 +23,7 @@ export const useApiSocialLogin = <
   provider: SocialProvider
 ) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { addToast } = useToast();
   const t = useTranslations("useApiSocialLogin");
@@ -36,10 +45,8 @@ export const useApiSocialLogin = <
     `/auth/${provider}`,
     "post",
     {
-      onSuccess: () => {
-        if (typeof window !== "undefined") {
-          window.dispatchEvent(new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT));
-        }
+      onSuccess: async () => {
+        await completeLogin(queryClient);
       },
       onError: (error) => {
         const code = error.response?.data.code;

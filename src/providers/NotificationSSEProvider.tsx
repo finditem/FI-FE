@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, useCallback, useEffect, useMemo, useRef } from "react";
+import { type PropsWithChildren, useCallback, useEffect, useMemo, useRef } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 import { debounce } from "es-toolkit/compat";
@@ -25,7 +25,7 @@ const NOTIFICATION_BATCH_DEBOUNCE_MS = 500;
  * 알림 SSE 연결과 수신 이벤트에 따른 캐시 무효화·스낵바·파비콘 배지를 묶은 프로바이더입니다.
  *
  * @remarks
- * - `useNotificationSSE`는 `isAuthInitialized`일 때만 연결합니다.
+ * - `useNotificationSSE`는 `authenticated` 상태일 때만 연결합니다.
  * - 이벤트마다 `hasUnreadNotification`·`unreadNotificationTypes`를 갱신하고, `useFaviconNotification`으로 탭 표시를 맞춥니다.
  * - 로그인·회원가입 경로(`isAuthRoutePath`)에서는 스낵바 배치를 건너뜁니다.
  * - 채팅방에 있을 때 채팅 계열 알림이면 스낵바를 띄우지 않습니다.
@@ -48,7 +48,7 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   const queryClient = useQueryClient();
   const { showSnackBar } = useSnackBar();
   const t = useTranslations("NotificationSSEProvider");
-  const isAuthInitialized = useAuthStore((state) => state.isAuthInitialized);
+  const isAuthenticated = useAuthStore((state) => state.status === "authenticated");
   const hasUnreadNotification = useNotificationStore((state) => state.hasUnreadNotification);
   const setHasUnreadNotification = useNotificationStore((state) => state.setHasUnreadNotification);
 
@@ -65,6 +65,7 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
     }[]
   >([]);
 
+  // debounce의 cancel·flush가 같은 타이머를 제어하도록 외부 라이브러리 인스턴스를 유지합니다.
   const debouncedFlush = useMemo(
     () =>
       debounce(() => {
@@ -89,6 +90,13 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
       debouncedFlush.cancel();
     };
   }, [debouncedFlush]);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      bufferedKeysRef.current = [];
+      debouncedFlush.cancel();
+    }
+  }, [isAuthenticated, debouncedFlush]);
 
   const onNotification = useCallback(
     ({ type, referenceType, title }: NotificationEventData) => {
@@ -142,17 +150,17 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   const hasPendingSSEReconnectRef = useRef(false);
 
   const { connect } = useNotificationSSE({
-    enabled: isAuthInitialized,
+    enabled: isAuthenticated,
     onNotification,
   });
 
   const requestSSEReconnect = useCallback(() => {
     hasPendingSSEReconnectRef.current = true;
-    if (!isAuthInitialized) return;
+    if (!isAuthenticated) return;
 
     connect();
     hasPendingSSEReconnectRef.current = false;
-  }, [isAuthInitialized, connect]);
+  }, [isAuthenticated, connect]);
 
   useEffect(() => {
     const prevPathname = prevPathnameRef.current;
@@ -177,9 +185,9 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   }, [requestSSEReconnect]);
 
   useEffect(() => {
-    if (!isAuthInitialized || !hasPendingSSEReconnectRef.current) return;
+    if (!hasPendingSSEReconnectRef.current) return;
     requestSSEReconnect();
-  }, [isAuthInitialized, requestSSEReconnect]);
+  }, [requestSSEReconnect]);
 
   return children;
 };
