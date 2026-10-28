@@ -66,6 +66,9 @@ function getRuntime(): SSERuntime {
 /**
  * 기존 연결을 유지하면서 알림 이벤트의 처리 함수를 갱신합니다.
  * @param nextHandlers - 갱신할 이벤트 처리 함수만 지정합니다.
+ *
+ * @author suhyeon
+ *
  * @example
  * setNotificationSSEHandlers({ onNotification: handleNotification });
  */
@@ -183,6 +186,9 @@ async function performReconnectNotificationSSE() {
 
 /**
  * 알림 연결·재시도와 토큰 갱신 리스너를 함께 정리합니다.
+ *
+ * @author suhyeon
+ *
  * @example
  * disconnectNotificationSSE();
  */
@@ -201,13 +207,19 @@ export function disconnectNotificationSSE() {
 }
 
 interface ConnectNotificationSSEOptions {
-  /** 기존 연결을 교체할지 지정하며 기본값은 false입니다. */
+  /**
+   * 기존 연결을 교체할지 지정하며 기본값은 false입니다.
+   * @author suhyeon
+   */
   force?: boolean;
 }
 
 /**
  * 현재 토큰과 연결 세대를 확인한 뒤 알림 SSE를 연결합니다.
  * @param options - 로그인 완료·토큰 갱신 시 force로 연결 교체를 요청합니다.
+ *
+ * @author suhyeon
+ *
  * @example
  * await connectNotificationSSE({ force: true });
  */
