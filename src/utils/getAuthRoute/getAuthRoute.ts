@@ -3,6 +3,9 @@ import { routing } from "@/i18n/routing";
 /**
  * 인증 경로 판별에 사용할 로케일과 로케일 접두사를 제거한 경로를 반환합니다.
  * @param pathname - 쿼리를 제외한 현재 경로입니다.
+ *
+ * @author suhyeon
+ *
  * @example
  * getAuthRoute("/en/chat"); // { locale: "en", pathname: "/chat" }
  */

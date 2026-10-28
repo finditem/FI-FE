@@ -17,6 +17,9 @@ function appendExpiredTokenCookies(response: NextResponse, domain?: string): voi
  * 이후 ResponseCookies.set으로 토큰 삭제 헤더를 덮어쓰지 않아야 합니다.
  * @param response - 쿠키 삭제 헤더를 추가할 응답입니다.
  * @param host - 요청의 Host 헤더이며 로컬 포트를 포함할 수 있습니다.
+ *
+ * @author suhyeon
+ *
  * @example
  * clearAuthCookies(response, request.headers.get("host"));
  */
