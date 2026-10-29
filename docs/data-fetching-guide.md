@@ -84,7 +84,7 @@ export default useAxios;
   - `queryKey`: 예) `["posts"]`, `["post", id]`
   - `url`: API 경로 (예: `/posts/1`)
   - `options`: `staleTime`, `select`, `enabled`, `suspense` 등 (`queryKey` / `queryFn` 제외)
-- 기본값 (훅 내부): `retry: 1`, `refetchOnWindowFocus: false`, `staleTime: 1000 * 60` — `options`로 덮어쓸 수 있습니다.
+- 기본값 (훅 내부): 취소 오류와 HTTP 401·403은 재시도하지 않고, 나머지 오류는 1회 재시도합니다. `refetchOnWindowFocus: false`, `staleTime: 1000 * 60` — `options`로 덮어쓸 수 있습니다.
 
 ### useAppMutation
 

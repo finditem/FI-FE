@@ -83,8 +83,9 @@ describe("middleware 세션 만료 시 토큰 쿠키 삭제", () => {
     (host) => {
       const cookies = getTokenCookies(host);
 
-      expect(cookies).toHaveLength(2);
-      cookies.forEach((cookie) => expect(cookie).toContain("Domain=.finditem.kr"));
+      expect(cookies).toHaveLength(4);
+      expect(cookies.filter((cookie) => cookie.includes("Domain=.finditem.kr"))).toHaveLength(2);
+      expect(cookies.filter((cookie) => !cookie.includes("Domain="))).toHaveLength(2);
     }
   );
 
