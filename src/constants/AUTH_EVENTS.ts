@@ -8,3 +8,9 @@
  * SSE 등 후속 연결 로직에서 `addEventListener`로 구독합니다.
  */
 export const AUTH_LOGIN_SUCCESS_EVENT = "authLoginSuccess";
+
+/**
+ * 재발급 성공 후 실시간 연결에 토큰 변경을 알리는 이벤트 이름입니다.
+ * @author suhyeon
+ */
+export const AUTH_TOKEN_REFRESHED_EVENT = "tokenRefreshed";
