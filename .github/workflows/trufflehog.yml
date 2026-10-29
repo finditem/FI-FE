@@ -1,0 +1,43 @@
+name: Secret Scan
+
+# 커밋에 섞여 들어간 자격 증명(API 키, 토큰, 개인 키)을 찾는다.
+# PR에서는 그 PR이 더한 커밋만 보고, 매주 한 번 저장소 이력 전체를 다시 훑는다.
+# 이 저장소는 공개 저장소라 이미 푸시된 이력에 남은 키도 그대로 노출된다는 점이 전체 스캔을 두는 이유다.
+#
+# 판정은 --results=verified로 한다. 공급자 API로 실제 살아 있음이 확인된 자격 증명만 실패로 처리한다.
+# 검증되지 않은 후보까지 실패로 잡으면 오탐으로 빨간불이 상시화되어 아무도 보지 않게 된다.
+#
+# 주간 스캔과 수동 실행은 기본 브랜치(develop)에 이 파일이 있어야 동작한다(GitHub 규칙).
+# 수동 전체 스캔: gh workflow run trufflehog.yml
+on:
+  pull_request:
+    branches: [develop, main]
+  schedule:
+    - cron: "0 0 * * 1" # 매주 월요일 09:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      # 액션이 base/head SHA를 비교하고 전체 스캔은 이력 전체를 읽으므로 전체 이력이 필요하다.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # 액션 태그는 실행 스크립트만 고정하고, 실제 스캐너 이미지는 version 입력값(기본 latest)으로 받는다.
+      # 업스트림 새 이미지가 스캔 동작을 몰래 바꾸지 않도록 이미지도 같은 버전으로 고정한다.
+      # Dependabot은 액션 태그만 올리므로 태그를 올릴 때 version도 함께 맞춘다.
+      - name: Secret scan
+        uses: trufflesecurity/trufflehog@v3.99.2
+        with:
+          version: 3.99.2
+          extra_args: --results=verified

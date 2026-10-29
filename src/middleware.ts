@@ -3,34 +3,24 @@ import createIntlMiddleware from "next-intl/middleware";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
+import { clearAuthCookies } from "@/utils/clearAuthCookies/clearAuthCookies";
+import { isProtectedRoute } from "@/utils/isProtectedRoute/isProtectedRoute";
 
 const intlMiddleware = createIntlMiddleware(routing);
 
 const stripLocalePrefix = (pathname: string) => {
-  const match = routing.locales
+  const matchedLocale = routing.locales
     .filter((locale) => locale !== routing.defaultLocale)
     .find((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
 
-  if (!match) return { locale: routing.defaultLocale, pathname };
+  if (!matchedLocale) return { locale: routing.defaultLocale, pathname };
 
-  const stripped = pathname.slice(`/${match}`.length) || "/";
-  return { locale: match, pathname: stripped };
+  const stripped = pathname.slice(`/${matchedLocale}`.length) || "/";
+  return { locale: matchedLocale, pathname: stripped };
 };
 
 const withLocalePrefix = (locale: string, pathname: string) =>
   locale === routing.defaultLocale ? pathname : `/${locale}${pathname}`;
-
-const AUTH_COOKIE_PARENT_DOMAIN = "finditem.kr";
-
-// 백엔드가 finditem.kr 계열 요청에는 토큰 쿠키를 상위 도메인으로 발급하므로, 지울 때도 같은 도메인을 줘야 지워진다.
-// dev 서버는 nextUrl을 자기 주소로 만들기 때문에 실제 접속 도메인은 Host 헤더로 판단한다.
-const getAuthCookieDomain = (host: string | null) => {
-  const hostname = host?.split(":")[0] ?? "";
-  return hostname === AUTH_COOKIE_PARENT_DOMAIN ||
-    hostname.endsWith(`.${AUTH_COOKIE_PARENT_DOMAIN}`)
-    ? `.${AUTH_COOKIE_PARENT_DOMAIN}`
-    : undefined;
-};
 
 function handleRequest(request: NextRequest) {
   const intlResponse = intlMiddleware(request);
@@ -39,8 +29,7 @@ function handleRequest(request: NextRequest) {
     return intlResponse;
   }
 
-  const accessToken = request.cookies.get("access_token")?.value;
-  const refreshToken = request.cookies.has("refresh_token");
+  const hasRefreshToken = request.cookies.has("refresh_token");
 
   const { locale, pathname: currentPath } = stripLocalePrefix(request.nextUrl.pathname);
 
@@ -54,31 +43,19 @@ function handleRequest(request: NextRequest) {
 
   const isAuthPath = currentPath.startsWith("/login") || currentPath.startsWith("/sign-up");
 
-  const isProtectPath =
-    currentPath.startsWith("/mypage/") ||
-    currentPath.startsWith("/write") ||
-    currentPath.startsWith("/chat") ||
-    currentPath.startsWith("/change-password") ||
-    currentPath.startsWith("/alert");
+  const isProtectedPath = isProtectedRoute(currentPath);
 
   const isSessionExpired = request.nextUrl.searchParams.get("reason") === "session-expired";
 
   // 세션 완료 시 로그인 페이지로 진입 했을 때 모든 토큰 제거
   if (isAuthPath && isSessionExpired) {
-    const domain = getAuthCookieDomain(request.headers.get("host"));
-    intlResponse.cookies.set("access_token", "", { path: "/", maxAge: 0, domain });
-    intlResponse.cookies.set("refresh_token", "", { path: "/", maxAge: 0, domain });
-    return intlResponse;
+    return clearAuthCookies(intlResponse, request.headers.get("host"));
   }
 
-  // 엑세스 토큰이 있는데 로그인, 회원가입 페이지에 접근하려고 할때 마이페이지로 리다이렉트 (리프레쉬 토큰 만료됐을때는 제외)
-  const RedirectMypage = isAuthPath && accessToken && refreshToken && !isSessionExpired;
-  if (RedirectMypage) {
-    return NextResponse.redirect(buildRedirectUrl("/mypage"));
-  }
+  // 쿠키의 존재만으로 로그인 화면을 막으면 서버에서 만료된 세션이 재로그인할 수 없다.
 
   // 리프레쉬 토큰이 없는 상황에서 보호된 페이지 접근하려고 할 때 로그인 페이지로 리다이렉트
-  if (isProtectPath && !refreshToken) {
+  if (isProtectedPath && !hasRefreshToken) {
     const loginUrl = buildRedirectUrl("/login");
     loginUrl.searchParams.set("callbackUrl", currentPath + request.nextUrl.search);
 
@@ -94,8 +71,8 @@ const hasLocalePrefix = (pathname: string) =>
   routing.locales.some((locale) => pathname === `/${locale}` || pathname.startsWith(`/${locale}/`));
 
 export function middleware(request: NextRequest) {
-  const fetchDest = request.headers.get("sec-fetch-dest");
-  const isPageRequest = fetchDest == null || fetchDest === "document";
+  const fetchDestination = request.headers.get("sec-fetch-dest");
+  const isPageRequest = fetchDestination == null || fetchDestination === "document";
 
   if (request.cookies.has(LOCALE_SESSION_COOKIE) || !isPageRequest) {
     return handleRequest(request);
@@ -108,13 +85,14 @@ export function middleware(request: NextRequest) {
     savedLocale !== routing.defaultLocale &&
     !hasLocalePrefix(pathname);
 
+  const localePathname = pathname === "/" ? "" : pathname;
+  const localeRedirectPath = `/${savedLocale}${localePathname}${search}`;
   const response = shouldRestoreLocale
-    ? NextResponse.redirect(
-        new URL(`/${savedLocale}${pathname === "/" ? "" : pathname}${search}`, request.url)
-      )
+    ? NextResponse.redirect(new URL(localeRedirectPath, request.url))
     : handleRequest(request);
 
-  response.cookies.set(LOCALE_SESSION_COOKIE, "1", { path: "/" });
+  // 앞서 추가한 서로 다른 Domain의 토큰 삭제 헤더도 보존한다.
+  response.headers.append("Set-Cookie", `${LOCALE_SESSION_COOKIE}=1; Path=/`);
   return response;
 }
 
