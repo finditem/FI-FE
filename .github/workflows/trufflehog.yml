@@ -37,7 +37,7 @@ jobs:
       # 업스트림 새 이미지가 스캔 동작을 몰래 바꾸지 않도록 이미지도 같은 버전으로 고정한다.
       # Dependabot은 액션 태그만 올리므로 태그를 올릴 때 version도 함께 맞춘다.
       - name: Secret scan
-        uses: trufflesecurity/trufflehog@v3.99.2
+        uses: trufflesecurity/trufflehog@v3.99.7
         with:
           version: 3.99.2
           extra_args: --results=verified
