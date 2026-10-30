@@ -8,7 +8,7 @@ interface UseGetPostsCommentsParams {
 
 export const useGetPostsComments = ({ postId }: UseGetPostsCommentsParams) => {
   return useAppInfiniteQuery<GetPostsCommentsResponse, unknown, GetPostsCommentsData>(
-    "auth",
+    "public",
     ["post-comments", postId],
     `/comments/posts/${postId}?postId=${postId}`,
     {

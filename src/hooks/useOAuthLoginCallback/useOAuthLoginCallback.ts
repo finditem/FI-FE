@@ -78,6 +78,7 @@ const useOAuthLoginCallback = <TResponse extends OAuthLoginResponse>({
               const rawCallback = sessionStorage.getItem("callbackUrl");
               sessionStorage.removeItem("callbackUrl");
               router.replace(isValidCallbackUrl(rawCallback) ? rawCallback : "/");
+              router.refresh();
             } else {
               if (isTemporaryPassword) {
                 sessionStorage.setItem("isTemporaryPassword", "true");

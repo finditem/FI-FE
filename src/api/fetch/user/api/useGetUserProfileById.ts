@@ -17,7 +17,7 @@ export const useGetUserProfileById = (
   params.set("size", String(size));
 
   return useAppInfiniteQuery<GetUserProfileDataResponse, unknown, UserProfileInfiniteSelectedData>(
-    "auth",
+    "public",
     ["user-data", userId, type, size],
     `/users/${userId}/page?${params.toString()}`,
     {
