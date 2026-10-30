@@ -1,13 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const POST_ID = 42;
-
-const MOCK_AUTH_REFRESH = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { userId: 1, temporaryPassword: false },
-};
 
 const makeMockPostDetail = (overrides: Record<string, unknown> = {}) => ({
   isSuccess: true,
@@ -73,7 +67,7 @@ async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string
     route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify(MOCK_AUTH_REFRESH),
+      body: JSON.stringify(MOCK_AUTH_REFRESH_RESPONSE),
     })
   );
 
@@ -116,6 +110,10 @@ async function changeLocation(page: Page) {
 }
 
 test.describe("게시글 수정 페이지", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
+  });
+
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -284,7 +282,7 @@ test.describe("게시글 수정 페이지", () => {
       route.fulfill({
         status: 200,
         contentType: "application/json",
-        body: JSON.stringify(MOCK_AUTH_REFRESH),
+        body: JSON.stringify(MOCK_AUTH_REFRESH_RESPONSE),
       })
     );
     await page.route(`**/api/posts/${POST_ID}`, (route) =>

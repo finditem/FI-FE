@@ -1,4 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_AUTH_COOKIE, MOCK_AUTH_REFRESH_RESPONSE } from "@/mock/data/auth.data";
+import { resolveE2ECookieHostname } from "./utils/auth";
 import {
   MOCK_NOTICE_COMMENTS_EMPTY_FIRST_PAGE,
   MOCK_NOTICES_RESPONSE,
@@ -121,8 +123,14 @@ test.describe("공지사항 목록", () => {
   });
 
   test.describe("관리자", () => {
-    test.beforeEach(async ({ page }) => {
+    test.beforeEach(async ({ page, context, baseURL }) => {
       page.setDefaultNavigationTimeout(90_000);
+      await context.addCookies([
+        { ...MOCK_AUTH_COOKIE, domain: resolveE2ECookieHostname(baseURL) },
+      ]);
+      await page.route("**/api/auth/refresh", (route) =>
+        route.fulfill({ json: MOCK_AUTH_REFRESH_RESPONSE })
+      );
       await setupNoticeMocks(page, MOCK_USERS_ME_NOTICE_HEADER_ADMIN);
       await page.goto("/notice", GOTO_OPTS);
     });

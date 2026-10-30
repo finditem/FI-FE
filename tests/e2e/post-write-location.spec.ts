@@ -1,11 +1,5 @@
 import { test, expect, Page, BrowserContext } from "@playwright/test";
-
-const MOCK_AUTH_REFRESH = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { userId: 1, temporaryPassword: false },
-};
+import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const MOCK_VWORLD_RESULTS = {
   response: {
@@ -38,6 +32,8 @@ const MOCK_VWORLD_EMPTY = {
 };
 
 async function setupMocks(page: Page, context: BrowserContext) {
+  await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
+
   await context.addCookies([
     { name: "refresh_token", value: "fake-token", domain: "localhost", path: "/" },
   ]);
@@ -46,7 +42,7 @@ async function setupMocks(page: Page, context: BrowserContext) {
     route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify(MOCK_AUTH_REFRESH),
+      body: JSON.stringify(MOCK_AUTH_REFRESH_RESPONSE),
     })
   );
 
