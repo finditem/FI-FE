@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const MOCK_VWORLD_RESPONSE = {
   response: {
@@ -24,14 +25,8 @@ const MOCK_POST_RESPONSE = {
   result: { id: 999 },
 };
 
-const MOCK_AUTH_REFRESH_RESPONSE = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { userId: 1, temporaryPassword: false },
-};
-
 async function setupCommonMocks(page: Page) {
+  await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({
       status: 200,

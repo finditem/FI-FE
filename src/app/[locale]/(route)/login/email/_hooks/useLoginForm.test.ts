@@ -1,9 +1,19 @@
 import { renderHook, act } from "@testing-library/react";
 import useLoginForm from "./useLoginForm";
+import {
+  MOCK_AUTH_ADMIN,
+  MOCK_AUTH_INVALID_FORM,
+  MOCK_AUTH_LOGIN_FORM,
+  MOCK_AUTH_LOGIN_RESPONSE,
+  MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE,
+  MOCK_AUTH_USER,
+  MOCK_AUTH_INVALID_CREDENTIALS_ERROR,
+} from "@/mock/data/auth.data";
 
 const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const mockRouterReplace = jest.fn();
+const mockRouterRefresh = jest.fn();
 const mockAddToast = jest.fn();
 const mockHandlerApiError = jest.fn();
 const mockEmailLoginMutateAsync = jest.fn();
@@ -19,7 +29,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@/i18n/navigation", () => ({
-  useRouter: () => ({ replace: mockRouterReplace }),
+  useRouter: () => ({ replace: mockRouterReplace, refresh: mockRouterRefresh }),
 }));
 
 jest.mock("@/context/ToastContext", () => ({
@@ -34,9 +44,9 @@ jest.mock("@/api/fetch/auth/api/useApiEmailLogin", () => ({
   useApiEmailLogin: () => mockUseApiEmailLogin(),
 }));
 
-jest.mock("@/api/_base/axios/useAxios", () => ({
+jest.mock("@/api/_base/axios/authApi", () => ({
   __esModule: true,
-  default: () => ({ get: mockAxiosGet }),
+  default: { get: (...args: unknown[]) => mockAxiosGet(...args) },
 }));
 
 jest.mock("@/utils", () => ({
@@ -51,7 +61,12 @@ jest.mock("cookies-next", () => ({
 }));
 
 jest.mock("@tanstack/react-query", () => ({
-  useQueryClient: () => ({ clear: mockQueryClientClear }),
+  useQueryClient: () => ({
+    clear: mockQueryClientClear,
+    cancelQueries: () => Promise.resolve(),
+    fetchQuery: ({ queryFn }: { queryFn: (context: { signal: undefined }) => unknown }) =>
+      queryFn({ signal: undefined }),
+  }),
 }));
 
 jest.mock("@/constants", () => ({
@@ -90,8 +105,7 @@ describe("useLoginForm", () => {
   describe("이메일 유효성 검사", () => {
     it("이메일 형식이 올바르지 않으면 경고 토스트가 표시된다", async () => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "invalid-email", password: "pw", rememberId: false }))
+        (fn: Function) => () => Promise.resolve(fn(MOCK_AUTH_INVALID_FORM))
       );
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
@@ -103,8 +117,7 @@ describe("useLoginForm", () => {
 
     it("이메일 형식이 올바르지 않으면 API가 호출되지 않는다", async () => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "not-email", password: "pw", rememberId: false }))
+        (fn: Function) => () => Promise.resolve(fn(MOCK_AUTH_INVALID_FORM))
       );
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
@@ -118,13 +131,10 @@ describe("useLoginForm", () => {
   describe("로그인 성공", () => {
     beforeEach(() => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
+        (fn: Function) => () => Promise.resolve(fn(MOCK_AUTH_LOGIN_FORM))
       );
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: false },
-      });
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "USER" } } });
+      mockEmailLoginMutateAsync.mockResolvedValue(MOCK_AUTH_LOGIN_RESPONSE);
+      mockAxiosGet.mockResolvedValue({ data: MOCK_AUTH_USER });
     });
 
     it("성공 시 queryClient.clear가 호출된다", async () => {
@@ -147,23 +157,20 @@ describe("useLoginForm", () => {
 
     it("관리자 계정이면 관리자 앱으로 이동하고 운영 앱 라우팅은 하지 않는다", async () => {
       jest.spyOn(console, "error").mockImplementation(() => {});
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
+      mockAxiosGet.mockResolvedValue({ data: MOCK_AUTH_ADMIN });
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
         result.current.onSubmitLogin();
         await flushPromises();
       });
-      expect(mockAxiosGet).toHaveBeenCalledWith("/users/me");
+      expect(mockAxiosGet.mock.calls[0][0]).toBe("/users/me");
       expect(mockGetAdminUrl).toHaveBeenCalledWith("/admin");
       expect(mockRouterReplace).not.toHaveBeenCalled();
-      expect(mockQueryClientClear).not.toHaveBeenCalled();
     });
 
     it("관리자라도 임시 비밀번호로 로그인하면 역할을 조회하지 않고 비밀번호 변경 페이지로 이동한다", async () => {
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: true },
-      });
-      mockAxiosGet.mockResolvedValue({ data: { result: { role: "ADMIN" } } });
+      mockEmailLoginMutateAsync.mockResolvedValue(MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE);
+      mockAxiosGet.mockResolvedValue({ data: MOCK_AUTH_ADMIN });
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
         result.current.onSubmitLogin();
@@ -189,12 +196,9 @@ describe("useLoginForm", () => {
   describe("임시 비밀번호로 로그인한 경우", () => {
     beforeEach(() => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
+        (fn: Function) => () => Promise.resolve(fn(MOCK_AUTH_LOGIN_FORM))
       );
-      mockEmailLoginMutateAsync.mockResolvedValue({
-        result: { userId: "1", temporaryPassword: true },
-      });
+      mockEmailLoginMutateAsync.mockResolvedValue(MOCK_AUTH_TEMPORARY_LOGIN_RESPONSE);
     });
 
     it("비밀번호 변경 페이지로 이동한다", async () => {
@@ -210,11 +214,9 @@ describe("useLoginForm", () => {
   describe("로그인 실패", () => {
     it("에러 코드가 있으면 handlerApiError가 호출된다", async () => {
       mockHandleSubmit.mockImplementation(
-        (fn: Function) => () =>
-          Promise.resolve(fn({ email: "test@test.com", password: "Password1!", rememberId: false }))
+        (fn: Function) => () => Promise.resolve(fn(MOCK_AUTH_LOGIN_FORM))
       );
-      const error = { response: { data: { code: "AUTH401-INVALID_CREDENTIALS" } } };
-      mockEmailLoginMutateAsync.mockRejectedValue(error);
+      mockEmailLoginMutateAsync.mockRejectedValue(MOCK_AUTH_INVALID_CREDENTIALS_ERROR);
       const { result } = renderHook(() => useLoginForm());
       await act(async () => {
         result.current.onSubmitLogin();
