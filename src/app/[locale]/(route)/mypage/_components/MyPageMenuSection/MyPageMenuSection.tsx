@@ -2,7 +2,7 @@
 
 import React, { Fragment } from "react";
 import { Icon } from "@/components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/utils";
 import { useLogout } from "@/hooks";
 import { useTranslations } from "next-intl";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button, ProfileAvatar } from "@/components";
 import { trackClickLoginButton } from "@/utils/analytics/analytics";
 import { useTranslations } from "next-intl";

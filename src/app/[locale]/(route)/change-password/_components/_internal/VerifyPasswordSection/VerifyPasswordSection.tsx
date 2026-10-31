@@ -2,7 +2,7 @@
 "use no memo";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useFormContext } from "react-hook-form";
 import { usePostVerifyPassword } from "@/api/fetch/user";
 import { InputText, SnackBar } from "@/components";

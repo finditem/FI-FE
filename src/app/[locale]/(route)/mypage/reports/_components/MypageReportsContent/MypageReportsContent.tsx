@@ -6,7 +6,7 @@ import { useToast } from "@/context/ToastContext";
 import { useFormatDate, useInfiniteScroll } from "@/hooks";
 import { useFilterParams } from "@/hooks";
 import { highlightText } from "@/utils";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useEffect } from "react";
 import { REPORT_STATUS_CHIP } from "../../_constants/REPORT_STATUS_CHIP";
 import { useSearchParams } from "next/navigation";

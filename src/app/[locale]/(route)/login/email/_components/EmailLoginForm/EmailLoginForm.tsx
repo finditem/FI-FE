@@ -7,7 +7,7 @@ import useLoginForm from "../../_hooks/useLoginForm";
 import { LoginFormType } from "../../_types/LoginFormType";
 import { Button, CheckBox, InputText } from "@/components";
 import { LogoLink } from "../../../_components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { trackClickSignupStart } from "@/utils/analytics/analytics";
 
 const EmailLoginForm = () => {

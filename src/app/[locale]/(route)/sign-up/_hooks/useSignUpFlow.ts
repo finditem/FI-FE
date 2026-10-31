@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { FormType } from "../types/FormType";
 import { useRoutingGard } from "./useRoutingGard";
 import { ApiSignUpType } from "@/api/fetch/auth";

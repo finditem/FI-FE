@@ -2,7 +2,7 @@
 "use no memo";
 
 import { FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useFormContext } from "react-hook-form";
 import { useGetUsersMe, usePostChangePassword } from "@/api/fetch/user";
 import { getAdminUrl } from "@/utils/getAdminUrl/getAdminUrl";
