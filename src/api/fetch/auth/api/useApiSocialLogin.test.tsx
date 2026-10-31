@@ -16,6 +16,7 @@ jest.mock("next/navigation", () => ({ useRouter: () => ({ replace: jest.fn() }) 
 jest.mock("@/context/ToastContext", () => ({ useToast: () => ({ addToast: jest.fn() }) }));
 jest.mock("@/hooks", () => ({ useHiddenPath: () => false }));
 jest.mock("@/i18n/navigation", () => ({
+  useRouter: () => ({ replace: jest.fn() }),
   usePathname: () => "/",
   getPathname: ({ href }: { href: string }) => href,
 }));

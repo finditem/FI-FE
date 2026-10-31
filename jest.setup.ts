@@ -16,6 +16,16 @@ jest.mock("next-intl", () => {
   };
 });
 
+// @/i18n/navigation의 Link와 useRouter는 next-intl Provider 없이 렌더하면 에러가 난다.
+// 테스트는 기본 로케일(ko)이라 접두사가 붙지 않으므로 next/link와 next/navigation에 그대로 위임한다.
+// 호출 시점에 require해서 각 테스트 파일의 next/navigation mock이 그대로 적용되고,
+// 파일에서 @/i18n/navigation을 직접 mock하면 그 mock이 우선한다.
+jest.mock("@/i18n/navigation", () => ({
+  ...jest.requireActual("@/i18n/navigation"),
+  useRouter: () => require("next/navigation").useRouter(),
+  Link: (props: object) => require("react").createElement(require("next/link").default, props),
+}));
+
 // IntersectionObserver 모킹
 global.IntersectionObserver = class IntersectionObserver {
   constructor() {}
