@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Button, EmptyState } from "@/components";
 
 const sanitizeKeyword = (keyword: string) => keyword.replace(/[<>]/g, "").slice(0, 20);

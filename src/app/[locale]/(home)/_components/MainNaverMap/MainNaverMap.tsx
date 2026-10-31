@@ -11,7 +11,8 @@ import {
   usePlaceSummary,
 } from "@/api/fetch/mapController";
 import type { PlaceType } from "@/api/fetch/mapController";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useRef } from "react";
 import {
   MARKER_ID,

@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { Suspense, useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import {
   BOTTOM_OFFSET_PX,
   FEED_PARAM,
