@@ -7,7 +7,7 @@ import { useSnackBar } from "@/context/SnackBarContext";
 import { useTranslations } from "next-intl";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { BLOCK_ERROR_MESSAGE_KEY } from "./BLOCK_ERROR_MESSAGE";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 interface UseBlockParams {
   onClose: () => void;

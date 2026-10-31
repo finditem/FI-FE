@@ -11,7 +11,7 @@ import {
 } from "./_internal";
 import { useSupportTabQuery } from "../SupportTab/_internal/useSupportTabQuery";
 import { MouseEvent } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 interface SupportFaqAccordionItemProps {

@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useParams, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { PUBLIC_LIST_TAB_KEYS } from "../../_components/PUBLIC_DATA_CONST";
 
 type PublicDataTabType = (typeof PUBLIC_LIST_TAB_KEYS)[number];

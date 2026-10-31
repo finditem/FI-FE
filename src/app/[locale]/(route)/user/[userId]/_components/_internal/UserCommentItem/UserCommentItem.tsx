@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Icon } from "@/components";
 import { UserCommentsDataType } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";

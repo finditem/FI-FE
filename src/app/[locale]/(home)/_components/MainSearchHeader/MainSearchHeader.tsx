@@ -3,7 +3,8 @@
 import { useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { cn } from "@/utils";
 import type { KeyboardEvent as ReactKeyboardEvent, RefObject } from "react";
 import { Suspense, useEffect, useRef, useState } from "react";

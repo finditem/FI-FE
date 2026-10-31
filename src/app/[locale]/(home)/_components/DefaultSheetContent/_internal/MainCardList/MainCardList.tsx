@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { useFormatDate, useHorizontalDragScroll } from "@/hooks";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import RecentFoundItemSkeleton from "../RecentFoundItemSkeleton/RecentFoundItemSkeleton";
 

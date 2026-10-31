@@ -2,7 +2,8 @@
 
 import { useTranslations } from "next-intl";
 import { InputSearch } from "@/components/common";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 interface MypageSearchProps {
   searchMode: "posts" | "favorites" | "comments" | "activities" | "reports" | "inquiries";

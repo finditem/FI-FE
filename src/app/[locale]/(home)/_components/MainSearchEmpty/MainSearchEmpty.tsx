@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import { Button, Icon } from "@/components";
 import { cn } from "@/utils";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { BUTTON_DEFAULT_STYLE } from "../HOME_CONST";
 import useWriteButtons from "../../_hooks/useWriteButtons/useWriteButtons";
 import { trackClickWriteButton } from "@/utils/analytics/analytics";

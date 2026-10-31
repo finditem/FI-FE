@@ -2,7 +2,7 @@ import { CommentItem } from "@/api/fetch/user";
 import { useTranslations } from "next-intl";
 import { Icon, ListItemImage } from "@/components/common";
 import { cn, formatDate, highlightText } from "@/utils";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 /**
  * 마이페이지 댓글 카드 컴포넌트입니다.

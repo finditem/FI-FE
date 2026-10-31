@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { ReviewDetailResponse } from "@/api/fetch/review";
 import { Button, Icon, ProfileAvatar } from "@/components";

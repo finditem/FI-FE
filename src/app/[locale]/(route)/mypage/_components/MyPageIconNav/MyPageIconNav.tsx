@@ -1,5 +1,5 @@
 import { Icon, IconName } from "@/components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useMypageTapConfig } from "../../_hooks/useMypageTapConfig/useMypageTapConfig";
 import { cn } from "@/utils";
 

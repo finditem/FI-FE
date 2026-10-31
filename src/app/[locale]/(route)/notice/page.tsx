@@ -2,7 +2,7 @@
 
 import { DetailHeader, FloatingButton, ScrollToTopButton, ErrorState } from "@/components";
 import { NoticeFilter, NoticeSearchForm, NoticeView, NoticeListErrorButtons } from "./_components";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { Suspense } from "react";
 import { useSearchUpdateQueryString } from "@/hooks";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
