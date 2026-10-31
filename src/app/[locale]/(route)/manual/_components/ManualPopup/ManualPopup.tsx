@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Button, Icon, PopupLayout } from "@/components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface ManualPopupProps {
   isOpen: boolean;

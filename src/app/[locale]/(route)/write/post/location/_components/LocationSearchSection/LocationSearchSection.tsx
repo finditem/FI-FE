@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { InputSearch } from "@/components";

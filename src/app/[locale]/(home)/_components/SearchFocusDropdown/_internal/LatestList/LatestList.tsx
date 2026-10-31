@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Icon } from "@/components";
 import { cn } from "@/utils";
 import { useMainRecentSearch } from "@/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import type { RefObject } from "react";
 import RecentSearchEmpty from "../../../MainSearchHeader/_internal/RecentSearchEmpty/RecentSearchEmpty";
 import { handleSearchDropdownRowKeyDown } from "../../../../_utils/searchDropdownListKeyboard";

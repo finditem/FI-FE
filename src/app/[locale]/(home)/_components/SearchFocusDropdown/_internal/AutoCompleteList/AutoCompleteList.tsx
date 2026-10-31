@@ -7,7 +7,7 @@ import { useMainRecentSearch } from "@/store";
 import type { VWorldAddressItem } from "@/types";
 import { cn } from "@/utils";
 import { highlightText } from "@/utils";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import type { RefObject } from "react";
 import { useMemo } from "react";
 import { handleSearchDropdownRowKeyDown } from "../../../../_utils/searchDropdownListKeyboard";

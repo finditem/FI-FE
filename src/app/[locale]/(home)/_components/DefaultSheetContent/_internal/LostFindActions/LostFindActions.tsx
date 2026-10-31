@@ -6,7 +6,7 @@
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import useLostFindActionData from "../../../../_hooks/useLostFindActionData/useLostFindActionData";
 
 const LostFindActions = () => {
