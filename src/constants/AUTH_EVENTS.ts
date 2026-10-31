@@ -1,13 +1,14 @@
 /**
- * 로그인 성공 등 인증 흐름에서 `window`로 주고받는 `CustomEvent` 이름입니다.
- *
- * @author hyungjun
- */
-
-/** 이메일·카카오 로그인 등에서 `new CustomEvent(AUTH_LOGIN_SUCCESS_EVENT)`로 발생시키고,
- * SSE 등 후속 연결 로직에서 `addEventListener`로 구독합니다.
+ * 로그인 완료 후 약관·실시간 연결 등 후속 처리를 시작하는 이벤트 이름입니다.
+ * @author suhyeon
  */
 export const AUTH_LOGIN_SUCCESS_EVENT = "authLoginSuccess";
+
+/**
+ * 로컬 세션 종료 후 캐시와 실시간 연결을 정리하는 이벤트 이름입니다.
+ * @author suhyeon
+ */
+export const AUTH_SESSION_ENDED_EVENT = "authSessionEnded";
 
 /**
  * 재발급 성공 후 실시간 연결에 토큰 변경을 알리는 이벤트 이름입니다.

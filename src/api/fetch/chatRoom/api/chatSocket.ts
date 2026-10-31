@@ -1,5 +1,6 @@
-import { Client, IMessage, StompSubscription } from "@stomp/stompjs";
-import authApi from "@/api/_base/axios/authApi";
+import { AUTH_TOKEN_REFRESHED_EVENT } from "@/constants/AUTH_EVENTS";
+import { Client, type IMessage, type StompSubscription } from "@stomp/stompjs";
+import { isSessionTerminal, refreshSession } from "@/api/_base/auth/authSession";
 import { retryBackoffController } from "@/utils";
 
 export type MessageHandler<T = any> = (message: T) => void;
@@ -27,9 +28,9 @@ const REMOTE_CHAT_BROKER_URL = process.env.NEXT_PUBLIC_API_URL
   ? `${process.env.NEXT_PUBLIC_API_URL.replace(/^http/, "ws")}/ws`
   : "";
 
-const toSameOriginWsBrokerUrl = (loc: Pick<Location, "protocol" | "host">) => {
-  const wsProtocol = loc.protocol === "https:" ? "wss:" : "ws:";
-  return `${wsProtocol}//${loc.host}/api/ws`;
+const toSameOriginWsBrokerUrl = (location: Pick<Location, "protocol" | "host">) => {
+  const wsProtocol = location.protocol === "https:" ? "wss:" : "ws:";
+  return `${wsProtocol}//${location.host}/api/ws`;
 };
 
 const getChatSocketBrokerURL = (): string => {
@@ -45,9 +46,35 @@ const getChatSocketBrokerURL = (): string => {
   return REMOTE_CHAT_BROKER_URL;
 };
 
-const MAX_AUTH_REFRESH_FAILURES = 1;
-let consecutiveAuthRefreshFailures = 0;
 let isAuthInvalid = false;
+
+const refreshBeforeReconnect = async (): Promise<boolean> => {
+  try {
+    await refreshSession();
+    console.log("[STOMP] Token refreshed before reconnecting");
+    return true;
+  } catch (refreshError) {
+    console.warn(
+      "[STOMP] Token refresh failed. Only invalid sessions stop reconnecting:",
+      refreshError
+    );
+    if (isSessionTerminal()) {
+      isAuthInvalid = true;
+      disconnectChatSocket();
+      return false;
+    }
+    // 현재 백오프 작업의 finally가 실행 상태를 해제한 다음 다시 예약합니다.
+    setTimeout(() => scheduleReconnectChatSocket(), 0);
+    return false;
+  }
+};
+
+const restoreSavedSubscriptions = (): void => {
+  savedSubscriptions.forEach((handlerSet, destination) => {
+    handlerSet.forEach((handler) => subscribeChatSocket(destination, handler));
+  });
+  savedSubscriptions.clear();
+};
 
 const performReconnectChatSocket = async () => {
   if (isReconnecting) return;
@@ -59,7 +86,7 @@ const performReconnectChatSocket = async () => {
       savedSubscriptions.set(destination, new Set(handlerSet));
     });
 
-    subscriptions.forEach((sub) => sub.unsubscribe());
+    subscriptions.forEach((subscription) => subscription.unsubscribe());
     subscriptions.clear();
 
     if (client) {
@@ -67,27 +94,13 @@ const performReconnectChatSocket = async () => {
       client = null;
     }
 
-    try {
-      await authApi.post("/auth/refresh");
-      console.log("[STOMP] Token refreshed before reconnecting");
-      consecutiveAuthRefreshFailures = 0;
-    } catch (refreshError) {
-      consecutiveAuthRefreshFailures += 1;
-      console.warn(
-        "[STOMP] Token refresh failed. Stop reconnect attempts after session becomes invalid:",
-        refreshError
-      );
-
-      if (consecutiveAuthRefreshFailures >= MAX_AUTH_REFRESH_FAILURES) {
-        isAuthInvalid = true;
-        disconnectChatSocket();
-        return;
-      }
-    }
+    const didRefresh = await refreshBeforeReconnect();
+    if (!didRefresh) return;
 
     connectChatSocket();
-    isReconnecting = false;
   } catch {
+    // 다음 연결 요청을 허용하도록 진행 상태를 finally에서 해제합니다.
+  } finally {
     isReconnecting = false;
   }
 };
@@ -123,9 +136,9 @@ export const connectChatSocket = () => {
     brokerURL: getChatSocketBrokerURL(),
     reconnectDelay: 0,
 
-    debug: (msg) => {
+    debug: (message) => {
       if (process.env.NODE_ENV === "development") {
-        console.log("[STOMP]", msg);
+        console.log("[STOMP]", message);
       }
     },
 
@@ -133,18 +146,12 @@ export const connectChatSocket = () => {
       console.log("[STOMP] connected");
       isReconnecting = false;
       isAuthInvalid = false;
-      consecutiveAuthRefreshFailures = 0;
       reconnectRetryController.reset();
 
       pendingSubscriptions.forEach((subscribe) => subscribe());
       pendingSubscriptions = [];
 
-      savedSubscriptions.forEach((handlerSet, destination) => {
-        handlerSet.forEach((handler) => {
-          subscribeChatSocket(destination, handler);
-        });
-      });
-      savedSubscriptions.clear();
+      restoreSavedSubscriptions();
     },
 
     onStompError: (frame) => {
@@ -175,7 +182,7 @@ export const connectChatSocket = () => {
 
   if (typeof window !== "undefined") {
     if (tokenRefreshHandler) {
-      window.removeEventListener("tokenRefreshed", tokenRefreshHandler);
+      window.removeEventListener(AUTH_TOKEN_REFRESHED_EVENT, tokenRefreshHandler);
     }
 
     tokenRefreshHandler = () => {
@@ -183,14 +190,14 @@ export const connectChatSocket = () => {
       scheduleReconnectChatSocket({ immediate: true, resetAttempt: true });
     };
 
-    window.addEventListener("tokenRefreshed", tokenRefreshHandler);
+    window.addEventListener(AUTH_TOKEN_REFRESHED_EVENT, tokenRefreshHandler);
   }
 
   client.activate();
 };
 
 export const disconnectChatSocket = () => {
-  subscriptions.forEach((sub) => sub.unsubscribe());
+  subscriptions.forEach((subscription) => subscription.unsubscribe());
   subscriptions.clear();
   handlers.clear();
   savedSubscriptions.clear();
@@ -200,7 +207,7 @@ export const disconnectChatSocket = () => {
   reconnectRetryController.cancel();
 
   if (typeof window !== "undefined" && tokenRefreshHandler) {
-    window.removeEventListener("tokenRefreshed", tokenRefreshHandler);
+    window.removeEventListener(AUTH_TOKEN_REFRESHED_EVENT, tokenRefreshHandler);
     tokenRefreshHandler = null;
   }
 
@@ -221,14 +228,14 @@ export const subscribeChatSocket = <T>(destination: string, handler: MessageHand
       return;
     }
 
-    const sub = client.subscribe(destination, (message: IMessage) => {
+    const subscription = client.subscribe(destination, (message: IMessage) => {
       try {
-        const parsed = JSON.parse(message.body);
-        handlers.get(destination)?.forEach((h) => h(parsed));
+        const parsedMessage = JSON.parse(message.body);
+        handlers.get(destination)?.forEach((handler) => handler(parsedMessage));
       } catch {}
     });
 
-    subscriptions.set(destination, sub);
+    subscriptions.set(destination, subscription);
   };
 
   if (!client?.connected) {
