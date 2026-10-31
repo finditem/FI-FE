@@ -1,5 +1,7 @@
 import type { GetUsersMeResponse } from "@/api/fetch/user/types/UserMeType";
 import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import type { ApiSignUpType } from "@/api/fetch/auth/types/ApiSingUpType";
+import type { SignUpResponseType } from "@/api/fetch/auth/types/SignUpResponseType";
 
 export const MOCK_AUTH_USER: GetUsersMeResponse = {
   isSuccess: true,
@@ -69,4 +71,19 @@ export const MOCK_AUTH_OAUTH_STATE = "auth-test-state";
 
 export const MOCK_AUTH_INVALID_CREDENTIALS_ERROR = {
   response: { data: { code: "AUTH401-INVALID_CREDENTIALS" } },
+};
+
+export const MOCK_AUTH_SIGN_UP_REQUEST: ApiSignUpType = {
+  email: MOCK_AUTH_LOGIN_FORM.email,
+  password: MOCK_AUTH_LOGIN_FORM.password,
+  nickname: MOCK_AUTH_USER.result.nickname,
+  privacyPolicyAgreed: true,
+  termsOfServiceAgreed: true,
+  contentPolicyAgreed: true,
+  marketingConsent: false,
+};
+
+export const MOCK_AUTH_SIGN_UP_RESPONSE: SignUpResponseType = {
+  ...MOCK_AUTH_LOGIN_RESPONSE,
+  result: { id: "1", temporaryPassword: false },
 };
