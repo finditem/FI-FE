@@ -4,7 +4,7 @@ import { useGetUsersMe } from "@/api/fetch/user";
 import { Icon, ProfileAvatar } from "@/components";
 import { useToast } from "@/context/ToastContext";
 import { useLogout } from "@/hooks";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useAccountRoute } from "../../_hooks/useAccountRoute/useAccountRoute";
 

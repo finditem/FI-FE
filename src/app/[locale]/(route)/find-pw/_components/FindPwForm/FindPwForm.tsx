@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import { Button, InputText } from "@/components";
 import { cn } from "@/utils";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useFindPwSubmit } from "@/hooks";
 import { ApiFindPwType } from "@/api/fetch/auth";
 import { trackClickLoginButton } from "@/utils/analytics/analytics";

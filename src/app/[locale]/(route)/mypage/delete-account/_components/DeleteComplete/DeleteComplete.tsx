@@ -1,5 +1,5 @@
 import { Button, Icon } from "@/components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 const DeleteComplete = () => {
