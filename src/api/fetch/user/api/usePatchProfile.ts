@@ -6,7 +6,7 @@ import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType"
 import type { GetUsersMeResponse } from "../types/UserMeType";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import type { AxiosError } from "axios";
 

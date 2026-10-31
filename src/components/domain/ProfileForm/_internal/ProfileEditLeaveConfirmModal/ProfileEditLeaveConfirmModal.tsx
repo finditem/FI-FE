@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/common";
 import ModalLayout from "@/components/common/Modal/_internal/ModalLayout";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 interface ProfileEditLeaveConfirmModalProps {
   isOpen: boolean;
