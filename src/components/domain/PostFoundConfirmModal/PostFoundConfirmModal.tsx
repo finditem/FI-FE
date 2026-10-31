@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { usePutPostStatus } from "@/api/fetch/post";
 import usePostFindCompletion from "@/api/fetch/chatRoom/api/usePostFindCompletion";
 import { Button, Icon } from "@/components/common";

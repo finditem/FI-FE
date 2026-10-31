@@ -10,7 +10,7 @@ import {
   POST_EDIT_RATE_LIMIT_CODE,
 } from "../types/PostEditLimitType";
 import { useToast } from "@/context/ToastContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslations } from "next-intl";
 
