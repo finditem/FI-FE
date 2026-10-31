@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 
 export const useApiSignUp = () => {
   return useAppMutation<ApiSignUpType, SignUpResponseType, AxiosError<ApiBaseResponseType<null>>>(
-    "auth",
+    "public",
     "auth/signup",
     "post"
   );

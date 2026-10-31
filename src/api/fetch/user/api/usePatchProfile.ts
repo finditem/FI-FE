@@ -1,13 +1,14 @@
 "use client";
 
+import { USERS_ME_QUERY_KEY } from "@/constants/USER_QUERY_KEYS";
 import useAppMutation from "@/api/_base/query/useAppMutation";
-import { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
-import { GetUsersMeResponse } from "../types/UserMeType";
+import type { ApiBaseResponseType } from "@/api/_base/types/ApiBaseResponseType";
+import type { GetUsersMeResponse } from "../types/UserMeType";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
 
 export const usePatchProfile = () => {
   const { addToast } = useToast();
@@ -22,7 +23,7 @@ export const usePatchProfile = () => {
     {
       onSuccess: (updateProfile) => {
         addToast(t("updateSuccess"), "success");
-        queryClient.setQueryData(["users-me"], updateProfile);
+        queryClient.setQueryData(USERS_ME_QUERY_KEY, updateProfile);
       },
       onError: (error) => {
         const errorCode = error.response?.data.code;

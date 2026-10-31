@@ -14,7 +14,7 @@ export const useGetRepliesPostsComments = ({
   enabled = true,
 }: UseGetRepliesPostsCommentsParams) => {
   return useAppInfiniteQuery<GetPostsCommentsResponse, unknown, GetPostsCommentsData>(
-    "auth",
+    "public",
     ["replies-post-comments", commentId, size],
     `/comments/${commentId}/replies?size=${size}`,
     {

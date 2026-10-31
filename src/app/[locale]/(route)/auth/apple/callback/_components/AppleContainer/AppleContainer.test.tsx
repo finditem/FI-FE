@@ -28,7 +28,7 @@ jest.mock("next/navigation", () => ({
 }));
 
 jest.mock("@/i18n/navigation", () => ({
-  useRouter: () => ({ replace: mockRouterReplace, push: mockRouterPush }),
+  useRouter: () => ({ replace: mockRouterReplace, push: mockRouterPush, refresh: jest.fn() }),
 }));
 
 jest.mock("../AppleLoading/AppleLoading", () => ({
