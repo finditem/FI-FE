@@ -1,7 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { InputSearch, Tab } from "@/components";
 import PublicDataSearchList from "../PublicDataSearchList/PublicDataSearchList";
 import { usePublicDataTabQuery } from "@/app/[locale]/(route)/public-data/_hooks/usePublicDataTabQuery/usePublicDataTabQuery";

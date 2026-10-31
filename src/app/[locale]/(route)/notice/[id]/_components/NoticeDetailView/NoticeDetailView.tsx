@@ -5,7 +5,7 @@ import { NoticeCommentForm, NoticeDetailContent, NoticeDetailSkeleton } from "./
 import { useGetNoticeDetail } from "@/api/fetch/notice";
 import { useEffect } from "react";
 import { useToast } from "@/context/ToastContext";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { useQueryClient } from "@tanstack/react-query";
 import {

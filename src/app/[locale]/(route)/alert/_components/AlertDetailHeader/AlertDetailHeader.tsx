@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useNotificationList } from "@/api/fetch/notification";
 import { DetailHeader, HeaderDelete, HeaderSetting } from "@/components";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 const AlertDetailHeader = ({
   isDeleteMode,
