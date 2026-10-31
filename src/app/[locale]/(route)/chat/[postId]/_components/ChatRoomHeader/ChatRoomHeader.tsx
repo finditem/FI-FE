@@ -5,7 +5,7 @@ import { Icon, ListItemImage } from "@/components";
 import ChatChip from "../ChatChip/ChatChip";
 import ChatRoomHeaderInfoButton from "../ChatRoomHeaderInfoButton/ChatRoomHeaderInfoButton";
 import { ChatRoomResponse } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { ReactNode } from "react";
 
 interface LinkWrapperProps {

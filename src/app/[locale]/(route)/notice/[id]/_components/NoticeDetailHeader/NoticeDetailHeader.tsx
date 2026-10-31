@@ -3,7 +3,7 @@
 import { useGetUsersMe } from "@/api/fetch/user";
 import { KebabMenu, DetailHeader, HeaderMenu, HeaderShare, ContentShareModal } from "@/components";
 import { useClickOutside } from "@/hooks";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import NoticeDeleteModal from "./_internal/NoticeDeleteModal";
 import { useGetNoticeDetail } from "@/api/fetch/notice";

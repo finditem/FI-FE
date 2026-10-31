@@ -4,7 +4,7 @@ import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import { useTranslations } from "next-intl";
 import RegionSearchView from "./_internal/RegionSearchView";
 import { InputSearch } from "@/components";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 const ListSearch = () => {
   const t = useTranslations("ListSearch");

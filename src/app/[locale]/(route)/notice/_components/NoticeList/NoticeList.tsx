@@ -1,5 +1,5 @@
 import { Badge, Icon, ListItemImage, EmptyState } from "@/components";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { NoticeItem } from "@/api/fetch/notice";
 import { formatDate, highlightText } from "@/utils";
 import { useSearchParams } from "next/navigation";

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { ChatRoom } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
 import { ListItemImage, ProfileAvatar } from "@/components";
