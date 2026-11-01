@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/navigation";
+import { hasLocale, useLocale } from "next-intl";
+import { reloadWithLocale, useRouter } from "@/i18n/navigation";
+import { routing } from "@/i18n/routing";
 import { useAgreeStore } from "@/store";
 import { usePatchKakaoTerms } from "@/api/fetch/user";
 import { isValidCallbackUrl, verifyOAuthState } from "@/utils";
@@ -30,6 +32,7 @@ const useOAuthLoginCallback = <TResponse extends OAuthLoginResponse>({
   const { termsAgreed, isLoggedIn, login } = useAgreeStore();
 
   const router = useRouter();
+  const locale = useLocale();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const state = searchParams.get("state");
@@ -53,6 +56,16 @@ const useOAuthLoginCallback = <TResponse extends OAuthLoginResponse>({
   useEffect(() => {
     if (!code || step === "Term") return;
     if (isRequesting.current) return;
+
+    // 콜백 주소에는 로케일이 없어 항상 기본 언어로 열린다. 로그인 요청 전에 로그인을 시작한 언어로 옮겨,
+    // 약관 동의와 이후 이동이 그 언어로 이어지게 한다. code는 한 번만 쓸 수 있으므로 옮긴 뒤에 사용한다.
+    const oauthLocale = sessionStorage.getItem("oauthLocale");
+    if (oauthLocale !== locale && hasLocale(routing.locales, oauthLocale)) {
+      isRequesting.current = true;
+      reloadWithLocale(callbackPath, oauthLocale, searchParams.toString());
+      return;
+    }
+    sessionStorage.removeItem("oauthLocale");
 
     isRequesting.current = true;
 
@@ -93,7 +106,7 @@ const useOAuthLoginCallback = <TResponse extends OAuthLoginResponse>({
     if (isLoggedIn && !termsAgreed) {
       setStep("Term");
     }
-  }, [code, state, loginMutate, router, appEnv, login, step]);
+  }, [code, state, loginMutate, router, appEnv, login, step, locale, callbackPath, searchParams]);
 
   const methods = useForm();
   const { setValue } = methods;
