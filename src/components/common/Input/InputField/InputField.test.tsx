@@ -112,7 +112,7 @@ const renderComponent = (
   return {
     user,
     props,
-    textarea: screen.getByLabelText(props.label) as HTMLTextAreaElement,
+    textarea: screen.getByLabelText(props.label as string) as HTMLTextAreaElement,
   };
 };
 

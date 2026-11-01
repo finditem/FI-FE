@@ -42,6 +42,12 @@ const makeChatRoomResult = (overrides: Partial<ChatRoomResponse> = {}): ChatRoom
     deleted: false,
     postStatus: "SEARCHING",
   },
+  findCompletion: {
+    status: "NONE",
+    findCompletionId: null,
+    canComplete: false,
+    canWriteReview: false,
+  },
   ...overrides,
 });
 

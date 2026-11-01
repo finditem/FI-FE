@@ -19,6 +19,9 @@ describe("shareWithNative", () => {
       title: "제목",
       summary: "요약",
       link: "https://example.com",
+      likeCount: 0,
+      commentCount: 0,
+      viewCount: 0,
     };
 
     await shareWithNative({ metaData });
