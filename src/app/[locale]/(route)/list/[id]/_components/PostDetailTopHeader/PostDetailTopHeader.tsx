@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { DetailHeader, HeaderMenu, HeaderShare, HeaderStar, ContentShareModal } from "@/components";
+import GuestLoginModal from "@/components/domain/GuestLoginModal/GuestLoginModal";
 import PostActionMenu from "../PostActionMenu/PostActionMenu";
 import { PostActionData } from "../../_types/PostActionType";
 import { useToggleFavorite } from "../../_hooks/useToggleFavorite/useToggleFavorite";
@@ -18,8 +19,12 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
   const t = useTranslations("PostDetailTopHeader");
   const [openShareModal, setOpenShareModal] = useState(false);
   const [openOptionModal, setOpenOptionModal] = useState(false);
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
 
-  const { handleToggleFavorite, isPending } = useToggleFavorite({ postId });
+  const { handleToggleFavorite, isPending } = useToggleFavorite({
+    postId,
+    openGuestModal: () => setIsGuestModalOpen(true),
+  });
   const ref = useClickOutside(() => setOpenOptionModal(false));
 
   const { data: postMetaData } = useGetMetaData({ postId });
@@ -75,6 +80,8 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
         metaData={metaData}
         objectType="location"
       />
+
+      <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
     </>
   );
 };
