@@ -75,7 +75,9 @@ const NoticeDetailView = ({ id }: { id: number }) => {
   return (
     <div className="flex flex-col h-base">
       {isLoading && <NoticeDetailSkeleton />}
-      {noticeDetail && !isLoading && <NoticeDetailContent noticeDetail={noticeDetail?.result} />}
+      {noticeDetail && !isLoading && (
+        <NoticeDetailContent noticeDetail={noticeDetail?.result} isLoggedIn={isLoggedIn} />
+      )}
       <CommentList
         postId={id}
         onSubmit={handleReplySubmit}

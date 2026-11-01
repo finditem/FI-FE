@@ -13,6 +13,7 @@ import {
   ReportModal,
   BlockUserModal as UserBlockModal,
 } from "@/components";
+import GuestLoginModal from "@/components/domain/GuestLoginModal/GuestLoginModal";
 import { useDeleteDetailPost, usePutPostStatus } from "@/api/fetch/post";
 import { useGetUsersMe } from "@/api/fetch/user";
 import { PostActionData } from "../../_types/PostActionType";
@@ -34,6 +35,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isBlockOpen, setIsBlockOpen] = useState(false);
   const [foundConfirmOpen, setFoundConfirmOpen] = useState(false);
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
 
   const isFound = postStatus === "FOUND";
   const { mutate: putPostStatus } = usePutPostStatus(postId, isFound);
@@ -55,13 +57,19 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   };
 
   const handleOpenReport = () => {
-    if (!me) return;
+    if (!me) {
+      setIsGuestModalOpen(true);
+      return;
+    }
 
     setIsReportOpen(true);
   };
 
   const handleOpenBlock = () => {
-    if (!me) return;
+    if (!me) {
+      setIsGuestModalOpen(true);
+      return;
+    }
 
     setIsBlockOpen(true);
   };
@@ -137,6 +145,8 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
         onClose={() => setFoundConfirmOpen(false)}
         postId={postId}
       />
+
+      <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
     </>
   );
 };

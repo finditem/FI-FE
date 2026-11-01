@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { NoticeDetail } from "@/api/fetch/notice";
 import { Icon, ImageViewerModal } from "@/components";
+import GuestLoginModal from "@/components/domain/GuestLoginModal/GuestLoginModal";
 import { cn, formatDate, formatViewCount } from "@/utils";
 import Image from "next/image";
 import { useToggleLike } from "../../../../_hooks/useToggleLike/useToggleLike";
@@ -21,7 +22,12 @@ const NoticeDetailBadges = ({ isNew, isHot }: { isNew: boolean; isHot: boolean }
   );
 };
 
-const NoticeDetailContent = ({ noticeDetail }: { noticeDetail: NoticeDetail }) => {
+interface NoticeDetailContentProps {
+  noticeDetail: NoticeDetail;
+  isLoggedIn: boolean;
+}
+
+const NoticeDetailContent = ({ noticeDetail, isLoggedIn }: NoticeDetailContentProps) => {
   const t = useTranslations("NoticePage.detail");
   const locale = useLocale();
   const isKo = locale === "ko";
@@ -29,9 +35,14 @@ const NoticeDetailContent = ({ noticeDetail }: { noticeDetail: NoticeDetail }) =
     isOpen: boolean;
     initialIndex: number;
   }>({ isOpen: false, initialIndex: 0 });
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
 
   const noticeId = noticeDetail?.noticeId;
-  const { handleToggleLike, isPending: isLikePending } = useToggleLike({ noticeId });
+  const { handleToggleLike, isPending: isLikePending } = useToggleLike({
+    noticeId,
+    isLoggedIn,
+    openGuestModal: () => setIsGuestModalOpen(true),
+  });
   const {
     title,
     content,
@@ -121,6 +132,8 @@ const NoticeDetailContent = ({ noticeDetail }: { noticeDetail: NoticeDetail }) =
           onClose={() => setImageViewerState((prev) => ({ ...prev, isOpen: false }))}
         />
       )}
+
+      <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
     </section>
   );
 };
