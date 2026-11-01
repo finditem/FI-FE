@@ -1,7 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { Button, Icon } from "@/components";
 import useSessionNotification from "./_hooks/useSessionNotification";
@@ -27,6 +27,7 @@ const appleBaseUrl = `https://appleid.apple.com/auth/authorize?client_id=${APPLE
 
 const page = () => {
   const t = useTranslations("Login");
+  const locale = useLocale();
   const { reason } = useSessionNotification();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
@@ -45,6 +46,8 @@ const page = () => {
 
     if (callbackUrl) sessionStorage.setItem("callbackUrl", callbackUrl);
     else sessionStorage.removeItem("callbackUrl");
+    // OAuth 콜백 주소에는 로케일이 없어, 돌아왔을 때 원래 언어로 옮기기 위해 저장한다.
+    sessionStorage.setItem("oauthLocale", locale);
 
     const state = createOAuthState();
     const baseUrl = provider === "kakao" ? kakaoBaseUrl : appleBaseUrl;
