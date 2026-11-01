@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Icon } from "@/components";
+import GuestLoginModal from "@/components/domain/GuestLoginModal/GuestLoginModal";
 import { PostDetailData } from "@/api/fetch/post";
 import { formatViewCount } from "@/utils";
 import PostChipSection from "../PostChipSection/PostChipSection";
@@ -14,7 +16,11 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
   const t = useTranslations("PostDetailBody");
   const locale = useLocale();
   const { title, content, favoriteCount, postStatus, category, createdAt, viewCount } = data;
-  const { handleToggleFavorite, isPending } = useToggleFavorite({ postId: data.id });
+  const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
+  const { handleToggleFavorite, isPending } = useToggleFavorite({
+    postId: data.id,
+    openGuestModal: () => setIsGuestModalOpen(true),
+  });
   const formatPostDate = useFormatPostDate();
   const isKo = locale === "ko";
 
@@ -68,6 +74,8 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
           </li>
         </ul>
       </div>
+
+      <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
     </article>
   );
 };

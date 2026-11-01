@@ -5,22 +5,30 @@ import { useDeletePostFavorites, usePostFavorites } from "@/api/fetch/post";
 
 interface ToggleFavoriteProps {
   postId: number;
+  openGuestModal: () => void;
 }
 
-export const useToggleFavorite = ({ postId }: ToggleFavoriteProps) => {
+export const useToggleFavorite = ({ postId, openGuestModal }: ToggleFavoriteProps) => {
   const { mutate: postFavorite, isPending: postPending } = usePostFavorites(postId);
   const { mutate: deleteFavorite, isPending: deletePending } = useDeletePostFavorites(postId);
   const { data: me } = useGetUsersMe();
 
-  const handleToggleFavorite = useMemo(
+  const toggleFavorite = useMemo(
     () =>
       throttle((favoriteStatus: boolean) => {
-        if (!me) return;
-
         favoriteStatus ? deleteFavorite({ postId }) : postFavorite({ postId });
       }, 300),
-    [postId, postFavorite, deleteFavorite, me]
+    [postId, postFavorite, deleteFavorite]
   );
+
+  const handleToggleFavorite = (favoriteStatus: boolean) => {
+    if (!me) {
+      openGuestModal();
+      return;
+    }
+
+    toggleFavorite(favoriteStatus);
+  };
 
   return {
     handleToggleFavorite,
