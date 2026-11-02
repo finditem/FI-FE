@@ -1,3 +1,4 @@
+import { MOCK_NATIVE_SHARE_META_DATA } from "@/mock/data";
 import { shareWithNative } from "./shareWithNative";
 
 describe("shareWithNative", () => {
@@ -15,13 +16,7 @@ describe("shareWithNative", () => {
   });
 
   it("네이티브 공유를 실행한다", async () => {
-    const metaData = {
-      title: "제목",
-      summary: "요약",
-      link: "https://example.com",
-    };
-
-    await shareWithNative({ metaData });
+    await shareWithNative({ metaData: MOCK_NATIVE_SHARE_META_DATA });
 
     expect(mockShare).toHaveBeenCalledTimes(1);
     expect(mockShare).toHaveBeenCalledWith({
