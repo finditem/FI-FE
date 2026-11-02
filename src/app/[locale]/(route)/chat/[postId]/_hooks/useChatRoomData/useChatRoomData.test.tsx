@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import useChatRoom from "@/api/fetch/chatRoom/api/useChatRoom";
 import useGetChatRoom from "@/api/fetch/chatRoom/api/useGetChatRoom";
 import { useGetUsersMe } from "@/api/fetch/user";
-import type { ChatRoomResponse } from "@/api/fetch/chatRoom/types/ChatRoomResponse";
+import { makeChatRoomResult } from "@/mock/data";
 import useChatRoomData from "./useChatRoomData";
 
 jest.mock("next/navigation", () => ({
@@ -21,35 +21,6 @@ const mockUseGetChatRoom = useGetChatRoom as jest.MockedFunction<typeof useGetCh
 const mockUseGetUsersMe = useGetUsersMe as jest.MockedFunction<typeof useGetUsersMe>;
 
 const userMe = { userId: 1, nickName: "테스트" };
-
-const makeChatRoomResult = (overrides: Partial<ChatRoomResponse> = {}): ChatRoomResponse => ({
-  roomId: 10,
-  unreadCount: 2,
-  opponentUser: {
-    opponentUserId: 2,
-    nickname: "상대",
-    profileImageUrl: "",
-    emailVerified: true,
-    withdrawn: false,
-  },
-  postInfo: {
-    postId: 99,
-    postType: "LOST",
-    category: "ETC",
-    title: "제목",
-    address: "주소",
-    thumbnailUrl: null,
-    deleted: false,
-    postStatus: "SEARCHING",
-  },
-  findCompletion: {
-    status: "NONE",
-    findCompletionId: null,
-    canComplete: false,
-    canWriteReview: false,
-  },
-  ...overrides,
-});
 
 describe("useChatRoomData", () => {
   let queryClient: QueryClient;
