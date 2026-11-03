@@ -9,3 +9,4 @@ export * from "./inquiry.data";
 export * from "./notice.data";
 export * from "./review.data";
 export * from "./auth.data";
+export * from "./share.data";

@@ -16,7 +16,9 @@ const mockInvalidateQueries = jest.fn();
 const mockMutateDelete = jest.fn();
 const mockHandleReplySubmit = jest.fn();
 const mockHandleToggleFavorite = jest.fn();
-const CommentListMock = jest.fn(() => <div data-testid="comment-list" />);
+const CommentListMock = jest.fn((_props: Record<string, unknown>) => (
+  <div data-testid="comment-list" />
+));
 
 jest.mock("@/components/domain", () => ({
   CommentList: (props: Record<string, unknown>) => CommentListMock(props),
