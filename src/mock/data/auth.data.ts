@@ -87,3 +87,57 @@ export const MOCK_AUTH_SIGN_UP_RESPONSE: SignUpResponseType = {
   ...MOCK_AUTH_LOGIN_RESPONSE,
   result: { id: "1", temporaryPassword: false },
 };
+
+// isValidCallbackUrl 검증용 fixture입니다. URL 파서가 조용히 지워 Open Redirect 우회에 악용되는
+// 제어 문자는 소스에서 눈에 보이지 않아 혼동되지 않도록 코드 포인트로 생성합니다.
+const TAB = String.fromCharCode(9);
+const LINE_FEED = String.fromCharCode(10);
+const CARRIAGE_RETURN = String.fromCharCode(13);
+const NUL = String.fromCharCode(0);
+
+/** 통과해야 하는 안전한 내부 경로입니다. */
+export const MOCK_AUTH_CALLBACK_VALID_URLS = [
+  "/",
+  "/mypage",
+  "/write/post",
+  "/write/post?type=lost&category=wallet",
+  "/search?q=%EC%A7%80%EA%B0%91",
+  "/post/123#comment",
+];
+
+/** 문자열이 아니라 거부해야 하는 값입니다. */
+export const MOCK_AUTH_CALLBACK_NON_STRING_VALUES: unknown[] = [undefined, null, 123, {}, [], true];
+
+/** 슬래시로 시작하지 않아 거부해야 하는 값입니다. */
+export const MOCK_AUTH_CALLBACK_NON_SLASH_URLS = [
+  "",
+  "evil.com",
+  "https://evil.com",
+  "http:/evil.com",
+  "../secret",
+];
+
+/** 프로토콜 상대 URL 접두어라 거부해야 하는 값입니다. host가 더미 오리진(x)과 같은 경우까지 포함합니다. */
+export const MOCK_AUTH_CALLBACK_PROTOCOL_RELATIVE_URLS = [
+  "//evil.com",
+  "//evil.com/path",
+  "/\\evil.com",
+  "//x/path",
+  "/\\x/path",
+];
+
+/** URL 파서가 지워 우회에 악용되는 제어 문자가 끼어 거부해야 하는 값입니다. `[라벨, 입력]` 형태입니다. */
+export const MOCK_AUTH_CALLBACK_CONTROL_CHAR_URLS: [string, string][] = [
+  ["탭", `/${TAB}/evil.com`],
+  ["줄바꿈", `/${LINE_FEED}https://evil.com`],
+  ["캐리지 리턴", `/path${CARRIAGE_RETURN}/evil.com`],
+  ["널 문자", `/path${NUL}/evil.com`],
+];
+
+/** 순환 리다이렉트를 유발해 거부해야 하는 경로입니다. */
+export const MOCK_AUTH_CALLBACK_CIRCULAR_URLS = [
+  "/login",
+  "/login/email",
+  "/sign-up",
+  "/sign-up/terms",
+];
