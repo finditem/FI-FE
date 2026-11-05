@@ -29,7 +29,7 @@ type SSERuntime = {
   isAuthInvalid: boolean;
   consecutiveAuthRefreshFailures: number;
   tokenRefreshHandler: (() => void) | null;
-  currentAccessToken: string | null;
+  currentTokenHash: string | null;
   consecutiveSSEErrorCount: number;
 };
 
@@ -56,7 +56,7 @@ function getRuntime(): SSERuntime {
       isAuthInvalid: false,
       consecutiveAuthRefreshFailures: 0,
       tokenRefreshHandler: null,
-      currentAccessToken: null,
+      currentTokenHash: null,
       consecutiveSSEErrorCount: 0,
     };
   }
@@ -89,7 +89,7 @@ const getNotificationSSESubscribeURL = (): string => {
   return REMOTE_SSE_SUBSCRIBE_URL;
 };
 
-async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string } | null> {
+async function buildSubscribeUrl(): Promise<{ url: string; tokenHash: string } | null> {
   const subscribeUrl = getNotificationSSESubscribeURL();
   if (!subscribeUrl) return null;
 
@@ -102,16 +102,17 @@ async function buildSubscribeUrl(): Promise<{ url: string; accessToken: string }
       return null;
     }
 
-    const data = (await response.json()) as { accessToken: string | null };
-    const token = data.accessToken ?? undefined;
-    if (!token) {
+    // 토큰 원문은 받지 않는다. 연결은 쿠키로 인증하므로, 로그인 여부(hasToken)와
+    // 토큰 교체 감지(tokenHash)에 필요한 값만 받는다.
+    const data = (await response.json()) as { hasToken: boolean; tokenHash: string | null };
+    if (!data.hasToken || !data.tokenHash) {
       runtime.isAuthInvalid = true;
       return null;
     }
 
     return {
       url: subscribeUrl,
-      accessToken: token,
+      tokenHash: data.tokenHash,
     };
   } catch {
     runtime.isAuthInvalid = true;
@@ -199,7 +200,7 @@ export function disconnectNotificationSSE() {
   runtime.isReconnecting = false;
   runtime.isAuthInvalid = false;
   runtime.consecutiveAuthRefreshFailures = 0;
-  runtime.currentAccessToken = null;
+  runtime.currentTokenHash = null;
   runtime.consecutiveSSEErrorCount = 0;
   reconnectRetryController.cancel();
   detachTokenRefreshListener();
@@ -252,8 +253,8 @@ export async function connectNotificationSSE(
 
     if (runtime.connectionVersion !== connectionVersion) return;
 
-    if (runtime.currentAccessToken !== connectionInfo.accessToken) {
-      runtime.currentAccessToken = connectionInfo.accessToken;
+    if (runtime.currentTokenHash !== connectionInfo.tokenHash) {
+      runtime.currentTokenHash = connectionInfo.tokenHash;
       runtime.consecutiveSSEErrorCount = 0;
     }
 
