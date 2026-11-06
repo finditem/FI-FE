@@ -11,6 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
       template: t("titleTemplate"),
     },
     description: t("description"),
+    robots: { index: false },
     other: { "page-type": "mypage" },
   };
 }
