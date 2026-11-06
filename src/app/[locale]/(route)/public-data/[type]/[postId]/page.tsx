@@ -44,7 +44,8 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
         : "https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png";
 
     return {
-      title: metaTitle,
+      // metaTitleTemplate이 이미 브랜드로 끝나므로 루트 템플릿이 덧붙지 않도록 absolute로 반환한다.
+      title: { absolute: metaTitle },
       description: summary,
       openGraph: {
         title: metaTitle,
