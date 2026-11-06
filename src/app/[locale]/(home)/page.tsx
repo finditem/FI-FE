@@ -2,6 +2,7 @@ import { BottomSheet, MainNaverMap, MainSearchHeader } from "./_components";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
+import { buildCanonicalAlternates } from "@/utils";
 
 interface PageProps {
   params: Promise<{ locale: string }>;
@@ -19,6 +20,9 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return {
     title,
     description,
+    alternates: buildCanonicalAlternates("/", locale),
+    // 검색어가 담긴 주소는 임의 문구가 제목으로 색인되지 않도록 색인에서 제외한다.
+    ...(search && { robots: { index: false, follow: true } }),
   };
 }
 
