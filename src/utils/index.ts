@@ -1,5 +1,4 @@
 export { cn } from "./cn/cn";
-export { buildCanonicalAlternates } from "./buildCanonicalAlternates/buildCanonicalAlternates";
 export { formatCappedNumber } from "./formatCappedNumber/formatCappedNumber";
 export { default as formatDate } from "./formatDate/formatDate/formatDate";
 export { default as formatChatTime } from "./formatDate/formatChatTime/formatChatTime";

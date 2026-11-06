@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { buildCanonicalAlternates } from "@/utils";
+import { buildCanonicalAlternates } from "@/utils/buildCanonicalAlternates/buildCanonicalAlternates";
 import { DefaultListView } from "./_components";
 
 interface PageProps {

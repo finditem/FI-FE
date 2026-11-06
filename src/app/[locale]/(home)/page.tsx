@@ -2,7 +2,7 @@ import { BottomSheet, MainNaverMap, MainSearchHeader } from "./_components";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { getTranslations } from "next-intl/server";
-import { buildCanonicalAlternates } from "@/utils";
+import { buildCanonicalAlternates } from "@/utils/buildCanonicalAlternates/buildCanonicalAlternates";
 
 interface PageProps {
   params: Promise<{ locale: string }>;

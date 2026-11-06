@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
-import { buildCanonicalAlternates } from "@/utils";
+import { buildCanonicalAlternates } from "@/utils/buildCanonicalAlternates/buildCanonicalAlternates";
 import { PublicDataView, PublicDetailHeader } from "./_components";
 
 interface PageProps {
