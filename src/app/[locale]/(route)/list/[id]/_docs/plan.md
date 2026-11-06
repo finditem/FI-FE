@@ -66,3 +66,15 @@
       남기기" 버튼은 `usePutPostStatus(postId, false, { silent: true })` 별도 인스턴스로 토스트 없이
       상태만 바꾸고 바로 라우트 이동
 - [x] `npm run test`, `npm run build` 통과 확인
+
+## SEO: 상세 본문 서버 렌더(H1) + soft 404 교정(H2)
+
+SEO 점검보고서 H1(상세 본문이 서버 HTML에 없음)·H2(없는 게시글이 200 soft 404)를 게시글 상세에서
+해결한다. 상세 canonical/OG(M4)와 게시글 대체 설명(L1)은 `metadataBase`·`buildCanonicalAlternates`가
+있는 PR2(`feature/seo-metadata-base`) 머지 후 후속으로 적용한다(이 브랜치는 develop 기준이라 미보유).
+
+- [x] `page.tsx`에서 `useServerPrefetchQuery`로 `/posts/{id}`를 프리패치하고 `HydrationBoundary`로 내려
+      `ClientDetail`을 감싼다. query key는 클라이언트 `useGetDetailPost`와 동일한 `["post-detail", id]`로 맞춘다.
+- [x] 프리패치 결과에 `result`가 없으면(404·빈 응답) `notFound()`로 실제 404를 응답한다(soft 404 제거).
+- [x] `npm run test`, `npm run build`로 회귀를 확인한다.
+- [ ] (PR2 머지 후속) 상세 canonical, 공통 OG 기본값, 게시글 대체 설명 문구를 적용한다.
