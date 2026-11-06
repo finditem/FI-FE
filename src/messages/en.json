@@ -3,7 +3,8 @@
     "title": "Find lost items near you, finditem!",
     "titleTemplate": "%s | finditem!",
     "description": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
-    "ogAlt": "finditem!"
+    "ogAlt": "finditem!",
+    "siteName": "finditem!"
   },
   "Home": {
     "defaultTitle": "Find lost items near you",
