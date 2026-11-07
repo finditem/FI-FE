@@ -77,4 +77,7 @@ SEO 점검보고서 H1(상세 본문이 서버 HTML에 없음)·H2(없는 게시
       `ClientDetail`을 감싼다. query key는 클라이언트 `useGetDetailPost`와 동일한 `["post-detail", id]`로 맞춘다.
 - [x] 프리패치 결과에 `result`가 없으면(404·빈 응답) `notFound()`로 실제 404를 응답한다(soft 404 제거).
 - [x] `npm run test`, `npm run build`로 회귀를 확인한다.
+- [x] `useGetDetailPost`에 `refetchOnMount: "always"`를 추가해, 익명 서버 프리패치로 비어 있는 개인화 값(isMine·favoriteStatus)을 마운트 시 재조회로 교정한다. e2e도 이 재조회가 브라우저 목을 타 기존 스펙이 그대로 통과한다.
 - [ ] (PR2 머지 후속) 상세 canonical, 공통 OG 기본값, 게시글 대체 설명 문구를 적용한다.
+
+참고: 이 브랜치는 서버 MSW 인프라(`chore/e2e-server-msw`) 위에 스택으로 쌓았다. e2e에서 SSR 프리패치(`${API}/posts/:id`)가 서버 MSW로 가로채져 결정적으로 유효한 게시글을 반환하므로, dev-api 상태와 무관하게 notFound로 빠지지 않는다.
