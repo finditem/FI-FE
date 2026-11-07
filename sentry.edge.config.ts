@@ -6,6 +6,7 @@
 import * as Sentry from "@sentry/nextjs";
 import { SENTRY_DATA_COLLECTION } from "@/constants/SENTRY_DATA_COLLECTION";
 import { scrubSentryEvent } from "@/utils/scrubSentryEvent/scrubSentryEvent";
+import { scrubSentrySpan } from "@/utils/scrubSentrySpan/scrubSentrySpan";
 
 const isProd = process.env.NODE_ENV === "production";
 const isE2E = process.env.NEXT_PUBLIC_IS_E2E === "true";
@@ -22,11 +23,8 @@ Sentry.init({
   // 서버 런타임과 동일하게, 외부 API로는 트레이스 헤더를 전파하지 않는다.
   tracePropagationTargets: [/^\//, /^https:\/\/(www\.|api\.|dev-api\.)?finditem\.kr/],
 
-  // Enable logs to be sent to Sentry
-  enableLogs: true,
-
   // 쿠키·사용자 정보·요청 본문은 수집하지 않고, 전송 직전에 토큰과 연락처를 한 번 더 가린다.
   dataCollection: SENTRY_DATA_COLLECTION,
   beforeSend: scrubSentryEvent,
-  beforeSendTransaction: scrubSentryEvent,
+  beforeSendSpan: scrubSentrySpan,
 });
