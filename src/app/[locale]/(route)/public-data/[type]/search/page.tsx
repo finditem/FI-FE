@@ -16,6 +16,8 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   return {
     title: t("searchTitle", { keyword: displayKeyword }),
     description: t("searchDescription", { keyword: displayKeyword }),
+    // 검색어가 담긴 결과 페이지는 색인에서 제외한다.
+    robots: { index: false, follow: true },
   };
 }
 
