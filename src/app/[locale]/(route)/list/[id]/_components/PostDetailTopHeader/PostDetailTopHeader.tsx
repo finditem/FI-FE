@@ -39,7 +39,8 @@ const PostDetailTopHeader = ({ postId, postData }: PostDetailTopHeaderProps) => 
     likeCount: likeCount || 0,
     commentCount: commentCount || 0,
     viewCount: viewCount || 0,
-    link: window.location.href,
+    // 서버 프리패치 하이드레이션으로 이 컴포넌트가 서버에서도 렌더되므로 window 접근을 가드한다.
+    link: typeof window !== "undefined" ? window.location.href : "",
   };
 
   return (
