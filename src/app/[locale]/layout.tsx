@@ -60,6 +60,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "Metadata" });
 
   return {
+    metadataBase: new URL("https://www.finditem.kr"),
     title: {
       absolute: t("title"),
       template: t("titleTemplate"),
@@ -70,6 +71,8 @@ export async function generateMetadata({
     },
     openGraph: {
       type: "website",
+      siteName: t("siteName"),
+      locale: locale === "en" ? "en_US" : "ko_KR",
       images: [
         {
           url: "https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png",

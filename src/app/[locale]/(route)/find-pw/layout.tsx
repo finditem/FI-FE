@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
+    robots: { index: false },
     other: { "page-type": "find-password" },
   };
 }
