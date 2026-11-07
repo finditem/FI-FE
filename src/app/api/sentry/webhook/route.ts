@@ -1,13 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 import { SentryWebhookPayload } from "./_types/SentryWebhookType";
-import { buildIssueBody } from "./_utils/buildIssueBody/buildIssueBody";
-import { fetchLatestSentryEvent } from "./_utils/fetchLatestSentryEvent/fetchLatestSentryEvent";
-import { getGithubAppToken } from "./_utils/getGithubAppToken/getGithubAppToken";
+import { syncSentryIssue } from "./_utils/syncSentryIssue/syncSentryIssue";
 
 const SENTRY_WEBHOOK_SECRET = process.env.SENTRY_WEBHOOK_SECRET!;
-
-const GITHUB_REPO = "finditem/FI-FE";
 
 const verifySignature = (body: string, signature: string): boolean => {
   if (!signature) return false;
@@ -39,48 +35,16 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
   }
 
-  const issue = payload.data?.issue;
-  const event = payload.data?.event;
-  const title =
-    issue?.title ??
-    event?.title ??
-    event?.message ??
-    payload.data?.description ??
-    "Unknown Sentry Error";
-
-  const latestEvent = await fetchLatestSentryEvent(issue?.id ?? event?.issue_id);
-  const githubIssueBody = buildIssueBody(payload, latestEvent);
-
-  let githubToken: string;
-
-  try {
-    githubToken = await getGithubAppToken();
-  } catch (error) {
-    return NextResponse.json({ error: (error as Error).message }, { status: 500 });
-  }
-
-  const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${githubToken}`,
-      "Content-Type": "application/json",
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    },
-    body: JSON.stringify({
-      title: `[Sentry] ${title}`,
-      body: githubIssueBody,
-      labels: ["bug", "sentry"],
-    }),
+  // Sentry는 웹훅 응답이 늦으면 실패로 보고 다시 보낸다. Sentry API 조회와 GitHub 호출을 기다리지 않고
+  // 곧바로 응답해 재시도로 인한 중복 이슈를 막는다. 실패는 응답 뒤라 Vercel 함수 로그로만 확인할 수 있다.
+  // Sentry로 다시 보고하지 않는 것은 이 라우트의 실패가 새 웹훅을 부르는 순환을 피하기 위해서다.
+  after(async () => {
+    try {
+      await syncSentryIssue(payload);
+    } catch (error) {
+      console.error("[sentry-webhook] GitHub 이슈 동기화 실패", payload.action, error);
+    }
   });
 
-  if (!response.ok) {
-    const error = await response.text();
-
-    return NextResponse.json({ error }, { status: response.status });
-  }
-
-  const githubIssue = await response.json();
-
-  return NextResponse.json({ url: githubIssue.html_url }, { status: 201 });
+  return NextResponse.json({ accepted: true }, { status: 202 });
 };

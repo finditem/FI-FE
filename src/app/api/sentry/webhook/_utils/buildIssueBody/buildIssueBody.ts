@@ -1,4 +1,5 @@
 import { SENTRY_ORG_SLUG } from "../../_constants/SENTRY_ORG_SLUG";
+import { buildSentryIssueMarker } from "../buildSentryIssueMarker/buildSentryIssueMarker";
 import {
   SentryApiEvent,
   SentryContexts,
@@ -148,6 +149,7 @@ const buildTable = (rows: Array<[string, string | number | null | undefined]>) =
  * - 이벤트 정보는 `latestEvent`(Sentry API 조회 결과)를 먼저 쓰고, 없으면 경보 규칙 웹훅의 `data.event`를 씁니다.
  *   이슈 생성 웹훅만 받고 API 조회도 실패하면 요약과 에러 메시지까지만 채워집니다.
  * - FI-FE는 공개 저장소이므로 사용자 정보와 IP는 넣지 않고, URL은 쿼리스트링을 잘라 경로까지만 남깁니다.
+ * - 본문 끝에 Sentry 이슈 ID를 숨김 표식(`buildSentryIssueMarker`)으로 넣습니다. 지우면 중복 방지와 상태 동기화가 동작하지 않습니다.
  * - Sentry 링크는 API 주소(`issue.url`)가 아니라 웹 주소를 씁니다. 웹 주소가 없으면 이슈 ID로 만듭니다.
  *
  * @param payload - Sentry 웹훅 요청 본문
@@ -244,6 +246,8 @@ export const buildIssueBody = (
         ? []
         : [`- 이벤트 상세(스택 트레이스, 요청, 실행 환경)를 Sentry API에서 받아오지 못했습니다.`]),
     ],
+    // 중복 생성 방지와 상태 동기화가 이 표식으로 기존 이슈를 찾는다.
+    issueId ? [buildSentryIssueMarker(issueId)] : [],
   ];
 
   return sections
