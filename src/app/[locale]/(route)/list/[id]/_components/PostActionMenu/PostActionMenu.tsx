@@ -9,7 +9,6 @@ import {
   Icon,
   ModalLayout,
   PostReportBlockActions,
-  PostFoundConfirmModal,
   ReportModal,
   BlockUserModal as UserBlockModal,
 } from "@/components";
@@ -34,7 +33,6 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isBlockOpen, setIsBlockOpen] = useState(false);
-  const [foundConfirmOpen, setFoundConfirmOpen] = useState(false);
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
 
   const isFound = postStatus === "FOUND";
@@ -46,13 +44,7 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
   };
 
   const handleStatusChange = () => {
-    if (!isFound) {
-      setFoundConfirmOpen(true);
-      onClose();
-      return;
-    }
-
-    putPostStatus({ postStatus: "SEARCHING" });
+    putPostStatus({ postStatus: isFound ? "SEARCHING" : "FOUND" });
     onClose();
   };
 
@@ -138,12 +130,6 @@ const PostActionMenu = ({ open, onClose, postId, postData }: PostOptionBoxProps)
         isOpen={isBlockOpen}
         onClose={() => setIsBlockOpen(false)}
         writerId={writerId}
-      />
-
-      <PostFoundConfirmModal
-        isOpen={foundConfirmOpen}
-        onClose={() => setFoundConfirmOpen(false)}
-        postId={postId}
       />
 
       <GuestLoginModal isOpen={isGuestModalOpen} onClose={() => setIsGuestModalOpen(false)} />
