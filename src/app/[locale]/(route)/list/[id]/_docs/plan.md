@@ -66,3 +66,15 @@
       남기기" 버튼은 `usePutPostStatus(postId, false, { silent: true })` 별도 인스턴스로 토스트 없이
       상태만 바꾸고 바로 라우트 이동
 - [x] `npm run test`, `npm run build` 통과 확인
+
+## 게시글 상세 "찾았어요" 상태 변경 모달 제거 (사용자 요청)
+
+게시글 상세 메뉴에서 "찾았어요"(SEARCHING → FOUND)를 누르면 뜨던 `PostFoundConfirmModal`(후기 유도
+모달)을 제거한다. 게시글 상세에는 후기 대상 채팅방(roomId)이 없어 후기 작성 페이지로 넘길 수 없으므로,
+확인 모달 없이 즉시 상태만 바꾸고 성공 토스트만 띄운다. `PostFoundConfirmModal` 컴포넌트 자체는 채팅
+라우트(`ChatRoomHeaderInfoButton`)에서 그대로 쓰므로 삭제하지 않는다.
+
+- [x] `PostActionMenu.tsx`: `handleStatusChange`를 방향 무관하게 `putPostStatus({ postStatus })` 즉시
+      호출로 단순화하고, `PostFoundConfirmModal` import/state(`foundConfirmOpen`)/렌더를 제거한다.
+      (`usePutPostStatus`가 기본으로 성공 토스트를 띄움)
+- [x] 타입체크로 회귀 확인 (변경 파일 무에러, Sentry 관련 에러는 develop 사전 존재 이슈)
