@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn, formatCappedNumber } from "@/utils";
 
@@ -21,6 +22,8 @@ interface CommentActionsProps {
   setIsReplyFormOpen: Dispatch<SetStateAction<boolean>>;
   /** 비회원 여부 */
   isGuest: boolean;
+  /** 비회원이 상호작용을 시도할 때 호출되는 함수 */
+  onGuestAction?: () => void;
   /** 답글 수 */
   replyCount: number;
 }
@@ -32,15 +35,26 @@ const CommentActions = ({
   isReplyFormOpen,
   setIsReplyFormOpen,
   isGuest,
+  onGuestAction,
   replyCount,
 }: CommentActionsProps) => {
+  const t = useTranslations("CommentActions");
+  const handleReplyFormToggle = () => {
+    if (isGuest) {
+      onGuestAction?.();
+      return;
+    }
+
+    setIsReplyFormOpen((prev) => !prev);
+  };
+
   return (
     !isThreadItem && (
       <div className="flex items-center gap-3 py-2">
         <button
           className={cn("flex items-center gap-1", replyCount === 0 && "cursor-not-allowed")}
-          onClick={isGuest ? undefined : () => setViewReply((prev) => !prev)}
-          disabled={replyCount === 0 || isGuest}
+          onClick={() => setViewReply((prev) => !prev)}
+          disabled={replyCount === 0}
         >
           <span
             className={cn(
@@ -48,7 +62,7 @@ const CommentActions = ({
               viewReply ? "text-brand-normal-enteredSelected" : "text-layout-header-default"
             )}
           >
-            답글 <span>{formatCappedNumber(replyCount, 999)}</span>개
+            {t("replyCount", { count: formatCappedNumber(replyCount, 999) })}
           </span>
           <Icon
             name="ArrowDownSmall"
@@ -67,10 +81,9 @@ const CommentActions = ({
             "text-body1-medium",
             isReplyFormOpen ? "text-brand-normal-enteredSelected" : "text-neutral-strong-default"
           )}
-          onClick={isGuest ? undefined : () => setIsReplyFormOpen((prev) => !prev)}
-          disabled={undefined}
+          onClick={handleReplyFormToggle}
         >
-          답글 작성
+          {t("writeReply")}
         </button>
       </div>
     )

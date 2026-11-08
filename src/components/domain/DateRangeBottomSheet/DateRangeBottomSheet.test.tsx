@@ -8,13 +8,6 @@ const mockAddToast = jest.fn();
 const mockApplyFiltersToUrl = jest.fn(() => "");
 const mockUseMakeDate = jest.fn();
 
-jest.mock("swiper", () => ({}));
-jest.mock("swiper/react", () => ({
-  Swiper: ({ children }: any) => <div data-testid="swiper">{children}</div>,
-  SwiperSlide: ({ children }: any) => <div>{children}</div>,
-}));
-jest.mock("swiper/modules", () => ({ Mousewheel: {} }));
-
 jest.mock("./_hooks/useMakeDate", () => ({
   __esModule: true,
   default: (...args: any[]) => mockUseMakeDate(...args),
@@ -45,6 +38,16 @@ jest.mock("../PopupLayout/PopupLayout", () => ({
 }));
 
 jest.mock("@/components/common", () => ({
+  DateWheel: ({ dateArray, label }: any) => (
+    <div data-testid="date-wheel">
+      {dateArray.map((item: number) => (
+        <div key={item}>
+          {item}
+          {label}
+        </div>
+      ))}
+    </div>
+  ),
   Button: ({ children, onClick, ariaLabel }: any) => (
     <button type="button" onClick={onClick} aria-label={ariaLabel}>
       {children}

@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import TermsAgreement from "./TermsAgreement";
 import { TERMS_CONFIG } from "./_constants/TERMS_CONFIG";
+import koMessages from "@/messages/ko.json";
 
 let mockIsValid = false;
 let mockSelectAll = false;
@@ -81,7 +82,8 @@ describe("<TermsAgreement />", () => {
     it("TERMS_CONFIG의 모든 항목(5개)이 체크박스로 렌더된다", () => {
       render(<TermsAgreement onOpenDetail={jest.fn()} onComplete={jest.fn()} />);
       TERMS_CONFIG.forEach((item) => {
-        expect(screen.getByLabelText(item.label)).toBeInTheDocument();
+        const label = (koMessages.TermsConfig as Record<string, string>)[item.name];
+        expect(screen.getByLabelText(label)).toBeInTheDocument();
       });
     });
 

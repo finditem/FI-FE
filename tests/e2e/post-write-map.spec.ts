@@ -3,8 +3,7 @@ import { test, expect, Page } from "@playwright/test";
 const POST_ID = 1;
 
 async function setupMocks(page: Page) {
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
-  await page.route("**/dapi.kakao.com/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 }
 
 test.describe("게시글 지도 뷰 페이지", () => {

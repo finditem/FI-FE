@@ -22,11 +22,13 @@
  * ```
  */
 
-export const formatMetadataAddress = (address?: string | null) => {
-  if (!address) return "주소";
+export const formatMetadataAddress = (address?: string | null, fallback = "주소") => {
+  if (!address) return fallback;
 
   const addressParts = address.split(" ");
 
+  // 카카오 주소 표기 규칙상 행정동·법정동 단위는 항상 '동'/'면'/'읍'으로 끝나는 한국어 접미사이며,
+  // 로케일과 무관하게 원문 주소 문자열을 그대로 파싱하는 로직이라 번역 대상이 아니다.
   for (const part of addressParts) {
     const cleanPart = part.replace(/[()]/g, "");
     if (["동", "면", "읍"].some((u) => cleanPart.endsWith(u))) {
@@ -38,5 +40,5 @@ export const formatMetadataAddress = (address?: string | null) => {
     return `${addressParts[0]} ${addressParts[1]}`;
   }
 
-  return addressParts[0] || "주소";
+  return addressParts[0] || fallback;
 };

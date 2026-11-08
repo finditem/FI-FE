@@ -1,4 +1,5 @@
 import { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import { SIZES } from "./constantBookmark";
 import Icon from "../../Icon/Icon";
 
@@ -13,7 +14,7 @@ import Icon from "../../Icon/Icon";
  */
 
 interface BookmarkProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  /** 접근성용 `aria-label` (default: '즐겨찾기 버튼') */
+  /** 접근성용 `aria-label` (default: 번역된 '즐겨찾기 버튼') */
   ariaLabel?: string;
   /** 북마크 활성 여부 */
   isActive: boolean;
@@ -28,14 +29,11 @@ interface BookmarkProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * ```
  */
 
-const Bookmark = ({
-  ariaLabel = "즐겨찾기 버튼",
-  isActive,
-  size = "medium",
-  ...props
-}: BookmarkProps) => {
+const Bookmark = ({ ariaLabel, isActive, size = "medium", ...props }: BookmarkProps) => {
+  const t = useTranslations("Bookmark");
+
   return (
-    <button {...props} aria-label={ariaLabel} aria-pressed={isActive}>
+    <button {...props} aria-label={ariaLabel ?? t("ariaLabel")} aria-pressed={isActive}>
       <Icon
         name="Star"
         size={SIZES[size]}

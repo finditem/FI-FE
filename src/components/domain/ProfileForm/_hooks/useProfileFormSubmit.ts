@@ -1,5 +1,5 @@
 import { usePatchProfile } from "@/api/fetch/user";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { FormEvent } from "react";
 import { useFormContext } from "react-hook-form";
 

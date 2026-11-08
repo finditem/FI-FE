@@ -1,0 +1,13 @@
+export const PUBLIC_DEFAULT_TABS = [{ value: "region" }, { value: "category" }] as const;
+
+export const PUBLIC_LIST_TAB_KEYS = ["lost", "found"] as const;
+
+export const PUBLIC_DEFAULT_FILTERS = {
+  publicRegion: "",
+  publicCategory: "",
+};
+
+export const SEARCH_PATH = {
+  lost: "/public-data/lost/search",
+  found: "/public-data/found/search",
+} as const;

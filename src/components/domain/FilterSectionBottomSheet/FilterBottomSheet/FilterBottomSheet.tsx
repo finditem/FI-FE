@@ -2,6 +2,7 @@
 
 import { Dispatch, SetStateAction } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Button, Icon } from "@/components/common";
 import { useVWorldAddressSearch } from "@/hooks";
 import { VWorldAddressItem } from "@/types";
@@ -14,9 +15,9 @@ import {
   StatusFilterValue,
   tabsType,
 } from "../_types/types";
-import { categories, sort, status, findStatus } from "../_constants/CONSTANTS";
+import { useFilterOptions } from "../_constants/CONSTANTS";
 import { FiltersStateType } from "../_types/filtersStateType";
-import { TABS } from "../_constants/TABS";
+import { useFilterTabs } from "../_constants/TABS";
 import PopupLayout from "../../PopupLayout/PopupLayout";
 
 /**
@@ -71,6 +72,9 @@ const FilterBottomSheet = ({
   setFilters,
   pageType = "LIST",
 }: FilterBottomSheetProps) => {
+  const t = useTranslations("FilterBottomSheet");
+  const TABS = useFilterTabs();
+  const { categories, sort, findStatus, status } = useFilterOptions();
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -103,7 +107,7 @@ const FilterBottomSheet = ({
       className="flex h-[574px] flex-col py-10"
     >
       <div className="w-full gap-6 flex-col-center">
-        <h2 className="text-h2-medium text-layout-header-default">필터</h2>
+        <h2 className="text-h2-medium text-layout-header-default">{t("title")}</h2>
 
         <section role="tablist" className="w-full flex-center">
           {currentTabs.map((tab) => {
@@ -115,7 +119,7 @@ const FilterBottomSheet = ({
                   key={tab.value}
                   role="tab"
                   aria-selected={isSelected}
-                  aria-label={`${tab.label} 필터`}
+                  aria-label={t("tabAriaLabel", { label: tab.label })}
                   className={cn(
                     "min-h-[60px] flex-1 text-[20px] font-semibold",
                     isSelected
@@ -142,7 +146,7 @@ const FilterBottomSheet = ({
               />
               <input
                 className="w-full rounded-full px-5 py-[10px] pl-10 bg-fill-neutral-subtle-default"
-                placeholder="검색어를 입력하세요"
+                placeholder={t("regionPlaceholder")}
                 value={filters.region}
                 onChange={(e) => setFilters((prev) => ({ ...prev, region: e.target.value }))}
               />
@@ -151,7 +155,7 @@ const FilterBottomSheet = ({
                   type="button"
                   onClick={() => setFilters((prev) => ({ ...prev, region: "" }))}
                   className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-[#787878] p-1"
-                  aria-label="지역 검색어 지우기"
+                  aria-label={t("clearRegionAriaLabel")}
                 >
                   <Icon name="Delete" size={9} />
                 </button>
@@ -181,7 +185,7 @@ const FilterBottomSheet = ({
               {isEmptyRegionResult && (
                 <li className="mt-[6px] px-5 py-[10px]">
                   <p className="text-body1-medium text-layout-header-default">
-                    검색 결과가 없습니다.
+                    {t("noRegionResults")}
                   </p>
                 </li>
               )}
@@ -191,7 +195,11 @@ const FilterBottomSheet = ({
 
         {/* 카테고리 선택 */}
         {selectedTab === "category" && (
-          <div role="radiogroup" aria-label="카테고리 선택" className="flex w-full flex-wrap gap-2">
+          <div
+            role="radiogroup"
+            aria-label={t("categoryRadioGroupAriaLabel")}
+            className="flex w-full flex-wrap gap-2"
+          >
             {categories.map((category) => (
               <ChipButton
                 key={category.value || "all"}
@@ -208,7 +216,7 @@ const FilterBottomSheet = ({
         {selectedTab === "sort" && (
           <div
             role="radiogroup"
-            aria-label="정렬 방식 선택"
+            aria-label={t("sortRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {sort.map((sortItem, index) => (
@@ -227,7 +235,7 @@ const FilterBottomSheet = ({
         {selectedTab === "findStatus" && (
           <div
             role="radiogroup"
-            aria-label="찾음 상태 선택"
+            aria-label={t("findStatusRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {findStatus.map((findStatusItem, index) => (
@@ -248,7 +256,7 @@ const FilterBottomSheet = ({
         {selectedTab === "status" && (
           <div
             role="radiogroup"
-            aria-label="분류 상태 선택"
+            aria-label={t("statusRadioGroupAriaLabel")}
             className="flex w-full flex-wrap gap-2"
           >
             {status.map((statusItem, index) => (
@@ -264,8 +272,13 @@ const FilterBottomSheet = ({
         )}
       </div>
 
-      <Button role="button" ariaLabel="필터 적용" className="mt-auto w-full" onClick={handleApply}>
-        적용하기
+      <Button
+        role="button"
+        ariaLabel={t("applyAriaLabel")}
+        className="mt-auto w-full"
+        onClick={handleApply}
+      >
+        {t("apply")}
       </Button>
     </PopupLayout>
   );

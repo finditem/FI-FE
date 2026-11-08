@@ -3,6 +3,7 @@
 
 import Icon from "../Icon/Icon";
 import { InputHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 
 interface CheckBoxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "id"> {
@@ -24,6 +25,8 @@ const CheckBox = ({
   onChange,
   ...props
 }: CheckBoxProps) => {
+  const t = useTranslations("CheckBox");
+
   return (
     <label htmlFor={id} className="flex cursor-pointer items-center">
       <input
@@ -43,7 +46,7 @@ const CheckBox = ({
       >
         <Icon
           name="Check"
-          title={checked ? "체크됨" : "체크안됨"}
+          title={checked ? t("checked") : t("unchecked")}
           className={cn(
             "absolute left-1/2 top-1/2 h-2 -translate-x-1/2 -translate-y-1/2 text-neutral-normal-default peer-checked:text-neutral-normal-enteredSelected",
             iconSize

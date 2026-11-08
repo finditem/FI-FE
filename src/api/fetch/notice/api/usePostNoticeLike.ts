@@ -1,6 +1,7 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { NoticeDetailResponse } from "../types/NoticeDetailType";
 
 type LikeOptimisticContext = {
@@ -10,6 +11,7 @@ type LikeOptimisticContext = {
 export const usePostNoticeLike = (id: number) => {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
+  const t = useTranslations("usePostNoticeLike");
   const queryKey = ["notice-detail", id] as const;
 
   return useAppMutation("auth", `/notices/${id}/like`, "post", {
@@ -36,7 +38,7 @@ export const usePostNoticeLike = (id: number) => {
       return { previous };
     },
     onSuccess: () => {
-      addToast("공지사항 좋아요를 등록했어요", "success");
+      addToast(t("likeSuccess"), "success");
       queryClient.invalidateQueries({ queryKey: ["notices"] });
     },
     onError: (_error, _variables, context) => {
@@ -46,7 +48,7 @@ export const usePostNoticeLike = (id: number) => {
         queryClient.setQueryData(queryKey, typedContext.previous);
       }
 
-      addToast("좋아요 등록에 실패했어요", "error");
+      addToast(t("likeError"), "error");
     },
     onSettled: () => {
       queryClient.invalidateQueries({ queryKey });

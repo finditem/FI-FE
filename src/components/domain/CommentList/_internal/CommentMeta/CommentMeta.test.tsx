@@ -69,4 +69,20 @@ describe("<CommentMeta />", () => {
     await userEvent.click(screen.getByText("댓글 삭제하기"));
     expect(defaultProps.onDeleteComment).toHaveBeenCalled();
   });
+
+  it("비회원이 메뉴를 열려고 하면 메뉴 대신 onGuestAction이 호출됩니다.", async () => {
+    const onGuestAction = jest.fn();
+    render(<CommentMeta {...defaultProps} isGuest onGuestAction={onGuestAction} />);
+    await userEvent.click(screen.getByTestId("kebab-menu"));
+    expect(onGuestAction).toHaveBeenCalledTimes(1);
+    expect(screen.queryByText("댓글 삭제하기")).not.toBeInTheDocument();
+  });
+
+  it("비회원도 작성자 프로필로 이동할 수 있습니다.", () => {
+    render(<CommentMeta {...defaultProps} isGuest />);
+    expect(screen.getByRole("link", { name: "테스트유저 프로필 보기" })).toHaveAttribute(
+      "href",
+      "/user/1"
+    );
+  });
 });

@@ -1,0 +1,125 @@
+"use client";
+
+import { useTranslations } from "next-intl";
+import { ChatRoomHeader, EmptyChatRoom, ChatRoomMain, InputChat } from "./_components";
+import { FormProvider, useForm } from "react-hook-form";
+import { use, useCallback, useEffect, useState } from "react";
+import useChatMessages from "@/api/fetch/chatMessage/api/useChatMessages";
+import useReadMessage from "@/api/fetch/chatMessage/api/useReadMessage";
+import { useToast } from "@/context/ToastContext";
+import useChatRoomData from "./_hooks/useChatRoomData/useChatRoomData";
+import useChatSocketMessage from "./_hooks/useChatSocketMessage/useChatSocketMessage";
+import useInitialChatPagination from "./_hooks/useInitialChatPagination/useInitialChatPagination";
+import useChatMessageSubmit from "./_hooks/useChatMessageSubmit/useChatMessageSubmit";
+
+interface ChatFormValues {
+  content: string;
+}
+
+const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
+  const t = useTranslations("ChatRoom");
+  const { postId: postIdString } = use(params);
+  const { addToast } = useToast();
+  const postId = Number(postIdString);
+
+  const { roomId, chatRoomData, userInfo, postMode, unreadCount, withdrawn } =
+    useChatRoomData(postId);
+  // 채팅방 입장(마운트)마다 새로 발급하는 방문 식별자. 재진입 시 리마운트되어 새 값이 생성되며,
+  // 서버는 이 값으로 재진입 후의 재번역을 신규 요청으로 구분합니다.
+  const [roomVisitId] = useState(() => crypto.randomUUID());
+  const userId = Number(userInfo?.result?.userId);
+  const currentUserId = userId != null ? userId : undefined;
+  const [scrollToBottomSignal, setScrollToBottomSignal] = useState(0);
+  const triggerScrollToBottom = useCallback(() => {
+    setScrollToBottomSignal((prev) => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    if (withdrawn) {
+      addToast(t("withdrawnToast"), "warning");
+    }
+  }, [withdrawn, addToast]);
+
+  useChatSocketMessage(roomId, currentUserId);
+
+  const { mutate: readMessage } = useReadMessage(roomId);
+  const {
+    data: chatMessages,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useChatMessages(roomId, { enabled: !!roomId });
+
+  useInitialChatPagination({
+    chatMessages,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
+
+  useEffect(() => {
+    if (unreadCount && unreadCount > 0 && roomId) {
+      readMessage(roomId);
+    }
+  }, [unreadCount, roomId]);
+
+  const methods = useForm<ChatFormValues>({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    defaultValues: {
+      content: "",
+    },
+  });
+
+  const { onSubmit } = useChatMessageSubmit({
+    roomId,
+    userId,
+    reset: methods.reset,
+    onSendSuccess: triggerScrollToBottom,
+  });
+
+  return (
+    <div className="flex h-dvh flex-col overflow-hidden">
+      <ChatRoomHeader
+        chatRoom={chatRoomData}
+        roomId={roomId}
+        currentUserId={currentUserId}
+        withdrawn={withdrawn}
+      />
+      <h1 className="sr-only">{t("pageHeading")}</h1>
+
+      <div className="flex min-h-0 flex-1 flex-col">
+        {chatMessages?.length !== 0 && chatMessages ? (
+          <ChatRoomMain
+            chatMessages={chatMessages}
+            fetchNextPage={fetchNextPage}
+            hasNextPage={hasNextPage}
+            isFetchingNextPage={isFetchingNextPage}
+            opponentNickname={chatRoomData?.opponentUser.nickname}
+            scrollToBottomSignal={scrollToBottomSignal}
+            roomId={roomId}
+            roomVisitId={roomVisitId}
+          />
+        ) : (
+          <EmptyChatRoom postMode={postMode} />
+        )}
+      </div>
+      {roomId && userId ? (
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="px-4 pb-6 pt-3">
+            <InputChat
+              name="content"
+              aria-label={t("inputAriaLabel")}
+              roomId={roomId}
+              userId={userId}
+              onImageSendSuccess={triggerScrollToBottom}
+              withdrawn={withdrawn}
+            />
+          </form>
+        </FormProvider>
+      ) : null}
+    </div>
+  );
+};
+
+export default ChatRoom;

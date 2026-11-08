@@ -1,7 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 
@@ -24,9 +25,11 @@ interface DetailHeaderProps {
   children?: ReactNode;
   /** 뒤로 버튼 클릭 시 직접 처리할 때 전달(없으면 라우터 기본 뒤로/홈) */
   onBack?: () => void;
+  /** 뒤로 버튼 클릭 시 기본 동작보다 먼저 호출(로깅 등 부수효과용) */
+  onBeforeBack?: () => void;
 }
 
-const HEADER_HEIGHT = "h-14";
+const HEADER_HEIGHT = "h-[calc(56px+var(--safe-area-top))]";
 
 /**
  * @example
@@ -44,13 +47,20 @@ const HEADER_HEIGHT = "h-14";
  *   <DetailHeaderStar isActive />
  *   <DetailHeaderMenu onClick={handleMenu} />
  * </DetailHeader>
+ *
+ * <DetailHeader title="글쓰기" onBeforeBack={handleWriteAbandonLog}>
+ *   <DetailHeaderSave onClick={handleSave} />
+ * </DetailHeader>
  * ```
  */
 
-const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
+const DetailHeader = ({ title = "", children, onBack, onBeforeBack }: DetailHeaderProps) => {
+  const t = useTranslations("DetailHeader");
   const router = useRouter();
 
   const handleBack = () => {
+    onBeforeBack?.();
+
     if (onBack) {
       onBack();
       return;
@@ -72,7 +82,7 @@ const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
     <>
       <header
         className={cn(
-          "fixed top-0 z-30 mx-auto flex h-14 w-full max-w-[764px] items-center justify-between bg-white px-5",
+          "fixed top-0 z-30 mx-auto flex w-full max-w-[764px] items-center justify-between bg-white px-5 pt-[var(--safe-area-top)]",
           HEADER_HEIGHT
         )}
       >
@@ -81,14 +91,14 @@ const DetailHeader = ({ title = "", children, onBack }: DetailHeaderProps) => {
             className="h-[30px] w-[30px]"
             type="button"
             onClick={handleBack}
-            aria-label="뒤로가기"
+            aria-label={t("backAriaLabel")}
           >
             <Icon name="ArrowLeftSmall" size={30} className="text-neutral-strong-default" />
           </button>
           {title && <h2 className="text-xl font-semibold text-layout-header-default">{title}</h2>}
         </div>
         {children && (
-          <div className="flex gap-[23.5px]" aria-label="헤더 액션">
+          <div className="flex gap-[23.5px]" aria-label={t("actionsAriaLabel")}>
             {children}
           </div>
         )}

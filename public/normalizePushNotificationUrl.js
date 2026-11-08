@@ -24,6 +24,8 @@ function buildRoutePathFromReference(referenceType, referenceId) {
       return `/mypage/inquiries/${id}`;
     case "NOTICE":
       return `/notice/${id}`;
+    case "REVIEW":
+      return `/mypage/reviews/${id}`;
     case "REPORT":
       return `/mypage/reports/${id}`;
     default:
@@ -58,6 +60,7 @@ function normalizePushNotificationPath(raw) {
   let search = queryIndex >= 0 ? pathWithQuery.slice(queryIndex) : "";
 
   const legacyPathMatchers = [
+    [/^\/(?:api\/)?reviews\/(\d+)\/?$/i, "/mypage/reviews/$1"],
     [/^\/posts\/(\d+)\/chats\/?$/i, "/chat"],
     [/^\/api\/posts\/(\d+)\/chats\/?$/i, "/chat"],
     [/^\/posts\/(\d+)\/?$/i, "/list/$1"],

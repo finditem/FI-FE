@@ -1,0 +1,47 @@
+name: Re-request Review
+
+on:
+  pull_request:
+    types: [synchronize]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  reRequestReviewers:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Re-request review from reviewers who already submitted
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          reviewers=$(gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
+            --jq '.[]
+              | select(.user.type == "User")
+              | select(.state == "APPROVED" or .state == "DISMISSED" or .state == "CHANGES_REQUESTED")
+              | .user.login' \
+            | sort -u | { grep -vx "$AUTHOR" || true; })
+
+          if [ -z "$reviewers" ]; then
+            echo "재요청할 리뷰어가 없습니다."
+            exit 0
+          fi
+
+          echo "재요청 대상: $(echo "$reviewers" | tr '\n' ' ')"
+
+          printf '%s\n' "$reviewers" \
+            | jq -R . \
+            | jq -s '{reviewers: .}' \
+            | gh api "repos/$REPO/pulls/$PR/requested_reviewers" --method POST --input -

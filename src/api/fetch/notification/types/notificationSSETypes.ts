@@ -13,6 +13,7 @@ export const NOTIFICATION_TYPE = {
   CATEGORY: "CATEGORY",
   NOTICE: "NOTICE",
   SYSTEM: "SYSTEM",
+  REVIEW: "REVIEW",
 } as const;
 
 export type NotificationType = (typeof NOTIFICATION_TYPE)[keyof typeof NOTIFICATION_TYPE];
@@ -25,6 +26,7 @@ export const REFERENCE_TYPE = {
   INQUIRY: "INQUIRY",
   NOTICE: "NOTICE",
   REPORT: "REPORT",
+  REVIEW: "REVIEW",
 } as const;
 
 export type ReferenceType = (typeof REFERENCE_TYPE)[keyof typeof REFERENCE_TYPE];

@@ -1,5 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/context/ToastContext";
+import { useTranslations } from "next-intl";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import {
   PostFavoritesWriteRequestBody,
@@ -14,6 +15,7 @@ type FavoriteOptimisticContext = {
 export const usePostFavorites = (id: number) => {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
+  const t = useTranslations("usePostFavorites");
   const queryKey = ["post-detail", id] as const;
 
   return useAppMutation<PostFavoritesWriteRequestBody, PostFavoritesWriteResponse>(
@@ -48,7 +50,7 @@ export const usePostFavorites = (id: number) => {
           queryClient.invalidateQueries({ queryKey: ["/users/me/favorites"] }),
           queryClient.invalidateQueries({ queryKey: ["posts"] }),
         ]);
-        addToast("즐겨찾기가 등록되었어요.", "success");
+        addToast(t("addSuccess"), "success");
       },
       onError: (_error, _variables, context) => {
         const typedContext = context as FavoriteOptimisticContext | undefined;
@@ -57,7 +59,7 @@ export const usePostFavorites = (id: number) => {
           queryClient.setQueryData(queryKey, typedContext.previous);
         }
 
-        addToast("즐겨찾기 등록에 실패했어요.", "error");
+        addToast(t("addError"), "error");
       },
       onSettled: () => {
         queryClient.invalidateQueries({ queryKey });

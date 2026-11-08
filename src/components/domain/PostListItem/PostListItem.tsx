@@ -1,7 +1,10 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 import { PostItem } from "@/api/fetch/post";
 import { Badge, Chip, Icon, ListItemImage } from "@/components/common";
-import { cn, formatDate, getItemCategoryLabel, getItemStatusLabel, highlightText } from "@/utils";
+import { cn, highlightText } from "@/utils";
+import useFormatDate from "@/hooks/useFormatDate/useFormatDate";
+import { trackClickItemCard, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 목록의 개별 아이템 컴포넌트입니다.
@@ -31,7 +34,10 @@ interface PostListItemProps {
  */
 
 const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) => {
-  const { id, postStatus, category, createdAt, isNew, isHot, imageCount } = post;
+  const t = useTranslations("PostListItem");
+  const tFilterOptions = useTranslations("FilterOptions");
+  const formatDate = useFormatDate();
+  const { id, postStatus, postType, category, createdAt, isNew, isHot, imageCount } = post;
   const isFound = postStatus === "FOUND";
 
   const VIEW_ITEM = [
@@ -51,6 +57,9 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
     <li>
       <Link
         href={linkState === "list" ? `/list/${id}` : `/notice/${id}`}
+        onClick={
+          linkState === "list" ? () => trackClickItemCard(toItemTypeLabel(postType)) : undefined
+        }
         className={cn(
           "flex w-full items-center gap-[14px] px-5 py-[30px]",
           "border-b border-b-flatGray-50 transition-colors",
@@ -61,11 +70,11 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
           {linkState === "list" && (
             <div className="mb-2 flex gap-2">
               <Chip
-                label={getItemStatusLabel(postStatus)}
+                label={tFilterOptions(`findStatus.${postStatus}`)}
                 type={isFound ? "toast" : "brandSubtle"}
               />
               <Chip
-                label={getItemCategoryLabel(category)}
+                label={tFilterOptions(`category.${category}`)}
                 type={isFound ? "neutralDisabled" : "neutralStrong"}
               />
             </div>
@@ -92,7 +101,7 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
                 )}
               >
                 <span className="after:inline-block after:px-1 after:content-['·']">
-                  {post.address || "위치 정보가 이상해요."}
+                  {post.address || t("invalidAddress")}
                 </span>
                 <time dateTime={createdAt}>{formatDate(createdAt)}</time>
               </span>
@@ -121,7 +130,7 @@ const PostListItem = ({ post, linkState = "list", keyword }: PostListItemProps) 
 
         <ListItemImage
           src={post.thumbnailImageUrl}
-          alt="게시글 대표 이미지"
+          alt={t("thumbnailAlt")}
           size={90}
           category={category}
           imageCount={imageCount}

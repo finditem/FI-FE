@@ -3,11 +3,12 @@
 import useAxios from "../axios/useAxios";
 import {
   useInfiniteQuery,
-  UseInfiniteQueryOptions,
-  UseInfiniteQueryResult,
-  QueryKey,
+  type UseInfiniteQueryOptions,
+  type UseInfiniteQueryResult,
+  type QueryKey,
 } from "@tanstack/react-query";
-import { ApiBaseResponseType } from "../types/ApiBaseResponseType";
+import type { ApiBaseResponseType } from "../types/ApiBaseResponseType";
+import { shouldRetryQuery } from "./_internal/shouldRetryQuery/shouldRetryQuery";
 
 // 제네릭
 // TQueryData: axios 요청 후 서버에서 받아올 데이터 타입 (페이지 단위)
@@ -52,33 +53,30 @@ const useAppInfiniteQuery = <TQueryFnData, TError = unknown, TData = TQueryFnDat
     return undefined;
   };
 
-  const getNextPageParam = options?.getNextPageParam ?? defaultGetNextPageParam;
-  const initialPageParam = options?.initialPageParam ?? undefined;
-  const pageParamName = options?.pageParamName ?? "cursor";
-
-  const { getNextPageParam: _, initialPageParam: __, pageParamName: ___, ...rest } = options ?? {};
+  const { getNextPageParam, initialPageParam, pageParamName, ...queryOptions } = options ?? {};
 
   return useInfiniteQuery<TQueryFnData, TError, TData, QueryKey, unknown>({
     queryKey,
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam, signal }) => {
       const params = new URLSearchParams();
 
       if (pageParam !== undefined && pageParam !== null) {
-        params.append(pageParamName, String(pageParam));
+        params.append(pageParamName ?? "cursor", String(pageParam));
       }
 
       const separator = url.includes("?") ? "&" : "?";
-      const fullUrl = params.toString() ? `${url}${separator}${params.toString()}` : url;
+      const queryString = params.toString();
+      const fullUrl = queryString ? `${url}${separator}${queryString}` : url;
 
-      const { data } = await axios.get<TQueryFnData>(fullUrl);
+      const { data } = await axios.get<TQueryFnData>(fullUrl, { signal });
       return data;
     },
-    initialPageParam,
-    getNextPageParam,
-    retry: 1,
+    initialPageParam: initialPageParam ?? undefined,
+    getNextPageParam: getNextPageParam ?? defaultGetNextPageParam,
+    retry: shouldRetryQuery,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60,
-    ...rest,
+    ...queryOptions,
   } as UseInfiniteQueryOptions<TQueryFnData, TError, TData, QueryKey, unknown>);
 };
 

@@ -22,7 +22,7 @@
  * ```
  */
 
-export const formatMetadataKeyword = (keyword?: string) => {
-  if (!keyword) return "물건";
+export const formatMetadataKeyword = (keyword?: string, fallback = "물건") => {
+  if (!keyword) return fallback;
   return keyword.replace(/[<>]/g, "").slice(0, 20);
 };

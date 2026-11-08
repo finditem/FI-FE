@@ -5,10 +5,12 @@ import {
 } from "../types/notificationSettingType";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 export const usePutNotificationSetting = () => {
   const { addToast } = useToast();
   const queryClient = useQueryClient();
+  const t = useTranslations("usePutNotificationSetting");
 
   return useAppMutation<notificationSettingRequest, PutNotificationSetting, unknown>(
     "auth",
@@ -17,7 +19,7 @@ export const usePutNotificationSetting = () => {
     {
       onSuccess: (response) =>
         queryClient.invalidateQueries({ queryKey: ["/notifications/settings"] }),
-      onError: () => addToast("알림 설정 변경에 실패했어요", "warning"),
+      onError: () => addToast(t("updateError"), "warning"),
     }
   );
 };

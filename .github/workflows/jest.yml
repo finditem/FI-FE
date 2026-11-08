@@ -13,15 +13,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          node-version: "18"
+          node-version: lts/*
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Check i18n key parity (ko/en)
+        run: npm run check:i18n-keys
+
+      - name: Check i18n hardcoded literals (report only)
+        continue-on-error: true
+        run: npm run lint:i18n-literal
 
       - name: Run tests
         run: npm test -- --reporters=jest-junit

@@ -25,7 +25,13 @@ const initKakao = () => {
 const DEFAULT_SHARE_IMAGE =
   "https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png";
 
-export const shareWithKakao = (data: MetaDataItemWithLink, objectType: ObjectType) => {
+const DEFAULT_WEB_VIEW_BUTTON_LABEL = "웹으로 보기";
+
+export const shareWithKakao = (
+  data: MetaDataItemWithLink,
+  objectType: ObjectType,
+  webViewButtonLabel: string = DEFAULT_WEB_VIEW_BUTTON_LABEL
+) => {
   const Kakao = (window as any).Kakao;
   if (!Kakao) return;
 
@@ -59,7 +65,7 @@ export const shareWithKakao = (data: MetaDataItemWithLink, objectType: ObjectTyp
       },
       buttons: [
         {
-          title: "웹으로 보기",
+          title: webViewButtonLabel,
           link: {
             mobileWebUrl: data.link,
             webUrl: data.link,
@@ -88,7 +94,7 @@ export const shareWithKakao = (data: MetaDataItemWithLink, objectType: ObjectTyp
     },
     buttons: [
       {
-        title: "웹으로 보기",
+        title: webViewButtonLabel,
         link: {
           mobileWebUrl: data.link,
           webUrl: data.link,

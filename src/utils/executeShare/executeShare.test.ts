@@ -24,7 +24,7 @@ describe("executeShare", () => {
     });
 
     expect(shareWithKakao).toHaveBeenCalledTimes(1);
-    expect(shareWithKakao).toHaveBeenCalledWith(MOCK_POST_META_DATA, "location");
+    expect(shareWithKakao).toHaveBeenCalledWith(MOCK_POST_META_DATA, "location", undefined);
   });
 
   it("native id를 받으면 네이티브로 공유한다", () => {
@@ -48,6 +48,6 @@ describe("executeShare", () => {
     });
 
     expect(shareWithCopyUrl).toHaveBeenCalledTimes(1);
-    expect(shareWithCopyUrl).toHaveBeenCalledWith(MOCK_POST_META_DATA.link, addToast);
+    expect(shareWithCopyUrl).toHaveBeenCalledWith(MOCK_POST_META_DATA.link, addToast, undefined);
   });
 });

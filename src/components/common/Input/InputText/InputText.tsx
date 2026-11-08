@@ -2,6 +2,7 @@
 "use no memo";
 
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, useState } from "react";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import DeleteButton from "../_internal/DeleteButton/DeleteButton";
@@ -131,6 +132,7 @@ const InputText = ({
   btnOption = {},
   caption = {},
 }: InputTextProps) => {
+  const t = useTranslations("InputText");
   const { name, type = "text", validation, disabled } = inputOption;
   const { btnType = "button", btnOnClick, btnLabel, ...restBtnOption } = btnOption;
   const { isSuccess, successMessage, rule, timer } = caption;
@@ -200,7 +202,7 @@ const InputText = ({
               className="absolute right-2 top-3 outline-none flex-center"
               type="button"
               tabIndex={-1}
-              aria-label={show ? "비밀번호 숨기기" : "비밀번호 보기"}
+              aria-label={show ? t("hidePassword") : t("showPassword")}
               onClick={() => setShow((prev) => !prev)}
             >
               <Icon

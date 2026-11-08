@@ -1,6 +1,7 @@
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import {
   PostCommentLikeResponse,
   ToggleCommentLikeVariables,
@@ -92,6 +93,7 @@ const patchNoticeLikeCache = (
 const useDeleteNoticeCommentLike = (noticeId: number) => {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
+  const t = useTranslations("useDeleteNoticeCommentLike");
 
   return useAppMutation<ToggleCommentLikeVariables, PostCommentLikeResponse>(
     "auth",
@@ -118,7 +120,7 @@ const useDeleteNoticeCommentLike = (noticeId: number) => {
           queryClient.setQueryData(queryKey, typedContext.previous);
         }
 
-        addToast("댓글 좋아요 삭제에 실패했어요", "error");
+        addToast(t("likeDeleteError"), "error");
       },
       onSettled: (_, __, { queryKey }) => {
         queryClient.invalidateQueries({ queryKey });

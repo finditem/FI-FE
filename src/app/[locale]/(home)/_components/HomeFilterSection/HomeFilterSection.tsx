@@ -1,0 +1,50 @@
+"use client";
+
+import { useHorizontalDragScroll } from "@/hooks";
+import { Filter } from "@/components";
+import { CATEGORY, POST_TYPE } from "../HOME_CONST";
+import CategoryFilter from "./_internal/CategoryFilter/CategoryFilter";
+import useHomeFilterQuery from "../../_hooks/useHomeFilterQuery/useHomeFilterQuery";
+import useFilterItems from "../../_hooks/useFilterItems/useFilterItems";
+
+const HomeFilterSection = ({ isHidden = false }: { isHidden?: boolean }) => {
+  const { ref, onMouseDown } = useHorizontalDragScroll();
+  const { postFilterItems, categoryFilterItem } = useFilterItems();
+  const {
+    categoryParam,
+    selectedPostFilter,
+    isCategorySelected,
+    categoryFilterLabel,
+    setFilterQuery,
+  } = useHomeFilterQuery();
+
+  if (isHidden) return null;
+
+  return (
+    <div
+      ref={ref}
+      onMouseDown={onMouseDown}
+      className="sticky top-0 z-10 -mx-5 flex gap-2 border-b border-divider-default bg-white pb-[14px] pl-5 no-scrollbar"
+    >
+      {postFilterItems.map((item) => (
+        <Filter
+          key={item.value}
+          ariaLabel={item.label}
+          onSelected={item.value === selectedPostFilter}
+          onClick={() => setFilterQuery(POST_TYPE, item.value)}
+        >
+          {item.label}
+        </Filter>
+      ))}
+      <CategoryFilter
+        ariaLabel={categoryFilterItem.label}
+        label={categoryFilterLabel}
+        isSelected={isCategorySelected}
+        selectedValue={categoryParam}
+        onSelect={(value) => setFilterQuery(CATEGORY, value)}
+      />
+    </div>
+  );
+};
+
+export default HomeFilterSection;

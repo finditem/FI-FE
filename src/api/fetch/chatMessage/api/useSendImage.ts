@@ -4,7 +4,7 @@ import { ChatMessage } from "../types/ChatMessageResponse";
 import {
   addMessageToCache,
   removeMessageFromCache,
-} from "@/app/(route)/chat/[postId]/_utils/chatMessageCache/chatMessageCache";
+} from "@/app/[locale]/(route)/chat/[postId]/_utils/chatMessageCache/chatMessageCache";
 
 interface SendImageContext {
   optimisticId: number;

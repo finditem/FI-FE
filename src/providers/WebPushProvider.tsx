@@ -1,6 +1,6 @@
 "use client";
 
-import { PropsWithChildren, useEffect } from "react";
+import { type PropsWithChildren, useEffect } from "react";
 import { useGetNotificationSetting } from "@/api/fetch/notification";
 import { useAgreeStore, useAuthStore } from "@/store";
 import { isWebPushSupported, registerWebPushServiceWorker, syncWebPushSubscription } from "@/utils";
@@ -10,7 +10,7 @@ import { isWebPushSupported, registerWebPushServiceWorker, syncWebPushSubscripti
  *
  * @remarks
  * - 마운트 시 한 번 `registerWebPushServiceWorker`를 호출합니다.
- * - 로그인·`useAuthStore` 초기화 완료·알림 설정에서 브라우저 푸시가 켜짐·`Notification.permission === "granted"`·`isWebPushSupported()`일 때만 `syncWebPushSubscription`을 시도합니다.
+ * - 약관 로그인·`authenticated` 상태·알림 설정에서 브라우저 푸시가 켜짐·`Notification.permission === "granted"`·`isWebPushSupported()`일 때만 `syncWebPushSubscription`을 시도합니다.
  * - 개발 환경에서 동기화 실패는 `console.warn`으로만 남깁니다.
  *
  * @author hyungjun
@@ -20,14 +20,15 @@ import { isWebPushSupported, registerWebPushServiceWorker, syncWebPushSubscripti
  * ```tsx
  * <WebPushProvider>{children}</WebPushProvider>
  * ```
+ * @author suhyeon
  */
 
 export const WebPushProvider = ({ children }: PropsWithChildren) => {
-  const isLoggedIn = useAgreeStore((s) => s.isLoggedIn);
-  const isAuthInitialized = useAuthStore((s) => s.isAuthInitialized);
+  const isLoggedIn = useAgreeStore((state) => state.isLoggedIn);
+  const isAuthenticated = useAuthStore((state) => state.status === "authenticated");
 
   const { data: notificationSetting } = useGetNotificationSetting({
-    enabled: isLoggedIn && isAuthInitialized,
+    enabled: isLoggedIn && isAuthenticated,
   });
 
   useEffect(() => {
@@ -35,23 +36,18 @@ export const WebPushProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoggedIn || !isAuthInitialized) return;
+    if (!isLoggedIn || !isAuthenticated) return;
 
     const browserPushOn = notificationSetting?.result?.browserNotificationEnabled;
     if (!browserPushOn) return;
     if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
     if (!isWebPushSupported()) return;
 
-    void (async () => {
-      try {
-        await syncWebPushSubscription();
-      } catch (e) {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("[WebPushProvider] syncWebPushSubscription:", e);
-        }
-      }
-    })();
-  }, [isLoggedIn, isAuthInitialized, notificationSetting?.result?.browserNotificationEnabled]);
+    void syncWebPushSubscription().catch((error: unknown) => {
+      if (process.env.NODE_ENV !== "development") return;
+      console.warn("[WebPushProvider] syncWebPushSubscription:", error);
+    });
+  }, [isLoggedIn, isAuthenticated, notificationSetting?.result?.browserNotificationEnabled]);
 
   return children;
 };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { ImageList } from "@/types";
 import Image from "next/image";
 import { ImageViewerModal } from "@/components/domain";
@@ -21,6 +22,7 @@ interface CommentBodyProps {
 }
 
 const CommentBody = ({ bodyData }: CommentBodyProps) => {
+  const t = useTranslations("CommentBody");
   const { content, images } = bodyData;
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const [initialIndex, setInitialIndex] = useState(0);
@@ -45,7 +47,7 @@ const CommentBody = ({ bodyData }: CommentBodyProps) => {
               src={image.imageUrl}
               width={80}
               height={80}
-              alt={`이미지-${i}`}
+              alt={t("imageAlt", { number: i + 1 })}
               className="h-20 w-20 cursor-pointer rounded-[16px] object-cover"
               onClick={() => handleImageClick(i)}
             />

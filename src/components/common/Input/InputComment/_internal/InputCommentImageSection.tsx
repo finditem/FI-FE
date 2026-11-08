@@ -2,6 +2,7 @@
 
 import { useObjectURLs, useHorizontalDragScroll } from "@/hooks";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 
 interface InputCommentImageSectionProps {
@@ -10,6 +11,7 @@ interface InputCommentImageSectionProps {
 }
 
 const InputCommentImageSection = ({ images, setImages }: InputCommentImageSectionProps) => {
+  const t = useTranslations("InputCommentImageSection");
   const urls = useObjectURLs(images);
   const { ref: scrollRef, onMouseDown } = useHorizontalDragScroll();
 
@@ -18,21 +20,21 @@ const InputCommentImageSection = ({ images, setImages }: InputCommentImageSectio
       ref={scrollRef}
       onMouseDown={onMouseDown}
       role="region"
-      aria-label="댓글 이미지 목록"
+      aria-label={t("listAriaLabel")}
       className="mb-4 flex h-[90px] w-full select-none gap-5 overflow-x-auto bg-white pt-[10px] no-scrollbar"
     >
       {urls.map((url, index) => (
         <div key={url} className="relative h-[80px] w-[80px] shrink-0 rounded-[16px]">
           <Image
             src={url}
-            alt={`댓글 이미지 ${index + 1}`}
+            alt={t("imageAlt", { number: index + 1 })}
             className="h-[80px] w-[80px] rounded-[16px] object-cover"
             width={80}
             height={80}
           />
           <button
             type="button"
-            aria-label="댓글 이미지 삭제"
+            aria-label={t("deleteAriaLabel")}
             onMouseDown={(e) => e.stopPropagation()}
             onClick={() => {
               setImages(images.filter((_, i) => i !== index));

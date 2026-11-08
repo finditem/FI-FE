@@ -1,0 +1,65 @@
+import { NotificationType, ReferenceType } from "@/api/fetch/notification";
+
+export const ALERT_CATEGORIES = [
+  { key: "all" },
+  { key: "category" },
+  { key: "chat" },
+  { key: "comment" },
+  { key: "review" },
+  { key: "notice" },
+  { key: "inquiry_reply" },
+  { key: "report_result" },
+] as const;
+
+export const ALERT_ROW_BG = {
+  read: {
+    default: "bg-white hover:bg-fill-flatGray-25",
+    delete: "bg-white hover:bg-white",
+  },
+  unread: {
+    default: "bg-fill-brand-subtle-default_2 hover:bg-fill-brand-subtle-default_2",
+    delete: "bg-fill-brand-subtle-default_2 hover:bg-fill-brand-subtle-default_2",
+  },
+} as const;
+
+type AlertIconBackgroundColor = {
+  icon: string;
+  bg: string;
+};
+
+/**
+ * 알림 종류(NotificationType) 우선 매핑
+ */
+export const ALERT_ICON_BG_BY_NOTIFICATION_TYPE: Partial<
+  Record<NotificationType, AlertIconBackgroundColor>
+> = {
+  FAVORITE: { icon: "AlertStar", bg: "bg-system-bookmark" },
+  CATEGORY: { icon: "AlertItem", bg: "bg-fg-accent-foundItem" },
+  COMMENT: { icon: "Comment", bg: "bg-fg-neutral-strong-default" },
+  REVIEW: { icon: "Comment", bg: "bg-fg-neutral-strong-default" },
+};
+
+export const DEFAULT_ALERT_ICON_BG: AlertIconBackgroundColor = {
+  icon: "AlertItem",
+  bg: "bg-fg-accent-foundItem",
+};
+
+/**
+ * 참조(ReferenceType) 매핑 — 타입별 매핑이 없을 때 사용
+ */
+export const ALERT_ICON_BG_BY_REFERENCE_TYPE: Partial<
+  Record<
+    ReferenceType,
+    AlertIconBackgroundColor | ((type: NotificationType) => AlertIconBackgroundColor)
+  >
+> = {
+  POST: DEFAULT_ALERT_ICON_BG,
+  COMMENT: { icon: "Comment", bg: "bg-fg-neutral-strong-default" },
+  CHAT: (type) => {
+    const icon = type === "CHAT_REMINDER" ? "AlertUnreadChat" : "AlertNewChat";
+    return { icon, bg: "bg-fg-brand-normal-default" };
+  },
+  INQUIRY: { icon: "AlertInquiry", bg: "bg-fg-neutral-strong-default" },
+  NOTICE: { icon: "AlertNotice", bg: "bg-system-announcement" },
+  REPORT: { icon: "AlertInquiry", bg: "bg-system-report" },
+};

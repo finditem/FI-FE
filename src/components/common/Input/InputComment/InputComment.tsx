@@ -2,6 +2,7 @@
 
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react";
+import { useTranslations } from "next-intl";
 import InputCommentImageSection from "./_internal/InputCommentImageSection";
 import { Icon } from "@/components/common";
 import { cn, fileInputHandler, textareaAutoResize, textareaSubmitKeyHandler } from "@/utils";
@@ -59,6 +60,7 @@ const InputCommentField = ({
   images,
   setImages,
 }: InputCommentFieldProps) => {
+  const t = useTranslations("InputComment");
   const { control } = useFormContext();
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -76,7 +78,7 @@ const InputCommentField = ({
               <label
                 htmlFor="ImageAttach"
                 className="relative h-11 w-11 shrink-0 cursor-pointer rounded-full bg-fill-neutral-strong-default"
-                aria-label="이미지 첨부"
+                aria-label={t("attachAriaLabel")}
               >
                 <Icon
                   name="Image"
@@ -109,7 +111,7 @@ const InputCommentField = ({
                   "max-h-[120px] min-h-11 min-w-0 flex-1 resize-none overflow-y-hidden rounded-[24px] px-4 py-[10px] text-body1-medium text-neutral-strong-focused bg-fill-neutral-strong-default placeholder:text-neutral-normal-placeholder",
                   "disabled:text-neutral-strong-disabled"
                 )}
-                placeholder="메시지 보내기"
+                placeholder={t("placeholder")}
                 disabled={disabled}
                 maxLength={250}
                 {...fieldRest}
@@ -123,7 +125,7 @@ const InputCommentField = ({
                   "active:bg-fill-brand-normal-default",
                   "disabled:bg-fill-brand-normal-disabled"
                 )}
-                aria-label="전송 버튼"
+                aria-label={t("submitAriaLabel")}
                 disabled={disabled || (!field.value?.trim() && images.length === 0)}
               >
                 <Icon

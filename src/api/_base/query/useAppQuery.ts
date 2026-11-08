@@ -1,7 +1,13 @@
 "use client";
 
 import useAxios from "../axios/useAxios";
-import { useQuery, UseQueryOptions, UseQueryResult, QueryKey } from "@tanstack/react-query";
+import {
+  useQuery,
+  type UseQueryOptions,
+  type UseQueryResult,
+  type QueryKey,
+} from "@tanstack/react-query";
+import { shouldRetryQuery } from "./_internal/shouldRetryQuery/shouldRetryQuery";
 
 // 제네릭
 // TQueryData: axios 요청 후 서버에서 받아올 데이터 타입
@@ -33,11 +39,11 @@ const useAppQuery = <TQueryFnData, TError = unknown, TData = TQueryFnData>(
 
   return useQuery({
     queryKey,
-    queryFn: async () => {
-      const { data } = await axios.get<TQueryFnData>(url);
+    queryFn: async ({ signal }) => {
+      const { data } = await axios.get<TQueryFnData>(url, { signal });
       return data;
     },
-    retry: 1,
+    retry: shouldRetryQuery,
     refetchOnWindowFocus: false,
     staleTime: 1000 * 60,
     ...options,

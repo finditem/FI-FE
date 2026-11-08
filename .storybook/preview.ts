@@ -1,7 +1,18 @@
 import type { Preview } from "@storybook/nextjs";
+import React from "react";
+import { NextIntlClientProvider } from "next-intl";
 import "../src/app/globals.css";
+import koMessages from "../src/messages/ko.json";
 
 const preview: Preview = {
+  decorators: [
+    (Story) =>
+      React.createElement(
+        NextIntlClientProvider,
+        { locale: "ko", messages: koMessages },
+        React.createElement(Story)
+      ),
+  ],
   parameters: {
     controls: {
       matchers: {

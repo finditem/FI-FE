@@ -17,7 +17,7 @@ export const useGetUserProfileById = (
   params.set("size", String(size));
 
   return useAppInfiniteQuery<GetUserProfileDataResponse, unknown, UserProfileInfiniteSelectedData>(
-    "auth",
+    "public",
     ["user-data", userId, type, size],
     `/users/${userId}/page?${params.toString()}`,
     {
@@ -35,6 +35,7 @@ export const useGetUserProfileById = (
 
           if (type === "POSTS") return r.posts;
           if (type === "FAVORITES") return r.favorites;
+          if (type === "REVIEWS") return r.reviews;
           return r.comments;
         });
 

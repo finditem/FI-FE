@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { ToastProvider } from "@/providers/ToastProviders";
 import { FormProvider, useForm } from "react-hook-form";
-import { PostWriteFormValues } from "@/app/(route)/write/post/_types/PostWriteType";
+import { PostWriteFormValues } from "@/app/[locale]/(route)/write/post/_types/PostWriteType";
 import WriteImageSection from "./WriteImageSection";
 
 const renderWithProviders = (ui: React.ReactElement) => {

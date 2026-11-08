@@ -1,0 +1,55 @@
+name: Auto Label by Branch
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  addLabels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      - name: Add labels by branch prefix
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          # 브랜치 이름의 첫 번째 슬래시 앞부분을 타입 키워드로 사용합니다.
+          prefix=$(printf '%s' "${HEAD_REF%%/*}" | tr '[:upper:]' '[:lower:]')
+
+          case "$prefix" in
+            feat|feature)      labels=("✨ feature" "D-3") ;;
+            fix|bug|bugfix)    labels=("🐞 bug" "D-1") ;;
+            hotfix)            labels=("🚨 hotfix" "D-0") ;;
+            refactor)          labels=("🔧 refactor" "D-5") ;;
+            design)            labels=("🎨 design" "D-5") ;;
+            docs)              labels=("📄 docs" "D-5") ;;
+            chore)             labels=("🧹 chore" "D-5") ;;
+            test)              labels=("✅ test" "D-5") ;;
+            a11y)              labels=("♿ a11y" "D-5") ;;
+            rename)            labels=("🗂️ rename" "D-5") ;;
+            perf|performance)  labels=("⚡️ performance" "D-5") ;;
+            *)
+              echo "매핑에 없는 prefix이므로 라벨을 추가하지 않습니다: $HEAD_REF"
+              exit 0
+              ;;
+          esac
+
+          for label in "${labels[@]}"; do
+            if gh pr edit "$PR_URL" --add-label "$label"; then
+              echo "라벨을 추가했습니다: $label"
+            else
+              echo "::warning::라벨을 추가하지 못했습니다: $label"
+            fi
+          done

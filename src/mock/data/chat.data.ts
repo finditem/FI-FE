@@ -88,6 +88,12 @@ export const MOCK_CHAT_ROOM_FOUND: ChatRoomResponse = {
     deleted: false,
     postStatus: "FOUND",
   },
+  findCompletion: {
+    status: "COMPLETED_HERE",
+    findCompletionId: 1,
+    canComplete: false,
+    canWriteReview: true,
+  },
 };
 
 export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
@@ -110,7 +116,48 @@ export const MOCK_CHAT_ROOM_LOST: ChatRoomResponse = {
     deleted: false,
     postStatus: "SEARCHING",
   },
+  findCompletion: {
+    status: "NONE",
+    findCompletionId: null,
+    canComplete: true,
+    canWriteReview: false,
+  },
 };
+
+/**
+ * useChatRoomData 등 ChatRoomResponse 기반 훅 테스트용 팩토리.
+ * 기본값을 반환하며 overrides로 특정 필드만 바꿔 시나리오를 구성한다.
+ */
+export const makeChatRoomResult = (
+  overrides: Partial<ChatRoomResponse> = {}
+): ChatRoomResponse => ({
+  roomId: 10,
+  unreadCount: 2,
+  opponentUser: {
+    opponentUserId: 2,
+    nickname: "상대",
+    profileImageUrl: "",
+    emailVerified: true,
+    withdrawn: false,
+  },
+  postInfo: {
+    postId: 99,
+    postType: "LOST",
+    category: "ETC",
+    title: "제목",
+    address: "주소",
+    thumbnailUrl: null,
+    deleted: false,
+    postStatus: "SEARCHING",
+  },
+  findCompletion: {
+    status: "NONE",
+    findCompletionId: null,
+    canComplete: false,
+    canWriteReview: false,
+  },
+  ...overrides,
+});
 
 export const MOCK_CHAT_MESSAGES: ChatMessage[] = [
   {

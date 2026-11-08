@@ -1,6 +1,7 @@
 "use client";
 
 import { Dispatch, SetStateAction } from "react";
+import { useTranslations } from "next-intl";
 import { cn, fileInputHandler } from "@/utils";
 import Image from "next/image";
 import { handleClick, getImageButtonState } from "./_utils";
@@ -59,6 +60,7 @@ const ToggleImageButton = ({
   selectedImages,
   setSelectedImages,
 }: ToggleImageButtonProps) => {
+  const t = useTranslations("ImageSelectButton");
   const urls = useObjectURLs(images);
   const isDisabled = images.length >= 5;
 
@@ -74,7 +76,7 @@ const ToggleImageButton = ({
           "h-[100px] w-[100px] rounded-[10px] bg-fill-neutral-strong-default flex-center",
           isDisabled && "pointer-events-none"
         )}
-        aria-label="이미지 첨부"
+        aria-label={t("attachAriaLabel")}
         role="button"
         aria-disabled={isDisabled}
       >
@@ -108,7 +110,7 @@ const ToggleImageButton = ({
                   src={src}
                   width={100}
                   height={100}
-                  alt={`${index + 1}번째 가져온 이미지`}
+                  alt={t("importedImageAlt", { number: index + 1 })}
                   className="glass-card h-full w-full rounded-[10px] object-cover"
                 />
               )}

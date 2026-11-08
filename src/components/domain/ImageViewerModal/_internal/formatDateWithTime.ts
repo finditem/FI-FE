@@ -1,7 +1,7 @@
 import { formatKoreanDate, formatChatTime } from "@/utils";
 
-const formatDateWithTime = (isoString: string): string => {
-  const datePart = formatKoreanDate(isoString).replace(" ", ". ");
+const formatDateWithTime = (isoString: string, weekdays?: string[]): string => {
+  const datePart = formatKoreanDate(isoString, weekdays).replace(" ", ". ");
   const timePart = formatChatTime(isoString);
   return `${datePart} ${timePart}`;
 };

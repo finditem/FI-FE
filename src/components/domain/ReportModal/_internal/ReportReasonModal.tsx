@@ -1,7 +1,8 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
-import { REPORT_REASONS } from "./REPORT_REASONS";
+import { useTranslations } from "next-intl";
+import { useReportReasons } from "./REPORT_REASONS";
 import { createPortal } from "react-dom";
 import { Button, RadioOptionItem } from "@/components/common";
 import { ReportReason } from "./ReportTypes";
@@ -20,6 +21,8 @@ const ReportReasonModal = ({
   reportType,
   setReportType,
 }: ReportReasonModalProps) => {
+  const t = useTranslations("ReportReasonModal");
+  const REPORT_REASONS = useReportReasons();
   const [tempSelectedReportReason, setTempSelectedReportReason] = useState<ReportReason | null>(
     reportType ?? null
   );
@@ -51,15 +54,13 @@ const ReportReasonModal = ({
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSelectReportReason}
       >
-        <h1 className="mb-8 text-center text-h2-medium text-layout-header-default">
-          신고 사유 선택
-        </h1>
+        <h1 className="mb-8 text-center text-h2-medium text-layout-header-default">{t("title")}</h1>
         <fieldset className="flex flex-col gap-[2px]">
           {REPORT_REASONS.map((reason) => (
             <RadioOptionItem
-              key={reason.id}
-              option={{ value: reason.id, label: reason.label }}
-              selected={tempSelectedReportReason?.id ?? ""}
+              key={reason.value}
+              option={{ value: reason.value, label: reason.label }}
+              selected={tempSelectedReportReason?.value ?? ""}
               onChange={() => setTempSelectedReportReason(reason)}
               inputName="reportReason"
             />
@@ -67,7 +68,7 @@ const ReportReasonModal = ({
         </fieldset>
         <div className="mt-auto px-5">
           <Button className="w-full" size="big" disabled={!tempSelectedReportReason} type="submit">
-            선택하기
+            {t("select")}
           </Button>
         </div>
       </form>

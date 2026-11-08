@@ -23,8 +23,10 @@ jest.mock("next/link", () => ({
 describe("Footer", () => {
   const homeItem = {
     key: "/",
-    link: { name: "홈", href: "/", icon: "Home" as const, requiresLogin: false },
+    link: { labelKey: "home", href: "/", icon: "Home" as const, requiresLogin: false },
+    label: "홈",
     href: "/",
+    linkHref: "/",
     isActive: undefined as string | undefined,
     isLoginRequiredDisabled: false,
     showLoginRequiredNotice: false,

@@ -49,4 +49,20 @@ describe("<CommentFooter />", () => {
     await userEvent.click(screen.getByText("답글 작성"));
     expect(defaultProps.setIsReplyFormOpen).toHaveBeenCalledWith(true);
   });
+
+  it("비회원이 좋아요를 클릭하면 onFavoriteComment 대신 onGuestAction이 호출됩니다.", async () => {
+    const onGuestAction = jest.fn();
+    render(<CommentFooter {...defaultProps} isGuest onGuestAction={onGuestAction} />);
+    await userEvent.click(screen.getByText(/좋아요 5/));
+    expect(onGuestAction).toHaveBeenCalledTimes(1);
+    expect(defaultProps.onFavoriteComment).not.toHaveBeenCalled();
+  });
+
+  it("비회원이 답글 작성을 클릭하면 setIsReplyFormOpen 대신 onGuestAction이 호출됩니다.", async () => {
+    const onGuestAction = jest.fn();
+    render(<CommentFooter {...defaultProps} isGuest onGuestAction={onGuestAction} />);
+    await userEvent.click(screen.getByText("답글 작성"));
+    expect(onGuestAction).toHaveBeenCalledTimes(1);
+    expect(defaultProps.setIsReplyFormOpen).not.toHaveBeenCalled();
+  });
 });

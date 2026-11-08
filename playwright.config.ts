@@ -21,6 +21,9 @@ export default defineConfig({
     /* await page.goto('/') 기준 URL */
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000",
 
+    /* CI 등 실행 환경의 기본 언어와 무관하게 한국어(ko)로 진입하도록 고정 (다국어 자동감지 미들웨어가 /en으로 리다이렉트하는 것을 방지) */
+    locale: "ko-KR",
+
     /* 실패한 테스트를 재시도할 때 trace를 수집한다 */
     trace: "on-first-retry",
   },

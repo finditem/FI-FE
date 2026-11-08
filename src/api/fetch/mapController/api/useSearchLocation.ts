@@ -2,12 +2,13 @@
 
 import useAxios from "@/api/_base/axios/useAxios";
 import useAppCompositeInfiniteQuery from "@/api/_base/query/useAppCompositeInfiniteQuery";
-import { POST_TYPE } from "@/app/(home)/_components/HOME_CONST";
+import { POST_TYPE } from "@/app/[locale]/(home)/_components/HOME_CONST";
 import { InfiniteData, keepPreviousData } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { MapPostSummaryPageParam, mapPostTypeQueryToApiParam } from "./useMapPostSummary";
 import { MapPostSummaryPostItem, MapPostSummaryResponse } from "../types/MapPostSummaryType";
-import { useMainKakaoMapStore } from "@/store";
+import { useMainNaverMapStore } from "@/store";
+import { getServerMapLevel } from "@/utils";
 
 const SEARCH_LOCATION_PAGE_SIZE = 10;
 
@@ -17,8 +18,8 @@ interface UseSearchLocationParams {
 }
 
 const useSearchLocation = ({ latitude, longitude }: UseSearchLocationParams) => {
-  const { mapLevel } = useMainKakaoMapStore();
-  const level = Math.min(mapLevel, 11);
+  const { mapZoom } = useMainNaverMapStore();
+  const level = getServerMapLevel(mapZoom);
   const axios = useAxios("public");
   const searchParams = useSearchParams();
   const apiPostType = mapPostTypeQueryToApiParam(searchParams.get(POST_TYPE));

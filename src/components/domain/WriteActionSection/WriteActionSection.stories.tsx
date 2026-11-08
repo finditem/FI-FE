@@ -31,3 +31,11 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const RateLimitCountdown: Story = {
+  args: {
+    disabled: true,
+    label: "180초 후 다시 시도",
+    isRateLimited: true,
+  },
+};

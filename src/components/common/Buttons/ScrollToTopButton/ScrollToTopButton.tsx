@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { ButtonHTMLAttributes } from "react";
+import { useTranslations } from "next-intl";
 import Icon from "../../Icon/Icon";
 import { cn } from "@/utils";
 
@@ -44,6 +45,7 @@ interface ScrollToTopButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
  */
 
 const ScrollToTopButton = ({ onHide = false, className, ...props }: ScrollToTopButtonProps) => {
+  const t = useTranslations("ScrollToTopButton");
   const [isNearTop, setIsNearTop] = useState(true);
 
   const handleScrollToTop = () => setIsNearTop(window.scrollY < SCROLL_TOP_HIDE_THRESHOLD_PX);
@@ -57,7 +59,7 @@ const ScrollToTopButton = ({ onHide = false, className, ...props }: ScrollToTopB
 
   return (
     <button
-      aria-label="스크롤 맨 위로 이동"
+      aria-label={t("ariaLabel")}
       className={cn(
         "h-[70px] w-[70px] rounded-full border border-white transition-colors duration-150 bg-fill-brand-subtle-default flex-center",
         "hover:bg-fill-brand-subtle-hover",

@@ -4,7 +4,6 @@ import { GetNoticeCommentsData, GetNoticeCommentsResponse } from "../types/GetNo
 
 interface UseGetNoticeCommentParams {
   noticeId: number;
-  enabled: boolean;
   size?: number;
 }
 
@@ -12,7 +11,6 @@ const DEFAULT_NOTICE_COMMENT_SIZE = 10;
 
 export const useGetNoticeComment = ({
   noticeId,
-  enabled,
   size = DEFAULT_NOTICE_COMMENT_SIZE,
 }: UseGetNoticeCommentParams) => {
   return useAppInfiniteQuery<GetNoticeCommentsResponse, unknown, GetNoticeCommentsData>(
@@ -20,7 +18,7 @@ export const useGetNoticeComment = ({
     ["notice-comments", noticeId],
     `/notices/${noticeId}/comments?size=${size}`,
     {
-      enabled: !!noticeId && enabled,
+      enabled: !!noticeId,
       pageParamName: "cursor",
       initialPageParam: undefined,
       getNextPageParam: (lastPage) =>

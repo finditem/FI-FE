@@ -2,8 +2,9 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useFormContext, useWatch } from "react-hook-form";
-import { TERMS_CONFIG } from "./_constants/TERMS_CONFIG";
+import { TERMS_CONFIG, useTermsConfig } from "./_constants/TERMS_CONFIG";
 import { DetailHeader } from "@/components/layout";
 import { CheckBox, Icon } from "@/components/common";
 import FooterButton from "../FooterButton/FooterButton";
@@ -15,12 +16,9 @@ interface TermsAgreementProps {
   isPending?: boolean;
 }
 
-const TermsAgreement = ({
-  title = "회원가입",
-  onOpenDetail,
-  onComplete,
-  isPending,
-}: TermsAgreementProps) => {
+const TermsAgreement = ({ title, onOpenDetail, onComplete, isPending }: TermsAgreementProps) => {
+  const t = useTranslations("TermsAgreement");
+  const termsConfig = useTermsConfig();
   const {
     register,
     setValue,
@@ -54,18 +52,18 @@ const TermsAgreement = ({
 
   return (
     <>
-      <DetailHeader title={title} />
+      <DetailHeader title={title ?? t("defaultTitle")} />
       <div className="flex w-full flex-col gap-7 p-4 h-hf-base">
         <p className="text-h3-semibold text-black">
-          서비스 이용을 위해 <br />
-          약관 동의가 필요합니다.
+          {t("descriptionLine1")} <br />
+          {t("descriptionLine2")}
         </p>
 
         <div className="flex min-h-[272px] w-full flex-col gap-8">
           <div className="flex min-h-[68px] w-full items-center border-b border-divider-default text-body1-semibold text-neutral-normal-default">
             <CheckBox
               id="selectAll"
-              label="전체 약관 동의"
+              label={t("selectAll")}
               {...register("selectAll")}
               onChange={handleToggleAll}
               checked={!!selectAll}
@@ -73,7 +71,7 @@ const TermsAgreement = ({
           </div>
 
           <div className="flex min-h-[172px] w-full flex-col gap-5">
-            {TERMS_CONFIG.map((item, index) => (
+            {termsConfig.map((item, index) => (
               <div
                 key={item.name}
                 className="flex h-11 w-full items-center justify-between text-body1-semibold text-neutral-normal-default"
@@ -104,7 +102,7 @@ const TermsAgreement = ({
       </div>
 
       <FooterButton onClick={onComplete} disabled={!isValid || isPending}>
-        가입 완료
+        {t("submit")}
       </FooterButton>
     </>
   );

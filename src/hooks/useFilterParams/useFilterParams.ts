@@ -41,10 +41,10 @@ import {
   SortFilterValue,
   StatusFilterValue,
 } from "@/components/domain/FilterSectionBottomSheet/_types/types";
-import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/[locale]/(route)/mypage/activities/_types/ActivityFilterType";
 import { SimpleSortType } from "@/types";
-import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
-import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
+import { ReportStatusFilterValue } from "@/app/[locale]/(route)/mypage/reports/_types/MypageReportsFilterType";
+import { InquiryStatusFilterValue } from "@/app/[locale]/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
 
 const optionalEnumParam = <T extends [string, ...string[]]>(values: T, value: string | null) => {
   if (!value) return undefined;

@@ -1,13 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { Icon } from "@/components/common";
 import ImagePreviewList from "./_internal/ImagePreviewList";
 import { useToast } from "@/context/ToastContext";
-import { PostWriteFormValues } from "@/app/(route)/write/post/_types/PostWriteType";
-
-const DEFAULT_HELP_TEXT = "최대 10MB, 총 5장의 이미지를 첨부할 수 있습니다. (jpg, jpeg, png)";
+import { PostWriteFormValues } from "@/app/[locale]/(route)/write/post/_types/PostWriteType";
+import { useWriteStore } from "@/store";
+import { trackUploadImage, toItemTypeLabel } from "@/utils/analytics/analytics";
 
 /**
  * 게시글 작성 화면에서 이미지 첨부·미리보기·순서 조절을 담당하는 섹션입니다.
@@ -36,9 +37,11 @@ interface WriteImageSectionProps {
  * ```
  */
 
-const WriteImageSection = ({ helpText = DEFAULT_HELP_TEXT }: WriteImageSectionProps) => {
+const WriteImageSection = ({ helpText }: WriteImageSectionProps) => {
+  const t = useTranslations("WriteImageSection");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { addToast } = useToast();
+  const { postType } = useWriteStore();
 
   const { control } = useFormContext<PostWriteFormValues>();
 
@@ -57,16 +60,24 @@ const WriteImageSection = ({ helpText = DEFAULT_HELP_TEXT }: WriteImageSectionPr
     const remainCount = 5 - fields.length;
 
     if (remainCount <= 0 || fileArray.length > remainCount) {
-      addToast("이미지는 최대 5장만 첨부할 수 있어요.", "warning");
+      addToast(t("maxImagesWarning"), "warning");
       return;
     }
 
-    fileArray.slice(0, remainCount).forEach((file) => {
+    const filesToAdd = fileArray.slice(0, remainCount);
+
+    if (filesToAdd.length === 0) return;
+
+    filesToAdd.forEach((file) => {
       append({
         file,
         previewUrl: URL.createObjectURL(file),
       });
     });
+
+    if (postType) {
+      trackUploadImage(filesToAdd.length, toItemTypeLabel(postType));
+    }
   };
 
   return (
@@ -83,7 +94,7 @@ const WriteImageSection = ({ helpText = DEFAULT_HELP_TEXT }: WriteImageSectionPr
       <div className="hide-scrollbar flex w-full max-w-full flex-nowrap items-center gap-4 overflow-x-scroll">
         <button
           type="button"
-          aria-label="이미지 업로드"
+          aria-label={t("uploadAriaLabel")}
           onClick={openImagePicker}
           className="size-[104px] shrink-0 rounded-[6px] bg-flatGray-25 flex-col-center"
         >
@@ -94,7 +105,9 @@ const WriteImageSection = ({ helpText = DEFAULT_HELP_TEXT }: WriteImageSectionPr
         </button>
         <ImagePreviewList images={fields} onRemove={remove} onMove={move} />
       </div>
-      <span className="text-caption1-regular text-neutral-normal-placeholder">{helpText}</span>
+      <span className="text-caption1-regular text-neutral-normal-placeholder">
+        {helpText ?? t("helpText")}
+      </span>
     </section>
   );
 };

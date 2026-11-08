@@ -43,8 +43,10 @@ interface CommentCardProps {
   autoOpenReplies?: boolean;
   /** 부모 쿼리 키, 재귀 구조 전용 */
   parentQueryKey?: unknown[];
-  /** 비회원 여부, Empty UI 전용 */
+  /** 비회원 여부, 비회원은 댓글을 읽을 수만 있습니다. */
   isGuest?: boolean;
+  /** 비회원이 상호작용을 시도할 때 호출되는 함수 */
+  onGuestAction?: () => void;
 }
 
 /**
@@ -69,8 +71,9 @@ const CommentItem = ({
   isPending,
   autoOpenReplies = false,
   useFetchReplies,
-  isGuest = false,
   parentQueryKey,
+  isGuest = false,
+  onGuestAction,
   onDeleteComment,
   onFavoriteComment,
 }: CommentCardProps) => {
@@ -86,7 +89,7 @@ const CommentItem = ({
 
   const { data: replyCommentData, fetchNextPage } = useFetchReplies({
     commentId: data.id,
-    enabled: !isGuest && shouldFetchReplies,
+    enabled: shouldFetchReplies,
   });
 
   const handleReplySubmit = async (content: string, image: File | null) => {
@@ -133,6 +136,7 @@ const CommentItem = ({
                   canDelete: data.canDelete,
                 }}
                 isGuest={isGuest}
+                onGuestAction={onGuestAction}
                 isThreadItem={isThreadItem}
                 queryKey={itemQueryKey}
                 onDeleteComment={onDeleteComment!}
@@ -155,6 +159,7 @@ const CommentItem = ({
               }}
               isReply={isReply}
               isGuest={isGuest}
+              onGuestAction={onGuestAction}
               isReplyFormOpen={isReplyFormOpen}
               setIsReplyFormOpen={setIsReplyFormOpen}
               queryKey={itemQueryKey}
@@ -170,6 +175,7 @@ const CommentItem = ({
             setViewReply={setViewReply}
             replyCount={data.childCommentCount || 0}
             isGuest={isGuest}
+            onGuestAction={onGuestAction}
           />
         </div>
       </div>
@@ -192,6 +198,7 @@ const CommentItem = ({
               onDeleteComment={onDeleteComment}
               onFavoriteComment={onFavoriteComment}
               isGuest={isGuest}
+              onGuestAction={onGuestAction}
               autoOpenReplies={isTopLevelComment && viewReply}
               parentQueryKey={childrenQueryKey}
             />

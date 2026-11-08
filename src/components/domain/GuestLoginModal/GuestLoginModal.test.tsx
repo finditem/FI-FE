@@ -45,12 +45,12 @@ describe("<GuestLoginModal />", () => {
 
   it("안내 제목을 렌더링합니다.", () => {
     render(<GuestLoginModal isOpen={true} onClose={onClose} />);
-    expect(screen.getByText("회원만 댓글을 작성할 수 있어요.")).toBeInTheDocument();
+    expect(screen.getByText("로그인이 필요한 기능이에요.")).toBeInTheDocument();
   });
 
   it("안내 설명을 렌더링합니다.", () => {
     render(<GuestLoginModal isOpen={true} onClose={onClose} />);
-    expect(screen.getByText("로그인하고 의견을 남겨보세요.")).toBeInTheDocument();
+    expect(screen.getByText("로그인하고 댓글에 함께 참여해보세요.")).toBeInTheDocument();
   });
 
   it("취소 버튼 클릭 시 onClose가 호출됩니다.", async () => {

@@ -1,7 +1,9 @@
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import { CategoryType } from "@/types";
-import Icon, { IconName } from "../Icon/Icon";
+import { CATEGORY_TILE_ICON_MAP } from "@/constants";
+import Icon from "../Icon/Icon";
 
 /**
  * 리스트 아이템 이미지 컴포넌트입니다.
@@ -39,16 +41,6 @@ interface ListItemImageProps {
  * ```
  */
 
-const CATEGORY_ICON_MAP: Record<CategoryType, IconName> = {
-  ELECTRONICS: "Electronics",
-  WALLET: "Wallet",
-  ID_CARD: "IdCard",
-  JEWELRY: "Jewelry",
-  BAG: "Bag",
-  CARD: "Card",
-  ETC: "Etc",
-};
-
 const ListItemImage = ({
   src,
   alt,
@@ -58,6 +50,7 @@ const ListItemImage = ({
   imageCount,
   category,
 }: ListItemImageProps) => {
+  const t = useTranslations("ListItemImage");
   if (!src && !category) return null;
 
   return (
@@ -76,9 +69,12 @@ const ListItemImage = ({
           className="object-cover"
         />
       ) : (
-        <div className="h-full w-full flex-center" aria-label={`${category ?? "ETC"} 기본 이미지`}>
+        <div
+          className="h-full w-full flex-center"
+          aria-label={t("categoryFallbackAlt", { category: t(`category.${category ?? "ETC"}`) })}
+        >
           <Icon
-            name={CATEGORY_ICON_MAP[category!]}
+            name={CATEGORY_TILE_ICON_MAP[category!]}
             size={size}
             className="text-labelsVibrant-quaternary"
           />
@@ -87,7 +83,7 @@ const ListItemImage = ({
 
       {typeof imageCount === "number" && imageCount > 1 && (
         <div
-          aria-label={`이미지 ${imageCount}장`}
+          aria-label={t("imageCountAlt", { count: imageCount })}
           className={cn(
             "absolute bottom-0 right-0 min-h-[21px] min-w-[23px]",
             "rounded-br-[10px] rounded-tl-[4px] bg-black/50 px-2 py-1 flex-center"

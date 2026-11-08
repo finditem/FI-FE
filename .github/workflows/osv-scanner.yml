@@ -1,0 +1,47 @@
+name: Dependency Scan
+
+# package-lock.json에 잠긴 버전을 OSV 취약점 데이터베이스와 대조한다.
+# Dependabot은 새 버전이 나왔는지를 보고, 이 워크플로는 지금 잠긴 버전에 알려진 취약점이 있는지를 본다.
+#
+# PR에서는 그 PR이 새로 들여온 취약점만 실패로 처리한다. 이미 있던 취약점까지 실패로 잡으면
+# 상위 패키지가 패치를 내기 전까지 모든 PR이 빨간불이 되어 신호가 죽는다.
+# 결과는 PR의 Files 탭에 주석으로 표시된다.
+#
+# 매주 한 번 develop 전체를 스캔해 Security 탭의 Code scanning에 올린다. 이 스캔은 실패로 막지 않고 보고만 한다.
+#
+# PR 스캔은 SARIF를 올리지 않는다. Dependabot이 연 PR에서는 GITHUB_TOKEN이 읽기 전용이라
+# 업로드가 권한 오류로 실패하기 때문이다. 주간 스캔이 같은 결과를 Security 탭에 모아 준다.
+#
+# 주간 스캔과 수동 실행은 기본 브랜치(develop)에 이 파일이 있어야 동작한다(GitHub 규칙).
+on:
+  pull_request:
+    branches: [develop, main]
+  schedule:
+    - cron: "0 0 * * 1" # 매주 월요일 09:00 KST
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  pr-scan:
+    if: github.event_name == 'pull_request'
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.7.0
+    with:
+      scan-args: |-
+        --lockfile=./package-lock.json
+      upload-sarif: false
+
+  full-scan:
+    if: github.event_name != 'pull_request'
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.7.0
+    with:
+      scan-args: |-
+        --lockfile=./package-lock.json
+      fail-on-vuln: false

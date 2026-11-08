@@ -3,6 +3,29 @@ import { parseStringPromise } from "xml2js";
 import { PublicLostPortalItem } from "./PublicLostPortalItem";
 import { PublicDataItem } from "@/types";
 
+/** 호출자가 지정할 수 있는 numOfRows 상한입니다. 상한이 없으면 포털 API 키 할당량을 한 번에 소진할 수 있습니다. */
+const MAX_NUM_OF_ROWS = 100;
+const DEFAULT_NUM_OF_ROWS = 10;
+
+/**
+ * 검색어(PRDT_NM)가 있을 때 포털에서 받아와 메모리에서 거를 건수입니다. 포털 API가 이름 검색을 지원하지
+ * 않아 서버가 넉넉히 받아 직접 필터링하므로, 호출자 입력이 아닌 서버 고정값으로 둡니다.
+ */
+const PRDT_NM_FETCH_SIZE = 1000;
+
+/** 1 이상의 정수가 아니면 기본값으로, 상한을 넘으면 상한으로 자릅니다. */
+const clampNumOfRows = (raw: string | null): number => {
+  const parsed = Number.parseInt(raw ?? "", 10);
+  if (Number.isNaN(parsed)) return DEFAULT_NUM_OF_ROWS;
+  return Math.min(Math.max(parsed, 1), MAX_NUM_OF_ROWS);
+};
+
+/** 1 이상의 정수가 아니면 첫 페이지로 보정합니다. */
+const clampPageNo = (raw: string | null): number => {
+  const parsed = Number.parseInt(raw ?? "", 10);
+  return Number.isNaN(parsed) || parsed < 1 ? 1 : parsed;
+};
+
 /**
  * @author jikwon
  * @description 공공데이터 포털(경찰청) 분실물 조회 API 프록시 라우트
@@ -24,11 +47,8 @@ export async function GET(request: NextRequest) {
 
   const START_YMD = searchParams.get("START_YMD")?.replace(/-/g, "") || defaultStart;
   const END_YMD = searchParams.get("END_YMD")?.replace(/-/g, "") || defaultEnd;
-  const pageNoStr = searchParams.get("pageNo") || "1";
-  const numOfRowsStr = searchParams.get("numOfRows") || "10";
-
-  const requestedPageNo = parseInt(pageNoStr, 10);
-  const requestedNumOfRows = parseInt(numOfRowsStr, 10);
+  const requestedPageNo = clampPageNo(searchParams.get("pageNo"));
+  const requestedNumOfRows = clampNumOfRows(searchParams.get("numOfRows"));
 
   const apiKey = process.env.PUBLIC_DATA_PORTAL_API_KEY;
 
@@ -52,8 +72,8 @@ export async function GET(request: NextRequest) {
     params.append("START_YMD", START_YMD);
     params.append("END_YMD", END_YMD);
 
-    params.append("pageNo", PRDT_NM ? "1" : pageNoStr);
-    params.append("numOfRows", PRDT_NM ? "1000" : numOfRowsStr);
+    params.append("pageNo", PRDT_NM ? "1" : String(requestedPageNo));
+    params.append("numOfRows", PRDT_NM ? String(PRDT_NM_FETCH_SIZE) : String(requestedNumOfRows));
   }
 
   const finalUrl = `${baseUrl}?serviceKey=${apiKey}&${params.toString()}`;
@@ -125,7 +145,7 @@ export async function GET(request: NextRequest) {
       { error: res?.header?.resultMsg || "포털 서버 응답 에러", code: res?.header?.resultCode },
       { status: 400 }
     );
-  } catch (error: any) {
-    return NextResponse.json({ error: "서버 내부 오류", message: error.message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "서버 내부 오류" }, { status: 500 });
   }
 }

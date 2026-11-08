@@ -1,0 +1,212 @@
+"use client";
+
+import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { Icon } from "@/components";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { cn } from "@/utils";
+import type { KeyboardEvent as ReactKeyboardEvent, RefObject } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import SearchFocusDropdown from "../SearchFocusDropdown/SearchFocusDropdown";
+import MainSearchChipList from "../MainSearchChipList/MainSearchChipList";
+import { focusSearchDropdownBoundary } from "../../_utils/searchDropdownListKeyboard";
+import MainSearchLayout from "../MainSearchLayout/MainSearchLayout";
+import { MAIN_SEARCH_HEADER_ID } from "../HOME_CONST";
+import { DEFAULT_ADDRESS } from "@/constants";
+import { useGeolocationPermissionGranted } from "@/hooks";
+import { useMainNaverMapStore, useMainRecentSearch } from "@/store";
+import { trackClickSearchBar, trackSearch } from "@/utils/analytics/analytics";
+
+interface LocationFormValues {
+  search: string;
+}
+
+interface FocusedProps {
+  setFocused: (focused: boolean) => void;
+  focused: boolean;
+}
+
+const HeaderSearchForm = ({
+  searchValue,
+  setFocused,
+  focused,
+  setSearchKeyword,
+  dropdownRootRef,
+  searchInputRef,
+}: FocusedProps & {
+  searchValue: string | null;
+  setSearchKeyword: (value: string) => void;
+  dropdownRootRef: RefObject<HTMLDivElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
+}) => {
+  const t = useTranslations("MainSearchHeader");
+  const router = useRouter();
+  const addRecentSearch = useMainRecentSearch((s) => s.addRecentSearch);
+  const userGpsAddress = useMainNaverMapStore((s) => s.userGpsAddress);
+  const geoGranted = useGeolocationPermissionGranted();
+  const isResolvedGpsAddress =
+    userGpsAddress.trim().length > 0 && userGpsAddress.trim() !== DEFAULT_ADDRESS;
+  const locationPlaceholder =
+    geoGranted && isResolvedGpsAddress ? userGpsAddress : t("placeholder");
+
+  const { register, handleSubmit, setValue } = useForm<LocationFormValues>({
+    defaultValues: { search: searchValue ?? "" },
+  });
+  const { ref: registerRef, ...searchRegister } = register("search", { required: true });
+  const isDropdownOpen = searchValue || focused;
+
+  useEffect(() => {
+    setValue("search", searchValue ?? "");
+    setSearchKeyword(searchValue ?? "");
+  }, [searchValue, setSearchKeyword, setValue]);
+
+  const onSubmit = ({ search }: LocationFormValues) => {
+    const trimmedSearch = search.trim();
+    if (!trimmedSearch) return;
+    addRecentSearch(trimmedSearch);
+    trackSearch(trimmedSearch);
+    router.push(`/?search=${encodeURIComponent(trimmedSearch)}`);
+    setFocused(false);
+  };
+
+  const handleBack = () => {
+    if (focused) {
+      searchInputRef.current?.blur();
+      setFocused(false);
+      if (!searchValue?.trim()) {
+        setValue("search", "");
+        setSearchKeyword("");
+      }
+      return;
+    }
+    router.back();
+  };
+
+  const handleSearchInputKeyDown = (e: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (!focused) return;
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    const root = dropdownRootRef.current;
+    if (!root) return;
+    const moved = focusSearchDropdownBoundary(root, e.key === "ArrowDown" ? "first" : "last");
+    if (moved) e.preventDefault();
+  };
+
+  return (
+    <form
+      className={cn(
+        "relative flex h-[54px] w-full items-center rounded-[10px] bg-white px-5",
+        isDropdownOpen ? "border border-black/25" : "border-[1.2px] border-brand-normal-default"
+      )}
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <input
+        {...searchRegister}
+        ref={(el) => {
+          registerRef(el);
+          searchInputRef.current = el;
+        }}
+        onKeyDown={handleSearchInputKeyDown}
+        onChange={(e) => {
+          searchRegister.onChange(e);
+          setSearchKeyword(e.target.value);
+        }}
+        autoComplete="off"
+        type="text"
+        onFocus={() => {
+          trackClickSearchBar("home");
+          setFocused(true);
+          if (!searchValue?.trim() && geoGranted && isResolvedGpsAddress) {
+            setValue("search", userGpsAddress);
+            setSearchKeyword(userGpsAddress);
+          }
+        }}
+        className={cn(
+          "w-full pl-6 text-h3-medium text-flatGray-700 placeholder:text-labelsVibrant-secondary"
+        )}
+        placeholder={locationPlaceholder}
+      />
+      <button
+        type="button"
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={isDropdownOpen ? handleBack : handleSubmit(onSubmit)}
+        aria-label={isDropdownOpen ? t("backLabel") : t("searchLabel")}
+        className="absolute left-5 top-1/2 -translate-y-1/2"
+      >
+        <Icon name={isDropdownOpen ? "ArrowLeftSmall" : "HomeSearch"} size={20} />
+      </button>
+    </form>
+  );
+};
+
+const HeaderContent = ({
+  setFocused,
+  focused,
+  setSearchKeyword,
+  dropdownRootRef,
+  searchInputRef,
+}: FocusedProps & {
+  setSearchKeyword: (value: string) => void;
+  dropdownRootRef: RefObject<HTMLDivElement | null>;
+  searchInputRef: RefObject<HTMLInputElement | null>;
+}) => {
+  const searchParams = useSearchParams();
+  const searchValue = searchParams.get("search");
+  const isDropdownOpen = Boolean(searchValue) || focused;
+
+  return (
+    <header
+      id={MAIN_SEARCH_HEADER_ID}
+      className={cn(
+        "fixed left-1/2 top-0 z-10 w-full max-w-[768px] -translate-x-1/2 px-5 pb-[10px] pt-[calc(10px+var(--safe-area-top))]",
+        (searchValue || focused) && "border-x-2 bg-white"
+      )}
+    >
+      <HeaderSearchForm
+        searchValue={searchValue}
+        setFocused={setFocused}
+        focused={focused}
+        setSearchKeyword={setSearchKeyword}
+        dropdownRootRef={dropdownRootRef}
+        searchInputRef={searchInputRef}
+      />
+      {!isDropdownOpen && (
+        <div className="mt-3">
+          <MainSearchChipList />
+        </div>
+      )}
+    </header>
+  );
+};
+
+const MainSearchHeader = () => {
+  const [focused, setFocused] = useState(false);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const dropdownRootRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  return (
+    <Suspense fallback={""}>
+      <MainSearchLayout focused={focused}>
+        <div className="relative">
+          <HeaderContent
+            setFocused={setFocused}
+            focused={focused}
+            setSearchKeyword={setSearchKeyword}
+            dropdownRootRef={dropdownRootRef}
+            searchInputRef={searchInputRef}
+          />
+          <SearchFocusDropdown
+            focused={focused}
+            setFocused={setFocused}
+            searchKeyword={searchKeyword}
+            dropdownRootRef={dropdownRootRef}
+            searchInputRef={searchInputRef}
+          />
+        </div>
+      </MainSearchLayout>
+    </Suspense>
+  );
+};
+
+export default MainSearchHeader;

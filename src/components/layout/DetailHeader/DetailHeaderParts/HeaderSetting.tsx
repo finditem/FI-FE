@@ -1,11 +1,13 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { BaseButtonProps } from "./BaseButtonPropsType";
 
-const Setting = ({ ariaLabel = "알림 설정", ...props }: BaseButtonProps) => {
+const Setting = ({ ariaLabel, ...props }: BaseButtonProps) => {
+  const t = useTranslations("DetailHeader");
   return (
-    <button {...props} aria-label={ariaLabel}>
+    <button {...props} aria-label={ariaLabel ?? t("settingAriaLabel")}>
       <Icon name="Setting" />
     </button>
   );

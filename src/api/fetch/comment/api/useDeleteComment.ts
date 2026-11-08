@@ -1,6 +1,7 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import useAppMutation from "@/api/_base/query/useAppMutation";
 import { useToast } from "@/context/ToastContext";
 import { CommentDeleteResponse, DeleteCommentVariables } from "../types/CommentDeleteType";
@@ -8,6 +9,7 @@ import { CommentDeleteResponse, DeleteCommentVariables } from "../types/CommentD
 export const useDeleteComment = () => {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
+  const t = useTranslations("useDeleteComment");
 
   return useAppMutation<DeleteCommentVariables, CommentDeleteResponse>(
     "auth",
@@ -19,7 +21,7 @@ export const useDeleteComment = () => {
           queryClient.invalidateQueries({ queryKey: variables.queryKey }),
           queryClient.invalidateQueries({ queryKey: ["/users/me/comments"] }),
         ]);
-        addToast("댓글 삭제가 완료되었어요", "success");
+        addToast(t("deleteSuccess"), "success");
       },
     }
   );

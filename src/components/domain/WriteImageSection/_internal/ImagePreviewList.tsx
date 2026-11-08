@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 import { cn } from "@/utils";
 import {
@@ -34,6 +35,8 @@ interface ImageItemProps {
 }
 
 const ImageItemUI = ({ image, index, onRemove, isDragging, isOverlay }: ImageItemProps) => {
+  const t = useTranslations("WriteImageSection");
+
   return (
     <div
       className={cn(
@@ -62,13 +65,13 @@ const ImageItemUI = ({ image, index, onRemove, isDragging, isOverlay }: ImageIte
             "pointer-events-none bg-flatGreen-500 text-caption1-semibold text-white"
           )}
         >
-          대표
+          {t("primaryBadge")}
         </span>
       )}
       {onRemove && !isOverlay && (
         <button
           type="button"
-          aria-label="이미지 삭제"
+          aria-label={t("deleteAriaLabel")}
           onPointerDown={(e) => e.stopPropagation()}
           onClick={(e) => {
             e.stopPropagation();
@@ -91,6 +94,7 @@ interface SortableImageItemProps {
 }
 
 const SortableImageItem = ({ id, index, image, onRemove }: SortableImageItemProps) => {
+  const t = useTranslations("WriteImageSection");
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id,
   });
@@ -106,7 +110,7 @@ const SortableImageItem = ({ id, index, image, onRemove }: SortableImageItemProp
       ref={setNodeRef}
       style={style}
       className="shrink-0"
-      aria-label={`이미지 ${index + 1} 드래그로 순서 변경`}
+      aria-label={t("reorderAriaLabel", { number: index + 1 })}
       {...attributes}
       {...listeners}
     >
@@ -116,6 +120,7 @@ const SortableImageItem = ({ id, index, image, onRemove }: SortableImageItemProp
 };
 
 const ImagePreviewList = ({ images, onRemove, onMove }: ImagePreviewListProps) => {
+  const t = useTranslations("WriteImageSection");
   const [activeId, setActiveId] = useState<string | null>(null);
 
   const sensors = useSensors(
@@ -158,7 +163,11 @@ const ImagePreviewList = ({ images, onRemove, onMove }: ImagePreviewListProps) =
       modifiers={[restrictToWindowEdges]}
     >
       <SortableContext items={images.map((img) => img.id)} strategy={horizontalListSortingStrategy}>
-        <div role="list" aria-label="이미지 미리보기 목록" className="relative flex shrink-0 gap-2">
+        <div
+          role="list"
+          aria-label={t("previewListAriaLabel")}
+          className="relative flex shrink-0 gap-2"
+        >
           {images.map((image, index) => (
             <SortableImageItem
               key={image.id}

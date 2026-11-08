@@ -5,7 +5,7 @@
  * @author jikwon
  */
 
-import { ActivityFilterValue } from "@/app/(route)/mypage/activities/_types/ActivityFilterType";
+import { ActivityFilterValue } from "@/app/[locale]/(route)/mypage/activities/_types/ActivityFilterType";
 import {
   CategoryFilterValue,
   FindStatusFilterValue,
@@ -21,8 +21,8 @@ import {
   ReportFilterStatus,
   SimpleSortType,
 } from "@/types";
-import { ReportStatusFilterValue } from "@/app/(route)/mypage/reports/_types/MypageReportsFilterType";
-import { InquiryStatusFilterValue } from "@/app/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
+import { ReportStatusFilterValue } from "@/app/[locale]/(route)/mypage/reports/_types/MypageReportsFilterType";
+import { InquiryStatusFilterValue } from "@/app/[locale]/(route)/mypage/inquiries/_types/MypageInquiriesFilterType";
 
 const CATEGORY_QUERY_VALUE_MAP: Record<CategoryType, string> = {
   ELECTRONICS: "electronics",

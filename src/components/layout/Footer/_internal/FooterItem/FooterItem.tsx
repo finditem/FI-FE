@@ -5,6 +5,8 @@ import { cn } from "@/utils";
 import { FOOTER_ITEM_BASE_STYLE } from "../../_constants/CONST_FOOTER";
 import { Icon } from "@/components/common";
 import LoginRequiredNotice from "../LoginRequiredNotice/LoginRequiredNotice";
+// useFooterNav가 getPathname으로 로케일을 붙인 linkHref를 넘기므로, next-intl Link를 쓰면 접두사가 중복된다.
+// eslint-disable-next-line no-restricted-imports
 import Link from "next/link";
 import type useFooterNav from "../../_hooks/useFooterNav";
 import { useNotificationStore } from "@/store";
@@ -47,12 +49,21 @@ const NotificationDot = ({
 
 const FooterItem = ({ item }: FooterItemProps) => {
   const { hasUnreadNotification, unreadNotificationTypes } = useNotificationStore();
-  const { link, href, isActive, isLoginRequiredDisabled, showLoginRequiredNotice, onClick } = item;
+  const {
+    link,
+    label,
+    href,
+    linkHref,
+    isActive,
+    isLoginRequiredDisabled,
+    showLoginRequiredNotice,
+    onClick,
+  } = item;
   const iconClassName = isActive ? "text-brand-normal-pressed" : "text-labelsVibrant-quaternary";
 
   return (
     <Link
-      href={href}
+      href={linkHref}
       aria-disabled={isLoginRequiredDisabled}
       className={cn(
         FOOTER_ITEM_BASE_STYLE,
@@ -77,7 +88,7 @@ const FooterItem = ({ item }: FooterItemProps) => {
           unreadNotificationTypes={unreadNotificationTypes}
         />
       </div>
-      <span className={cn("py-[2px]", isActive)}>{link.name}</span>
+      <span className={cn("py-[2px]", isActive)}>{label}</span>
       {isLoginRequiredDisabled && showLoginRequiredNotice ? <LoginRequiredNotice /> : null}
     </Link>
   );

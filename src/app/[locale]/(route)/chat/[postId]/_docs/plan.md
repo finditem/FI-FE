@@ -1,0 +1,148 @@
+# chat/[postId] 작업 계획
+
+전체 기획 스펙: [`./spec.md`](./spec.md) (채팅 메시지 번역 — 실패 처리, 횟수 제한, 상태 유지 정책 등),
+[`./manner-temperature-spec.md`](./manner-temperature-spec.md) (매너온도/찾길 온도 — 찾기 완료 →
+후기 작성 유도 → 후기 작성)
+
+## 번역 버튼 로딩 스피너 + 메시지 블러 처리 (피그마 시안 반영)
+
+- [x] ChatBox.tsx: 번역 버튼 로딩 중(`isTranslating`) 아이콘을 `MessageTranslate`에서 `Loading`(animate-spin)으로 교체
+- [x] ExpandableMessageBubble.tsx: `isTranslating` prop 추가, 로딩 중 텍스트에 `blur-sm` 필터 적용 (오버레이 방식은 흰 버블이 배경색과 겹쳐 보여 폐기, 텍스트 직접 블러 처리로 변경)
+- [x] ChatBox.tsx: ExpandableMessageBubble에 `isTranslating` prop 전달
+- [x] `npm run test`, `npm run build` 통과 확인
+
+## 원본보기(번역 완료) 상태 버튼 색상 반영 (피그마 시안 node-id=14407-155678)
+
+- [x] `src/assets/message-translate-active.svg` 추가 — 번역 완료(원본보기) 상태용 아이콘, `icon-manifest.json`에 `MessageTranslateActive`로 등록 후 스프라이트 재생성
+- [x] ChatBox.tsx: `isTranslated`일 때 버튼 배경을 `bg-fill-brand-strong-disabled`(#46c691)로, 아이콘을 `MessageTranslateActive`로 교체 (로딩 중이 아닐 때만)
+- [x] `npm run test`, `npm run build` 통과 확인
+
+## 채팅 번역 스펙 반영 (spec.md, 미착수)
+
+- [x] 번역 실패 케이스 처리: `mockTranslateMessage`에 실패(reject) 분기 추가, `useMessageTranslation`에 try/catch/finally로 실패 시 원문 유지 + `isTranslating` 정상 해제 + 번역 아이콘으로 재시도 가능하게 유지
+- [x] 실패 토스트: 기존 `useToast`(`addToast(message, "error")`) 재사용, `ChatBox.translateError` i18n 키 추가 (ko/en, 3초 노출은 ToastProvider에 이미 고정 구현됨)
+- [x] 번역 횟수 표시 UI: `TranslationUsageBadge` 컴포넌트 추가, "오늘 번역 N/20 사용" 배지를 메시지 목록 하단에 표시 (피그마 node-id=14407-155696). 카운트는 `useChatTranslationUsage`(zustand, 세션 한정 임시 스토어)로 관리하며 번역 성공 시에만 증가
+- [x] 번역 횟수 차감/조회 실제 API 연동 — 아래 "실제 백엔드 번역 API 연동" 섹션으로 통합
+- [x] 횟수 제한 도달 토스트(5-1): 상단 "번역 횟수를 모두 사용했어요.", 하단 "{N}시간 후 다시 사용할 수 있어요. 번역한 메시지는 계속 볼 수 있어요." (N 계산 로직 포함) — 아래 "횟수 제한 도달 바텀 토스트" 섹션에서 구현
+- [ ] 채팅방 재진입 시 번역 상태가 원문으로 초기화되는지 검증 (현재 `useMessageTranslation`이 컴포넌트 로컬 state라 자연히 초기화될 가능성이 높으나 실제 확인 필요)
+- [x] 실제 백엔드 번역 API 연동 — 아래 "실제 백엔드 번역 API 연동" 섹션으로 통합
+
+## 번역 텍스트 "[번역됨]" 접두어 제거 (사용자 요청)
+
+- [x] `mockTranslateMessage.ts`: `translatedPrefix` 파라미터 및 접두어 붙이는 로직 제거
+- [x] `useMessageTranslation.ts`: `mockTranslateMessage` 호출부에서 `t("translatedPrefix")` 인자 제거
+- [x] `ChatBox` 네임스페이스의 `translatedPrefix` 키를 ko.json/en.json에서 제거
+- [x] `npm run test`, `npm run build` 통과 확인
+
+## 횟수 제한 도달 바텀 토스트 (5-1, 피그마 node-id=14407-155822)
+
+- [x] `getTranslationResetHours` 유틸 추가: 현재 시각에서 로컬 자정까지 남은 시간(시간 단위, 최소 1)을 반환. 일일 초기화 정책의 임시 계산이며, 백엔드 이용 이력 연동 시 실제 값으로 교체 예정
+- [x] `useTranslationLimitToast`(zustand, 라우트 로컬) 스토어 추가: `isOpen` + `nonce`(재트리거 시 타이머 리셋용) + `open`/`close`
+- [x] `TranslationLimitToast` 컴포넌트 추가 (`ChatRoomMain/_internal`): `bg-toast` 다크 배경 + 경고 아이콘 + 두 줄(제목/설명) 하단 토스트, `createPortal` + framer-motion, 3초 자동 해제. 시안 문구 사용(제목 "오늘 번역 횟수를 다 썼어요.")
+- [x] `ChatRoomMain.tsx`에 `TranslationLimitToast` 렌더링
+- [x] `useMessageTranslation.ts`: 신규 번역 시도 시 `usedCount >= DAILY_TRANSLATION_LIMIT`이면 번역하지 않고 `open()`으로 토스트 노출(이미 번역된 메시지 재확인은 제한 없이 허용)
+- [x] `TranslationLimitToast` i18n 네임스페이스 키 ko/en 동시 추가 (`title`, `description` with `{hours}`)
+- [x] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, `npm run test`, `npm run build` 통과 확인
+
+## 실제 백엔드 번역 API 연동 (다음 PR)
+
+기존 mock/임시 zustand를 실제 API로 교체한다. `roomVisitId`, `requestId`는 프론트에서 생성해 전달하며(서버가 이 값으로 요청을 구분), `roomVisitId`는 채팅방 입장(마운트)당 1개를 재사용하고 `requestId`는 번역 시도마다 새로 생성한다. 확인된 계약:
+
+- `POST /chats/{roomId}/messages/{messageId}/translations` — 바디 `{ requestId, roomVisitId, targetLanguage }`, 응답 `result: { originalText, translatedText, sourceLanguage, targetLanguage, usedCount, limit }`. 같은 `requestId`를 다른 메시지/입장/언어에 재사용하면 409.
+- `GET /users/me/chat-translation-usage` — 응답 `result: { usedCount, limit, nextAvailableAt }` (매일 자정 Asia/Seoul 초기화)
+- 응답 래퍼는 공통 `ApiBaseResponseType<T>`(`isSuccess`/`code`/`message`/`result`)
+
+### API 훅/타입 (`src/api/fetch/chatMessage/`)
+
+- [x] `types/MessageTranslationRequest.ts`, `types/MessageTranslationResponse.ts`, `types/ChatTranslationUsage.ts` 추가
+- [x] `api/usePostMessageTranslation.ts` — `useAppMutation<MessageTranslationRequest, ApiBaseResponseType<MessageTranslationResponse>>("auth", URL, "post")`. `roomId`/`messageId`는 훅 인자로 URL에 넣고, `mutate`에는 DTO 바디만 전달
+- [x] `api/useGetChatTranslationUsage.ts` — `useAppQuery("auth", ["chatTranslationUsage"], "/users/me/chat-translation-usage")`, `select`로 `result` 언랩
+- [x] chatMessage 도메인은 배럴 `index.ts` 없이 직접 import하는 컨벤션이라 재-export 불필요 (기존 훅들과 동일하게 직접 import)
+
+### roomVisitId / prop 연결
+
+- [x] `roomVisitId` 생성: 채팅방 진입당 1개(`crypto.randomUUID()`, `useState` 초기화로 마운트 시 고정). `page.tsx`에서 생성해 `roomId`와 함께 하위로 전달 (재진입 시 리마운트 → 새 visit)
+- [x] `ChatRoomMain`에 `roomId`, `roomVisitId` prop 추가 → `ChatBox`로 전달 (`messageId`는 `chat.messageId`로 이미 있음)
+
+### useMessageTranslation 교체
+
+- [x] 시그니처를 `{ roomId, messageId, roomVisitId, originalContent }`로 변경, `mockTranslateMessage` 대신 `usePostMessageTranslation` 호출. `isTranslating`은 mutation `isPending`으로 대체
+- [x] `requestId`는 번역 시도마다 `crypto.randomUUID()`, `targetLanguage`는 현재 UI locale(`useLocale()` KO/EN)로 전달 (서버 선호언어로 위임할지 여부는 백엔드/기획 확인 후 조정 가능)
+- [x] 성공 시 `result.translatedText` 반영 + `["chatTranslationUsage"]` 쿼리 무효화
+- [x] 실패 처리: 서버 429(횟수 초과)는 제한 토스트, 그 외 에러는 기존 실패 토스트
+
+### 임시 카운터/목업 제거 및 서버값 반영
+
+- [x] `TranslationUsageBadge`: `useChatTranslationUsage`(zustand) 대신 `useGetChatTranslationUsage`의 `usedCount/limit` 사용 (로딩 전 폴백 20)
+- [x] 제한 도달 판정: 서버 `usedCount >= limit` 기준으로 변경
+- [x] `TranslationLimitToast` 남은 시간: 자정 계산 대신 서버 `nextAvailableAt` 사용 (`getTranslationResetHours`가 ISO 문자열 인자를 받고, 없으면 로컬 자정 폴백)
+- [x] `useChatTranslationUsage`(임시 zustand), `mockTranslateMessage`(및 폴더) 제거
+- [x] `npm run check:i18n-keys`, `npm run test`, `npm run build` 통과 확인
+
+### 범위 밖 / 후속
+
+- `preferred-language`(GET/PATCH) 설정 화면은 이 번역 기능과 별개(서버가 선호언어로 번역)라 이번 PR 범위에서 제외
+- `roomVisitId` 클라이언트 생성 방식은 백엔드 확인 완료(서버가 값으로만 구분)
+
+## 태블릿 사이즈 반영 (feat-chat-detail-tablet, 피그마 mobile node-id=15466-355053 / tablet node-id=15466-344150)
+
+앱 전역이 `max-w-[768px]` 캡이라 태블릿(768px)에서 콘텐츠가 이미 그 폭을 채운다. 모바일(390px) 프레임과
+태블릿(768px) 프레임을 아이콘 실좌표까지 대조한 결과, 세로 간격/말풍선 폭 272/시간 컬럼 44는 모바일=태블릿
+동일하고 실질 델타는 아래 하나다. `tablet:` 브레이크포인트로만 분기해 모바일 렌더링은 불변으로 둔다.
+
+- [x] 번역 버튼(원) ↔ 말풍선 간격: 모바일 10px → 태블릿 18px. `ChatBox` 행(`flex items-end`)에
+      `tablet:gap-2`(8px) 추가 → 컬럼 내부 중앙정렬 여백 10px + 8px = 18px. 발신/수신 양쪽 동일 적용.
+- [x] 메시지 행 반대편 인셋(발신 왼쪽 40 / 수신 오른쪽 40)은 사용자 확인 결과 실제 화면상 차이가 없어
+      이번 범위에서 제외 (Figma 프레임 좌표상으로만 존재, 말풍선이 폭 제한되어 시각 효과 없음)
+- [x] `npm run build` 통과 확인 (변경이 Tailwind className 추가뿐이라 타입/로직 영향 없음, ChatBox 단위 테스트 없음)
+- [x] 신규 정적 텍스트 없음 → i18n 작업 불필요
+
+## 헤더 메뉴에 "차단" 추가 (매너온도 3차 스프린트, 피그마 node-id=16364-160182)
+
+피그마 Kebab Menu 실제 시안은 기존 report/leave 2항목이 아니라 3항목 구성: "분실물 찾기 완료"(게시글
+작성자에게만 노출, 초록) / "차단, 신고하기"(하나의 메뉴 항목) / "채팅방 나가기"(빨강). 사용자 확인 결과:
+"차단, 신고하기" 클릭 시 기존처럼 신고/차단 두 버튼을 담은 작은 시트(`PostReportBlockActions` 재사용)를
+열고, "분실물 찾기 완료"는 이번 범위에 포함(게시글 작성자일 때만 노출, `list/[id]`의 `usePutPostStatus`
+재사용). "분실물 찾기 완료" 확인 모달은 아래 "찾기 완료 확인 모달" 섹션에서 `PostFoundConfirmModal`로
+전역화해서 이 라우트와 `list/[id]` 양쪽에서 공유한다.
+
+- [x] `_types/InfoButtonOptionValue.ts`: `"report" | "leave"` → `"changeToFound" | "reportBlock" | "leave"`
+- [x] `_components/CHATROOM_CONST.ts`: 정적 `INFO_OPTIONS` 배열을 `getInfoOptions(isMine: boolean)` 함수로 변경.
+      `changeToFound`는 `isMine`일 때만 포함, `textColor`에 `text-brand-strongUseThis-default` 추가
+- [x] `_hooks/useInfoOptions/useInfoOptions.ts`: `isMine` 인자를 받아 `getInfoOptions` 호출, `position`을
+      배열 인덱스 기반으로 `first`/`middle`/`last` 동적 계산 (기존엔 2항목 고정이라 first/last만 있었음)
+- [x] `ChatRoomHeaderInfoButton.tsx`:
+  - `postId`, `opponentUserId` prop 추가 (부모 `ChatRoomHeader`가 이미 갖고 있는 값을 그대로 전달)
+  - `useGetDetailPost({ id: postId })`로 `isMine` 조회
+  - `changeToFound` 클릭 → `PostFoundConfirmModal` 오픈
+  - `reportBlock` 클릭 → 기존 드롭다운 자리에 `PostReportBlockActions`(report/block 두 버튼) 서브시트 표시,
+    report 클릭 시 기존 `ReportModal`(targetType="CHAT", targetId=roomId), block 클릭 시 `BlockUserModal`
+    (writerId=opponentUserId)
+  - `leave` 클릭은 기존 `ChatLeaveModal` 흐름 그대로 유지
+- [x] `MenuItem` 라운딩 클래스: `position === "first"`일 때만 `rounded-t`, `"last"`일 때만 `rounded-b`로
+      변경(가운데 항목은 라운딩 없음)
+- [x] 케밥 메뉴 아이콘(체크/신고/나가기)은 Figma API 호출 한도로 정확한 SVG를 받지 못해 이번 범위 제외 —
+      텍스트만 있는 기존 스타일 유지 (아이콘은 아래 "케밥 메뉴 아이콘 반영" 섹션에서 후속으로 완료)
+- [x] `ChatRoomHeader.tsx`: `ChatRoomHeaderInfoButton`에 `postId`, `opponentUserId` prop 전달
+- [x] i18n: `ChatRoomHeaderInfoButton.reportLabel` → `reportBlockLabel`로 키 이름 변경(텍스트는 기존과 동일,
+      이미 "차단, 신고하기"/"Block or report"로 들어가 있었음), `changeToFoundLabel`("분실물 찾기 완료") 신규 추가
+      (ko/en 동시)
+- [x] `ChatRoomHeaderInfoButton.test.tsx` 갱신: `postId`/`opponentUserId` prop 반영, "차단, 신고하기" 클릭 시
+      바로 report-modal이 아니라 서브시트가 열리는 것으로 기대값 수정, block 클릭 플로우 테스트 추가,
+      isMine true/false에 따른 "분실물 찾기 완료" 노출 여부 테스트 추가
+- [x] `ChatRoomHeaderInfoButton.stories.tsx`: 신규 필수 prop 반영
+- [x] `npm run test`, `npm run build`, `npm run check:i18n-keys` 통과 확인
+
+## 케밥 메뉴 아이콘 반영 (매너온도 3차 스프린트)
+
+사용자가 직접 첨부한 SVG(`check-broken.svg`/`chat-report.svg`/`logout.svg`)를 스프라이트에 등록해
+케밥 메뉴 3항목의 텍스트 앞에 아이콘을 붙였다. 세 아이콘 모두 fill이 시안 색(초록/빨강)으로
+하드코딩돼 있어 스프라이트 생성 시 `currentColor` 치환 대상이 아니고, 항목별 텍스트 색과 무관하게
+원래 색 그대로 렌더된다.
+
+- [x] `src/assets/`에 `check-broken.svg`(찾기 완료) / `chat-report.svg`(차단·신고) / `logout.svg`(나가기)
+      추가, `icon-manifest.json`에 `CheckBroken`/`ChatReport`/`Logout`로 등록 후 스프라이트 재생성
+- [x] `CHATROOM_CONST.ts`의 `InfoOption`에 `icon: IconName` 필드 추가, `getInfoOptions`에서 항목별 매핑
+- [x] `ChatRoomHeaderInfoButton.tsx`의 `MenuItem` 버튼을 `flex items-center gap-2`로 바꾸고 라벨 앞에
+      `<Icon name={icon} size={20} />` 렌더
+- [x] `npm run test`(`ChatRoomHeaderInfoButton.test.tsx` 15개), `npm run build` 통과 확인

@@ -1,0 +1,55 @@
+# Dependabot 정기 버전 업데이트 설정이다.
+# 보안 경고에 따른 업데이트는 이 파일과 무관하게 저장소 설정에서 이미 켜져 있고, 여기서는 정기 업데이트만 다룬다.
+#
+# 주의: Dependabot은 CI와 같은 npm 11로 락파일을 만든다. 로컬 npm 10.9.2에서는 그 락파일로
+# npm ci가 실패한 적이 있다(PR #1200, #1202). 머지 전에 로컬 npm ci로 한 번 확인한다.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    open-pull-requests-limit: 5
+    # 게시된 지 7일이 지나지 않은 버전은 올리지 않는다. 악성 릴리스는 대개 며칠 안에 발각되어 내려간다.
+    # 보안 업데이트에는 적용되지 않으므로 취약점 패치는 바로 열린다.
+    cooldown:
+      default-days: 7
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      # 마이너와 패치는 PR 하나로 묶어 리뷰와 CI 실행을 줄인다.
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # 프레임워크 메이저 업그레이드는 마이그레이션 작업이 필요하므로 손으로 올린다.
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Seoul"
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore"
+      include: "scope"

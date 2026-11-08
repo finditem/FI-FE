@@ -2,6 +2,7 @@
 
 import Icon from "../../Icon/Icon";
 import { ReactNode, useState } from "react";
+import { useTranslations } from "next-intl";
 
 /**
  * 댓글 하단에서 답글 목록 펼침과 답글 작성 진입을 한 줄에 두는 컨트롤입니다.
@@ -45,11 +46,12 @@ interface ViewMoreReplyProps {
 const ViewMoreReply = ({
   text,
   onWriteReply,
-  viewMoreAriaLabel = "답글 더보기",
-  writeReplyAriaLabel = "답글 쓰기",
+  viewMoreAriaLabel,
+  writeReplyAriaLabel,
   disabled = false,
   replyComponent,
 }: ViewMoreReplyProps) => {
+  const t = useTranslations("ViewMoreReply");
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -58,7 +60,7 @@ const ViewMoreReply = ({
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="flex items-center gap-1"
-          aria-label={viewMoreAriaLabel}
+          aria-label={viewMoreAriaLabel ?? t("viewMoreAriaLabel")}
           disabled={disabled}
         >
           <span className="text-body1-medium text-brand-normal-default transition-colors duration-150 hover:text-brand-normal-hover active:text-brand-normal-pressed disabled:text-brand-normal-disabled">
@@ -69,10 +71,10 @@ const ViewMoreReply = ({
         <button
           onClick={onWriteReply}
           className="text-body1-medium text-neutral-strong-default transition-colors duration-150 hover:text-black disabled:text-neutral-strong-disabled"
-          aria-label={writeReplyAriaLabel}
+          aria-label={writeReplyAriaLabel ?? t("writeReply")}
           disabled={disabled}
         >
-          답글 쓰기
+          {t("writeReply")}
         </button>
       </div>
       {isOpen && replyComponent}

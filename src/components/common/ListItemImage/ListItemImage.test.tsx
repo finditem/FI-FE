@@ -55,7 +55,7 @@ describe("<ListItemImage />", () => {
 
   it("카테고리 아이콘 래퍼에 aria-label이 설정됩니다.", () => {
     render(<ListItemImage src={null} alt="기본 이미지" size={80} category="BAG" />);
-    expect(screen.getByLabelText("BAG 기본 이미지")).toBeInTheDocument();
+    expect(screen.getByLabelText("가방 기본 이미지")).toBeInTheDocument();
   });
 
   it("imageCount가 2 이상이면 이미지 수 뱃지를 렌더링합니다.", () => {

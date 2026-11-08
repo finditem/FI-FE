@@ -1,13 +1,7 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const POST_ID = 42;
-
-const MOCK_AUTH_REFRESH = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { userId: 1, temporaryPassword: false },
-};
 
 const makeMockPostDetail = (overrides: Record<string, unknown> = {}) => ({
   isSuccess: true,
@@ -30,6 +24,7 @@ const makeMockPostDetail = (overrides: Record<string, unknown> = {}) => ({
     isNew: false,
     isHot: false,
     createdAt: "2024-01-15T12:00:00Z",
+    date: "2025-01-14T09:30:00",
     isMine: true,
     imageResponseList: [],
     postUserInformation: {
@@ -67,29 +62,12 @@ const MOCK_VWORLD_RESPONSE = {
   },
 };
 
-const MOCK_KAKAO_COORD2ADDRESS = {
-  documents: [
-    {
-      address: {
-        address_name: "서울특별시 강남구 역삼동 1",
-        region_2depth_name: "강남구",
-        region_3depth_name: "역삼동",
-      },
-      road_address: {
-        address_name: "서울특별시 강남구 테헤란로 152",
-        region_3depth_name: "역삼동",
-      },
-    },
-  ],
-  meta: { total_count: 1 },
-};
-
 async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string, unknown> = {}) {
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify(MOCK_AUTH_REFRESH),
+      body: JSON.stringify(MOCK_AUTH_REFRESH_RESPONSE),
     })
   );
 
@@ -112,15 +90,7 @@ async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string
     })
   );
 
-  await page.route("https://dapi.kakao.com/v2/local/geo/coord2address.json**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: JSON.stringify(MOCK_KAKAO_COORD2ADDRESS),
-    })
-  );
-
-  await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
+  await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 }
 
 async function changeLocation(page: Page) {
@@ -140,6 +110,10 @@ async function changeLocation(page: Page) {
 }
 
 test.describe("게시글 수정 페이지", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
+  });
+
   test.beforeEach(async ({ context }) => {
     await context.addCookies([
       {
@@ -281,6 +255,10 @@ test.describe("게시글 수정 페이지", () => {
 
     const requestData = JSON.parse(jsonStringMatch![0]);
     expect(requestData.title).toBe("PUT 요청 검증 제목");
+    // 작성 후에는 분실/발견 유형을 바꿀 수 없어 수정 요청에 postType을 싣지 않는다.
+    expect(requestData).not.toHaveProperty("postType");
+    // 타임존 표기가 없는 로컬 날짜·시간이어야 한다.
+    expect(requestData.date).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/);
   });
 
   test("발견 게시글 수정 페이지는 올바른 타이틀을 표시한다", async ({ page }) => {
@@ -304,7 +282,7 @@ test.describe("게시글 수정 페이지", () => {
       route.fulfill({
         status: 200,
         contentType: "application/json",
-        body: JSON.stringify(MOCK_AUTH_REFRESH),
+        body: JSON.stringify(MOCK_AUTH_REFRESH_RESPONSE),
       })
     );
     await page.route(`**/api/posts/${POST_ID}`, (route) =>
@@ -314,7 +292,6 @@ test.describe("게시글 수정 페이지", () => {
         body: JSON.stringify({ isSuccess: false, code: "404", message: "Not Found", result: null }),
       })
     );
-    await page.route("https://dapi.kakao.com/v2/maps/**", (route) => route.abort());
 
     await page.goto(`/write/post/${POST_ID}`);
 

@@ -1,0 +1,288 @@
+import { act, renderHook } from "@testing-library/react";
+import { DEFAULT_MAP_ZOOM } from "@/constants";
+import { useMainNaverMapStore } from "@/store";
+import { clearMainGeoSessionConfirmed } from "@/utils/mainGeoSession";
+import { MAIN_SEARCH_HEADER_ID } from "../../_components/HOME_CONST";
+import { offsetLatLngByPixels } from "../../_utils/mapOffsetUtils";
+import useMyLocationButton from "./useMyLocationButton";
+
+jest.mock("@/store", () => ({
+  useMainNaverMapStore: jest.fn(),
+}));
+
+jest.mock("@/utils/mainGeoSession", () => ({
+  clearMainGeoSessionConfirmed: jest.fn(),
+  hasMainGeoSessionConfirmed: jest.fn(() => false),
+  markMainGeoSessionConfirmed: jest.fn(),
+}));
+
+const mockClearMainGeoSessionConfirmed = jest.mocked(clearMainGeoSessionConfirmed);
+
+const mockUseMainNaverMapStore = useMainNaverMapStore as jest.MockedFunction<
+  typeof useMainNaverMapStore
+>;
+
+const createStoreSlice = () => ({
+  userGpsLatLng: null as { lat: number; lng: number } | null,
+  setLatLng: jest.fn(),
+  setUserGpsFromDevice: jest.fn(),
+  clearLatLng: jest.fn(),
+  triggerZoomReset: jest.fn(),
+  setMapZoom: jest.fn(),
+});
+
+describe("useMyLocationButton", () => {
+  let slice: ReturnType<typeof createStoreSlice>;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+    slice = createStoreSlice();
+    mockUseMainNaverMapStore.mockImplementation(((selector?: (s: typeof slice) => unknown) => {
+      if (typeof selector === "function") {
+        return selector(slice as never);
+      }
+      return slice;
+    }) as typeof useMainNaverMapStore);
+  });
+
+  it("geolocation이 없으면 클릭 시 clearLatLng를 호출한다", async () => {
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: undefined,
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(slice.clearLatLng).toHaveBeenCalled();
+  });
+
+  it("권한이 granted이면 getCurrentPosition으로 위치를 요청한다", async () => {
+    const getCurrentPosition = jest.fn((success: PositionCallback) => {
+      success({
+        coords: { latitude: 37.5, longitude: 127.0 },
+      } as GeolocationPosition);
+    });
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(getCurrentPosition).toHaveBeenCalled();
+    expect(slice.setLatLng).toHaveBeenCalledWith({ lat: 37.5, lng: 127 });
+    expect(slice.setMapZoom).toHaveBeenCalledWith(DEFAULT_MAP_ZOOM);
+  });
+
+  it("권한이 granted이고 추적 중인 위치가 있으면 위치를 새로 요청하지 않고 기본 줌으로 바로 이동한다", async () => {
+    slice.userGpsLatLng = { lat: 37.5, lng: 127.0 };
+    const getCurrentPosition = jest.fn();
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(getCurrentPosition).not.toHaveBeenCalled();
+    expect(slice.setMapZoom).toHaveBeenCalledWith(DEFAULT_MAP_ZOOM);
+    expect(slice.setLatLng).toHaveBeenCalledWith({ lat: 37.5, lng: 127.0 });
+  });
+
+  it("시트 높이와 헤더 하단을 받으면 (시트 높이 - 헤더 하단) / 2만큼 중심을 내려 이동한다", async () => {
+    slice.userGpsLatLng = { lat: 37.5, lng: 127.0 };
+    const header = document.createElement("header");
+    header.id = MAIN_SEARCH_HEADER_ID;
+    header.getBoundingClientRect = () => ({ bottom: 128 }) as DOMRect;
+    document.body.appendChild(header);
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition: jest.fn() },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton(() => 300));
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    header.remove();
+    expect(slice.setLatLng).toHaveBeenCalledWith(
+      offsetLatLngByPixels({ lat: 37.5, lng: 127.0 }, (300 - 128) / 2, DEFAULT_MAP_ZOOM)
+    );
+    expect(slice.setLatLng.mock.calls[0][0].lat).toBeLessThan(37.5);
+  });
+
+  it("getCurrentPosition 실패 시 clearLatLng를 호출하고 세션 초기화는 하지 않는다", async () => {
+    const geoError = {
+      code: 2,
+      message: "unavailable",
+      PERMISSION_DENIED: 1,
+      POSITION_UNAVAILABLE: 2,
+      TIMEOUT: 3,
+    } as GeolocationPositionError;
+
+    const getCurrentPosition = jest.fn(
+      (_success: PositionCallback, error?: PositionErrorCallback) => {
+        error?.(geoError);
+      }
+    );
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(slice.clearLatLng).toHaveBeenCalled();
+    expect(mockClearMainGeoSessionConfirmed).not.toHaveBeenCalled();
+  });
+
+  it("getCurrentPosition이 PERMISSION_DENIED이면 clearLatLng와 세션 초기화를 호출한다", async () => {
+    const geoError = {
+      code: 1,
+      message: "denied",
+      PERMISSION_DENIED: 1,
+      POSITION_UNAVAILABLE: 2,
+      TIMEOUT: 3,
+    } as GeolocationPositionError;
+
+    const getCurrentPosition = jest.fn(
+      (_success: PositionCallback, error?: PositionErrorCallback) => {
+        error?.(geoError);
+      }
+    );
+
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "granted" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(slice.clearLatLng).toHaveBeenCalled();
+    expect(mockClearMainGeoSessionConfirmed).toHaveBeenCalled();
+  });
+
+  it("권한이 denied이면 위치 권한 시트를 연다", async () => {
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition: jest.fn() },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "denied" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    expect(result.current.isLocationPermissionSheetOpen).toBe(true);
+  });
+
+  it("closeLocationPermissionSheet로 시트 상태를 끈다", async () => {
+    Object.defineProperty(navigator, "geolocation", {
+      configurable: true,
+      writable: true,
+      value: { getCurrentPosition: jest.fn() },
+    });
+
+    Object.defineProperty(navigator, "permissions", {
+      configurable: true,
+      writable: true,
+      value: {
+        query: jest.fn().mockResolvedValue({ state: "denied" }),
+      },
+    });
+
+    const { result } = renderHook(() => useMyLocationButton());
+
+    await act(async () => {
+      await result.current.handleMyLocationClick();
+    });
+
+    act(() => {
+      result.current.closeLocationPermissionSheet();
+    });
+
+    expect(result.current.isLocationPermissionSheetOpen).toBe(false);
+  });
+});

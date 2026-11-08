@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "@/components/common";
 
 /**
@@ -25,11 +26,13 @@ interface PostReportBlockActionsProps {
  */
 
 const PostReportBlockActions = ({ onOpenReport, onOpenBlock }: PostReportBlockActionsProps) => {
+  const t = useTranslations("PostReportBlockActions");
+
   return (
     <>
       <ActionButton
         icon={<Icon name="UserReport" size={18} />}
-        label="게시글 신고하기"
+        label={t("reportPost")}
         onClick={onOpenReport}
         testId="post-report-button"
       />
@@ -38,7 +41,7 @@ const PostReportBlockActions = ({ onOpenReport, onOpenBlock }: PostReportBlockAc
 
       <ActionButton
         icon={<Icon name="UserBlock" size={20} />}
-        label="작성자 차단하기"
+        label={t("blockAuthor")}
         onClick={onOpenBlock}
         testId="post-block-button"
       />

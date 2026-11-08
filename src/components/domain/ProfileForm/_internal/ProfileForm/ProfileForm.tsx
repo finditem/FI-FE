@@ -2,6 +2,7 @@
 "use no memo";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { useFormContext } from "react-hook-form";
 import { UsersMeType } from "@/api/fetch/user/types/UserMeType";
 import { Icon, InputText, KebabMenu, ProfileAvatar } from "@/components/common";
@@ -19,6 +20,7 @@ interface ProfileFormProps {
 }
 
 const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
+  const t = useTranslations("ProfileForm");
   const { nickname, profileImg } = user ?? {};
 
   const [openModal, setOpenModal] = useState(false);
@@ -67,10 +69,10 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
       <div className="flex-1">
         <div className="flex justify-center py-[30px]">
           <div ref={ref} className="relative z-10 h-[80px] w-[80px]">
-            <ProfileAvatar size={80} src={previewImgUrl} alt="프로필" priority={true} />
+            <ProfileAvatar size={80} src={previewImgUrl} alt={t("profileAlt")} priority={true} />
             <button
               className="absolute left-[52px] top-[52px] size-7 rounded-full bg-fill-neutral-strong-default flex-center"
-              aria-label="프로필 이미지 변경 버튼"
+              aria-label={t("changePhotoAriaLabel")}
               onClick={() => setOpenKebabMenu((prev) => !prev)}
               type="button"
             >
@@ -81,9 +83,9 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
             {openKebabMenu && (
               <KebabMenu
                 items={[
-                  { text: "내 앨범에서 선택", onClick: handleButtonClick, type: "button" },
+                  { text: t("chooseFromAlbum"), onClick: handleButtonClick, type: "button" },
                   {
-                    text: "프로필 이미지 삭제",
+                    text: t("deletePhoto"),
                     textColor: "text-system-warning",
                     onClick: handleDeleteImage,
                     type: "button",
@@ -115,7 +117,7 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
                 maxLength: 10,
                 pattern: {
                   value: /^[^\s]+$/,
-                  message: "공백은 포함할 수 없어요.",
+                  message: t("noSpacesError"),
                 },
               },
               onKeyDown: (e) => {
@@ -123,17 +125,17 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
                 if (e.key === "Enter") e.preventDefault();
               },
             }}
-            label="닉네임"
+            label={t("nickname")}
             btnOption={{
-              btnLabel: "중복 확인",
+              btnLabel: t("checkDuplicate"),
               onClick: () => {
                 handleClickNickname("nickname");
               },
             }}
             caption={{
-              rule: "2~10자, 특수문자/금칙어 제한",
+              rule: t("nicknameRule"),
               isSuccess: isNicknameVerified,
-              successMessage: "사용할 수 있는 닉네임이에요",
+              successMessage: t("nicknameAvailable"),
             }}
           />
         </div>
@@ -146,7 +148,7 @@ const ProfileForm = ({ user, onConfirmRequest }: ProfileFormProps) => {
         disabled={!canSubmit || isPending}
         onClick={handleSubmitMypageProfile}
       >
-        설정 완료
+        {t("submit")}
       </FooterButton>
     </form>
   );
