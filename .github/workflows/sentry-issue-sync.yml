@@ -1,0 +1,60 @@
+# sentry 라벨이 붙은 GitHub 이슈를 사람이 닫거나 다시 열면 Sentry 이슈 상태를 같이 바꾼다.
+# 반대 방향(Sentry -> GitHub)은 src/app/api/sentry/webhook 라우트가 맡는다.
+#
+# 필요한 설정: 저장소 secret SENTRY_API_TOKEN (Sentry 내부 통합 토큰, event:write 권한).
+# 등록하지 않으면 아무것도 하지 않고 성공으로 끝난다.
+name: Sentry issue sync
+on:
+  issues:
+    types: [closed, reopened]
+
+permissions:
+  issues: read
+
+jobs:
+  sync:
+    # 웹훅 라우트가 봇 계정으로 바꾼 상태를 다시 Sentry로 보내면 순환하므로 사람이 바꾼 경우만 처리한다.
+    if: contains(github.event.issue.labels.*.name, 'sentry') && github.event.sender.type != 'Bot'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Sentry issue status
+        env:
+          SENTRY_API_TOKEN: ${{ secrets.SENTRY_API_TOKEN }}
+          SENTRY_ORG_SLUG: finditem
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ACTION: ${{ github.event.action }}
+          STATE_REASON: ${{ github.event.issue.state_reason }}
+        run: |
+          if [ -z "$SENTRY_API_TOKEN" ]; then
+            echo "::notice::SENTRY_API_TOKEN이 없어 Sentry 상태 동기화를 건너뜁니다."
+            exit 0
+          fi
+
+          # 숨김 표식(buildSentryIssueMarker)을 먼저 보고, 표식이 없던 예전 이슈는 Sentry 링크 경로에서 ID를 읽는다.
+          ISSUE_ID=$(printf '%s' "$ISSUE_BODY" | grep -oE 'sentry-issue-id: [0-9]+' | head -1 | grep -oE '[0-9]+' || true)
+          if [ -z "$ISSUE_ID" ]; then
+            ISSUE_ID=$(printf '%s' "$ISSUE_BODY" | grep -oE '/issues/[0-9]+/' | head -1 | grep -oE '[0-9]+' || true)
+          fi
+          if [ -z "$ISSUE_ID" ]; then
+            echo "::notice::본문에서 Sentry 이슈 ID를 찾지 못해 건너뜁니다."
+            exit 0
+          fi
+
+          if [ "$ACTION" = "reopened" ]; then
+            STATUS=unresolved
+          elif [ "$STATE_REASON" = "not_planned" ]; then
+            STATUS=ignored
+          elif [ "$STATE_REASON" = "duplicate" ]; then
+            # 중복으로 닫은 이슈는 원본 이슈가 같은 Sentry 이슈를 가리키므로 Sentry를 해결 처리하지 않는다.
+            echo "::notice::중복으로 닫힌 이슈라 Sentry 상태를 바꾸지 않습니다."
+            exit 0
+          else
+            STATUS=resolved
+          fi
+
+          echo "Sentry 이슈 $ISSUE_ID 상태를 $STATUS(으)로 변경합니다."
+          curl --silent --show-error --fail-with-body -X PUT \
+            "https://sentry.io/api/0/organizations/${SENTRY_ORG_SLUG}/issues/${ISSUE_ID}/" \
+            -H "Authorization: Bearer ${SENTRY_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d "{\"status\":\"${STATUS}\"}" > /dev/null

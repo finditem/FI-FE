@@ -242,7 +242,8 @@ test.describe("게시글 상세 페이지", () => {
     await page.goto(`/list/${POST_ID}`);
 
     await page.getByTestId("post-detail-favorite-button").click();
-    await expect(favoriteCalled).toBe(true);
+    /* 요청은 클릭 이후 비동기로 나가므로 route 핸들러가 실행될 때까지 기다린다 */
+    await expect.poll(() => favoriteCalled).toBe(true);
   });
 
   test("로그인 상태에서 즐겨찾기를 제거할 수 있다", async ({ context, page }) => {
@@ -263,7 +264,7 @@ test.describe("게시글 상세 페이지", () => {
 
     await page.goto(`/list/${POST_ID}`);
     await page.getByTestId("post-detail-favorite-button").click();
-    await expect(deleteCalledMethod).toBe("DELETE");
+    await expect.poll(() => deleteCalledMethod).toBe("DELETE");
   });
 
   test("본인 게시글에서 메뉴를 열면 수정·삭제·상태변경 항목이 표시된다", async ({

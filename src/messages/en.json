@@ -3,7 +3,8 @@
     "title": "Find lost items near you, finditem!",
     "titleTemplate": "%s | finditem!",
     "description": "The fastest, easiest lost-and-found center. From police lost-and-found reports to items nearby, check them all on the map!",
-    "ogAlt": "finditem!"
+    "ogAlt": "finditem!",
+    "siteName": "finditem!"
   },
   "Home": {
     "defaultTitle": "Find lost items near you",
@@ -691,8 +692,8 @@
     "foundLabel": "Found",
     "defaultPlace": "To be updated",
     "defaultSummary": "Check out the details.",
-    "metaTitleTemplate": "{title} {postType} | {place} | Finditem! Police Lost & Found",
-    "fallbackTitle": "Item detail | Finditem! Police Lost & Found",
+    "metaTitleTemplate": "{title} {postType} | {place} | finditem! Police Lost & Found",
+    "fallbackTitle": "Item detail | finditem! Police Lost & Found",
     "fallbackDescription": "Check out lost item info linked from the police."
   },
   "PublicDataSearchPage": {
@@ -844,7 +845,7 @@
     "postTypeLost": "Lost",
     "postTypeFound": "Found",
     "defaultItemName": "Item",
-    "titleTemplate": "{title} | {address} | Finditem {postType}",
+    "titleTemplate": "{title} | {address} | finditem! {postType}",
     "defaultDescription": "List detail",
     "defaultAddress": "Address"
   },

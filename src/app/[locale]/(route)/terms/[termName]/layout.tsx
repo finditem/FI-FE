@@ -4,7 +4,7 @@ import { TERM_CONTENTS } from "@/components/domain/Terms/_constants/TERM_CONTENT
 
 interface LayoutProps {
   children: ReactNode;
-  params: Promise<{ termName: string }>;
+  params: Promise<{ locale: string; termName: string }>;
 }
 
 const TERM_HEADER_BY_ROUTE_PARAM: Record<string, string> = {
@@ -19,12 +19,14 @@ export async function generateMetadata({
 }: {
   params: LayoutProps["params"];
 }): Promise<Metadata> {
-  const { termName } = await params;
+  const { locale, termName } = await params;
   const termHeader = TERM_HEADER_BY_ROUTE_PARAM[termName] ?? "이용 약관";
 
   return {
     title: termHeader,
     description: `찾아줘 서비스의 ${termHeader} 내용을 확인해 보세요.`,
+    // 약관 본문이 한국어만 있어 영어 경로는 번역 전까지 색인에서 제외한다.
+    ...(locale !== "ko" && { robots: { index: false } }),
     other: { "page-type": "terms" },
   };
 }

@@ -135,7 +135,9 @@ jest.mock("@/components/domain", () => ({
     isOpen ? <div data-testid="found-confirm-modal">Found Confirm Modal</div> : null,
 }));
 
-const mockUseGetDetailPost = jest.fn(() => ({ data: { result: { isMine: false } } }));
+const mockUseGetDetailPost = jest.fn((..._args: unknown[]) => ({
+  data: { result: { isMine: false } },
+}));
 
 jest.mock("@/api/fetch/post", () => ({
   useGetDetailPost: (...args: any[]) => mockUseGetDetailPost(...args),

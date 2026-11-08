@@ -12,9 +12,12 @@ const buildLocalizedEntry = (
   url: `${baseUrl}${getPathname({ locale: routing.defaultLocale, href })}`,
   ...rest,
   alternates: {
-    languages: Object.fromEntries(
-      routing.locales.map((locale) => [locale, `${baseUrl}${getPathname({ locale, href })}`])
-    ),
+    languages: {
+      ...Object.fromEntries(
+        routing.locales.map((locale) => [locale, `${baseUrl}${getPathname({ locale, href })}`])
+      ),
+      "x-default": `${baseUrl}${getPathname({ locale: routing.defaultLocale, href })}`,
+    },
   },
 });
 
@@ -23,7 +26,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.finditem.kr";
 
   // 기본 정적 라우트
-  const routes = ["", "/list", "/hello", "/notice", "/public-data"].map((route) =>
+  // 홈은 ""가 아니라 "/"로 넘겨야 getPathname이 en 접두사를 붙여 대체 링크가 /en을 가리킨다.
+  const routes = ["/", "/list", "/hello", "/notice", "/public-data"].map((route) =>
     buildLocalizedEntry(baseUrl, route, {
       lastModified: new Date(),
       changeFrequency: "daily" as const,
