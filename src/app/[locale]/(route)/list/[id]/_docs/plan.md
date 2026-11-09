@@ -98,3 +98,15 @@ clear → 플랩. 콘텐츠가 live 쿼리 캐시에 결합돼 있어 생기는 
 - [x] churn 가드: auth 코어(authSession/인터셉터)를 건드리지 않고, churn 트리거인 `useGetPreferredLanguage` 조회를 실제 필요 조건(`isLoggedIn && locale === "en"`)으로 좁혀, ko 로그인 페이지에서 쓰지도 않을 authed 요청이 나가 세션 종료→clear로 이어지는 경로를 원천 차단한다. (preferred-language는 ClientDetail과 mypage 언어설정에서만 쓰여 blast radius 없음)
 - [x] `npm run test`(276 suites/1640 통과), `npm run build`(타입체크 포함, 성공)로 로컬 회귀 확인. e2e(post-detail.spec 로그인 6건)는 CI로 확인.
 - [ ] 같은 방식을 PR3b(notice/[id])·PR3c(public-data)에 동일 적용(별도 브랜치 작업).
+
+## 게시글 상세 "찾았어요" 상태 변경 모달 제거 (사용자 요청)
+
+게시글 상세 메뉴에서 "찾았어요"(SEARCHING → FOUND)를 누르면 뜨던 `PostFoundConfirmModal`(후기 유도
+모달)을 제거한다. 게시글 상세에는 후기 대상 채팅방(roomId)이 없어 후기 작성 페이지로 넘길 수 없으므로,
+확인 모달 없이 즉시 상태만 바꾸고 성공 토스트만 띄운다. `PostFoundConfirmModal` 컴포넌트 자체는 채팅
+라우트(`ChatRoomHeaderInfoButton`)에서 그대로 쓰므로 삭제하지 않는다.
+
+- [x] `PostActionMenu.tsx`: `handleStatusChange`를 방향 무관하게 `putPostStatus({ postStatus })` 즉시
+      호출로 단순화하고, `PostFoundConfirmModal` import/state(`foundConfirmOpen`)/렌더를 제거한다.
+      (`usePutPostStatus`가 기본으로 성공 토스트를 띄움)
+- [x] 타입체크로 회귀 확인 (변경 파일 무에러, Sentry 관련 에러는 develop 사전 존재 이슈)
