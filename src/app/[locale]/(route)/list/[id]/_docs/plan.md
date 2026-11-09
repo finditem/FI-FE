@@ -82,21 +82,24 @@ SEO 점검보고서 H1(상세 본문이 서버 HTML에 없음)·H2(없는 게시
 
 참고: 이 브랜치는 서버 MSW 인프라(`chore/e2e-server-msw`) 위에 스택으로 쌓았다. e2e에서 SSR 프리패치(`${API}/posts/:id`)가 서버 MSW로 가로채져 결정적으로 유효한 게시글을 반환하므로, dev-api 상태와 무관하게 notFound로 빠지지 않는다.
 
-## SEO PR3a 블로커 해결: initialData 분리(D) + churn 가드
+## SEO PR3a 블로커 해결: churn 가드 (initialData 접근은 철회)
 
 로그인 e2e 6건이 "element detached from DOM"으로 깨지는 루트 원인: 로그인 시 미목킹 authed 호출
 (`/users/me/preferred-language` 등)이 401 → refresh 실패 경로로 `expireSession()` → `queryClient.clear()`를
 부르고, SSR 하이드레이트된 `["post-detail", id]` 캐시가 비워지면 `ClientDetail.shouldShowSkeleton`이
 true로 뒤집혀 article 전체가 스켈레톤으로 리마운트 → `refetchOnMount:"always"`가 즉시 재조회 → 다시
-clear → 플랩. 콘텐츠가 live 쿼리 캐시에 결합돼 있어 생기는 문제라, (1) 서버 프리패치 결과를 initialData로
-시드해 clear가 나도 콘텐츠가 안 무너지게 하고(D), (2) 비핵심 배경 쿼리 실패가 세션 전체를 끝내지 않도록
-범위를 좁힌 churn 가드를 더한다.
+clear → 플랩.
 
-- [x] `page.tsx`: 프리패치한 `prefetched`(GetDetailPostResponse)를 `ClientDetail`에 `initialPost` prop으로 내린다.
-- [x] `useGetDetailPost`: `initialData`를 받아 `useAppQuery`에 전달한다. clear 후에도 initialData로 재시드돼 `data`가 undefined가 되지 않게 한다.
-- [x] `ClientDetail`: `initialPost`를 받아 `useGetDetailPost`에 넘기고, `shouldShowSkeleton`에서 `isLoading`/`isError` 독립 트리거를 제거해 `data?.result`가 있으면(= initialData로 항상 시드) 배경 재조회/clear 중에도 스켈레톤으로 붕괴하지 않게 한다.
-- [x] churn 가드: auth 코어(authSession/인터셉터)를 건드리지 않고, churn 트리거인 `useGetPreferredLanguage` 조회를 실제 필요 조건(`isLoggedIn && locale === "en"`)으로 좁혀, ko 로그인 페이지에서 쓰지도 않을 authed 요청이 나가 세션 종료→clear로 이어지는 경로를 원천 차단한다. (preferred-language는 ClientDetail과 mypage 언어설정에서만 쓰여 blast radius 없음)
-- [x] `npm run test`(276 suites/1640 통과), `npm run build`(타입체크 포함, 성공)로 로컬 회귀 확인. e2e(post-detail.spec 로그인 6건)는 CI로 확인.
+처음엔 (1) 서버 프리패치 결과를 `initialData`로 시드(D) + (2) churn 가드를 함께 적용했으나, `initialData`를
+`HydrationBoundary`로 이미 하이드레이트되는 쿼리에 중복으로 얹자 상세 페이지가 클라이언트에서 크래시
+("Application error: a client-side exception")해 통과하던 익명 테스트까지 깨졌다(CI `fe45d57b`: 9 fail,
+직전 `5e450a60`: 6 fail·크래시 없음). 로그인 6건의 실제 원인은 churn이므로 `initialData`(D)는 철회하고
+churn 가드만 남긴다.
+
+- [x] `page.tsx`·`useGetDetailPost`·`ClientDetail`을 크래시 직전(`5e450a60`) 상태로 복원해 `initialData` 관련 변경을 전부 제거한다.
+- [x] churn 가드: churn 트리거인 `useGetPreferredLanguage` 조회를 실제 필요 조건(`isLoggedIn && locale === "en"`)으로 좁혀, ko 로그인 페이지에서 쓰지도 않을 authed 요청이 나가 세션 종료→clear로 이어지는 경로를 원천 차단한다. auth 코어(authSession/인터셉터)는 건드리지 않는다. (preferred-language는 ClientDetail과 mypage 언어설정에서만 쓰여 blast radius 없음)
+- [x] `npm run test`(276 suites/1640 통과), `npm run build`(타입체크 포함, 성공)로 로컬 회귀 확인.
+- [ ] e2e(post-detail.spec 로그인 6건 + 익명 3건)가 CI에서 녹색인지 확인.
 - [ ] 같은 방식을 PR3b(notice/[id])·PR3c(public-data)에 동일 적용(별도 브랜치 작업).
 
 ## 게시글 상세 "찾았어요" 상태 변경 모달 제거 (사용자 요청)

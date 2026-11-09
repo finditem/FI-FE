@@ -87,7 +87,7 @@ const page = async ({ params }: ListDetailProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ClientDetail id={postId.data} isLoggedIn={isLoggedIn} initialPost={prefetched} />
+      <ClientDetail id={postId.data} isLoggedIn={isLoggedIn} />
     </HydrationBoundary>
   );
 };

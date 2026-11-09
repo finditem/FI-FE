@@ -8,7 +8,6 @@ import { useWriteFlowStore } from "@/store";
 import { CommentList, AddToHomeScreenPWA } from "@/components";
 import { ErrorBoundary } from "@/app/ErrorBoundary";
 import { useGetDetailPost, useGetPostTranslation } from "@/api/fetch/post";
-import { GetDetailPostResponse } from "@/api/fetch/post/types/PostDetailType";
 import { useGetPreferredLanguage } from "@/api/fetch/user";
 import {
   useDeleteComment,
@@ -27,23 +26,19 @@ import ManualPopup from "@/app/[locale]/(route)/manual/_components/ManualPopup/M
 interface ClientDetailProps {
   id: number;
   isLoggedIn: boolean;
-  /**
-   * 서버에서 프리패치한 상세 응답. 쿼리를 시드해 세션 종료로 캐시가 비워져도 본문을 유지합니다.
-   * @author suhyeon
-   */
-  initialPost?: GetDetailPostResponse;
 }
 
-const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
+const ClientDetail = ({ id, isLoggedIn }: ClientDetailProps) => {
   const t = useTranslations("ClientDetail");
   const locale = useLocale();
   const { addToast } = useToast();
   const { showPrompt, incrementViewCount, closePrompt } = useAddToHomeScreen();
   const { showManualPopup, setShowManualPopup } = useWriteFlowStore();
 
-  const { data, isError } = useGetDetailPost({ id, initialData: initialPost });
+  const { data, isLoading, isError } = useGetDetailPost({ id });
   // 번역 선호 언어는 영어 로케일에서만 사용한다. 한국어 로그인 사용자에게까지 조회하면 쓰지도 않을
-  // 인증 요청이 나가고, 그 요청이 실패하면 세션 종료로 이어져 캐시가 비워지므로 조건을 좁힌다.
+  // 인증 요청이 나가고, 그 요청이 실패하면 세션 종료로 이어져 캐시가 비워지며 상세 트리가 스켈레톤과
+  // 본문 사이를 반복 리마운트한다. 실제 필요한 조건으로 좁혀 이 churn을 원천 차단한다.
   const { data: preferredLanguageData, isLoading: isPreferredLanguageLoading } =
     useGetPreferredLanguage(isLoggedIn && locale === "en");
   const shouldTranslate =
@@ -64,10 +59,10 @@ const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
   }, [isError, addToast, t]);
 
   useEffect(() => {
-    if (data?.result) {
+    if (!isLoading && data?.result) {
       incrementViewCount();
     }
-  }, [data, incrementViewCount]);
+  }, [isLoading, data, incrementViewCount]);
 
   useEffect(() => {
     if (sessionStorage.getItem("showManualPopup") === "true") {
@@ -76,14 +71,13 @@ const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
     }
   }, [setShowManualPopup]);
 
-  // 본문은 서버 프리패치(initialData)로 항상 시드돼 있어, 배경 재조회가 돌거나 세션 종료로
-  // 캐시가 비워져도 data.result가 유지되는 한 스켈레톤으로 무너지지 않는다. 영어 번역 판정 중에만
-  // 잠시 스켈레톤을 노출한다.
   const shouldShowSkeleton =
+    isLoading ||
+    isError ||
     !data?.result ||
     (locale === "en" && isLoggedIn && isPreferredLanguageLoading) ||
     (shouldTranslate && isTranslationLoading);
-  const isErrorState = !data?.result && isError;
+  const isErrorState = !isLoading && (isError || !data?.result);
 
   if (shouldShowSkeleton) {
     return (
