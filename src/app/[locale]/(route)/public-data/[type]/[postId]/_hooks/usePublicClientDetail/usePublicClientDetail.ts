@@ -64,7 +64,8 @@ export const usePublicClientDetail = (id: string, initialItem?: PublicDataItem) 
 
   return {
     isLoading: false,
-    isError: false,
+    // 서버 데이터로 본문을 그린 상태에서도 클라이언트 조회가 실패하면 호출부가 알릴 수 있게 그대로 전달한다.
+    isError,
     detailData: {
       isLost,
       headerData,

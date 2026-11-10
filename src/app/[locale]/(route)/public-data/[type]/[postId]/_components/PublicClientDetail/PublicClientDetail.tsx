@@ -34,8 +34,8 @@ const PublicClientDetail = ({ id, initialItem }: PublicClientDetailProps) => {
     }
   }, [isError, addToast, t]);
 
-  if (isLoading) return <PublicDetailSkeleton />;
-  if (isError || !detailData) return <PublicDetailSkeleton isError />;
+  // 서버 데이터가 있으면 클라이언트 조회가 실패해도 본문은 유지하고 토스트로만 알린다.
+  if (!detailData) return <PublicDetailSkeleton isError={!isLoading && isError} />;
 
   const { isLost, headerData, itemData, title, content, place, office, tel, imageSrc } = detailData;
 
