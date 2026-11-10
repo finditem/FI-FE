@@ -104,6 +104,9 @@ const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
         content: translatedPost.translatedContent || post.content,
       }
     : post;
+  // 로그인 사용자는 클라이언트 조회 결과가 와야 내 글 여부와 즐겨찾기 상태가 확정된다. 비로그인 사용자는
+  // 서버의 익명 데이터가 곧 자신의 값이다.
+  const isPersonalized = !isLoggedIn || Boolean(livePost);
   const similarTitle = post.postType === "LOST" ? t("similarReportTitle") : t("similarLostTitle");
 
   return (
@@ -129,7 +132,7 @@ const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
       </h1>
 
       <article className="flex flex-col h-base">
-        <PostDetail data={postDetailData} />
+        <PostDetail data={postDetailData} isPersonalized={isPersonalized} />
 
         {/* 댓글·유사 게시글·댓글 입력은 색인 대상이 아니고 인증 상태에 기대므로, 기존과 같이
             클라이언트 조회가 끝난 뒤에 렌더한다. */}

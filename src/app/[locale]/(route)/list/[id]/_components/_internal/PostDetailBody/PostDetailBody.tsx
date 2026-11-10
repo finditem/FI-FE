@@ -10,9 +10,11 @@ import { useFormatPostDate } from "../../../_hooks/useFormatPostDate/useFormatPo
 
 interface PostDetailBodyProps {
   data: PostDetailData;
+  /** `false`면 `favoriteStatus`가 확정되지 않은 상태라 즐겨찾기 버튼을 비활성화합니다. (default: true) */
+  isPersonalized?: boolean;
 }
 
-const PostDetailBody = ({ data }: PostDetailBodyProps) => {
+const PostDetailBody = ({ data, isPersonalized = true }: PostDetailBodyProps) => {
   const t = useTranslations("PostDetailBody");
   const locale = useLocale();
   const { title, content, favoriteCount, postStatus, category, createdAt, viewCount } = data;
@@ -55,7 +57,7 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
             <button
               type="button"
               className="flex items-center gap-1"
-              disabled={isPending}
+              disabled={isPending || !isPersonalized}
               onClick={() => handleToggleFavorite(data.favoriteStatus)}
             >
               <Icon
