@@ -1,18 +1,32 @@
 import { useParams } from "next/navigation";
 import { PublicDataTabType } from "@/app/[locale]/(route)/public-data/_types/PublicDataTabType";
+import type { PublicDataItem } from "@/types";
 import { usePublicDataDetailQuery } from "../usePublicDataDetailQuery/usePublicDataDetailQuery";
 
-export const usePublicClientDetail = (id: string) => {
+/**
+ * 경찰청 유실물 상세 화면에 필요한 값을 조회 결과에서 가공해 돌려줍니다.
+ *
+ * @remarks
+ * - `initialItem`(서버 조회 결과)이 있으면 클라이언트 조회를 기다리지 않고 그 값으로 바로 가공합니다.
+ *   클라이언트 조회 결과가 오면 그 값을 우선합니다.
+ *
+ * @param id - 포털 관리번호
+ * @param initialItem - 서버에서 미리 조회한 항목
+ *
+ * @author suhyeon
+ */
+export const usePublicClientDetail = (id: string, initialItem?: PublicDataItem) => {
   const { type } = useParams();
   const tabType = (type === "lost" ? "lost" : "found") as PublicDataTabType;
   const isLost = tabType === "lost";
 
   const { data, isLoading, isError } = usePublicDataDetailQuery(id, tabType);
 
-  const itemData = Array.isArray(data) ? data[0] : data;
+  // 서버 데이터는 캐시에 넣지 않고 인자로만 받는다. 클라이언트 조회 결과가 있으면 그것을 우선한다.
+  const itemData = (Array.isArray(data) ? data[0] : data) ?? initialItem;
 
-  if (isLoading || isError || !itemData) {
-    return { isLoading, isError: isError || (!isLoading && !itemData), detailData: null };
+  if (!itemData) {
+    return { isLoading, isError: isError || !isLoading, detailData: null };
   }
 
   const imageSrc =
@@ -49,8 +63,8 @@ export const usePublicClientDetail = (id: string) => {
   };
 
   return {
-    isLoading,
-    isError,
+    isLoading: false,
+    isError: false,
     detailData: {
       isLost,
       headerData,

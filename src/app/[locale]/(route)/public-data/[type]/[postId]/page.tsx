@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { PublicClientDetail } from "./_components";
+import { getPublicDetailOnServer } from "./_utils/getPublicDetailOnServer/getPublicDetailOnServer";
 
 interface PublicDataDetailProps {
   params: Promise<{ type: string; postId: string }>;
@@ -73,9 +75,21 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
 }
 
 const page = async ({ params }: PublicDataDetailProps) => {
-  const { postId } = await params;
+  const { type, postId } = await params;
 
-  return <PublicClientDetail id={postId} />;
+  // 기존에는 lost가 아닌 type을 모두 found로 처리했다. 그 밖의 type과 존재하지 않는 항목은
+  // 200 soft 404 대신 실제 404로 응답한다.
+  if (type !== "lost" && type !== "found") notFound();
+
+  const detailResult = await getPublicDetailOnServer(type, postId);
+  if (detailResult.status === "notFound") notFound();
+
+  return (
+    <PublicClientDetail
+      id={postId}
+      initialItem={detailResult.status === "found" ? detailResult.item : undefined}
+    />
+  );
 };
 
 export default page;
