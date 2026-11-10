@@ -93,7 +93,8 @@
 - [x] `PostDetailBody`: 경과 시간 라벨은 서버와 클라이언트 렌더 시각 차이로 달라질 수 있어 hydration 경고를 억제한다.
 - [x] `ImageSection`: early return 앞으로 hook을 옮겨, 이미지 개수가 0장과 그 이상 사이로 바뀔 때 hook 개수 불일치로 크래시하던 문제를 고친다.
 - [x] `npm run test`(276 suites / 1640 통과), `npm run build` 통과. `next start`로 서버 HTML에 제목·본문 h1이 실리고 `/list/99999999`가 404를 주는 것을 확인했다.
-- [ ] e2e(post-detail.spec 익명·로그인 전체)가 CI에서 녹색인지 확인한다.
+- [x] e2e(post-detail.spec 익명·로그인 전체)가 CI에서 녹색인지 확인한다. (PR #1413, Playwright 99/99 통과)
       로컬(dev 서버, 워커 1개)에서는 10건 중 8건 통과. 로그인 즐겨찾기 추가·제거 2건은 develop에서도 똑같이
       실패하는 기존 문제로, `/users/me` 조회가 끝나기 전에 클릭해 게스트 로그인 모달이 뜨는 경쟁 조건이다.
-- [ ] 같은 방식을 PR3b(notice/[id])·PR3c(public-data)에 적용한다(별도 브랜치).
+- [x] Codex 리뷰 반영: 로그인 사용자의 클라이언트 조회 전에는 본문 즐겨찾기·채팅 버튼을 비활성화한다(`isPersonalized`).
+- [x] 같은 방식을 PR3b(notice/[id])·PR3c(public-data)에 적용한다(`feature/seo-ssr-notice-detail-rsc`, `feature/seo-ssr-public-detail-rsc`).
