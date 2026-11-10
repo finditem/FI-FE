@@ -33,7 +33,10 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
           <h1 className="text-[20px] font-semibold text-layout-header-default">{title}</h1>
           <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
             <span>{t("registeredLabel")}</span>{" "}
-            <span className="text-body2-semibold">{formatPostDate(createdAt)}</span>
+            {/* 경과 시간 라벨은 서버 렌더 시각과 hydration 시각이 경계(분·시간)를 넘으면 달라질 수 있어 경고를 억제한다. */}
+            <span className="text-body2-semibold" suppressHydrationWarning>
+              {formatPostDate(createdAt)}
+            </span>
           </time>
         </div>
 
