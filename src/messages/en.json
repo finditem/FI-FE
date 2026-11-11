@@ -1,4 +1,10 @@
 {
+  "Breadcrumb": {
+    "home": "Home",
+    "list": "Lost & Found",
+    "notice": "Notices",
+    "publicData": "Police Lost & Found"
+  },
   "Metadata": {
     "title": "Find lost items near you, finditem!",
     "titleTemplate": "%s | finditem!",
