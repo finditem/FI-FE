@@ -440,7 +440,7 @@
     "createAccount": "회원가입",
     "languageLabel": "Language",
     "languageAriaLabel": "언어 선택",
-    "heading": "찾아줘! 로그인"
+    "heading": "찾길 로그인"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -1727,7 +1727,7 @@
     "metaTitleTemplate": "%s | 찾아줘! 공지사항",
     "metaDescription": "찾아줘에 등록된 공지사항을 확인해 보세요.",
     "title": "공지사항",
-    "heading": "찾아줘! 공지사항",
+    "heading": "찾길 공지사항",
     "writeAriaLabel": "공지사항 작성 페이지 이동",
     "search": {
       "placeholder": "제목, 내용을 입력해 주세요."
@@ -1848,7 +1848,7 @@
     "metaTitle": "분실물/습득물/도난 매뉴얼",
     "metaDescription": "분실, 습득, 도난 상황에서 해결법을 찾으시나요? 유형별 신고 절차와 센터까지 정리했으니, 차분하게 대처해보세요!",
     "headerTitle": "유실물 발생 시 매뉴얼",
-    "srHeading": "찾아줘! 이용 매뉴얼"
+    "srHeading": "찾길 이용 매뉴얼"
   },
   "ManualTabs": {
     "LOST": "분실",
