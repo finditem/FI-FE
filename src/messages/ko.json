@@ -846,7 +846,7 @@
     "postTypeFound": "발견",
     "defaultItemName": "물품",
     "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
-    "defaultDescription": "{address}에서 {postType}된 {title} 게시글이에요. 찾아줘!에서 위치와 상세 정보를 확인해보세요.",
+    "defaultDescription": "{address}에서 {postType}된 {title} 게시글이에요. 찾길에서 위치와 상세 정보를 확인해보세요.",
     "defaultAddress": "주소"
   },
   "HomeLayout": {
