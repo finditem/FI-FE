@@ -307,7 +307,7 @@
   },
   "UserProfilePage": {
     "defaultNickname": "닉네임",
-    "metaDescription": "{nickname}님의 찾아줘! 프로필이에요. 등록한 분실물·습득물 게시글과 받은 후기를 확인해보세요.",
+    "metaDescription": "{nickname}님의 찾길 프로필이에요. 등록한 분실물·습득물 게시글과 받은 후기를 확인해보세요.",
     "profileTitle": "{nickname} 프로필",
     "profile": "프로필",
     "profileTabsAriaLabel": "프로필 탭",
