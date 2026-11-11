@@ -122,7 +122,7 @@ export default async function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="찾아줘!" />
+        <meta name="apple-mobile-web-app-title" content="찾길" />
         <link rel="apple-touch-icon" sizes="120x120" href="/pwa/apple-icon-120.png" />
         <link rel="apple-touch-icon" sizes="152x152" href="/pwa/apple-icon-152.png" />
         <link rel="apple-touch-icon" sizes="167x167" href="/pwa/apple-icon-167.png" />
