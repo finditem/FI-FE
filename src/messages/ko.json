@@ -1,20 +1,20 @@
 {
   "Metadata": {
-    "title": "우리 동네 분실물 찾기, 찾아줘!",
-    "titleTemplate": "%s | 찾아줘!",
+    "title": "우리 동네 분실물 찾기, 찾길",
+    "titleTemplate": "%s | 찾길",
     "description": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",
-    "ogAlt": "찾아줘!",
-    "siteName": "찾아줘!"
+    "ogAlt": "찾길",
+    "siteName": "찾길"
   },
   "Home": {
     "defaultTitle": "우리 동네 분실물 찾기",
     "defaultDescription": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!",
     "searchTitle": "{search} 검색결과",
-    "searchDescription": "찾아줘에서 {search}을 찾고 있나요? 우리 동네에서 잃어버린 {search} 분실물을 찾아보세요!"
+    "searchDescription": "찾길에서 {search}을 찾고 있나요? 우리 동네에서 잃어버린 {search} 분실물을 찾아보세요!"
   },
   "NotFound": {
     "metaTitle": "페이지를 찾을 수 없어요",
-    "metaDescription": "요청하신 페이지를 찾을 수 없습니다. 주소가 잘못되었거나 삭제된 페이지일 수 있습니다. 찾아줘 메인 페이지에서 다시 확인해 주세요.",
+    "metaDescription": "요청하신 페이지를 찾을 수 없습니다. 주소가 잘못되었거나 삭제된 페이지일 수 있습니다. 찾길 메인 페이지에서 다시 확인해 주세요.",
     "title": "페이지를 찾을 수 없습니다.",
     "descriptionLine1": "존재하지 않는 주소를 입력했거나",
     "descriptionLine2": "요청하신 페이지를 사용할 수 없습니다."
@@ -109,8 +109,8 @@
     "profileAlt": "{name} 프로필"
   },
   "AddToHomeScreenPWA": {
-    "title": "홈 화면에 찾아줘를 추가하고\n더 편리하게 사용하세요",
-    "description": "홈 화면에 찾아줘 추가 시, 더 쉽고\n편리하게 서비스를 이용할 수 있어요",
+    "title": "홈 화면에 찾길을 추가하고\n더 편리하게 사용하세요",
+    "description": "홈 화면에 찾길 추가 시, 더 쉽고\n편리하게 서비스를 이용할 수 있어요",
     "install": "홈 화면에 추가하기",
     "later": "다음에 할래요"
   },
@@ -443,12 +443,12 @@
   },
   "LoginLayout": {
     "title": "로그인",
-    "description": "찾아줘 계정에 로그인하여 분실물을 찾고 습득물을 공유해보세요."
+    "description": "찾길 계정에 로그인하여 분실물을 찾고 습득물을 공유해보세요."
   },
   "LogoLink": {
     "homeAriaLabel": "메인페이지 이동",
     "logoIconTitle": "로고",
-    "brandName": "찾아줘!",
+    "brandName": "찾길",
     "slogan": "위치 기반 매칭 분실물 서비스"
   },
   "SessionNotification": {
@@ -499,7 +499,7 @@
   },
   "SignUpLayout": {
     "title": "회원가입",
-    "description": "찾아줘 계정을 만들어 분실물을 찾고 습득물을 공유해 보세요."
+    "description": "찾길 계정을 만들어 분실물을 찾고 습득물을 공유해 보세요."
   },
   "SignUpField": {
     "title": "회원가입",
@@ -578,7 +578,7 @@
   },
   "FindPwLayout": {
     "title": "비밀번호 찾기",
-    "description": "찾아줘에서 계정 이메일 인증을 통해 비밀번호를 변경해 보세요."
+    "description": "찾길에서 계정 이메일 인증을 통해 비밀번호를 변경해 보세요."
   },
   "FindPwPage": {
     "title": "비밀번호 찾기 페이지"
@@ -608,8 +608,8 @@
     "postTypeFound": "습득한",
     "postDescriptionLost": "분실물",
     "postDescriptionFound": "습득물",
-    "searchTitle": "{keyword} 검색결과 | 찾아줘!",
-    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
+    "searchTitle": "{keyword} 검색결과 | 찾길",
+    "searchDescription": "찾길에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
     "listTitle": "경찰청 {postType} 물건",
     "listDescription": "경찰청 유실물 센터, lost112에 올라온 {postDescription} 데이터를 더욱 쉽게 확인해보세요."
   },
@@ -649,7 +649,7 @@
   },
   "PublicClientDetail": {
     "loadFailedToast": "게시글 불러오기에 실패했어요",
-    "defaultShareTitle": "찾아줘 경찰청 데이터 공유",
+    "defaultShareTitle": "찾길 경찰청 데이터 공유",
     "defaultShareSummary": "경찰청 데이터를 확인해보세요"
   },
   "PublicCallBottomSheet": {
@@ -692,13 +692,13 @@
     "foundLabel": "습득",
     "defaultPlace": "업데이트 예정",
     "defaultSummary": "상세 내용을 확인해보세요.",
-    "metaTitleTemplate": "{title} {postType} | {place} | 찾아줘! 경찰청 유실물",
-    "fallbackTitle": "물품 상세 | 찾아줘! 경찰청 유실물",
+    "metaTitleTemplate": "{title} {postType} | {place} | 찾길 경찰청 유실물",
+    "fallbackTitle": "물품 상세 | 찾길 경찰청 유실물",
     "fallbackDescription": "경찰청 연동 유실물 정보를 확인해보세요."
   },
   "PublicDataSearchPage": {
     "searchTitle": "{keyword} 검색결과",
-    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
+    "searchDescription": "찾길에서 {keyword}을 찾고 있나요? 경찰청 유실물 센터, lost112에 올라온 {keyword} 분실물을 찾아보세요!",
     "defaultKeyword": "물건"
   },
   "PublicDataBeforeSearch": {
@@ -720,7 +720,7 @@
     "postTypeLost": "분실한",
     "postTypeFound": "발견된",
     "searchTitle": "{keyword} 검색결과",
-    "searchDescription": "찾아줘에서 {keyword}을 찾고 있나요? 우리 동네에서 잃어버린 {keyword} 분실물을 찾아보세요!",
+    "searchDescription": "찾길에서 {keyword}을 찾고 있나요? 우리 동네에서 잃어버린 {keyword} 분실물을 찾아보세요!",
     "listTitle": "{postType} 물건 리스트",
     "listDescription": "{postType} 물건을 한눈에 확인해보세요! 우리 동네 분실물들이 이곳에 모여 있어요."
   },
@@ -793,7 +793,7 @@
     "startChat": "채팅하러 가기"
   },
   "PostDetailTopHeader": {
-    "defaultShareTitle": "찾아줘 게시글 공유",
+    "defaultShareTitle": "찾길 게시글 공유",
     "defaultShareSummary": "게시글을 확인해보세요",
     "defaultAddress": "위치 정보 없음",
     "favoriteAriaLabel": "게시글 즐겨찾기",
@@ -845,12 +845,12 @@
     "postTypeLost": "분실",
     "postTypeFound": "발견",
     "defaultItemName": "물품",
-    "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
+    "titleTemplate": "{title} | {address} | 찾길 {postType}",
     "defaultDescription": "리스트 상세",
     "defaultAddress": "주소"
   },
   "HomeLayout": {
-    "title": "우리 동네 분실물 찾기, 찾아줘!",
+    "title": "우리 동네 분실물 찾기, 찾길",
     "description": "가장 빠르고 쉬운 분실물 센터. 경찰청 분실물부터 내 주변 분실물까지, 지도에서 바로 확인해보세요!"
   },
   "BottomSheet": {
@@ -926,7 +926,7 @@
   },
   "MainSearchEmpty": {
     "emptyTitle": "검색한 위치에 등록된 분실물이 없어요",
-    "emptyDescription": "직접 글을 올려 찾아줘에 등록할 수 있어요"
+    "emptyDescription": "직접 글을 올려 찾길에 등록할 수 있어요"
   },
   "FilterItems": {
     "all": "모두보기",
@@ -938,7 +938,7 @@
     "locationTitle": "위치 (선택)",
     "locationDescription": "현 위치 기반으로 유실물 정보 확인",
     "alertTitle": "알림 (선택)",
-    "alertDescription": "찾아줘 서비스 알림 수신"
+    "alertDescription": "찾길 서비스 알림 수신"
   },
   "PermissionConfig": {
     "locationTitle": "더 편한 서비스를 위해 위치 정보를 접근의 허용해 주세요.",
@@ -991,7 +991,7 @@
   },
   "ChatListLayout": {
     "title": "채팅 목록",
-    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+    "description": "찾길에서 진행 중인 채팅을 확인해보세요."
   },
   "ListView": {
     "regionSearchLoading": "지역 검색 불러오는 중...",
@@ -1035,8 +1035,8 @@
     "emptyResult": "검색 결과가 없습니다."
   },
   "ChatRoomLayout": {
-    "title": "채팅방 | 찾아줘! 채팅",
-    "description": "찾아줘에서 진행 중인 채팅을 확인해보세요."
+    "title": "채팅방 | 찾길 채팅",
+    "description": "찾길에서 진행 중인 채팅을 확인해보세요."
   },
   "ChatRoom": {
     "withdrawnToast": "알 수 없는 사용자이거나 탈퇴한 회원이에요",
@@ -1210,7 +1210,7 @@
   },
   "AlertLayout": {
     "title": "알림",
-    "description": "찾아줘에서 나에게 온 알림을 확인해보세요."
+    "description": "찾길에서 나에게 온 알림을 확인해보세요."
   },
   "AlertDetailHeader": {
     "title": "알림",
@@ -1301,7 +1301,7 @@
   },
   "NotificationSettingsLayout": {
     "title": "알림 설정",
-    "description": "찾아줘에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
+    "description": "찾길에서 내가 받을 알림을 직접 선택하고 관리할 수 있어요."
   },
   "NotificationSettingsPage": {
     "title": "알림 설정",
@@ -1309,7 +1309,7 @@
   },
   "LanguageSettingsLayout": {
     "title": "언어 설정",
-    "description": "찾아줘에서 사용할 언어를 선택하세요."
+    "description": "찾길에서 사용할 언어를 선택하세요."
   },
   "LanguageSettingsPage": {
     "title": "언어 설정",
@@ -1396,8 +1396,8 @@
   },
   "MyPageLayout": {
     "title": "마이페이지",
-    "titleTemplate": "%s | 찾아줘! 마이페이지",
-    "description": "찾아줘 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
+    "titleTemplate": "%s | 찾길 마이페이지",
+    "description": "찾길 마이페이지에서 분실물과 습득물 활동, 즐겨찾기, 계정 설정 등 다양한 서비스를 한곳에서 관리해보세요."
   },
   "MyPageMenu": {
     "myActivity": "내 활동",
@@ -1501,7 +1501,7 @@
   },
   "MypageFavoritesLayout": {
     "title": "즐겨찾기 목록",
-    "description": "찾아줘에서 내가 즐겨찾기한 분실 및 발견 게시글을 확인해보세요."
+    "description": "찾길에서 내가 즐겨찾기한 분실 및 발견 게시글을 확인해보세요."
   },
   "MypageFavoritesContent": {
     "loadError": "목록을 불러오는데 실패했어요",
@@ -1513,7 +1513,7 @@
   },
   "MypageFavoritePlacesLayout": {
     "title": "찜한 장소",
-    "description": "찾아줘에서 내가 찜한 장소를 확인해보세요."
+    "description": "찾길에서 내가 찜한 장소를 확인해보세요."
   },
   "MypageFavoritePlacesContent": {
     "totalCount": "총 {count}곳을 찜했어요.",
@@ -1526,7 +1526,7 @@
   },
   "MypagePostsLayout": {
     "title": "내가 쓴 게시글",
-    "description": "찾아줘에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
+    "description": "찾길에서 내가 작성한 분실 및 발견 게시글을 확인해 보세요."
   },
   "MypagePostsContent": {
     "loadError": "목록을 불러오는데 실패했어요",
@@ -1538,11 +1538,11 @@
   },
   "MypageCommentsLayout": {
     "title": "내가 쓴 댓글",
-    "description": "찾아줘에서 내가 작성한 댓글을 확인해보세요."
+    "description": "찾길에서 내가 작성한 댓글을 확인해보세요."
   },
   "ReviewDetailLayout": {
     "title": "후기 편지",
-    "description": "찾아줘에서 받은 후기 편지를 확인해보세요."
+    "description": "찾길에서 받은 후기 편지를 확인해보세요."
   },
   "ReviewDetailPage": {
     "title": "찾길 후기",
@@ -1571,7 +1571,7 @@
   },
   "MypageReviewsLayout": {
     "title": "찾길 후기",
-    "description": "찾아줘에서 주고받은 찾길 후기를 확인해보세요."
+    "description": "찾길에서 주고받은 찾길 후기를 확인해보세요."
   },
   "MypageReviewsPage": {
     "title": "찾길 후기",
@@ -1616,7 +1616,7 @@
   },
   "MypageProfileLayout": {
     "title": "프로필 설정",
-    "description": "나의 찾아줘 프로필을 관리해 보세요.",
+    "description": "나의 찾길 프로필을 관리해 보세요.",
     "srOnlyTitle": "프로필 수정"
   },
   "MypageActivitiesPage": {
@@ -1625,7 +1625,7 @@
   },
   "MypageActivitiesLayout": {
     "title": "내 활동 내역",
-    "description": "찾아줘에서 내가 활동한 기록들을 확인해보세요."
+    "description": "찾길에서 내가 활동한 기록들을 확인해보세요."
   },
   "ActivityFilterSection": {
     "sectionAriaLabel": "필터 선택 영역",
@@ -1656,7 +1656,7 @@
   },
   "DeleteAccountLayout": {
     "title": "회원 탈퇴",
-    "description": "찾아줘 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
+    "description": "찾길 계정을 삭제하고 서비스 이용을 중단할 수 있어요."
   },
   "DeleteAccountPage": {
     "title": "회원 탈퇴",
@@ -1702,8 +1702,8 @@
     "homeButton": "홈 화면으로 이동하기"
   },
   "ChangePassword": {
-    "metaTitle": "비밀번호 변경 | 찾아줘! 마이페이지",
-    "metaDescription": "찾아줘 계정의 비밀번호를 안전하게 변경해 보세요.",
+    "metaTitle": "비밀번호 변경 | 찾길 마이페이지",
+    "metaDescription": "찾길 계정의 비밀번호를 안전하게 변경해 보세요.",
     "title": "비밀번호 변경",
     "heading": "비밀번호 변경 페이지",
     "submit": "변경 완료",
@@ -1723,8 +1723,8 @@
   },
   "NoticePage": {
     "metaTitle": "공지사항",
-    "metaTitleTemplate": "%s | 찾아줘! 공지사항",
-    "metaDescription": "찾아줘에 등록된 공지사항을 확인해 보세요.",
+    "metaTitleTemplate": "%s | 찾길 공지사항",
+    "metaDescription": "찾길에 등록된 공지사항을 확인해 보세요.",
     "title": "공지사항",
     "heading": "공지사항 페이지",
     "writeAriaLabel": "공지사항 작성 페이지 이동",
@@ -1751,7 +1751,7 @@
     "detail": {
       "metaFallbackTitle": "공지 상세",
       "metaFallbackDescription": "공지 상세 내용",
-      "shareTitle": "찾아줘 공지사항 공유",
+      "shareTitle": "찾길 공지사항 공유",
       "shareSummary": "공지사항을 확인해보세요",
       "shareAriaLabel": "공지사항 공유",
       "adminMenuAriaLabel": "공지 관리 메뉴",
@@ -1774,7 +1774,7 @@
   },
   "InquiryWrite": {
     "metaTitle": "1:1 문의하기",
-    "metaDescription": "찾아줘 서비스 이용 중 궁금한 점이 있나요? 1:1 문의로 빠르게 접수해보세요.",
+    "metaDescription": "찾길 서비스 이용 중 궁금한 점이 있나요? 1:1 문의로 빠르게 접수해보세요.",
     "headerTitle": "무엇을 도와드릴까요?",
     "submitAriaLabel": "문의 등록",
     "heading": "1:1 문의하기 작성",
@@ -1798,7 +1798,7 @@
     "features": {
       "intro": {
         "title": "분실물 찾기, 더 쉽고 빠르게",
-        "descriptionLine1": "물건을 잃어버렸을 때, 어떻게 찾아야 할지 막막할 때가 있죠. '찾아줘!'는 그런 순간에",
+        "descriptionLine1": "물건을 잃어버렸을 때, 어떻게 찾아야 할지 막막할 때가 있죠. '찾길'은 그런 순간에",
         "descriptionLine2": "함께하는 실시간 위치 기반 분실물 찾기 플랫폼입니다."
       },
       "browse": {
@@ -1815,9 +1815,9 @@
       }
     },
     "cta": {
-      "title": "분실의 걱정을 가볍게, 찾아줘!",
-      "description": "'찾아줘!'와 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.",
-      "button": "찾아줘 홈으로 이동"
+      "title": "분실의 걱정을 가볍게, 찾길",
+      "description": "'찾길'과 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.",
+      "button": "찾길 홈으로 이동"
     }
   },
   "AppleCallback": {
@@ -1856,7 +1856,7 @@
       },
       "lostPost": {
         "title": "분실 게시글을 써보셨나요?",
-        "content": "'찾아줘'에 분실 게시물을 작성하면 물건을 습득한 분이 게시글을 통해 연락할 수 있어요.",
+        "content": "'찾길'에 분실 게시물을 작성하면 물건을 습득한 분이 게시글을 통해 연락할 수 있어요.",
         "btnText": "분실 게시글 쓰러가기"
       },
       "policeFoundList": {
@@ -1887,7 +1887,7 @@
       },
       "foundPost": {
         "title": "발견 게시글을 써보셨나요?",
-        "content": "‘찾아줘'에 발견 게시물을 작성하면 물건을 분실한 분이 게시글을 통해 연락할 수 있어 분실물을 찾는 데에 도움이 돼요.",
+        "content": "‘찾길'에 발견 게시물을 작성하면 물건을 분실한 분이 게시글을 통해 연락할 수 있어 분실물을 찾는 데에 도움이 돼요.",
         "btnText": "발견 게시물 쓰러가기"
       },
       "foundReport": {
@@ -1919,7 +1919,7 @@
   },
   "SupportLayout": {
     "title": "자주 묻는 질문",
-    "description": "찾아줘 서비스가 궁금하신가요? 분실물 찾는 방법, 게시글 작성 등 자주 묻는 질문을 한 곳에서 확인할 수 있어요."
+    "description": "찾길 서비스가 궁금하신가요? 분실물 찾는 방법, 게시글 작성 등 자주 묻는 질문을 한 곳에서 확인할 수 있어요."
   },
   "SupportTab": {
     "all": "전체",
@@ -1931,13 +1931,13 @@
     "toggleAriaLabel": "FAQ 질문 접기/펼치기",
     "imageUploadSuccess": "이미지를 등록했어요",
     "imageUploadError": "이미지 등록에 실패했어요",
-    "question1": "찾아줘 서비스는 어떤 플랫폼인가요?",
-    "answer1": "찾아줘는 분실물과 습득물을 빠르게 연결해 주는 분실물 매칭 플랫폼이에요\n사용자는 분실한 물건을 등록하거나 발견한 물건을 등록하여 서로 정보를 공유할 수 있으며, 게시글을 통해 물건의 주인을 찾거나 분실물을 발견한 사람과 직접 소통할 수 있어요",
+    "question1": "찾길 서비스는 어떤 플랫폼인가요?",
+    "answer1": "찾길은 분실물과 습득물을 빠르게 연결해 주는 분실물 매칭 플랫폼이에요\n사용자는 분실한 물건을 등록하거나 발견한 물건을 등록하여 서로 정보를 공유할 수 있으며, 게시글을 통해 물건의 주인을 찾거나 분실물을 발견한 사람과 직접 소통할 수 있어요",
     "question2": "분실물은 어떻게 찾을 수 있나요?",
     "answer2": "[게시글 목록]에서 지역, 카테고리, 정렬, 찾음 여부 필터를 통해 등록된 게시글을 확인할 수 있어요\n또한 메인 페이지의 지도 기능을 통해 주변에 등록된 게시글을 확인하여, 분실한 위치 근처에서 발견된 물건이 있는지 확인할 수 있어요",
     "linkText2": "게시글 목록 바로가기",
     "question3": "서비스 이용은 무료인가요?",
-    "answer3": "찾아줘 서비스는 무료로 이용할 수 있어요\n게시글 작성, 검색, 채팅 등 모든 기능을 비용 없이 이용할 수 있어요",
+    "answer3": "찾길 서비스는 무료로 이용할 수 있어요\n게시글 작성, 검색, 채팅 등 모든 기능을 비용 없이 이용할 수 있어요",
     "question4": "게시글은 누구나 작성할 수 있나요?",
     "answer4": "서비스 이용을 위해서는 회원가입 후 로그인해야 해요\n로그인한 사용자는 분실 또는 제보 게시글을 작성할 수 있어요",
     "question5": "게시글은 얼마나 오래 유지되나요?",
@@ -1985,7 +1985,7 @@
     "question24": "신고 후 처리 과정은 어떻게 되나요?",
     "answer24": "신고가 접수되면 운영자가 내용을 확인해요\n서비스 정책 위반이 확인될 경우 게시글 삭제, 이용 제한 등의 조치가 이루어질 수 있어요",
     "question25": "개인정보는 어떻게 보호되나요?",
-    "answer25": "찾아줘는 관련 법령과 개인정보 처리방침에 따라 사용자의 개인정보를 보호하고 있어요\n서비스 이용에 필요한 최소한의 정보만 수집하며 안전하게 관리하고 있어요",
+    "answer25": "찾길은 관련 법령과 개인정보 처리방침에 따라 사용자의 개인정보를 보호하고 있어요\n서비스 이용에 필요한 최소한의 정보만 수집하며 안전하게 관리하고 있어요",
     "question26": "서비스 이용 중 문의는 어디로 해야 하나요?",
     "answer26": "서비스 이용 중 문제가 발생하거나 도움이 필요한 경우 문의하기를 통해 문의할 수 있어요\n문의 내용은 확인 후 안내해 드려요",
     "question27": "서비스 이용 제한이 발생할 수 있나요?",

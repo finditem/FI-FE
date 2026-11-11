@@ -24,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: termHeader,
-    description: `찾아줘 서비스의 ${termHeader} 내용을 확인해 보세요.`,
+    description: `찾길 서비스의 ${termHeader} 내용을 확인해 보세요.`,
     // 약관 본문이 한국어만 있어 영어 경로는 번역 전까지 색인에서 제외한다.
     ...(locale !== "ko" && { robots: { index: false } }),
     other: { "page-type": "terms" },
