@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { buildDetailMetadata } from "@/utils/buildDetailMetadata/buildDetailMetadata";
 import { PublicClientDetail } from "./_components";
+import { getPublicDetailOnServer } from "./_utils/getPublicDetailOnServer/getPublicDetailOnServer";
 
 interface PublicDataDetailProps {
-  params: Promise<{ type: string; postId: string }>;
+  params: Promise<{ locale: string; type: string; postId: string }>;
 }
 
 export async function generateMetadata({ params }: PublicDataDetailProps): Promise<Metadata> {
-  const { type, postId } = await params;
+  const { locale, type, postId } = await params;
   const isLost = type === "lost";
   const t = await getTranslations("PublicDataDetailPage");
 
@@ -47,22 +50,13 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
       // metaTitleTemplate이 이미 브랜드로 끝나므로 루트 템플릿이 덧붙지 않도록 absolute로 반환한다.
       title: { absolute: metaTitle },
       description: summary,
-      openGraph: {
+      ...(await buildDetailMetadata({
+        locale,
+        path: `/public-data/${type}/${postId}`,
         title: metaTitle,
         description: summary,
-        images: [
-          {
-            url: thumbnailUrl,
-            alt: metaTitle,
-          },
-        ],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: metaTitle,
-        description: summary,
-        images: [thumbnailUrl],
-      },
+        imageUrl: thumbnailUrl,
+      })),
     };
   } catch (error) {
     return {
@@ -73,9 +67,21 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
 }
 
 const page = async ({ params }: PublicDataDetailProps) => {
-  const { postId } = await params;
+  const { type, postId } = await params;
 
-  return <PublicClientDetail id={postId} />;
+  // 기존에는 lost가 아닌 type을 모두 found로 처리했다. 그 밖의 type과 존재하지 않는 항목은
+  // 200 soft 404 대신 실제 404로 응답한다.
+  if (type !== "lost" && type !== "found") notFound();
+
+  const detailResult = await getPublicDetailOnServer(type, postId);
+  if (detailResult.status === "notFound") notFound();
+
+  return (
+    <PublicClientDetail
+      id={postId}
+      initialItem={detailResult.status === "found" ? detailResult.item : undefined}
+    />
+  );
 };
 
 export default page;

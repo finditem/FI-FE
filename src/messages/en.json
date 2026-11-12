@@ -847,7 +847,7 @@
     "postTypeFound": "Found",
     "defaultItemName": "Item",
     "titleTemplate": "{title} | {address} | finditem! {postType}",
-    "defaultDescription": "List detail",
+    "defaultDescription": "{postType} {title} near {address}. Check the location and details on finditem!",
     "defaultAddress": "Address"
   },
   "HomeLayout": {
