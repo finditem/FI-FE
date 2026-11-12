@@ -21,9 +21,9 @@ describe("<LogoLink />", () => {
     expect(screen.getByRole("link", { name: /메인페이지 이동/ })).toHaveAttribute("href", "/");
   });
 
-  it("'찾아줘!' 텍스트가 렌더된다", () => {
+  it("서비스명 텍스트가 렌더된다", () => {
     render(<LogoLink />);
-    expect(screen.getByText("찾아줘!")).toBeInTheDocument();
+    expect(screen.getByText(/^(찾아줘!|찾길)$/)).toBeInTheDocument();
   });
 
   it("로고 아이콘이 렌더된다", () => {
