@@ -3,17 +3,19 @@ import { notFound } from "next/navigation";
 import { z } from "zod";
 import { getTranslations } from "next-intl/server";
 import { formatMetadataAddress } from "@/utils";
+import { buildDetailMetadata } from "@/utils/buildDetailMetadata/buildDetailMetadata";
 import { hasValidToken } from "@/utils/hasValidToken/hasValidToken";
 import ClientDetail from "./_components/ClientDetail/ClientDetail";
+import { getPostDetailOnServer } from "./_utils/getPostDetailOnServer/getPostDetailOnServer";
 
 interface ListDetailProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }
 
 const postIdParamSchema = z.coerce.number().int().positive();
 
 export async function generateMetadata({ params }: ListDetailProps): Promise<Metadata> {
-  const { id } = await params;
+  const { locale, id } = await params;
   const postId = postIdParamSchema.safeParse(id);
 
   if (!postId.success) return {};
@@ -32,7 +34,14 @@ export async function generateMetadata({ params }: ListDetailProps): Promise<Met
     address,
     postType: postTypeLabel,
   });
-  const description = post?.result?.summary ?? t("defaultDescription");
+  // 요약이 없으면 제목·주소·유형을 담은 고유 설명을 쓴다. 모든 게시글이 같은 설명을 갖지 않게 하기 위함이다.
+  const description =
+    post?.result?.summary ||
+    t("defaultDescription", {
+      title: post?.result?.title ?? t("defaultItemName"),
+      address,
+      postType: postTypeLabel,
+    });
   const thumbnailUrl =
     post?.result?.thumbnailUrl ??
     "https://fmi-project-s3-bucket.s3.ap-northeast-2.amazonaws.com/9e619169-f_default-share.png";
@@ -42,17 +51,13 @@ export async function generateMetadata({ params }: ListDetailProps): Promise<Met
       absolute: title,
     },
     description,
-    openGraph: {
-      images: [
-        {
-          url: thumbnailUrl,
-          alt: title,
-        },
-      ],
-    },
-    twitter: {
-      images: [thumbnailUrl],
-    },
+    ...(await buildDetailMetadata({
+      locale,
+      path: `/list/${postId.data}`,
+      title,
+      description,
+      imageUrl: thumbnailUrl,
+    })),
   };
 }
 
@@ -62,9 +67,21 @@ const page = async ({ params }: ListDetailProps) => {
 
   if (!postId.success) notFound();
 
-  const isLoggedIn = await hasValidToken();
+  const [postResult, isLoggedIn] = await Promise.all([
+    getPostDetailOnServer(postId.data),
+    hasValidToken(),
+  ]);
 
-  return <ClientDetail id={postId.data} isLoggedIn={isLoggedIn} />;
+  // 존재하지 않는 게시글은 200 soft 404 대신 실제 404로 응답한다.
+  if (postResult.status === "notFound") notFound();
+
+  return (
+    <ClientDetail
+      id={postId.data}
+      isLoggedIn={isLoggedIn}
+      initialPost={postResult.status === "found" ? postResult.post : undefined}
+    />
+  );
 };
 
 export default page;
