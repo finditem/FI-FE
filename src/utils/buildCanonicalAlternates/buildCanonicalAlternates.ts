@@ -22,6 +22,6 @@ import { routing } from "@/i18n/routing";
 export const buildCanonicalAlternates = (
   href: string,
   locale: string
-): NonNullable<Metadata["alternates"]> => ({
+): NonNullable<Metadata["alternates"]> & { canonical: string } => ({
   canonical: getPathname({ locale: locale as (typeof routing.locales)[number], href }),
 });
