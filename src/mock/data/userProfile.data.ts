@@ -35,6 +35,14 @@ export const MOCK_USER_PROFILE_DATA = {
   favorites: [MOCK_USER_PROFILE_POST_DATA],
 };
 
+// 회원 프로필 메타(GET /users/{userId}/meta) 응답 목업 데이터. 서버에서 회원 존재 여부와 닉네임을 확인할 때 쓴다.
+export const MOCK_USER_META_RESPONSE = {
+  isSuccess: true,
+  code: "COMMON200",
+  message: "성공입니다.",
+  result: { nickname: MOCK_USER_PROFILE_DATA.nickname },
+};
+
 // 타인 프로필 게시글 목업 데이터
 export const MOCK_USER_PROFILE_DATA_BY_POSTS = {
   profile: {

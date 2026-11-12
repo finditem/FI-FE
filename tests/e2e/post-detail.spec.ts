@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_PREFERRED_LANGUAGE_RESPONSE } from "@/mock/data/mypage.data";
 
 const POST_ID = 1;
 
@@ -160,6 +161,18 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify(MOCK_USERS_ME),
+    })
+  );
+
+  /*
+   * 로그인 상태면 상세 페이지가 선호 언어를 조회한다. 목이 없으면 CI의 실제 백엔드가 가짜 토큰에 401을 주고,
+   * 인증 인터셉터가 로그아웃해 로그인 페이지로 이동시켜 이후 동작 검증이 실패한다.
+   */
+  await page.route("**/api/users/me/preferred-language", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(MOCK_PREFERRED_LANGUAGE_RESPONSE),
     })
   );
 
@@ -356,9 +369,26 @@ test.describe("게시글 상세 페이지", () => {
         body: JSON.stringify({ result: null }),
       })
     );
+    /* 댓글 조회가 실제 백엔드로 나가지 않도록 목을 등록한다 */
+    await page.route(`**/api/comments/posts/${POST_ID}**`, (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(MOCK_COMMENTS),
+      })
+    );
     await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
+    /*
+     * 서버 MSW가 내려주는 게시글 이미지는 외부 주소라, 이미지 최적화가 외부에서 받아 오다 CI에서 시간 초과가 난다.
+     * 이 테스트는 이미지가 필요 없으므로 요청을 막는다.
+     */
+    await page.route("**/_next/image**", (route) => route.abort());
 
-    await page.goto(`/list/${POST_ID}`);
+    /*
+     * 실패 토스트는 잠시 뒤 사라진다. load 이벤트까지 기다리면 페이지가 느리게 뜨는 환경에서
+     * 토스트가 사라진 뒤에 검증을 시작하므로, DOM이 준비되는 시점부터 바로 기다린다.
+     */
+    await page.goto(`/list/${POST_ID}`, { waitUntil: "domcontentloaded" });
 
     await expect(page.getByText("게시글 불러오기에 실패했어요")).toBeVisible({ timeout: 5000 });
   });

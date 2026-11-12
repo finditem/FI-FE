@@ -31,6 +31,15 @@ export async function generateMetadata({
   };
 }
 
-export default function Layout({ children }: LayoutProps) {
-  return <>{children}</>;
+export default async function Layout({ children, params }: LayoutProps) {
+  const { termName } = await params;
+  const termHeader = TERM_HEADER_BY_ROUTE_PARAM[termName];
+
+  return (
+    <>
+      {/* 약관 화면의 보이는 제목은 공통 헤더의 h2라, 문서 제목 역할을 하는 h1을 따로 둔다. */}
+      {termHeader && <h1 className="sr-only">{termHeader}</h1>}
+      {children}
+    </>
+  );
 }
