@@ -2,17 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { z } from "zod";
 import { NoticeDetailHeader, NoticeDetailView } from "./_components";
+import { buildDetailMetadata } from "@/utils/buildDetailMetadata/buildDetailMetadata";
 import { getTranslations } from "next-intl/server";
 import { getNoticeDetailOnServer } from "./_utils/getNoticeDetailOnServer/getNoticeDetailOnServer";
 
 interface NoticeDetailProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
 }
 
 const noticeIdParamSchema = z.coerce.number().int().positive();
 
 export async function generateMetadata({ params }: NoticeDetailProps): Promise<Metadata> {
-  const { id } = await params;
+  const { locale, id } = await params;
   const t = await getTranslations("NoticePage.detail");
 
   const notice = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/notices/${id}/meta`, {
@@ -30,22 +31,13 @@ export async function generateMetadata({ params }: NoticeDetailProps): Promise<M
   return {
     title,
     description,
-    openGraph: {
+    ...(await buildDetailMetadata({
+      locale,
+      path: `/notice/${id}`,
       title,
       description,
-      type: "website",
-      images: [
-        {
-          url: thumbnailUrl,
-          alt: title,
-        },
-      ],
-    },
-    twitter: {
-      title,
-      description,
-      images: [thumbnailUrl],
-    },
+      imageUrl: thumbnailUrl,
+    })),
   };
 }
 

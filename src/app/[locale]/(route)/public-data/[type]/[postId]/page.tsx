@@ -2,15 +2,16 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { buildDetailMetadata } from "@/utils/buildDetailMetadata/buildDetailMetadata";
 import { PublicClientDetail } from "./_components";
 import { getPublicDetailOnServer } from "./_utils/getPublicDetailOnServer/getPublicDetailOnServer";
 
 interface PublicDataDetailProps {
-  params: Promise<{ type: string; postId: string }>;
+  params: Promise<{ locale: string; type: string; postId: string }>;
 }
 
 export async function generateMetadata({ params }: PublicDataDetailProps): Promise<Metadata> {
-  const { type, postId } = await params;
+  const { locale, type, postId } = await params;
   const isLost = type === "lost";
   const t = await getTranslations("PublicDataDetailPage");
 
@@ -49,22 +50,13 @@ export async function generateMetadata({ params }: PublicDataDetailProps): Promi
       // metaTitleTemplate이 이미 브랜드로 끝나므로 루트 템플릿이 덧붙지 않도록 absolute로 반환한다.
       title: { absolute: metaTitle },
       description: summary,
-      openGraph: {
+      ...(await buildDetailMetadata({
+        locale,
+        path: `/public-data/${type}/${postId}`,
         title: metaTitle,
         description: summary,
-        images: [
-          {
-            url: thumbnailUrl,
-            alt: metaTitle,
-          },
-        ],
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: metaTitle,
-        description: summary,
-        images: [thumbnailUrl],
-      },
+        imageUrl: thumbnailUrl,
+      })),
     };
   } catch (error) {
     return {
