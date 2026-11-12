@@ -36,9 +36,14 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   };
 }
 
-const page = () => {
+const page = async ({ searchParams }: PageProps) => {
+  const { type } = await searchParams;
+  const t = await getTranslations("PublicDataPage");
+  const postType = type === "found" ? t("postTypeFound") : t("postTypeLost");
+
   return (
     <Suspense fallback={null}>
+      <h1 className="sr-only">{t("listTitle", { postType })}</h1>
       <PublicDetailHeader />
 
       <PublicDataView />
