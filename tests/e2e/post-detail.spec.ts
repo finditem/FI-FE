@@ -375,10 +375,23 @@ test.describe("게시글 상세 페이지", () => {
         body: JSON.stringify({ result: null }),
       })
     );
+    /* 댓글 조회가 실제 백엔드로 나가지 않도록 목을 등록한다 */
+    await page.route(`**/api/comments/posts/${POST_ID}**`, (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(MOCK_COMMENTS),
+      })
+    );
     await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
+    /*
+     * 서버 MSW가 내려주는 게시글 이미지는 외부 주소라, 이미지 최적화가 외부에서 받아 오다 CI에서 시간 초과가 난다.
+     * 이 테스트는 이미지가 필요 없으므로 요청을 막는다.
+     */
+    await page.route("**/_next/image**", (route) => route.abort());
 
     /*
-     * 실패 토스트는 잠시 뒤 사라진다. load 이벤트까지 기다리면 이미지 최적화 요청이 느린 환경(CI)에서
+     * 실패 토스트는 잠시 뒤 사라진다. load 이벤트까지 기다리면 페이지가 느리게 뜨는 환경에서
      * 토스트가 사라진 뒤에 검증을 시작하므로, DOM이 준비되는 시점부터 바로 기다린다.
      */
     await page.goto(`/list/${POST_ID}`, { waitUntil: "domcontentloaded" });
