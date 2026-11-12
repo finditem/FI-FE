@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { MOCK_PREFERRED_LANGUAGE_RESPONSE } from "@/mock/data/mypage.data";
 
 const POST_ID = 1;
 
@@ -103,13 +104,6 @@ const MOCK_USERS_ME = {
   result: { userId: 1, nickName: "나", profileImage: "", email: "test@test.com" },
 };
 
-const MOCK_PREFERRED_LANGUAGE = {
-  isSuccess: true,
-  code: "200",
-  message: "OK",
-  result: { preferredLanguage: "KO" },
-};
-
 type SetupOptions = {
   isMine?: boolean;
   favoriteStatus?: boolean;
@@ -178,7 +172,7 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
     route.fulfill({
       status: 200,
       contentType: "application/json",
-      body: JSON.stringify(MOCK_PREFERRED_LANGUAGE),
+      body: JSON.stringify(MOCK_PREFERRED_LANGUAGE_RESPONSE),
     })
   );
 
