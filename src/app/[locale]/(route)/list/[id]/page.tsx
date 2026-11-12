@@ -6,6 +6,7 @@ import { formatMetadataAddress } from "@/utils";
 import { buildDetailMetadata } from "@/utils/buildDetailMetadata/buildDetailMetadata";
 import { hasValidToken } from "@/utils/hasValidToken/hasValidToken";
 import ClientDetail from "./_components/ClientDetail/ClientDetail";
+import { getPostDetailOnServer } from "./_utils/getPostDetailOnServer/getPostDetailOnServer";
 
 interface ListDetailProps {
   params: Promise<{ locale: string; id: string }>;
@@ -66,9 +67,21 @@ const page = async ({ params }: ListDetailProps) => {
 
   if (!postId.success) notFound();
 
-  const isLoggedIn = await hasValidToken();
+  const [postResult, isLoggedIn] = await Promise.all([
+    getPostDetailOnServer(postId.data),
+    hasValidToken(),
+  ]);
 
-  return <ClientDetail id={postId.data} isLoggedIn={isLoggedIn} />;
+  // 존재하지 않는 게시글은 200 soft 404 대신 실제 404로 응답한다.
+  if (postResult.status === "notFound") notFound();
+
+  return (
+    <ClientDetail
+      id={postId.data}
+      isLoggedIn={isLoggedIn}
+      initialPost={postResult.status === "found" ? postResult.post : undefined}
+    />
+  );
 };
 
 export default page;

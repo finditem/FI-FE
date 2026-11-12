@@ -78,3 +78,23 @@
       호출로 단순화하고, `PostFoundConfirmModal` import/state(`foundConfirmOpen`)/렌더를 제거한다.
       (`usePutPostStatus`가 기본으로 성공 토스트를 띄움)
 - [x] 타입체크로 회귀 확인 (변경 파일 무에러, Sentry 관련 에러는 develop 사전 존재 이슈)
+
+## SEO: 상세 본문 서버 렌더(H1) + soft 404 교정(H2) — 서버 props 방식 재설계
+
+닫힌 PR #1397은 서버 프리패치 데이터를 `HydrationBoundary`로 React Query 캐시에 넣는 방식이었고,
+로그인 e2e 6건이 깨져 철회했다. 이번에는 서버 데이터를 캐시에 넣지 않고 props로만 내려, 본문은 서버
+데이터로 즉시 그리고 개인화 값과 인터랙션은 기존 클라이언트 쿼리(develop과 동일한 흐름)가 맡는다.
+
+- [x] `_utils/getPostDetailOnServer`: 서버에서 `/posts/{id}`를 익명 fetch(revalidate 60)해 found / notFound(404) / unavailable(그 외 실패)로 구분해 돌려준다.
+- [x] `page.tsx`: notFound면 `notFound()`(H2), found면 본문 데이터를 `initialPost` prop으로 `ClientDetail`에 내린다. unavailable이면 기존 클라이언트 렌더로 둔다.
+- [x] `ClientDetail`: 본문은 `라이브 쿼리 결과 ?? initialPost`로 그려 서버 HTML에 싣는다(H1). 스켈레톤은 본문 데이터가 전혀 없을 때만 보인다.
+- [x] `ClientDetail`: 상단 헤더(즐겨찾기·공유·메뉴), 댓글, 유사 게시글, 댓글 입력은 develop처럼 라이브 쿼리 결과가 생긴 뒤에만 렌더한다. 그 전에는 동작 없는 헤더 자리표시를 둔다.
+- [x] `ClientDetail`: 영어 번역을 기다리는 동안 스켈레톤 대신 원문을 보여준다(서버 HTML 유지).
+- [x] `PostDetailBody`: 경과 시간 라벨은 서버와 클라이언트 렌더 시각 차이로 달라질 수 있어 hydration 경고를 억제한다.
+- [x] `ImageSection`: early return 앞으로 hook을 옮겨, 이미지 개수가 0장과 그 이상 사이로 바뀔 때 hook 개수 불일치로 크래시하던 문제를 고친다.
+- [x] `npm run test`(276 suites / 1640 통과), `npm run build` 통과. `next start`로 서버 HTML에 제목·본문 h1이 실리고 `/list/99999999`가 404를 주는 것을 확인했다.
+- [x] e2e(post-detail.spec 익명·로그인 전체)가 CI에서 녹색인지 확인한다. (PR #1413, Playwright 99/99 통과)
+      로컬(dev 서버, 워커 1개)에서는 10건 중 8건 통과. 로그인 즐겨찾기 추가·제거 2건은 develop에서도 똑같이
+      실패하는 기존 문제로, `/users/me` 조회가 끝나기 전에 클릭해 게스트 로그인 모달이 뜨는 경쟁 조건이다.
+- [x] Codex 리뷰 반영: 로그인 사용자의 클라이언트 조회 전에는 본문 즐겨찾기·채팅 버튼을 비활성화한다(`isPersonalized`).
+- [x] 같은 방식을 PR3b(notice/[id])·PR3c(public-data)에 적용한다(`feature/seo-ssr-notice-detail-rsc`, `feature/seo-ssr-public-detail-rsc`).
