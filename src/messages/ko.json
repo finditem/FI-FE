@@ -313,6 +313,7 @@
   },
   "UserProfilePage": {
     "defaultNickname": "닉네임",
+    "metaDescription": "{nickname}님의 찾길 프로필이에요. 등록한 분실물·습득물 게시글과 받은 후기를 확인해보세요.",
     "profileTitle": "{nickname} 프로필",
     "profile": "프로필",
     "profileTabsAriaLabel": "프로필 탭",
@@ -445,7 +446,8 @@
     "notMemberYet": "아직 회원이 아니신가요?",
     "createAccount": "회원가입",
     "languageLabel": "Language",
-    "languageAriaLabel": "언어 선택"
+    "languageAriaLabel": "언어 선택",
+    "heading": "찾길 로그인"
   },
   "LoginLayout": {
     "title": "로그인",
@@ -478,7 +480,7 @@
   },
   "EmailLoginPage": {
     "title": "이메일 로그인",
-    "srHeading": "이메일 로그인 페이지"
+    "srHeading": "이메일 로그인"
   },
   "EmailLoginForm": {
     "legend": "로그인 정보 입력",
@@ -852,7 +854,7 @@
     "postTypeFound": "발견",
     "defaultItemName": "물품",
     "titleTemplate": "{title} | {address} | 찾아줘! {postType}",
-    "defaultDescription": "리스트 상세",
+    "defaultDescription": "{address}에서 {postType}된 {title} 게시글이에요. 찾길에서 위치와 상세 정보를 확인해보세요.",
     "defaultAddress": "주소"
   },
   "HomeLayout": {
@@ -1046,7 +1048,7 @@
   },
   "ChatRoom": {
     "withdrawnToast": "알 수 없는 사용자이거나 탈퇴한 회원이에요",
-    "pageHeading": "채팅 상세 페이지",
+    "pageHeading": "채팅 상세",
     "inputAriaLabel": "채팅 입력창"
   },
   "ChatRoomHeader": {
@@ -1164,7 +1166,7 @@
     "foundTitle": "발견했어요 글쓰기"
   },
   "WriteForm": {
-    "srOnlyPageTitle": "{title} 페이지",
+    "srOnlyPageTitle": "{title}",
     "noImageConfirmTitle": "사진을 첨부하지 않고 등록하시겠습니까?",
     "noImageConfirmDescription": "사진을 첨부하시면 유실물을 더 잘 찾아드릴 수 있어요.",
     "cancelButton": "아니요",
@@ -1188,14 +1190,14 @@
   "PostEditPage": {
     "lostTitle": "분실했어요 수정",
     "foundTitle": "발견했어요 수정",
-    "srOnlyPageTitle": "{title} 페이지"
+    "srOnlyPageTitle": "{title}"
   },
   "PostEditSkeleton": {
     "title": "게시글 수정"
   },
   "PostWriteLocationLayout": {
     "title": "위치 등록",
-    "srOnlyPageTitle": "위치 등록 페이지"
+    "srOnlyPageTitle": "위치 등록"
   },
   "LocationSearchSection": {
     "searchPlaceholder": "지역명을 입력해 주세요.",
@@ -1251,7 +1253,7 @@
   },
   "MypageReportsDetailPage": {
     "title": "내 신고 내역",
-    "srOnlyTitle": "내 신고 내역 상세 페이지"
+    "srOnlyTitle": "내 신고 내역 상세"
   },
   "MypageReportsDetail": {
     "pending": "접수",
@@ -1277,7 +1279,7 @@
   },
   "MypageReportsPage": {
     "title": "내 신고 내역",
-    "srOnlyTitle": "내 신고 내역 페이지"
+    "srOnlyTitle": "내 신고 내역"
   },
   "MypageReportsFilter": {
     "all": "전체",
@@ -1311,7 +1313,7 @@
   },
   "NotificationSettingsPage": {
     "title": "알림 설정",
-    "srOnlyTitle": "알림 설정 페이지"
+    "srOnlyTitle": "알림 설정"
   },
   "LanguageSettingsLayout": {
     "title": "언어 설정",
@@ -1319,7 +1321,7 @@
   },
   "LanguageSettingsPage": {
     "title": "언어 설정",
-    "srOnlyTitle": "언어 설정 페이지",
+    "srOnlyTitle": "언어 설정",
     "changeButton": "변경하기"
   },
   "NotificationSettingList": {
@@ -1369,7 +1371,7 @@
   },
   "MypageInquiriesPage": {
     "title": "내 문의 내역",
-    "srOnlyTitle": "내 문의 내역 페이지"
+    "srOnlyTitle": "내 문의 내역"
   },
   "MypageInquiriesFilter": {
     "all": "전체",
@@ -1503,7 +1505,7 @@
   },
   "MypageFavoritesPage": {
     "title": "즐겨찾기 목록",
-    "srOnlyTitle": "즐겨찾기 목록 페이지"
+    "srOnlyTitle": "즐겨찾기 목록"
   },
   "MypageFavoritesLayout": {
     "title": "즐겨찾기 목록",
@@ -1515,7 +1517,7 @@
   },
   "MypageFavoritePlacesPage": {
     "title": "찜한 장소",
-    "srOnlyTitle": "찜한 장소 페이지"
+    "srOnlyTitle": "찜한 장소"
   },
   "MypageFavoritePlacesLayout": {
     "title": "찜한 장소",
@@ -1528,7 +1530,7 @@
   },
   "MypagePostsPage": {
     "title": "내가 쓴 게시글",
-    "srOnlyTitle": "내가 쓴 게시글 페이지"
+    "srOnlyTitle": "내가 쓴 게시글"
   },
   "MypagePostsLayout": {
     "title": "내가 쓴 게시글",
@@ -1540,7 +1542,7 @@
   },
   "MypageCommentsPage": {
     "title": "내가 쓴 댓글",
-    "srOnlyTitle": "내가 쓴 댓글 페이지"
+    "srOnlyTitle": "내가 쓴 댓글"
   },
   "MypageCommentsLayout": {
     "title": "내가 쓴 댓글",
@@ -1581,7 +1583,7 @@
   },
   "MypageReviewsPage": {
     "title": "찾길 후기",
-    "srOnlyTitle": "찾길 후기 페이지",
+    "srOnlyTitle": "찾길 후기",
     "tabsAriaLabel": "찾길 후기 탭",
     "countLabel": "후기",
     "tabs": {
@@ -1627,7 +1629,7 @@
   },
   "MypageActivitiesPage": {
     "title": "내 활동 내역",
-    "srOnlyTitle": "내 활동 내역 페이지"
+    "srOnlyTitle": "내 활동 내역"
   },
   "MypageActivitiesLayout": {
     "title": "내 활동 내역",
@@ -1666,7 +1668,7 @@
   },
   "DeleteAccountPage": {
     "title": "회원 탈퇴",
-    "srOnlyTitle": "회원탈퇴 페이지",
+    "srOnlyTitle": "회원탈퇴",
     "userNotFound": "존재하지 않는 회원이에요",
     "deleteFailed": "회원 탈퇴에 실패했어요"
   },
@@ -1711,7 +1713,7 @@
     "metaTitle": "비밀번호 변경 | 찾아줘! 마이페이지",
     "metaDescription": "찾아줘 계정의 비밀번호를 안전하게 변경해 보세요.",
     "title": "비밀번호 변경",
-    "heading": "비밀번호 변경 페이지",
+    "heading": "비밀번호 변경",
     "submit": "변경 완료",
     "currentPasswordLabel": "현재 비밀번호",
     "currentPasswordPlaceholder": "현재 비밀번호를 입력해주세요.",
@@ -1732,7 +1734,7 @@
     "metaTitleTemplate": "%s | 찾아줘! 공지사항",
     "metaDescription": "찾아줘에 등록된 공지사항을 확인해 보세요.",
     "title": "공지사항",
-    "heading": "공지사항 페이지",
+    "heading": "찾길 공지사항",
     "writeAriaLabel": "공지사항 작성 페이지 이동",
     "search": {
       "placeholder": "제목, 내용을 입력해 주세요."
@@ -1824,6 +1826,13 @@
       "title": "분실의 걱정을 가볍게, 찾아줘!",
       "description": "'찾아줘!'와 함께라면, 잃어버린 순간도 조금은 덜 답답해질 거예요.",
       "button": "찾아줘 홈으로 이동"
+    },
+    "imageAlt": {
+      "browseList": "분실물 게시글 목록 화면. 분실·발견 탭과 지역, 카테고리, 정렬 필터로 제보를 찾아볼 수 있어요.",
+      "browseDetail": "분실물 게시글 상세 화면. 물건 사진, 작성자 정보, 채팅하러 가기 버튼과 본문이 보여요.",
+      "chatRoom": "제보자와의 채팅방 화면. 명동 거리에서 습득한 검정색 지갑 게시글을 두고 대화해요.",
+      "alertCategory": "카테고리 알림 예시. 전자기기 카테고리에 새 게시글이 등록되었다는 알림이에요.",
+      "alertFavorite": "즐겨찾기 알림 예시. 즐겨찾기한 게시글의 상태가 변경되었다는 알림이에요."
     }
   },
   "AppleCallback": {
@@ -1846,7 +1855,7 @@
     "metaTitle": "분실물/습득물/도난 매뉴얼",
     "metaDescription": "분실, 습득, 도난 상황에서 해결법을 찾으시나요? 유형별 신고 절차와 센터까지 정리했으니, 차분하게 대처해보세요!",
     "headerTitle": "유실물 발생 시 매뉴얼",
-    "srHeading": "매뉴얼 페이지"
+    "srHeading": "찾길 이용 매뉴얼"
   },
   "ManualTabs": {
     "LOST": "분실",

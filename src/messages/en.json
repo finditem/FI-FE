@@ -313,6 +313,7 @@
   },
   "UserProfilePage": {
     "defaultNickname": "Nickname",
+    "metaDescription": "{nickname}'s finditem! profile. See the lost and found posts and reviews.",
     "profileTitle": "{nickname}'s profile",
     "profile": "Profile",
     "profileTabsAriaLabel": "Profile tabs",
@@ -445,7 +446,8 @@
     "notMemberYet": "Don't have an account?",
     "createAccount": "Create account",
     "languageLabel": "Language",
-    "languageAriaLabel": "Select language"
+    "languageAriaLabel": "Select language",
+    "heading": "Log in to finditem!"
   },
   "LoginLayout": {
     "title": "Log In",
@@ -478,7 +480,7 @@
   },
   "EmailLoginPage": {
     "title": "Email Login",
-    "srHeading": "Email login page"
+    "srHeading": "Email login"
   },
   "EmailLoginForm": {
     "legend": "Enter your login details",
@@ -852,7 +854,7 @@
     "postTypeFound": "Found",
     "defaultItemName": "Item",
     "titleTemplate": "{title} | {address} | finditem! {postType}",
-    "defaultDescription": "List detail",
+    "defaultDescription": "{postType} {title} near {address}. Check the location and details on finditem!",
     "defaultAddress": "Address"
   },
   "HomeLayout": {
@@ -1046,7 +1048,7 @@
   },
   "ChatRoom": {
     "withdrawnToast": "This user is unknown or has been deleted.",
-    "pageHeading": "Chat detail page",
+    "pageHeading": "Chat detail",
     "inputAriaLabel": "Chat message input"
   },
   "ChatRoomHeader": {
@@ -1164,7 +1166,7 @@
     "foundTitle": "Report a found item"
   },
   "WriteForm": {
-    "srOnlyPageTitle": "{title} page",
+    "srOnlyPageTitle": "{title}",
     "noImageConfirmTitle": "Post without a photo?",
     "noImageConfirmDescription": "Adding a photo makes it easier for others to recognize the item.",
     "cancelButton": "No",
@@ -1188,14 +1190,14 @@
   "PostEditPage": {
     "lostTitle": "Edit lost item post",
     "foundTitle": "Edit found item post",
-    "srOnlyPageTitle": "{title} page"
+    "srOnlyPageTitle": "{title}"
   },
   "PostEditSkeleton": {
     "title": "Edit post"
   },
   "PostWriteLocationLayout": {
     "title": "Register location",
-    "srOnlyPageTitle": "Register location page"
+    "srOnlyPageTitle": "Register location"
   },
   "LocationSearchSection": {
     "searchPlaceholder": "Enter a region name.",
@@ -1251,7 +1253,7 @@
   },
   "MypageReportsDetailPage": {
     "title": "My Reports",
-    "srOnlyTitle": "Report details page"
+    "srOnlyTitle": "Report details"
   },
   "MypageReportsDetail": {
     "pending": "Received",
@@ -1277,7 +1279,7 @@
   },
   "MypageReportsPage": {
     "title": "My Reports",
-    "srOnlyTitle": "My reports page"
+    "srOnlyTitle": "My reports"
   },
   "MypageReportsFilter": {
     "all": "All",
@@ -1311,7 +1313,7 @@
   },
   "NotificationSettingsPage": {
     "title": "Notification Settings",
-    "srOnlyTitle": "Notification settings page"
+    "srOnlyTitle": "Notification settings"
   },
   "LanguageSettingsLayout": {
     "title": "Language Settings",
@@ -1319,7 +1321,7 @@
   },
   "LanguageSettingsPage": {
     "title": "Language Settings",
-    "srOnlyTitle": "Language settings page",
+    "srOnlyTitle": "Language settings",
     "changeButton": "Change"
   },
   "NotificationSettingList": {
@@ -1369,7 +1371,7 @@
   },
   "MypageInquiriesPage": {
     "title": "My Inquiries",
-    "srOnlyTitle": "My inquiries page"
+    "srOnlyTitle": "My inquiries"
   },
   "MypageInquiriesFilter": {
     "all": "All",
@@ -1503,7 +1505,7 @@
   },
   "MypageFavoritesPage": {
     "title": "Favorites",
-    "srOnlyTitle": "Favorites page"
+    "srOnlyTitle": "Favorites"
   },
   "MypageFavoritesLayout": {
     "title": "Favorites",
@@ -1515,7 +1517,7 @@
   },
   "MypageFavoritePlacesPage": {
     "title": "Saved Places",
-    "srOnlyTitle": "Saved places page"
+    "srOnlyTitle": "Saved places"
   },
   "MypageFavoritePlacesLayout": {
     "title": "Saved Places",
@@ -1528,7 +1530,7 @@
   },
   "MypagePostsPage": {
     "title": "My Posts",
-    "srOnlyTitle": "My posts page"
+    "srOnlyTitle": "My posts"
   },
   "MypagePostsLayout": {
     "title": "My Posts",
@@ -1540,7 +1542,7 @@
   },
   "MypageCommentsPage": {
     "title": "My Comments",
-    "srOnlyTitle": "My comments page"
+    "srOnlyTitle": "My comments"
   },
   "MypageCommentsLayout": {
     "title": "My Comments",
@@ -1581,7 +1583,7 @@
   },
   "MypageReviewsPage": {
     "title": "Reviews",
-    "srOnlyTitle": "Reviews page",
+    "srOnlyTitle": "Reviews",
     "tabsAriaLabel": "Review tabs",
     "countLabel": "Reviews",
     "tabs": {
@@ -1627,7 +1629,7 @@
   },
   "MypageActivitiesPage": {
     "title": "My Activity",
-    "srOnlyTitle": "My activity page"
+    "srOnlyTitle": "My activity"
   },
   "MypageActivitiesLayout": {
     "title": "My Activity",
@@ -1666,7 +1668,7 @@
   },
   "DeleteAccountPage": {
     "title": "Delete Account",
-    "srOnlyTitle": "Delete account page",
+    "srOnlyTitle": "Delete account",
     "userNotFound": "This account doesn't exist.",
     "deleteFailed": "Couldn't delete your account."
   },
@@ -1711,7 +1713,7 @@
     "metaTitle": "Change Password | finditem! My Page",
     "metaDescription": "Change your finditem account password securely.",
     "title": "Change Password",
-    "heading": "Change password page",
+    "heading": "Change password",
     "submit": "Save Changes",
     "currentPasswordLabel": "Current password",
     "currentPasswordPlaceholder": "Enter your current password.",
@@ -1732,7 +1734,7 @@
     "metaTitleTemplate": "%s | finditem! Notices",
     "metaDescription": "Check the latest notices from finditem!.",
     "title": "Notices",
-    "heading": "Notices page",
+    "heading": "finditem! Notices",
     "writeAriaLabel": "Go to the create notice page",
     "search": {
       "placeholder": "Search by title or content."
@@ -1824,6 +1826,13 @@
       "title": "Worry less about lost items with finditem!",
       "description": "With finditem! by your side, losing something can feel a little less overwhelming.",
       "button": "Go to the finditem homepage"
+    },
+    "imageAlt": {
+      "browseList": "Lost item post list screen with lost and found tabs and region, category, and sort filters.",
+      "browseDetail": "Lost item post detail screen showing the item photo, author, a chat button, and the post body.",
+      "chatRoom": "Chat room with a reporter about a black wallet found on a street in Myeongdong.",
+      "alertCategory": "Category alert example notifying that a new post was added in the electronics category.",
+      "alertFavorite": "Favorite alert example notifying that the status of a favorited post changed."
     }
   },
   "AppleCallback": {
@@ -1846,7 +1855,7 @@
     "metaTitle": "Lost, Found & Stolen Item Guide",
     "metaDescription": "Looking for a way to handle a lost, found, or stolen item? We've organized the reporting steps and contacts by type so you can stay calm and act with confidence.",
     "headerTitle": "Guide for Lost Items",
-    "srHeading": "Manual page"
+    "srHeading": "finditem! User Manual"
   },
   "ManualTabs": {
     "LOST": "Lost",
