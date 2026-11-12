@@ -1,13 +1,17 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import "./SecondSection.css";
 import { IMAGES } from "./SECOND_SECTION_IMAGES";
 import { useInView } from "../../../_hooks/useInView/useInView";
 
 const SecondSection = () => {
+  const t = useTranslations("HelloPage.imageAlt");
   const { ref, inView } = useInView({ threshold: 0.5 });
+  // 앱 화면 캡처는 기능을 설명하는 이미지라 내용을 alt로 적는다. 휴대폰 테두리는 장식이라 비워둔다.
+  const imageAlts = [t("browseList"), t("browseDetail")];
 
   return (
     <div className="relative w-fit select-none">
@@ -26,7 +30,7 @@ const SecondSection = () => {
         <Image
           key={image}
           src={image}
-          alt=""
+          alt={imageAlts[index]}
           width={178}
           height={405}
           draggable={false}

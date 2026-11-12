@@ -1,5 +1,6 @@
 import { GetByIdInquiryResponseType } from "@/api/fetch/inquiry";
 import { BlockUserItem } from "@/api/fetch/report";
+import type { PreferredLanguageResponse } from "@/api/fetch/user/types/PreferredLanguageType";
 
 export const MOCK_MYPAGE_COMMENTS_ITEM = [
   {
@@ -270,4 +271,11 @@ export const MOCK_MYPAGE_INQUIRY_DETAIL = {
       },
     ],
   },
+};
+
+export const MOCK_PREFERRED_LANGUAGE_RESPONSE: PreferredLanguageResponse = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: { preferredLanguage: "KO" },
 };
