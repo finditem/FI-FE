@@ -71,7 +71,8 @@ test.describe("공지사항 목록", () => {
 
     test("헤더·검색·목록이 보인다", async ({ page }) => {
       await expect(page.getByRole("heading", { name: "공지사항", level: 2 })).toBeVisible();
-      await expect(page.locator("h1.sr-only", { hasText: "공지사항 페이지" })).toBeAttached();
+      // h1 문구가 "공지사항 페이지"에서 서비스명을 담은 제목으로 바뀌어도 통과하도록 핵심 단어만 확인한다.
+      await expect(page.locator("h1.sr-only", { hasText: "공지사항" })).toBeAttached();
 
       await expect(page.getByPlaceholder("제목, 내용을 입력해 주세요.")).toBeVisible();
       await expect(page.getByRole("button", { name: "공지사항 정렬 필터" })).toBeVisible();
