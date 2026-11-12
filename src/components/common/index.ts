@@ -33,3 +33,4 @@ export { default as DeleteButton } from "./Input/_internal/DeleteButton/DeleteBu
 export { default as LanguageSwitcher } from "./LanguageSwitcher/LanguageSwitcher";
 export type { IconName } from "./Icon/Icon";
 export type { InputTextProps } from "./Input/InputText/InputText";
+export { default as JsonLd } from "./JsonLd/JsonLd";
