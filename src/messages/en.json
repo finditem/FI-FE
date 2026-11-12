@@ -307,6 +307,7 @@
   },
   "UserProfilePage": {
     "defaultNickname": "Nickname",
+    "metaDescription": "{nickname}'s finditem! profile. See the lost and found posts and reviews.",
     "profileTitle": "{nickname}'s profile",
     "profile": "Profile",
     "profileTabsAriaLabel": "Profile tabs",
