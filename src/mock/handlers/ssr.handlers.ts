@@ -2,7 +2,7 @@ import { http, HttpResponse } from "msw";
 import { MOCK_POST_DEFAULT_DETAIL } from "../data/posts.data";
 import { createMockNoticeDetailHeaderResponse } from "../data/notice.data";
 import { buildPublicDetailResponse } from "../data/public.data";
-import { MOCK_USER_PROFILE_DATA } from "../data/userProfile.data";
+import { MOCK_USER_META_RESPONSE } from "../data/userProfile.data";
 
 /**
  * SSR 프리패치 전용 MSW 핸들러.
@@ -31,12 +31,7 @@ export const ssrHandlers = [
 
   // 회원 프로필 메타 (user/[userId]). 서버에서 회원 존재 여부와 닉네임을 확인할 때 호출한다.
   http.get("*/users/:id/meta", () => {
-    return HttpResponse.json({
-      isSuccess: true,
-      code: "COMMON200",
-      message: "성공입니다.",
-      result: { nickname: MOCK_USER_PROFILE_DATA.nickname },
-    });
+    return HttpResponse.json(MOCK_USER_META_RESPONSE);
   }),
 
   // 경찰청 분실물 상세 (public-data/lost/[postId])
