@@ -10,6 +10,8 @@ type HeaderData = {
   imageResponseList: ImageResponse[];
   userData: userInformation;
   isMine: boolean;
+  /** `false`면 `isMine`이 확정되지 않은 상태라 채팅 버튼을 비활성화합니다. (default: true) */
+  isPersonalized?: boolean;
 };
 
 interface PostDetailHeaderType {
@@ -18,7 +20,7 @@ interface PostDetailHeaderType {
 
 const PostDetailHeader = ({ headerData }: PostDetailHeaderType) => {
   const t = useTranslations("PostDetailHeader");
-  const { id, imageResponseList, userData, isMine } = headerData;
+  const { id, imageResponseList, userData, isMine, isPersonalized = true } = headerData;
 
   return (
     <>
@@ -56,14 +58,25 @@ const PostDetailHeader = ({ headerData }: PostDetailHeaderType) => {
           </div>
         </Link>
 
-        <Button
-          as={Link}
-          href={isMine ? "/chat" : `/chat/${id}`}
-          className={cn("min-h-11 w-full py-[10px]", "tablet:flex-1")}
-          data-testid="post-chat-button"
-        >
-          {isMine ? t("goToChatList") : t("startChat")}
-        </Button>
+        {/* 내 글 여부가 확정되기 전에는 이동할 경로를 정할 수 없어 비활성 버튼으로 자리를 유지한다. */}
+        {isPersonalized ? (
+          <Button
+            as={Link}
+            href={isMine ? "/chat" : `/chat/${id}`}
+            className={cn("min-h-11 w-full py-[10px]", "tablet:flex-1")}
+            data-testid="post-chat-button"
+          >
+            {isMine ? t("goToChatList") : t("startChat")}
+          </Button>
+        ) : (
+          <Button
+            disabled
+            className={cn("min-h-11 w-full py-[10px]", "tablet:flex-1")}
+            data-testid="post-chat-button"
+          >
+            {t("startChat")}
+          </Button>
+        )}
       </section>
     </>
   );
