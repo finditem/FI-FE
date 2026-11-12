@@ -103,6 +103,13 @@ const MOCK_USERS_ME = {
   result: { userId: 1, nickName: "나", profileImage: "", email: "test@test.com" },
 };
 
+const MOCK_PREFERRED_LANGUAGE = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: { preferredLanguage: "KO" },
+};
+
 type SetupOptions = {
   isMine?: boolean;
   favoriteStatus?: boolean;
@@ -160,6 +167,18 @@ async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
       status: 200,
       contentType: "application/json",
       body: JSON.stringify(MOCK_USERS_ME),
+    })
+  );
+
+  /*
+   * 로그인 상태면 상세 페이지가 선호 언어를 조회한다. 목이 없으면 CI의 실제 백엔드가 가짜 토큰에 401을 주고,
+   * 인증 인터셉터가 로그아웃해 로그인 페이지로 이동시켜 이후 동작 검증이 실패한다.
+   */
+  await page.route("**/api/users/me/preferred-language", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(MOCK_PREFERRED_LANGUAGE),
     })
   );
 
@@ -358,7 +377,11 @@ test.describe("게시글 상세 페이지", () => {
     );
     await page.route("https://oapi.map.naver.com/**", (route) => route.abort());
 
-    await page.goto(`/list/${POST_ID}`);
+    /*
+     * 실패 토스트는 잠시 뒤 사라진다. load 이벤트까지 기다리면 이미지 최적화 요청이 느린 환경(CI)에서
+     * 토스트가 사라진 뒤에 검증을 시작하므로, DOM이 준비되는 시점부터 바로 기다린다.
+     */
+    await page.goto(`/list/${POST_ID}`, { waitUntil: "domcontentloaded" });
 
     await expect(page.getByText("게시글 불러오기에 실패했어요")).toBeVisible({ timeout: 5000 });
   });
