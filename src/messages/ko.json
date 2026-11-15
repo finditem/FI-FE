@@ -777,8 +777,6 @@
     "postUnavailable": "상태가 변경되었거나 삭제된 게시글이에요",
     "loginRequiredTitle": "로그인이 필요한 서비스입니다.",
     "loginRequiredDescription": "해당 서비스는 로그인 후 이용해 주세요.",
-    "defaultTitle": "게시글",
-    "detailPageTitle": "{title} 상세 페이지",
     "similarReportTitle": "비슷한 제보글",
     "similarLostTitle": "비슷한 분실물"
   },

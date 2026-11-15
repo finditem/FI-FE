@@ -777,8 +777,6 @@
     "postUnavailable": "This post was updated or deleted.",
     "loginRequiredTitle": "Sign in to continue.",
     "loginRequiredDescription": "Please log in to use this service.",
-    "defaultTitle": "Post",
-    "detailPageTitle": "{title} detail page",
     "similarReportTitle": "Similar reports",
     "similarLostTitle": "Similar lost items"
   },
