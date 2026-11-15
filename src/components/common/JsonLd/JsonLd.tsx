@@ -15,7 +15,7 @@ interface JsonLdProps {
 /**
  * @example
  * ```tsx
- * <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: "찾아줘!" }} />
+ * <JsonLd data={{ "@context": "https://schema.org", "@type": "WebSite", name: "찾길" }} />
  * ```
  */
 const JsonLd = ({ data }: JsonLdProps) => {
