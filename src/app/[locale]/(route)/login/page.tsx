@@ -56,6 +56,7 @@ const page = () => {
 
   return (
     <div className="min-h-screen w-full gap-8 flex-col-center">
+      <h1 className="sr-only">{t("heading")}</h1>
       <LogoLink />
 
       {/* button */}

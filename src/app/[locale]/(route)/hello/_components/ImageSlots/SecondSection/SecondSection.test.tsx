@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import SecondSection from "./SecondSection";
 
 jest.mock("next/image", () => ({
@@ -15,6 +15,8 @@ jest.mock("../../../_hooks/useInView/useInView", () => ({
   useInView: () => mockUseInView(),
 }));
 
+// 이미지는 alt 유무와 관계없이 렌더 순서대로 찾는다. 빈 alt 이미지만 presentation 역할을 가져,
+// 대체 텍스트를 채우면 역할 기반 조회로는 찾을 수 없기 때문이다.
 describe("SecondSection", () => {
   beforeEach(() => {
     mockUseInView.mockReset();
@@ -26,9 +28,9 @@ describe("SecondSection", () => {
       inView: false,
     });
 
-    render(<SecondSection />);
+    const { container } = render(<SecondSection />);
 
-    const imgs = screen.getAllByRole("presentation");
+    const imgs = container.querySelectorAll("img");
     expect(imgs[1]).not.toHaveClass("fade-out-once");
   });
 
@@ -38,9 +40,9 @@ describe("SecondSection", () => {
       inView: true,
     });
 
-    render(<SecondSection />);
+    const { container } = render(<SecondSection />);
 
-    const imgs = screen.getAllByRole("presentation");
+    const imgs = container.querySelectorAll("img");
     expect(imgs[1]).toHaveClass("fade-out-once");
   });
 
