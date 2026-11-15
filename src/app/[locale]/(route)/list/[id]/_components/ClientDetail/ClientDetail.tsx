@@ -127,10 +127,6 @@ const ClientDetail = ({ id, isLoggedIn, initialPost }: ClientDetailProps) => {
         <DetailHeaderPlaceholder />
       )}
 
-      <h1 className="sr-only">
-        {t("detailPageTitle", { title: postDetailData.title || t("defaultTitle") })}
-      </h1>
-
       <article className="flex flex-col h-base">
         <PostDetail data={postDetailData} isPersonalized={isPersonalized} />
 
