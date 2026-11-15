@@ -19,6 +19,7 @@ export const spriteIconNames = new Set(Object.keys(iconManifest)) as Set<SpriteI
 export const iconImports = {
   // foreignObject + backdrop-filter를 사용하는 아이콘은 <use> 클로닝 호환성 문제로 스프라이트에서 제외합니다.
   Logo: () => import("@/assets/logo.svg"),
+  LogoChatgil: () => import("@/assets/logo-chatgil.svg"),
   LoadingSkeleton: () => import("@/assets/loading-skeleton.svg"),
   LogoCharacter: () => import("@/assets/logo-character.svg"),
   Book: () => import("@/assets/book.svg"),
