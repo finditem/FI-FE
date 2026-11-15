@@ -12,6 +12,14 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return <>{children}</>;
+export default async function Layout({ children }: { children: ReactNode }) {
+  const t = await getTranslations("HomeLayout");
+
+  return (
+    <>
+      {/* 홈은 지도 중심 화면이라 보이는 제목이 없어, 검색엔진과 스크린 리더를 위한 h1을 둔다. */}
+      <h1 className="sr-only">{t("title")}</h1>
+      {children}
+    </>
+  );
 }
