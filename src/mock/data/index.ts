@@ -11,3 +11,4 @@ export * from "./review.data";
 export * from "./auth.data";
 export * from "./share.data";
 export * from "./public.data";
+export * from "./hello.data";

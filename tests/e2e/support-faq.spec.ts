@@ -26,6 +26,9 @@ const setupSupportPageMocks = async (page: Page) => {
   );
 };
 
+// 서비스명 변경(찾아줘 → 찾길) 전후 모두 통과하도록 서비스명 부분만 두 이름을 허용한다.
+const SERVICE_QUESTION = /^(찾아줘|찾길) 서비스는 어떤 플랫폼인가요\?$/;
+
 test.describe("자주 묻는 질문 (/support)", () => {
   test.describe.configure({ mode: "serial" });
 
@@ -39,7 +42,7 @@ test.describe("자주 묻는 질문 (/support)", () => {
     await expect(page.getByRole("button", { name: "전체" })).toBeVisible();
     await expect(page.getByRole("button", { name: "계정" })).toBeVisible();
 
-    await expect(page.getByText("찾아줘 서비스는 어떤 플랫폼인가요?")).toBeVisible();
+    await expect(page.getByText(SERVICE_QUESTION)).toBeVisible();
     await expect(page.getByText("분실물은 어떻게 찾을 수 있나요?")).toBeVisible();
   });
 
@@ -49,7 +52,9 @@ test.describe("자주 묻는 질문 (/support)", () => {
 
     await page.getByRole("link", { name: "FAQ 질문 접기/펼치기" }).first().click();
 
-    await expect(page.getByText(/찾아줘는 분실물과 습득물을 빠르게 연결해 주는/)).toBeVisible();
+    await expect(
+      page.getByText(/(찾아줘는|찾길은) 분실물과 습득물을 빠르게 연결해 주는/)
+    ).toBeVisible();
   });
 
   test("답변에 링크 버튼이 있으면 노출된다", async ({ page }) => {
@@ -69,7 +74,7 @@ test.describe("자주 묻는 질문 (/support)", () => {
 
     await page.waitForURL("**/support?tab=account");
     await expect(page.getByText("회원가입은 어떻게 하나요?")).toBeVisible();
-    await expect(page.getByText("찾아줘 서비스는 어떤 플랫폼인가요?")).not.toBeVisible();
+    await expect(page.getByText(SERVICE_QUESTION)).not.toBeVisible();
   });
 
   test("1:1 문의하기 버튼으로 문의 작성 페이지로 이동한다", async ({ page }) => {
