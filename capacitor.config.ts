@@ -2,7 +2,7 @@ import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
   appId: "kr.finditem.app",
-  appName: "찾아줘!",
+  appName: "찾길",
   webDir: "public",
   server: {
     url: "http://localhost:3000",
