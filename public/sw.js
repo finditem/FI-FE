@@ -3,7 +3,7 @@
 importScripts("/normalizePushNotificationUrl.js");
 
 self.addEventListener("push", (event) => {
-  let title = "찾아줘!";
+  let title = "찾길";
   let body = "";
   let url = "/";
 
