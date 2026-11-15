@@ -19,3 +19,13 @@ Figma: https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/찾아줘--v2.0?node-
 ## 후속 작업 (별도 진행, 별도 plan.md)
 
 - [ ] 마이페이지에 언어 변경 옵션 추가 — 디자인이 달라 `LanguageDropdown`을 공통화하지 않고 마이페이지 라우트 전용으로 새로 작성 (로케일 전환 로직만 `LanguageDropdown` 구현 참고)
+
+## 찾길 로고 교체
+
+Figma: https://www.figma.com/design/BnMhrCOz7goLFef2jr8Zpf/찾길-v2.0?node-id=18093-105096
+
+- [x] 새 로고 에셋 추가 (`src/assets/logo-chatgil.svg` 앱 로고 84x84, `src/assets/logo-name-chatgil.svg` 워드마크 142x64)
+- [x] Icon 등록 — 앱 로고는 `foreignObject`를 포함해 `iconImports`(lazy)에 `LogoChatgil`로, 워드마크는 스프라이트 매니페스트에 `LogoNameChatgil`로 추가하고 스프라이트 재생성
+- [x] `_components/LogoLink/LogoLink.tsx` 교체 — 기존 `Logo` 아이콘과 `brandName` 텍스트를 새 앱 로고와 워드마크로 바꾸고, 로고/워드마크/슬로건 간격을 24px로 통일 (워드마크 접근성 이름은 기존 `LogoLink.brandName` 키 재사용)
+- [ ] `LogoLink.test.tsx`/`LogoLink.stories.tsx` 갱신은 별도 `test/*` 브랜치에서 진행
+- [ ] 슬로건 문구 확인 — Figma는 "Wait, 내 물건 어디갔지?"이나 현재 번역 키는 "위치 기반 매칭 분실물 서비스"로, 문구 변경 여부를 기획 확인 후 반영 (`chore/brand-name-chatgil`의 `brandName` 변경과 같은 블록이라 충돌 주의)
