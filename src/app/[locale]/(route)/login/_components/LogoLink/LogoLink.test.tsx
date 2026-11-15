@@ -21,13 +21,18 @@ describe("<LogoLink />", () => {
     expect(screen.getByRole("link", { name: /메인페이지 이동/ })).toHaveAttribute("href", "/");
   });
 
-  it("'찾아줘!' 텍스트가 렌더된다", () => {
+  it("앱 로고 아이콘이 렌더된다", () => {
     render(<LogoLink />);
-    expect(screen.getByText("찾아줘!")).toBeInTheDocument();
+    expect(screen.getByTestId("icon-LogoChatgil")).toBeInTheDocument();
   });
 
-  it("로고 아이콘이 렌더된다", () => {
+  it("워드마크 로고가 렌더된다", () => {
     render(<LogoLink />);
-    expect(screen.getByTestId("icon-Logo")).toBeInTheDocument();
+    expect(screen.getByTestId("icon-LogoNameChatgil")).toBeInTheDocument();
+  });
+
+  it("슬로건 텍스트가 렌더된다", () => {
+    render(<LogoLink />);
+    expect(screen.getByText("Wait, 내 물건 어디갔지?")).toBeInTheDocument();
   });
 });
