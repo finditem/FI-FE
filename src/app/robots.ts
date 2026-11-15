@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { headers } from "next/headers";
 import { routing } from "@/i18n/routing";
 import { PRODUCTION_HOST } from "@/constants/PRODUCTION_HOST";
+import { SITE_URL } from "@/constants/SITE_URL";
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
   const host = (await headers()).get("host");
@@ -23,6 +24,6 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
       allow: "/",
       disallow: [...disallowPaths, ...localizedDisallowPaths],
     },
-    sitemap: `https://${PRODUCTION_HOST}/sitemap.xml`,
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }
