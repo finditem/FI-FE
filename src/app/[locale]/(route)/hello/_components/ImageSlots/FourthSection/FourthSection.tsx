@@ -1,18 +1,20 @@
 "use client";
 
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import "./FourthSection.css";
 import { useInView } from "../../../_hooks/useInView/useInView";
 
 const FourthSection = () => {
+  const t = useTranslations("HelloPage.imageAlt");
   const { ref, inView } = useInView();
 
   return (
     <div className="select-none flex-col-center">
       <Image
         src="/hello/fourth/service-fourth-item-01.svg"
-        alt=""
+        alt={t("alertCategory")}
         width={318}
         height={86}
         draggable={false}
@@ -21,7 +23,7 @@ const FourthSection = () => {
       <div ref={ref} />
       <Image
         src="/hello/fourth/service-fourth-item-02.svg"
-        alt=""
+        alt={t("alertFavorite")}
         width={280}
         height={75}
         draggable={false}
