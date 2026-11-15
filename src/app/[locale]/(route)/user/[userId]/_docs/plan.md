@@ -29,3 +29,15 @@
 - [x] 더 이상 쓰지 않는 `_constants/MOCK_RECEIVED_REVIEWS.ts`를 제거한다.
 - [x] 번역 키 추가: `UserProfilePage.helpItems.*`, `UserProfilePage.withdrawnUser` (ko/en).
 - [ ] `npm run lint:i18n-literal`, `npm run check:i18n-keys`, `npm run build` 로컬 검증. (기존 컴포넌트 테스트/스토리 갱신은 별도 `test/*` PR로 분리)
+
+## SEO: 없는 회원 soft 404 교정(H2) + 프로필 설명·색인 정책(L1)
+
+없는 회원(`/user/99999999`)과 숫자가 아닌 id(`/user/abc`)가 200으로 응답하던 문제를 고친다. 프로필은
+게시글 목록과 겹치는 얇은 콘텐츠라 `noindex, follow`로 두고, 공유용 고유 설명을 넣는다.
+
+- [x] `_utils/getUserMetaOnServer`: 서버에서 `/users/{id}/meta`를 조회해 found / notFound(404) / unavailable(그 외 실패)로 구분한다. `generateMetadata`와 `page`가 같은 요청을 써서 fetch 캐시로 한 번만 호출된다.
+- [x] `page.tsx`: 숫자가 아닌 id와 notFound는 `notFound()`(H2). unavailable이면 기존처럼 클라이언트 렌더로 둔다.
+- [x] `generateMetadata`: 닉네임을 담은 고유 설명을 넣고 `robots: { index: false, follow: true }`를 적용한다(L1).
+- [x] 번역 키 `UserProfilePage.metaDescription` (ko/en).
+- [x] `npm run check:i18n-keys`, `npm run build`, user 라우트 Jest(5 suites / 18) 통과. `next start`로 `/user/99999999`, `/user/abc`가 404를 주고 `/user/1`(ko/en)에 고유 설명과 `noindex, follow`가 실리는 것을 확인했다.
+- [ ] e2e(user-profile.spec)가 CI에서 녹색인지 확인한다.

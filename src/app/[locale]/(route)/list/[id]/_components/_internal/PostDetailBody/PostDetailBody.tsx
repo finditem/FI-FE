@@ -10,9 +10,11 @@ import { useFormatPostDate } from "../../../_hooks/useFormatPostDate/useFormatPo
 
 interface PostDetailBodyProps {
   data: PostDetailData;
+  /** `false`면 `favoriteStatus`가 확정되지 않은 상태라 즐겨찾기 버튼을 비활성화합니다. (default: true) */
+  isPersonalized?: boolean;
 }
 
-const PostDetailBody = ({ data }: PostDetailBodyProps) => {
+const PostDetailBody = ({ data, isPersonalized = true }: PostDetailBodyProps) => {
   const t = useTranslations("PostDetailBody");
   const locale = useLocale();
   const { title, content, favoriteCount, postStatus, category, createdAt, viewCount } = data;
@@ -33,7 +35,10 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
           <h1 className="text-[20px] font-semibold text-layout-header-default">{title}</h1>
           <time dateTime={createdAt} className="text-body2-regular text-layout-body-default">
             <span>{t("registeredLabel")}</span>{" "}
-            <span className="text-body2-semibold">{formatPostDate(createdAt)}</span>
+            {/* 경과 시간 라벨은 서버 렌더 시각과 hydration 시각이 경계(분·시간)를 넘으면 달라질 수 있어 경고를 억제한다. */}
+            <span className="text-body2-semibold" suppressHydrationWarning>
+              {formatPostDate(createdAt)}
+            </span>
           </time>
         </div>
 
@@ -52,7 +57,7 @@ const PostDetailBody = ({ data }: PostDetailBodyProps) => {
             <button
               type="button"
               className="flex items-center gap-1"
-              disabled={isPending}
+              disabled={isPending || !isPersonalized}
               onClick={() => handleToggleFavorite(data.favoriteStatus)}
             >
               <Icon

@@ -1,6 +1,9 @@
 import { withSentryConfig } from "@sentry/nextjs/config";
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
+// Next 기본 봇 목록입니다. htmlLimitedBots를 지정하면 이 목록을 대체하므로, 기본값에 덧붙이기 위해 가져옵니다.
+import { HTML_LIMITED_BOT_UA_RE } from "next/dist/shared/lib/router/utils/html-bots";
+import { PRODUCTION_HOST } from "./src/constants/PRODUCTION_HOST";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
@@ -65,12 +68,25 @@ const securityHeaders = [
   },
 ];
 
+// 운영 호스트가 아닌 요청(release, Vercel 미리보기 등)에 붙여 검색 색인에서 뺍니다.
+// host 조건 값은 정규식으로 해석되므로 점을 이스케이프합니다.
+const nonProductionNoindexHeaders = {
+  source: "/:path*",
+  missing: [{ type: "host" as const, value: PRODUCTION_HOST.replace(/\./g, "\\.") }],
+  headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+};
+
+// 카카오톡 공유 크롤러(kakaotalk-scrap)가 스트리밍으로 늦게 오는 메타 태그를 읽지 못하는 경우가 있어,
+// 기본 목록에 더해 메타 태그를 head에 바로 담아 응답하도록 합니다.
+const htmlLimitedBots = new RegExp(`${HTML_LIMITED_BOT_UA_RE.source}|kakaotalk-scrap`, "i");
+
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "") ?? "";
 
 const nextConfig: NextConfig = {
   experimental: {
     reactCompiler: true,
   },
+  htmlLimitedBots,
   compiler: {
     removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
@@ -150,6 +166,7 @@ const nextConfig: NextConfig = {
         source: "/:path*",
         headers: securityHeaders,
       },
+      nonProductionNoindexHeaders,
     ];
   },
 };

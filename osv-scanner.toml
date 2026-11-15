@@ -1,0 +1,14 @@
+# OSV-Scanner 예외 목록이다. 패치가 불가능한 취약점만 사유와 만료일을 적어 추가한다.
+# 만료일이 지나면 예외가 풀려 스캔에 다시 잡히므로, 그때 패치 가능 여부를 다시 확인한다.
+
+# jest 30이 test-exclude를 거쳐 glob ^10과 minimatch ^9, ^10을 요구하므로 패치 버전으로 올릴 수 없다.
+# 취약한 버전은 모두 개발 의존성이며, 운영 경로의 @sentry/bundler-plugins는 패치된 버전을 쓴다.
+[[IgnoredVulns]]
+id = "GHSA-3g3m-2fjr-6pw4"
+ignoreUntil = 2027-05-08
+reason = "glob 취약 버전은 jest 등 개발 의존성에만 있고 외부 입력을 처리하지 않는다. 패치 버전 14.0.2는 jest가 요구하는 범위 밖이다."
+
+[[IgnoredVulns]]
+id = "GHSA-g3hv-75wg-m249"
+ignoreUntil = 2027-05-08
+reason = "minimatch 취약 버전은 jest와 eslint 등 개발 의존성에만 있고 외부 패턴을 처리하지 않는다. 패치 버전 11.0.1은 상위 패키지가 요구하는 범위 밖이다."
