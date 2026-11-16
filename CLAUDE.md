@@ -1,6 +1,6 @@
 # FI-FE
 
-[찾아줘!](https://www.finditem.kr/) 서비스의 프론트엔드. Next.js 15(App Router) 기반 단일 앱.
+[찾길](https://www.finditem.kr/)(영문 finditem!, 구 서비스명 찾아줘!) 서비스의 프론트엔드. Next.js 15(App Router) 기반 단일 앱. 관리자 화면은 별도 앱으로 분리되어 있고, 예전 `/admin` 주소는 `middleware.ts`가 관리자 앱으로 리다이렉트한다.
 
 ## 스택
 
@@ -8,6 +8,9 @@
 - Tailwind CSS 3, Framer Motion
 - Zustand(상태), TanStack Query v5(서버 상태)
 - 실시간: 채팅은 STOMP(`@stomp/stompjs`), 알림은 SSE
+- 다국어: next-intl(`ko` 기본, `en`). 메시지는 `src/messages/{ko,en}.json`, 라우팅 설정은 `src/i18n/`
+- 지도: 네이버 지도(`react-naver-maps`). 카카오는 로그인과 공유에만 쓴다
+- 앱: Capacitor iOS(`ios/`, `capacitor.config.ts`). 웹 화면을 그대로 띄운다
 - 테스트: Jest(단위), Playwright(e2e, `tests/e2e`), Storybook + Chromatic
 - 기타: Sentry, PWA, Web Push, MSW(mock)
 
@@ -16,11 +19,16 @@
 ```
 src/
   app/
-    (home)/ (route)/ (admin)/   # App Router route group
-    (route)/*/                 # 라우트별 _components _hooks _types _utils (private 폴더)
+    [locale]/
+      (home)/ (route)/         # App Router route group
+      (route)/*/               # 라우트별 _components _hooks _types _utils _docs (private 폴더)
+    api/                       # Route Handler (auth, public, sentry, vworld)
+  api/            # _base(axios 인스턴스, 베이스 쿼리 훅) / fetch/{domain}(도메인별 API 훅)
   components/     # 전역 공통 — common / domain / layout / state
   hooks/ store/ utils/ types/  # 도메인 구분 없이 종류별 최상위에 분산
-  mock/           # MSW handlers
+  i18n/ messages/ # next-intl 라우팅 설정과 ko/en 메시지
+  mock/           # MSW handlers, data(fixture)
+  middleware.ts   # 로케일 처리, 보호 라우트 접근 제어, /admin 리다이렉트
 tests/e2e/        # Playwright 스펙 (기능별 1파일)
 .storybook/
 ```
@@ -47,7 +55,7 @@ Git Flow 변형. 상시 브랜치 3개와 작업별 임시 브랜치로 나눈�
 
 ## 검증 커맨드
 
-CI(`jest.yml`: PR→develop, `playwright.yml`: PR→main/develop)가 PR 시점에 자동으로 jest/e2e를 돌린다. 로컬 검증은 이를 보완하는 용도로 가볍게 유지한다.
+CI(`jest.yml`: PR→develop, `playwright.yml`: PR→main/develop)가 PR 시점에 자동으로 jest/e2e를 돌린다. `jest.yml`은 i18n 키 검사(`check:i18n-keys`)도 함께 돌려 ko/en 키가 어긋나면 PR을 막는다. Chromatic(`chromatic.yml`)은 develop 대상 PR에 `🎨 design` 라벨이 붙었을 때만 돈다. 로컬 검증은 이를 보완하는 용도로 가볍게 유지한다.
 
 - 기본: `npm run test` + `npm run build` (타입체크 포함). 대부분의 회귀를 이 둘로 잡는다.
 - `npm run check:fast`(test/e2e/storybook 병렬) 또는 `npm run check:all`(순차)은 변경이 e2e로 커버되는 플로우나 컴포넌트 스토리를 직접 건드릴 때, 또는 사용자가 요청할 때만 실행한다. 매 응답마다 기본으로 돌리지 않는다.
@@ -78,6 +86,7 @@ CI(`jest.yml`: PR→develop, `playwright.yml`: PR→main/develop)가 PR 시점�
   - 3단 구조로 쓴다: `[요약/상세]` → `[인터페이스/파라미터]` → `[예시]`. props(또는 매개변수)가 없으면 `[요약/상세]` → `[예시]` 2단으로 줄인다.
   - JSDoc 스타일(`@param {string} name`처럼 중괄호로 타입을 명시)을 쓰지 않는다. 태그 표기에 주의한다 — `@remark`(X) → `@remarks`(O), `@return`(X) → `@returns`(O).
   - 매개변수가 1~2개면 함수 매개변수에 직접 정의하고 `@param`으로 설명한다. 매개변수가 많거나 객체 구조면 `interface`로 분리한다 — 인터페이스 필드 주석이 IDE 인텔리센스와 연동되어 정의부로 이동하지 않고도 필드 역할을 바로 확인할 수 있기 때문이다. default 값이 있으면 함께 적는다.
+- 다국어(i18n): 화면에 보이는 정적 텍스트를 하드코딩하지 않는다. 클라이언트는 `useTranslations`, 서버는 `getTranslations`로 `t()`를 쓰고, 키는 `src/messages/ko.json`과 `en.json`에 동시에 추가한다. 링크와 라우터는 로케일 접두사를 붙여 주는 `@/i18n/navigation`의 것을 쓴다. 로컬에서는 `npm run lint:i18n-literal`, `npm run check:i18n-keys`로 확인한다. 라우트 작업일 때의 체크리스트는 `plan-route` 스킬에 있다.
 - TODO 주석: 나중에 처리할 작업을 남길 때는 `TODO(담당자): 할 일` 형태로 담당자 이름을 괄호 안에 명시한다. 담당자를 적어 누구에게 물어보면 되는지 추적할 수 있게 하기 위함이다. 예: `// TODO(수현): 후기 등록 API 연동 시 성공 응답 후 완료 팝업을 열도록 교체`.
 
 ## 표준 작업 흐름
@@ -109,4 +118,4 @@ PR은 작업 단위로 쪼개 올리고, 작업 성격이 다르면 PR을 나눈
 
 ## 지도 작업
 
-네이버 지도 관련 작업(지도 화면, 마커, 줌, 지오코딩, 카카오에서 네이버로의 마이그레이션)을 시작하기 전에 `naver-map` 스킬을 실행한다. 컨텍스트가 되는 문서는 `docs/naver-map/`에 있다. 카카오 로그인은 지도와 무관하므로 이 대상에 포함하지 않는다.
+네이버 지도 관련 작업(지도 화면, 마커, 줌, 지오코딩, 서버 지도 API로 보내는 레벨 변환)을 시작하기 전에 `naver-map` 스킬을 실행한다. 컨텍스트가 되는 문서는 `docs/naver-map/`에 있다. 카카오 로그인은 지도와 무관하므로 이 대상에 포함하지 않는다.
