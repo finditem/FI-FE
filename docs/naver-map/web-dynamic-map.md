@@ -59,7 +59,47 @@ Next.js App Router에서는 `"use client"`가 필요하다. 지도 컴포넌트�
 | 방향      | 작을수록 확대 | 클수록 확대     |
 | 기본값    | 3 (SDK 기준)  | 11              |
 
-`minZoom`과 `maxZoom`을 지정하지 않으면 지도 유형이 지원하는 범위를 그대로 쓴다. 카카오의 `minLevel`, `maxLevel`과 이름은 비슷하지만 의미가 반대이므로 그대로 옮기면 안 된다. 변환 공식과 대응표는 [migration-from-kakao.md](./migration-from-kakao.md#줌-레벨-변환)에 있다.
+`minZoom`과 `maxZoom`을 지정하지 않으면 지도 유형이 지원하는 범위를 그대로 쓴다. 카카오의 `minLevel`, `maxLevel`과 이름은 비슷하지만 의미가 반대이므로 그대로 옮기면 안 된다. 변환 공식과 대응표는 아래 서버 지도 API의 레벨 항목에 있다.
+
+`BaseNaverMap`은 기본값으로 `minZoom = 7`, `maxZoom = 19`를 건다. `minZoom`을 비워 두면 네이버 국내 최소값인 6까지 축소되고, 그만큼 넓은 범위의 마커 조회가 나갈 수 있으므로 기본값을 지우지 않는다.
+
+### 서버 지도 API의 레벨
+
+백엔드 지도 API는 지금도 카카오 레벨 체계(작을수록 확대)로 `level`을 받는다. 프론트는 네이버 `zoom`으로 지도를 다루고, 서버로 보내기 직전에만 `getServerMapLevel`(`src/utils/getServerMapLevel/`)로 레벨을 되돌린다. 변환은 이 함수 한 곳에만 둔다.
+
+#### 변환 공식
+
+카카오 레벨의 해상도는 `2^(level - 3)` m/px이고, 네이버는 웹 메르카토르라서 `156543.03 * cos(위도) / 2^zoom` m/px이다. 성수동(위도 37.54)에서 두 값을 같게 두면 `zoom = 19.92 - level`이 되므로 **`zoom = 20 - level`** 로 근사한다. 위도가 크게 다른 지역에서는 어긋나지만, 서비스 지역이 성수동 일대라 실용상 문제없다. 네이버 공식 대응표가 아니라 계산으로 유도한 값이다.
+
+| 카카오 `level` | 네이버 `zoom` | 대략 해상도 | 이 프로젝트에서의 의미                                     |
+| -------------- | ------------- | ----------- | ---------------------------------------------------------- |
+| 3              | 17            | 1 m/px      | 건물 단위                                                  |
+| 5              | 15            | 4 m/px      | `DEFAULT_MAP_ZOOM`. 성수동 일대가 한 화면에 들어온다       |
+| 6              | 14            | 8 m/px      | 반경 1000m (`getMapZoomByRadius`)                          |
+| 7              | 13            | 16 m/px     | 반경 3000m                                                 |
+| 8              | 12            | 32 m/px     | 반경 5000m. 서버가 처리하는 레벨 상한                      |
+| 9              | 11            | 64 m/px     | 이 줌 이하에서 마커 조회를 끈다 (`isMapZoomFetchDisabled`) |
+| 13             | 7             | 1024 m/px   | `BaseNaverMap`의 기본 `minZoom`, 즉 최대 축소 한계         |
+
+#### 반드시 clamp 한다
+
+네이버 `zoom`은 21까지 올라가므로 `20 - zoom`을 그대로 쓰면 레벨이 0이나 음수가 된다. 이 경우 `level > 0` 조건에 걸려 조회가 오류 없이 멈추거나, 음수가 서버로 그대로 나간다. `getServerMapLevel`은 결과를 1에서 8 사이로 제한한다.
+
+상한이 11이 아니라 8인 이유는 백엔드 `MapLevel` enum이 `LEVEL_1`부터 `LEVEL_8`까지만 있기 때문이다. 게시글 쪽 DTO는 `@Max(11)`로 검증하지만 9에서 11은 서버에서 `_MAP_LEVEL_INVALID` 예외가 난다. 서버는 레벨을 enum 키로만 쓰고, 레벨마다 조회 사각형의 반폭(m)을 고정해 두었으므로 카카오 픽셀 해상도와는 관계가 없다.
+
+#### `level`을 받는 엔드포인트
+
+| 엔드포인트                         | 훅                        |
+| ---------------------------------- | ------------------------- |
+| `GET /main/posts/marker`           | `useGetMarker`            |
+| `GET /main/posts/recent-found`     | `useRecentFound`          |
+| `GET /main/posts/search-location`  | `useSearchLocation`       |
+| `GET /main/posts/{postId}/summary` | `useMapPostSummary`       |
+| `GET /main/places/search-location` | `useSearchLocationPlaces` |
+
+훅은 모두 `src/api/fetch/mapController/api/`에 있고 `getServerMapLevel`로 변환한 값을 보낸다. `placeId`를 받는 `GET /main/places/{placeId}/nearby-post-markers`, `nearby-posts`, `summary`는 서버가 반경을 고정해 두어 `level`을 쓰지 않는다.
+
+파라미터를 반경(m)으로 바꾸는 것이 근본적으로 옳지만 백엔드 작업이 필요하다. 이 계약을 바꾸는 변경은 백엔드와 합의한 뒤 진행한다.
 
 ## Map
 
