@@ -65,7 +65,7 @@
 
 - **Monitoring:** `Sentry`
 - **Analytics:** `Vercel Analytics`, `Speed Insights`, `Microsoft Clarity`
-- **Security:** `OSV-Scanner`, `TruffleHog`, `Dependabot`
+- **Security:** `Snyk`, `OSV-Scanner`, `TruffleHog`, `Dependabot`
 - **CI/CD:** `GitHub Actions`, `Vercel`
 
 ## 개발 컨벤션
