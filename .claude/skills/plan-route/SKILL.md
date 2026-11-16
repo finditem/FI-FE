@@ -9,10 +9,10 @@ description: src/app 하위 특정 라우트(page.tsx가 있는 디렉토리) �
 
 ## 대상 판단
 
-`page.tsx`가 있는 디렉토리를 라우트 폴더로 본다. 라우트 폴더는 route group에 따라 위치가 다르다:
+`page.tsx`가 있는 디렉토리를 라우트 폴더로 본다. 모든 라우트는 `src/app/[locale]/` 아래에 있고, route group에 따라 위치가 다르다:
 
-- `src/app/(home)/` — 그룹 폴더 자체가 라우트 (하위에 별도 라우트명 폴더 없음)
-- `src/app/(admin)/{routeName}/`, `src/app/(route)/{routeName}/` — 그룹 하위 라우트명 폴더
+- `src/app/[locale]/(home)/` — 그룹 폴더 자체가 라우트 (하위에 별도 라우트명 폴더 없음)
+- `src/app/[locale]/(route)/{routeName}/` — 그룹 하위 라우트명 폴더 (`mypage/reviews/[reviewId]`처럼 중첩될 수 있다)
 
 요청이 그 라우트 폴더 하위(`page.tsx`, `_components`/`_hooks`/`_types`/`_utils`)만 다루면 대상으로 본다. 다음 경우엔 이 스킬을 사용하지 않는다:
 
@@ -33,7 +33,7 @@ description: src/app 하위 특정 라우트(page.tsx가 있는 디렉토리) �
 
 ## 번역(i18n) 체크리스트
 
-이 라우트에 새로운 정적 텍스트가 추가되면(신규 페이지 생성이든 기존 페이지 수정 중 텍스트 추가든 동일하게), 절차 1번에서 plan.md 체크리스트를 작성할 때 아래 항목도 함께 넣는다. `(admin)` 라우트 그룹처럼 i18n 대상에서 제외된 라우트(`eslint.config.mjs`의 ignore 목록 참고)는 생략한다.
+이 라우트에 새로운 정적 텍스트가 추가되면(신규 페이지 생성이든 기존 페이지 수정 중 텍스트 추가든 동일하게), 절차 1번에서 plan.md 체크리스트를 작성할 때 아래 항목도 함께 넣는다. 현재 모든 라우트가 i18n 대상이다. 테스트, 스토리, mock 파일만 하드코딩 검사에서 제외된다(`eslint.config.mjs`의 ignores 참고).
 
 - [ ] 네임스페이스 이름 정하기 (컴포넌트/페이지명 PascalCase, `src/messages/ko.json` 기준 — 구현 전에 먼저 정해서 하드코딩 없이 바로 `t()`로 작성)
 - [ ] 하드코딩 대신 `t()`/`useTranslations`(클라이언트), `getTranslations`(서버)로 구현
