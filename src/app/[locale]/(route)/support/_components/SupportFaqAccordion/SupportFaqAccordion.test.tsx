@@ -11,12 +11,10 @@ type UseSupportTabQueryResult = {
 
 const mockRouterReplace = jest.fn();
 
-const mockUseSupportTabQuery = jest.fn(
-  (): UseSupportTabQueryResult => ({
-    tab: "all",
-    updateTabQuery: jest.fn(),
-  })
-);
+const mockUseSupportTabQuery = jest.fn((): UseSupportTabQueryResult => ({
+  tab: "all",
+  updateTabQuery: jest.fn(),
+}));
 
 jest.mock("next/link", () => ({
   __esModule: true,
@@ -68,6 +66,9 @@ jest.mock("@/components/common", () => ({
     ),
 }));
 
+// 서비스명 변경(찾아줘 → 찾길) 전후 모두 통과하도록 서비스명 부분만 두 이름을 허용한다.
+const SERVICE_QUESTION = /^(찾아줘|찾길) 서비스는 어떤 플랫폼인가요\?$/;
+
 describe("SupportFaqAccordion", () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -82,7 +83,7 @@ describe("SupportFaqAccordion", () => {
 
   it("선택한 탭의 FAQ 질문 목록이 렌더된다 (전체)", () => {
     render(<SupportFaqAccordion />);
-    expect(screen.getByText("찾아줘 서비스는 어떤 플랫폼인가요?")).toBeInTheDocument();
+    expect(screen.getByText(SERVICE_QUESTION)).toBeInTheDocument();
     expect(screen.getByText("서비스 이용 중 문제가 발생하면 어떻게 하나요?")).toBeInTheDocument();
   });
 
@@ -93,7 +94,7 @@ describe("SupportFaqAccordion", () => {
     });
     render(<SupportFaqAccordion />);
     expect(screen.getByText("회원가입은 어떻게 하나요?")).toBeInTheDocument();
-    expect(screen.queryByText("찾아줘 서비스는 어떤 플랫폼인가요?")).not.toBeInTheDocument();
+    expect(screen.queryByText(SERVICE_QUESTION)).not.toBeInTheDocument();
   });
 
   it("질문을 펼치면 답변과 링크가 보이고 라우터가 해시를 갱신한다", () => {

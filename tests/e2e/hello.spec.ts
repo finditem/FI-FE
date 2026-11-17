@@ -8,7 +8,7 @@ test.describe("서비스 소개 페이지", () => {
 
     await expect(page.locator("[data-testid='intro-section']")).toBeVisible();
 
-    const ctaButton = page.getByRole("link", { name: "찾아줘 홈으로 이동" });
+    const ctaButton = page.getByRole("link", { name: /^(찾아줘|찾길) 홈으로 이동$/ });
     await expect(ctaButton).toBeVisible();
     await ctaButton.scrollIntoViewIfNeeded();
 

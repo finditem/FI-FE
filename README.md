@@ -1,4 +1,4 @@
-# 찾아줘!
+# 찾길
 
 <p align="center">
   <a href="https://www.finditem.kr/">
@@ -7,7 +7,7 @@
 </p>
 
 <div align="center">
-  <h3><b>우리 동네 분실물 찾기 | 찾아줘!</b></h3>
+  <h3><b>우리 동네 분실물 찾기 | 찾길</b></h3>
 
   <img src="https://img.shields.io/badge/Next.js_15-000000?style=flat-square&logo=nextdotjs&logoColor=white" />
   <img src="https://img.shields.io/badge/React_19-61DAFB?style=flat-square&logo=react&logoColor=black" />
@@ -22,19 +22,19 @@
 
 ## 프로젝트 소개
 
-<strong>찾아줘!</strong>는 지도 기반으로 분실물과 습득물을 쉽게 찾고 공유할 수 있는 커뮤니티 서비스입니다.
+<strong>찾길</strong>은 지도 기반으로 분실물과 습득물을 쉽게 찾고 공유할 수 있는 커뮤니티 서비스입니다.
 경찰청 데이터와 연동하여 정보를 제공하며, 실시간 채팅과 알림 기능을 통해 잃어버린 물건을 빠르게 찾을 수 있도록 돕습니다.
 
 ## 핵심 기능
 
-| 분류               | 설명                                                         |
-| :----------------- | :----------------------------------------------------------- |
-| **지도 기반 확인** | 지도를 통해 내 주변의 분실/습득물을 직관적으로 확인          |
-| **실시간 채팅**    | STOMP를 활용하여 사용자 간 실시간 대화 지원                  |
-| **실시간 알림**    | SSE를 활용한 실시간 알림 (채팅, 댓글, 관심 카테고리 알림 등) |
-| **상세 검색**      | 카테고리, 날짜, 장소 등 다양한 필터 조건으로 상세 검색       |
-| **공공 데이터**    | 경찰청 Lost112 데이터를 연동하여 폭넓은 분실물 정보 제공     |
-| **모바일 최적화**  | PWA를 적용하여 네이티브 앱과 유사한 모바일 경험 제공         |
+| 분류               | 설명                                                             |
+| :----------------- | :--------------------------------------------------------------- |
+| **지도 기반 확인** | 지도를 통해 내 주변의 분실/습득물을 직관적으로 확인              |
+| **실시간 채팅**    | STOMP를 활용하여 사용자 간 실시간 대화 지원                      |
+| **실시간 알림**    | SSE를 활용한 실시간 알림 (채팅, 댓글, 관심 카테고리 알림 등)     |
+| **상세 검색**      | 카테고리, 날짜, 장소 등 다양한 필터 조건으로 상세 검색           |
+| **공공 데이터**    | 경찰청 Lost112 데이터를 연동하여 폭넓은 분실물 정보 제공         |
+| **모바일 최적화**  | PWA와 Capacitor iOS 앱으로 네이티브 앱과 유사한 모바일 경험 제공 |
 
 ## 기술 스택
 
@@ -42,7 +42,9 @@
 
 - **Framework:** `Next.js 15 (App Router)`
 - **Language:** `TypeScript 5`
-- **Styling:** `Tailwind CSS 4`, `Framer Motion`
+- **Styling:** `Tailwind CSS 3`, `Framer Motion`
+- **Map:** `Naver Maps (react-naver-maps)`
+- **Mobile App:** `Capacitor (iOS)`
 
 ### **State & Data**
 
@@ -56,14 +58,14 @@
 
 - **Unit/Integration:** `Jest`, `React Testing Library`
 - **E2E:** `Playwright`
-- **Visual:** `Storybook 9`, `Chromatic`
+- **Visual:** `Storybook 10`, `Chromatic`
 - **Mocking:** `MSW`
 
 ### **Observability & DevOps**
 
 - **Monitoring:** `Sentry`
 - **Analytics:** `Vercel Analytics`, `Speed Insights`, `Microsoft Clarity`
-- **Security:** `Snyk`
+- **Security:** `Snyk`, `OSV-Scanner`, `TruffleHog`, `Dependabot`
 - **CI/CD:** `GitHub Actions`, `Vercel`
 
 ## 개발 컨벤션
@@ -95,7 +97,7 @@
 
 ```text
 src/
-├── app/            # App Router 페이지 및 레이아웃
+├── app/            # App Router 페이지 및 레이아웃 ([locale] 하위에 라우트)
 ├── components/     # 공통 UI 컴포넌트
 ├── api/            # API 요청 함수 및 Axios 인스턴스
 ├── store/          # Zustand 스토어
@@ -105,7 +107,11 @@ src/
 ├── context/        # 전역 상태 (React Context)
 ├── types/          # 공통 타입 정의
 ├── utils/          # 유틸리티 함수
-└── assets/         # 폰트, 이미지 등 정적 리소스
+├── i18n/           # next-intl 라우팅 및 내비게이션 설정
+├── messages/       # 다국어 메시지 (ko, en)
+├── mock/           # MSW 핸들러 및 mock 데이터
+├── assets/         # 폰트, 이미지 등 정적 리소스
+└── middleware.ts   # 로케일 처리 및 보호 라우트 접근 제어
 ```
 
 ## 2차 MVP 프론트엔드 팀원 및 역할
