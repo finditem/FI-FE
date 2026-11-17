@@ -10,11 +10,25 @@ permissions:
   pull-requests: write
 
 jobs:
+  # 컨테이너 이미지의 브라우저 버전은 설치된 @playwright/test 버전과 같아야 한다.
+  # 이미지 태그를 고정해 두면 Dependabot이 패키지만 올린 PR에서 버전이 어긋나 테스트가 실패하므로 락파일에서 버전을 읽는다.
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      playwright: ${{ steps.read.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Read Playwright version from lockfile
+        id: read
+        run: echo "version=$(node -p "require('./package-lock.json').packages['node_modules/@playwright/test'].version")" >> "$GITHUB_OUTPUT"
+
   test:
+    needs: version
     timeout-minutes: 60
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.64.1-noble
+      image: mcr.microsoft.com/playwright:v${{ needs.version.outputs.playwright }}-noble
     env:
       NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 
