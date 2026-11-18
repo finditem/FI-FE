@@ -10,6 +10,9 @@ permissions:
 
 jobs:
   addLabels:
+    # Dependabot PR에는 저장소 비밀값이 전달되지 않아 앱 토큰을 만들 수 없고, 브랜치 접두어도 매핑에 없어 붙일 라벨이 없다.
+    # dependencies 라벨은 dependabot.yml 설정으로 Dependabot이 직접 붙인다.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App token
