@@ -181,9 +181,9 @@ deps에 `contentHeights`가 들어 있다. 이 값은 `useSectionHeights`의 Res
 - [x] `npm run check:i18n-keys` 통과, 변경 파일 ESLint와 타입 오류 없음 확인
 - [ ] `npm run test`와 전체 타입 검사 재확인. 로컬 `node_modules`가 의존성 업데이트(#1442) 이전
       상태라 변경과 무관하게 177개 스위트가 next-intl ESM 로딩 오류로 실패한다. `npm install` 뒤 다시 돌린다
-- [ ] 브라우저에서 로그인/비로그인 각각 두 버튼 동작 확인
-- [ ] e2e `tests/e2e/main.spec.ts`가 이전 aria-label과 `/list` 이동을 검증하고 있어 갱신이 필요하다.
-      테스트는 기능 PR과 분리하는 규칙에 따라 `test/*` 브랜치에서 따로 처리한다
+- [x] e2e `tests/e2e/main.spec.ts`를 새 동작에 맞춰 갱신했다 (`test/home-write-entry`, 기능 브랜치 위에
+      쌓은 브랜치). 로그인/비로그인 각각 분실 카드 이동, 발견 안내 모달 열기와 취소, 모달의 글쓰기 이동을
+      검증하며 프로덕션 빌드 기준 7건 모두 통과했다. 기능 PR이 머지된 뒤 이어서 올린다
 
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
