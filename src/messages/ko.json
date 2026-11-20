@@ -754,9 +754,11 @@
   "PostWriteMenu": {
     "lostWriteLabel": "분실했어요 글쓰기",
     "foundWriteLabel": "발견했어요 글쓰기",
-    "menuAriaLabel": "글쓰기 메뉴",
-    "findModalTitle": "게시글 작성 전 확인해 주세요!",
-    "findModalDescription": "발견했어요 게시글 작성 시에는 경찰청에 우선 신고해 주시고 작성해 주시기 바랍니다.",
+    "menuAriaLabel": "글쓰기 메뉴"
+  },
+  "FindWarningModal": {
+    "title": "게시글 작성 전 확인해 주세요!",
+    "description": "발견했어요 게시글 작성 시에는 경찰청에 우선 신고해 주시고 작성해 주시기 바랍니다.",
     "cancel": "취소",
     "write": "글쓰기"
   },
@@ -868,8 +870,8 @@
     "rest": "했어요",
     "lostSubtitle": "물건을 등록하고 찾아보세요",
     "foundSubtitle": "물건을 등록하고 주인을 찾아주세요",
-    "lostAriaLabel": "분실 신고 목록 페이지로 이동",
-    "foundAriaLabel": "발견 신고 목록 페이지로 이동"
+    "lostAriaLabel": "분실했어요 글쓰기 페이지로 이동",
+    "foundAriaLabel": "발견했어요 글쓰기 안내 열기"
   },
   "MainCardList": {
     "altText": "최근 발견된 분실물 {title} 이미지"

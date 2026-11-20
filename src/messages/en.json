@@ -754,9 +754,11 @@
   "PostWriteMenu": {
     "lostWriteLabel": "Report a lost item",
     "foundWriteLabel": "Report a found item",
-    "menuAriaLabel": "Write menu",
-    "findModalTitle": "Please check before posting!",
-    "findModalDescription": "Before posting a found item, please report it to the police first.",
+    "menuAriaLabel": "Write menu"
+  },
+  "FindWarningModal": {
+    "title": "Please check before posting!",
+    "description": "Before posting a found item, please report it to the police first.",
     "cancel": "Cancel",
     "write": "Post"
   },
@@ -868,8 +870,8 @@
     "rest": " something",
     "lostSubtitle": "Register your lost item and start searching",
     "foundSubtitle": "Register the item and help find its owner",
-    "lostAriaLabel": "Go to lost items list",
-    "foundAriaLabel": "Go to found items list"
+    "lostAriaLabel": "Go to the lost item post form",
+    "foundAriaLabel": "Open the found item posting notice"
   },
   "MainCardList": {
     "altText": "Image of recently found item: {title}"
