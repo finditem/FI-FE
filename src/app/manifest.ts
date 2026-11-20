@@ -3,8 +3,8 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "찾아줘!",
-    short_name: "찾아줘!",
+    name: "찾길",
+    short_name: "찾길",
     start_url: "/",
     scope: "/",
     display_override: ["window-controls-overlay", "standalone"],

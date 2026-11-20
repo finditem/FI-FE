@@ -9,6 +9,8 @@ permissions:
 
 jobs:
   addReviewers:
+    # Dependabot PR에는 저장소 비밀값이 전달되지 않아 앱 토큰을 만들 수 없으므로 리뷰어 자동 지정을 건너뛴다.
+    if: github.event.pull_request.user.login != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Create GitHub App token

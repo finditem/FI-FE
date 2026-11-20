@@ -5,7 +5,7 @@ import { Radius } from "@/types";
  *
  * @remarks
  * - 반경-줌 매핑: 1000m > 14, 3000m > 13, 5000m > 12
- * - 카카오 레벨 6, 7, 8을 `zoom = 20 - level`로 옮긴 값입니다. 근거는 `docs/naver-map/migration-from-kakao.md`에 있습니다.
+ * - 카카오 레벨 6, 7, 8을 `zoom = 20 - level`로 옮긴 값입니다. 근거는 `docs/naver-map/web-dynamic-map.md`의 서버 지도 API의 레벨 항목에 있습니다.
  * - `Radius` 타입 범위(1000 | 3000 | 5000) 외의 값이 전달되면 줌 14를 반환합니다.
  *
  * @param radius - 반경 값 (단위: m)

@@ -40,6 +40,17 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "tailwindcss"
         update-types: ["version-update:semver-major"]
+      # Capacitor 메이저는 ios 네이티브 프로젝트 마이그레이션이 필요하고, CI는 iOS 앱을 빌드하지 않아 문제를 잡지 못한다.
+      # core, ios, cli의 메이저가 같아야 하는데 Dependabot은 패키지별로 따로 PR을 연다.
+      - dependency-name: "@capacitor/*"
+        update-types: ["version-update:semver-major"]
+      # 타입 패키지는 실제로 쓰는 Node와 React 버전에 맞춰야 하므로 짝이 되는 쪽을 올릴 때 함께 손으로 올린다.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -53,3 +64,8 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      # 액션은 CI에서만 쓰이고 앱 코드에 들어가지 않으므로 PR 하나로 묶는다.
+      actions:
+        patterns:
+          - "*"

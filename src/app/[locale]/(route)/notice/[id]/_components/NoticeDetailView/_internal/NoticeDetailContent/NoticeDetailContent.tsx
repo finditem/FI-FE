@@ -25,9 +25,18 @@ const NoticeDetailBadges = ({ isNew, isHot }: { isNew: boolean; isHot: boolean }
 interface NoticeDetailContentProps {
   noticeDetail: NoticeDetail;
   isLoggedIn: boolean;
+  /**
+   * `likeStatus`가 사용자 기준으로 확정된 데이터인지 여부입니다. (default: true)
+   * 서버의 익명 데이터만 있는 동안 `false`로 넘기면 추천 버튼을 비활성화해 잘못된 요청을 막습니다.
+   */
+  isPersonalized?: boolean;
 }
 
-const NoticeDetailContent = ({ noticeDetail, isLoggedIn }: NoticeDetailContentProps) => {
+const NoticeDetailContent = ({
+  noticeDetail,
+  isLoggedIn,
+  isPersonalized = true,
+}: NoticeDetailContentProps) => {
   const t = useTranslations("NoticePage.detail");
   const locale = useLocale();
   const isKo = locale === "ko";
@@ -64,7 +73,12 @@ const NoticeDetailContent = ({ noticeDetail, isLoggedIn }: NoticeDetailContentPr
         <div className="space-y-1">
           <h1 className="text-h2-bold text-layout-header-default">{title}</h1>
           <div className="text-body2-regular text-layout-body-default">
-            <time dateTime={createdAt} className="after:mx-2 after:content-['·']">
+            {/* 상대 시간 라벨은 서버 렌더 시각과 hydration 시각이 경계를 넘으면 달라질 수 있어 경고를 억제한다. */}
+            <time
+              dateTime={createdAt}
+              className="after:mx-2 after:content-['·']"
+              suppressHydrationWarning
+            >
               {formatDate(createdAt)}
             </time>
             <span>{authorName}</span>
@@ -103,7 +117,7 @@ const NoticeDetailContent = ({ noticeDetail, isLoggedIn }: NoticeDetailContentPr
             aria-label={likeStatus ? t("unlikeAriaLabel") : t("likeAriaLabel")}
             onClick={() => handleToggleLike(likeStatus)}
             className="flex items-center gap-1"
-            disabled={isLikePending}
+            disabled={isLikePending || !isPersonalized}
           >
             <Icon
               name={likeStatus ? "LikeActive" : "Like"}

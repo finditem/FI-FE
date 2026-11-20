@@ -18,6 +18,10 @@ interface ImageSectionProps {
 
 const ImageSection = ({ imageUrls }: ImageSectionProps) => {
   const t = useTranslations("ImageSection");
+  // hook은 early return보다 먼저 호출한다. 서버 데이터에서 클라이언트 조회 결과로 바뀌며 이미지 개수가
+  // 0장과 그 이상 사이를 오가면 hook 개수가 달라져 렌더가 크래시하기 때문이다.
+  const [isOpen, setIsOpen] = useState(false);
+  const isDraggingRef = useRef(false);
 
   if (imageUrls.length === 0) return null;
 
@@ -27,10 +31,6 @@ const ImageSection = ({ imageUrls }: ImageSectionProps) => {
     return 0;
   });
   const imageUrlList = sortedData.map((img) => img.imgUrl);
-
-  const [isOpen, setIsOpen] = useState(false);
-
-  const isDraggingRef = useRef(false);
 
   const handleOpenIfTap = () => {
     if (isDraggingRef.current) return;

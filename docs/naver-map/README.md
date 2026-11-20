@@ -1,16 +1,15 @@
 # 네이버 지도 API
 
-`찾아줘!` 프론트엔드에서 네이버 지도를 다룰 때 참고하는 문서 모음이다. 지도 관련 작업(마이그레이션, 신규 기능, 버그 수정)을 시작할 때 이 폴더를 먼저 읽는다.
+프론트엔드에서 네이버 지도를 다룰 때 참고하는 문서 모음이다. 지도 관련 작업(신규 기능, 버그 수정)을 시작할 때 이 폴더를 먼저 읽는다.
+
+카카오 지도에서 네이버 지도로의 마이그레이션은 끝났다. 마이그레이션 중 정한 결정 가운데 지금도 유효한 것(줌과 서버 레벨 변환, 게시글 주소 조립 규칙)은 아래 두 문서로 옮겼다.
 
 ## 문서 구성
 
-| 문서                                                 | 내용                                                                                | 언제 읽는가                             |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------- | --------------------------------------- |
-| [web-dynamic-map.md](./web-dynamic-map.md)           | Maps JavaScript API v3 레퍼런스. 클래스 목록, `Map` 옵션과 이벤트, 오버레이, 좌표계 | 지도 화면을 만들거나 고칠 때            |
-| [rest-api.md](./rest-api.md)                         | Geocoding, Reverse Geocoding, Static Map, Directions REST API                       | 주소와 좌표를 변환하거나 경로를 다룰 때 |
-| [migration-from-kakao.md](./migration-from-kakao.md) | 카카오 지도에서 네이버 지도로 옮기는 작업의 대응표와 체크리스트                     | 마이그레이션 작업 중                    |
-
-마이그레이션이 끝나면 `migration-from-kakao.md`는 삭제한다. 나머지 두 문서는 계속 유지한다.
+| 문서                                       | 내용                                                                                                           | 언제 읽는가                             |
+| ------------------------------------------ | -------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| [web-dynamic-map.md](./web-dynamic-map.md) | Maps JavaScript API v3 레퍼런스. 클래스 목록, `Map` 옵션과 이벤트, 오버레이, 좌표계, 서버 지도 API의 레벨 변환 | 지도 화면을 만들거나 고칠 때            |
+| [rest-api.md](./rest-api.md)               | Geocoding, Reverse Geocoding, Static Map, Directions REST API, 게시글 주소 조립 규칙                           | 주소와 좌표를 변환하거나 경로를 다룰 때 |
 
 ## 공식 문서
 
@@ -104,7 +103,7 @@ x-ncp-apigw-api-key-id: {Key ID}
 x-ncp-apigw-api-key: {Key}
 ```
 
-**Key를 브라우저에 내보내면 안 된다.** 카카오 로컬 API는 REST 키 하나만으로 브라우저에서 직접 호출할 수 있었지만(`getKakaoLocalCoord2Address`가 `NEXT_PUBLIC_KAKAO_REST_API_KEY`를 쓰는 방식), 네이버는 Secret에 해당하는 Key가 필요하고 브라우저 직접 호출은 CORS로도 막힌다. 따라서 선택지는 둘이다.
+**Key를 브라우저에 내보내면 안 된다.** 카카오 로컬 API는 REST 키 하나만으로 브라우저에서 직접 호출할 수 있었지만, 네이버는 Secret에 해당하는 Key가 필요하고 브라우저 직접 호출은 CORS로도 막힌다. 따라서 선택지는 둘이다.
 
 1. 클라이언트에서 필요한 경우 JavaScript SDK의 `naver.maps.Service.geocode` / `reverseGeocode`를 쓴다. 이 경로는 Key ID만으로 동작한다.
 2. REST API가 꼭 필요하면 Next.js Route Handler로 프록시한다. 키는 `NEXT_PUBLIC_` 접두사 없는 환경 변수에 둔다.
@@ -118,10 +117,10 @@ x-ncp-apigw-api-key: {Key}
 | `NEXT_PUBLIC_NAVER_MAP_KEY_ID` | Key ID | 브라우저에 포함된다                              |
 | `NAVER_MAP_KEY`                | Key    | 서버 전용. `NEXT_PUBLIC_` 접두사를 붙이지 않는다 |
 
-`NAVER_MAP_KEY`에 `NEXT_PUBLIC_`을 붙이는 실수가 이 마이그레이션에서 가장 위험한 실수다. 붙이면 클라이언트 번들에 Secret이 박혀 배포된다.
+`NAVER_MAP_KEY`에 `NEXT_PUBLIC_`을 붙이는 실수가 지도 작업에서 가장 위험한 실수다. 붙이면 클라이언트 번들에 Secret이 박혀 배포된다.
 
 ## 요금
 
 종량 요금제다. 무료 제공량과 단가는 [NCP Maps 상품 페이지](https://guide.ncloud-docs.com/docs/maps-overview)에서 확인한다. 사용량은 NCP 콘솔의 Usage Statistics에서 본다.
 
-주의할 점은 Geocoding과 Reverse Geocoding이 호출 단위로 과금된다는 것이다. 지도를 드래그할 때마다 역지오코딩을 호출하면 사용량이 빠르게 늘어난다. 이 프로젝트는 이미 `useMainKakaoMapStore`에서 좌표만 갱신하고 주소는 필요할 때만 조회하는 구조(`setUserGpsLatLng`와 `setUserGpsFromDevice`의 분리)를 갖고 있으므로 그 구조를 유지한다.
+주의할 점은 Geocoding과 Reverse Geocoding이 호출 단위로 과금된다는 것이다. 지도를 드래그할 때마다 역지오코딩을 호출하면 사용량이 빠르게 늘어난다. 이 프로젝트는 `useMainNaverMapStore`에서 좌표만 갱신하고 주소는 필요할 때만 조회하는 구조(`setUserGpsLatLng`와 `setUserGpsFromDevice`의 분리)를 갖고 있으므로 그 구조를 유지한다.
