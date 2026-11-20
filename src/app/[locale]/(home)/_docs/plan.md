@@ -166,6 +166,25 @@ deps에 `contentHeights`가 들어 있다. 이 값은 `useSectionHeights`의 Res
 - [x] 브라우저에서 필터/더 보기 클릭으로 재확인 완료. 참고: `npm run build`는 실행 중인
       `npm run dev`와 `.next` 디렉토리를 공유하므로, 개발 서버가 떠 있는 동안에는 돌리지 않는다
 
+## 분실했어요/발견했어요 버튼을 글쓰기 진입점으로 전환 (feature/home-write-entry)
+
+메인 시트의 `LostFindActions` 두 버튼이 게시글 목록(`/list?type=`) 대신 글쓰기 화면으로 가게 한다.
+비로그인 분기는 새로 만들지 않는다. `/write`는 이미 보호 경로라 미들웨어가
+`/login?callbackUrl=`로 보내고 로그인 뒤 글쓰기 화면으로 되돌린다.
+
+- [x] 목록 화면 `PostWriteMenu` 안에 있던 발견 글쓰기 안내 모달을 전역
+      `src/components/domain/FindWarningModal`로 올리고, 클릭 추적 위치를 prop으로 받게 한다
+- [x] `FindWarningModal` 네임스페이스를 `ko.json`/`en.json`에 추가하고 `PostWriteMenu`의 모달 키를 옮긴다
+- [x] `LostFindActions`: 분실 버튼은 `/write/post?type=lost` 링크로, 발견 버튼은 안내 모달을 여는
+      버튼으로 바꾸고 `trackClickWriteButton("home")`을 붙인다
+- [x] `LostFindActions.lostAriaLabel`/`foundAriaLabel` 문구를 글쓰기 기준으로 ko/en 동시 수정
+- [x] `npm run check:i18n-keys` 통과, 변경 파일 ESLint와 타입 오류 없음 확인
+- [ ] `npm run test`와 전체 타입 검사 재확인. 로컬 `node_modules`가 의존성 업데이트(#1442) 이전
+      상태라 변경과 무관하게 177개 스위트가 next-intl ESM 로딩 오류로 실패한다. `npm install` 뒤 다시 돌린다
+- [ ] 브라우저에서 로그인/비로그인 각각 두 버튼 동작 확인
+- [ ] e2e `tests/e2e/main.spec.ts`가 이전 aria-label과 `/list` 이동을 검증하고 있어 갱신이 필요하다.
+      테스트는 기능 PR과 분리하는 규칙에 따라 `test/*` 브랜치에서 따로 처리한다
+
 ## API 참고 (성수 콘텐츠, 2차 MVP)
 
 출처: Confluence "성수 콘텐츠 API 스펙"(finditem.atlassian.net, `pages/145784836`). **경로/구조는 Swagger가
