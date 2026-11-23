@@ -7,6 +7,7 @@ import { useNotificationStore } from "@/store/useNotificationStore/useNotificati
 import { AUTH_SESSION_ENDED_EVENT, AUTH_TOKEN_REFRESHED_EVENT } from "@/constants/AUTH_EVENTS";
 import { getSessionExpiredLoginUrl } from "@/utils/getSessionExpiredLoginUrl/getSessionExpiredLoginUrl";
 import { isProtectedRoute } from "@/utils/isProtectedRoute/isProtectedRoute";
+import { clearNotificationToastSeenAt } from "@/utils/notificationToastSeenAt/notificationToastSeenAt";
 
 /**
  * 재발급 후 사용자 식별자와 임시 비밀번호 여부를 전달하는 응답입니다.
@@ -93,6 +94,7 @@ export function resetClientSession(): void {
   useNotificationStore.getState().resetUnreadNotificationState();
 
   if (typeof window === "undefined") return;
+  clearNotificationToastSeenAt();
   window.dispatchEvent(new Event(AUTH_SESSION_ENDED_EVENT));
 }
 
