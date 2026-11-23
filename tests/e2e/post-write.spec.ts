@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const MOCK_VWORLD_RESPONSE = {
@@ -26,6 +27,7 @@ const MOCK_POST_RESPONSE = {
 };
 
 async function setupCommonMocks(page: Page) {
+  await setupUnreadNotificationMocks(page);
   await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({

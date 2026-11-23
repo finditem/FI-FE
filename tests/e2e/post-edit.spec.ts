@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const POST_ID = 42;
@@ -63,6 +64,7 @@ const MOCK_VWORLD_RESPONSE = {
 };
 
 async function setupEditPageMocks(page: Page, postDetailOverrides: Record<string, unknown> = {}) {
+  await setupUnreadNotificationMocks(page);
   await page.route("**/api/auth/refresh", (route) =>
     route.fulfill({
       status: 200,
@@ -278,6 +280,7 @@ test.describe("게시글 수정 페이지", () => {
   });
 
   test("존재하지 않는 게시글 수정 페이지 접근 시 404를 반환한다", async ({ page }) => {
+    await setupUnreadNotificationMocks(page);
     await page.route("**/api/auth/refresh", (route) =>
       route.fulfill({
         status: 200,
