@@ -20,6 +20,7 @@ jest.mock("@tanstack/react-query", () => ({
 jest.mock("@/api/fetch/notification", () => ({
   ...jest.requireActual("@/api/fetch/notification"),
   useNotificationSSE: jest.fn(() => ({ connect: jest.fn() })),
+  useNotificationUnreadList: jest.fn(() => ({ data: undefined, refetch: jest.fn() })),
 }));
 jest.mock("@/hooks", () => ({ useFaviconNotification: jest.fn() }));
 jest.mock("@/context/SnackBarContext", () => ({
