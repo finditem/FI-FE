@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import {
   MOCK_POST_INQUIRY_SUCCESS,
   MOCK_INQUIRIES_ME_EMPTY,
@@ -20,6 +21,7 @@ const INQUIRY_E2E_CONTENT = "E2E 문의 본문입니다. 최소 길이를 만족
 const GOTO_OPTS = { waitUntil: "domcontentloaded" as const, timeout: 90_000 };
 
 const setupInquiryWriteMocks = async (page: Page) => {
+  await setupUnreadNotificationMocks(page);
   await page.context().addCookies([
     {
       name: "refresh_token",

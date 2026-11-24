@@ -2149,6 +2149,8 @@
   },
   "NotificationSSEProvider": {
     "newNotifications": "You have {count} new notifications",
+    "unreadNotifications": "You have {count} unread notifications",
+    "unreadNotificationsMore": "You have more than {count} unread notifications",
     "goToAlertPage": "Go to notifications",
     "reviewArrived": "A review has arrived.",
     "goToReviewPage": "Go to reviews"

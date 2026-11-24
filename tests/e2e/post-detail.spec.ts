@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import { MOCK_PREFERRED_LANGUAGE_RESPONSE } from "@/mock/data/mypage.data";
 
 const POST_ID = 1;
@@ -110,6 +111,7 @@ type SetupOptions = {
 };
 
 async function setupDetailPageMocks(page: Page, options: SetupOptions = {}) {
+  await setupUnreadNotificationMocks(page);
   const { isMine = false, favoriteStatus = false } = options;
 
   await page.route("**/api/auth/refresh", (route) =>
@@ -341,6 +343,7 @@ test.describe("게시글 상세 페이지", () => {
   });
 
   test("존재하지 않는 게시글 접근 시 스켈레톤 에러 상태를 보여준다", async ({ page }) => {
+    await setupUnreadNotificationMocks(page);
     await page.route("**/api/auth/refresh", (route) =>
       route.fulfill({
         status: 200,

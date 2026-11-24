@@ -1,4 +1,5 @@
 import { test, expect, Page, BrowserContext } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import { MOCK_AUTH_REFRESH_RESPONSE, MOCK_AUTH_USER } from "@/mock/data/auth.data";
 
 const MOCK_VWORLD_RESULTS = {
@@ -32,6 +33,7 @@ const MOCK_VWORLD_EMPTY = {
 };
 
 async function setupMocks(page: Page, context: BrowserContext) {
+  await setupUnreadNotificationMocks(page);
   await page.route("**/api/users/me", (route) => route.fulfill({ json: MOCK_AUTH_USER }));
 
   await context.addCookies([
