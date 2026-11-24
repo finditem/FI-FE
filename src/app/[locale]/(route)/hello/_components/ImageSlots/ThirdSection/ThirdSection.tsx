@@ -1,6 +1,7 @@
 "use client";
 
 import Image, { ImageProps } from "next/image";
+import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import {
   PHONE,
@@ -13,6 +14,7 @@ import "./ThirdSection.css";
 import { useInView } from "../../../_hooks/useInView/useInView";
 
 const ThirdSection = () => {
+  const t = useTranslations("HelloPage.imageAlt");
   const { ref, inView } = useInView();
 
   return (
@@ -20,7 +22,8 @@ const ThirdSection = () => {
       <div className="relative">
         <Image
           src={PHONE.src}
-          alt=""
+          // 채팅방 캡처만 내용을 설명하고, 위에 겹쳐 움직이는 말풍선 조각은 장식이라 비워둔다.
+          alt={t("chatRoom")}
           width={PHONE.width}
           height={PHONE.height}
           draggable={false}

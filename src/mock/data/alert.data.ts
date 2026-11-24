@@ -58,3 +58,21 @@ export const MOCK_ALERT_NOTIFICATION_EMPTY_LIST_RESPONSE: NotificationListRespon
     hasNext: false,
   },
 };
+
+export const MOCK_ALERT_NOTIFICATION_READ_ITEM: NotificationListItem = {
+  ...MOCK_ALERT_NOTIFICATION_ITEM,
+  notificationId: 3,
+  isRead: true,
+};
+
+/** 서버가 unreadOnly를 무시해 읽은 알림이 섞이고 다음 페이지가 남은 응답입니다. */
+export const MOCK_ALERT_NOTIFICATION_UNREAD_MIXED_RESPONSE: NotificationListResponse = {
+  isSuccess: true,
+  code: "200",
+  message: "OK",
+  result: {
+    content: [MOCK_ALERT_NOTIFICATION_REVIEW_ITEM, MOCK_ALERT_NOTIFICATION_READ_ITEM],
+    nextCursor: 3,
+    hasNext: true,
+  },
+};

@@ -8,11 +8,9 @@ const LogoLink = () => {
   return (
     <Link className="cursor-pointer gap-6 flex-col-center" href={"/"}>
       <span className="sr-only">{t("homeAriaLabel")}</span>
-      <Icon name="Logo" size={84} title={t("logoIconTitle")} />
-      <div className="gap-3 flex-col-center">
-        <h2 className="text-title2-bold text-flatGreen-500">{t("brandName")}</h2>
-        <h3 className="text-body2-medium text-labelsVibrant-secondary">{t("slogan")}</h3>
-      </div>
+      <Icon name="LogoChatgil" size={84} title={t("logoIconTitle")} />
+      <Icon name="LogoNameChatgil" width={142} height={64} title={t("brandName")} />
+      <h3 className="text-body2-medium text-labelsVibrant-secondary">{t("slogan")}</h3>
     </Link>
   );
 };

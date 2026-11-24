@@ -1,4 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
+import { setupUnreadNotificationMocks } from "./utils/auth";
 import {
   MOCK_USER_PROFILE_POST_DATA,
   MOCK_USER_PROFILE_E2E_COMMENT,
@@ -53,6 +54,7 @@ type SetupOptions = {
 };
 
 async function setupUserProfileMocks(page: Page, options: SetupOptions = {}) {
+  await setupUnreadNotificationMocks(page);
   const {
     isLoggedIn = false,
     isOwnProfile = false,

@@ -42,3 +42,8 @@ export { unsubscribeWebPushFromServer } from "./webPush/unsubscribeWebPushFromSe
 export { trackingEvent } from "./trackingEvent/trackingEvent";
 export { buildErrorMap } from "./buildErrorMap/buildErrorMap";
 export { getAdminUrl } from "./getAdminUrl/getAdminUrl";
+export {
+  getNotificationToastSeenAt,
+  saveNotificationToastSeenAt,
+  clearNotificationToastSeenAt,
+} from "./notificationToastSeenAt/notificationToastSeenAt";
