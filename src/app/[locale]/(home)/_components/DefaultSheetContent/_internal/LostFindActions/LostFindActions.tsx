@@ -3,15 +3,19 @@
 // 하드코딩되어 있다. 서브타이틀은 `text-caption1-regular`로 대체 가능하고, 타이틀은 크기가 `h1-bold`와
 // 같지만 줄 높이가 토큰(110%)과 달라 `tablet:text-h1-bold tablet:leading-[1.5]` 형태의 정리만 가능하다.
 // customFonts.ts의 타이포 토큰 체계와 맞추는 작업으로 별도 진행한다.
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { cn } from "@/utils";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { FindWarningModal } from "@/components";
+import { trackClickWriteButton } from "@/utils/analytics/analytics";
 import useLostFindActionData from "../../../../_hooks/useLostFindActionData/useLostFindActionData";
 
 const LostFindActions = () => {
   const t = useTranslations("LostFindActions");
   const lostFindActionData = useLostFindActionData();
+  const [isFindModalOpen, setIsFindModalOpen] = useState(false);
 
   return (
     <div className="flex w-full gap-4">
@@ -28,18 +32,14 @@ const LostFindActions = () => {
           restClass,
           subtitleClass,
         }) => {
-          return (
-            <Link
-              href={`/list?type=${type}`}
-              key={type}
-              aria-label={t(`${type}AriaLabel`)}
-              className={cn(
-                "relative flex h-[114px] w-full min-w-0 flex-1 flex-col overflow-hidden rounded-2xl p-4",
-                "tablet:h-[120px] tablet:flex-row tablet:items-center tablet:justify-between tablet:px-6 tablet:py-8",
-                bgColor
-              )}
-              onDragStart={(e) => e.preventDefault()}
-            >
+          const cardClassName = cn(
+            "relative flex h-[114px] w-full min-w-0 flex-1 flex-col overflow-hidden rounded-2xl p-4 text-left",
+            "tablet:h-[120px] tablet:flex-row tablet:items-center tablet:justify-between tablet:px-6 tablet:py-8",
+            bgColor
+          );
+
+          const cardContent = (
+            <>
               <span className="flex flex-col gap-1 tablet:w-[191px]">
                 <span
                   className={cn(
@@ -69,10 +69,44 @@ const LostFindActions = () => {
                 )}
                 priority
               />
+            </>
+          );
+
+          // 발견 글쓰기는 경찰청 우선 신고 안내를 거친 뒤 모달의 글쓰기 버튼으로 이동한다.
+          if (type === "found") {
+            return (
+              <button
+                type="button"
+                key={type}
+                aria-label={t(`${type}AriaLabel`)}
+                className={cardClassName}
+                onClick={() => setIsFindModalOpen(true)}
+              >
+                {cardContent}
+              </button>
+            );
+          }
+
+          return (
+            <Link
+              href="/write/post?type=lost"
+              key={type}
+              aria-label={t(`${type}AriaLabel`)}
+              className={cardClassName}
+              onClick={() => trackClickWriteButton("home")}
+              onDragStart={(e) => e.preventDefault()}
+            >
+              {cardContent}
             </Link>
           );
         }
       )}
+
+      <FindWarningModal
+        isOpen={isFindModalOpen}
+        onClose={() => setIsFindModalOpen(false)}
+        location="home"
+      />
     </div>
   );
 };

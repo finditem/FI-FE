@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
-import { Button, FloatingButton, Icon, ScrollToTopButton, ModalLayout } from "@/components";
+import { FindWarningModal, FloatingButton, Icon, ScrollToTopButton } from "@/components";
 import { cn } from "@/utils";
 import { useClickOutside } from "@/hooks";
 import { WRITE_MENU_STYLES } from "../LIST_CONST";
@@ -60,47 +60,13 @@ const PostWriteMenu = () => {
         </div>
       </div>
 
-      <FindWarningModal isOpen={isFindModalOpen} onClose={() => setIsFindModalOpen(false)} />
+      <FindWarningModal
+        isOpen={isFindModalOpen}
+        onClose={() => setIsFindModalOpen(false)}
+        location="list"
+      />
     </>
   );
 };
 
 export default PostWriteMenu;
-
-interface FindWarningModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const FindWarningModal = ({ isOpen, onClose }: FindWarningModalProps) => {
-  const t = useTranslations("PostWriteMenu");
-
-  return (
-    <ModalLayout
-      isOpen={isOpen}
-      onClose={onClose}
-      className="min-h-[186px] w-[350px] gap-6 p-6 flex-col-center"
-    >
-      <div className="gap-1 flex-col-center">
-        <h2 className="text-h3-semibold text-layout-header-default">{t("findModalTitle")}</h2>
-        <span className="text-body5-regular text-center text-layout-body-default">
-          {t("findModalDescription")}
-        </span>
-      </div>
-
-      <div className="flex w-full gap-2">
-        <Button variant="outlined" className={WRITE_MENU_STYLES.findModalButton} onClick={onClose}>
-          {t("cancel")}
-        </Button>
-        <Button
-          as={Link}
-          href="/write/post?type=find"
-          className={WRITE_MENU_STYLES.findModalButton}
-          onClick={() => trackClickWriteButton("list")}
-        >
-          {t("write")}
-        </Button>
-      </div>
-    </ModalLayout>
-  );
-};
