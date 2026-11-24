@@ -34,7 +34,7 @@ const NOTIFICATION_BATCH_DEBOUNCE_MS = 500;
  * - 조회로 이미 아는 알림과 `notificationId`·`createdAt`이 같은 SSE 알림은 토스트를 띄우지 않습니다. 채팅 알림은 같은 번호로 `createdAt`만 바뀌어 오므로 새 알림으로 봅니다.
  * - 조회 결과에 마지막으로 토스트에 보여 준 시각보다 새 알림이 있으면 미확인 알림 요약 토스트를 띄웁니다. 새로고침·새 탭에서는 같은 알림으로 반복하지 않습니다.
  * - 로그인·회원가입 경로(`isAuthRoutePath`)에서는 스낵바 배치를 건너뜁니다.
- * - 채팅방에 있을 때 채팅 계열 알림이면 스낵바를 띄우지 않습니다.
+ * - 채팅방에 있을 때 채팅 계열 알림이면 스낵바를 띄우지 않습니다. 지금 보고 있는 채팅방(`/chat/{referenceId}`)의 알림이면 점도 켜지 않습니다.
  * - 그 외에는 이벤트를 버퍼에 쌓고 파일 상수(ms)만큼 `debounce`한 뒤 `notificationList` 무효화와 스낵바(단건 제목 vs N건 요약)를 한 번에 처리합니다.
  * - 인증 경로에서 벗어날 때·`AUTH_LOGIN_SUCCESS_EVENT`·보류 플래그가 있을 때 `connect`로 재연결을 시도합니다.
  * - 언마운트 시 디바운스 `cancel`로 예약된 플러시를 막습니다.
@@ -158,9 +158,22 @@ export const NotificationSSEProvider = ({ children }: PropsWithChildren) => {
   };
 
   const onNotification = useCallback(
-    ({ notificationId, type, referenceType, title, createdAt }: NotificationEventData) => {
-      setHasUnreadNotification(true);
-      addUnreadNotificationType(type);
+    ({
+      notificationId,
+      type,
+      referenceType,
+      referenceId,
+      title,
+      createdAt,
+    }: NotificationEventData) => {
+      // 채팅 알림의 referenceId는 게시글 ID라 채팅방 경로(/chat/{postId})와 비교한다.
+      // 보고 있는 방의 알림은 입장·수신 시 읽음 처리되므로 점을 켜지 않는다.
+      const isViewingChatRoom =
+        referenceType === REFERENCE_TYPE.CHAT && pathname === `/chat/${referenceId}`;
+      if (!isViewingChatRoom) {
+        setHasUnreadNotification(true);
+        addUnreadNotificationType(type);
+      }
 
       if (isSyncingUnreadRef.current) {
         hasEventDuringSyncRef.current = true;
