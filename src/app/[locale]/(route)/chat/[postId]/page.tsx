@@ -22,8 +22,7 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
   const { addToast } = useToast();
   const postId = Number(postIdString);
 
-  const { roomId, chatRoomData, userInfo, postMode, unreadCount, withdrawn } =
-    useChatRoomData(postId);
+  const { roomId, chatRoomData, userInfo, postMode, withdrawn } = useChatRoomData(postId);
   // 채팅방 입장(마운트)마다 새로 발급하는 방문 식별자. 재진입 시 리마운트되어 새 값이 생성되며,
   // 서버는 이 값으로 재진입 후의 재번역을 신규 요청으로 구분합니다.
   const [roomVisitId] = useState(() => crypto.randomUUID());
@@ -57,11 +56,12 @@ const ChatRoom = ({ params }: { params: Promise<{ postId: string }> }) => {
     fetchNextPage,
   });
 
+  // 메시지를 이미 읽었어도 그 방의 채팅 알림이 안 읽음으로 남아 있을 수 있어 입장할 때마다 읽음 처리한다.
   useEffect(() => {
-    if (unreadCount && unreadCount > 0 && roomId) {
+    if (roomId) {
       readMessage(roomId);
     }
-  }, [unreadCount, roomId]);
+  }, [roomId]);
 
   const methods = useForm<ChatFormValues>({
     mode: "onChange",
